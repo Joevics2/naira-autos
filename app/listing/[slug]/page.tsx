@@ -327,8 +327,8 @@ export default function ListingDetailPage() {
   const isCurrentVideo = isVideoItem(currentItem as string);
   const mainImage = listing.images?.[0] || 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800';
   const sellerId = listing.profiles?.id;
-  const conditionLabel = CONDITION_LABELS[listing.condition] || listing.condition;
-  const ownershipLabel = OWNERSHIP_LABELS[listing.ownership_type] || listing.ownership_type;
+  const conditionLabel = listing.condition ? (CONDITION_LABELS[listing.condition] || listing.condition) : null;
+  const ownershipLabel = listing.ownership_type ? (OWNERSHIP_LABELS[listing.ownership_type] || listing.ownership_type) : null;
 
   // ── Quick bar — condition / fuel / transmission / mileage only ───────────
   type QuickTile = { icon: React.ReactNode; label: string };
