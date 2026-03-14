@@ -1,9 +1,17 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Car Deals & Discounts in Nigeria | Naira Autos',
-  description: 'Find the best car deals and discounts in Nigeria. Great prices on verified cars from trusted dealers.',
-  keywords: 'car deals Nigeria, discounted cars, cheap cars Lagos, car promotions Nigeria, best car prices',
+  title: 'Sell Your Car in Nigeria | We Sell It For You - Naira Autos',
+  description: 'Sell your car hassle-free in Nigeria. We market your car, screen buyers, and ensure you get paid. No sale, no fee. Get a free car valuation today.',
+  keywords: 'sell car Nigeria, sell my car Lagos, car valuation Nigeria, we sell your car, car dealer Nigeria, sell used car, car selling service Nigeria',
+  openGraph: {
+    title: 'Sell Your Car in Nigeria | We Sell It For You',
+    description: 'Sell your car hassle-free. We market, screen buyers, and ensure you get paid. No sale, no fee.',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://nairaautos.com/sell-for-me',
+  },
 };
 
 export default function DealsLayout({ children }: { children: React.ReactNode }) {
