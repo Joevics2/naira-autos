@@ -444,18 +444,62 @@ export default function AddListingPage() {
 
   const uploadVideo = async (file: File): Promise<string | null> => {
     try {
-      const url = await uploadVideoToR2(file);
-      if (!url) throw new Error('Failed to upload video. Check that the "listing-videos" Supabase bucket exists and has an RLS insert policy for authenticated users.');
+      const url = await uploadVideoToR2(file, (pct) => {
+        setUploadProgress(`Uploading video... ${pct}%`);
+      });
+      if (!url) throw new Error('Failed to upload video to R2.');
       return url;
     } catch (error: any) {
       console.error('Error uploading video:', error);
       toast({
         title: 'Video Upload Failed',
-        description: error.message?.includes('row-level security') ? 'Storage permission error. Please contact support.' : error.message,
+        description: error.message,
         variant: 'destructive',
       });
       return null;
     }
+  };
+
+  /**
+   * Checks all images for duplicates and screenshots BEFORE uploading to R2.
+   * Returns { ok: false } if any image is rejected, with a user-facing message.
+   * Returns { ok: true, hashes } on success so hashes can be saved with the listing.
+   */
+  const checkImagesForDuplicates = async (
+    files: File[]
+  ): Promise<{ ok: boolean; hashes?: Array<{ dhash: string; hash_prefix: string }> }> => {
+    const hashes: Array<{ dhash: string; hash_prefix: string }> = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      setUploadProgress(`Checking image ${i + 1} of ${files.length}...`);
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const res = await fetch('/api/check-image', { method: 'POST', body: formData });
+        const data = await res.json();
+
+        if (!res.ok) {
+          // 422 = screenshot or duplicate detected
+          toast({
+            title: data.screenshot ? 'Screenshot Detected' : 'Duplicate Image',
+            description: data.reason || 'Please use original photos of your vehicle.',
+            variant: 'destructive',
+          });
+          return { ok: false };
+        }
+
+        hashes.push({ dhash: data.dhash, hash_prefix: data.hash_prefix });
+      } catch (err) {
+        // Network error calling check-image — don't block the upload, just warn
+        console.warn('check-image network error, skipping hash check:', err);
+        hashes.push({ dhash: '', hash_prefix: '' });
+      }
+    }
+
+    return { ok: true, hashes };
   };
 
   const uploadImages = async (files: File[]): Promise<string[]> => {
@@ -506,6 +550,21 @@ export default function AddListingPage() {
       let uploadedVideoUrl = '';
       let uploadedImageUrls: string[] = [];
 
+      // ── Step 1: Hash-check all images BEFORE uploading anything to R2 ──
+      const allPhotos = [...requiredPhotos, ...additionalPhotos];
+      let imageHashes: Array<{ dhash: string; hash_prefix: string }> = [];
+
+      if (allPhotos.length > 0) {
+        const { ok, hashes } = await checkImagesForDuplicates(allPhotos);
+        if (!ok) {
+          // User already saw the toast — just stop here
+          setLoading(false); setUploading(false); setUploadProgress('');
+          return;
+        }
+        imageHashes = hashes || [];
+      }
+
+      // ── Step 2: Upload video ──────────────────────────────────────────────
       if (verificationType === 'video') {
         if (videoFile) {
           setUploadProgress('Uploading video...');
@@ -516,7 +575,7 @@ export default function AddListingPage() {
         }
       }
 
-      const allPhotos = [...requiredPhotos, ...additionalPhotos];
+      // ── Step 3: Upload images to R2 ───────────────────────────────────────
       if (allPhotos.length > 0) {
         setUploadProgress(`Uploading images (0/${allPhotos.length})...`);
         uploadedImageUrls = await uploadImages(allPhotos);
@@ -557,6 +616,22 @@ export default function AddListingPage() {
       await supabase.from('listings').delete().eq('user_id', user.id).eq('status', 'paused');
       const { data, error } = await supabase.from('listings').insert([listingData]).select().single();
       if (error) throw error;
+
+      // ── Save image hashes (fire-and-forget, doesn't block the user) ───────
+      if (data?.id && uploadedImageUrls.length > 0 && imageHashes.length > 0) {
+        const hashRows = uploadedImageUrls.map((image_url, i) => ({
+          listing_id: data.id,
+          image_url,
+          dhash: imageHashes[i]?.dhash || '',
+          hash_prefix: imageHashes[i]?.hash_prefix || '',
+        })).filter(r => r.dhash); // only save rows where we got a hash
+
+        if (hashRows.length > 0) {
+          supabase.from('listing_image_hashes').insert(hashRows).then(({ error: hashErr }) => {
+            if (hashErr) console.warn('[handleSubmit] Hash save failed (non-critical):', hashErr.message);
+          });
+        }
+      }
 
       localStorage.removeItem('add_listing_form_data');
       localStorage.removeItem('add_listing_draft');
@@ -1060,8 +1135,9 @@ export default function AddListingPage() {
                               mediaRecorder.onstop = () => {
                                 const blob = new Blob(chunks, { type: 'video/mp4' });
                                 const file = new File([blob], 'recorded-video.mp4', { type: 'video/mp4' });
-                                if (file.size > 100 * 1024 * 1024) { toast({ title: 'File Too Large', description: 'Video must be less than 100MB', variant: 'destructive' }); return; }
+                                if (file.size > 500 * 1024 * 1024) { toast({ title: 'File Too Large', description: 'Video must be less than 500MB', variant: 'destructive' }); return; }
                                 setVideoFile(file);
+                                setVideoUrl('');
                                 setVideoPreviewUrl(URL.createObjectURL(file));
                                 stream.getTracks().forEach(t => t.stop());
                               };
@@ -1072,7 +1148,7 @@ export default function AddListingPage() {
                         }}>
                         Start Recording
                       </Button>
-                      <Button type="button" size="sm" variant="outline" className="text-xs" onClick={() => videoInputRef?.click()}>
+                      <Button type="button" size="sm" variant="outline" className="text-xs" onClick={() => { setVideoUrl(''); videoInputRef?.click(); }}>
                         Upload Video
                       </Button>
                     </div>
@@ -1082,19 +1158,21 @@ export default function AddListingPage() {
                     onChange={e => {
                       const file = e.target.files?.[0];
                       if (file) {
-                        if (file.size > 100 * 1024 * 1024) { toast({ title: 'File Too Large', description: 'Video must be less than 100MB', variant: 'destructive' }); return; }
+                        if (file.size > 500 * 1024 * 1024) { toast({ title: 'File Too Large', description: 'Video must be less than 500MB', variant: 'destructive' }); return; }
                         setVideoFile(file);
+                        setVideoUrl('');
                         setVideoPreviewUrl(URL.createObjectURL(file));
                       }
                     }}
                   />
 
+                  {/* Uploaded file preview */}
                   {videoFile && (
-                    <div className="flex items-center gap-3 p-3 border border-border rounded-xl bg-muted/30">
+                    <div className="flex items-center gap-3 p-3 border border-emerald-200 dark:border-emerald-800 rounded-xl bg-emerald-50 dark:bg-emerald-950/20">
                       {videoPreviewUrl && <video src={videoPreviewUrl} className="w-20 h-14 object-cover rounded-lg border border-border flex-shrink-0" />}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-foreground truncate">{videoFile.name}</p>
-                        <p className="text-xs text-muted-foreground">{(videoFile.size / (1024 * 1024)).toFixed(2)} MB</p>
+                        <p className="text-xs text-muted-foreground">{(videoFile.size / (1024 * 1024)).toFixed(1)} MB · Will upload to R2 on submit</p>
                       </div>
                       <button type="button" onClick={() => { setVideoFile(null); setVideoPreviewUrl(null); }} className="text-red-500 hover:text-red-600 p-1">
                         <Trash2 className="h-4 w-4" />
@@ -1102,7 +1180,64 @@ export default function AddListingPage() {
                     </div>
                   )}
 
-                  <p className="text-xs text-muted-foreground -mt-1">Max 100MB · MP4, MOV, AVI</p>
+                  {/* Divider */}
+                  {!videoFile && (
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 h-px bg-border" />
+                      <span className="text-xs text-muted-foreground font-medium">or paste a link</span>
+                      <div className="flex-1 h-px bg-border" />
+                    </div>
+                  )}
+
+                  {/* Video URL field */}
+                  {!videoFile && (
+                    <div>
+                      <FieldLabel>YouTube / Google Drive / Video URL</FieldLabel>
+                      <Input
+                        type="url"
+                        value={videoUrl}
+                        onChange={e => setVideoUrl(e.target.value)}
+                        placeholder="https://youtube.com/watch?v=... or https://drive.google.com/..."
+                        className="text-sm"
+                      />
+                      {videoUrl.trim() && (
+                        <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1">
+                          <CheckCircle2 className="h-3.5 w-3.5" /> URL will be saved with your listing
+                        </p>
+                      )}
+                      {/* YouTube thumbnail preview */}
+                      {(() => {
+                        const ytMatch = videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                        if (!ytMatch) return null;
+                        return (
+                          <div className="mt-2 flex items-center gap-3 p-2 border border-border rounded-xl bg-muted/30">
+                            <img
+                              src={`https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`}
+                              alt="YouTube thumbnail"
+                              className="w-20 h-14 object-cover rounded-lg flex-shrink-0"
+                            />
+                            <div>
+                              <p className="text-sm font-semibold text-foreground">YouTube video detected</p>
+                              <p className="text-xs text-muted-foreground">Thumbnail loaded — no network call needed</p>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
+
+                  {/* Toggle between file and URL */}
+                  {videoFile && (
+                    <button
+                      type="button"
+                      onClick={() => { setVideoFile(null); setVideoPreviewUrl(null); }}
+                      className="text-xs text-muted-foreground underline hover:text-foreground transition-colors"
+                    >
+                      Remove file and paste a URL instead
+                    </button>
+                  )}
+
+                  <p className="text-xs text-muted-foreground">Upload: Max 500MB · MP4, MOV, AVI · Uploaded directly to R2</p>
 
                   {/* Preview photos */}
                   <div>

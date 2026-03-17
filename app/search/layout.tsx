@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
 type Props = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const params = await searchParams;
+  const params = searchParams;
   const brand = params.brand as string | undefined;
   const state = params.state as string | undefined;
   const type = params.type as string | undefined;

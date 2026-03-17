@@ -125,8 +125,53 @@ export async function uploadImagesToR2(files: File[]): Promise<string[]> {
   return results.filter((url): url is string => url !== null);
 }
 
-export async function uploadVideoToR2(file: File): Promise<string | null> {
-  return uploadVideoToSupabase(file);
+export async function uploadVideoToR2(
+  file: File,
+  onProgress?: (pct: number) => void
+): Promise<string | null> {
+  try {
+    // 1. Ask our API for a presigned PUT URL — no file data sent here, just metadata
+    const metaRes = await fetch('/api/presign-video', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filename: file.name,
+        contentType: file.type || 'video/mp4',
+        size: file.size,
+      }),
+    });
+
+    if (!metaRes.ok) {
+      const err = await metaRes.json().catch(() => ({}));
+      console.error('Presign failed:', err?.error || metaRes.statusText);
+      // Fall back to Supabase if presign endpoint isn't configured yet
+      return uploadVideoToSupabase(file);
+    }
+
+    const { uploadUrl, publicUrl } = await metaRes.json();
+
+    // 2. PUT directly to R2 — browser → R2, never touches our server
+    await new Promise<void>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', uploadUrl);
+      xhr.setRequestHeader('Content-Type', file.type || 'video/mp4');
+
+      if (onProgress) {
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
+        };
+      }
+
+      xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error(`R2 PUT failed: ${xhr.status}`)));
+      xhr.onerror = () => reject(new Error('R2 PUT network error'));
+      xhr.send(file);
+    });
+
+    return publicUrl;
+  } catch (error) {
+    console.error('uploadVideoToR2 error, falling back to Supabase:', error);
+    return uploadVideoToSupabase(file);
+  }
 }
 
 export async function uploadVerificationDocToR2(
