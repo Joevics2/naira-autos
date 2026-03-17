@@ -1,7 +1,11 @@
+// File: app/sitemap.ts
+// Accessible at: https://naira.autos/sitemap.xml (Next.js handles this automatically)
+// This is a sitemap INDEX — it lists all your other sitemaps, not individual pages.
+
 import { createClient } from '@supabase/supabase-js';
 import { MetadataRoute } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nairaautos.com';
+const siteUrl = 'https://naira.autos';
 const LISTINGS_PER_SITEMAP = 1000;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -57,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     if (listingsCount && listingsCount > 0) {
       const numberOfListingsSitemaps = Math.ceil(listingsCount / LISTINGS_PER_SITEMAP);
-      console.log(`📊 Total listings: ${listingsCount}, Creating ${numberOfListingsSitemaps} listing sitemaps`);
+      console.log(`Total listings: ${listingsCount}, creating ${numberOfListingsSitemaps} listing sitemaps`);
 
       for (let i = 1; i <= numberOfListingsSitemaps; i++) {
         sitemapEntries.push({
