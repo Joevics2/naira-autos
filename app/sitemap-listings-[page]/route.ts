@@ -8,6 +8,7 @@ import { NextResponse } from 'next/server';
 const siteUrl = 'https://naira.autos';
 const LISTINGS_PER_SITEMAP = 1000;
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
 
 export async function GET(
