@@ -56,10 +56,22 @@ const CONDITIONS: { value: Condition; label: string; desc: string }[] = [
   { value: 'fair', label: 'Fair', desc: 'Visible wear, may need repairs' },
 ];
 
-const ANALYSIS_STEPS = [
+// Full pipeline steps — used by homepage valuation (SerpAPI + Gemini, ~20-30s)
+const ANALYSIS_STEPS_FULL = [
+  'Uploading image for analysis...',
+  'Running reverse image search...',
   'Identifying make, model & year...',
-  'Checking Nigerian market prices...',
+  'Researching Nigerian market prices...',
   'Calculating valuation...',
+  'Preparing your report...',
+];
+
+// Fast steps — used by add-listing (Gemini only, ~5-8s)
+const ANALYSIS_STEPS_FAST = [
+  'Reading your car photo...',
+  'Identifying make, model & year...',
+  'Checking Nigerian market rates...',
+  'Preparing form data...',
 ];
 
 // ─── HOMEPAGE MODE: compact inline flow ──────────────────────────────────────
@@ -101,8 +113,8 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
   const runAnalysis = async () => {
     setStep('analyzing'); setAnalysisStep(0); setError('');
     const interval = setInterval(() => {
-      setAnalysisStep(prev => prev < ANALYSIS_STEPS.length - 1 ? prev + 1 : prev);
-    }, 2000);
+      setAnalysisStep(prev => prev < ANALYSIS_STEPS_FULL.length - 1 ? prev + 1 : prev);
+    }, 7000);
     try {
       const res = await fetch('/api/car-valuation', {
         method: 'POST',
@@ -111,12 +123,21 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
       });
       clearInterval(interval);
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || 'Analysis failed');
+      if (!res.ok) {
+        // Use server's friendly message if available, otherwise generic
+        throw new Error(json.error || 'Analysis failed. Please try again.');
+      }
       setResult(json.data);
       setStep('result');
     } catch (err: any) {
       clearInterval(interval);
-      setError(err.message || 'Something went wrong. Please try again.');
+      // Never show raw JSON parse errors, network errors, or stack traces to the user
+      const msg = err.message || '';
+      const isRawTechError =
+        msg.includes('JSON') || msg.includes('fetch') ||
+        msg.includes('SyntaxError') || msg.includes('NetworkError') ||
+        msg.includes('Failed to fetch');
+      setError(isRawTechError ? 'Something went wrong. Please try again.' : msg);
       setStep('upload');
     }
   };
@@ -234,8 +255,16 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
         )}
 
         {error && (
-          <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-lg px-3 py-2">
-            <AlertCircle className="h-4 w-4 flex-shrink-0" />{error}
+          <div className="flex items-start gap-2 text-red-600 text-sm bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-800 rounded-lg px-3 py-2.5">
+            <AlertCircle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <p>{error}</p>
+              {imageBase64 && (
+                <button onClick={runAnalysis} className="mt-1 text-xs font-semibold text-red-700 dark:text-red-400 underline">
+                  Try again
+                </button>
+              )}
+            </div>
           </div>
         )}
 
@@ -262,7 +291,7 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
           </div>
         )}
         <div className="space-y-2">
-          {ANALYSIS_STEPS.map((s, i) => (
+          {ANALYSIS_STEPS_FULL.map((s, i) => (
             <div key={i} className="flex items-center gap-2.5">
               {i < analysisStep ? <CheckCircle className="h-4 w-4 text-emerald-500 flex-shrink-0" />
                 : i === analysisStep ? <Loader2 className="h-4 w-4 text-emerald-500 animate-spin flex-shrink-0" />
@@ -395,23 +424,32 @@ export function ValuationFlow({ mode, onPrefill, onClose }: ValuationFlowProps) 
   const runAnalysis = async () => {
     setStep('analyzing'); setAnalysisStep(0); setError('');
     const interval = setInterval(() => {
-      setAnalysisStep(prev => prev < ANALYSIS_STEPS.length - 1 ? prev + 1 : prev);
-    }, 2000);
+      setAnalysisStep(prev => prev < ANALYSIS_STEPS_FAST.length - 1 ? prev + 1 : prev);
+    }, 3000);
     try {
       const res = await fetch('/api/car-valuation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageBase64, mimeType: imageMimeType, condition, location }),
+        // add-listing mode: skip SerpAPI entirely — Gemini vision only.
+        // Faster response (~5s vs ~25s), no imgbb upload needed.
+        body: JSON.stringify({ imageBase64, mimeType: imageMimeType, condition, location, skipSerp: true }),
       });
       clearInterval(interval);
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || 'Analysis failed');
+      if (!res.ok) {
+        throw new Error(json.error || 'Analysis failed. Please try again.');
+      }
       setResult(json.data);
       setStep('result');
       if (onPrefill) onPrefill(json.data);
     } catch (err: any) {
       clearInterval(interval);
-      setError(err.message || 'Something went wrong.');
+      const msg = err.message || '';
+      const isRawTechError =
+        msg.includes('JSON') || msg.includes('fetch') ||
+        msg.includes('SyntaxError') || msg.includes('NetworkError') ||
+        msg.includes('Failed to fetch');
+      setError(isRawTechError ? 'Something went wrong. Please try again.' : msg);
       setStep('upload');
     }
   };
@@ -441,7 +479,7 @@ export function ValuationFlow({ mode, onPrefill, onClose }: ValuationFlowProps) 
             <div className="flex items-center gap-3 p-3">
               {imagePreview && <img src={imagePreview} alt="Car" className="w-16 h-12 object-cover rounded-lg flex-shrink-0" />}
               <div className="flex-1 space-y-1.5">
-                {ANALYSIS_STEPS.map((s, i) => (
+                {ANALYSIS_STEPS_FAST.map((s, i) => (
                   <div key={i} className="flex items-center gap-2">
                     {i < analysisStep ? <CheckCircle className="h-3.5 w-3.5 text-emerald-500 flex-shrink-0" />
                       : i === analysisStep ? <Loader2 className="h-3.5 w-3.5 text-emerald-500 animate-spin flex-shrink-0" />
@@ -501,8 +539,16 @@ export function ValuationFlow({ mode, onPrefill, onClose }: ValuationFlowProps) 
         )}
 
         {error && (
-          <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-lg px-3 py-2">
-            <AlertCircle className="h-4 w-4 flex-shrink-0" />{error}
+          <div className="flex items-start gap-2 text-red-600 text-sm bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-800 rounded-lg px-3 py-2.5">
+            <AlertCircle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <p>{error}</p>
+              {imageBase64 && (
+                <button onClick={runAnalysis} className="mt-1 text-xs font-semibold text-red-700 dark:text-red-400 underline">
+                  Try again
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>

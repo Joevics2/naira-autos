@@ -61,7 +61,7 @@ export async function GET() {
   BRANDS.slice(0, 15).forEach((brand) => {
     NIGERIAN_STATES.slice(0, 10).forEach((state) => {
       entries.push(makeUrl(
-        `${siteUrl}/search?brand=${encodeURIComponent(brand)}&state=${encodeURIComponent(state)}`,
+        `${siteUrl}/search?brand=${encodeURIComponent(brand)}&amp;state=${encodeURIComponent(state)}`,
         0.8,
       ));
     });
@@ -71,7 +71,7 @@ export async function GET() {
   BRANDS.slice(0, 15).forEach((brand) => {
     VEHICLE_TYPES.forEach((type) => {
       entries.push(makeUrl(
-        `${siteUrl}/search?brand=${encodeURIComponent(brand)}&type=${encodeURIComponent(type)}`,
+        `${siteUrl}/search?brand=${encodeURIComponent(brand)}&amp;type=${encodeURIComponent(type)}`,
         0.8,
       ));
     });
@@ -81,7 +81,7 @@ export async function GET() {
   NIGERIAN_STATES.slice(0, 15).forEach((state) => {
     VEHICLE_TYPES.forEach((type) => {
       entries.push(makeUrl(
-        `${siteUrl}/search?state=${encodeURIComponent(state)}&type=${encodeURIComponent(type)}`,
+        `${siteUrl}/search?state=${encodeURIComponent(state)}&amp;type=${encodeURIComponent(type)}`,
         0.7,
       ));
     });

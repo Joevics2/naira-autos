@@ -1197,7 +1197,7 @@ export default function AddListingPage() {
                         type="url"
                         value={videoUrl}
                         onChange={e => setVideoUrl(e.target.value)}
-                        placeholder="https://youtube.com/watch?v=... or https://drive.google.com/..."
+                        placeholder="https://youtube.com/..."
                         className="text-sm"
                       />
                       {videoUrl.trim() && (
@@ -1237,7 +1237,7 @@ export default function AddListingPage() {
                     </button>
                   )}
 
-                  <p className="text-xs text-muted-foreground">Upload: Max 500MB · MP4, MOV, AVI · Uploaded directly to R2</p>
+                  <p className="text-xs text-muted-foreground">Upload: Max 50MB · MP4, MOV, AVI.</p>
 
                   {/* Preview photos */}
                   <div>

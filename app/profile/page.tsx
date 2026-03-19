@@ -9,13 +9,15 @@ import { AuthModal } from '@/components/auth/AuthModal';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  User, FileText, MessageSquare, Plus, Star, Shield,
-  Bell, Settings, Phone, MessageCircle, Mail, Edit, ChevronRight, Clock
+  FileText, MessageSquare, Plus, Star, Shield,
+  Bell, Settings, Phone, MessageCircle, Mail, Edit, ChevronRight, Clock,
+  Wrench, Zap, LogIn, Lock, User
 } from 'lucide-react';
 
 export default function ProfilePage() {
   const { user, profile, signOut, loading: authLoading } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const [listings, setListings] = useState<Listing[]>([]);
   const [requests, setRequests] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
@@ -23,6 +25,12 @@ export default function ProfilePage() {
   const [userRating, setUserRating] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
   const router = useRouter();
+
+  const openAuth = (mode: 'signin' | 'signup' = 'signin') => {
+    setAuthMode(mode);
+    localStorage.setItem('auth_return_url', '/profile');
+    setShowAuthModal(true);
+  };
 
   const loadUserData = useCallback(async () => {
     if (!user) return;
@@ -45,14 +53,8 @@ export default function ProfilePage() {
         .order('created_at', { ascending: false })
     ]);
 
-    if (listingsRes.data) {
-      setListings(listingsRes.data as any);
-    }
-
-    if (requestsRes.data) {
-      setRequests(requestsRes.data);
-    }
-
+    if (listingsRes.data) setListings(listingsRes.data as any);
+    if (requestsRes.data) setRequests(requestsRes.data);
     if (reviewsRes.data) {
       setReviews(reviewsRes.data);
       setReviewCount(reviewsRes.data.length);
@@ -66,9 +68,7 @@ export default function ProfilePage() {
   }, [user]);
 
   useEffect(() => {
-    if (user && !dataLoaded) {
-      loadUserData();
-    }
+    if (user && !dataLoaded) loadUserData();
   }, [user, dataLoaded, loadUserData]);
 
   if (authLoading) {
@@ -82,205 +82,253 @@ export default function ProfilePage() {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="max-w-screen-xl mx-auto px-4 py-8">
-        <AuthModal
-          isOpen={showAuthModal}
-          onClose={() => setShowAuthModal(false)}
-          defaultMode="signin"
-        />
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <p className="text-lg text-gray-600 mb-4">Please sign in to view your profile</p>
-            <Button onClick={() => {
-              localStorage.setItem('auth_return_url', '/profile');
-              setShowAuthModal(true);
-            }}>Sign In</Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
+  const isGuest = !user;
   const pendingListings = listings.filter(l => l.status === 'pending').length;
   const approvedListings = listings.filter(l => l.status === 'approved').length;
 
-  const MenuItem = ({ href, icon: Icon, title, subtitle, badge, comingSoon }: any) => (
-    <Link href={comingSoon ? '#' : href}>
+  // ── MenuItem — supports locked state for guests ──────────────────────────────
+  const MenuItem = ({ href, icon: Icon, title, subtitle, badge, comingSoon, requiresAuth }: any) => {
+    const locked = requiresAuth && isGuest;
+    const disabled = comingSoon || locked;
+
+    const inner = (
       <button
         disabled={comingSoon}
+        onClick={locked ? () => openAuth('signin') : undefined}
         className={`w-full flex items-center justify-between p-4 bg-card border rounded-lg transition-all ${
-          comingSoon
+          locked
+            ? 'opacity-60 cursor-pointer hover:border-primary/50 hover:bg-primary/5'
+            : comingSoon
             ? 'opacity-50 cursor-not-allowed'
             : 'hover:shadow-md hover:border-primary'
         }`}
       >
         <div className="flex items-center gap-4">
-          <div className="bg-primary/10 p-3 rounded-lg">
-            <Icon className="h-6 w-6 text-primary" />
+          <div className={`p-3 rounded-lg ${locked ? 'bg-muted' : 'bg-primary/10'}`}>
+            {locked
+              ? <Lock className="h-6 w-6 text-muted-foreground" />
+              : <Icon className="h-6 w-6 text-primary" />
+            }
           </div>
           <div className="text-left">
             <h3 className="font-semibold text-foreground">{title}</h3>
-            <p className="text-sm text-muted-foreground">{subtitle}</p>
+            <p className="text-sm text-muted-foreground">
+              {locked ? 'Sign in to access' : subtitle}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {badge > 0 && (
+          {!locked && badge > 0 && (
             <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full">
               {badge}
             </span>
           )}
-          {!comingSoon && <ChevronRight className="h-5 w-5 text-muted-foreground" />}
+          {locked
+            ? <LogIn className="h-4 w-4 text-muted-foreground" />
+            : !comingSoon && <ChevronRight className="h-5 w-5 text-muted-foreground" />
+          }
         </div>
       </button>
-    </Link>
-  );
+    );
+
+    if (locked || comingSoon) return inner;
+    return <Link href={href}>{inner}</Link>;
+  };
+
+  // ── Tools — always accessible ────────────────────────────────────────────────
+  const tools = [
+    {
+      href: '/tools/ai-mechanic',
+      icon: Wrench,
+      title: 'AI Mechanic',
+      subtitle: 'Diagnose car problems with AI',
+      tag: 'Free',
+      tagColor: 'bg-green-100 text-green-700',
+      description: 'Describe a symptom, upload a photo or audio recording, and get an instant diagnosis with Nigerian repair cost estimates.',
+    },
+  ];
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-8 mb-20">
-      <Card className="mb-8 overflow-hidden">
-        <div className="bg-primary p-6">
-          <div className="flex items-start gap-4">
-            <div className="flex-1 min-w-0">
-              <h2 className="text-2xl font-bold text-white mb-3">{profile?.full_name || user.email}</h2>
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                {profile?.phone_verified && (
-                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                    <Shield className="h-3 w-3" />
-                    Phone Verified
-                  </span>
-                )}
-                {profile?.id_verified && (
-                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                    <Shield className="h-3 w-3" />
-                    ID Verified
-                  </span>
-                )}
-                {profile?.dealer_verified && (
-                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                    <Shield className="h-3 w-3" />
-                    Dealer Verified
-                  </span>
-                )}
-              </div>
-              {profile?.business_name && (
-                <p className="text-primary-foreground/80 mb-2">{profile.business_name}</p>
-              )}
-              <div className="flex items-center gap-4 text-primary-foreground/80 text-sm">
-                <div className="flex items-center gap-1">
-                  <Clock className="h-4 w-4" />
-                  <span>Member since {profile?.created_at ? new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'N/A'}</span>
-                </div>
-                {reviewCount > 0 && (
-                  <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span>{userRating.toFixed(1)} ({reviewCount} reviews)</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => router.push('/profile/edit')}
-            className="mt-4 bg-white/10 border-white/20 text-white hover:bg-white/20"
-          >
-            <Edit className="h-4 w-4 mr-2" />
-            Edit Profile
-          </Button>
-        </div>
 
-        <CardContent className="p-6">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-primary/10 rounded-lg">
-              <p className="text-2xl font-bold text-primary">{listings.length}</p>
-              <p className="text-sm text-muted-foreground">Total Listings</p>
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        defaultMode={authMode}
+      />
+
+      {/* ── Guest sign-in banner ──────────────────────────────────────────────── */}
+      {isGuest && (
+        <Card className="mb-6 border-primary/30 bg-primary/5 overflow-hidden">
+          <CardContent className="p-5">
+            <div className="flex items-center gap-4">
+              <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
+                <User className="h-6 w-6 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="font-bold text-foreground">Sign in to your account</h2>
+                <p className="text-sm text-muted-foreground">Access your listings, requests, and account settings</p>
+              </div>
             </div>
-            <div className="text-center p-4 bg-green-500/10 rounded-lg">
-              <p className="text-2xl font-bold text-green-600">{approvedListings}</p>
-              <p className="text-sm text-muted-foreground">Approved</p>
+            <div className="flex gap-3 mt-4">
+              <Button className="flex-1" onClick={() => openAuth('signin')}>
+                <LogIn className="h-4 w-4 mr-2" />
+                Sign In
+              </Button>
+              <Button variant="outline" className="flex-1" onClick={() => openAuth('signup')}>
+                Create Account
+              </Button>
             </div>
-            <div className="text-center p-4 bg-yellow-500/10 rounded-lg">
-              <p className="text-2xl font-bold text-yellow-600">{pendingListings}</p>
-              <p className="text-sm text-muted-foreground">Pending</p>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* ── Profile header — logged-in users only ────────────────────────────── */}
+      {!isGuest && (
+        <Card className="mb-8 overflow-hidden">
+          <div className="bg-primary p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-2xl font-bold text-white mb-3">{profile?.full_name || user!.email}</h2>
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                  {profile?.phone_verified && (
+                    <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                      <Shield className="h-3 w-3" />
+                      Phone Verified
+                    </span>
+                  )}
+                  {profile?.id_verified && (
+                    <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                      <Shield className="h-3 w-3" />
+                      ID Verified
+                    </span>
+                  )}
+                  {profile?.dealer_verified && (
+                    <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                      <Shield className="h-3 w-3" />
+                      Dealer Verified
+                    </span>
+                  )}
+                </div>
+                {profile?.business_name && (
+                  <p className="text-primary-foreground/80 mb-2">{profile.business_name}</p>
+                )}
+                <div className="flex items-center gap-4 text-primary-foreground/80 text-sm">
+                  <div className="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    <span>
+                      Member since{' '}
+                      {profile?.created_at
+                        ? new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+                        : 'N/A'}
+                    </span>
+                  </div>
+                  {reviewCount > 0 && (
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span>{userRating.toFixed(1)} ({reviewCount} reviews)</span>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => router.push('/profile/edit')}
+              className="mt-4 bg-white/10 border-white/20 text-white hover:bg-white/20"
+            >
+              <Edit className="h-4 w-4 mr-2" />
+              Edit Profile
+            </Button>
           </div>
-        </CardContent>
-      </Card>
+
+          <CardContent className="p-6">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-primary/10 rounded-lg">
+                <p className="text-2xl font-bold text-primary">{listings.length}</p>
+                <p className="text-sm text-muted-foreground">Total Listings</p>
+              </div>
+              <div className="text-center p-4 bg-green-500/10 rounded-lg">
+                <p className="text-2xl font-bold text-green-600">{approvedListings}</p>
+                <p className="text-sm text-muted-foreground">Approved</p>
+              </div>
+              <div className="text-center p-4 bg-yellow-500/10 rounded-lg">
+                <p className="text-2xl font-bold text-yellow-600">{pendingListings}</p>
+                <p className="text-sm text-muted-foreground">Pending</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="space-y-3">
+
+        {/* ── Tools — always visible ────────────────────────────────────────────── */}
+        <div className="flex items-center justify-between px-2 mb-1">
+          <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+            <Zap className="h-5 w-5 text-primary" />
+            Tools
+          </h3>
+          <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
+            {tools.length} available
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3">
+          {tools.map((tool) => (
+            <Link key={tool.href} href={tool.href}>
+              <div className="flex items-start gap-4 p-4 bg-card border rounded-xl hover:shadow-md hover:border-primary transition-all group">
+                <div className="bg-primary/10 group-hover:bg-primary/20 p-3 rounded-xl transition-colors flex-shrink-0">
+                  <tool.icon className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <h3 className="font-semibold text-foreground">{tool.title}</h3>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tool.tagColor}`}>
+                      {tool.tag}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{tool.description}</p>
+                </div>
+                <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-1" />
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="border-t border-border my-4"></div>
+
+        {/* ── Account Management ────────────────────────────────────────────────── */}
         <h3 className="text-lg font-semibold text-foreground px-2">Manage Your Account</h3>
 
-        <MenuItem
-          href="/profile/listings"
-          icon={FileText}
-          title="My Listings"
-          subtitle="Manage, edit, or mark cars as sold"
-          badge={listings.length}
-        />
+        <MenuItem href="/profile/listings" icon={FileText} title="My Listings"
+          subtitle="Manage, edit, or mark cars as sold" badge={listings.length} requiresAuth />
 
-        <MenuItem
-          href="/profile/requests"
-          icon={MessageSquare}
-          title="My Requests"
-          subtitle="Vehicle requests you've made"
-          badge={requests.length}
-        />
+        <MenuItem href="/profile/requests" icon={MessageSquare} title="My Requests"
+          subtitle="Vehicle requests you've made" badge={requests.length} requiresAuth />
 
-        <MenuItem
-          href="/profile/reviews"
-          icon={Star}
-          title="My Reviews"
-          subtitle="Reviews from buyers"
-          badge={reviewCount}
-        />
+        <MenuItem href="/profile/reviews" icon={Star} title="My Reviews"
+          subtitle="Reviews from buyers" badge={reviewCount} requiresAuth />
 
-        <MenuItem
-          href="/add-listing"
-          icon={Plus}
-          title="Post a Car"
-          subtitle="Create a new listing"
-          badge={0}
-        />
+        <MenuItem href="/add-listing" icon={Plus} title="Post a Car"
+          subtitle="Create a new listing" badge={0} requiresAuth />
 
-        <MenuItem
-          href="/profile/featured"
-          icon={Star}
-          title="Promotions / Featured Listings"
-          subtitle="Boost your listing visibility"
-          badge={0}
-          comingSoon={true}
-        />
+        <MenuItem href="/profile/featured" icon={Star} title="Promotions / Featured Listings"
+          subtitle="Boost your listing visibility" badge={0} comingSoon />
 
-        <MenuItem
-          href="/profile/verification"
-          icon={Shield}
-          title="Verification"
-          subtitle="Get verified to increase buyer trust"
-          badge={0}
-        />
+        <MenuItem href="/profile/verification" icon={Shield} title="Verification"
+          subtitle="Get verified to increase buyer trust" badge={0} requiresAuth />
 
-        <MenuItem
-          href="/profile/notifications"
-          icon={Bell}
-          title="Notifications"
-          subtitle="View your notifications"
-          badge={0}
-          comingSoon={true}
-        />
+        <MenuItem href="/profile/notifications" icon={Bell} title="Notifications"
+          subtitle="View your notifications" badge={0} comingSoon />
 
-        <MenuItem
-          href="/profile/settings"
-          icon={Settings}
-          title="Settings"
-          subtitle="Account preferences"
-          badge={0}
-        />
+        <MenuItem href="/profile/settings" icon={Settings} title="Settings"
+          subtitle="Account preferences" badge={0} requiresAuth />
 
-<div className="border-t border-border my-6"></div>
+        <div className="border-t border-border my-6"></div>
 
+        {/* ── Support — always visible ──────────────────────────────────────────── */}
         <h3 className="text-lg font-semibold text-foreground px-2">Support</h3>
 
         <Card>
@@ -325,9 +373,12 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        <Button variant="destructive" onClick={signOut} className="w-full mt-6">
-          Sign Out
-        </Button>
+        {/* ── Sign out — logged-in only ─────────────────────────────────────────── */}
+        {!isGuest && (
+          <Button variant="destructive" onClick={signOut} className="w-full mt-6">
+            Sign Out
+          </Button>
+        )}
       </div>
     </div>
   );
