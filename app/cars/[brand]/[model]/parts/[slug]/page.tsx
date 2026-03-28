@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { ChevronRight, Wrench, ArrowLeft, CheckCircle2, MapPin, ShoppingBag } from 'lucide-react';
-import CarQAClient from '../../[slug]/qa-client';
+import CarQAClient from '@/components/car-qa/qa-client';
 import {
   formatPriceRange,
   PARTS_SCORE_CONFIG, MAINTENANCE_SCORE_CONFIG,

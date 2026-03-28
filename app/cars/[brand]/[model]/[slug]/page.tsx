@@ -1,4 +1,4 @@
-// app/cars/[brand]/[model]/[year]/page.tsx
+// app/cars/[brand]/[model]/[slug]/page.tsx
 // App Router — fully server-rendered for SEO
 
 import type { Metadata } from 'next';
@@ -10,7 +10,7 @@ import {
   Fuel, Settings, Users, Wrench, ArrowRight,
   CheckCircle2, Star,
 } from 'lucide-react';
-import CarQAClient from './qa-client';
+import CarQAClient from '@/components/car-qa/qa-client';
 import {
   formatNaira, formatPriceRange,
   SEVERITY_CONFIG, FREQUENCY_CONFIG,
@@ -48,7 +48,7 @@ export async function generateStaticParams() {
 // ── Metadata ──────────────────────────────────────────────────────
 
 export async function generateMetadata(
-  { params }: { params: { brand: string; model: string; year: string } }
+  { params }: { params: { brand: string; model: string; slug: string } }
 ): Promise<Metadata> {
   const supabase = getSupabase();
   const data = await fetchPageData(params);
@@ -72,7 +72,7 @@ export async function generateMetadata(
 
 // ── Data fetching ─────────────────────────────────────────────────
 
-async function fetchPageData({ brand: brandSlug, model: modelSlug, year: yearSlug }: Record<string, string>) {
+async function fetchPageData({ brand: brandSlug, model: modelSlug, slug: yearSlug }: Record<string, string>) {
   const supabase = getSupabase();
 
   const { data: brand } = await supabase.from('car_brands').select('id,slug,name').eq('slug', brandSlug).single();
@@ -151,7 +151,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 // ── Page ──────────────────────────────────────────────────────────
 
 export default async function CarPricePage(
-  { params }: { params: { brand: string; model: string; year: string } }
+  { params }: { params: { brand: string; model: string; slug: string } }
 ) {
   const data = await fetchPageData(params);
   if (!data) notFound();
