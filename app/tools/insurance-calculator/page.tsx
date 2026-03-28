@@ -1,3 +1,5 @@
+// app/tools/insurance-calculator/page.tsx
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
@@ -80,8 +82,8 @@ const SCHEMA = {
   ],
 };
 
-// Major Nigerian insurers with direct quote links
-export const INSURERS = [
+// Major Nigerian insurers with direct quote links — moved inside as const (no export)
+const INSURERS = [
   {
     name: 'Leadway Assurance',
     logo: '🛡️',
