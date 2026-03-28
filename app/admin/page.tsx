@@ -481,7 +481,7 @@ export default function AdminPage() {
                     }>
                       {listing.status}
                     </Badge>
-                    {'youtube_url' in listing && listing.youtube_url && (
+                    {(listing as any).youtube_url && (
                       <Badge variant="outline" className="gap-1">
                         <Youtube className="h-4 w-4" /> YouTube
                       </Badge>
