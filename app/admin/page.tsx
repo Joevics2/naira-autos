@@ -481,7 +481,6 @@ export default function AdminPage() {
                     }>
                       {listing.status}
                     </Badge>
-                    {/* Safe check for youtube_url - property does not exist on Listing type */}
                     {'youtube_url' in listing && listing.youtube_url && (
                       <Badge variant="outline" className="gap-1">
                         <Youtube className="h-4 w-4" /> YouTube
