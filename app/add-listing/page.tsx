@@ -625,7 +625,7 @@ export default function AddListingPage() {
 
       console.log('[handleSubmit] Inserting listing with status:', listingData.status);
 
-      await supabase.from('listings').delete().eq('user_id', user.id).eq('status', 'paused');
+      await supabase.from('listings').delete().eq('user_id', currentUser.id).eq('status', 'paused');
       const { data, error } = await supabase.from('listings').insert([listingData]).select().single();
       if (error) throw error;
 
