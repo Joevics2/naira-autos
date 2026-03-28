@@ -40,7 +40,7 @@ export async function generateStaticParams() {
 
   if (!partsGroups?.length) return [];
 
-  const uniqueIds = [...new Set(partsGroups.map((p: any) => p.year_group_id))];
+  const uniqueIds = Array.from(new Set(partsGroups.map((p: any) => p.year_group_id)));
 
   const { data } = await supabase
     .from('car_year_groups')
