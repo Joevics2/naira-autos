@@ -17,19 +17,16 @@ export async function GET() {
         .select('*, profiles(*)')
         .order('created_at', { ascending: false })
         .limit(200),
-
       supabase
         .from('profiles')
         .select('*')
         .order('created_at', { ascending: false })
         .limit(200),
-
       supabase
         .from('requests')
         .select('*')
         .order('created_at', { ascending: false })
         .limit(200),
-
       supabase
         .from('admin_settings')
         .select('strict_image_validation')
@@ -78,7 +75,8 @@ export async function POST(request: NextRequest) {
       if (updateError) throw updateError;
 
       // YouTube Upload (non-blocking)
-      let youtubeResult = null;
+      let youtubeResult: { youtubeUrl: string; videoId: string } | null = null;
+
       if (listing.video_r2_key) {
         try {
           youtubeResult = await uploadVideoToYouTube({
@@ -93,14 +91,15 @@ export async function POST(request: NextRequest) {
           });
 
           // Save YouTube info back to DB
-          await supabase
-            .from('listings')
-            .update({
-              youtube_url: youtubeResult.youtubeUrl,
-              youtube_id: youtubeResult.videoId,
-            })
-            .eq('id', listingId);
-
+          if (youtubeResult) {
+            await supabase
+              .from('listings')
+              .update({
+                youtube_url: youtubeResult.youtubeUrl,
+                youtube_id: youtubeResult.videoId,
+              })
+              .eq('id', listingId);
+          }
         } catch (ytError: any) {
           console.error('YouTube upload failed (non-blocking):', ytError.message);
           // Listing is still approved even if YouTube fails
@@ -116,7 +115,6 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
-
   } catch (error: any) {
     console.error('Admin API error:', error);
     return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
