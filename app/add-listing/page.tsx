@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ValuationFlow } from '@/components/valuation/ValuationFlow';
 import { useAuth } from '@/contexts/AuthContext';
@@ -27,7 +27,7 @@ const formatPriceWithCommasGlobal = (value: string): string => {
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-async function parseWithGemini(text: string): Promise<Record<string, any>> {
+async function parseWithGemini(text: string): Promise<{ data: Record<string, any>; social_post: string | null }> {
   const res = await fetch('/api/ai-autofill', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -35,10 +35,10 @@ async function parseWithGemini(text: string): Promise<Record<string, any>> {
   });
   const json = await res.json();
   if (!res.ok) throw new Error(json.error || `Request failed (${res.status})`);
-  return json.data;
+  return { data: json.data, social_post: json.social_post || null };
 }
 
-function AIAutofillPanel({ onParsed, defaultOpen = false }: { onParsed: (d: Record<string, any>) => void; defaultOpen?: boolean }) {
+function AIAutofillPanel({ onParsed, defaultOpen = false }: { onParsed: (d: Record<string, any>, socialPost: string | null) => void; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
@@ -50,9 +50,9 @@ function AIAutofillPanel({ onParsed, defaultOpen = false }: { onParsed: (d: Reco
     if (!text.trim()) return;
     setLoading(true); setError(''); setDone(false);
     try {
-      const parsed = await parseWithGemini(text);
+      const { data: parsed, social_post } = await parseWithGemini(text);
       if (parsed.price) parsed.price = formatPriceWithCommasGlobal(String(parsed.price));
-      onParsed(parsed);
+      onParsed(parsed, social_post);
       setDone(true);
       toast({ title: '✨ Form filled!', description: 'Review all fields before submitting.' });
       setTimeout(() => setOpen(false), 1000);
@@ -234,6 +234,11 @@ function YesNoToggle({ value, onChange }: { value: string; onChange: (v: 'yes' |
 
 export default function AddListingPage() {
   const { user, loading: authLoading, refreshSession } = useAuth();
+  // Fix: keep a ref that always reflects the latest user so handleSubmit
+  // never captures a stale null from before the modal sign-in.
+  const userRef = useRef(user);
+  useEffect(() => { userRef.current = user; }, [user]);
+
   const [showAuthModal, setShowAuthModal] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -242,6 +247,10 @@ export default function AddListingPage() {
   const [showImageValuation, setShowImageValuation] = useState(false);
   const [autofillTab, setAutofillTab] = useState<'image' | 'text'>('image');
   const [valuationPriceAdvisory, setValuationPriceAdvisory] = useState<{ low: number; high: number; brand: string; model: string } | null>(null);
+  const [socialPost, setSocialPost] = useState<string | null>(null);
+
+  // Tracks whether user has attempted submit — used to show validation errors
+  const [submitAttempted, setSubmitAttempted] = useState(false);
 
   const [sellerType, setSellerType] = useState<'owner' | 'agent' | 'dealer'>('owner');
   const [locationState, setLocationState] = useState('');
@@ -519,7 +528,9 @@ export default function AddListingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user) { triggerAuth(); return; }
+    setSubmitAttempted(true);
+    const currentUser = userRef.current;
+    if (!currentUser) { triggerAuth(); return; }
     if (!confirmed) {
       toast({ title: 'Confirmation Required', description: 'Please confirm that the vehicle details are accurate', variant: 'destructive' });
       return;
@@ -557,7 +568,6 @@ export default function AddListingPage() {
       if (allPhotos.length > 0) {
         const { ok, hashes } = await checkImagesForDuplicates(allPhotos);
         if (!ok) {
-          // User already saw the toast — just stop here
           setLoading(false); setUploading(false); setUploadProgress('');
           return;
         }
@@ -584,7 +594,7 @@ export default function AddListingPage() {
       setUploadProgress('Creating listing...');
 
       const listingData: any = {
-        user_id: user.id,
+        user_id: currentUser.id,
         title: `${finalBrand} ${model} ${year}`,
         brand: finalBrand, model, year: parseInt(year),
         price: parseFloat(parsePriceFromFormatted(price)),
@@ -606,6 +616,8 @@ export default function AddListingPage() {
         faq_missing_documents: documentsComplete === 'no' ? missingDocs : null,
         faq_oil_consumption: oilConsumption || null,
         faq_other_issues: otherIssues || null,
+        // Store the AI-generated social post — only shown to user after approval
+        social_post: socialPost || null,
       };
 
       if (verificationType === 'video' && uploadedVideoUrl) listingData.video_url = uploadedVideoUrl;
@@ -654,6 +666,8 @@ export default function AddListingPage() {
     setWasRepainted(''); setDocumentsComplete(''); setMissingDocs(''); setOilConsumption(''); setOtherIssues('');
     setVideoFile(null); setVideoUrl(''); setRequiredPhotos([]); setAdditionalPhotos([]); setImageUrls([]);
     setValuationPriceAdvisory(null);
+    setSocialPost(null);
+    setSubmitAttempted(false);
     localStorage.removeItem('add_listing_form_data');
     localStorage.removeItem('add_listing_draft');
     toast({ title: 'Form cleared', description: 'All fields have been reset.' });
@@ -786,7 +800,7 @@ export default function AddListingPage() {
               ) : (
                 <AIAutofillPanel
                   defaultOpen={true}
-                  onParsed={(data: Record<string, any>) => {
+                  onParsed={(data: Record<string, any>, socialPostText: string | null) => {
                     if (data.brand) setBrand(data.brand);
                     if (data.model) setModel(data.model);
                     if (data.year) setYear(String(data.year));
@@ -818,6 +832,8 @@ export default function AddListingPage() {
                     if (data.missingDocs) setMissingDocs(data.missingDocs);
                     if (data.oilConsumption) setOilConsumption(data.oilConsumption);
                     if (data.otherIssues) setOtherIssues(data.otherIssues);
+                    // Store social post silently — only shown after approval
+                    if (socialPostText) setSocialPost(socialPostText);
                   }}
                 />
               )}
@@ -1409,6 +1425,46 @@ export default function AddListingPage() {
               </div>
             </div>
           </SectionCard>
+
+          {/* ── Validation summary (shown after first submit attempt) ── */}
+          {submitAttempted && (() => {
+            const missing: string[] = [];
+            if (!brand && !customBrand) missing.push('Make / Brand');
+            if (!model) missing.push('Model');
+            if (!year) missing.push('Year');
+            if (!condition) missing.push('Condition');
+            if (!transmission) missing.push('Transmission');
+            if (!fuelType) missing.push('Fuel Type');
+            if (!price) missing.push('Price');
+            if (!locationState) missing.push('State');
+            if (!cityArea) missing.push('City / Area');
+            if (!accidentHistory) missing.push('Accident History');
+            if (!reasonForSelling) missing.push('Reason for Selling');
+            if (!acWorking) missing.push('AC status (Condition FAQ)');
+            if (!engineCondition) missing.push('Engine condition (Condition FAQ)');
+            if (!wasRepainted) missing.push('Repainted status (Condition FAQ)');
+            if (!documentsComplete) missing.push('Documents status (Condition FAQ)');
+            if (!oilConsumption) missing.push('Oil consumption (Condition FAQ)');
+            if (!confirmed) missing.push('Accuracy confirmation checkbox');
+            if (missing.length === 0) return null;
+            return (
+              <div className="rounded-2xl border border-red-300 bg-red-50 dark:bg-red-950/30 dark:border-red-800 p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                  <p className="text-sm font-semibold text-red-700 dark:text-red-400">
+                    {missing.length} required field{missing.length !== 1 ? 's' : ''} still need attention
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {missing.map(f => (
+                    <span key={f} className="text-xs px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700 font-medium">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Upload progress */}
           {uploading && uploadProgress && (

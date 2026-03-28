@@ -11,7 +11,7 @@ import Link from 'next/link';
 import {
   FileText, MessageSquare, Plus, Star, Shield,
   Bell, Settings, Phone, MessageCircle, Mail, Edit, ChevronRight, Clock,
-  Wrench, Zap, LogIn, Lock, User
+  Zap, LogIn, Lock, User, Newspaper,
 } from 'lucide-react';
 
 export default function ProfilePage() {
@@ -36,21 +36,9 @@ export default function ProfilePage() {
     if (!user) return;
 
     const [listingsRes, requestsRes, reviewsRes] = await Promise.all([
-      supabase
-        .from('listings')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false }),
-      supabase
-        .from('requests')
-        .select('*')
-        .eq('email', user.email)
-        .order('created_at', { ascending: false }),
-      supabase
-        .from('reviews')
-        .select('*')
-        .eq('seller_id', user.id)
-        .order('created_at', { ascending: false })
+      supabase.from('listings').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
+      supabase.from('requests').select('*').eq('email', user.email).order('created_at', { ascending: false }),
+      supabase.from('reviews').select('*').eq('seller_id', user.id).order('created_at', { ascending: false }),
     ]);
 
     if (listingsRes.data) setListings(listingsRes.data as any);
@@ -59,8 +47,8 @@ export default function ProfilePage() {
       setReviews(reviewsRes.data);
       setReviewCount(reviewsRes.data.length);
       if (reviewsRes.data.length > 0) {
-        const totalRating = reviewsRes.data.reduce((sum, r: any) => sum + r.rating, 0);
-        setUserRating(totalRating / reviewsRes.data.length);
+        const total = reviewsRes.data.reduce((sum, r: any) => sum + r.rating, 0);
+        setUserRating(total / reviewsRes.data.length);
       }
     }
 
@@ -75,20 +63,20 @@ export default function ProfilePage() {
     return (
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
-          <div className="h-48 bg-gray-200 rounded-lg"></div>
-          <div className="h-96 bg-gray-200 rounded-lg"></div>
+          <div className="h-48 bg-gray-200 rounded-lg" />
+          <div className="h-96 bg-gray-200 rounded-lg" />
         </div>
       </div>
     );
   }
 
   const isGuest = !user;
-  const pendingListings = listings.filter(l => l.status === 'pending').length;
+  const pendingListings  = listings.filter(l => l.status === 'pending').length;
   const approvedListings = listings.filter(l => l.status === 'approved').length;
 
-  // ── MenuItem — supports locked state for guests ──────────────────────────────
+  // ── MenuItem ────────────────────────────────────────────────────────────────
   const MenuItem = ({ href, icon: Icon, title, subtitle, badge, comingSoon, requiresAuth }: any) => {
-    const locked = requiresAuth && isGuest;
+    const locked   = requiresAuth && isGuest;
     const disabled = comingSoon || locked;
 
     const inner = (
@@ -112,16 +100,12 @@ export default function ProfilePage() {
           </div>
           <div className="text-left">
             <h3 className="font-semibold text-foreground">{title}</h3>
-            <p className="text-sm text-muted-foreground">
-              {locked ? 'Sign in to access' : subtitle}
-            </p>
+            <p className="text-sm text-muted-foreground">{locked ? 'Sign in to access' : subtitle}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {!locked && badge > 0 && (
-            <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full">
-              {badge}
-            </span>
+            <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full">{badge}</span>
           )}
           {locked
             ? <LogIn className="h-4 w-4 text-muted-foreground" />
@@ -135,29 +119,12 @@ export default function ProfilePage() {
     return <Link href={href}>{inner}</Link>;
   };
 
-  // ── Tools — always accessible ────────────────────────────────────────────────
-  const tools = [
-    {
-      href: '/tools/ai-mechanic',
-      icon: Wrench,
-      title: 'AI Mechanic',
-      subtitle: 'Diagnose car problems with AI',
-      tag: 'Free',
-      tagColor: 'bg-green-100 text-green-700',
-      description: 'Describe a symptom, upload a photo or audio recording, and get an instant diagnosis with Nigerian repair cost estimates.',
-    },
-  ];
-
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-8 mb-20">
 
-      <AuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        defaultMode={authMode}
-      />
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} defaultMode={authMode} />
 
-      {/* ── Guest sign-in banner ──────────────────────────────────────────────── */}
+      {/* ── Guest banner ── */}
       {isGuest && (
         <Card className="mb-6 border-primary/30 bg-primary/5 overflow-hidden">
           <CardContent className="p-5">
@@ -172,8 +139,7 @@ export default function ProfilePage() {
             </div>
             <div className="flex gap-3 mt-4">
               <Button className="flex-1" onClick={() => openAuth('signin')}>
-                <LogIn className="h-4 w-4 mr-2" />
-                Sign In
+                <LogIn className="h-4 w-4 mr-2" /> Sign In
               </Button>
               <Button variant="outline" className="flex-1" onClick={() => openAuth('signup')}>
                 Create Account
@@ -183,53 +149,48 @@ export default function ProfilePage() {
         </Card>
       )}
 
-      {/* ── Profile header — logged-in users only ────────────────────────────── */}
+      {/* ── Profile header ── */}
       {!isGuest && (
         <Card className="mb-8 overflow-hidden">
           <div className="bg-primary p-6">
-            <div className="flex items-start gap-4">
-              <div className="flex-1 min-w-0">
-                <h2 className="text-2xl font-bold text-white mb-3">{profile?.full_name || user!.email}</h2>
-                <div className="flex flex-wrap items-center gap-2 mb-3">
-                  {profile?.phone_verified && (
-                    <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                      <Shield className="h-3 w-3" />
-                      Phone Verified
-                    </span>
-                  )}
-                  {profile?.id_verified && (
-                    <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                      <Shield className="h-3 w-3" />
-                      ID Verified
-                    </span>
-                  )}
-                  {profile?.dealer_verified && (
-                    <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                      <Shield className="h-3 w-3" />
-                      Dealer Verified
-                    </span>
-                  )}
-                </div>
-                {profile?.business_name && (
-                  <p className="text-primary-foreground/80 mb-2">{profile.business_name}</p>
+            <div className="flex-1 min-w-0">
+              <h2 className="text-2xl font-bold text-white mb-3">{profile?.full_name || user!.email}</h2>
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                {profile?.phone_verified && (
+                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                    <Shield className="h-3 w-3" /> Phone Verified
+                  </span>
                 )}
-                <div className="flex items-center gap-4 text-primary-foreground/80 text-sm">
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
-                    <span>
-                      Member since{' '}
-                      {profile?.created_at
-                        ? new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-                        : 'N/A'}
-                    </span>
-                  </div>
-                  {reviewCount > 0 && (
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span>{userRating.toFixed(1)} ({reviewCount} reviews)</span>
-                    </div>
-                  )}
+                {profile?.id_verified && (
+                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                    <Shield className="h-3 w-3" /> ID Verified
+                  </span>
+                )}
+                {profile?.dealer_verified && (
+                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                    <Shield className="h-3 w-3" /> Dealer Verified
+                  </span>
+                )}
+              </div>
+              {profile?.business_name && (
+                <p className="text-primary-foreground/80 mb-2">{profile.business_name}</p>
+              )}
+              <div className="flex items-center gap-4 text-primary-foreground/80 text-sm">
+                <div className="flex items-center gap-1">
+                  <Clock className="h-4 w-4" />
+                  <span>
+                    Member since{' '}
+                    {profile?.created_at
+                      ? new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+                      : 'N/A'}
+                  </span>
                 </div>
+                {reviewCount > 0 && (
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span>{userRating.toFixed(1)} ({reviewCount} reviews)</span>
+                  </div>
+                )}
               </div>
             </div>
             <Button
@@ -238,8 +199,7 @@ export default function ProfilePage() {
               onClick={() => router.push('/profile/edit')}
               className="mt-4 bg-white/10 border-white/20 text-white hover:bg-white/20"
             >
-              <Edit className="h-4 w-4 mr-2" />
-              Edit Profile
+              <Edit className="h-4 w-4 mr-2" /> Edit Profile
             </Button>
           </div>
 
@@ -264,71 +224,41 @@ export default function ProfilePage() {
 
       <div className="space-y-3">
 
-        {/* ── Tools — always visible ────────────────────────────────────────────── */}
-        <div className="flex items-center justify-between px-2 mb-1">
-          <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-            <Zap className="h-5 w-5 text-primary" />
-            Tools
-          </h3>
-          <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
-            {tools.length} available
-          </span>
-        </div>
+        {/* ── Tools & Resources ── */}
+        <MenuItem
+          href="/tools"
+          icon={Zap}
+          title="Tools & Resources"
+          subtitle="Calculators, AI tools, checklists & more"
+          badge={0}
+        />
 
-        <div className="grid grid-cols-1 gap-3">
-          {tools.map((tool) => (
-            <Link key={tool.href} href={tool.href}>
-              <div className="flex items-start gap-4 p-4 bg-card border rounded-xl hover:shadow-md hover:border-primary transition-all group">
-                <div className="bg-primary/10 group-hover:bg-primary/20 p-3 rounded-xl transition-colors flex-shrink-0">
-                  <tool.icon className="h-6 w-6 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <h3 className="font-semibold text-foreground">{tool.title}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tool.tagColor}`}>
-                      {tool.tag}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{tool.description}</p>
-                </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-1" />
-              </div>
-            </Link>
-          ))}
-        </div>
+        {/* ── Blog ── */}
+        <MenuItem
+          href="/blog"
+          icon={Newspaper}
+          title="Blog & Tips"
+          subtitle="Car buying guides, news, and market insights"
+          badge={0}
+        />
 
-        <div className="border-t border-border my-4"></div>
+        <div className="border-t border-border my-4" />
 
-        {/* ── Account Management ────────────────────────────────────────────────── */}
+        {/* ── Account Management ── */}
         <h3 className="text-lg font-semibold text-foreground px-2">Manage Your Account</h3>
 
-        <MenuItem href="/profile/listings" icon={FileText} title="My Listings"
-          subtitle="Manage, edit, or mark cars as sold" badge={listings.length} requiresAuth />
+        <MenuItem href="/profile/listings"    icon={FileText}      title="My Listings"      subtitle="Manage, edit, or mark cars as sold"  badge={listings.length}  requiresAuth />
+        <MenuItem href="/profile/requests"    icon={MessageSquare} title="My Requests"      subtitle="Vehicle requests you've made"         badge={requests.length}  requiresAuth />
+        <MenuItem href="/profile/reviews"     icon={Star}          title="My Reviews"       subtitle="Reviews from buyers"                  badge={reviewCount}      requiresAuth />
+        <MenuItem href="/add-listing"         icon={Plus}          title="Post a Car"       subtitle="Create a new listing"                 badge={0}                requiresAuth />
+        <MenuItem href="/profile/featured"    icon={Star}          title="Promotions / Featured Listings" subtitle="Boost your listing visibility" badge={0} comingSoon />
+        <MenuItem href="/profile/verification"icon={Shield}        title="Verification"     subtitle="Get verified to increase buyer trust" badge={0}                requiresAuth />
+        <MenuItem href="/profile/notifications"icon={Bell}         title="Notifications"    subtitle="View your notifications"              badge={0}                comingSoon />
+        <MenuItem href="/profile/settings"    icon={Settings}      title="Settings"         subtitle="Account preferences"                  badge={0}                requiresAuth />
 
-        <MenuItem href="/profile/requests" icon={MessageSquare} title="My Requests"
-          subtitle="Vehicle requests you've made" badge={requests.length} requiresAuth />
+        <div className="border-t border-border my-6" />
 
-        <MenuItem href="/profile/reviews" icon={Star} title="My Reviews"
-          subtitle="Reviews from buyers" badge={reviewCount} requiresAuth />
-
-        <MenuItem href="/add-listing" icon={Plus} title="Post a Car"
-          subtitle="Create a new listing" badge={0} requiresAuth />
-
-        <MenuItem href="/profile/featured" icon={Star} title="Promotions / Featured Listings"
-          subtitle="Boost your listing visibility" badge={0} comingSoon />
-
-        <MenuItem href="/profile/verification" icon={Shield} title="Verification"
-          subtitle="Get verified to increase buyer trust" badge={0} requiresAuth />
-
-        <MenuItem href="/profile/notifications" icon={Bell} title="Notifications"
-          subtitle="View your notifications" badge={0} comingSoon />
-
-        <MenuItem href="/profile/settings" icon={Settings} title="Settings"
-          subtitle="Account preferences" badge={0} requiresAuth />
-
-        <div className="border-t border-border my-6"></div>
-
-        {/* ── Support — always visible ──────────────────────────────────────────── */}
+        {/* ── Support ── */}
         <h3 className="text-lg font-semibold text-foreground px-2">Support</h3>
 
         <Card>
@@ -347,7 +277,6 @@ export default function ProfilePage() {
                   <p className="text-sm text-muted-foreground">Fastest response time</p>
                 </div>
               </a>
-
               <a
                 href="tel:09032047288"
                 className="flex items-center gap-3 p-3 bg-primary/10 border border-primary/20 rounded-lg hover:bg-primary/20 transition-colors"
@@ -358,7 +287,6 @@ export default function ProfilePage() {
                   <p className="text-sm text-muted-foreground">09032047288</p>
                 </div>
               </a>
-
               <a
                 href="mailto:help.nairaautos@gmail.com"
                 className="flex items-center gap-3 p-3 bg-muted border border-border rounded-lg hover:bg-muted/80 transition-colors"
@@ -373,7 +301,6 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        {/* ── Sign out — logged-in only ─────────────────────────────────────────── */}
         {!isGuest && (
           <Button variant="destructive" onClick={signOut} className="w-full mt-6">
             Sign Out

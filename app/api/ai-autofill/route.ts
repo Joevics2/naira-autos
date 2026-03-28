@@ -7,7 +7,6 @@ const GEMINI_MODELS = [
   "gemini-2.5-flash-preview-09-2025",
   "gemini-2.5-flash-lite-preview-09-2025",
   "gemini-2.5-pro",
-  "gemini-3-flash-preview",
 ];
 
 const GEMINI_PROMPT = `You are an AI that extracts structured car listing data from free-form text by Nigerian car sellers.
@@ -26,7 +25,64 @@ acWorking/engineCondition/wasRepainted/documentsComplete/oilConsumption: "yes"|"
 price: numeric string only (no commas, no symbols)
 negotiable/urgentSale: boolean
 features: extract EVERY feature mentioned. Return as array. Valid values: ["Air Conditioning","Power Steering","Power Windows","Power Locks","AM/FM Radio","CD Player","Bluetooth","USB / AUX","Backup Camera","Parking Sensors","ABS","Airbags","Alloy Wheels","Sunroof","Leather Seats","Heated Seats","Navigation GPS","Cruise Control","Keyless Entry","Immobilizer"]. Include all that apply based on the text — do NOT return an empty array if the text mentions any features.
-Other fields: brand, model, year (string), trim, mileage (string, km only), color, locationState, cityArea, town, description, acIssue, engineIssue, missingDocs, otherIssues`;
+Other fields: brand, model, year (string), trim, mileage (string, km only), color, locationState, cityArea, town, description, acIssue, engineIssue, missingDocs, otherIssues
+
+social_post: Write one WhatsApp/social media post to sell this car in Nigeria.
+Pick ONE format at random from the 5 below. Vary your choice — do not always start with the same structure.
+
+FORMAT 1 — Headline-led:
+"This [year] [Brand] [Model] in [City] is ready for a new owner 🏠
+
+• [Condition written naturally, e.g. "Foreign used, accident-free"]
+• [Paper/duty status, e.g. "Full customs papers, duty paid"]
+• [Best feature, e.g. "Ice-cold AC, Leather seats, Panoramic roof"]
+• ₦[price formatted with commas][, negotiable — if applicable]
+
+naira.autos/listings/LISTING_SLUG"
+
+FORMAT 2 — Price-first:
+"₦[price] 🤝
+
+[Year] [Brand] [Model] — [City]
+[Condition] · [Paper status] · [Top 2 features]
+
+See photos & full details 👉 naira.autos/listings/LISTING_SLUG"
+
+FORMAT 3 — Story/conversational (emotional, reads like a real person):
+"[Punchy emotional hook about the car's condition or rarity — be creative, e.g. "Someone treated this car like a firstborn child 😭" or "This one sat in a garage and barely touched the road."]
+
+[Year] [Brand] [Model] | [City]
+[Mileage if known, e.g. "47,000km on the clock."] [2–3 highlights in plain speech, e.g. "Leather interior, panoramic sunroof, factory AC blowing ice."]
+
+It's live on Naira Autos — won't be here long.
+naira.autos/listings/LISTING_SLUG"
+
+FORMAT 4 — Spec sheet (clean, no fluff, data-forward):
+"[Year] [Brand] [Model] | [City]
+
+Condition: [condition, human-readable]
+Mileage: [mileage or "Not stated"]
+Color: [color]
+Price: ₦[price formatted with commas]
+
+Full listing → naira.autos/listings/LISTING_SLUG"
+
+FORMAT 5 — CTA-first (urgency/FOMO hook leads, car details follow):
+"[Sharp FOMO opener, e.g. "If you've been waiting for the right one, this is it." or "Your next car just dropped. 👀"]
+
+[Year] [Brand] [Model] · [City] · ₦[price]
+[1–2 compact facts] · [Best feature]
+
+naira.autos/listings/LISTING_SLUG"
+
+Rules:
+- Use the exact placeholder text LISTING_SLUG where the URL slug goes — do NOT invent a slug
+- Format price with commas and ₦ symbol (e.g. ₦18,500,000)
+- Maximum 7 lines total
+- No phone numbers
+- 1–3 emojis max, placed where they feel natural — not scattered on every line
+- Nigerian English tone: direct, confident, no corporate or stiff language
+- The value must be a plain JSON string. Use actual newline characters in the string.`;
 
 async function tryModel(model: string, text: string, apiKey: string): Promise<Record<string, any>> {
   const res = await fetch(
@@ -37,7 +93,7 @@ async function tryModel(model: string, text: string, apiKey: string): Promise<Re
       body: JSON.stringify({
         system_instruction: { parts: [{ text: GEMINI_PROMPT }] },
         contents: [{ parts: [{ text: `Extract listing data:\n\n${text}` }] }],
-        generationConfig: { temperature: 0.1, maxOutputTokens: 1024 },
+        generationConfig: { temperature: 0.7, maxOutputTokens: 1200 },
       }),
     }
   );
@@ -69,10 +125,10 @@ export async function POST(req: NextRequest) {
     for (const model of GEMINI_MODELS) {
       try {
         const parsed = await tryModel(model, text, apiKey);
-        return NextResponse.json({ data: parsed, model });
+        const { social_post, ...listingData } = parsed;
+        return NextResponse.json({ data: listingData, social_post: social_post || null, model });
       } catch (err: any) {
         lastError = err.message;
-        // continue to next model
       }
     }
 

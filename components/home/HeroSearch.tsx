@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Search, Camera, Sparkles } from 'lucide-react';
+import { Search, Camera, Sparkles, Wrench, LayoutGrid } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -63,6 +63,16 @@ export function HeroSearch() {
   const handleSearch = () => performSearch();
   const handleSuggestionClick = (suggestion: string) => { setSearchTerm(suggestion); setShowSuggestions(false); performSearch(); };
   const handleBrandSelect = (brand: string) => { setSelectedBrand(brand); performSearch(); };
+
+  const handleAllTools = () => {
+    // Try to scroll to tools section first; fallback to /tools
+    const toolsSection = document.getElementById('tools-section');
+    if (toolsSection) {
+      toolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      router.push('/tools');
+    }
+  };
 
   return (
     <>
@@ -165,13 +175,39 @@ export function HeroSearch() {
             </div>
           </div>
 
-          <button
-            onClick={() => { setShowValuation(v => !v); setTimeout(() => valuationRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50); }}
-            className="inline-flex items-center gap-2 w-fit bg-amber-400 hover:bg-amber-300 text-gray-900 text-sm font-bold px-5 py-2.5 rounded-full shadow-lg shadow-amber-400/25 hover:shadow-amber-400/40 transition-all"
-          >
-            <Camera className="h-4 w-4" />
-            {showValuation ? 'Hide Valuation' : 'Evaluate My Car — Free'}
-          </button>
+          {/* ── CTA buttons row 1: Evaluate + All Tools ── */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={() => {
+                setShowValuation(v => !v);
+                setTimeout(() => valuationRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+              }}
+              className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-gray-900 text-sm font-bold px-5 py-2.5 rounded-full shadow-lg shadow-amber-400/25 hover:shadow-amber-400/40 transition-all"
+            >
+              <Camera className="h-4 w-4" />
+              {showValuation ? 'Hide Valuation' : 'Evaluate My Car — Free'}
+            </button>
+
+            <button
+              onClick={handleAllTools}
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/35 text-white text-sm font-bold px-5 py-2.5 rounded-full backdrop-blur-sm transition-all"
+            >
+              <LayoutGrid className="h-4 w-4" />
+              All Tools
+            </button>
+          </div>
+
+          {/* ── CTA buttons row 2: AI Mechanic ── */}
+          <div className="-mt-2">
+            <button
+              onClick={() => router.push('/tools/ai-mechanic')}
+              className="inline-flex items-center gap-2 bg-white/[0.06] hover:bg-white/10 border border-white/[0.12] hover:border-emerald-500/40 text-white/70 hover:text-white text-sm font-semibold px-5 py-2.5 rounded-full backdrop-blur-sm transition-all group"
+            >
+              <Wrench className="h-4 w-4 text-emerald-400 group-hover:text-emerald-300 transition-colors" />
+              AI Mechanic
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-full font-bold tracking-wide">FREE</span>
+            </button>
+          </div>
         </div>
       </div>
 

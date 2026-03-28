@@ -3,7 +3,7 @@ import { BudgetFilter } from '@/components/home/BudgetFilter';
 import { BrowseByType } from '@/components/home/BrowseByType';
 import { VehicleRequests } from '@/components/home/VehicleRequests';
 import { HotDeals } from '@/components/home/HotDeals';
-import { BlogSection } from '@/components/home/BlogSection';
+import { ToolsSection } from '@/components/home/ToolsSection';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Naira Autos - Nigeria\'s Best Car Marketplace',
     description: 'Buy and sell cars with video proof. Zero guesswork.',
-    url: 'https://nairaautos.com',
+    url: 'https://naira.autos',
     siteName: 'Naira Autos',
     locale: 'en_NG',
     type: 'website',
@@ -26,12 +26,12 @@ export default function Home() {
     '@type': 'WebSite',
     name: 'Naira Autos',
     description: 'Nigeria\'s premier car marketplace with video listings',
-    url: 'https://nairaautos.com',
+    url: 'https://naira.autos',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://nairaautos.com/search?q={search_term_string}'
+        urlTemplate: 'https://naira.autos/search?q={search_term_string}'
       },
       'query-input': 'required name=search_term_string'
     },
@@ -40,7 +40,7 @@ export default function Home() {
       name: 'Naira Autos',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://nairaautos.com/logo.png'
+        url: 'https://naira.autos/logo.png'
       }
     }
   };
@@ -56,7 +56,7 @@ export default function Home() {
       <BrowseByType />
       <VehicleRequests />
       <HotDeals />
-      <BlogSection />
+      <ToolsSection />
     </main>
   );
 }

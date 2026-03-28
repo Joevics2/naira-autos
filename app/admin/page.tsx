@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { Check, X, Pause, Eye, EyeOff, Users, Car, AlertCircle, MessageSquare, ShieldCheck } from 'lucide-react';
+import { Check, X, Pause, Eye, EyeOff, Users, Car, AlertCircle, MessageSquare, ShieldCheck, Youtube, Loader2 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 
 export default function AdminPage() {
@@ -20,6 +20,7 @@ export default function AdminPage() {
   const [requests, setRequests] = useState<Request[]>([]);
   const [verificationRequests, setVerificationRequests] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [approvingId, setApprovingId] = useState<string | null>(null); // Loading state for approve button
   const [strictImageValidation, setStrictImageValidation] = useState(false);
   const [strictToggleLoading, setStrictToggleLoading] = useState(false);
   const { toast } = useToast();
@@ -68,6 +69,58 @@ export default function AdminPage() {
     }
   };
 
+  // ==================== UPDATED handleListingAction ====================
+  const handleListingAction = async (listingId: string, action: 'approve' | 'reject' | 'pause' | 'suspend') => {
+    if (action === 'approve') {
+      setApprovingId(listingId);
+
+      try {
+        const res = await fetch('/api/admin/approve-listing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ listingId }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Failed to approve listing');
+        }
+
+        toast({
+          title: '✅ Success',
+          description: data.youtubeUploaded
+            ? 'Listing approved and video uploaded to YouTube!'
+            : 'Listing approved successfully',
+        });
+
+        loadAdminData(); // Refresh the list
+      } catch (error: any) {
+        toast({
+          title: 'Error',
+          description: error.message || 'Failed to approve listing',
+          variant: 'destructive',
+        });
+      } finally {
+        setApprovingId(null);
+      }
+      return;
+    }
+
+    // For reject, pause, suspend — original logic
+    const statusMap = { reject: 'rejected', pause: 'paused', suspend: 'suspended' };
+    const updateData: any = { status: statusMap[action] };
+
+    const { error } = await supabase.from('listings').update(updateData).eq('id', listingId);
+
+    if (error) {
+      toast({ title: 'Error', description: error.message, variant: 'destructive' });
+    } else {
+      toast({ title: 'Success', description: `Listing ${action}d successfully` });
+      loadAdminData();
+    }
+  };
+
   const handleVerificationAction = async (userId: string, type: 'id' | 'dealer', action: 'approve' | 'reject') => {
     const updateData: any = {};
     if (type === 'id') {
@@ -80,21 +133,6 @@ export default function AdminPage() {
       toast({ title: 'Error', description: error.message, variant: 'destructive' });
     } else {
       toast({ title: 'Success', description: `${type === 'id' ? 'ID' : 'Dealer'} verification ${action}d successfully` });
-      loadAdminData();
-    }
-  };
-
-  const handleListingAction = async (listingId: string, action: 'approve' | 'reject' | 'pause' | 'suspend') => {
-    const statusMap = { approve: 'approved', reject: 'rejected', pause: 'paused', suspend: 'suspended' };
-    const updateData: any = { status: statusMap[action] };
-    if (action === 'approve') {
-      updateData.approved_at = new Date().toISOString();
-    }
-    const { error } = await supabase.from('listings').update(updateData).eq('id', listingId);
-    if (error) {
-      toast({ title: 'Error', description: error.message, variant: 'destructive' });
-    } else {
-      toast({ title: 'Success', description: `Listing ${action}d successfully` });
       loadAdminData();
     }
   };
@@ -158,6 +196,10 @@ export default function AdminPage() {
     }
   };
 
+  useEffect(() => {
+    loadAdminData();
+  }, []);
+
   if (authLoading || loading) {
     return (
       <div className="max-w-screen-xl mx-auto px-4 py-8">
@@ -183,7 +225,7 @@ export default function AdminPage() {
     <div className="max-w-screen-xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Dashboard</h1>
 
-      {/* ── Stats grid ── */}
+      {/* Stats grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <Card>
           <CardContent className="pt-6">
@@ -231,7 +273,7 @@ export default function AdminPage() {
         </Card>
       </div>
 
-      {/* ── Image Validation Setting ── */}
+      {/* Image Validation Setting */}
       <Card className="mb-6">
         <CardContent className="pt-5 pb-5">
           <div className="flex items-center justify-between">
@@ -244,25 +286,6 @@ export default function AdminPage() {
                     ? 'ON — Blocking screenshots, tall images, low resolution, and duplicates'
                     : 'OFF — Only blocking duplicates and images under 200×150px'}
                 </p>
-                <div className="flex gap-2 mt-2 flex-wrap">
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
-                    strictImageValidation
-                      ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                      : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                  }`}>
-                    Aspect ratio: {strictImageValidation ? 'enforced' : 'relaxed'}
-                  </span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
-                    strictImageValidation
-                      ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                      : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                  }`}>
-                    Min size: {strictImageValidation ? '400×300' : '200×150'}
-                  </span>
-                  <span className="text-xs px-2 py-0.5 rounded-full font-semibold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
-                    Duplicates: always blocked
-                  </span>
-                </div>
               </div>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0 ml-4">
@@ -279,7 +302,7 @@ export default function AdminPage() {
         </CardContent>
       </Card>
 
-      {/* ── Tabs ── */}
+      {/* Tabs */}
       <Tabs defaultValue="pending" className="space-y-4">
         <TabsList>
           <TabsTrigger value="pending">
@@ -333,12 +356,28 @@ export default function AdminPage() {
                       </div>
                       <p className="text-sm text-gray-700 mb-4 line-clamp-2">{listing.description}</p>
                       <div className="flex flex-wrap gap-2">
-                        <Button size="sm" className="bg-green-600 hover:bg-green-700"
-                          onClick={() => handleListingAction(listing.id, 'approve')}>
-                          <Check className="h-4 w-4 mr-2" /> Approve
+                        <Button 
+                          size="sm" 
+                          className="bg-green-600 hover:bg-green-700"
+                          onClick={() => handleListingAction(listing.id, 'approve')}
+                          disabled={approvingId === listing.id}
+                        >
+                          {approvingId === listing.id ? (
+                            <>
+                              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                              Approving...
+                            </>
+                          ) : (
+                            <>
+                              <Check className="h-4 w-4 mr-2" /> Approve
+                            </>
+                          )}
                         </Button>
-                        <Button size="sm" variant="destructive"
-                          onClick={() => handleListingAction(listing.id, 'reject')}>
+                        <Button 
+                          size="sm" 
+                          variant="destructive"
+                          onClick={() => handleListingAction(listing.id, 'reject')}
+                        >
                           <X className="h-4 w-4 mr-2" /> Reject
                         </Button>
                         <a href={`/listing/${listing.year}-${(listing.brand || '').toLowerCase()}-${(listing.model || '').toLowerCase().replace(/\s+/g, '-')}-${listing.id}`}
@@ -444,11 +483,10 @@ export default function AdminPage() {
                     }>
                       {listing.status}
                     </Badge>
-                    {listing.status === 'approved' && (
-                      <Button size="sm" variant="outline"
-                        onClick={() => handleListingAction(listing.id, 'pause')}>
-                        <Pause className="h-4 w-4" />
-                      </Button>
+                    {listing.youtube_url && (
+                      <Badge variant="outline" className="gap-1">
+                        <Youtube className="h-4 w-4" /> YouTube
+                      </Badge>
                     )}
                   </div>
                 </div>

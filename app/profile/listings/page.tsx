@@ -17,15 +17,29 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { Edit, Trash2, Eye, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { Edit, Trash2, Eye, CheckCircle, Clock, XCircle, Share2, Copy, Check, PartyPopper } from 'lucide-react';
+
+// Extended listing type to include social_post
+interface ListingWithSocial extends Listing {
+  social_post?: string | null;
+}
 
 export default function MyListingsPage() {
   const { user } = useAuth();
-  const [listings, setListings] = useState<Listing[]>([]);
+  const [listings, setListings] = useState<ListingWithSocial[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  // Social post modal
+  const [socialModalListing, setSocialModalListing] = useState<ListingWithSocial | null>(null);
+  const [copied, setCopied] = useState(false);
+  // Congratulations popup for newly approved listings
+  const [congratsListing, setCongratsListing] = useState<ListingWithSocial | null>(null);
+  // Track which listing IDs we've already shown the congrats for (per session)
+  const [seenApprovals, setSeenApprovals] = useState<Set<string>>(new Set());
+
   const router = useRouter();
   const { toast } = useToast();
 
@@ -41,12 +55,29 @@ export default function MyListingsPage() {
     try {
       const { data } = await supabase
         .from('listings')
-        .select('id, title, price, status, location_state, transmission, fuel_type, images, created_at')
+        .select('id, title, price, status, location_state, transmission, fuel_type, images, created_at, year, brand, model, social_post')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
       if (data) {
-        setListings(data as any);
+        const fetched = data as ListingWithSocial[];
+        setListings(fetched);
+
+        // Check for newly approved listings we haven't congratulated yet this session
+        const stored = sessionStorage.getItem('seen_approvals');
+        const seen: string[] = stored ? JSON.parse(stored) : [];
+        const seenSet = new Set(seen);
+
+        const newlyApproved = fetched.find(
+          l => l.status === 'approved' && !seenSet.has(l.id)
+        );
+
+        if (newlyApproved) {
+          seenSet.add(newlyApproved.id);
+          setSeenApprovals(seenSet);
+          sessionStorage.setItem('seen_approvals', JSON.stringify([...seenSet]));
+          setCongratsListing(newlyApproved);
+        }
       }
     } catch (error) {
       console.error('Error loading listings:', error);
@@ -63,16 +94,9 @@ export default function MyListingsPage() {
       .eq('user_id', user?.id);
 
     if (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to delete listing',
-        variant: 'destructive',
-      });
+      toast({ title: 'Error', description: 'Failed to delete listing', variant: 'destructive' });
     } else {
-      toast({
-        title: 'Success',
-        description: 'Listing deleted successfully',
-      });
+      toast({ title: 'Success', description: 'Listing deleted successfully' });
       loadListings();
     }
     setDeleteId(null);
@@ -86,18 +110,18 @@ export default function MyListingsPage() {
       .eq('user_id', user?.id);
 
     if (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to mark as sold',
-        variant: 'destructive',
-      });
+      toast({ title: 'Error', description: 'Failed to mark as sold', variant: 'destructive' });
     } else {
-      toast({
-        title: 'Success',
-        description: 'Listing marked as sold',
-      });
+      toast({ title: 'Success', description: 'Listing marked as sold' });
       loadListings();
     }
+  };
+
+  const handleCopySocialPost = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   if (loading) {
@@ -117,7 +141,7 @@ export default function MyListingsPage() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-case 'approved':
+      case 'approved':
         return <Badge className="bg-green-500/10 text-green-600"><CheckCircle className="h-3 w-3 mr-1" /> Approved</Badge>;
       case 'pending':
         return <Badge className="bg-yellow-500/10 text-yellow-600"><Clock className="h-3 w-3 mr-1" /> Pending</Badge>;
@@ -133,7 +157,7 @@ case 'approved':
   const pendingListings = listings.filter(l => l.status === 'pending');
   const approvedListings = listings.filter(l => l.status === 'approved');
 
-  const renderList = (listToRender: Listing[], showStatus: boolean = true) => {
+  const renderList = (listToRender: ListingWithSocial[], showStatus: boolean = true) => {
     if (listToRender.length === 0) {
       return (
         <Card>
@@ -162,7 +186,7 @@ case 'approved':
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
                       No Image
                     </div>
                   )}
@@ -185,12 +209,12 @@ case 'approved':
                     {listing.location_state} • {listing.transmission} • {listing.fuel_type}
                   </p>
 
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {listing.status === 'approved' && (
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => router.push(`/listing/${listing.year}-${listing.brand.toLowerCase()}-${listing.model.toLowerCase().replace(/\s+/g, '-')}-${listing.id}`)}
+                        onClick={() => router.push(`/listing/${listing.year}-${listing.brand?.toLowerCase()}-${listing.model?.toLowerCase().replace(/\s+/g, '-')}-${listing.id}`)}
                       >
                         <Eye className="h-4 w-4 mr-1" />
                         View
@@ -211,6 +235,18 @@ case 'approved':
                         onClick={() => handleMarkAsSold(listing.id)}
                       >
                         Mark as Sold
+                      </Button>
+                    )}
+                    {/* Social Post button — only visible for approved listings */}
+                    {listing.status === 'approved' && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="text-emerald-600 border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+                        onClick={() => { setCopied(false); setSocialModalListing(listing); }}
+                      >
+                        <Share2 className="h-4 w-4 mr-1" />
+                        Share Post
                       </Button>
                     )}
                     <Button
@@ -262,16 +298,15 @@ case 'approved':
         <TabsContent value="all">
           {renderList(listings)}
         </TabsContent>
-
         <TabsContent value="approved">
           {renderList(approvedListings, false)}
         </TabsContent>
-
         <TabsContent value="pending">
           {renderList(pendingListings, false)}
         </TabsContent>
       </Tabs>
 
+      {/* ── Delete confirmation ── */}
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -288,6 +323,95 @@ case 'approved':
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* ── Congratulations popup ── */}
+      <Dialog open={!!congratsListing} onOpenChange={() => setCongratsListing(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-emerald-600">
+              <PartyPopper className="h-5 w-5" />
+              Your listing is live! 🎉
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">{congratsListing?.title}</span> has been approved and is now visible to buyers on Naira Autos.
+            </p>
+            {congratsListing?.social_post && (
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-foreground">Your ready-to-share social post:</p>
+                <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 p-4">
+                  <p className="text-sm text-foreground whitespace-pre-wrap leading-relaxed">{congratsListing.social_post}</p>
+                </div>
+                <Button
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
+                  onClick={() => handleCopySocialPost(congratsListing.social_post!)}
+                >
+                  {copied ? <><Check className="h-4 w-4" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy Post</>}
+                </Button>
+                <p className="text-xs text-center text-muted-foreground">Paste into WhatsApp, Facebook, or Instagram to get more eyes on your car</p>
+              </div>
+            )}
+            {!congratsListing?.social_post && (
+              <p className="text-xs text-muted-foreground">
+                Tip: Use the <span className="font-semibold">Share Post</span> button on your listing to generate a social media post anytime.
+              </p>
+            )}
+            <div className="flex gap-2">
+              <Button variant="outline" className="flex-1" onClick={() => setCongratsListing(null)}>
+                Close
+              </Button>
+              <Button
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                onClick={() => {
+                  setCongratsListing(null);
+                  if (congratsListing) {
+                    router.push(`/listing/${congratsListing.year}-${congratsListing.brand?.toLowerCase()}-${congratsListing.model?.toLowerCase().replace(/\s+/g, '-')}-${congratsListing.id}`);
+                  }
+                }}
+              >
+                View Listing
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Social Post modal (per listing) ── */}
+      <Dialog open={!!socialModalListing} onOpenChange={() => setSocialModalListing(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Share2 className="h-4 w-4 text-emerald-600" />
+              Share Your Listing
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              {socialModalListing?.title}
+            </p>
+            {socialModalListing?.social_post ? (
+              <>
+                <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 p-4">
+                  <p className="text-sm text-foreground whitespace-pre-wrap leading-relaxed">{socialModalListing.social_post}</p>
+                </div>
+                <Button
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
+                  onClick={() => handleCopySocialPost(socialModalListing.social_post!)}
+                >
+                  {copied ? <><Check className="h-4 w-4" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy Post</>}
+                </Button>
+                <p className="text-xs text-center text-muted-foreground">Paste into WhatsApp, Facebook, Instagram, or Twitter to reach more buyers</p>
+              </>
+            ) : (
+              <div className="rounded-xl border border-border bg-muted/30 p-4 text-center">
+                <p className="text-sm text-muted-foreground">No social post available for this listing yet.</p>
+                <p className="text-xs text-muted-foreground mt-1">It will be generated automatically on your next listing update.</p>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
