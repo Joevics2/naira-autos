@@ -75,7 +75,7 @@ export default function MyListingsPage() {
         if (newlyApproved) {
           seenSet.add(newlyApproved.id);
           setSeenApprovals(seenSet);
-          sessionStorage.setItem('seen_approvals', JSON.stringify([...seenSet]));
+          sessionStorage.setItem('seen_approvals', JSON.stringify(Array.from(seenSet)));
           setCongratsListing(newlyApproved);
         }
       }
