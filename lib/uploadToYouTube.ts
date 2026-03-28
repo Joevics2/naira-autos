@@ -5,25 +5,25 @@ import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
 
-const TOKEN_PATH = path.join(process.cwd(), 'youtube-token.json');
-
 let oauth2Client: OAuth2Client | null = null;
 
 function getOAuth2Client(): OAuth2Client {
   if (!oauth2Client) {
-    if (!fs.existsSync(TOKEN_PATH)) {
-      throw new Error('youtube-token.json not found. Run authorize.py first.');
+    const clientId = process.env.GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+    const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+
+    if (!clientId || !clientSecret || !refreshToken) {
+      throw new Error('Missing Google OAuth env variables');
     }
 
-    const creds = JSON.parse(fs.readFileSync(TOKEN_PATH, 'utf8'));
+    oauth2Client = new OAuth2Client(clientId, clientSecret);
 
-    if (!creds.client_id || !creds.client_secret) {
-      throw new Error('youtube-token.json is missing client_id or client_secret. Re-run authorize.py.');
-    }
+    oauth2Client.setCredentials({
+      refresh_token: refreshToken,
+    });
 
-    oauth2Client = new OAuth2Client(creds.client_id, creds.client_secret);
-    oauth2Client.setCredentials(creds);
-    console.log('✅ YouTube OAuth token loaded');
+    console.log('✅ YouTube OAuth loaded from ENV');
   }
   return oauth2Client;
 }
