@@ -20,7 +20,7 @@ export default function AdminPage() {
   const [requests, setRequests] = useState<Request[]>([]);
   const [verificationRequests, setVerificationRequests] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [approvingId, setApprovingId] = useState<string | null>(null); // Loading state for approve button
+  const [approvingId, setApprovingId] = useState<string | null>(null);
   const [strictImageValidation, setStrictImageValidation] = useState(false);
   const [strictToggleLoading, setStrictToggleLoading] = useState(false);
   const { toast } = useToast();
@@ -69,7 +69,6 @@ export default function AdminPage() {
     }
   };
 
-  // ==================== UPDATED handleListingAction ====================
   const handleListingAction = async (listingId: string, action: 'approve' | 'reject' | 'pause' | 'suspend') => {
     if (action === 'approve') {
       setApprovingId(listingId);
@@ -94,7 +93,7 @@ export default function AdminPage() {
             : 'Listing approved successfully',
         });
 
-        loadAdminData(); // Refresh the list
+        loadAdminData();
       } catch (error: any) {
         toast({
           title: 'Error',
@@ -107,7 +106,6 @@ export default function AdminPage() {
       return;
     }
 
-    // For reject, pause, suspend — original logic
     const statusMap = { reject: 'rejected', pause: 'paused', suspend: 'suspended' };
     const updateData: any = { status: statusMap[action] };
 
@@ -483,7 +481,8 @@ export default function AdminPage() {
                     }>
                       {listing.status}
                     </Badge>
-                    {listing.youtube_url && (   // Safe optional chaining
+                    {/* Fixed: Safe optional chaining for youtube_url */}
+                    {listing.youtube_url && (
                       <Badge variant="outline" className="gap-1">
                         <Youtube className="h-4 w-4" /> YouTube
                       </Badge>
