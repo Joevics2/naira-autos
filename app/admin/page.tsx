@@ -483,7 +483,7 @@ export default function AdminPage() {
                     }>
                       {listing.status}
                     </Badge>
-                    {listing.youtube_url && (
+                    {listing.youtube_url && (   // Safe optional chaining
                       <Badge variant="outline" className="gap-1">
                         <Youtube className="h-4 w-4" /> YouTube
                       </Badge>
