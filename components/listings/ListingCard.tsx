@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { MapPin, Calendar, Gauge, Phone, MessageCircle, Heart, Shield, Video } from 'lucide-react';
+import { MapPin, Gauge, Heart, Video, ShieldCheck, Star, Zap } from 'lucide-react';
 import { Listing } from '@/lib/supabase';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState, useEffect } from 'react';
@@ -16,10 +14,29 @@ type ListingCardProps = {
   variant?: 'grid' | 'list';
 };
 
+const verificationConfig = {
+  premium_verified: {
+    label: 'Premium',
+    icon: Star,
+    classes: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/25',
+  },
+  video_verified: {
+    label: 'Verified',
+    icon: ShieldCheck,
+    classes: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/25',
+  },
+  basic: {
+    label: 'Basic',
+    icon: ShieldCheck,
+    classes: 'bg-zinc-500/10 text-zinc-500 dark:text-zinc-400 border-zinc-500/20',
+  },
+};
+
 export function ListingCard({ listing, showActions = false, variant = 'grid' }: ListingCardProps) {
   const [isSaved, setIsSaved] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
+  const isCompact = variant === 'list';
 
   useEffect(() => {
     if (user) {
@@ -46,8 +63,7 @@ export function ListingCard({ listing, showActions = false, variant = 'grid' }: 
     if (!user) {
       const saved = JSON.parse(localStorage.getItem('saved_listings') || '[]');
       if (isSaved) {
-        const newSaved = saved.filter((id: string) => id !== listing.id);
-        localStorage.setItem('saved_listings', JSON.stringify(newSaved));
+        localStorage.setItem('saved_listings', JSON.stringify(saved.filter((id: string) => id !== listing.id)));
         setIsSaved(false);
         toast({ title: 'Removed from saved' });
       } else {
@@ -72,71 +88,186 @@ export function ListingCard({ listing, showActions = false, variant = 'grid' }: 
     }
   };
 
-  const handleWhatsAppClick = async () => {
-    await supabase.from('listings').update({ contact_clicks: listing.contact_clicks + 1 }).eq('id', listing.id);
-  };
+  const mainImage =
+    Array.isArray(listing.images) && listing.images.length > 0
+      ? listing.images[0]
+      : 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=600';
 
-  const mainImage = Array.isArray(listing.images) && listing.images.length > 0
-    ? listing.images[0]
-    : 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=600';
-
-  const verificationBadge = {
-    premium_verified: { label: 'Premium', color: 'bg-green-600' },
-    video_verified: { label: 'Video', color: 'bg-blue-600' },
-    basic: { label: 'Basic', color: 'bg-gray-600' },
-  };
-
-  const isCompact = variant === 'list';
-
-  // Generate descriptive URL slug: year-brand-model-id (with fallbacks)
   const slugYear = listing.year || 'unknown';
   const slugBrand = (listing.brand || 'car').toLowerCase().replace(/\s+/g, '-');
   const slugModel = (listing.model || 'vehicle').toLowerCase().replace(/\s+/g, '-');
   const listingSlug = `${slugYear}-${slugBrand}-${slugModel}-${listing.id}`;
 
+  const verification = verificationConfig[listing.verification_level];
+  const VerifyIcon = verification.icon;
+
+  if (isCompact) {
+    return (
+      <Link href={`/listing/${listingSlug}`} className="block group">
+        <div className="flex gap-3 bg-card border border-border rounded-2xl overflow-hidden hover:border-emerald-500/40 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200">
+          {/* Thumbnail */}
+          <div className="relative w-36 sm:w-44 flex-shrink-0 overflow-hidden bg-muted">
+            <img
+              src={mainImage}
+              alt={listing.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            {listing.video_url && (
+              <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm text-white px-1.5 py-0.5 rounded-md text-[10px] font-semibold flex items-center gap-1">
+                <Video className="h-2.5 w-2.5" /> VIDEO
+              </div>
+            )}
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 p-3 min-w-0 flex flex-col justify-between">
+            <div>
+              <p className="text-xs text-muted-foreground font-medium mb-0.5 truncate">
+                {listing.year} · {listing.brand}
+              </p>
+              <h3 className="font-bold text-sm text-foreground line-clamp-1 leading-snug">
+                {listing.brand} {listing.model} {listing.year}
+              </h3>
+            </div>
+            <div>
+              <p className="text-base font-black text-emerald-600 dark:text-emerald-400 leading-tight">
+                ₦{listing.price.toLocaleString()}
+                {listing.negotiable && (
+                  <span className="text-[10px] font-semibold text-muted-foreground ml-1.5">neg.</span>
+                )}
+              </p>
+              <div className="flex items-center gap-2 mt-1 text-[11px] text-muted-foreground">
+                {listing.mileage && listing.mileage > 0 && (
+                  <span className="flex items-center gap-0.5"><Gauge className="h-3 w-3" />{listing.mileage.toLocaleString()} km</span>
+                )}
+                {(listing.location_lga || listing.location_state) && (
+                  <span className="flex items-center gap-0.5 truncate">
+                    <MapPin className="h-3 w-3 flex-shrink-0" />
+                    {listing.location_lga || listing.location_state}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Save button */}
+          <div className="flex items-start p-2">
+            <button
+              onClick={toggleSave}
+              className="p-1.5 rounded-full hover:bg-muted transition-colors"
+            >
+              <Heart className={`h-4 w-4 ${isSaved ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} />
+            </button>
+          </div>
+        </div>
+      </Link>
+    );
+  }
+
   return (
     <Link href={`/listing/${listingSlug}`} className="block group">
-      <div className={`bg-card rounded-lg shadow-md hover:shadow-xl transition-all overflow-hidden border border-border ${isCompact ? 'flex' : ''}`}>
-        <div className={`relative overflow-hidden bg-muted ${isCompact ? 'w-48 h-32 flex-shrink-0' : 'aspect-video'}`}>
-          <img src={mainImage} alt={listing.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-          {listing.video_url && (
-            <div className="absolute top-2 left-2 bg-black/70 text-white px-2 py-0.5 rounded text-xs flex items-center gap-1">
-              <Video className="h-3 w-3" /> Video
+      <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-emerald-500/40 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/25 transition-all duration-200 hover:-translate-y-0.5">
+
+        {/* Image */}
+        <div className="relative aspect-video overflow-hidden bg-muted">
+          <img
+            src={mainImage}
+            alt={listing.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+
+          {/* Gradient overlay for bottom badges */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+          {/* Save button — top right */}
+          <button
+            onClick={toggleSave}
+            className="absolute top-3 right-3 bg-black/40 dark:bg-black/50 backdrop-blur-sm hover:bg-black/60 p-2 rounded-full transition-all duration-150 hover:scale-110"
+          >
+            <Heart className={`h-4 w-4 ${isSaved ? 'fill-red-500 text-red-500' : 'text-white'}`} />
+          </button>
+
+          {/* Urgent badge — top left */}
+          {listing.urgent_sale && (
+            <div className="absolute top-3 left-3 bg-orange-500 text-white text-[10px] font-black tracking-widest uppercase px-2.5 py-1 rounded-full flex items-center gap-1">
+              <Zap className="h-3 w-3" /> Urgent
             </div>
           )}
-          <button onClick={toggleSave} className="absolute top-2 right-2 bg-background/80 hover:bg-background p-1.5 rounded-full transition-colors">
-            <Heart className={`h-4 w-4 ${isSaved ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} />
-          </button>
-          {listing.urgent_sale && (
-            <div className="absolute bottom-2 left-2 bg-orange-500 text-white px-2 py-0.5 rounded text-xs font-semibold">Urgent</div>
-          )}
-          <Badge className={`absolute bottom-2 right-2 ${verificationBadge[listing.verification_level].color} text-white text-xs`}>
-            {verificationBadge[listing.verification_level].label}
-          </Badge>
+
+          {/* Bottom row: video + verification */}
+          <div className="absolute bottom-0 left-0 right-0 px-3 pb-3 flex items-end justify-between">
+            {listing.video_url ? (
+              <div className="bg-black/60 backdrop-blur-sm text-white text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full flex items-center gap-1">
+                <Video className="h-3 w-3" /> Video
+              </div>
+            ) : <div />}
+            <div className={`text-[10px] font-semibold tracking-wide px-2.5 py-1 rounded-full flex items-center gap-1 border backdrop-blur-sm ${verification.classes}`}>
+              <VerifyIcon className="h-3 w-3" /> {verification.label}
+            </div>
+          </div>
         </div>
 
-        <div className={`p-3 ${isCompact ? 'flex-1' : ''}`}>
-          <div className="flex items-start justify-between gap-2 mb-1">
-            <h3 className={`font-bold text-foreground line-clamp-1 ${isCompact ? 'text-sm' : 'text-lg'}`}>
-              {listing.brand} {listing.model} {listing.year}
-            </h3>
-          </div>
+        {/* Content */}
+        <div className="p-4">
+          {/* Title */}
+          <h3
+            className="font-black uppercase text-foreground leading-tight line-clamp-1 mb-0.5"
+            style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(16px, 2vw, 19px)' }}
+          >
+            {listing.brand} {listing.model}
+          </h3>
 
-          <div className={`font-bold text-primary mb-2 ${isCompact ? 'text-lg' : 'text-xl'}`}>
-            ₦{listing.price.toLocaleString()}
-            {listing.negotiable && <span className="text-sm text-muted-foreground ml-2">Negotiable</span>}
-          </div>
-
-          <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
+          {/* Year + condition chips */}
+          <div className="flex flex-wrap gap-1.5 mb-3">
             {listing.year && (
-              <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {listing.year}</span>
+              <span className="text-[11px] font-semibold bg-muted text-muted-foreground px-2 py-0.5 rounded-full border border-border">
+                {listing.year}
+              </span>
             )}
-            {listing.mileage && listing.mileage > 0 && (
-              <span className="flex items-center gap-1"><Gauge className="h-3 w-3" /> {listing.mileage.toLocaleString()} km</span>
+            {listing.condition && (
+              <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
+                listing.condition === 'foreign used'
+                  ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
+                  : listing.condition === 'brand new'
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                  : 'bg-muted text-muted-foreground border-border'
+              }`}>
+                {listing.condition}
+              </span>
             )}
-            {(listing.location_lga || listing.location_state) && (
-              <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {listing.location_lga}{listing.location_lga && listing.location_state ? ', ' : ''}{listing.location_state}</span>
+            {listing.transmission && (
+              <span className="text-[11px] font-semibold bg-muted text-muted-foreground px-2 py-0.5 rounded-full border border-border capitalize">
+                {listing.transmission}
+              </span>
             )}
+          </div>
+
+          {/* Price */}
+          <div className="flex items-baseline gap-2 mb-3">
+            <span className="text-xl font-black text-emerald-600 dark:text-emerald-400 leading-none">
+              ₦{listing.price.toLocaleString()}
+            </span>
+            {listing.negotiable && (
+              <span className="text-xs font-semibold text-muted-foreground">Negotiable</span>
+            )}
+          </div>
+
+          {/* Meta row */}
+          <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+            <div className="flex items-center gap-3">
+              {listing.mileage && listing.mileage > 0 && (
+                <span className="flex items-center gap-1">
+                  <Gauge className="h-3 w-3 flex-shrink-0" />
+                  {listing.mileage.toLocaleString()} km
+                </span>
+              )}
+              {(listing.location_lga || listing.location_state) && (
+                <span className="flex items-center gap-1 truncate max-w-[120px]">
+                  <MapPin className="h-3 w-3 flex-shrink-0" />
+                  {listing.location_lga || listing.location_state}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -7,13 +7,13 @@ import { ToolsSection } from '@/components/home/ToolsSection';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Naira Autos - Nigeria\'s Best Car Marketplace | Buy & Sell Cars with Video',
-  description: 'Nigeria\'s premier car marketplace. Buy and sell cars, trucks, buses, vans with video verification. Every listing includes video proof for complete transparency.',
+  title: 'Naira Autos - Nigeria\'s Auto Marketplace | Buy & Sell Cars',
+  description: 'Buy or sell cars, trucks, buses, vans with video verification. Every listing includes video proof for complete transparency.',
   keywords: 'cars for sale Nigeria, buy car Lagos, sell car Nigeria, car marketplace, used cars Nigeria, tokunbo cars, video car listings',
   openGraph: {
     title: 'Naira Autos - Nigeria\'s Best Car Marketplace',
     description: 'Buy and sell cars with video proof. Zero guesswork.',
-    url: 'https://naira.autos',
+    url: 'https://Naira.autos',
     siteName: 'Naira Autos',
     locale: 'en_NG',
     type: 'website',
@@ -26,7 +26,7 @@ export default function Home() {
     '@type': 'WebSite',
     name: 'Naira Autos',
     description: 'Nigeria\'s premier car marketplace with video listings',
-    url: 'https://naira.autos',
+    url: 'https://Naira.autos',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
