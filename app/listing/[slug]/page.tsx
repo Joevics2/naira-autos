@@ -172,27 +172,49 @@ export default async function ListingDetailPage({ params }: Props) {
   };
 
   // ── JSON-LD: FAQPage (condition report) ───────────────────────────────────
-  type FaqField = { question: string; answer: string } | null;
-  const faqAnswers: FaqField[] = [
+  type FaqItem = {
+    question: string;
+    answer: string;
+  };
+
+  const faqAnswers: FaqItem[] = [
     listing.faq_ac_working
-      ? { question: 'Is the Air Conditioning working?', answer: listing.faq_ac_working === 'yes' ? 'Yes — AC is fully functional.' : `No — ${listing.faq_ac_issue ?? 'AC is not working.'}` }
+      ? {
+          question: 'Is the Air Conditioning working?',
+          answer: listing.faq_ac_working === 'yes' ? 'Yes — AC is fully functional.' : `No — ${listing.faq_ac_issue ?? 'AC is not working.'}`
+        }
       : null,
     listing.faq_engine_condition
-      ? { question: 'Is the engine in good condition?', answer: listing.faq_engine_condition === 'yes' ? 'Yes — engine is in excellent condition.' : `No — ${listing.faq_engine_issue ?? 'Engine has issues.'}` }
+      ? {
+          question: 'Is the engine in good condition?',
+          answer: listing.faq_engine_condition === 'yes' ? 'Yes — engine is in excellent condition.' : `No — ${listing.faq_engine_issue ?? 'Engine has issues.'}`
+        }
       : null,
     listing.faq_was_repainted
-      ? { question: 'Has the vehicle been repainted?', answer: listing.faq_was_repainted === 'no' ? 'No — original factory paint.' : 'Yes — the vehicle has been repainted.' }
+      ? {
+          question: 'Has the vehicle been repainted?',
+          answer: listing.faq_was_repainted === 'no' ? 'No — original factory paint.' : 'Yes — the vehicle has been repainted.'
+        }
       : null,
     listing.faq_documents_complete
-      ? { question: 'Are all vehicle documents complete?', answer: listing.faq_documents_complete === 'yes' ? 'Yes — all documents are complete and valid.' : `No — missing: ${listing.faq_missing_documents ?? 'some documents.'}` }
+      ? {
+          question: 'Are all vehicle documents complete?',
+          answer: listing.faq_documents_complete === 'yes' ? 'Yes — all documents are complete and valid.' : `No — missing: ${listing.faq_missing_documents ?? 'some documents.'}`
+        }
       : null,
     listing.faq_oil_consumption
-      ? { question: 'Does the vehicle consume oil between services?', answer: listing.faq_oil_consumption === 'no' ? 'No — normal oil consumption.' : 'Yes — the vehicle consumes oil between services.' }
+      ? {
+          question: 'Does the vehicle consume oil between services?',
+          answer: listing.faq_oil_consumption === 'no' ? 'No — normal oil consumption.' : 'Yes — the vehicle consumes oil between services.'
+        }
       : null,
     listing.faq_other_issues
-      ? { question: 'Are there any other known issues?', answer: listing.faq_other_issues }
+      ? {
+          question: 'Are there any other known issues?',
+          answer: listing.faq_other_issues
+        }
       : null,
-  ].filter(Boolean) as { question: string; answer: string }[];
+  ].filter((item): item is FaqItem => item !== null);
 
   const faqSchema = faqAnswers.length > 0
     ? {
