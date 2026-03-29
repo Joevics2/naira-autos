@@ -241,14 +241,13 @@ export default function SearchClient() {
     const primary = getPrimaryFilter(bp || undefined, sp || undefined, pmin, pmax, tp || undefined);
     const groups: SimilarGroup[] = [];
 
-    // Fetch helper: run query, strip seen IDs, cap at 3 per group
-    const fetchGroup = async (q: ReturnType<typeof supabase.from>): Promise<Listing[]> => {
-      const { data } = await (q as any).order('created_at', { ascending: false }).limit(15);
+    // Fetch helper with proper typing
+    const fetchGroup = async (q: any): Promise<Listing[]> => {
+      const { data } = await q.order('created_at', { ascending: false }).limit(15);
       return ((data as Listing[]) || []).filter(l => !excludeIds.has(l.id)).slice(0, 3);
     };
 
     if (primary === 'brand') {
-      // Other brands, same type if applicable
       const candidates = BRANDS.filter(b => b.toLowerCase() !== (bp || '').toLowerCase())
         .sort(() => Math.random() - 0.5).slice(0, 5);
 
@@ -266,7 +265,6 @@ export default function SearchClient() {
     }
 
     else if (primary === 'location') {
-      // Other states, keep same brand/type context
       const candidates = NIGERIAN_STATES.filter(s => s !== sp)
         .sort(() => Math.random() - 0.5).slice(0, 5);
 
@@ -285,17 +283,14 @@ export default function SearchClient() {
     }
 
     else if (primary === 'price') {
-      // Adjacent price brackets — higher first, then lower
       const mid = (pmin + pmax) / 2;
       const idx = PRICE_STEPS.findIndex(s => s >= mid);
 
       const ranges = [
-        // Higher bracket
         idx < PRICE_STEPS.length - 2 ? {
           label: `${formatPrice(PRICE_STEPS[idx])}\u2013${formatPrice(PRICE_STEPS[idx + 1])}`,
           min: PRICE_STEPS[idx], max: PRICE_STEPS[idx + 1],
         } : null,
-        // Lower bracket
         idx > 1 ? {
           label: `${formatPrice(PRICE_STEPS[idx - 2])}\u2013${formatPrice(PRICE_STEPS[idx - 1])}`,
           min: PRICE_STEPS[idx - 2], max: PRICE_STEPS[idx - 1],
@@ -321,7 +316,6 @@ export default function SearchClient() {
     }
 
     else if (primary === 'type') {
-      // Other vehicle types, keep location/brand context
       const otherTypes = VEHICLE_TYPES.filter(t => t !== tp?.toLowerCase());
 
       for (const t of otherTypes) {
@@ -381,7 +375,6 @@ export default function SearchClient() {
     const mainListings = (data as Listing[]) || [];
     setListings(mainListings);
 
-    // Exclude all main result IDs from similar
     const excludeIds = new Set(mainListings.map(l => l.id));
 
     const primary = getPrimaryFilter(bp || undefined, sp || undefined, pmin, pmax, tp || undefined);
@@ -658,7 +651,6 @@ export default function SearchClient() {
           </Card>
         ) : (
           <>
-            {/* Section label only shown when similar exists */}
             {similarGroups.some(g => g.listings.length > 0) && (
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
                 Search Results &middot; {listings.length} listing{listings.length !== 1 ? 's' : ''}
@@ -674,10 +666,8 @@ export default function SearchClient() {
 
         {!loading && (
           <>
-            {/* Similar — guaranteed no duplicates from main results */}
             <SimilarSection groups={similarGroups} onNavigate={(href) => router.push(href)} />
 
-            {/* CTA */}
             <div className="mt-10 pt-8 border-t">
               <div className="bg-muted/30 rounded-xl p-6 text-center">
                 <h3 className="text-base font-bold text-foreground mb-1">Can&apos;t find what you&apos;re looking for?</h3>
