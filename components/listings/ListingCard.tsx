@@ -226,13 +226,15 @@ export function ListingCard({ listing, showActions = false, variant = 'grid' }: 
             )}
             {listing.condition && (
               <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
-                listing.condition === 'foreign used'
+                listing.condition === 'foreign_used'
                   ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
-                  : listing.condition === 'brand new'
+                  : listing.condition === 'brand_new'
                   ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
                   : 'bg-muted text-muted-foreground border-border'
               }`}>
-                {listing.condition}
+                {listing.condition === 'foreign_used' ? 'Foreign Used' : 
+                 listing.condition === 'brand_new' ? 'Brand New' : 
+                 listing.condition === 'nigerian_used' ? 'Nigerian Used' : listing.condition}
               </span>
             )}
             {listing.transmission && (
