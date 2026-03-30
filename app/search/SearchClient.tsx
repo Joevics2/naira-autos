@@ -7,7 +7,7 @@ import { ListingCard } from '@/components/listings/ListingCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, SlidersHorizontal, Grid, List, X, ArrowUpDown, MapPin, ChevronRight, Video, Zap, User, Building2, Handshake } from 'lucide-react';
+import { Search, SlidersHorizontal, Grid, List, X, ArrowUpDown, MapPin, ChevronRight, Video, Zap } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -15,10 +15,10 @@ import { Badge } from '@/components/ui/badge';
 
 const NIGERIAN_STATES = [
   'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno',
-  'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Abuja FCT', 'Gombe',
-  'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara',
-  'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau',
-  'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara',
+  'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo', 'Jigawa',
+  'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos', 'Nasarawa', 'Niger',
+  'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto', 'Taraba', 'Yobe',
+  'Zamfara', 'Abuja FCT'
 ];
 
 const BRANDS = [
@@ -31,18 +31,210 @@ const BRANDS = [
 const VEHICLE_TYPES = ['car', 'suv', 'truck', 'van', 'bus', 'bike'];
 
 const CITIES_BY_STATE: Record<string, string[]> = {
-  'Lagos':     ['Ikeja', 'Victoria Island', 'Lekki', 'Ikoyi', 'Surulere', 'Yaba', 'Ajah', 'Festac', 'Apapa', 'Oshodi', 'Ikorodu', 'Mushin'],
-  'Abuja FCT': ['Central Business District', 'Maitama', 'Wuse', 'Garki', 'Gwarinpa', 'Kubwa', 'Lugbe', 'Asokoro'],
-  'Rivers':    ['Port Harcourt', 'Obio-Akpor', 'Eleme', 'Oyigbo', 'Okrika', 'Bonny'],
-  'Oyo':       ['Ibadan', 'Ogbomoso', 'Oyo', 'Iseyin', 'Saki', 'Eruwa'],
-  'Kano':      ['Kano Municipal', 'Fagge', 'Dala', 'Kano New Layout', 'Nassarawa', 'Gwale'],
-  'Kaduna':    ['Kaduna North', 'Kaduna South', 'Tudun Wada', 'Makera', 'Chikun'],
-  'Ogun':      ['Abeokuta', 'Sagamu', 'Ijebu-Ode', 'Ota', 'Ilaro'],
-  'Delta':     ['Asaba', 'Warri', 'Ughelli', 'Sapele', 'Agbor'],
-  'Edo':       ['Benin City', 'Auchi', 'Ekpoma', 'Uromi'],
-  'Anambra':   ['Awka', 'Onitsha', 'Nnewi', 'Ekwulobia'],
-  'Enugu':     ['Enugu', 'Nsukka', 'Agbani', 'Oji River'],
-  'Imo':       ['Owerri', 'Orlu', 'Okigwe', 'Oguta'],
+  'Abia': [
+    'Aba North', 'Aba South', 'Umuahia', 'Arochukwu', 'Bende', 'Ikwuano', 'Isiala Ngwa',
+    'Isuikwuato', 'Obi Ngwa', 'Ohafia', 'Osisioma Ngwa', 'Ugwunagbo', 'Ukwa East', 'Ukwa West',
+    'Umu Nneochi', 'Ariaria Market', 'Ogbor Hill'
+  ],
+
+  'Adamawa': [
+    'Yola North', 'Yola South', 'Jimeta', 'Demsa', 'Fufore', 'Ganye', 'Girei', 'Gombi',
+    'Guyuk', 'Hong', 'Jada', 'Lamurde', 'Madagali', 'Maiha', 'Mayo-Belwa', 'Michika',
+    'Mubi North', 'Mubi South', 'Numan', 'Shelleng', 'Song', 'Toungo', 'High Level Jimeta'
+  ],
+
+  'Akwa Ibom': [
+    'Uyo', 'Ikot Ekpene', 'Eket', 'Oron', 'Abak', 'Etinan', 'Itu', 'Ibeno', 'Ibesikpo Asutan',
+    'Ibiono Ibom', 'Ikono', 'Ikot Abasi', 'Mkpat Enin', 'Nsit Atai', 'Nsit Ibom', 'Nsit Ubium',
+    'Oruk Anam', 'Ukanafun', 'Uruan', 'Urue-Offong/Oruko', 'Eastern Obolo'
+  ],
+
+  'Anambra': [
+    'Awka', 'Onitsha', 'Nnewi', 'Ekwulobia', 'Idemili North', 'Idemili South', 'Aguata',
+    'Anaocha', 'Dunukofia', 'Ekwusigo', 'Ihiala', 'Njikoka', 'Oyi', 'Obosi'
+  ],
+
+  'Bauchi': [
+    'Bauchi', 'Azare', 'Alkaleri', 'Bogoro', 'Damban', 'Darazo', 'Dass', 'Gamawa',
+    'Ganjuwa', 'Giade', 'Itas/Gadau', 'Katagum', 'Kirfi', 'Misau', 'Ningi', 'Shira', 'Toro', 'Warji'
+  ],
+
+  'Bayelsa': [
+    'Yenagoa', 'Brass', 'Ekeremor', 'Kolokuma/Opokuma', 'Nembe', 'Ogbia', 'Sagbama',
+    'Southern Ijaw', 'Opolo', 'Swali', 'Kpansia', 'Biogbolo', 'Amarata', 'Agudama'
+  ],
+
+  'Benue': [
+    'Makurdi', 'Gboko', 'Katsina-Ala', 'Otukpo', 'Agatu', 'Apa', 'Buruku', 'Guma',
+    'Gwer East', 'Gwer West', 'Konshisha', 'Kwande', 'Logo', 'Obi', 'Oju', 'Okpokwu',
+    'Tarka', 'Ushongo', 'Vandeikya', 'High Level Makurdi', 'Wurukum'
+  ],
+
+  'Borno': [
+    'Maiduguri', 'Biu', 'Bama', 'Dikwa', 'Gwoza', 'Konduga', 'Damboa', 'Chibok',
+    'Hawul', 'Kukawa', 'Monguno', 'Marte', 'Askira/Uba', 'Gubio', 'Jere', 'Kaga',
+    'Gamboru Road', 'Bulumkutu'
+  ],
+
+  'Cross River': [
+    'Calabar', 'Calabar South', 'Calabar Municipal', 'Ikom', 'Ogoja', 'Akamkpa',
+    'Biase', 'Boki', 'Obubra', 'Obudu', 'Odukpani', 'Yakuur', 'Yala'
+  ],
+
+  'Delta': [
+    'Asaba', 'Warri', 'Sapele', 'Ughelli', 'Effurun', 'Uvwie', 'Agbor', 'Okpe',
+    'Oshimili North', 'Oshimili South', 'Ethiope East', 'Ethiope West', 'Ndokwa East',
+    'Ndokwa West', 'Ika South', 'Udu', 'Patani'
+  ],
+
+  'Ebonyi': [
+    'Abakaliki', 'Afikpo North', 'Afikpo South', 'Ebonyi', 'Ezza North', 'Ezza South',
+    'Ikwo', 'Ishielu', 'Ivo', 'Izzi', 'Ohaozara', 'Ohaukwu', 'Onicha', 'GRA Abakaliki'
+  ],
+
+  'Edo': [
+    'Benin City', 'Auchi', 'Ekpoma', 'Uromi', 'Egor', 'Ikpoba-Okha', 'Oredo',
+    'Orhionmwon', 'Uhunmwonde', 'Esan Central', 'Irrua', 'Uselu', 'GRA Benin City'
+  ],
+
+  'Ekiti': [
+    'Ado Ekiti', 'Ikere', 'Ikole', 'Ilawe', 'Ijero', 'Ido-Osi', 'Irepodun/Ifelodun',
+    'Ise/Orun', 'Moba', 'Omuo', 'Oye', 'Efon', 'Emure', 'GRA Ado Ekiti', 'Aramoko'
+  ],
+
+  'Enugu': [
+    'Enugu', 'Nsukka', 'Agbani', 'Oji River', 'Udi', 'Awgu', 'Enugu North', 'Enugu South',
+    'Enugu East', 'GRA Enugu', 'New Haven', 'Independence Layout', 'Abakpa', 'Emene'
+  ],
+
+  'Gombe': [
+    'Gombe', 'Akko', 'Balanga', 'Billiri', 'Dukku', 'Funakaye', 'Kaltungo', 'Kwami',
+    'Nafada', 'Shomgom', 'Yamaltu/Deba', 'Pantami', 'GRA Gombe'
+  ],
+
+  'Imo': [
+    'Owerri', 'Orlu', 'Okigwe', 'Oguta', 'Ikeduru', 'Mbaitoli', 'Aboh-Mbaise',
+    'Ehime-Mbano', 'Isu', 'Ngor-Okpala', 'Njaba', 'Nkwerre', 'Obowo', 'Ohaji/Egbema',
+    'Isiala Mbano'
+  ],
+
+  'Jigawa': [
+    'Dutse', 'Gumel', 'Hadejia', 'Kazaure', 'Ringim', 'Auyo', 'Babura', 'Gwaram',
+    'Gwiwa', 'Jahun', 'Kafin Hausa', 'Kaugama', 'Maigatari', 'Malam Madori', 'Biriniwa'
+  ],
+
+  'Kaduna': [
+    'Kaduna North', 'Kaduna South', 'Chikun', 'Igabi', 'Zaria', 'Tudun Wada', 'Makera',
+    'Barnawa', 'Rigasa', 'Kakuri', 'Sabon Tasha', 'Kawo', 'Birnin-Gwari'
+  ],
+
+  'Kano': [
+    'Kano Municipal', 'Fagge', 'Dala', 'Tarauni', 'Ungogo', 'Gwale', 'Nassarawa',
+    'Kumbotso', 'Gwarzo', 'Bichi', 'Wudil', 'Rano', 'Gaya', 'Dawakin Kudu', 'Kura',
+    'Kano New Layout'
+  ],
+
+  'Katsina': [
+    'Katsina', 'Daura', 'Funtua', 'Malumfashi', 'Danja', 'Dutsin-Ma', 'Kankia',
+    'Kankara', 'Bakori', 'Batagarawa', 'Batsari', 'Charanchi', 'Dandume', 'Jibia',
+    'Kafur', 'Kusada', 'Mani', 'Mashi', 'Musawa'
+  ],
+
+  'Kebbi': [
+    'Birnin Kebbi', 'Argungu', 'Zuru', 'Jega', 'Aleiro', 'Augie', 'Bagudo', 'Bunza',
+    'Dandi', 'Gwandu', 'Kalgo', 'Koko/Besse', 'Maiyama', 'Ngaski', 'Yauri'
+  ],
+
+  'Kogi': [
+    'Lokoja', 'Okene', 'Adavi', 'Ajaokuta', 'Ankpa', 'Bassa', 'Dekina', 'Idah',
+    'Igalamela-Odolu', 'Ijumu', 'Kabba/Bunu', 'Koton Karfe', 'Ofu', 'Okehi',
+    'Omala', 'Yagba East', 'Yagba West', 'Ganaja'
+  ],
+
+  'Kwara': [
+    'Ilorin East', 'Ilorin South', 'Ilorin West', 'Asa', 'Baruten', 'Edu', 'Ifelodun-Kwara',
+    'Irepodun-Kwara', 'Isin', 'Kaiama', 'Moro', 'Offa', 'Oke-Ero', 'Oyun', 'Pategi'
+  ],
+
+  'Lagos': [
+    'Ikeja', 'Victoria Island', 'Lekki', 'Ikoyi', 'Surulere', 'Yaba', 'Ajah', 'Festac',
+    'Apapa', 'Oshodi', 'Ikorodu', 'Mushin', 'Gbagada', 'Magodo', 'Maryland', 'Ogba',
+    'Ojodu', 'Ojota', 'Shomolu', 'Bariga', 'Kosofe', 'Alimosho', 'Agege', 'Ifako-Ijaiye',
+    'Ojo', 'Amuwo-Odofin', 'Egbe/Idimu', 'Ikotun/Igando', 'Abule Egba', 'Ipaja',
+    'Ilupeju', 'Ogudu', 'Orile', 'Lagos Island', 'Epe', 'Badagry', 'Eko Atlantic'
+  ],
+
+  'Nasarawa': [
+    'Lafia', 'Keffi', 'Akwanga', 'Karu', 'Nasarawa', 'Nasarawa-Eggon', 'Awe', 'Doma',
+    'Keana', 'Kokona', 'Obi', 'Toto', 'Wamba', 'Mararaba', 'Masaka', 'GRA Lafia'
+  ],
+
+  'Niger': [
+    'Minna', 'Bida', 'Suleja', 'Kontagora', 'Lapai', 'Agaie', 'Agwara', 'Borgu',
+    'Bosso', 'Chanchaga', 'Edati', 'Gbako', 'Gurara', 'Katcha', 'Lavun', 'Magama',
+    'Mariga', 'Mashegu', 'Mokwa', 'Paikoro', 'Rafi', 'Rijau', 'Shiroro', 'Tafa'
+  ],
+
+  'Ogun': [
+    'Abeokuta', 'Sagamu', 'Ijebu-Ode', 'Ota', 'Ilaro', 'Abeokuta South', 'Abeokuta North',
+    'Ado-Odo/Ota', 'Obafemi-Owode', 'Ifo', 'Ikenne', 'Odeda', 'Odogbolu', 'Remo North',
+    'Ipokia', 'Ewekoro'
+  ],
+
+  'Ondo': [
+    'Akure', 'Ondo', 'Owo', 'Okitipupa', 'Ikare Akoko', 'Idanre', 'Ifedore', 'Ilaje',
+    'Ile-Oluji-Okeigbo', 'Irele', 'Odigbo', 'Ose', 'Ese-Odo'
+  ],
+
+  'Osun': [
+    'Osogbo', 'Ile-Ife', 'Ilesa', 'Ede', 'Iwo', 'Ikirun', 'Ila', 'Ejigbo', 'Ijebu-Jesa',
+    'Atakumosa East', 'Atakumosa West', 'Boripe', 'Ifelodun-Osun', 'Irepodun-Osun',
+    'Irewole', 'Isokan', 'Obokun', 'Oriade'
+  ],
+
+  'Oyo': [
+    'Ibadan', 'Ogbomoso', 'Oyo', 'Iseyin', 'Saki', 'Eruwa', 'Egbeda', 'Akinyele',
+    'Oluyole', 'Lagelu', 'Ona-Ara', 'Afijio', 'Atiba', 'Ogbomosho North', 'Ogbomosho South'
+  ],
+
+  'Plateau': [
+    'Jos', 'Jos North', 'Jos South', 'Barkin Ladi', 'Bokkos', 'Kanam', 'Kanke',
+    'Langtang North', 'Langtang South', 'Mangu', 'Pankshin', 'Riyom', 'Shendam',
+    'Bukuru', 'Rayfield', 'GRA Jos'
+  ],
+
+  'Rivers': [
+    'Port Harcourt', 'Obio-Akpor', 'Eleme', 'Oyigbo', 'Okrika', 'Bonny', 'Ikwerre',
+    'Emohua', 'Etche', 'Gokana', 'Khana', 'Tai', 'Asari-Toru', 'Degema', 'Ogu/Bolo'
+  ],
+
+  'Sokoto': [
+    'Sokoto North', 'Sokoto South', 'Illela', 'Wamako', 'Binji', 'Bodinga', 'Dange-Shuni',
+    'Gada', 'Goronyo', 'Gwadabawa', 'Isa', 'Kebbe', 'Kware', 'Rabah', 'Sabon Birni',
+    'Tambuwal', 'Wurno'
+  ],
+
+  'Taraba': [
+    'Jalingo', 'Wukari', 'Takum', 'Bali', 'Donga', 'Gashaka', 'Gassol', 'Ibi',
+    'Karim-Lamido', 'Kurmi', 'Lau', 'Sardauna', 'Ussa', 'Yorro', 'Zing'
+  ],
+
+  'Yobe': [
+    'Damaturu', 'Potiskum', 'Nguru', 'Bade', 'Fika', 'Fune', 'Geidam', 'Gujba',
+    'Gulani', 'Jakusko', 'Machina', 'Nangere', 'Yunusari'
+  ],
+
+  'Zamfara': [
+    'Gusau', 'Anka', 'Bakura', 'Birnin Magaji', 'Bukkuyum', 'Bungudu', 'Gummi',
+    'Kaura Namoda', 'Maradun', 'Maru', 'Shinkafi', 'Talata Mafara', 'Tsafe', 'Zurmi'
+  ],
+
+  'Abuja FCT': [
+    'Central Business District', 'Maitama', 'Wuse', 'Wuse 2', 'Garki', 'Gwarinpa',
+    'Kubwa', 'Lugbe', 'Asokoro', 'Utako', 'Jabi', 'Jahi', 'Lokogoma', 'Kuje',
+    'Gwagwalada', 'Bwari', 'Karshi', 'Nyanya', 'Mararaba', 'Airport Road', 'Mabushi',
+    'Katampe', 'Gudu', 'Guzape', 'Dutse-Alhaji', 'Karu'
+  ]
 };
 
 const PRICE_STEPS = [
@@ -112,14 +304,14 @@ function PriceSlider({ minVal, maxVal, onChange }: {
 
 // ─── Toggle chip ──────────────────────────────────────────────────────────────
 
-function ToggleChip({ active, onClick, icon, label }: {
-  active: boolean; onClick: () => void; icon?: React.ReactNode; label: string;
+function ToggleChip({ active, onClick, label }: {
+  active: boolean; onClick: () => void; label: string;
 }) {
   return (
     <button onClick={onClick} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border shrink-0 transition-all ${
       active ? 'bg-primary text-primary-foreground border-primary' : 'bg-background text-muted-foreground border-border hover:border-primary/50 hover:text-foreground'
     }`}>
-      {icon}{label}
+      {label}
     </button>
   );
 }
@@ -170,9 +362,9 @@ export default function SearchClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [listings,     setListings]     = useState<Listing[]>([]);
+  const [listings,      setListings]      = useState<Listing[]>([]);
   const [similarGroups, setSimilarGroups] = useState<SimilarGroup[]>([]);
-  const [loading,      setLoading]      = useState(true);
+  const [loading,       setLoading]       = useState(true);
 
   // Filter state — mirrors URL on mount
   const [searchTerm,  setSearchTerm]  = useState(searchParams.get('q')      || '');
@@ -181,6 +373,7 @@ export default function SearchClient() {
   const [brand,       setBrand]       = useState(searchParams.get('brand')   || '');
   const [vehicleType, setVehicleType] = useState(searchParams.get('type')    || '');
   const [ownerType,   setOwnerType]   = useState(searchParams.get('owner')   || '');
+  const [condition,   setCondition]   = useState(searchParams.get('condition') || ''); // NEW: Condition filter
   const [withVideo,   setWithVideo]   = useState(searchParams.get('video')   === '1');
   const [urgentSale,  setUrgentSale]  = useState(searchParams.get('urgent')  === '1');
   const [priceMin,    setPriceMin]    = useState(() => Number(searchParams.get('pmin') || 0));
@@ -219,6 +412,7 @@ export default function SearchClient() {
       brand,
       type:   vehicleType,
       owner:  ownerType,
+      condition,                    // NEW
       video:  withVideo   ? '1' : '',
       urgent: urgentSale  ? '1' : '',
       pmin:   priceMin > 0            ? String(priceMin) : '',
@@ -230,7 +424,7 @@ export default function SearchClient() {
     const p = new URLSearchParams();
     Object.entries(vals).forEach(([k, v]) => { if (v) p.set(k, v); });
     return p;
-  }, [searchTerm, state, area, brand, vehicleType, ownerType, withVideo, urgentSale, priceMin, priceMax, sortBy, viewMode]);
+  }, [searchTerm, state, area, brand, vehicleType, ownerType, condition, withVideo, urgentSale, priceMin, priceMax, sortBy, viewMode]);
 
   // ── Fetch similar — no duplicates ─────────────────────────────────────────
 
@@ -241,7 +435,6 @@ export default function SearchClient() {
     const primary = getPrimaryFilter(bp || undefined, sp || undefined, pmin, pmax, tp || undefined);
     const groups: SimilarGroup[] = [];
 
-    // Fetch helper with proper typing
     const fetchGroup = async (q: any): Promise<Listing[]> => {
       const { data } = await q.order('created_at', { ascending: false }).limit(15);
       return ((data as Listing[]) || []).filter(l => !excludeIds.has(l.id)).slice(0, 3);
@@ -348,6 +541,7 @@ export default function SearchClient() {
     const bp  = searchParams.get('brand');
     const tp  = searchParams.get('type');
     const op  = searchParams.get('owner');
+    const cp  = searchParams.get('condition');   // NEW
     const vp  = searchParams.get('video')  === '1';
     const up  = searchParams.get('urgent') === '1';
     const pmin = Number(searchParams.get('pmin') || 0);
@@ -356,23 +550,39 @@ export default function SearchClient() {
 
     let query = supabase.from('listings').select('*, profiles(*)').eq('status', 'approved');
 
-    if (q)                          query = query.or(`brand.ilike.%${q}%,model.ilike.%${q}%,trim.ilike.%${q}%`);
-    if (sp)                         query = query.eq('location_state', sp);
+    if (q)                           query = query.or(`brand.ilike.%${q}%,model.ilike.%${q}%,trim.ilike.%${q}%`);
+    if (sp)                          query = query.eq('location_state', sp);
     if (ap && !ap.startsWith('all-')) query = query.eq('location_lga', ap);
-    if (bp)                         query = query.ilike('brand', bp);
-    if (tp)                         query = query.eq('vehicle_type', tp.toLowerCase());
-    if (op)                         query = query.eq('seller_type', op);
-    if (vp)                         query = query.not('video_url', 'is', null);
-    if (up)                         query = query.eq('urgent_sale', true);
-    if (pmin > 0)                   query = query.gte('price', pmin);
-    if (pmax < MAX_PRICE)           query = query.lte('price', pmax);
+    if (bp)                          query = query.ilike('brand', bp);
+    if (tp)                          query = query.eq('vehicle_type', tp.toLowerCase());
+    if (op)                          query = query.eq('seller_type', op);
+    if (cp)                          query = query.eq('condition', cp);   // NEW: filter by condition
+    if (vp)                          query = query.not('video_url', 'is', null);
+    if (up)                          query = query.eq('urgent_sale', true);
+    if (pmin > 0)                    query = query.gte('price', pmin);
+    if (pmax < MAX_PRICE)            query = query.lte('price', pmax);
 
-    if (sort === 'price_low')       query = query.order('price', { ascending: true });
-    else if (sort === 'price_high') query = query.order('price', { ascending: false });
-    else                            query = query.order('created_at', { ascending: false });
+    if (sort === 'price_low')        query = query.order('price', { ascending: true });
+    else if (sort === 'price_high')  query = query.order('price', { ascending: false });
+    else                             query = query.order('created_at', { ascending: false });
 
     const { data } = await query.limit(50);
     const mainListings = (data as Listing[]) || [];
+
+    // Sync UI state with URL params
+    setSearchTerm(q || '');
+    setState(sp || '');
+    setArea(ap || '');
+    setBrand(bp || '');
+    setVehicleType(tp || '');
+    setOwnerType(op || '');
+    setCondition(cp || '');                    // NEW
+    setWithVideo(vp);
+    setUrgentSale(up);
+    setPriceMin(pmin);
+    setPriceMax(pmax);
+    setSortBy(sort);
+
     setListings(mainListings);
 
     const excludeIds = new Set(mainListings.map(l => l.id));
@@ -393,32 +603,41 @@ export default function SearchClient() {
   const applyFilters = (overrideQ?: string) => {
     const q = overrideQ !== undefined ? overrideQ : searchTerm;
     const params = new URLSearchParams();
-    if (q)                           params.set('q',      q);
-    if (state)                       params.set('state',  state);
-    if (area && !area.startsWith('all-')) params.set('area', area);
-    if (brand)                       params.set('brand',  brand);
-    if (vehicleType)                 params.set('type',   vehicleType);
-    if (ownerType)                   params.set('owner',  ownerType);
-    if (withVideo)                   params.set('video',  '1');
-    if (urgentSale)                  params.set('urgent', '1');
-    if (priceMin > 0)                params.set('pmin',   String(priceMin));
-    if (priceMax < MAX_PRICE)        params.set('pmax',   String(priceMax));
-    if (sortBy !== 'newest')         params.set('sort',   sortBy);
-    if (viewMode !== 'grid')         params.set('view',   viewMode);
+    if (q)                                params.set('q',      q);
+    if (state)                            params.set('state',  state);
+    if (area && !area.startsWith('all-')) params.set('area',   area);
+    if (brand)                            params.set('brand',  brand);
+    if (vehicleType)                      params.set('type',   vehicleType);
+    if (ownerType)                        params.set('owner',  ownerType);
+    if (condition)                        params.set('condition', condition);   // NEW
+    if (withVideo)                        params.set('video',  '1');
+    if (urgentSale)                       params.set('urgent', '1');
+    if (priceMin > 0)                     params.set('pmin',   String(priceMin));
+    if (priceMax < MAX_PRICE)             params.set('pmax',   String(priceMax));
+    if (sortBy !== 'newest')              params.set('sort',   sortBy);
+    if (viewMode !== 'grid')              params.set('view',   viewMode);
     router.push(`/search?${params.toString()}`);
     setShowFilters(false);
   };
 
   const clearFilters = () => {
     setState(''); setArea(''); setBrand(''); setVehicleType('');
-    setOwnerType(''); setWithVideo(false); setUrgentSale(false);
+    setOwnerType(''); setCondition(''); setWithVideo(false); setUrgentSale(false);
     setPriceMin(0); setPriceMax(MAX_PRICE); setSearchTerm('');
     router.push('/search');
   };
 
   const hasPriceFilter   = priceMin > 0 || priceMax < MAX_PRICE;
-  const hasActiveFilters = !!(state || area || brand || vehicleType || ownerType || withVideo || urgentSale || searchTerm || hasPriceFilter);
-  const activeCount      = [state, brand, vehicleType, ownerType, hasPriceFilter, withVideo, urgentSale, searchTerm].filter(Boolean).length;
+  const hasActiveFilters = !!(state || area || brand || vehicleType || ownerType || condition || withVideo || urgentSale || searchTerm || hasPriceFilter);
+  const activeCount      = [state, brand, vehicleType, ownerType, condition, hasPriceFilter, withVideo, urgentSale, searchTerm].filter(Boolean).length;
+
+  // ── Owner label helper ────────────────────────────────────────────────────
+  const ownerLabel = (val: string) => {
+    if (val === 'owner')  return 'Owner';
+    if (val === 'agent')  return 'Agent';
+    if (val === 'dealer') return 'Dealer';
+    return '';
+  };
 
   // ── Render ────────────────────────────────────────────────────────────────
 
@@ -469,17 +688,63 @@ export default function SearchClient() {
 
           {/* Quick chips */}
           <div className="flex items-center gap-2 mt-2.5 overflow-x-auto pb-0.5 no-scrollbar">
-            <ToggleChip active={withVideo} label="With Video" icon={<Video className="h-3 w-3" />}
+            {/* With Video toggle chip - icon removed */}
+            <ToggleChip active={withVideo} label="With Video"
               onClick={() => { const nv = !withVideo; setWithVideo(nv); router.push(`/search?${buildParams({ video: nv ? '1' : '' })}`); }} />
-            <ToggleChip active={urgentSale} label="Urgent Sale" icon={<Zap className="h-3 w-3" />}
+            {/* Distress Sale toggle chip - icon removed */}
+            <ToggleChip active={urgentSale} label="Distress Sale"
               onClick={() => { const nu = !urgentSale; setUrgentSale(nu); router.push(`/search?${buildParams({ urgent: nu ? '1' : '' })}`); }} />
+
+            {/* Divider */}
             <div className="w-px h-4 bg-border shrink-0" />
-            <ToggleChip active={ownerType === 'owner'}  label="Owner"  icon={<User className="h-3 w-3" />}
-              onClick={() => { const v = ownerType === 'owner' ? '' : 'owner'; setOwnerType(v); router.push(`/search?${buildParams({ owner: v })}`); }} />
-            <ToggleChip active={ownerType === 'agent'}  label="Agent"  icon={<Handshake className="h-3 w-3" />}
-              onClick={() => { const v = ownerType === 'agent' ? '' : 'agent'; setOwnerType(v); router.push(`/search?${buildParams({ owner: v })}`); }} />
-            <ToggleChip active={ownerType === 'dealer'} label="Dealer" icon={<Building2 className="h-3 w-3" />}
-              onClick={() => { const v = ownerType === 'dealer' ? '' : 'dealer'; setOwnerType(v); router.push(`/search?${buildParams({ owner: v })}`); }} />
+
+            {/* Seller type dropdown */}
+            <Select
+              value={ownerType || 'all'}
+              onValueChange={(val) => {
+                const v = val === 'all' ? '' : val;
+                setOwnerType(v);
+                router.push(`/search?${buildParams({ owner: v })}`);
+              }}
+            >
+              <SelectTrigger className={`h-7 text-xs rounded-full border px-3 shrink-0 w-auto gap-1.5 ${
+                ownerType
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'bg-background text-muted-foreground border-border hover:border-primary/50 hover:text-foreground'
+              }`}>
+                <SelectValue placeholder="Seller Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Sellers</SelectItem>
+                <SelectItem value="owner">Owner</SelectItem>
+                <SelectItem value="agent">Agent</SelectItem>
+                <SelectItem value="dealer">Dealer</SelectItem>
+              </SelectContent>
+            </Select>
+
+            {/* NEW: Condition dropdown - exactly like seller type */}
+            <Select
+              value={condition || 'all'}
+              onValueChange={(val) => {
+                const v = val === 'all' ? '' : val;
+                setCondition(v);
+                router.push(`/search?${buildParams({ condition: v })}`);
+              }}
+            >
+              <SelectTrigger className={`h-7 text-xs rounded-full border px-3 shrink-0 w-auto gap-1.5 ${
+                condition
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'bg-background text-muted-foreground border-border hover:border-primary/50 hover:text-foreground'
+              }`}>
+                <SelectValue placeholder="Condition" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Any Condition</SelectItem>
+                <SelectItem value="nigerian_used">Nigerian Used</SelectItem>
+                <SelectItem value="foreign_used">Tokunbo</SelectItem>
+                <SelectItem value="brand_new">Brand New</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Sort & view */}
@@ -495,8 +760,8 @@ export default function SearchClient() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="newest">Newest First</SelectItem>
-                  <SelectItem value="price_low">Price: Low \u2192 High</SelectItem>
-                  <SelectItem value="price_high">Price: High \u2192 Low</SelectItem>
+                  <SelectItem value="price_low">Price: Low → High</SelectItem>
+                  <SelectItem value="price_high">Price: High → Low</SelectItem>
                 </SelectContent>
               </Select>
               <div className="flex border rounded-md overflow-hidden">
@@ -609,19 +874,25 @@ export default function SearchClient() {
           )}
           {ownerType && (
             <Badge variant="secondary" className="text-xs gap-1 pr-1 capitalize">
-              {ownerType}
+              {ownerLabel(ownerType)}
               <button onClick={() => { setOwnerType(''); applyFilters(); }} className="ml-0.5 hover:text-destructive"><X className="h-2.5 w-2.5" /></button>
+            </Badge>
+          )}
+          {condition && (
+            <Badge variant="secondary" className="text-xs gap-1 pr-1 capitalize">
+              {condition === 'nigerian_used' ? 'Nigerian Used' : condition === 'foreign_used' ? 'Tokunbo' : 'Brand New'}
+              <button onClick={() => { setCondition(''); applyFilters(); }} className="ml-0.5 hover:text-destructive"><X className="h-2.5 w-2.5" /></button>
             </Badge>
           )}
           {withVideo && (
             <Badge variant="secondary" className="text-xs gap-1 pr-1">
-              <Video className="h-2.5 w-2.5" /> With Video
+              With Video
               <button onClick={() => { setWithVideo(false); applyFilters(); }} className="ml-0.5 hover:text-destructive"><X className="h-2.5 w-2.5" /></button>
             </Badge>
           )}
           {urgentSale && (
             <Badge variant="secondary" className="text-xs gap-1 pr-1">
-              <Zap className="h-2.5 w-2.5" /> Urgent Sale
+              Distress Sale
               <button onClick={() => { setUrgentSale(false); applyFilters(); }} className="ml-0.5 hover:text-destructive"><X className="h-2.5 w-2.5" /></button>
             </Badge>
           )}

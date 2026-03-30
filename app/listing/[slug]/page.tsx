@@ -160,11 +160,15 @@ export default async function ListingDetailPage({ params }: Props) {
   };
 
   // ── JSON-LD: BreadcrumbList ────────────────────────────────────────────────
+  // FIX: Added '@id' matching the reference used in webPageSchema below.
+  // Without this, Google detects two separate BreadcrumbList objects — one valid
+  // and one (the @id reference) missing 'itemListElement', causing a critical error.
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    '@id': `${canonical}#breadcrumb`,
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://naira.autos' },
+      { '@type': 'ListItem', position: 1, name: 'Home',   item: 'https://naira.autos' },
       { '@type': 'ListItem', position: 2, name: 'Search', item: 'https://naira.autos/search' },
       { '@type': 'ListItem', position: 3, name: listing.brand, item: `https://naira.autos/search?brand=${encodeURIComponent(listing.brand)}` },
       { '@type': 'ListItem', position: 4, name: `${listing.year} ${listing.brand} ${listing.model}`, item: canonical },

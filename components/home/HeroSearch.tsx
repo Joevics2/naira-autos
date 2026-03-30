@@ -61,11 +61,17 @@ export function HeroSearch() {
   };
 
   const handleSearch = () => performSearch();
-  const handleSuggestionClick = (suggestion: string) => { setSearchTerm(suggestion); setShowSuggestions(false); performSearch(); };
-  const handleBrandSelect = (brand: string) => { setSelectedBrand(brand); performSearch(); };
+  const handleSuggestionClick = (suggestion: string) => { 
+    setSearchTerm(suggestion); 
+    setShowSuggestions(false); 
+    performSearch(); 
+  };
+  const handleBrandSelect = (brand: string) => { 
+    setSelectedBrand(brand); 
+    performSearch(); 
+  };
 
   const handleAllTools = () => {
-    // Try to scroll to tools section first; fallback to /tools
     const toolsSection = document.getElementById('tools-section');
     if (toolsSection) {
       toolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -76,7 +82,6 @@ export function HeroSearch() {
 
   return (
     <>
-      {/* ── Hero — intentionally always dark; video background requires it ── */}
       <div className="relative h-[100svh] max-h-[700px] min-h-[560px] overflow-hidden bg-[#080C10]">
 
         <div className="absolute inset-0 md:left-[38%]">
@@ -89,7 +94,7 @@ export function HeroSearch() {
 
         <div className="absolute -top-20 right-0 w-[500px] h-[500px] bg-emerald-500/[0.06] rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="relative z-10 h-full max-w-screen-xl mx-auto px-4 sm:px-6 flex flex-col justify-start pt-[12vh] md:pt-[7vh] gap-5">
+        <div className="relative z-10 h-full max-w-screen-xl mx-auto px-4 sm:px-6 flex flex-col justify-start pt-[10vh] md:pt-[6vh] gap-4">   {/* Reduced top padding & gap */}
 
           <span className="inline-flex items-center gap-1.5 w-fit bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
             <Sparkles className="h-3 w-3" />
@@ -100,74 +105,101 @@ export function HeroSearch() {
             className="font-black uppercase leading-[0.9] tracking-tight text-white"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5.5vw, 76px)' }}
           >
-            FIND YOUR NEXT CAR.<br />
-            <span className="text-emerald-400">ZERO GUESSWORK.</span>
+            BUY, SELL CARS<br />
+            <span className="text-emerald-400">WITH VIDEO EVIDENCE.</span>
           </h1>
 
-          <p className="text-white/50 text-base md:text-lg font-light max-w-sm leading-relaxed">
-            Every listing backed by video proof. Browse, compare, and buy with full confidence.
+          {/* Slightly bigger subheadline */}
+          <p className="text-white/70 text-[17px] md:text-[19px] font-light max-w-md leading-relaxed">
+            Real videos for every listing. Browse, compare, and transact with complete confidence.
           </p>
 
           <div className="w-full max-w-[480px]">
-            <div className="flex bg-white/[0.05] border border-white/[0.08] rounded-xl p-1">
+            {/* Tab Switcher */}
+            <div className="flex bg-white/[0.08] border border-white/10 rounded-xl p-1">
               <button
                 onClick={() => setActiveTab('buy')}
-                className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold tracking-wide transition-all ${activeTab === 'buy' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold tracking-wide transition-all ${
+                  activeTab === 'buy' 
+                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' 
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
               >
                 Buy a Car
               </button>
               <button
                 onClick={() => setActiveTab('sell')}
-                className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold tracking-wide transition-all ${activeTab === 'sell' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold tracking-wide transition-all ${
+                  activeTab === 'sell' 
+                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' 
+                    : 'bg-emerald-600/80 hover:bg-emerald-600 text-white'
+                }`}
               >
                 Sell a Car
               </button>
             </div>
 
-            <div className="bg-white/[0.03] backdrop-blur-md border border-white/[0.08] border-t-0 rounded-b-xl p-3 space-y-2.5">
+            {/* Search Form - Reverted to tighter spacing */}
+            <div className="bg-white/[0.08] backdrop-blur-xl border border-white/10 border-t-0 rounded-b-xl p-3 space-y-2.5">
               {activeTab === 'buy' ? (
                 <>
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/25 h-4 w-4 pointer-events-none" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50 h-4 w-4 pointer-events-none" />
                     <Input
                       placeholder="Search by brand, model, or type..."
                       value={searchTerm}
                       onChange={(e) => handleSearchChange(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                      className="pl-10 h-11 bg-white/5 border-white/10 text-white placeholder:text-white/25 focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50 transition-all min-w-0"
+                      className="pl-10 h-11 bg-white/10 border-white/20 text-white placeholder:text-white/40 focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:border-emerald-400 transition-all text-base"
                     />
                     {showSuggestions && suggestions.length > 0 && (
-                      <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-xl mt-1.5 overflow-hidden shadow-2xl z-10">
+                      <div className="absolute top-full left-0 right-0 bg-zinc-900 border border-white/10 rounded-xl mt-1.5 overflow-hidden shadow-2xl z-20">
                         {suggestions.map((s, i) => (
-                          <button key={i} onClick={() => handleSuggestionClick(s)} className="w-full text-left px-4 py-2.5 hover:bg-emerald-500/10 text-foreground text-sm transition-colors">
+                          <button 
+                            key={i} 
+                            onClick={() => handleSuggestionClick(s)} 
+                            className="w-full text-left px-4 py-3 hover:bg-emerald-500/10 text-white text-sm transition-colors"
+                          >
                             {s}
                           </button>
                         ))}
                       </div>
                     )}
                   </div>
-                  <div className="grid grid-cols-2 gap-2.5 min-w-0">
+
+                  <div className="grid grid-cols-2 gap-2.5">
                     <Select value={selectedBrand} onValueChange={handleBrandSelect}>
-                      <SelectTrigger className="h-11 bg-white/5 border-white/10 text-white/50 focus:border-emerald-500/50 min-w-0">
+                      <SelectTrigger className="h-11 bg-white/10 border-white/20 text-white focus:border-emerald-400">
                         <SelectValue placeholder="Select Brand" />
                       </SelectTrigger>
                       <SelectContent>
                         {POPULAR_BRANDS.map(b => (
-                          <SelectItem key={b} value={b}><span className="truncate block max-w-[200px]">{b}</span></SelectItem>
+                          <SelectItem key={b} value={b}>{b}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <Button onClick={handleSearch} className="h-11 bg-emerald-500 hover:bg-emerald-600 text-white font-bold tracking-wide shadow-lg shadow-emerald-500/20 transition-all">
+
+                    <Button 
+                      onClick={handleSearch} 
+                      className="h-11 bg-emerald-500 hover:bg-emerald-600 text-white font-bold tracking-wide shadow-lg shadow-emerald-500/30"
+                    >
                       Search
                     </Button>
                   </div>
                 </>
               ) : (
-                <div className="space-y-2.5">
-                  <Button onClick={() => router.push('/add-listing')} className="w-full h-11 bg-emerald-500 hover:bg-emerald-600 text-white font-bold tracking-wide shadow-lg shadow-emerald-500/20">
+                <div className="space-y-2.5 pt-1">
+                  <Button 
+                    onClick={() => router.push('/add-listing')} 
+                    className="w-full h-11 bg-emerald-500 hover:bg-emerald-600 text-white font-bold tracking-wide shadow-lg shadow-emerald-500/30"
+                  >
                     + Create Listing
                   </Button>
-                  <Button onClick={() => router.push('/sell-for-me')} variant="outline" className="w-full h-11 font-bold border-emerald-500/35 bg-emerald-500/8 text-white hover:bg-emerald-500/15 hover:border-emerald-500/60 tracking-wide">
+                  <Button 
+                    onClick={() => router.push('/sell-for-me')} 
+                    variant="outline" 
+                    className="w-full h-11 font-bold border-emerald-500/50 bg-transparent hover:bg-emerald-500/10 text-white hover:border-emerald-500"
+                  >
                     Sell for Me
                   </Button>
                 </div>
@@ -175,8 +207,8 @@ export function HeroSearch() {
             </div>
           </div>
 
-          {/* ── CTA buttons row 1: Evaluate + All Tools ── */}
-          <div className="flex flex-wrap items-center gap-2.5">
+          {/* CTA Buttons - Tighter spacing */}
+          <div className="flex flex-wrap items-center gap-2.5 pt-1">
             <button
               onClick={() => {
                 setShowValuation(v => !v);
@@ -197,8 +229,7 @@ export function HeroSearch() {
             </button>
           </div>
 
-          {/* ── CTA buttons row 2: AI Mechanic ── */}
-          <div className="-mt-2">
+          <div className="-mt-1">
             <button
               onClick={() => router.push('/tools/ai-mechanic')}
               className="inline-flex items-center gap-2 bg-white/[0.06] hover:bg-white/10 border border-white/[0.12] hover:border-emerald-500/40 text-white/70 hover:text-white text-sm font-semibold px-5 py-2.5 rounded-full backdrop-blur-sm transition-all group"
@@ -211,7 +242,7 @@ export function HeroSearch() {
         </div>
       </div>
 
-      {/* ── Valuation panel — theme-aware ── */}
+      {/* Valuation Panel */}
       {showValuation && (
         <div ref={valuationRef} className="bg-background border-b border-border">
           <div className="max-w-2xl mx-auto px-4 py-6">

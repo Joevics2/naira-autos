@@ -12,6 +12,11 @@ const categories = [
   { name: 'Buses', image: '/buses.png', url: '/search?type=bus' },
   { name: 'Vans', image: '/vans.png', url: '/search?type=van' },
   { name: 'Motorcycles', image: '/bikes.png', url: '/search?type=bike' },
+
+  // New 3 Categories
+  { name: 'Tokunbo', image: '/tokunbo.png', url: '/search?condition=foreign_used' },
+  { name: 'Nigerian Used', image: '/nigerian-used.png', url: '/search?condition=nigerian_used' },
+  { name: 'Distress Sale', image: '/urgent-sale.png', url: '/search?urgent=1' },
 ];
 
 export function BrowseByType() {
@@ -19,6 +24,7 @@ export function BrowseByType() {
     <section className="py-10 bg-background">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
 
+        {/* Header with Browse All */}
         <div className="flex items-end justify-between mb-6">
           <div>
             <p className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-widest uppercase mb-1">Explore</p>
@@ -29,9 +35,17 @@ export function BrowseByType() {
               Browse by Type & Brand
             </h2>
           </div>
+
+          <Link 
+            href="/search" 
+            className="text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 text-xs font-semibold tracking-wide uppercase transition-colors flex items-center gap-1"
+          >
+            Browse all <span className="text-base leading-none">→</span>
+          </Link>
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-3">
+        {/* Responsive Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
           {categories.map((category) => (
             <Link key={category.name} href={category.url} className="group">
               <div className="relative rounded-2xl overflow-hidden aspect-square border border-border bg-muted transition-all duration-300 group-hover:border-emerald-500/50 group-hover:scale-[1.04] group-hover:shadow-lg group-hover:shadow-emerald-500/10">
@@ -40,9 +54,9 @@ export function BrowseByType() {
                   alt={category.name}
                   className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                 />
-                {/* Always-on dark gradient so label is readable over any image in both modes */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <p className="absolute bottom-2 left-0 right-0 text-center text-[11px] md:text-xs font-bold text-white drop-shadow-sm px-1 leading-tight">
+                
+                {/* Bigger red text - no shadow */}
+                <p className="absolute bottom-3 left-0 right-0 text-center text-xs md:text-sm font-bold text-red-500 px-1 leading-tight">
                   {category.name}
                 </p>
               </div>
