@@ -7,7 +7,7 @@ import { PWAInstaller } from '@/components/PWAInstaller';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Footer } from '@/components/home/Footer';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nairaautos.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naira.autos';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -5,8 +5,6 @@ import { supabase, Listing } from '@/lib/supabase';
 import { ListingCard } from '@/components/listings/ListingCard';
 import { Shield } from 'lucide-react';
 
-const CACHE_DURATION = 3 * 60 * 60 * 1000; // 3 hours
-
 export function VerifiedVehicles() {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
@@ -16,20 +14,6 @@ export function VerifiedVehicles() {
   }, []);
 
   const loadVerifiedListings = async () => {
-    const cacheKey = 'home_verified_vehicles';
-    const cacheTimeKey = 'home_verified_vehicles_time';
-    const cachedData = localStorage.getItem(cacheKey);
-    const cachedTime = localStorage.getItem(cacheTimeKey);
-    
-    if (cachedData && cachedTime) {
-      const timeDiff = Date.now() - parseInt(cachedTime);
-      if (timeDiff < CACHE_DURATION) {
-        setListings(JSON.parse(cachedData));
-        setLoading(false);
-        return;
-      }
-    }
-    
     const { data, error } = await supabase
       .from('listings')
       .select('*, profiles(*)')
@@ -40,8 +24,6 @@ export function VerifiedVehicles() {
 
     if (data) {
       setListings(data as any);
-      localStorage.setItem(cacheKey, JSON.stringify(data));
-      localStorage.setItem(cacheTimeKey, Date.now().toString());
     }
     setLoading(false);
   };

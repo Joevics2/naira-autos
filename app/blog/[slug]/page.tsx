@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [imageUrl],
     },
     alternates: {
-      canonical: `https://nairaautos.com/blog/${slug}`,
+      canonical: `https://naira.autos/blog/${slug}`,
     },
   };
 }
@@ -97,7 +97,7 @@ export default async function BlogDetailPage({ params }: Props) {
   }
 
   // ── JSON-LD schemas ──────────────────────────────────────────────
-  const siteUrl = 'https://nairaautos.com';
+  const siteUrl = 'https://naira.autos';
   const postUrl = `${siteUrl}/blog/${post.slug}`;
   const imageUrl =
     post.featured_image ||

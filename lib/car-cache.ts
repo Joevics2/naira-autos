@@ -10,6 +10,8 @@ import { createClient } from '@supabase/supabase-js';
 const redis = Redis.fromEnv(); // UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN
 
 const TTL = 60 * 60 * 72; // 72 hours in seconds
+const HOT_DEALS_KEY = 'home:hot_deals';
+const HOT_DEALS_TTL = 60 * 60 * 3; // 3 hours
 
 // ── Supabase (only used on cache miss) ───────────────────────────
 
@@ -304,4 +306,68 @@ export async function getModelYearGroups(brandSlug: string, modelSlug: string): 
       siblingModels: (siblings || []).map((s: any) => ({ slug: s.slug, name: s.name })),
     };
   });
+}
+
+// ── Home Page Hot Deals ─────────────────────────────────────────────
+
+export interface HotDealsListing {
+  id: number;
+  title: string;
+  price: number;
+  images: string[];
+  year: number;
+  mileage: number;
+  location: string;
+  verification_level: string;
+  status: string;
+  created_at: string;
+  views_count: number;
+  contact_clicks: number;
+  saves_count: number;
+}
+
+export async function getHotDeals(): Promise<HotDealsListing[]> {
+  try {
+    const cached = await redis.get<HotDealsListing[]>(HOT_DEALS_KEY);
+    if (cached && cached.length > 0) return cached;
+  } catch {
+    // Redis down — fall through to Supabase
+  }
+
+  const supabase = getSupabase();
+
+  const { data: trendingData } = await supabase
+    .from('listings')
+    .select('id, title, price, images, year, mileage, location, verification_level, status, created_at, views_count, contact_clicks, saves_count')
+    .eq('status', 'approved')
+    .order('views_count', { ascending: false })
+    .order('contact_clicks', { ascending: false })
+    .order('saves_count', { ascending: false })
+    .limit(6);
+
+  const { data: newestData } = await supabase
+    .from('listings')
+    .select('id, title, price, images, year, mileage, location, verification_level, status, created_at, views_count, contact_clicks, saves_count')
+    .eq('status', 'approved')
+    .order('created_at', { ascending: false })
+    .limit(6);
+
+  let combined: HotDealsListing[] = [];
+  if (trendingData) {
+    combined = trendingData.filter((l: any) => l.views_count > 10 || l.contact_clicks > 2 || l.saves_count > 3);
+  }
+  if (newestData) {
+    const ids = new Set(combined.map(l => l.id));
+    combined = [...combined, ...newestData.filter((l: any) => !ids.has(l.id))];
+  }
+
+  const result = combined.filter((item, i, self) => i === self.findIndex(t => t.id === item.id)).slice(0, 6);
+
+  try {
+    await redis.set(HOT_DEALS_KEY, result, { ex: HOT_DEALS_TTL });
+  } catch {
+    // Redis write failed — still return fresh data
+  }
+
+  return result;
 }

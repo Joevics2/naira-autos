@@ -3,7 +3,8 @@ import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
   Ship, Shield, FileText, Map, ClipboardCheck, Search,
-  Camera, Newspaper, ArrowRight, Sparkles,
+  Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike,
+  Tag, Zap, BadgeCheck, Users,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -127,6 +128,62 @@ const TOOLS: Tool[] = [
     icon: Newspaper,
     label: 'Blog & Tips',
     description: 'In-depth guides on buying, selling, and maintaining cars in Nigeria.',
+    category: 'Resources',
+  },
+  {
+    href: '/cars',
+    icon: Car,
+    label: 'Car Prices & Parts',
+    description: 'Browse car prices by brand, type, and get spare parts info.',
+    category: 'Resources',
+  },
+  {
+    href: '/tokunbo-cars',
+    icon: Tag,
+    label: 'Tokunbo Cars',
+    description: 'Foreign used cars for sale in Nigeria.',
+    category: 'Resources',
+  },
+  {
+    href: '/nigerian-used-cars',
+    icon: Car,
+    label: 'Nigerian Used Cars',
+    description: 'Locally used cars for sale in Nigeria.',
+    category: 'Resources',
+  },
+  {
+    href: '/distress-sales',
+    icon: Zap,
+    label: 'Distress Sales',
+    description: 'Urgent car sales at great prices.',
+    category: 'Resources',
+  },
+  {
+    href: '/cheap-cars',
+    icon: Tag,
+    label: 'Cheap Cars',
+    description: 'Affordable cars under ₦1 million.',
+    category: 'Resources',
+  },
+  {
+    href: '/video-verified-cars',
+    icon: BadgeCheck,
+    label: 'Video Verified Cars',
+    description: 'Cars with video tours for transparency.',
+    category: 'Resources',
+  },
+  {
+    href: '/car-dealers',
+    icon: Users,
+    label: 'Car Dealers',
+    description: 'Verified car dealers across Nigeria.',
+    category: 'Resources',
+  },
+  {
+    href: '/search',
+    icon: Search,
+    label: 'All Listings',
+    description: 'Browse all car listings with advanced filters.',
     category: 'Resources',
   },
 ];

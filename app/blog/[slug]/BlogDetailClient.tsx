@@ -292,7 +292,7 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
               <p className="text-sm text-muted-foreground">Found this helpful? Share it.</p>
               <div className="flex items-center gap-3">
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://nairaautos.com/blog/${post.slug}`)}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://naira.autos/blog/${post.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-medium px-3 py-1.5 rounded-md bg-black text-white hover:bg-black/80 transition-colors"
@@ -300,7 +300,7 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
                   𝕏 Twitter
                 </a>
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(`${post.title} - https://nairaautos.com/blog/${post.slug}`)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(`${post.title} - https://naira.autos/blog/${post.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-medium px-3 py-1.5 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors"

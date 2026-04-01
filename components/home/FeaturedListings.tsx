@@ -3,10 +3,6 @@
 import { useEffect, useState } from 'react';
 import { supabase, Listing } from '@/lib/supabase';
 import { ListingCard } from '@/components/listings/ListingCard';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-
-const CACHE_DURATION = 3 * 60 * 60 * 1000; // 3 hours
 
 export function FeaturedListings() {
   const [listings, setListings] = useState<Listing[]>([]);
@@ -17,20 +13,6 @@ export function FeaturedListings() {
   }, []);
 
   const loadFeaturedListings = async () => {
-    const cacheKey = 'home_featured_listings';
-    const cacheTimeKey = 'home_featured_listings_time';
-    const cachedData = localStorage.getItem(cacheKey);
-    const cachedTime = localStorage.getItem(cacheTimeKey);
-    
-    if (cachedData && cachedTime) {
-      const timeDiff = Date.now() - parseInt(cachedTime);
-      if (timeDiff < CACHE_DURATION) {
-        setListings(JSON.parse(cachedData));
-        setLoading(false);
-        return;
-      }
-    }
-    
     const { data, error } = await supabase
       .from('listings')
       .select('*, profiles(*)')
@@ -42,8 +24,6 @@ export function FeaturedListings() {
 
     if (data) {
       setListings(data as any);
-      localStorage.setItem(cacheKey, JSON.stringify(data));
-      localStorage.setItem(cacheTimeKey, Date.now().toString());
     }
     setLoading(false);
   };

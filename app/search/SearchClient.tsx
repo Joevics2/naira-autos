@@ -358,26 +358,41 @@ function SimilarSection({ groups, onNavigate }: { groups: SimilarGroup[]; onNavi
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
-export default function SearchClient() {
+interface SearchClientProps {
+  condition?: string;
+  owner?: string;
+  urgent?: string;
+  video?: string;
+  pmax?: string;
+  pmin?: string;
+  type?: string;
+}
+
+export default function SearchClient(props: SearchClientProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  // Merge props with URL params - props act as defaults
+  const getParam = (key: string, propDefault?: string): string => {
+    return searchParams.get(key) || propDefault || '';
+  };
 
   const [listings,      setListings]      = useState<Listing[]>([]);
   const [similarGroups, setSimilarGroups] = useState<SimilarGroup[]>([]);
   const [loading,       setLoading]       = useState(true);
 
-  // Filter state — mirrors URL on mount
-  const [searchTerm,  setSearchTerm]  = useState(searchParams.get('q')      || '');
-  const [state,       setState]       = useState(searchParams.get('state')   || '');
-  const [area,        setArea]        = useState(searchParams.get('area')    || '');
-  const [brand,       setBrand]       = useState(searchParams.get('brand')   || '');
-  const [vehicleType, setVehicleType] = useState(searchParams.get('type')    || '');
-  const [ownerType,   setOwnerType]   = useState(searchParams.get('owner')   || '');
-  const [condition,   setCondition]   = useState(searchParams.get('condition') || ''); // NEW: Condition filter
-  const [withVideo,   setWithVideo]   = useState(searchParams.get('video')   === '1');
-  const [urgentSale,  setUrgentSale]  = useState(searchParams.get('urgent')  === '1');
-  const [priceMin,    setPriceMin]    = useState(() => Number(searchParams.get('pmin') || 0));
-  const [priceMax,    setPriceMax]    = useState(() => Number(searchParams.get('pmax') || MAX_PRICE));
+  // Filter state — mirrors URL on mount, with prop defaults
+  const [searchTerm,  setSearchTerm]  = useState(getParam('q')      || '');
+  const [state,       setState]       = useState(getParam('state')   || '');
+  const [area,        setArea]        = useState(getParam('area')    || '');
+  const [brand,       setBrand]       = useState(getParam('brand')   || '');
+  const [vehicleType, setVehicleType] = useState(getParam('type')    || props.type || '');
+  const [ownerType,   setOwnerType]   = useState(getParam('owner')   || props.owner || '');
+  const [condition,   setCondition]   = useState(getParam('condition') || props.condition || '');
+  const [withVideo,   setWithVideo]   = useState(searchParams.get('video') === '1' || props.video === '1');
+  const [urgentSale,  setUrgentSale]  = useState(searchParams.get('urgent') === '1' || props.urgent === '1');
+  const [priceMin,    setPriceMin]    = useState(() => Number(searchParams.get('pmin') || props.pmin || 0));
+  const [priceMax,    setPriceMax]    = useState(() => Number(searchParams.get('pmax') || props.pmax || MAX_PRICE));
   const [sortBy,      setSortBy]      = useState(searchParams.get('sort')    || 'newest');
   const [viewMode,    setViewMode]    = useState<'grid' | 'list'>(
     searchParams.get('view') === 'list' ? 'list' : 'grid'
@@ -600,7 +615,7 @@ export default function SearchClient() {
 
   // ── Apply / clear ─────────────────────────────────────────────────────────
 
-  const applyFilters = (overrideQ?: string) => {
+  const applyFilters = async (overrideQ?: string) => {
     const q = overrideQ !== undefined ? overrideQ : searchTerm;
     const params = new URLSearchParams();
     if (q)                                params.set('q',      q);
@@ -609,22 +624,31 @@ export default function SearchClient() {
     if (brand)                            params.set('brand',  brand);
     if (vehicleType)                      params.set('type',   vehicleType);
     if (ownerType)                        params.set('owner',  ownerType);
-    if (condition)                        params.set('condition', condition);   // NEW
+    if (condition)                        params.set('condition', condition);
     if (withVideo)                        params.set('video',  '1');
     if (urgentSale)                       params.set('urgent', '1');
     if (priceMin > 0)                     params.set('pmin',   String(priceMin));
     if (priceMax < MAX_PRICE)             params.set('pmax',   String(priceMax));
     if (sortBy !== 'newest')              params.set('sort',   sortBy);
     if (viewMode !== 'grid')              params.set('view',   viewMode);
+    
+    setLoading(true);
     router.push(`/search?${params.toString()}`);
     setShowFilters(false);
+    
+    await performSearch();
   };
 
-  const clearFilters = () => {
+  const clearFilters = async () => {
     setState(''); setArea(''); setBrand(''); setVehicleType('');
     setOwnerType(''); setCondition(''); setWithVideo(false); setUrgentSale(false);
-    setPriceMin(0); setPriceMax(MAX_PRICE); setSearchTerm('');
+    setPriceMin(0); setPriceMax(MAX_PRICE); setSearchTerm(''); setSortBy('newest');
+    
+    setLoading(true);
     router.push('/search');
+    setShowFilters(false);
+    
+    await performSearch();
   };
 
   const hasPriceFilter   = priceMin > 0 || priceMax < MAX_PRICE;
@@ -690,10 +714,10 @@ export default function SearchClient() {
           <div className="flex items-center gap-2 mt-2.5 overflow-x-auto pb-0.5 no-scrollbar">
             {/* With Video toggle chip - icon removed */}
             <ToggleChip active={withVideo} label="With Video"
-              onClick={() => { const nv = !withVideo; setWithVideo(nv); router.push(`/search?${buildParams({ video: nv ? '1' : '' })}`); }} />
+              onClick={async () => { const nv = !withVideo; setWithVideo(nv); router.push(`/search?${buildParams({ video: nv ? '1' : '' })}`); setLoading(true); await performSearch(); }} />
             {/* Distress Sale toggle chip - icon removed */}
             <ToggleChip active={urgentSale} label="Distress Sale"
-              onClick={() => { const nu = !urgentSale; setUrgentSale(nu); router.push(`/search?${buildParams({ urgent: nu ? '1' : '' })}`); }} />
+              onClick={async () => { const nu = !urgentSale; setUrgentSale(nu); router.push(`/search?${buildParams({ urgent: nu ? '1' : '' })}`); setLoading(true); await performSearch(); }} />
 
             {/* Divider */}
             <div className="w-px h-4 bg-border shrink-0" />
@@ -765,11 +789,11 @@ export default function SearchClient() {
                 </SelectContent>
               </Select>
               <div className="flex border rounded-md overflow-hidden">
-                <button onClick={() => { setViewMode('grid'); router.push(`/search?${buildParams({ view: '' })}`); }}
+                <button onClick={async () => { setViewMode('grid'); router.push(`/search?${buildParams({ view: '' })}`); setLoading(true); await performSearch(); }}
                   className={`p-1.5 ${viewMode === 'grid' ? 'bg-primary text-white' : 'text-muted-foreground'}`}>
                   <Grid className="h-4 w-4" />
                 </button>
-                <button onClick={() => { setViewMode('list'); router.push(`/search?${buildParams({ view: 'list' })}`); }}
+                <button onClick={async () => { setViewMode('list'); router.push(`/search?${buildParams({ view: 'list' })}`); setLoading(true); await performSearch(); }}
                   className={`p-1.5 ${viewMode === 'list' ? 'bg-primary text-white' : 'text-muted-foreground'}`}>
                   <List className="h-4 w-4" />
                 </button>

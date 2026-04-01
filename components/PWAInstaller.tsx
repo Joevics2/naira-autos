@@ -21,7 +21,9 @@ export function PWAInstaller() {
       const handleBeforeInstallPrompt = (e: Event) => {
         e.preventDefault();
         setDeferredPrompt(e);
-        setIsInstallable(true);
+        setTimeout(() => {
+          setIsInstallable(true);
+        }, 60000); // Delay install popup by 60 seconds
       };
 
       window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -32,19 +34,20 @@ export function PWAInstaller() {
     }
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'default') {
-        setTimeout(() => {
-          requestNotificationPermission().then((token) => {
-            if (token) {
-              console.log('FCM Token:', token);
-            }
-          });
-        }, 5000);
-      }
-    }
-  }, []);
+  // Notification popup disabled for now
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && 'Notification' in window) {
+  //     if (Notification.permission === 'default') {
+  //       setTimeout(() => {
+  //         requestNotificationPermission().then((token) => {
+  //           if (token) {
+  //             console.log('FCM Token:', token);
+  //           }
+  //         });
+  //       }, 5000);
+  //     }
+  //   }
+  // }, []);
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
