@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import { ListingCard } from '@/components/listings/listingcard';
+import { ListingCard } from '@/components/listings/ListingCard';
 import type { Listing } from '@/lib/supabase';
 
 interface ListingsGridProps {
@@ -51,24 +51,24 @@ export default function ListingsGrid({ listings, total }: ListingsGridProps) {
   }, [listings, query, sort]);
 
   return (
-    <div className="bg-[#0a0f14] min-h-[60vh]">
+    <div className="bg-muted min-h-[60vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Controls */}
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search by brand, model, location..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 focus:border-emerald-500/50 focus:outline-none rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/20 transition-colors"
+              className="w-full bg-background border border-border focus:border-emerald-500/50 focus:outline-none rounded-lg pl-10 pr-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <SlidersHorizontal className="w-4 h-4 text-white/30 flex-shrink-0" />
+            <SlidersHorizontal className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             <div className="flex gap-1.5">
               {SORT_OPTIONS.map((opt) => (
                 <button
@@ -77,7 +77,7 @@ export default function ListingsGrid({ listings, total }: ListingsGridProps) {
                   className={`px-3 py-2 rounded-lg text-xs font-semibold border transition-all whitespace-nowrap ${
                     sort === opt.value
                       ? 'bg-emerald-500 text-white border-emerald-500'
-                      : 'bg-white/5 text-white/40 border-white/10 hover:text-white/70 hover:border-white/20'
+                      : 'bg-background text-muted-foreground border-border hover:text-foreground hover:border-emerald-500/50'
                   }`}
                 >
                   {opt.label}
@@ -88,7 +88,7 @@ export default function ListingsGrid({ listings, total }: ListingsGridProps) {
         </div>
 
         {/* Count */}
-        <p className="text-white/25 text-xs mb-5">
+        <p className="text-muted-foreground text-xs mb-5">
           Showing {filtered.length} of {total} listings
           {query && ` matching "${query}"`}
         </p>
@@ -102,17 +102,12 @@ export default function ListingsGrid({ listings, total }: ListingsGridProps) {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <p className="text-white/20 text-sm">No listings found</p>
-            {query && (
-              <button
-                onClick={() => setQuery('')}
-                className="mt-3 text-emerald-500 text-xs hover:text-emerald-400 underline"
-              >
-                Clear search
-              </button>
-            )}
+            <Search className="w-12 h-12 text-muted-foreground/30 mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">No listings found</h3>
+            <p className="text-muted-foreground text-sm">Try adjusting your search or check back later.</p>
           </div>
         )}
+
       </div>
     </div>
   );
