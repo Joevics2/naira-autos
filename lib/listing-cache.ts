@@ -64,7 +64,7 @@ export async function getCheapCars(): Promise<{ listings: Listing[]; total: numb
       .order('created_at', { ascending: false })
       .limit(PAGE_SIZE);
 
-    return { listings: (data || []) as Listing[], total: count ?? 0 };
+    return { listings: (data || []) as unknown as Listing[], total: count ?? 0 };
   });
 }
 
@@ -81,7 +81,7 @@ export async function getDistressSales(): Promise<{ listings: Listing[]; total: 
       .order('created_at', { ascending: false })
       .limit(PAGE_SIZE);
 
-    return { listings: (data || []) as Listing[], total: count ?? 0 };
+    return { listings: (data || []) as unknown as Listing[], total: count ?? 0 };
   });
 }
 
@@ -98,7 +98,7 @@ export async function getNigerianUsedCars(): Promise<{ listings: Listing[]; tota
       .order('created_at', { ascending: false })
       .limit(PAGE_SIZE);
 
-    return { listings: (data || []) as Listing[], total: count ?? 0 };
+    return { listings: (data || []) as unknown as Listing[], total: count ?? 0 };
   });
 }
 
@@ -115,7 +115,7 @@ export async function getTokunboCars(): Promise<{ listings: Listing[]; total: nu
       .order('created_at', { ascending: false })
       .limit(PAGE_SIZE);
 
-    return { listings: (data || []) as Listing[], total: count ?? 0 };
+    return { listings: (data || []) as unknown as Listing[], total: count ?? 0 };
   });
 }
 
@@ -132,6 +132,6 @@ export async function getVideoVerifiedCars(): Promise<{ listings: Listing[]; tot
       .order('created_at', { ascending: false })
       .limit(PAGE_SIZE);
 
-    return { listings: (data || []) as Listing[], total: count ?? 0 };
+    return { listings: (data || []) as unknown as Listing[], total: count ?? 0 };
   });
 }
