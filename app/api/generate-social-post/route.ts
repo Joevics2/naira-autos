@@ -106,8 +106,8 @@ async function generateWithGemini(listingText: string): Promise<string | null> {
       let parsed;
       try {
         parsed = JSON.parse(cleaned);
-      } catch (parseErr) {
-        console.log('[generateWithGemini] JSON parse failed, trying to extract:', parseErr.message);
+      } catch (parseErr: any) {
+        console.log('[generateWithGemini] JSON parse failed, trying to extract:', parseErr?.message);
         // Try to extract social_post from the text manually
         const match = cleaned.match(/"social_post"\s*:\s*"([^"]*)"/);
         if (match) {
