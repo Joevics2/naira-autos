@@ -88,6 +88,7 @@ export type Listing = {
   faq_missing_documents?: string | null;
   faq_oil_consumption?: string | null;
   faq_other_issues?: string | null;
+  social_post?: string | null;
 };
 
 export type Request = {
