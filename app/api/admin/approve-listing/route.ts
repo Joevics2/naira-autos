@@ -33,6 +33,35 @@ export async function POST(request: NextRequest) {
 
     if (updateError) throw updateError;
 
+    // Generate social post if not exists
+    let socialPostGenerated = null;
+    console.log(`[approve] Checking social_post - current value: "${listing.social_post}"`);
+    if (!listing.social_post) {
+      try {
+        const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL?.replace('/supabase', '')}/api/generate-social-post`;
+        console.log(`[approve] Calling social post API: ${apiUrl}`);
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ listing_id: listingId }),
+        });
+        console.log(`[approve] Social post API response status: ${res.status}`);
+        if (res.ok) {
+          const postData = await res.json();
+          console.log(`[approve] Social post API response:`, postData);
+          if (postData.social_post) {
+            socialPostGenerated = postData.social_post;
+          }
+        } else {
+          console.error(`[approve] Social post API failed: ${res.status}`);
+        }
+      } catch (socialError: any) {
+        console.error('[approve] Social post generation failed:', socialError.message);
+      }
+    } else {
+      console.log(`[approve] Social post already exists, skipping generation`);
+    }
+
     const videoSource =
       listing.video_url ||
       listing.video_storage_url ||
@@ -78,6 +107,7 @@ export async function POST(request: NextRequest) {
       message: 'Listing approved successfully',
       youtubeUploaded: !!youtubeResult,
       youtubeUrl: youtubeResult?.youtubeUrl || null,
+      socialPostGenerated: !!socialPostGenerated,
     });
 
   } catch (error: any) {

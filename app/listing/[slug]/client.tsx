@@ -69,6 +69,16 @@ const getYouTubeEmbedUrl = (url: string) => {
   return vid ? `https://www.youtube.com/embed/${vid}` : null;
 };
 
+const isSupabaseVideoUrl = (url: string) => {
+  return url && (url.includes('supabase.co') || url.includes('listing-videos'));
+};
+
+const getSupabaseVideoUrl = (url: string) => {
+  if (!url) return null;
+  if (url.startsWith('http')) return url;
+  return `https://${process.env.NEXT_PUBLIC_SUPABASE_URL?.replace('https://', '').replace('http://', '')}/storage/v1/object/public/listing-videos/${url}`;
+};
+
 // ── Props ─────────────────────────────────────────────────────────────────────
 interface Props {
   listing: Listing & { profiles?: any };
@@ -267,13 +277,22 @@ export function ListingDetailClient({ listing }: Props) {
         {isCurrentVideo ? (
           <div className="aspect-video w-full">
             {listing.video_url && (
-              <iframe
-                src={getYouTubeEmbedUrl(listing.video_url) ?? ''}
-                className="w-full h-full"
-                title={`${listing.year} ${listing.brand} ${listing.model} video walkthrough`}
-                allowFullScreen
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              />
+              isSupabaseVideoUrl(listing.video_url) ? (
+                <video
+                  src={getSupabaseVideoUrl(listing.video_url) ?? ''}
+                  controls
+                  className="w-full h-full"
+                  title={`${listing.year} ${listing.brand} ${listing.model} video walkthrough`}
+                />
+              ) : (
+                <iframe
+                  src={getYouTubeEmbedUrl(listing.video_url) ?? ''}
+                  className="w-full h-full"
+                  title={`${listing.year} ${listing.brand} ${listing.model} video walkthrough`}
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              )
             )}
           </div>
         ) : (

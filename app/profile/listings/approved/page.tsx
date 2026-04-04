@@ -18,13 +18,14 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { Edit, Trash2, Eye, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Edit, Trash2, Eye, CheckCircle, ArrowLeft, Copy, Check } from 'lucide-react';
 
 export default function ApprovedListingsPage() {
   const { user } = useAuth();
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -40,7 +41,7 @@ export default function ApprovedListingsPage() {
     try {
       const { data } = await supabase
         .from('listings')
-        .select('id, title, price, status, location_state, transmission, fuel_type, images, created_at')
+        .select('id, title, price, status, location_state, transmission, fuel_type, images, created_at, social_post')
         .eq('user_id', user.id)
         .eq('status', 'approved')
         .order('created_at', { ascending: false });
@@ -97,6 +98,17 @@ export default function ApprovedListingsPage() {
         description: 'Listing marked as sold',
       });
       loadListings();
+    }
+  };
+
+  const handleCopySocialPost = async (post: string, id: string) => {
+    try {
+      await navigator.clipboard.writeText(post);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+      toast({ title: 'Copied!', description: 'Social post copied to clipboard' });
+    } catch (err) {
+      toast({ title: 'Error', description: 'Failed to copy', variant: 'destructive' });
     }
   };
 
@@ -214,6 +226,27 @@ export default function ApprovedListingsPage() {
                         Delete
                       </Button>
                     </div>
+
+                    {listing.social_post && (
+                      <div className="mt-3 pt-3 border-t border-border">
+                        <p className="text-xs text-muted-foreground mb-1 font-medium">Social Post:</p>
+                        <div className="bg-muted rounded-lg p-3 text-sm whitespace-pre-wrap text-foreground">
+                          {listing.social_post}
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="mt-2"
+                          onClick={() => handleCopySocialPost(listing.social_post, listing.id)}
+                        >
+                          {copiedId === listing.id ? (
+                            <><Check className="h-4 w-4 mr-1" /> Copied</>
+                          ) : (
+                            <><Copy className="h-4 w-4 mr-1" /> Copy Post</>
+                          )}
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </CardContent>

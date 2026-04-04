@@ -115,13 +115,13 @@ function CertaintyBar({ value, note }: { value: number; note: string }) {
   return (
     <div className="space-y-1">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-white/50">Axion's confidence</span>
-        <span className="text-base font-bold text-white">{value}%</span>
+        <span className="text-xs font-medium text-slate-400">Axion's confidence</span>
+        <span className="text-sm font-bold text-slate-100">{value}%</span>
       </div>
-      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+      <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${color} transition-all duration-700`} style={{ width: value + '%' }} />
       </div>
-      <p className="text-xs text-white/40 leading-relaxed">{note}</p>
+      <p className="text-xs text-slate-500 leading-relaxed">{note}</p>
     </div>
   );
 }
@@ -175,7 +175,7 @@ function AxionLoadingSteps() {
             }`}>
               {done ? <Check className="h-2.5 w-2.5 text-white" /> : current ? <Loader2 className="h-2.5 w-2.5 animate-spin text-emerald-400" /> : null}
             </div>
-            <span className={`text-xs leading-none transition-colors duration-300 ${done ? 'text-white/40 line-through' : current ? 'text-emerald-300 font-medium' : 'text-white/25'}`}>
+            <span className={`text-xs leading-none transition-colors duration-300 ${done ? 'text-slate-600 line-through' : current ? 'text-emerald-400 font-medium' : 'text-slate-600'}`}>
               {label}
             </span>
           </div>
@@ -200,91 +200,109 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
   const allActions = [...diyActions, ...mechanicActions];
 
   return (
-    <div className="space-y-2 mt-1 max-w-2xl">
-      <div className={`rounded-xl border-2 p-4 ${urg.bg} ${urg.border}`}>
-        <div className="flex items-center gap-2 mb-2">
+    <div className="mt-1 max-w-2xl rounded-2xl border border-white/10 bg-[#0D1117] overflow-hidden">
+
+      {/* Urgency header */}
+      <div className={`px-4 py-3 border-b ${urg.bg} ${urg.border} border-b-0`} style={{ borderLeftWidth: 3 }}>
+        <div className="flex items-center gap-2 mb-1.5">
           {urg.icon}
-          <span className={`text-sm font-black uppercase tracking-wide ${urg.text}`}>{diagnosis.urgency_label}</span>
+          <span className={`text-xs font-black uppercase tracking-widest ${urg.text}`}>{diagnosis.urgency_label}</span>
           {hasCost && costStr && (
-            <span className="ml-auto text-xs font-bold text-white/70 bg-white/10 px-2.5 py-0.5 rounded-full">{costStr}</span>
+            <span className="ml-auto text-xs font-bold text-slate-300 bg-black/20 px-2.5 py-0.5 rounded-full">{costStr}</span>
           )}
         </div>
-        <p className={`text-sm leading-relaxed font-medium ${urg.text}`}>{diagnosis.summary}</p>
+        <p className="text-sm leading-relaxed text-slate-100">{diagnosis.summary}</p>
       </div>
-      <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-        <CertaintyBar value={diagnosis.certainty} note={diagnosis.certainty_note} />
-      </div>
-      {diagnosis.likely_causes?.length > 0 && (
-        <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 space-y-2">
-          <p className="text-xs font-bold text-white/60 uppercase tracking-wide">
-            {diagnosis.likely_causes.length > 1 ? 'Possible causes' : 'Most likely cause'}
-          </p>
-          {diagnosis.likely_causes.map((c, i) => (
-            <div key={i} className="flex items-start gap-2.5">
-              <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${PROB_COLORS[c.probability]}`}>
-                {c.probability.charAt(0).toUpperCase() + c.probability.slice(1)}
-              </span>
-              <div>
-                <p className="text-xs font-semibold text-white">{c.cause}</p>
-                <p className="text-xs text-white/50 mt-0.5 leading-relaxed">{c.explanation}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      {allActions.length > 0 && (
-        <div className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
-          <div className="px-4 py-2.5 border-b border-white/10">
-            <p className="text-xs font-bold text-white/60 uppercase tracking-wide">What to do</p>
-          </div>
-          <div className="px-4 py-3 space-y-2.5">
-            {allActions.map((a, i) => (
-              <div key={i} className="flex items-start gap-2.5">
-                <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${
-                  a.diy ? 'bg-emerald-500/20 text-emerald-300' : PRIORITY_CONFIG[a.priority].cls
-                }`}>
-                  {a.diy ? 'DIY' : PRIORITY_CONFIG[a.priority].label}
-                </span>
-                <p className="text-xs text-white/80 leading-relaxed">{a.action}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      {(diagnosis.next_steps_to_confirm?.length > 0 || diagnosis.parts_to_check?.length > 0 || hasCost) && (
-        <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 space-y-4">
-          {diagnosis.next_steps_to_confirm?.length > 0 && (
-            <div>
-              <p className="text-xs font-bold text-amber-300/70 uppercase tracking-wide mb-2">For a better diagnosis, also try:</p>
-              <div className="space-y-1.5">
-                {diagnosis.next_steps_to_confirm.map((s, i) => (
-                  <div key={i} className="flex items-start gap-2 text-xs text-amber-100/70">
-                    <span className="text-amber-400 font-bold flex-shrink-0">{i + 1}.</span>{s}
+
+      <div className="divide-y divide-slate-700/50">
+
+        {/* Likely causes */}
+        {diagnosis.likely_causes?.length > 0 && (
+          <div className="px-4 py-3.5">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">
+              {diagnosis.likely_causes.length > 1 ? 'Possible causes' : 'Most likely cause'}
+            </p>
+            <div className="space-y-3">
+              {diagnosis.likely_causes.map((c, i) => (
+                <div key={i} className="flex items-start gap-2.5">
+                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${PROB_COLORS[c.probability]}`}>
+                    {c.probability.charAt(0).toUpperCase() + c.probability.slice(1)}
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-100 leading-snug">{c.cause}</p>
+                    <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{c.explanation}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          )}
-          {diagnosis.parts_to_check?.length > 0 && (
-            <div>
-              <p className="text-xs font-bold text-white/50 uppercase tracking-wide mb-2">Parts to inspect</p>
-              <div className="flex flex-wrap gap-1.5">
-                {diagnosis.parts_to_check.map((p, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">{p}</span>
-                ))}
-              </div>
+          </div>
+        )}
+
+        {/* What to do */}
+        {allActions.length > 0 && (
+          <div className="px-4 py-3.5">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">What to do</p>
+            <div className="space-y-2.5">
+              {allActions.map((a, i) => (
+                <div key={i} className="flex items-start gap-2.5">
+                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${
+                    a.diy ? 'bg-emerald-500/20 text-emerald-400' : PRIORITY_CONFIG[a.priority].cls
+                  }`}>
+                    {a.diy ? 'DIY' : PRIORITY_CONFIG[a.priority].label}
+                  </span>
+                  <p className="text-sm text-slate-200 leading-relaxed">{a.action}</p>
+                </div>
+              ))}
             </div>
-          )}
-          {hasCost && costStr && (
-            <div>
-              <p className="text-xs font-bold text-white/50 uppercase tracking-wide mb-1">Repair cost estimate</p>
-              <p className="text-base font-black text-white">{costStr}</p>
-              <p className="text-xs text-white/60 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_ngn.note}</p>
+          </div>
+        )}
+
+        {/* Next steps to confirm */}
+        {diagnosis.next_steps_to_confirm?.length > 0 && (
+          <div className="px-4 py-3.5">
+            <p className="text-xs font-bold text-amber-400/70 uppercase tracking-wide mb-3">For a better diagnosis, also try</p>
+            <div className="space-y-2">
+              {diagnosis.next_steps_to_confirm.map((s, i) => (
+                <div key={i} className="flex items-start gap-2 text-sm text-slate-300 leading-relaxed">
+                  <span className="text-amber-400 font-bold flex-shrink-0 text-xs mt-0.5">{i + 1}.</span>{s}
+                </div>
+              ))}
             </div>
-          )}
-          <p className="text-xs text-white/50 leading-relaxed border-t border-white/10 pt-3">{diagnosis.disclaimer}</p>
+          </div>
+        )}
+
+        {/* Parts to inspect */}
+        {diagnosis.parts_to_check?.length > 0 && (
+          <div className="px-4 py-3.5">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">Parts to inspect</p>
+            <div className="flex flex-wrap gap-1.5">
+              {diagnosis.parts_to_check.map((p, i) => (
+                <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-700/60 text-slate-300 border border-slate-600">{p}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Repair cost */}
+        {hasCost && costStr && (
+          <div className="px-4 py-3.5">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Repair cost estimate</p>
+            <p className="text-lg font-black text-slate-100">{costStr}</p>
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_ngn.note}</p>
+          </div>
+        )}
+
+        {/* Trust score — bottom */}
+        <div className="px-4 py-3.5">
+          <CertaintyBar value={diagnosis.certainty} note={diagnosis.certainty_note} />
         </div>
-      )}
+
+        {/* Disclaimer */}
+        <div className="px-4 py-3 bg-slate-800/40">
+          <p className="text-xs text-slate-500 leading-relaxed">This is an AI-assisted diagnosis. Use it as a starting point. Always confirm with a qualified technician before making repairs.</p>
+        </div>
+
+      </div>
     </div>
   );
 }
@@ -314,14 +332,14 @@ function ChatBubble({ msg }: { msg: ChatMessage }) {
         ) : (
           <>
             {msg.text && !msg.diagnosis && (
-              <div className="bg-white/5 border border-white/10 text-white rounded-2xl rounded-tl-sm px-3.5 py-2.5">
+              <div className="bg-slate-800 border border-slate-700 text-slate-100 rounded-2xl rounded-tl-sm px-3.5 py-2.5">
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
               </div>
             )}
             {msg.diagnosis && <DiagnosisCard diagnosis={msg.diagnosis} />}
           </>
         )}
-        <p className="text-xs text-white/25">{timeAgo(msg.timestamp)}</p>
+        <p className="text-xs text-slate-600">{timeAgo(msg.timestamp)}</p>
       </div>
     </div>
   );
@@ -691,7 +709,7 @@ export default function AIMechanicClient() {
                       <div className="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 mt-1">
                         <Wrench className="h-3.5 w-3.5 text-emerald-400" />
                       </div>
-                      <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 min-w-[220px]">
+                      <div className="bg-slate-800 border border-slate-700 rounded-2xl rounded-tl-sm px-4 py-3 min-w-[220px]">
                         <AxionLoadingSteps />
                       </div>
                     </div>

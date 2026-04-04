@@ -190,7 +190,7 @@ export function ListingCard({ listing, showActions = false, variant = 'grid' }: 
           {/* Urgent badge — top left */}
           {listing.urgent_sale && (
             <div className="absolute top-3 left-3 bg-orange-500 text-white text-[10px] font-black tracking-widest uppercase px-2.5 py-1 rounded-full flex items-center gap-1">
-              <Zap className="h-3 w-3" /> Urgent
+              <Zap className="h-3 w-3" /> Distress Sale
             </div>
           )}
 

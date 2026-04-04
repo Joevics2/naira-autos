@@ -17,81 +17,68 @@ const GEMINI_MODELS = [
   "gemini-2.5-flash-lite",
   "gemini-2.5-flash",
   "gemini-2.5-flash-preview-09-2025",
+  "gemini-2.5-flash-lite-preview-09-2025",
   "gemini-2.5-pro",
+  "gemini-3-flash-preview",
 ];
 
-// ─── Prompt: identical 5-format system to the autofill route ─────────────────
-// Temperature is slightly higher here (0.8) since we're writing creative copy
-// without the extraction constraint, so we get more variation across approvals.
 const buildSocialPostPrompt = () => `You write WhatsApp/social media posts to sell cars in Nigeria.
-You will receive structured car listing data. Return ONLY a raw JSON object with one field: social_post.
-No markdown, no explanation, no code fences.
+Return ONLY a raw JSON object with one field: social_post.
 
-Pick ONE format at random from the 5 below. Vary your choice — do not always use the same structure.
+Pick ONE format:
 
-FORMAT 1 — Headline-led:
-"This [year] [Brand] [Model] in [City] is ready for a new owner 🏠
+Format A:
+"This [year] [Brand] [Model] in [City] is ready for a new owner
 
-• [Condition written naturally, e.g. "Foreign used, accident-free"]
-• [Paper/duty status, e.g. "Full customs papers, duty paid"]
-• [Best feature, e.g. "Ice-cold AC, Leather seats, Panoramic roof"]
-• ₦[price formatted with commas][, negotiable — if applicable]
+• [Condition]
+• [Paper status]
+• [Best feature]
+• ₦[price]
 
-naira.autos/listings/LISTING_SLUG"
+naira.autos/listing/LISTING_SLUG"
 
-FORMAT 2 — Price-first:
-"₦[price] 🤝
+Format B:
+"₦[price]
 
 [Year] [Brand] [Model] — [City]
 [Condition] · [Paper status] · [Top 2 features]
 
-See photos & full details 👉 naira.autos/listings/LISTING_SLUG"
+See photos: naira.autos/listing/LISTING_SLUG"
 
-FORMAT 3 — Story/conversational (emotional, reads like a real person):
-"[Punchy emotional hook about the car's condition or rarity — be creative, e.g. "Someone treated this car like a firstborn child 😭" or "This one sat in a garage and barely touched the road."]
-
-[Year] [Brand] [Model] | [City]
-[Mileage if known, e.g. "47,000km on the clock."] [2–3 highlights in plain speech.]
-
-It's live on Naira Autos — won't be here long.
-naira.autos/listings/LISTING_SLUG"
-
-FORMAT 4 — Spec sheet (clean, data-forward):
+Format C:
 "[Year] [Brand] [Model] | [City]
 
-Condition: [condition, human-readable]
-Mileage: [mileage or "Not stated"]
+Condition: [condition]
+Mileage: [mileage]
 Color: [color]
-Price: ₦[price formatted with commas]
+Price: ₦[price]
 
-Full listing → naira.autos/listings/LISTING_SLUG"
+Full listing → naira.autos/listing/LISTING_SLUG"
 
-FORMAT 5 — CTA-first (urgency/FOMO hook leads):
-"[Sharp FOMO opener, e.g. "If you've been waiting for the right one, this is it." or "Your next car just dropped. 👀"]
+Format D:
+"[Year] [Brand] [Model] · [City] · ₦[price]
+[Condition] · [Best feature]
 
-[Year] [Brand] [Model] · [City] · ₦[price]
-[1–2 compact facts] · [Best feature]
-
-naira.autos/listings/LISTING_SLUG"
+naira.autos/listing/LISTING_SLUG"
 
 Rules:
-- Use the exact placeholder text LISTING_SLUG where the URL slug goes
-- Format price with commas and ₦ symbol (e.g. ₦18,500,000)
-- Maximum 7 lines total
-- No phone numbers
-- 1–3 emojis max, placed naturally
-- Nigerian English tone: direct, confident, not corporate
-- Return a plain JSON string with actual newline characters`;
+- URL format: naira.autos/listing/YEAR-BRAND-MODEL-ID (e.g. 2004-toyota-camry-7b08f4b0-76a0-4f8a-a5af-2fd8fc8535ee)
+- Use ₦ for currency
+- Max 7 lines, no phone numbers
+- Return plain JSON string`;
 
 async function generateWithGemini(listingText: string): Promise<string | null> {
   const apiKey = process.env.GEMINI_API_KEY;
+  console.log('[generateWithGemini] API key present:', !!apiKey);
   if (!apiKey) return null;
 
   for (const model of GEMINI_MODELS) {
+    console.log('[generateWithGemini] Trying model:', model);
     try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-        {
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      console.log('[generateWithGemini] Calling API:', apiUrl.slice(0, 80));
+      
+      const res = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -102,23 +89,52 @@ async function generateWithGemini(listingText: string): Promise<string | null> {
         }
       );
 
-      if (!res.ok) continue;
+      console.log('[generateWithGemini] Response status:', res.status);
+      if (!res.ok) {
+        console.log('[generateWithGemini] Response not ok, trying next model');
+        continue;
+      }
 
       const data = await res.json();
       const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      const cleaned = raw.replace(/^```(?:json)?\n?/i, '').replace(/\n?```$/i, '').trim();
-      const parsed = JSON.parse(cleaned);
-      if (parsed?.social_post) return parsed.social_post;
-    } catch {
-      // try next model
+      console.log('[generateWithGemini] Raw response:', raw.slice(0, 200));
+      
+      let cleaned = raw.replace(/^```(?:json)?\n?/i, '').replace(/\n?```$/i, '').trim();
+      // Remove any control characters that could break JSON parsing
+      cleaned = cleaned.replace(/[\x00-\x1F\x7F]/g, '');
+      
+      let parsed;
+      try {
+        parsed = JSON.parse(cleaned);
+      } catch (parseErr) {
+        console.log('[generateWithGemini] JSON parse failed, trying to extract:', parseErr.message);
+        // Try to extract social_post from the text manually
+        const match = cleaned.match(/"social_post"\s*:\s*"([^"]*)"/);
+        if (match) {
+          console.log('[generateWithGemini] Extracted manually:', match[1].slice(0, 100));
+          return match[1];
+        }
+        continue;
+      }
+      
+      console.log('[generateWithGemini] Parsed JSON:', parsed);
+      if (parsed?.social_post) {
+        console.log('[generateWithGemini] Found social_post!');
+        return parsed.social_post;
+      }
+    } catch (err: any) {
+      console.log('[generateWithGemini] Error:', err.message, err.cause);
     }
   }
+  console.log('[generateWithGemini] All models failed');
   return null;
 }
 
 export async function POST(req: NextRequest) {
+  console.log('[generate-social-post] Received request');
   try {
     const { listing_id } = await req.json();
+    console.log('[generate-social-post] listing_id:', listing_id);
     if (!listing_id) {
       return NextResponse.json({ error: 'listing_id required' }, { status: 400 });
     }
@@ -131,11 +147,12 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = createClient(supabaseUrl, serviceKey);
+    console.log('[generate-social-post] Supabase client created');
 
     // Fetch the listing
     const { data: listing, error: fetchError } = await supabase
       .from('listings')
-      .select('id, brand, model, year, condition, price, location_state, location_lga, transmission, fuel_type, mileage, color, features, faq_ac_working, faq_documents_complete, accident_history, negotiable, social_post, slug')
+      .select('id, brand, model, year, condition, price, location_state, location_lga, transmission, fuel_type, mileage, color, features, faq_ac_working, faq_documents_complete, accident_history, negotiable, social_post')
       .eq('id', listing_id)
       .single();
 
@@ -145,12 +162,17 @@ export async function POST(req: NextRequest) {
 
     // If social_post already exists, return it without regenerating
     if (listing.social_post) {
-      const finalPost = listing.slug
-        ? listing.social_post.replace(/LISTING_SLUG/g, listing.slug)
-        : listing.social_post;
+      console.log('[generate-social-post] social_post already exists');
+      const listingUrl = `naira.autos/listing/${listing.year}-${listing.brand?.toLowerCase().replace(/\s+/g, '-')}-${listing.model?.toLowerCase().replace(/\s+/g, '-')}-${listing.id}`;
+      const finalPost = listing.social_post.replace(/LISTING_SLUG/g, listingUrl);
       return NextResponse.json({ social_post: finalPost, regenerated: false });
     }
 
+    console.log('[generate-social-post] Building listing text for AI...');
+    
+    // Build the actual listing URL for the AI to reference
+    const listingUrl = `naira.autos/listing/${listing.year}-${listing.brand?.toLowerCase().replace(/\s+/g, '-')}-${listing.model?.toLowerCase().replace(/\s+/g, '-')}-${listing.id}`;
+    
     // Build a text summary of the listing to feed to the AI
     const conditionLabel: Record<string, string> = {
       nigerian_used: 'Nigerian used',
@@ -175,13 +197,20 @@ export async function POST(req: NextRequest) {
       listing.faq_documents_complete === 'yes' ? 'All documents complete' : null,
       listing.faq_ac_working === 'yes' ? 'AC working' : null,
       `Features: ${features}`,
+      `Listing URL: ${listingUrl}`,
     ].filter(Boolean).join('\n');
 
+    console.log('[generate-social-post] Listing text:', listingText.slice(0, 200));
+    console.log('[generate-social-post] Calling Gemini...');
     const socialPost = await generateWithGemini(listingText);
+    console.log('[generate-social-post] Gemini response:', socialPost ? 'got response' : 'no response');
+
     if (!socialPost) {
+      console.error('[generate-social-post] AI generation returned null');
       return NextResponse.json({ error: 'AI generation failed' }, { status: 502 });
     }
 
+    console.log('[generate-social-post] Saving to DB...');
     // Save to DB
     const { error: updateError } = await supabase
       .from('listings')
@@ -190,13 +219,13 @@ export async function POST(req: NextRequest) {
 
     if (updateError) {
       console.error('[generate-social-post] Failed to save:', updateError.message);
-      // Still return the generated post even if save failed
+    } else {
+      console.log('[generate-social-post] Saved to DB successfully');
     }
 
-    // Replace slug placeholder if slug is available
-    const finalPost = listing.slug
-      ? socialPost.replace(/LISTING_SLUG/g, listing.slug)
-      : socialPost;
+    // Replace slug placeholder with proper URL structure
+    const slugUrl = `naira.autos/listing/${listing.year}-${listing.brand?.toLowerCase().replace(/\s+/g, '-')}-${listing.model?.toLowerCase().replace(/\s+/g, '-')}-${listing.id}`;
+    const finalPost = socialPost.replace(/LISTING_SLUG/g, slugUrl);
 
     return NextResponse.json({ social_post: finalPost, regenerated: true });
   } catch (err: any) {

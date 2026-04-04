@@ -35,6 +35,7 @@ export default function MyListingsPage() {
   // Social post modal
   const [socialModalListing, setSocialModalListing] = useState<ListingWithSocial | null>(null);
   const [copied, setCopied] = useState(false);
+  const [generatingPost, setGeneratingPost] = useState<string | null>(null);
   // Congratulations popup for newly approved listings
   const [congratsListing, setCongratsListing] = useState<ListingWithSocial | null>(null);
   // Track which listing IDs we've already shown the congrats for (per session)
@@ -243,10 +244,43 @@ export default function MyListingsPage() {
                         size="sm"
                         variant="outline"
                         className="text-emerald-600 border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
-                        onClick={() => { setCopied(false); setSocialModalListing(listing); }}
+                        disabled={generatingPost === listing.id}
+                        onClick={async () => { 
+                          setCopied(false); 
+                          // Generate social post if doesn't exist
+                          if (!listing.social_post) {
+                            setGeneratingPost(listing.id);
+                            try {
+                              const res = await fetch('/api/generate-social-post', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ listing_id: listing.id }),
+                              });
+                              if (res.ok) {
+                                const data = await res.json();
+                                if (data.social_post) {
+                                  // Update the listing in state with new social post
+                                  setListings(prev => prev.map(l => 
+                                    l.id === listing.id ? { ...l, social_post: data.social_post } : l
+                                  ));
+                                  listing.social_post = data.social_post;
+                                }
+                              }
+                            } catch (err) {
+                              console.error('Failed to generate social post:', err);
+                            } finally {
+                              setGeneratingPost(null);
+                            }
+                          }
+                          setSocialModalListing(listing); 
+                        }}
                       >
-                        <Share2 className="h-4 w-4 mr-1" />
-                        Share Post
+                        {generatingPost === listing.id ? (
+                          <span className="h-4 w-4 mr-1 animate-spin">⏳</span>
+                        ) : (
+                          <Share2 className="h-4 w-4 mr-1" />
+                        )}
+                        {generatingPost === listing.id ? 'Generating...' : 'Share Post'}
                       </Button>
                     )}
                     <Button

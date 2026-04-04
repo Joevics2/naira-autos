@@ -64,8 +64,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     kwExtras.push(`${type}s for sale Nigeria`, `used ${type}s Nigeria`);
   }
   if (urgent) {
-    titleParts.unshift('Urgent Sale');
-    kwExtras.push('urgent car sale Nigeria', 'quick car sale Nigeria');
+    titleParts.unshift('Distress Sale');
+    kwExtras.push('Distress car sale Nigeria', 'quick car sale Nigeria');
   }
   if (video) {
     kwExtras.push('cars with video Nigeria');

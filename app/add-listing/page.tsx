@@ -28,12 +28,14 @@ const formatPriceWithCommasGlobal = (value: string): string => {
 };
 
 async function parseWithGemini(text: string): Promise<{ data: Record<string, any>; social_post: string | null }> {
+  console.log('[frontend] Calling ai-autofill API...');
   const res = await fetch('/api/ai-autofill', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text }),
   });
   const json = await res.json();
+  console.log('[frontend] API response:', JSON.stringify(json, null, 2).substring(0, 500));
   if (!res.ok) throw new Error(json.error || `Request failed (${res.status})`);
   return { data: json.data, social_post: json.social_post || null };
 }
@@ -1232,7 +1234,7 @@ export default function AddListingPage() {
                 </div>
                 <div className="flex items-center justify-between p-3.5 border border-orange-200 dark:border-orange-500/30 rounded-xl bg-orange-50 dark:bg-orange-500/10">
                   <div>
-                    <p className="text-sm font-semibold text-orange-700 dark:text-orange-400">Urgent Sale</p>
+                    <p className="text-sm font-semibold text-orange-700 dark:text-orange-400">Distress Sale</p>
                     <p className="text-xs text-orange-500/80">Attract more buyers</p>
                   </div>
                   <Switch checked={urgentSale} onCheckedChange={setUrgentSale} />

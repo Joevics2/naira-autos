@@ -8,9 +8,12 @@ import { Redis } from '@upstash/redis';
 import { createClient } from '@supabase/supabase-js';
 import type { Listing } from '@/lib/supabase';
 
-const redis = Redis.fromEnv();
 const TTL = 60 * 60 * 3; // 3 hours
 const PAGE_SIZE = 24;
+
+function getRedis() {
+  return Redis.fromEnv();
+}
 
 function getSupabase() {
   return createClient(
@@ -21,6 +24,7 @@ function getSupabase() {
 
 async function getOrSet<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
   try {
+    const redis = getRedis();
     const cached = await redis.get<T>(key);
     if (cached !== null) return cached;
   } catch {
@@ -30,6 +34,7 @@ async function getOrSet<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
   const fresh = await fetcher();
 
   try {
+    const redis = getRedis();
     await redis.set(key, fresh, { ex: TTL });
   } catch {
     // Redis write failed — still return fresh data

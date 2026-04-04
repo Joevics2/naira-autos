@@ -870,7 +870,7 @@ export default function EditListingPage() {
               <Switch checked={negotiable} onCheckedChange={setNegotiable} />
             </div>
             <div className="flex items-center justify-between p-4 border rounded-lg bg-orange-500/10 border-orange-500/20">
-              <div><Label>Urgent Sale</Label><p className="text-sm text-muted-foreground">Mark this as urgent to attract more buyers</p></div>
+              <div><Label>Distress Sale</Label><p className="text-sm text-muted-foreground">Mark this as distress sale to attract more buyers</p></div>
               <Switch checked={urgentSale} onCheckedChange={setUrgentSale} />
             </div>
           </CardContent>
