@@ -101,7 +101,8 @@ export default function ApprovedListingsPage() {
     }
   };
 
-  const handleCopySocialPost = async (post: string, id: string) => {
+  const handleCopySocialPost = async (post: string | null | undefined, id: string) => {
+    if (!post) return;
     try {
       await navigator.clipboard.writeText(post);
       setCopiedId(id);
@@ -237,7 +238,7 @@ export default function ApprovedListingsPage() {
                           size="sm"
                           variant="outline"
                           className="mt-2"
-                          onClick={() => handleCopySocialPost(listing.social_post, listing.id)}
+                          onClick={() => handleCopySocialPost(listing.social_post!, listing.id)}
                         >
                           {copiedId === listing.id ? (
                             <><Check className="h-4 w-4 mr-1" /> Copied</>
