@@ -118,7 +118,7 @@ function CertaintyBar({ value, note }: { value: number; note: string }) {
         <span className="text-xs font-medium text-slate-400">Axion's confidence</span>
         <span className="text-sm font-bold text-slate-100">{value}%</span>
       </div>
-      <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+      <div className="h-1.5 bg-slate-600 rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${color} transition-all duration-700`} style={{ width: value + '%' }} />
       </div>
       <p className="text-xs text-slate-500 leading-relaxed">{note}</p>
@@ -200,7 +200,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
   const allActions = [...diyActions, ...mechanicActions];
 
   return (
-    <div className="mt-1 max-w-2xl rounded-2xl border border-white/10 bg-[#0D1117] overflow-hidden">
+    <div className="mt-1 max-w-2xl rounded-2xl border border-slate-200/20 bg-slate-800 overflow-hidden">
 
       {/* Urgency header */}
       <div className={`px-4 py-3 border-b ${urg.bg} ${urg.border} border-b-0`} style={{ borderLeftWidth: 3 }}>
@@ -214,7 +214,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         <p className="text-sm leading-relaxed text-slate-100">{diagnosis.summary}</p>
       </div>
 
-      <div className="divide-y divide-slate-700/50">
+      <div className="divide-y divide-slate-600/50">
 
         {/* Likely causes */}
         {diagnosis.likely_causes?.length > 0 && (
@@ -277,7 +277,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">Parts to inspect</p>
             <div className="flex flex-wrap gap-1.5">
               {diagnosis.parts_to_check.map((p, i) => (
-                <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-700/60 text-slate-300 border border-slate-600">{p}</span>
+                <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-600/60 text-slate-200 border border-slate-500">{p}</span>
               ))}
             </div>
           </div>
@@ -298,7 +298,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         </div>
 
         {/* Disclaimer */}
-        <div className="px-4 py-3 bg-slate-800/40">
+        <div className="px-4 py-3 bg-slate-700/40">
           <p className="text-xs text-slate-500 leading-relaxed">This is an AI-assisted diagnosis. Use it as a starting point. Always confirm with a qualified technician before making repairs.</p>
         </div>
 
@@ -358,6 +358,11 @@ export default function AIMechanicClient() {
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const recordingChunksRef = useRef<Blob[]>([]);
+  const recordingTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const activeSession = sessions.find(s => s.id === activeId) ?? null;
 
@@ -405,6 +410,7 @@ export default function AIMechanicClient() {
 
   const persistVehicle = useCallback((v: VehicleProfile) => {
     setVehicle(v);
+    setError('');
     try { localStorage.setItem(STORAGE_KEYS.VEHICLE, JSON.stringify(v)); } catch {}
   }, []);
 
@@ -436,10 +442,48 @@ export default function AIMechanicClient() {
     }
   };
 
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/ogg';
+      const recorder = new MediaRecorder(stream, { mimeType });
+      recordingChunksRef.current = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) recordingChunksRef.current.push(e.data); };
+      recorder.onstop = () => {
+        stream.getTracks().forEach(t => t.stop());
+        const blob = new Blob(recordingChunksRef.current, { type: mimeType });
+        const ext = mimeType.includes('webm') ? 'webm' : 'ogg';
+        const file = new File([blob], `recording-${Date.now()}.${ext}`, { type: mimeType });
+        setAudioFile(file);
+        setIsRecording(false);
+        setRecordingSeconds(0);
+        if (recordingTimerRef.current) clearInterval(recordingTimerRef.current);
+      };
+      recorder.start(100);
+      mediaRecorderRef.current = recorder;
+      setIsRecording(true);
+      setRecordingSeconds(0);
+      recordingTimerRef.current = setInterval(() => setRecordingSeconds(s => s + 1), 1000);
+    } catch {
+      alert('Microphone access denied. Please allow microphone access and try again.');
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+    }
+    if (recordingTimerRef.current) clearInterval(recordingTimerRef.current);
+  };
+
   const handleSubmit = async () => {
     const trimmed = text.trim();
     if (!trimmed && !imageFile && !audioFile && !videoFile) return;
     if (!activeSession) return;
+    if (!vehicle.brand || !vehicle.model || !vehicle.year) {
+      setError('Please fill in your vehicle details (brand, model, and year) before diagnosing.');
+      return;
+    }
 
     const userMsg: ChatMessage = {
       id: uid(), role: 'user', text: trimmed,
@@ -492,6 +536,11 @@ export default function AIMechanicClient() {
   const hasInput = !!(text.trim() || imageFile || audioFile || videoFile);
   const vehicleSummary = [vehicle.year, vehicle.brand, vehicle.model].filter(Boolean).join(' ');
   const hasMessages = !!(activeSession?.messages.length);
+
+  // Hide other upload buttons when one media type is already uploaded
+  const showImageUpload = !audioFile && !videoFile;
+  const showAudioUpload = !imageFile && !videoFile;
+  const showVideoUpload = !imageFile && !audioFile;
 
   const dropdownArrowSvg = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.3)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")";
 
@@ -616,18 +665,24 @@ export default function AIMechanicClient() {
               </p>
 
               {!hasMessages && (
-                <div className="flex flex-col sm:flex-row gap-3 mt-3 mb-5">
-                  {[
-                    { num: '1', text: 'Describe, record, or film your car problem — any detail helps.' },
-                    { num: '2', text: 'Upload or narrate the issue using the text box below.' },
-                    { num: '3', text: 'Get an instant diagnosis, cost estimate, and next steps.' },
-                  ].map(({ num, text: t }) => (
-                    <div key={num} className="flex items-start gap-2.5 flex-1">
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 text-white text-xs font-black flex items-center justify-center mt-0.5">{num}</span>
-                      <p className="text-xs text-white/60 leading-relaxed">{t}</p>
-                    </div>
-                  ))}
-                </div>
+                <details className="mt-3 mb-5 group">
+                  <summary className="flex items-center gap-2 cursor-pointer list-none text-xs text-white/40 hover:text-white/60 transition-colors w-fit">
+                    <ChevronRight className="h-3.5 w-3.5 group-open:rotate-90 transition-transform" />
+                    <span className="font-semibold uppercase tracking-wide">How it works</span>
+                  </summary>
+                  <div className="flex flex-col sm:flex-row gap-3 mt-3">
+                    {[
+                      { num: '1', text: 'Describe, record, or film your car problem — any detail helps.' },
+                      { num: '2', text: 'Upload or narrate the issue using the text box below.' },
+                      { num: '3', text: 'Get an instant diagnosis, cost estimate, and next steps.' },
+                    ].map(({ num, text: t }) => (
+                      <div key={num} className="flex items-start gap-2.5 flex-1">
+                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 text-white text-xs font-black flex items-center justify-center mt-0.5">{num}</span>
+                        <p className="text-xs text-white/60 leading-relaxed">{t}</p>
+                      </div>
+                    ))}
+                  </div>
+                </details>
               )}
 
               {/* Mobile history + new chat buttons */}
@@ -652,22 +707,28 @@ export default function AIMechanicClient() {
             {/* Initial input form */}
             {!hasMessages && (
               <div>
+                {error && (
+                  <div className="flex items-start gap-2 p-3 rounded-xl border border-red-500/30 bg-red-500/10 mb-3">
+                    <AlertCircle className="h-4 w-4 text-red-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-red-300">{error}</p>
+                  </div>
+                )}
                 <div className="flex gap-2 mb-2">
                   <div className="relative flex-1 min-w-0">
                     <select value={vehicle.brand} onChange={e => persistVehicle({ ...vehicle, brand: e.target.value })}
-                      className="w-full h-12 pl-3 pr-8 text-sm border border-white/20 rounded-xl bg-white/10 text-white/90 focus:outline-none focus:border-emerald-500/50 transition-all appearance-none cursor-pointer"
+                      className={`w-full h-12 pl-3 pr-8 text-sm border rounded-xl bg-white/10 text-white/90 focus:outline-none focus:border-emerald-500/50 transition-all appearance-none cursor-pointer ${!vehicle.brand ? 'border-white/20' : 'border-emerald-500/40'}`}
                       style={{ backgroundImage: dropdownArrowSvg, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}>
-                      <option value="" style={{ background: '#080C10' }}>Brand</option>
+                      <option value="" style={{ background: '#080C10' }}>Brand *</option>
                       {NIGERIAN_BRANDS.map(b => <option key={b} value={b} style={{ background: '#080C10' }}>{b}</option>)}
                     </select>
                   </div>
-                  <input type="text" placeholder="Model" value={vehicle.model}
+                  <input type="text" placeholder="Model *" value={vehicle.model}
                     onChange={e => persistVehicle({ ...vehicle, model: e.target.value })}
-                    className="flex-1 min-w-0 h-12 px-3 text-sm border border-white/20 rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all" />
-                  <input type="number" placeholder="Year" value={vehicle.year}
+                    className={`flex-1 min-w-0 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.model ? 'border-emerald-500/40' : 'border-white/20'}`} />
+                  <input type="number" placeholder="Year *" value={vehicle.year}
                     onChange={e => persistVehicle({ ...vehicle, year: e.target.value })}
                     min="1980" max={new Date().getFullYear() + 1}
-                    className="w-24 h-12 px-3 text-sm border border-white/20 rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all" />
+                    className={`w-24 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.year ? 'border-emerald-500/40' : 'border-white/20'}`} />
                 </div>
 
                 <div className="border border-white/20 rounded-xl bg-white/10 overflow-hidden focus-within:border-emerald-500/50 transition-all">
@@ -675,18 +736,33 @@ export default function AIMechanicClient() {
                     placeholder="Describe your car problem... e.g. knocking sound on cold start, check engine light, brakes feel soft"
                     rows={3}
                     className="w-full px-4 pt-3 pb-2 text-sm bg-transparent text-white placeholder:text-white/40 focus:outline-none resize-none leading-relaxed" />
-                  <div className="flex items-center gap-2 px-3 pb-3 pt-1.5 border-t border-white/20">
-                    <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />
-                    <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />
-                    <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />
-                    <div className="ml-auto">
-                      <button onClick={handleSubmit} disabled={!hasInput || loading}
-                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
-                          hasInput && !loading ? 'bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-500/25' : 'bg-white/10 text-white/25 cursor-not-allowed'
-                        }`}>
-                        {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analysing...</> : <><Wrench className="h-4 w-4" /> Diagnose</>}
-                      </button>
-                    </div>
+                  <div className="flex items-center gap-2 px-3 pb-2 pt-1.5 border-t border-white/20 flex-wrap">
+                    {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
+                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                    {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                    {/* Record button */}
+                    {showAudioUpload && !audioFile && (
+                      isRecording ? (
+                        <button type="button" onClick={stopRecording}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
+                          <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
+                          {recordingSeconds}s — Stop
+                        </button>
+                      ) : (
+                        <button type="button" onClick={startRecording}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
+                          <Mic className="h-3 w-3" /> Record
+                        </button>
+                      )
+                    )}
+                  </div>
+                  <div className="px-3 pb-3">
+                    <button onClick={handleSubmit} disabled={!hasInput || loading}
+                      className={`w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                        hasInput && !loading ? 'bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-500/25' : 'bg-white/10 text-white/25 cursor-not-allowed'
+                      }`}>
+                      {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analysing...</> : <><Wrench className="h-4 w-4" /> Diagnose</>}
+                    </button>
                   </div>
                 </div>
 
@@ -736,10 +812,24 @@ export default function AIMechanicClient() {
                     </button>
                   </div>
                   <div className="flex items-center justify-between mt-2">
-                    <div className="flex gap-2">
-                      <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />
-                      <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />
-                      <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />
+                    <div className="flex gap-2 flex-wrap">
+                      {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
+                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                      {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                      {showAudioUpload && !audioFile && (
+                        isRecording ? (
+                          <button type="button" onClick={stopRecording}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
+                            <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
+                            {recordingSeconds}s — Stop
+                          </button>
+                        ) : (
+                          <button type="button" onClick={startRecording}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
+                            <Mic className="h-3 w-3" /> Record
+                          </button>
+                        )
+                      )}
                     </div>
                     <button onClick={startNewChat} className="flex items-center gap-1 text-xs text-white/25 hover:text-emerald-400 transition-colors">
                       <Plus className="h-3 w-3" /> New chat
