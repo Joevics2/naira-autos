@@ -12,9 +12,9 @@ const categories = [
   { name: 'Motorcycles', image: '/bikes.png', url: '/search?type=bike' },
 
   // New 3 Categories
-  { name: 'Tokunbo', image: '/tokunbo.png', url: '/tokunbo-cars' },
-  { name: 'Nigerian Used', image: '/nigerian-used.png', url: '/nigerian-used-cars' },
-  { name: 'Distress Sale', image: '/urgent-sale.png', url: '/distress-sales' },
+  { name: 'Tokunbo', image: '/tokunbo.png', url: '/search?condition=foreign_used' },
+  { name: 'Nigerian Used', image: '/nigerian-used.png', url: '/search?condition=nigerian_used' },
+  { name: 'Distress Sale', image: '/urgent-sale.png', url: '/search?urgent=1' },
 ];
 
 export function BrowseByType() {
