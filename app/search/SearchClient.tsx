@@ -356,6 +356,83 @@ function SimilarSection({ groups, onNavigate }: { groups: SimilarGroup[]; onNavi
   );
 }
 
+// ─── Loading Bar ──────────────────────────────────────────────────────────────
+
+function LoadingBar({ visible }: { visible: boolean }) {
+  return (
+    <div
+      className={`absolute bottom-0 left-0 right-0 h-0.5 overflow-hidden transition-opacity duration-300 ${
+        visible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+    >
+      <div className="h-full bg-primary/20 w-full">
+        <div className="h-full bg-primary animate-[loading-bar_1.4s_ease-in-out_infinite]" />
+      </div>
+      <style>{`
+        @keyframes loading-bar {
+          0%   { transform: translateX(-100%); width: 60%; }
+          50%  { transform: translateX(60%);   width: 60%; }
+          100% { transform: translateX(200%);  width: 60%; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ─── Listing Card Skeleton ────────────────────────────────────────────────────
+
+function ListingCardSkeleton({ variant = 'grid' }: { variant?: 'grid' | 'list' }) {
+  const shimmer = 'bg-muted animate-pulse rounded';
+
+  if (variant === 'list') {
+    return (
+      <div className="flex gap-3 border rounded-xl overflow-hidden bg-card p-3">
+        {/* Thumbnail */}
+        <div className={`${shimmer} shrink-0 w-36 h-28 rounded-lg`} />
+        {/* Text block */}
+        <div className="flex-1 flex flex-col gap-2 py-1 min-w-0">
+          <div className={`${shimmer} h-4 w-3/4`} />
+          <div className={`${shimmer} h-3 w-1/2`} />
+          <div className="flex gap-1.5 mt-1">
+            <div className={`${shimmer} h-5 w-16`} />
+            <div className={`${shimmer} h-5 w-16`} />
+          </div>
+          <div className="flex items-center justify-between mt-auto pt-1">
+            <div className={`${shimmer} h-5 w-24`} />
+            <div className={`${shimmer} h-3 w-20`} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="border rounded-xl overflow-hidden bg-card">
+      {/* Image area */}
+      <div className={`${shimmer} w-full aspect-[4/3] rounded-none`} />
+      {/* Content */}
+      <div className="p-3 space-y-2.5">
+        {/* Title */}
+        <div className="space-y-1.5">
+          <div className={`${shimmer} h-4 w-4/5`} />
+          <div className={`${shimmer} h-3 w-2/3`} />
+        </div>
+        {/* Badges */}
+        <div className="flex gap-1.5">
+          <div className={`${shimmer} h-5 w-14`} />
+          <div className={`${shimmer} h-5 w-16`} />
+          <div className={`${shimmer} h-5 w-12`} />
+        </div>
+        {/* Price + location row */}
+        <div className="flex items-center justify-between pt-1 border-t border-border/50">
+          <div className={`${shimmer} h-5 w-24`} />
+          <div className={`${shimmer} h-3 w-20`} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 interface SearchClientProps {
@@ -669,7 +746,7 @@ export default function SearchClient(props: SearchClientProps) {
     <div className="min-h-screen bg-background">
 
       {/* Sticky bar */}
-      <div className="bg-background border-b sticky top-0 z-10 shadow-sm">
+      <div className="bg-background border-b sticky top-0 z-10 shadow-sm relative">
         <div className="max-w-screen-xl mx-auto px-4 py-3">
 
           {/* Search input */}
@@ -866,9 +943,8 @@ export default function SearchClient(props: SearchClientProps) {
             </Card>
           )}
         </div>
+        <LoadingBar visible={loading} />
       </div>
-
-      {/* Active filter badges */}
       {hasActiveFilters && (
         <div className="bg-muted/40 border-b px-4 py-2 flex flex-wrap gap-1.5 items-center">
           <span className="text-xs text-muted-foreground mr-0.5">Filters:</span>
@@ -933,7 +1009,7 @@ export default function SearchClient(props: SearchClientProps) {
       <div className="max-w-screen-xl mx-auto px-4 py-6">
         {loading ? (
           <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-            {[1,2,3,4,5,6].map(i => <div key={i} className="bg-card rounded-xl h-52 animate-pulse border" />)}
+            {[1,2,3,4,5,6].map(i => <ListingCardSkeleton key={i} variant={viewMode} />)}
           </div>
         ) : listings.length === 0 ? (
           <Card>
