@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import BlogMarkdownRenderer from '@/components/BlogMarkdownRenderer';
 import { Button } from '@/components/ui/button';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import {
@@ -217,41 +218,9 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
               </figure>
             )}
 
-            {/* ── ARTICLE BODY ──
-                Tailwind Typography (prose) renders the HTML tags
-                coming from your Supabase content field.
-                Install: npm install @tailwindcss/typography
-                Then add `require('@tailwindcss/typography')` to
-                your tailwind.config plugins array.
-            */}
+            {/* ── ARTICLE BODY ── */}
             {post.content && (
-              <div
-                className={[
-                  'prose prose-base lg:prose-lg max-w-none',
-                  // Headings
-                  'prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-foreground',
-                  'prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:pb-2',
-                  'prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3',
-                  // Body text
-                  'prose-p:leading-8 prose-p:text-foreground/90',
-                  // Links
-                  'prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline',
-                  // Lists
-                  'prose-ul:my-4 prose-li:my-1',
-                  'prose-ol:my-4',
-                  // Blockquote
-                  'prose-blockquote:border-l-primary prose-blockquote:bg-muted/30 prose-blockquote:py-1 prose-blockquote:rounded-r-md',
-                  // Code
-                  'prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:text-foreground prose-code:before:content-none prose-code:after:content-none',
-                  // Images inside content
-                  'prose-img:rounded-lg prose-img:shadow-sm',
-                  // Strong
-                  'prose-strong:text-foreground',
-                  // HR
-                  'prose-hr:border-border',
-                ].join(' ')}
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              <BlogMarkdownRenderer content={post.content} />
             )}
 
             {/* ── FAQ section ── */}
