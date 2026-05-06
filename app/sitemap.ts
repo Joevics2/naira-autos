@@ -1,6 +1,4 @@
 // File: app/sitemap.ts
-// Accessible at: https://naira.autos/sitemap.xml (Next.js handles this automatically)
-// This is a sitemap INDEX — it lists all your other sitemaps, not individual pages.
 
 import { MetadataRoute } from 'next';
 
@@ -20,12 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'hourly',
       priority: 1,
     },
-    {
-      url: `${siteUrl}/sitemap-search.xml`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
+    // sitemap-search.xml temporarily disabled
+    // {
+    //   url: `${siteUrl}/sitemap-search.xml`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'daily',
+    //   priority: 0.9,
+    // },
     {
       url: `${siteUrl}/sitemap-sellers.xml`,
       lastModified: new Date(),
