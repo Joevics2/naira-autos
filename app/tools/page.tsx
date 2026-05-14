@@ -131,9 +131,9 @@ const TOOLS: Tool[] = [
     category: 'Resources',
   },
   {
-    href: '/cars',
+    href: '/vehicles',
     icon: Car,
-    label: 'Car Prices & Parts',
+    label: 'Vehicles Prices & Parts',
     description: 'Browse car prices by brand, type, and get spare parts info.',
     category: 'Resources',
   },
