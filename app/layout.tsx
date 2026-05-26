@@ -5,7 +5,7 @@ import { ConditionalBottomNav } from '@/components/layout/ConditionalBottomNav';
 import { Toaster } from '@/components/ui/toaster';
 import { PWAInstaller } from '@/components/PWAInstaller';
 import { ThemeProvider } from '@/components/providers/theme-provider';
-import { Footer } from '@/components/home/Footer';
+import { Footer } from '@/components/layout/Footer';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naira.autos';
 

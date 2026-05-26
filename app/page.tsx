@@ -1,20 +1,13 @@
-import { HeroSearch } from '@/components/home/HeroSearch';
-import { BudgetFilter } from '@/components/home/BudgetFilter';
-import { BrowseByType } from '@/components/home/BrowseByType';
-import { VehicleRequests } from '@/components/home/VehicleRequests';
-import { HotDeals } from '@/components/home/HotDeals';
-import { ToolsSection } from '@/components/home/ToolsSection';
+import { HomePage } from '@/components/home/HomePage';
 import { Metadata } from 'next';
 
-export const revalidate = 3600;
-
 export const metadata: Metadata = {
-  title: 'Naira Autos - Nigeria\'s Auto Marketplace | Buy & Sell Cars',
-  description: 'Buy or sell cars, trucks, buses, vans with video verification. Every listing includes video proof for complete transparency.',
-  keywords: 'cars for sale Nigeria, buy car Lagos, sell car Nigeria, car marketplace, used cars Nigeria, tokunbo cars, video car listings',
+  title: 'Naira Autos - Nigeria\'s Car Tools Hub',
+  description: 'Free Nigerian automotive tools — import duty calculator, AI mechanic, auto loan calculator, VIN checker, fuel cost estimator, and more.',
+  keywords: 'car tools Nigeria, import duty calculator, auto loan calculator, AI mechanic, VIN checker, fuel cost calculator, car valuation Nigeria',
   openGraph: {
-    title: 'Naira Autos - Nigeria\'s Best Car Marketplace',
-    description: 'Buy and sell cars with video proof. Zero guesswork.',
+    title: 'Naira Autos - Nigeria\'s Car Tools Hub',
+    description: 'Every tool you need to buy, own, and maintain a car in Nigeria — all free.',
     url: 'https://naira.autos',
     siteName: 'Naira Autos',
     locale: 'en_NG',
@@ -25,44 +18,31 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
+export default function Home() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Naira Autos',
-    description: 'Nigeria\'s premier car marketplace with video listings',
-    url: 'https://Naira.autos',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://naira.autos/search?q={search_term_string}'
-      },
-      'query-input': 'required name=search_term_string'
-    },
+    description: 'Free Nigerian automotive tools — import duty, AI mechanic, loan calculator, VIN checker and more',
+    url: 'https://naira.autos',
     publisher: {
       '@type': 'Organization',
       name: 'Naira Autos',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://naira.autos/logo.png'
-      }
-    }
+        url: 'https://naira.autos/logo.png',
+      },
+    },
   };
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="sr-only">Buy and Sell Cars in Nigeria with Video Verification | Naira Autos</h1>
-      <HeroSearch />
-      <BudgetFilter />
-      <BrowseByType />
-      <VehicleRequests />
-      <HotDeals />
-      <ToolsSection />
-    </main>
+      <h1 className="sr-only">Free Car Tools for Nigeria — Naira Autos</h1>
+      <HomePage />
+    </>
   );
 }
