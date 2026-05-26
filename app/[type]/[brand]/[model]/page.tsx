@@ -383,39 +383,6 @@ export default async function ModelPage(
             </section>
           )}
 
-          {/* Listings */}
-          <section>
-            <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-3">Buy Now</p>
-            <h2
-              className="text-3xl font-black uppercase text-foreground mb-2 leading-tight"
-              style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-            >
-              {listings.length > 0 ? `${carLabel} for Sale` : `${vm.brand_name} ${typeInfo.plural} for Sale`}
-            </h2>
-            {listings.length > 0 ? (
-              <>
-                <p className="text-sm text-muted-foreground mb-6">Live listings from verified sellers across Nigeria.</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-5">
-                  {listings.map((listing: any) => (
-                    <ListingCard key={listing.id} listing={listing} variant="grid" />
-                  ))}
-                </div>
-                <Link
-                  href={`/search?brand=${encodeURIComponent(vm.brand_name)}&q=${encodeURIComponent(vm.name)}`}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-500 hover:text-emerald-400 transition-colors"
-                >
-                  View all {vm.brand_name} {vm.name} listings <ArrowRight className="h-4 w-4" />
-                </Link>
-              </>
-            ) : (
-              <p className="text-sm text-muted-foreground mt-2">
-                No listings right now.{' '}
-                <Link href={`/search?brand=${encodeURIComponent(vm.brand_name)}`} className="text-emerald-500 hover:underline">
-                  Browse all {vm.brand_name} listings →
-                </Link>
-              </p>
-            )}
-          </section>
 
           {/* Related models */}
           {(relatedModels || []).length > 0 && (
