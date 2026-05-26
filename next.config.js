@@ -63,7 +63,6 @@ const nextConfig = {
     // Static marketplace + account routes
     const staticRedirects = [
       '/car-dealers',
-      '/cars',
       '/cheap-cars',
       '/distress-sales',
       '/new-cars',
@@ -78,7 +77,6 @@ const nextConfig = {
       '/requests/view',
       '/saved',
       '/search',
-      '/sell-for-me',
       '/store',
       '/tokunbo-cars',
       '/used-cars',

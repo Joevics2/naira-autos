@@ -253,12 +253,6 @@ export default async function GlossaryPage() {
           <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               {
-                label: 'List your car for free',
-                sub: 'Sell faster with Naira Autos',
-                href: 'https://www.naira.autos/add-listing',
-                external: true,
-              },
-              {
                 label: 'Sell for me',
                 sub: 'We handle everything for you',
                 href: 'https://www.naira.autos/sell-for-me',
@@ -269,6 +263,12 @@ export default async function GlossaryPage() {
                 sub: 'Diagnose your car for free',
                 href: '/tools/ai-mechanic',
                 external: false,
+              },
+              {
+                label: 'Blog',
+                sub: 'Find interesting Articles',
+                href: 'https://www.naira.autos/blog',
+                external: true,
               },
             ].map(({ label, sub, href, external }) => {
               const cls =

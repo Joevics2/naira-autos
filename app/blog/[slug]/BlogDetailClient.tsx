@@ -345,17 +345,6 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
                 </div>
               )}
 
-              {/* CTA card */}
-              <div className="rounded-xl bg-primary/10 border border-primary/20 p-5 text-center">
-                <div className="text-2xl mb-2">🚗</div>
-                <h3 className="font-bold mb-1">Sell your car faster</h3>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  List on Naira Autos and reach thousands of serious buyers across Nigeria.
-                </p>
-                <Button asChild className="w-full">
-                  <Link href="/add-listing">Post a Free Listing</Link>
-                </Button>
-              </div>
 
               {/* Browse by category */}
               <div className="rounded-xl border bg-card p-5">
