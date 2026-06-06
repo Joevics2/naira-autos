@@ -3,11 +3,10 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { getBlogFallbackImage } from '@/lib/blogImages';
+import { Search, Loader2 } from 'lucide-react';
 
 type BlogPost = {
   id: string;
@@ -35,9 +34,7 @@ export default function BlogPage() {
         .eq('published', true)
         .order('created_at', { ascending: false });
 
-      if (data) {
-        setBlogs(data as BlogPost[]);
-      }
+      if (data) setBlogs(data as BlogPost[]);
     } catch (error) {
       console.error('Error loading blogs:', error);
     } finally {
@@ -45,11 +42,10 @@ export default function BlogPage() {
     }
   };
 
-  const filteredBlogs = blogs.filter(blog => {
-    const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      blog.excerpt?.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesSearch;
-  });
+  const filteredBlogs = blogs.filter(blog =>
+    blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    blog.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -63,27 +59,22 @@ export default function BlogPage() {
       </div>
 
       <div className="max-w-screen-xl mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input
-              placeholder="Search articles..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
+        {/* Search */}
+        <div className="relative max-w-md mb-8">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Input
+            placeholder="Search articles..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
         </div>
 
+        {/* Loading */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i}>
-                <Skeleton className="aspect-video rounded-lg" />
-                <Skeleton className="h-4 w-3/4 mt-4" />
-                <Skeleton className="h-4 w-1/2 mt-2" />
-              </div>
-            ))}
+          <div className="flex flex-col items-center justify-center py-24 gap-4 text-muted-foreground">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <p className="text-sm">Loading articles...</p>
           </div>
         ) : filteredBlogs.length === 0 ? (
           <div className="text-center py-12">
@@ -96,7 +87,7 @@ export default function BlogPage() {
                 <Card className="h-full hover:shadow-lg transition-all overflow-hidden">
                   <div className="aspect-video overflow-hidden">
                     <img
-                      src={blog.featured_image || 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=400'}
+                      src={blog.featured_image || getBlogFallbackImage(blog.slug)}
                       alt={blog.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
@@ -109,7 +100,11 @@ export default function BlogPage() {
                       {blog.excerpt}
                     </p>
                     <div className="mt-4 text-xs text-muted-foreground">
-                      {new Date(blog.created_at).toLocaleDateString()}
+                      {new Date(blog.created_at).toLocaleDateString('en-NG', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
                     </div>
                   </CardContent>
                 </Card>
@@ -120,4 +115,5 @@ export default function BlogPage() {
       </div>
     </div>
   );
-}
+  }
+        
