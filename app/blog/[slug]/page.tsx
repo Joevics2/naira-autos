@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogDetailClient from './BlogDetailClient';
+import { getBlogFallbackImage } from '@/lib/blogImages';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -23,12 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Article Not Found | Naira Autos' };
   }
 
-  const imageUrl =
-    post.featured_image ||
-    'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1200';
-
-  const description =
-    post.excerpt || `Read about ${post.title} on Naira Autos' expert car blog`;
+  const imageUrl = post.featured_image || getBlogFallbackImage(slug);
+  const description = post.excerpt || `Read about ${post.title} on the Naira Autos blog`;
 
   return {
     title: `${post.title} | Naira Autos Blog`,
@@ -96,17 +93,16 @@ export default async function BlogDetailPage({ params }: Props) {
     relatedPosts = [...relatedPosts, ...(data ?? [])];
   }
 
-  // ── JSON-LD schemas ──────────────────────────────────────────────
+  // ── Resolve image (featured or deterministic fallback) ───────────
   const siteUrl = 'https://naira.autos';
   const postUrl = `${siteUrl}/blog/${post.slug}`;
-  const imageUrl =
-    post.featured_image ||
-    'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1200';
+  const imageUrl = post.featured_image || getBlogFallbackImage(slug);
 
   const categorySlug = post.category
     ? post.category.toLowerCase().replace(/\s+/g, '-')
     : null;
 
+  // ── JSON-LD schemas ──────────────────────────────────────────────
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -181,7 +177,8 @@ export default async function BlogDetailPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <BlogDetailClient post={post} relatedPosts={relatedPosts} faqs={faqs} />
+      <BlogDetailClient post={post} relatedPosts={relatedPosts} faqs={faqs} imageUrl={imageUrl} />
     </>
   );
-}
+  }
+    
