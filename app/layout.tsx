@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ConditionalBottomNav } from '@/components/layout/ConditionalBottomNav';
 import { Toaster } from '@/components/ui/toaster';
@@ -27,6 +28,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
+  },
+  other: {
+    'google-adsense-account': 'ca-pub-2042049454847724',
   },
   openGraph: {
     type: 'website',
@@ -65,6 +69,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2042049454847724"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body>
         <ThemeProvider
           attribute="class"
