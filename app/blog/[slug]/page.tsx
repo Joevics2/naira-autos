@@ -177,8 +177,12 @@ export default async function BlogDetailPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <BlogDetailClient post={post} relatedPosts={relatedPosts} faqs={faqs} imageUrl={imageUrl} />
+      <BlogDetailClient
+        post={{ ...post, featured_image: imageUrl }}
+        relatedPosts={relatedPosts}
+        faqs={faqs}
+      />
     </>
   );
-  }
-    
+                }
+  
