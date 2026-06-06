@@ -6,6 +6,7 @@ import { useState } from 'react';
 import BlogMarkdownRenderer from '@/components/BlogMarkdownRenderer';
 import { Button } from '@/components/ui/button';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { getBlogFallbackImage } from '@/lib/blogImages';
 import {
   ChevronLeft,
   Calendar,
@@ -207,7 +208,7 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
             {/* Divider */}
             <hr className="my-8 border-border" />
 
-            {/* Featured image */}
+            {/* Featured image — always shown since page.tsx resolves the fallback */}
             {post.featured_image && (
               <figure className="mb-8">
                 <img
@@ -311,15 +312,11 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
                         href={`/blog/${related.slug}`}
                         className="flex gap-3 group"
                       >
-                        {related.featured_image ? (
-                          <img
-                            src={related.featured_image}
-                            alt={related.title}
-                            className="w-16 h-12 object-cover rounded-md flex-shrink-0"
-                          />
-                        ) : (
-                          <div className="w-16 h-12 rounded-md bg-muted flex-shrink-0" />
-                        )}
+                        <img
+                          src={related.featured_image || getBlogFallbackImage(related.slug)}
+                          alt={related.title}
+                          className="w-16 h-12 object-cover rounded-md flex-shrink-0"
+                        />
                         <div className="min-w-0">
                           <h4 className="text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors leading-snug">
                             {related.title}
@@ -344,7 +341,6 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
                   </div>
                 </div>
               )}
-
 
               {/* Browse by category */}
               <div className="rounded-xl border bg-card p-5">
@@ -376,4 +372,5 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
       </div>
     </div>
   );
-}
+  }
+  
