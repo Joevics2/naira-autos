@@ -9,15 +9,14 @@ type GlossaryTerm = GlossaryTermSummary;
 // ── SEO ───────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  // FIX 1: Lead with value, push brand name to end
-  title: 'Nigerian Car Market Glossary — Tokunbo, Duty Paid, Grade A & More | Naira Autos',
+  title: 'Nigerian Car Market Glossary — Tokunbo, Duty Paid, Grade A & More',
   description:
     'Understand Tokunbo, duty paid, Grade A, VIN, clearing cost, Ladipo pricing, and 100+ Nigerian car market terms. The essential buyer and seller glossary from Naira Autos.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/glossary',
   },
   openGraph: {
-    title: 'Nigerian Car Market Glossary | Naira Autos',
+    title: 'Nigerian Car Market Glossary',
     description:
       'Understand every term used when buying or selling cars in Nigeria. Tokunbo, Nigerian Used, Grade A, duty paid, VIN, Ladipo, and hundreds more.',
     url: 'https://www.naira.autos/tools/glossary',
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nigerian Car Market Glossary | Naira Autos',
+    title: 'Nigerian Car Market Glossary',
     description:
       'Understand every term used when buying or selling cars in Nigeria. Tokunbo, Nigerian Used, Grade A, duty paid, VIN, Ladipo, and hundreds more.',
     images: ['https://www.naira.autos/og/glossary.png'],
