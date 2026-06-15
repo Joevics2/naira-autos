@@ -356,4 +356,4 @@ export default async function BrandPage(
       </div>
     </>
   );
-}
+    }
