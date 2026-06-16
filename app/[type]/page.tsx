@@ -1,12 +1,23 @@
 // app/[type]/page.tsx
 // Route: /cars  /trucks  /vans  /buses  /motorcycles
 // Fetches distinct brands from vehicle_models WHERE vehicle_type = x
+//
+// VISIBILITY RULE:
+// vehicle_models holds one row per MODEL, not per brand — a brand
+// (e.g. Kia) has many model rows, each with its own `status`.
+// A brand should appear here if it has at least one PUBLISHED model
+// for this vehicle_type. The query below filters to status='published'
+// before grouping by brand_slug, so brands with zero published models
+// never make it into the grid, and the displayed count reflects only
+// published models.
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
 import { getSupabase, getDbType, VEHICLE_TYPES } from '@/lib/vehicle-helpers';
+
+export const revalidate = 86400; // 24 hours
 
 // ── Static params ─────────────────────────────────────────────
 
@@ -73,11 +84,12 @@ export default async function VehicleTypePage(
   const dbType   = getDbType(params.type);
   const supabase = getSupabase();
 
-  // Get distinct brands with model counts
+  // Get distinct brands with model counts — PUBLISHED models only
   const { data: models } = await supabase
     .from('vehicle_models')
     .select('brand_slug, brand_name, brand_logo_url')
     .eq('vehicle_type', dbType)
+    .eq('status', 'published')
     .order('brand_name');
 
   // Aggregate by brand
