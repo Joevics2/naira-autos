@@ -1,17 +1,7 @@
 // app/[type]/[brand]/page.tsx
 // Route: /cars/honda  /trucks/toyota  etc.
-//
 // Fetches all models WHERE brand_slug = x AND vehicle_type = type
 // No car_brands table — brand info comes from vehicle_models columns
-//
-// VISIBILITY RULE:
-// A brand only renders (and is only pre-built) if it has at least one
-// published row in vehicle_prices OR vehicle_parts for this
-// brand_slug + vehicle_type combination. Brands that only exist in
-// vehicle_models (no price/parts content yet) return 404.
-//
-// Revalidates every 24 hours so newly added brands/prices/parts
-// appear without a full redeploy.
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -29,33 +19,15 @@ export const revalidate = 86400; // 24 hours
 
 export async function generateStaticParams() {
   const supabase = getSupabase();
-
-  // Universe of brand/type combos comes from vehicle_models
-  const { data: modelRows } = await supabase
+  const { data } = await supabase
     .from('vehicle_models')
-    .select('brand_slug, vehicle_type');
-
-  // Brands that actually have content
-  const { data: pricedRows } = await supabase
-    .from('vehicle_prices')
     .select('brand_slug, vehicle_type')
     .eq('status', 'published');
-
-  const { data: partsRows } = await supabase
-    .from('vehicle_parts')
-    .select('brand_slug, vehicle_type')
-    .eq('status', 'published');
-
-  const validKeys = new Set<string>();
-  for (const r of (pricedRows || [])) validKeys.add(`${r.vehicle_type}::${r.brand_slug}`);
-  for (const r of (partsRows || [])) validKeys.add(`${r.vehicle_type}::${r.brand_slug}`);
 
   const seen = new Set<string>();
   const results: { type: string; brand: string }[] = [];
 
-  for (const row of (modelRows || [])) {
-    if (!validKeys.has(`${row.vehicle_type}::${row.brand_slug}`)) continue;
-
+  for (const row of (data || [])) {
     const typeSlug = Object.entries(VEHICLE_TYPES).find(
       ([, info]) => info.singular.toLowerCase() === row.vehicle_type
     )?.[0] ?? row.vehicle_type + 's';
@@ -111,32 +83,12 @@ export default async function BrandPage(
   const supabase = getSupabase();
   const dbType   = getDbType(params.type);
 
-  // ── Visibility gate ──────────────────────────────────────────
-  // Only show this brand if it has at least one published row in
-  // vehicle_prices or vehicle_parts for this vehicle type.
-  const [{ count: priceCount }, { count: partsCount }] = await Promise.all([
-    supabase
-      .from('vehicle_prices')
-      .select('id', { count: 'exact', head: true })
-      .eq('brand_slug', params.brand)
-      .eq('vehicle_type', dbType)
-      .eq('status', 'published'),
-    supabase
-      .from('vehicle_parts')
-      .select('id', { count: 'exact', head: true })
-      .eq('brand_slug', params.brand)
-      .eq('vehicle_type', dbType)
-      .eq('status', 'published'),
-  ]);
-
-  if (!priceCount && !partsCount) notFound();
-
-  // ── Models for this brand ────────────────────────────────────
   const { data: models } = await supabase
     .from('vehicle_models')
     .select('*')
     .eq('brand_slug', params.brand)
     .eq('vehicle_type', dbType)
+    .eq('status', 'published')
     .order('popular', { ascending: false })
     .order('sort_order');
 
@@ -356,4 +308,4 @@ export default async function BrandPage(
       </div>
     </>
   );
-    }
+}
