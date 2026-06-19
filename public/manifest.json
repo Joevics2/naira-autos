@@ -1,7 +1,7 @@
 {
-  "name": "Auto Marketplace",
-  "short_name": "AutoMarket",
-  "description": "Buy and sell vehicles with video verification",
+  "name": "Naira Autos",
+  "short_name": "Naira Autos",
+  "description": "All tools and information you need to own a car anywhere in the world",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
