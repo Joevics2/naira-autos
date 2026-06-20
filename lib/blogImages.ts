@@ -11,35 +11,28 @@
  */
 
 const FALLBACK_IMAGES = [
-  // Exterior / on-road
-  'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1200',   // classic silver sedan on road
-  'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=1200', // white SUV front angle
-  'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=1200',   // red car driving
-  'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=1200',   // black car on wet road
-  'https://images.pexels.com/photos/707046/pexels-photo-707046.jpeg?auto=compress&cs=tinysrgb&w=1200',   // car headlight close-up
-  'https://images.pexels.com/photos/909907/pexels-photo-909907.jpeg?auto=compress&cs=tinysrgb&w=1200',   // white SUV parked dust road
-  'https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&cs=tinysrgb&w=1200',   // grey sedan side profile
-  'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=1200', // car driving sunset highway
-
-  // Interior / dashboard
-  'https://images.pexels.com/photos/1082655/pexels-photo-1082655.jpeg?auto=compress&cs=tinysrgb&w=1200', // steering wheel close-up
-  'https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=1200', // modern car interior dashboard
-  'https://images.pexels.com/photos/1009871/pexels-photo-1009871.jpeg?auto=compress&cs=tinysrgb&w=1200', // gear shift interior
-  'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1200', // driver POV dashboard
-
-  // Engine / mechanical
-  'https://images.pexels.com/photos/4489730/pexels-photo-4489730.jpeg?auto=compress&cs=tinysrgb&w=1200', // mechanic working under hood
-  'https://images.pexels.com/photos/3807386/pexels-photo-3807386.jpeg?auto=compress&cs=tinysrgb&w=1200', // engine bay close-up
-  'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1200', // mechanic hands on engine
-
-  // Traffic / urban
-  'https://images.pexels.com/photos/1004409/pexels-photo-1004409.jpeg?auto=compress&cs=tinysrgb&w=1200', // busy city traffic
-  'https://images.pexels.com/photos/2526935/pexels-photo-2526935.jpeg?auto=compress&cs=tinysrgb&w=1200', // cars queued at traffic light
-  'https://images.pexels.com/photos/1008590/pexels-photo-1008590.jpeg?auto=compress&cs=tinysrgb&w=1200', // night city traffic light trails
-
-  // Keys / buying
-  'https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&w=1200',   // car keys on table
-  'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&w=1200', // handshake car sale dealership
+  'https://images.pexels.com/photos/12681060/pexels-photo-12681060.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/8498039/pexels-photo-8498039.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/16775823/pexels-photo-16775823.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/29352868/pexels-photo-29352868.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/8586689/pexels-photo-8586689.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/25637367/pexels-photo-25637367.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/5374428/pexels-photo-5374428.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/36542646/pexels-photo-36542646.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/35828311/pexels-photo-35828311.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/26834313/pexels-photo-26834313.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/16505294/pexels-photo-16505294.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/3264504/pexels-photo-3264504.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/18352737/pexels-photo-18352737.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/18254981/pexels-photo-18254981.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/12161799/pexels-photo-12161799.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/6870324/pexels-photo-6870324.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/16350113/pexels-photo-16350113.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/12565887/pexels-photo-12565887.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/9702356/pexels-photo-9702356.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/19316821/pexels-photo-19316821.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/31732759/pexels-photo-31732759.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/14359158/pexels-photo-14359158.jpeg?auto=compress&cs=tinysrgb&w=1200',
 ];
 
 /**
