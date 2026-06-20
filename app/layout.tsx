@@ -70,6 +70,23 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Consent Mode v2 — must run BEFORE the AdSense script below.
+            Sets every signal to "denied" by default until the user
+            responds to CookieBanner, which calls gtag('consent','update',...) */}
+        <Script id="consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){ dataLayer.push(arguments); }
+            window.gtag = gtag;
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied',
+              wait_for_update: 500
+            });
+          `}
+        </Script>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2042049454847724"
@@ -98,4 +115,5 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+  }
+          
