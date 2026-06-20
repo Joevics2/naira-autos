@@ -3,35 +3,135 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+/**
+ * Compliant cookie consent banner.
+ *
+ * Differences from the old version:
+ * 1. Real choice — Accept AND Reject, not just "Got it".
+ * 2. Sends Google Consent Mode v2 signals (gtag('consent', 'update', ...))
+ *    so AdSense/Analytics actually respect the user's choice, instead of
+ *    just displaying text with no functional effect.
+ * 3. Defaults to "denied" until the user responds — this banner works
+ *    together with the default consent state set in layout.tsx (see below),
+ *    so tracking is restricted from the very first paint, not just after
+ *    this component mounts.
+ * 4. Stores the decision with a timestamp so you can expire/re-ask consent
+ *    after a set period (e.g. 6-12 months) if you want, without rebuilding
+ *    this component later.
+ */
+
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
+  }
+}
+
+const CONSENT_KEY = 'naira_autos_cookie_consent';
+const CONSENT_VERSION = '1'; // bump this if you change cookie/consent practices
+
+type ConsentValue = 'accepted' | 'rejected';
+
+interface StoredConsent {
+  value: ConsentValue;
+  version: string;
+  timestamp: number;
+}
+
+function readStoredConsent(): StoredConsent | null {
+  try {
+    const raw = localStorage.getItem(CONSENT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as StoredConsent;
+    if (parsed.version !== CONSENT_VERSION) return null; // re-ask if policy changed
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredConsent(value: ConsentValue) {
+  const payload: StoredConsent = {
+    value,
+    version: CONSENT_VERSION,
+    timestamp: Date.now(),
+  };
+  localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
+}
+
+function updateGoogleConsent(value: ConsentValue) {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+
+  if (value === 'accepted') {
+    window.gtag('consent', 'update', {
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+      analytics_storage: 'granted',
+    });
+  } else {
+    window.gtag('consent', 'update', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+    });
+  }
+}
+
 export function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem('cookiesAccepted');
-    if (!accepted) setVisible(true);
+    const stored = readStoredConsent();
+    if (stored) {
+      // Re-apply their previous choice on every page load, since
+      // Consent Mode defaults reset per page unless re-signaled.
+      updateGoogleConsent(stored.value);
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
   }, []);
 
-  const accept = () => {
-    localStorage.setItem('cookiesAccepted', 'true');
+  const handleChoice = (value: ConsentValue) => {
+    writeStoredConsent(value);
+    updateGoogleConsent(value);
     setVisible(false);
   };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#080C10] border-t border-white/10 px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+    <div
+      role="dialog"
+      aria-label="Cookie consent"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-[#080C10] border-t border-white/10 px-4 py-4 flex flex-wrap items-center justify-between gap-3"
+    >
       <p className="text-xs text-white/60 max-w-xl">
-        We use cookies for analytics and to serve relevant ads via Google AdSense.{' '}
-        <Link href="/privacy" className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors">
+        We use cookies for analytics and to serve relevant ads via Google AdSense.
+        You can accept or reject non-essential cookies.{' '}
+        <Link
+          href="/privacy"
+          className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors"
+        >
           Learn more
         </Link>
       </p>
-      <button
-        onClick={accept}
-        className="shrink-0 bg-emerald-600 hover:bg-emerald-500 transition-colors text-white text-xs font-semibold px-5 py-2 rounded-md"
-      >
-        Got it
-      </button>
+      <div className="flex gap-2 shrink-0">
+        <button
+          onClick={() => handleChoice('rejected')}
+          className="bg-white/10 hover:bg-white/20 transition-colors text-white text-xs font-semibold px-5 py-2 rounded-md"
+        >
+          Reject
+        </button>
+        <button
+          onClick={() => handleChoice('accepted')}
+          className="bg-emerald-600 hover:bg-emerald-500 transition-colors text-white text-xs font-semibold px-5 py-2 rounded-md"
+        >
+          Accept
+        </button>
+      </div>
     </div>
   );
 }
