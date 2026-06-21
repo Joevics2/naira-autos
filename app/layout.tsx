@@ -70,7 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Consent Mode v2 — must run BEFORE the AdSense script below.
+        {/* 1. Consent Mode v2 — must run BEFORE GA4 and AdSense below.
             Sets every signal to "denied" by default until the user
             responds to CookieBanner, which calls gtag('consent','update',...) */}
         <Script id="consent-default" strategy="beforeInteractive">
@@ -87,6 +87,25 @@ export default function RootLayout({
             });
           `}
         </Script>
+
+        {/* 2. Google Analytics (GA4) — loads after the consent default,
+            so it automatically respects "denied" analytics_storage until
+            the user accepts via CookieBanner. */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-CB9068EPJM"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){ dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-CB9068EPJM');
+          `}
+        </Script>
+
+        {/* 3. AdSense — also respects the consent default set above. */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2042049454847724"
@@ -115,5 +134,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-  }
-          
+}
