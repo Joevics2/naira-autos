@@ -157,6 +157,30 @@ export default function FuelCostCalculatorPage() {
               ))}
             </div>
           </div>
+
+          {/* Related tools */}
+          <section>
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              More Free Tools
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { href: '/tools/road-trip-calculator', label: 'Road Trip Calculator', color: 'amber' },
+                { href: '/tools/registration-fee-calculator', label: 'Registration Fee Calculator', color: 'blue' },
+                { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
+              ].map(({ href, label, color }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
+                >
+                  <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
+                  <ChevronRight className={`h-4 w-4 text-${color}-500`} />
+                </Link>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
     </>

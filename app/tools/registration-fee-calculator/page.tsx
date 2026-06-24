@@ -255,6 +255,30 @@ export default function RegistrationFeeCalculatorPage() {
           <p className="text-xs text-muted-foreground">
             FRSC fees source: Joint Tax Board (JTB) + Federal Road Safety Corps announcement, effective 8 June 2025. State add-on estimates are based on Lagos MVAA official schedule (lagosmepb.org) and user-reported figures from other states. Verify exact totals at <strong className="text-foreground">nvis.frsc.gov.ng</strong>, <strong className="text-foreground">nigeriadriverslicence.frsc.gov.ng</strong>, or your state MVAA/BIR office before attending. Fees may change with state budgets.
           </p>
+
+          {/* Related tools */}
+          <section>
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              More Free Tools
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
+                { href: '/tools/vehicle-papers-checklist', label: 'Vehicle Papers Checklist', color: 'violet' },
+                { href: '/tools/insurance-calculator', label: 'Insurance Calculator', color: 'blue' },
+              ].map(({ href, label, color }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
+                >
+                  <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
+                  <ChevronRight className={`h-4 w-4 text-${color}-500`} />
+                </Link>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
     </>
