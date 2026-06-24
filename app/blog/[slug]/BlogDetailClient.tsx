@@ -137,19 +137,19 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
     <div className="min-h-screen bg-background">
       {/* ── Top bar with breadcrumb ── */}
       <div className="bg-primary py-4 border-b">
-        <div className="max-w-screen-xl mx-auto px-4">
-          <Breadcrumbs items={breadcrumbItems} />
-        </div>
-      </div>
-
+  <div className="max-w-screen-xl mx-auto px-4 [&_nav]:text-white/70 [&_a]:text-white/70 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-white/70">
+    <Breadcrumbs items={breadcrumbItems} />
+  </div>
+</div>
+      
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Back link */}
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-        >
-          <ChevronLeft className="h-4 w-4" /> Back
-        </button>
+        <Link
+  href="/blog"
+  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+>
+  <ChevronLeft className="h-4 w-4" /> Back
+</Link>
 
         <div className="grid lg:grid-cols-3 gap-10">
           {/* ══════════════════════════════════════════════════════
