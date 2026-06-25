@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ChevronRight, BookOpen } from 'lucide-react';
+import { ChevronRight, BookOpen, ArrowLeft } from 'lucide-react';
 import { getAllGlossaryTerms, type GlossaryTermSummary } from '@/lib/glossary';
 
 // Local alias so the rest of the file keeps working unchanged
@@ -116,6 +116,14 @@ export default async function GlossaryPage() {
       {/* ── Hero ── */}
       <div className="bg-[#080C10] border-b border-white/10">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+
+          {/* Back button */}
+          <Link
+            href="/tools"
+            className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors mb-6"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to Tools
+          </Link>
 
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
@@ -248,55 +256,26 @@ export default async function GlossaryPage() {
             </div>
           )}
 
-          {/* CTA strip */}
-          <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Quick links */}
+          <div className="mt-16 flex flex-col gap-2">
             {[
-              {
-                label: 'Sell for me',
-                sub: 'We handle everything for you',
-                href: 'https://www.naira.autos/sell-for-me',
-                external: true,
-              },
-              {
-                label: 'AI Mechanic',
-                sub: 'Diagnose your car for free',
-                href: '/tools/ai-mechanic',
-                external: false,
-              },
-              {
-                label: 'Blog',
-                sub: 'Find interesting Articles',
-                href: 'https://www.naira.autos/blog',
-                external: true,
-              },
-            ].map(({ label, sub, href, external }) => {
-              const cls =
-                'flex items-center justify-between gap-3 px-5 py-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all group';
-              const inner = (
-                <>
-                  <div>
-                    <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{label}</p>
-                    <p className="text-xs text-emerald-700/60 dark:text-emerald-400/60 mt-0.5">{sub}</p>
-                  </div>
-                  <ChevronRight className="h-4 w-4 text-emerald-500 flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                </>
-              );
-              return external ? (
-                <a
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cls}
-                >
-                  {inner}
-                </a>
-              ) : (
-                <Link key={href} href={href} className={cls}>
-                  {inner}
-                </Link>
-              );
-            })}
+              { label: 'AI Mechanic',          sub: 'Diagnose your car for free',      href: '/tools/ai-mechanic',   external: false },
+              { label: 'Sell For Me',           sub: 'We handle everything for you',    href: '/sell-for-me',         external: false },
+              { label: 'Vehicle Information',   sub: 'Prices, parts & model guides',    href: '/vehicles',            external: false },
+              { label: 'Read Blog Posts',       sub: 'Tips, guides & buying advice',    href: '/blog',                external: false },
+            ].map(({ label, sub, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all group"
+              >
+                <div>
+                  <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{label}</p>
+                  <p className="text-xs text-emerald-700/60 dark:text-emerald-400/60 mt-0.5">{sub}</p>
+                </div>
+                <ChevronRight className="h-4 w-4 text-emerald-500 flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            ))}
           </div>
         </div>
       </div>

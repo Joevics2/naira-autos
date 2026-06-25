@@ -7,14 +7,12 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
   ChevronRight, TrendingUp, TrendingDown, Minus, Fuel, Settings,
-  Users, Wrench, ArrowRight, CheckCircle2, MapPin, ShoppingBag,
+  Users, Wrench, CheckCircle2, MapPin, ShoppingBag,
 } from 'lucide-react';
-import { ListingCard } from '@/components/listings/ListingCard';
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
   formatNaira, formatPriceRange, formatYearLabel,
   MAINTENANCE_CONFIG, PARTS_CONFIG, SEVERITY_CONFIG, FREQUENCY_CONFIG, TREND_CONFIG,
-  getModelListings,
   type VehiclePrice, type Problem,
 } from '@/lib/vehicle-helpers';
 
@@ -135,8 +133,7 @@ export default async function PricePage(
     .order('year_start', { ascending: false })
     .limit(3);
 
-  // Listings
-  const listings = await getModelListings(price.brand_name, price.model_name, price.vehicle_type, 6);
+
 
   const yearLabel    = formatYearLabel(price.year_start, price.year_end);
   const carLabel     = `${price.brand_name} ${price.model_name} ${yearLabel}`;
@@ -477,26 +474,6 @@ export default async function PricePage(
                   </details>
                 ))}
               </div>
-            </section>
-          )}
-
-          {/* ── Live Listings ── */}
-          {listings.length > 0 && (
-            <section>
-              <SectionLabel>Buy Now</SectionLabel>
-              <SectionHeading>{carLabel} for Sale in Nigeria</SectionHeading>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
-                {listings.map((listing: any) => (
-                  <ListingCard key={listing.id} listing={listing} variant="grid" />
-                ))}
-              </div>
-              <Link
-                href={`/search?brand=${encodeURIComponent(price.brand_name)}&q=${encodeURIComponent(price.model_name)}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold transition-colors"
-              >
-                View All {price.brand_name} {price.model_name} Listings
-                <ArrowRight className="h-4 w-4" />
-              </Link>
             </section>
           )}
 

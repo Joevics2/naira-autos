@@ -5,12 +5,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, Wrench, CheckCircle2, MapPin, ShoppingBag, ArrowRight, ArrowLeft } from 'lucide-react';
-import { ListingCard } from '@/components/listings/ListingCard';
+import { ChevronRight, Wrench, CheckCircle2, MapPin, ShoppingBag, ArrowLeft } from 'lucide-react';
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
   formatPriceRange, formatYearLabel,
-  PARTS_CONFIG, getModelListings, WHERE_TO_BUY_MARKETS,
+  PARTS_CONFIG, WHERE_TO_BUY_MARKETS,
   type VehicleParts, type SparePart,
 } from '@/lib/vehicle-helpers';
 
@@ -115,8 +114,7 @@ export default async function PartsPage(
       .limit(4),
   ]);
 
-  // Listings
-  const listings = await getModelListings(parts.brand_name, parts.model_name, parts.vehicle_type, 6);
+
 
   // Group parts by category
   const allParts  = (parts.parts ?? []) as SparePart[];
@@ -354,29 +352,6 @@ export default async function PartsPage(
                   </details>
                 ))}
               </div>
-            </section>
-          )}
-
-          {/* ── Live Listings ── */}
-          {listings.length > 0 && (
-            <section>
-              <SectionLabel>Buy or Sell</SectionLabel>
-              <SectionHeading>{parts.brand_name} {parts.model_name} for Sale in Nigeria</SectionHeading>
-              <p className="text-sm text-muted-foreground mb-5 -mt-3">
-                Browse live listings for the {parts.brand_name} {parts.model_name} on Naira Autos.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
-                {listings.map((listing: any) => (
-                  <ListingCard key={listing.id} listing={listing} variant="grid" />
-                ))}
-              </div>
-              <Link
-                href={`/search?brand=${encodeURIComponent(parts.brand_name)}&q=${encodeURIComponent(parts.model_name)}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold transition-colors"
-              >
-                View All {parts.brand_name} {parts.model_name} Listings
-                <ArrowRight className="h-4 w-4" />
-              </Link>
             </section>
           )}
 
