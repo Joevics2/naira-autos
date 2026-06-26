@@ -461,33 +461,30 @@ export default async function GlossaryTermPage({
               </div>
             )}
 
-            {/* ── More from Naira Autos ── TEMPORARILY COMMENTED OUT FOR DEBUGGING
-            <div className="mt-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
-              <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">
+            {/* ── More from Naira Autos ── */}
+            <div className="mt-6 border border-border rounded-2xl p-5">
+              <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
                 More from Naira Autos
               </p>
-              <div className="flex flex-col gap-2">
-                {[
-                  { label: 'AI Mechanic',         sub: 'Diagnose your car for free',   href: '/tools/ai-mechanic' },
-                  { label: 'Sell For Me',         sub: 'We handle everything for you', href: '/sell-for-me' },
-                  { label: 'Vehicle Information', sub: 'Prices, parts & model guides', href: '/vehicles' },
-                  { label: 'Read Blog Posts',     sub: 'Tips, guides & buying advice', href: '/blog' },
-                ].map(({ label, sub, href }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors"
-                  >
-                    <div>
-                      <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 leading-none">{label}</p>
-                      <p className="text-xs text-emerald-700/50 dark:text-emerald-400/50 mt-0.5">{sub}</p>
-                    </div>
-                    <ChevronRight className="h-4 w-4 text-emerald-500/50 flex-shrink-0" />
-                  </Link>
-                ))}
+              <div className="space-y-2">
+                <Link href="/tools/ai-mechanic" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">AI Mechanic</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Diagnose your car for free</p>
+                </Link>
+                <Link href="/sell-for-me" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Sell For Me</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">We handle everything for you</p>
+                </Link>
+                <Link href="/vehicles" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Vehicle Information</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Prices, parts & model guides</p>
+                </Link>
+                <Link href="/blog" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Read Blog Posts</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Tips, guides & buying advice</p>
+                </Link>
               </div>
             </div>
-            ── END COMMENT */}
 
             {/* ── Explore glossary ── */}
             <div className="mt-6 bg-card border border-border rounded-2xl p-5">
