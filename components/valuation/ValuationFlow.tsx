@@ -367,15 +367,10 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
 
         {/* CTAs */}
         <div className="space-y-2">
-          <div className="grid grid-cols-2 gap-2">
-            <Button onClick={handleListYourCar} className="h-11 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm">
-              🚗 List Your Car
-            </Button>
-            <Button onClick={handleSellForMe} className="h-11 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm">
-              <MessageCircle className="h-4 w-4 mr-1.5" /> Sell For Me
-            </Button>
-          </div>
-          <p className="text-xs text-muted-foreground text-center">"List Your Car" pre-fills the form • "Sell For Me" is a 5% commission service</p>
+          <Button onClick={handleSellForMe} className="w-full h-11 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm">
+            <MessageCircle className="h-4 w-4 mr-1.5" /> Sell For Me — We Handle Everything
+          </Button>
+          <p className="text-xs text-muted-foreground text-center">5% commission · We list, negotiate & transfer on your behalf</p>
           <button onClick={reset} className="text-xs text-muted-foreground hover:text-foreground underline w-full text-center transition-colors">
             Try another photo
           </button>
