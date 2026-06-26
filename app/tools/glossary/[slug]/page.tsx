@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { GlossarySidebar } from './GlossarySidebar';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
