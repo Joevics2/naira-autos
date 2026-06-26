@@ -55,6 +55,11 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 // ── Supabase helpers ──────────────────────────────────────────────
 
+interface TermLink {
+  term: string;
+  slug: string;
+}
+
 async function getTerm(slug: string): Promise<GlossaryTermFull | null> {
   const { data, error } = await supabase
     .from('car_glossary')
