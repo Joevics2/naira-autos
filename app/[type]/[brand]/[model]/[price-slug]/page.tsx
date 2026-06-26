@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
   ChevronRight, TrendingUp, TrendingDown, Minus, Fuel, Settings,
-  Users, Wrench, CheckCircle2, MapPin, ShoppingBag,
+  Users, Wrench, ArrowRight, CheckCircle2, MapPin, ShoppingBag,
 } from 'lucide-react';
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
