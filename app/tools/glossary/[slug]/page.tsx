@@ -356,31 +356,11 @@ function TermSchema({ term }: { term: GlossaryTermFull }) {
 // ── CTA Block ─────────────────────────────────────────────────────
 
 function CTABlock() {
-  const ctas = [
-    {
-      icon: <Tag className="h-4 w-4" />,
-      label: 'List your car for free',
-      sub: 'Sell faster on Naira Autos',
-      href: 'https://www.naira.autos/add-listing',
-      external: true,
-      color: 'emerald',
-    },
-    {
-      icon: <ShoppingCart className="h-4 w-4" />,
-      label: 'Sell for me',
-      sub: 'We handle the sale end to end',
-      href: 'https://www.naira.autos/sell-for-me',
-      external: true,
-      color: 'emerald',
-    },
-    {
-      icon: <Wrench className="h-4 w-4" />,
-      label: 'AI Mechanic',
-      sub: 'Diagnose your car for free',
-      href: '/tools/ai-mechanic',
-      external: false,
-      color: 'emerald',
-    },
+  const links = [
+    { label: 'AI Mechanic',        sub: 'Diagnose your car for free',   href: '/tools/ai-mechanic' },
+    { label: 'Sell For Me',        sub: 'We handle everything for you', href: '/sell-for-me' },
+    { label: 'Vehicle Information',sub: 'Prices, parts & model guides', href: '/vehicles' },
+    { label: 'Read Blog Posts',    sub: 'Tips, guides & buying advice', href: '/blog' },
   ];
 
   return (
@@ -388,18 +368,14 @@ function CTABlock() {
       <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">
         More from Naira Autos
       </p>
-      <div className="grid grid-cols-1 gap-3">
-        {ctas.map(({ icon, label, sub, href, external }) => (
+      <div className="flex flex-col gap-2">
+        {links.map(({ label, sub, href }) => (
           <Link
             key={href}
             href={href}
-            {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all group"
+            className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all group"
           >
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-emerald-500 group-hover:bg-emerald-500/30 transition-colors">
-              {icon}
-            </div>
-            <div className="flex-1 min-w-0">
+            <div>
               <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 leading-none">{label}</p>
               <p className="text-xs text-emerald-700/50 dark:text-emerald-400/50 mt-0.5">{sub}</p>
             </div>
