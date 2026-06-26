@@ -461,7 +461,7 @@ export default async function GlossaryTermPage({
               </div>
             )}
 
-            {/* ── More from Naira Autos ── */}
+            {/* ── More from Naira Autos ── TEMPORARILY COMMENTED OUT FOR DEBUGGING
             <div className="mt-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
               <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">
                 More from Naira Autos
@@ -487,6 +487,7 @@ export default async function GlossaryTermPage({
                 ))}
               </div>
             </div>
+            ── END COMMENT */}
 
             {/* ── Explore glossary ── */}
             <div className="mt-6 bg-card border border-border rounded-2xl p-5">
