@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { GlossarySidebar } from './GlossarySidebar';
+import { AutoLinkedProse, Prose } from './GlossaryProse';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
@@ -51,125 +52,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   selling: 'Selling Process',
   import: 'Import & Customs',
 };
-
-// ── Auto-link helpers ─────────────────────────────────────────────
-
-interface TermLink {
-  term: string;
-  slug: string;
-}
-
-/**
- * Given a paragraph of plain text and a list of glossary terms,
- * returns an array of React nodes with term mentions replaced by links.
- * - Matches whole words only (word boundary)
- * - Skips the current page's own term
- * - Longest term wins when terms overlap (e.g. "Grade A" beats "Grade")
- * - Case-insensitive match, preserves original casing in display
- * - Each term is linked at most once per page (alreadyLinked tracks this)
- */
-function linkifyText(
-  text: string,
-  termLinks: TermLink[],
-  currentSlug: string,
-  alreadyLinked: Set<string>
-): React.ReactNode[] {
-  // Sort by term length descending so longer matches win
-  const sorted = termLinks
-    .filter(t => t.slug !== currentSlug)
-    .sort((a, b) => b.term.length - a.term.length);
-
-  if (sorted.length === 0) return [text];
-
-  // Build a single regex that matches any of the terms (whole word)
-  const pattern = sorted
-    .map(t => t.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-    .join('|');
-  const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
-
-  const parts: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = regex.exec(text)) !== null) {
-    const matched = match[0];
-    const start = match.index;
-
-    if (start > lastIndex) {
-      parts.push(text.slice(lastIndex, start));
-    }
-
-    const entry = sorted.find(
-      t => t.term.toLowerCase() === matched.toLowerCase()
-    );
-
-    if (entry && !alreadyLinked.has(entry.slug)) {
-      // First occurrence — link it and mark as used
-      alreadyLinked.add(entry.slug);
-      parts.push(
-        <Link
-          key={`${entry.slug}-${start}`}
-          href={`/tools/glossary/${entry.slug}`}
-          className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 decoration-emerald-500/40 hover:decoration-emerald-500 transition-colors"
-        >
-          {matched}
-        </Link>
-      );
-    } else {
-      // Already linked or no entry — render as plain text
-      parts.push(matched);
-    }
-
-    lastIndex = start + matched.length;
-  }
-
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
-  }
-
-  return parts;
-}
-
-/**
- * Renders plain text with \n\n paragraph breaks and auto-linked glossary terms.
- * A shared Set ensures each term is linked only once across all paragraphs.
- */
-function AutoLinkedProse({
-  text,
-  termLinks,
-  currentSlug,
-}: {
-  text: string;
-  termLinks: TermLink[];
-  currentSlug: string;
-}) {
-  // One shared set for the entire field — links each term at most once
-  const alreadyLinked = new Set<string>();
-  const paragraphs = text.split('\n\n').filter(Boolean);
-  return (
-    <div className="space-y-4">
-      {paragraphs.map((p, i) => (
-        <p key={i} className="text-sm text-muted-foreground leading-relaxed">
-          {linkifyText(p.trim(), termLinks, currentSlug, alreadyLinked)}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-/** Plain prose — used for tips/callouts where auto-linking feels noisy */
-function Prose({ text }: { text: string }) {
-  const paragraphs = text.split('\n\n').filter(Boolean);
-  return (
-    <div className="space-y-4">
-      {paragraphs.map((p, i) => (
-        <p key={i} className="text-sm text-muted-foreground leading-relaxed">
-          {p.trim()}
-        </p>
-      ))}
-    </div>
-  );
-}
 
 // ── Supabase helpers ──────────────────────────────────────────────
 
