@@ -93,7 +93,7 @@ const jsonLd = {
         name: 'How do I know if I am selling my car at the right price in Nigeria?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Use our free car valuation tool — upload a photo and get an AI-powered estimate calibrated to current Nigerian market data. You can also check active listings on Naira Autos to see what similar cars are selling for. As a rule, price your car 5–10% above your minimum acceptable price to leave room for negotiation, which is standard in the Nigerian car market.',
+          text: 'Use our free car valuation tool — upload a photo and get an AI-powered estimate calibrated to current Nigerian market data. As a rule, price your car 5–10% above your minimum acceptable price to leave room for negotiation, which is standard in the Nigerian car market.',
         },
       },
     ],
@@ -138,7 +138,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'How do I price my car correctly before selling in Nigeria?',
-    a: 'Use our free valuation tool above, then check active Naira Autos listings for similar cars. Price 5–10% above your minimum to allow room for negotiation — standard practice in the Nigerian market.',
+    a: 'Use our free valuation tool above to get an AI-powered market estimate. Price 5–10% above your minimum to allow room for negotiation — standard practice in the Nigerian market.',
   },
   {
     q: 'Do car prices differ between Lagos, Abuja, and Port Harcourt?',

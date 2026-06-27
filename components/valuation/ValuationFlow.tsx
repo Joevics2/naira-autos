@@ -142,20 +142,6 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
     }
   };
 
-  const handleListYourCar = () => {
-    if (!result) return;
-    sessionStorage.setItem('valuation_prefill', JSON.stringify({
-      brand: result.brand, model: result.model, year: result.yearMid,
-      bodyType: result.bodyType, vehicleType: result.vehicleType,
-      condition: result.estimatedCarType, color: result.color,
-      fuelType: result.fuelType, transmission: result.transmission,
-      location: result.location, suggestedPrice: result.suggestedPrice,
-      priceRangeLow: result.priceRangeLow, priceRangeHigh: result.priceRangeHigh,
-      _source: 'valuation',
-    }));
-    router.push('/add-listing?from=valuation');
-  };
-
   const handleSellForMe = () => {
     if (!result) return;
     const carName = `${result.yearRange} ${result.brand} ${result.model}${result.trim ? ' ' + result.trim : ''}`;
