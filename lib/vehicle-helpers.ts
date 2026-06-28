@@ -221,54 +221,41 @@ export const TREND_CONFIG: Record<string, { color: string; label: string }> = {
   stable:  { color: 'text-muted-foreground', label: 'Price Stable' },
 };
 
-// Listings: same model first, then same brand, then same type fallback
-export async function getModelListings(
-  brandName: string,
-  modelName: string,
-  vehicleType: string,
-  limit = 6
-) {
-  const supabase = getSupabase();
+// New table types (vehicle_parts and vehicle_problems rebuilt)
+export interface VehiclePartRecord {
+  id: string;
+  model_id: number;
+  brand_slug: string;
+  brand_name: string;
+  model_name: string;
+  vehicle_type: string;
+  year: number;
+  image_url: string | null;
+  intro: string | null;
+  parts: SparePart[];
+  buying_guide: string | null;
+  slug: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  faqs: FAQ[];
+}
 
-  // 1. Same model
-  const { data: modelData } = await supabase
-    .from('listings')
-    .select('*, profiles(*)')
-    .eq('status', 'approved')
-    .ilike('brand', `%${brandName}%`)
-    .ilike('model', `%${modelName}%`)
-    .order('created_at', { ascending: false })
-    .limit(limit);
-
-  if (modelData && modelData.length >= 3) return modelData;
-
-  // 2. Same brand
-  const existingIds = new Set((modelData || []).map((l: any) => l.id));
-  const needed = limit - (modelData?.length ?? 0);
-  const { data: brandData } = await supabase
-    .from('listings')
-    .select('*, profiles(*)')
-    .eq('status', 'approved')
-    .ilike('brand', `%${brandName}%`)
-    .order('created_at', { ascending: false })
-    .limit(limit + 10);
-  const brandFiltered = (brandData || []).filter((l: any) => !existingIds.has(l.id)).slice(0, needed);
-  const combined = [...(modelData || []), ...brandFiltered];
-
-  if (combined.length >= 3) return combined;
-
-  // 3. Same type fallback
-  const allIds = new Set(combined.map((l: any) => l.id));
-  const stillNeeded = limit - combined.length;
-  const { data: typeData } = await supabase
-    .from('listings')
-    .select('*, profiles(*)')
-    .eq('status', 'approved')
-    .ilike('type', `%${vehicleType}%`)
-    .order('views_count', { ascending: false })
-    .limit(stillNeeded + 10);
-  const typeFiltered = (typeData || []).filter((l: any) => !allIds.has(l.id)).slice(0, stillNeeded);
-  return [...combined, ...typeFiltered];
+export interface VehicleProblemRecord {
+  id: string;
+  model_id: number;
+  brand_slug: string;
+  brand_name: string;
+  model_name: string;
+  vehicle_type: string;
+  year: number;
+  image_url: string | null;
+  intro: string | null;
+  problems: Problem[];
+  owners_advice: string | null;
+  slug: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  faqs: FAQ[];
 }
 
 // WHERE TO BUY — used on parts pages

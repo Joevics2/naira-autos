@@ -1,21 +1,20 @@
 // app/[type]/[brand]/[model]/page.tsx
-// Route: /cars/honda/accord
-// Layout: hero -> spare parts years (top) -> price years -> overview ->
-//         pros/cons -> buying tips -> FAQ -> listings -> related
+// Route: /cars/toyota/camry
+// Shows model overview + year cards linking to /[year] pages
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
-  ChevronRight, ArrowRight, Wrench, TrendingUp, TrendingDown, Minus,
-  CheckCircle2, XCircle, Fuel, Settings, Users, Star,
+  ChevronRight, Wrench, Fuel, Settings, Users, Star, Calendar,
 } from 'lucide-react';
-import { ListingCard } from '@/components/listings/ListingCard';
 import {
-  getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, formatYearLabel,
-  MAINTENANCE_CONFIG, PARTS_CONFIG, TREND_CONFIG, getModelListings,
-  type VehicleModel, type VehiclePrice, type VehicleParts,
+  getSupabase, getDbType, VEHICLE_TYPES,
+  MAINTENANCE_CONFIG, PARTS_CONFIG,
+  type VehicleModel, type FAQ,
 } from '@/lib/vehicle-helpers';
+
+type Params = { type: string; brand: string; model: string };
 
 export async function generateStaticParams() {
   const supabase = getSupabase();
@@ -28,9 +27,7 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata(
-  { params }: { params: { type: string; brand: string; model: string } }
-): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const supabase = getSupabase();
   const { data: m } = await supabase
     .from('vehicle_models')
@@ -38,8 +35,8 @@ export async function generateMetadata(
     .eq('slug', params.model).eq('brand_slug', params.brand).single();
   if (!m) return {};
   const label = `${m.brand_name} ${m.name}`;
-  const title = m.meta_title ?? `${label} Price in Nigeria — All Years | Naira Autos`;
-  const desc  = m.meta_description ?? `${label} prices in Nigeria. Tokunbo and used prices, common problems, spare parts and buying guide.`;
+  const title = m.meta_title ?? `${label} — Spare Parts & Common Problems in Nigeria | Naira Autos`;
+  const desc  = m.meta_description ?? `${label} spare parts prices and common problems in Nigeria. Select a year for detailed information.`;
   const url   = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}`;
   return {
     title, description: desc, alternates: { canonical: url },
@@ -47,9 +44,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function ModelPage(
-  { params }: { params: { type: string; brand: string; model: string } }
-) {
+export default async function ModelPage({ params }: { params: Params }) {
   const typeInfo = VEHICLE_TYPES[params.type];
   if (!typeInfo) notFound();
 
@@ -66,349 +61,279 @@ export default async function ModelPage(
 
   if (!model) notFound();
 
-  const [{ data: modelPrices }, { data: modelParts }] = await Promise.all([
-    supabase.from('vehicle_prices')
-      .select('id, slug, year_start, year_end, generation, tokunbo_price_min, tokunbo_price_max, price_trend, maintenance_score')
-      .eq('model_id', model.id).order('year_start', { ascending: false }),
-    supabase.from('vehicle_parts')
-      .select('id, slug, year_start, year_end, generation, availability_overview')
-      .eq('model_id', model.id).order('year_start', { ascending: false }),
+  // Fetch available years from both new tables
+  const [{ data: partYears }, { data: problemYears }] = await Promise.all([
+    supabase.from('vehicle_parts').select('year, image_url').eq('model_id', model.id).order('year', { ascending: false }),
+    supabase.from('vehicle_problems').select('year').eq('model_id', model.id).order('year', { ascending: false }),
   ]);
 
-  const listings  = await getModelListings(model.brand_name, model.name, dbType, 6);
-  const vm        = model as VehicleModel;
-  const allPrices = (modelPrices || []) as Partial<VehiclePrice>[];
-  const allParts  = (modelParts  || []) as Partial<VehicleParts>[];
-  const carLabel  = `${vm.brand_name} ${vm.name}`;
-  const canonical = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}`;
+  // Merge into unique sorted year list
+  const allYearNums = Array.from(new Set([
+    ...(partYears || []).map((r: any) => r.year),
+    ...(problemYears || []).map((r: any) => r.year),
+  ])).sort((a, b) => b - a);
 
-  const SCHEMA = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'WebPage', '@id': canonical,
-        name: `${carLabel} Price in Nigeria`, url: canonical,
-        breadcrumb: {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home',          item: 'https://www.naira.autos' },
-            { '@type': 'ListItem', position: 2, name: typeInfo.plural, item: `https://www.naira.autos/${params.type}` },
-            { '@type': 'ListItem', position: 3, name: vm.brand_name,   item: `https://www.naira.autos/${params.type}/${params.brand}` },
-            { '@type': 'ListItem', position: 4, name: vm.name,         item: canonical },
-          ],
-        },
-      },
-      ...(vm.faqs?.length ? [{
-        '@type': 'FAQPage',
-        mainEntity: vm.faqs.map(f => ({
-          '@type': 'Question', name: f.question,
-          acceptedAnswer: { '@type': 'Answer', text: f.answer },
-        })),
-      }] : []),
-    ],
-  };
+  // Build a map: year → { hasParts, hasProblems, imageUrl }
+  const yearMap: Record<number, { hasParts: boolean; hasProblems: boolean; imageUrl: string | null }> = {};
+  for (const y of allYearNums) {
+    yearMap[y] = { hasParts: false, hasProblems: false, imageUrl: null };
+  }
+  for (const r of partYears || []) {
+    if (yearMap[r.year]) { yearMap[r.year].hasParts = true; yearMap[r.year].imageUrl = r.image_url; }
+  }
+  for (const r of problemYears || []) {
+    if (yearMap[r.year]) yearMap[r.year].hasProblems = true;
+  }
+
+  const vm       = model as VehicleModel;
+  const carLabel = `${vm.brand_name} ${vm.name}`;
+  const canonical = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}`;
+  const faqs      = (vm.faqs || []) as FAQ[];
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <div className="bg-background min-h-screen">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-10 space-y-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebPage', '@id': canonical,
+            name: carLabel, url: canonical,
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home',          item: 'https://www.naira.autos' },
+                { '@type': 'ListItem', position: 2, name: typeInfo.plural, item: `https://www.naira.autos/${params.type}` },
+                { '@type': 'ListItem', position: 3, name: vm.brand_name,   item: `https://www.naira.autos/${params.type}/${params.brand}` },
+                { '@type': 'ListItem', position: 4, name: vm.name,         item: canonical },
+              ],
+            },
+          },
+          ...(faqs.length ? [{
+            '@type': 'FAQPage',
+            mainEntity: faqs.map(f => ({
+              '@type': 'Question', name: f.question,
+              acceptedAnswer: { '@type': 'Answer', text: f.answer },
+            })),
+          }] : []),
+        ],
+      })}} />
 
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-muted-foreground flex-wrap">
-            {[
-              { label: 'Home',          href: '/' },
-              { label: typeInfo.plural, href: `/${params.type}` },
-              { label: vm.brand_name,   href: `/${params.type}/${params.brand}` },
-            ].map(({ label, href }) => (
-              <span key={href} className="flex items-center gap-1.5">
-                <Link href={href} className="hover:text-foreground transition-colors">{label}</Link>
-                <ChevronRight className="h-3 w-3" />
-              </span>
-            ))}
-            <span className="text-foreground font-medium">{vm.name}</span>
-          </nav>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-10">
 
-          {/* Hero */}
-          <section>
-            <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-3">
-              {vm.brand_name} · {vm.body_type ?? typeInfo.singular}
-            </p>
-            <h1
-              className="text-5xl sm:text-6xl font-black uppercase text-foreground mb-5 leading-none"
-              style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-            >
-              {carLabel}<br /><span className="text-emerald-500">Price in Nigeria</span>
-            </h1>
+        {/* Breadcrumb */}
+        <nav className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
+          {[
+            { label: 'Home',          href: '/' },
+            { label: typeInfo.plural, href: '/vehicles' },
+            { label: vm.brand_name,   href: `/${params.type}/${params.brand}` },
+          ].map(({ label, href }) => (
+            <span key={href} className="flex items-center gap-1">
+              <Link href={href} className="hover:text-foreground transition-colors">{label}</Link>
+              <ChevronRight className="h-3 w-3" />
+            </span>
+          ))}
+          <span className="text-foreground font-medium">{vm.name}</span>
+        </nav>
 
-            {/* Inline stats strip */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-5 text-sm text-muted-foreground">
-              {vm.fuel_type && <span className="flex items-center gap-1.5"><Fuel className="h-4 w-4 text-emerald-500" />{vm.fuel_type}</span>}
-              {vm.engine_summary && <span className="flex items-center gap-1.5"><Settings className="h-4 w-4 text-emerald-500" />{vm.engine_summary}</span>}
-              {vm.seating && <span className="flex items-center gap-1.5"><Users className="h-4 w-4 text-emerald-500" />{vm.seating} seats</span>}
-              {vm.maintenance_score && (
-                <span className="flex items-center gap-1.5">
-                  <Wrench className="h-4 w-4 text-emerald-500" />
-                  Maintenance: <span className={`font-semibold ml-1 ${MAINTENANCE_CONFIG[vm.maintenance_score]?.color}`}>{vm.maintenance_score}</span>
-                </span>
-              )}
-              {vm.parts_availability && (
-                <span className="flex items-center gap-1.5">
-                  Parts: <span className={`font-semibold ml-1 ${PARTS_CONFIG[vm.parts_availability]?.color}`}>{vm.parts_availability}</span>
-                </span>
-              )}
-              {vm.reliability_rating && (
-                <span className="flex items-center gap-1.5">
-                  <Star className="h-4 w-4 text-amber-400 fill-amber-400" />{vm.reliability_rating}/5
-                </span>
-              )}
-            </div>
-
-            {vm.overview && <p className="text-muted-foreground text-base leading-relaxed max-w-3xl">{vm.overview}</p>}
-          </section>
-
-          {/* ── SPARE PARTS — prominent at top ── */}
-          {allParts.length > 0 && (
-            <section id="parts">
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-2">Spare Parts</p>
-              <h2
-                className="text-3xl sm:text-4xl font-black uppercase text-foreground mb-2 leading-tight"
-                style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-              >
-                {carLabel} Spare Parts in Nigeria
-              </h2>
-              <p className="text-sm text-muted-foreground mb-5">
-                Select a generation to see Nigerian market prices for all common parts, service intervals and where to buy.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                {allParts.map(p => {
-                  const yl = formatYearLabel(p.year_start!, p.year_end!);
-                  return (
-                    <Link
-                      key={p.slug}
-                      href={`/${params.type}/${params.brand}/${params.model}/parts/${p.slug}`}
-                      className="group flex items-center justify-between border border-border hover:border-emerald-500/60 rounded-xl px-5 py-4 transition-all hover:bg-muted/20"
-                    >
-                      <div className="flex items-center gap-3">
-                        <Wrench className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                        <div>
-                          <p
-                            className="font-black text-foreground group-hover:text-emerald-400 transition-colors text-xl leading-none"
-                            style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-                          >
-                            {yl}
-                          </p>
-                          {p.generation && <p className="text-xs text-muted-foreground mt-0.5">{p.generation}</p>}
-                        </div>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
+        {/* Hero */}
+        <div>
+          <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-1">
+            {vm.brand_name} · {vm.body_type ?? typeInfo.singular}
+          </p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">{carLabel}</h1>
+          {vm.overview && (
+            <p className="text-muted-foreground leading-relaxed text-sm">{vm.overview}</p>
           )}
-
-          {/* ── PRICES BY YEAR ── */}
-          {allPrices.length > 0 && (
-            <section id="prices">
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-2">Nigerian Market Prices</p>
-              <h2
-                className="text-3xl sm:text-4xl font-black uppercase text-foreground mb-2 leading-tight"
-                style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-              >
-                {carLabel} — Price by Year
-              </h2>
-              <p className="text-sm text-muted-foreground mb-5">
-                Select a year group for a full price breakdown, specs, common problems and ownership costs.
-              </p>
-              <div className="space-y-2">
-                {allPrices.map(p => {
-                  const yl    = formatYearLabel(p.year_start!, p.year_end!);
-                  const trend = p.price_trend ? TREND_CONFIG[p.price_trend] : null;
-                  return (
-                    <Link
-                      key={p.slug}
-                      href={`/${params.type}/${params.brand}/${params.model}/${p.slug}`}
-                      className="group flex items-center justify-between border border-border hover:border-emerald-500/60 rounded-xl px-5 py-4 transition-all hover:bg-muted/20"
-                    >
-                      <div className="flex items-center gap-5 flex-1 min-w-0 flex-wrap">
-                        <span
-                          className="text-2xl font-black text-foreground flex-shrink-0 w-24"
-                          style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-                        >
-                          {yl}
-                        </span>
-                        {p.generation && <span className="text-xs text-muted-foreground hidden sm:block">{p.generation}</span>}
-                        {(p.tokunbo_price_min || p.tokunbo_price_max) && (
-                          <span className="text-sm font-bold text-emerald-400">
-                            {formatPriceRange(p.tokunbo_price_min, p.tokunbo_price_max)}
-                          </span>
-                        )}
-                        {trend && (
-                          <span className={`flex items-center gap-1 text-xs font-semibold hidden md:flex ${trend.color}`}>
-                            {p.price_trend === 'rising'  && <TrendingUp  className="h-3 w-3" />}
-                            {p.price_trend === 'falling' && <TrendingDown className="h-3 w-3" />}
-                            {p.price_trend === 'stable'  && <Minus        className="h-3 w-3" />}
-                            {trend.label}
-                          </span>
-                        )}
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-emerald-500 group-hover:translate-x-1 transition-all flex-shrink-0" />
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {/* Nigeria context — plain text */}
-          {(vm.nigeria_popularity || vm.history) && (
-            <section>
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-3">In Nigeria</p>
-              <h2
-                className="text-3xl font-black uppercase text-foreground mb-4 leading-tight"
-                style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-              >
-                {carLabel} in the Nigerian Market
-              </h2>
-              {vm.nigeria_popularity && <p className="text-muted-foreground text-sm leading-relaxed mb-4 max-w-3xl">{vm.nigeria_popularity}</p>}
-              {vm.history && <p className="text-muted-foreground text-sm leading-relaxed max-w-3xl">{vm.history}</p>}
-            </section>
-          )}
-
-          {/* Who should buy */}
-          {vm.who_should_buy && (
-            <section>
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-3">Buyer Profile</p>
-              <h2
-                className="text-3xl font-black uppercase text-foreground mb-4 leading-tight"
-                style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-              >
-                Is the {carLabel} Right for You?
-              </h2>
-              <p className="text-muted-foreground text-sm leading-relaxed max-w-3xl">{vm.who_should_buy}</p>
-            </section>
-          )}
-
-          {/* Pros & Cons */}
-          {(vm.pros?.length || vm.cons?.length) && (
-            <section>
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-3">Verdict</p>
-              <h2
-                className="text-3xl font-black uppercase text-foreground mb-6 leading-tight"
-                style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-              >
-                {carLabel} Pros & Cons
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                {vm.pros?.length && (
-                  <div>
-                    <p className="flex items-center gap-2 text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-3">
-                      <CheckCircle2 className="h-4 w-4" /> Pros
-                    </p>
-                    <ul className="space-y-2.5">
-                      {vm.pros.map((pro, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                          <span className="text-emerald-500 flex-shrink-0 text-base leading-none mt-0.5">·</span>{pro}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {vm.cons?.length && (
-                  <div>
-                    <p className="flex items-center gap-2 text-sm font-bold text-red-500 dark:text-red-400 mb-3">
-                      <XCircle className="h-4 w-4" /> Cons
-                    </p>
-                    <ul className="space-y-2.5">
-                      {vm.cons.map((con, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                          <span className="text-red-500 flex-shrink-0 text-base leading-none mt-0.5">·</span>{con}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* Buying Tips */}
-          {vm.buying_tips?.length && (
-            <section>
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-3">Before You Buy</p>
-              <h2
-                className="text-3xl font-black uppercase text-foreground mb-6 leading-tight"
-                style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-              >
-                What to Check When Buying a {carLabel}
-              </h2>
-              <ol className="space-y-3">
-                {vm.buying_tips.map((tip, i) => (
-                  <li key={i} className="flex items-start gap-4 text-sm text-muted-foreground">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-black flex items-center justify-center mt-0.5">
-                      {i + 1}
-                    </span>
-                    <span className="leading-relaxed pt-0.5">{tip}</span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          )}
-
-          {/* FAQ */}
-          {vm.faqs?.length > 0 && (
-            <section>
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-3">
-                Frequently Asked Questions
-              </p>
-              <h2
-                className="text-3xl font-black uppercase text-foreground mb-6 leading-tight"
-                style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-              >
-                {carLabel} — Common Questions
-              </h2>
-              <div className="divide-y divide-border">
-                {vm.faqs.map((faq, i) => (
-                  <details key={i} className="group">
-                    <summary className="flex items-center justify-between gap-4 py-4 cursor-pointer list-none font-semibold text-foreground text-sm hover:text-emerald-400 transition-colors">
-                      {faq.question}
-                      <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0 group-open:rotate-90 transition-transform" />
-                    </summary>
-                    <p className="text-sm text-muted-foreground leading-relaxed pb-4 max-w-3xl">{faq.answer}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          )}
-
-
-          {/* Related models */}
-          {(relatedModels || []).length > 0 && (
-            <section className="border-t border-border pt-8">
-              <p className="text-xs text-muted-foreground mb-3 font-semibold uppercase tracking-widest">More from {vm.brand_name}</p>
-              <div className="flex flex-wrap gap-2">
-                {(relatedModels || []).map((m: any) => (
-                  <Link
-                    key={m.slug}
-                    href={`/${params.type}/${params.brand}/${m.slug}`}
-                    className="px-4 py-2 rounded-xl border border-border hover:border-emerald-500/50 hover:text-emerald-400 text-sm font-medium text-foreground transition-all"
-                  >
-                    {vm.brand_name} {m.name}
-                  </Link>
-                ))}
-                <Link
-                  href={`/${params.type}/${params.brand}`}
-                  className="px-4 py-2 rounded-xl border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 text-sm font-medium transition-all"
-                >
-                  All {vm.brand_name} →
-                </Link>
-              </div>
-            </section>
-          )}
-
         </div>
+
+        {/* Quick specs */}
+        {(vm.fuel_type || vm.seating || vm.maintenance_score || vm.parts_availability || vm.reliability_rating) && (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {vm.fuel_type && (
+              <div className="border border-border rounded-xl p-3 text-center">
+                <Fuel className="h-4 w-4 text-muted-foreground mx-auto mb-1" />
+                <p className="text-xs text-muted-foreground">Fuel</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{vm.fuel_type}</p>
+              </div>
+            )}
+            {vm.seating && (
+              <div className="border border-border rounded-xl p-3 text-center">
+                <Users className="h-4 w-4 text-muted-foreground mx-auto mb-1" />
+                <p className="text-xs text-muted-foreground">Seats</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{vm.seating}</p>
+              </div>
+            )}
+            {vm.maintenance_score && (
+              <div className="border border-border rounded-xl p-3 text-center">
+                <Wrench className="h-4 w-4 text-muted-foreground mx-auto mb-1" />
+                <p className="text-xs text-muted-foreground">Maintenance</p>
+                <p className={`text-sm font-semibold mt-0.5 ${MAINTENANCE_CONFIG[vm.maintenance_score]?.color ?? 'text-foreground'}`}>
+                  {vm.maintenance_score}
+                </p>
+              </div>
+            )}
+            {vm.reliability_rating && (
+              <div className="border border-border rounded-xl p-3 text-center">
+                <Star className="h-4 w-4 text-amber-400 mx-auto mb-1" />
+                <p className="text-xs text-muted-foreground">Reliability</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{vm.reliability_rating}/5</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Year cards */}
+        {allYearNums.length > 0 && (
+          <div>
+            <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-muted-foreground" />
+              Select a Year
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {allYearNums.map(year => {
+                const info = yearMap[year];
+                return (
+                  <Link
+                    key={year}
+                    href={`/${params.type}/${params.brand}/${params.model}/${year}`}
+                    className="group flex flex-col border border-border rounded-xl overflow-hidden hover:border-foreground/30 transition-colors bg-card"
+                  >
+                    {info.imageUrl ? (
+                      <div className="aspect-video bg-muted overflow-hidden">
+                        <img
+                          src={info.imageUrl}
+                          alt={`${carLabel} ${year}`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : (
+                      <div className="aspect-video bg-muted flex items-center justify-center">
+                        <span className="text-3xl font-black text-muted-foreground/30">{year}</span>
+                      </div>
+                    )}
+                    <div className="p-3">
+                      <p className="font-bold text-foreground text-lg">{year}</p>
+                      <div className="flex gap-2 mt-1">
+                        {info.hasParts && (
+                          <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">Parts</span>
+                        )}
+                        {info.hasProblems && (
+                          <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">Problems</span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Pros & cons */}
+        {((vm.pros?.length ?? 0) > 0 || (vm.cons?.length ?? 0) > 0) && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {(vm.pros?.length ?? 0) > 0 && (
+              <div className="border border-border rounded-xl p-4">
+                <h3 className="font-semibold text-foreground mb-3">What owners like</h3>
+                <ul className="space-y-2">
+                  {vm.pros!.map((p, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="text-green-500 flex-shrink-0 mt-0.5">✓</span>{p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(vm.cons?.length ?? 0) > 0 && (
+              <div className="border border-border rounded-xl p-4">
+                <h3 className="font-semibold text-foreground mb-3">Common complaints</h3>
+                <ul className="space-y-2">
+                  {vm.cons!.map((c, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="text-red-400 flex-shrink-0 mt-0.5">✕</span>{c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Buying tips */}
+        {(vm.buying_tips?.length ?? 0) > 0 && (
+          <div>
+            <h2 className="text-lg font-bold text-foreground mb-3">Buying Tips</h2>
+            <ul className="space-y-2">
+              {vm.buying_tips!.map((tip, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground p-3 border border-border rounded-lg">
+                  <span className="font-bold text-foreground flex-shrink-0">{i + 1}.</span>{tip}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Related tools */}
+        <div>
+          <h2 className="text-lg font-bold text-foreground mb-3">Free Tools</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            {[
+              { href: '/tools/vin-checker',              label: 'VIN Checker',            sub: 'Verify vehicle history' },
+              { href: '/tools/import-duty-calculator',   label: 'Import Duty Calculator', sub: 'Estimate import costs' },
+              { href: '/tools/vehicle-papers-checklist', label: 'Papers Checklist',       sub: 'What to verify before buying' },
+            ].map(({ href, label, sub }) => (
+              <Link key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{label}</p>
+                  <p className="text-xs text-muted-foreground">{sub}</p>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Related models */}
+        {(relatedModels?.length ?? 0) > 0 && (
+          <div>
+            <h2 className="text-lg font-bold text-foreground mb-3">Other {vm.brand_name} Models</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {relatedModels!.map((m: any) => (
+                <Link
+                  key={m.slug}
+                  href={`/${params.type}/${params.brand}/${m.slug}`}
+                  className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors"
+                >
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{m.name}</p>
+                    {m.body_type && <p className="text-xs text-muted-foreground">{m.body_type}</p>}
+                  </div>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* FAQs */}
+        {faqs.length > 0 && (
+          <div>
+            <h2 className="text-lg font-bold text-foreground mb-4">Frequently Asked Questions</h2>
+            <div className="divide-y divide-border rounded-xl border border-border overflow-hidden">
+              {faqs.map((faq, i) => (
+                <details key={i} className="group">
+                  <summary className="flex items-center justify-between px-5 py-4 cursor-pointer font-medium text-foreground text-sm select-none list-none hover:bg-muted/40 transition-colors">
+                    {faq.question}
+                    <span className="ml-4 flex-shrink-0 text-muted-foreground text-lg leading-none group-open:rotate-45 transition-transform duration-200">+</span>
+                  </summary>
+                  <p className="px-5 pb-4 pt-1 text-sm text-muted-foreground leading-relaxed border-t border-border">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </>
   );
