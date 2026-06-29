@@ -17,6 +17,7 @@ import {
   ChevronDown,
   Check,
   Link2,
+  BookOpen,
 } from 'lucide-react';
 
 // ── Types ────────────────────────────────────────────────────────────
@@ -365,6 +366,20 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
                   )}
                 </div>
               </div>
+
+              {/* Glossary */}
+              <Link
+                href="/tools/glossary"
+                className="flex items-center gap-3 rounded-xl border bg-card p-4 hover:bg-muted transition-colors group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="h-4 w-4 text-muted-foreground" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground">Car Glossary</p>
+                  <p className="text-xs text-muted-foreground">300+ Nigerian car terms explained</p>
+                </div>
+              </Link>
 
             </div>
           </aside>

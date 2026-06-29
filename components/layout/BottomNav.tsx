@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Wrench, CarFront, BookOpen, Newspaper } from 'lucide-react';
+import { Home, Wrench, CarFront, BookMarked, Newspaper } from 'lucide-react';
 
 export function BottomNav() {
   const pathname = usePathname();
@@ -11,7 +11,7 @@ export function BottomNav() {
     { href: '/', icon: Home, label: 'Home' },
     { href: '/tools', icon: Wrench, label: 'Tools' },
     { href: '/vehicles', icon: CarFront, label: 'Prices & Parts', highlight: true },
-    { href: '/tools/glossary', icon: BookOpen, label: 'Glossary' },
+    { href: '/guides', icon: BookMarked, label: 'Guides' },
     { href: '/blog', icon: Newspaper, label: 'Blog' },
   ];
 
