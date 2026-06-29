@@ -6,10 +6,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, ArrowRight, Wrench, DollarSign } from 'lucide-react';
+import { ChevronRight, ArrowRight, Wrench } from 'lucide-react';
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
-  MAINTENANCE_CONFIG, PARTS_CONFIG, formatPriceRange,
+  MAINTENANCE_CONFIG, PARTS_CONFIG,
   type VehicleModel,
 } from '@/lib/vehicle-helpers';
 
@@ -19,19 +19,18 @@ export const revalidate = 86400; // 24 hours
 
 export async function generateStaticParams() {
   const supabase = getSupabase();
-  const { data } = await supabase
-    .from('vehicle_models')
-    .select('brand_slug, vehicle_type')
-    .eq('status', 'published');
+  const [{ data: parts }, { data: problems }] = await Promise.all([
+    supabase.from('vehicle_parts').select('brand_slug, vehicle_type'),
+    supabase.from('vehicle_problems').select('brand_slug, vehicle_type'),
+  ]);
 
   const seen = new Set<string>();
   const results: { type: string; brand: string }[] = [];
 
-  for (const row of (data || [])) {
+  for (const row of [...(parts || []), ...(problems || [])]) {
     const typeSlug = Object.entries(VEHICLE_TYPES).find(
       ([, info]) => info.singular.toLowerCase() === row.vehicle_type
     )?.[0] ?? row.vehicle_type + 's';
-
     const key = `${typeSlug}/${row.brand_slug}`;
     if (!seen.has(key)) {
       seen.add(key);
@@ -83,12 +82,26 @@ export default async function BrandPage(
   const supabase = getSupabase();
   const dbType   = getDbType(params.type);
 
+  // Get model_names that have content in new tables for this brand
+  const [{ data: partModels }, { data: problemModels }] = await Promise.all([
+    supabase.from('vehicle_parts').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    supabase.from('vehicle_problems').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+  ]);
+
+  const activeModelNames = new Set([
+    ...(partModels || []).map((r: any) => r.model_name),
+    ...(problemModels || []).map((r: any) => r.model_name),
+  ]);
+
+  if (activeModelNames.size === 0) notFound();
+
   const { data: models } = await supabase
     .from('vehicle_models')
     .select('*')
     .eq('brand_slug', params.brand)
     .eq('vehicle_type', dbType)
     .eq('status', 'published')
+    .in('slug', Array.from(activeModelNames))
     .order('popular', { ascending: false })
     .order('sort_order');
 
@@ -100,21 +113,21 @@ export default async function BrandPage(
   const brandCountry     = models[0].brand_country;
   const brandDescription = models[0].brand_description;
 
-  // Fetch price summaries for all models
-  const modelIds = models.map(m => m.id);
-  const { data: prices } = await supabase
-    .from('vehicle_prices')
-    .select('model_id, tokunbo_price_min, tokunbo_price_max, year_start, year_end, slug')
-    .in('model_id', modelIds)
-    .order('year_start', { ascending: false });
+  // Get available years per model from new tables
+  const modelSlugs = (models || []).map((m: any) => m.slug);
+  const [{ data: partYears }, { data: problemYears }] = await Promise.all([
+    supabase.from('vehicle_parts').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
+    supabase.from('vehicle_problems').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
+  ]);
 
-  // Map lowest price per model
-  const priceMap = new Map<number, { min: number | null; max: number | null; slug: string }>();
-  for (const p of (prices || [])) {
-    if (!priceMap.has(p.model_id)) {
-      priceMap.set(p.model_id, { min: p.tokunbo_price_min, max: p.tokunbo_price_max, slug: p.slug });
-    }
+  // Map model slug → sorted years available
+  const yearMap = new Map<string, number[]>();
+  for (const r of [...(partYears || []), ...(problemYears || [])]) {
+    if (!yearMap.has(r.model_name)) yearMap.set(r.model_name, []);
+    const existing = yearMap.get(r.model_name)!;
+    if (!existing.includes(r.year)) existing.push(r.year);
   }
+  for (const [key, years] of yearMap) yearMap.set(key, years.sort((a, b) => b - a));
 
   // Group models by body type
   const grouped: Record<string, VehicleModel[]> = {};
@@ -198,92 +211,75 @@ export default async function BrandPage(
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {grouped[bodyType].map(model => {
-                  const price = priceMap.get(model.id);
+                  const years = yearMap.get(model.slug) || [];
                   const mc    = model.maintenance_score ? MAINTENANCE_CONFIG[model.maintenance_score] : null;
                   const pc    = model.parts_availability ? PARTS_CONFIG[model.parts_availability] : null;
+                  const latestYear = years[0] ?? null;
 
                   return (
-                    <div
+                    <Link
                       key={model.slug}
-                      className="group bg-card border border-border hover:border-emerald-500/40 rounded-2xl overflow-hidden transition-all duration-200"
+                      href={`/${params.type}/${params.brand}/${model.slug}`}
+                      className="group bg-card border border-border hover:border-foreground/30 rounded-xl overflow-hidden transition-colors"
                     >
                       {/* Model image or placeholder */}
-                      <div className="h-36 bg-muted/30 flex items-center justify-center border-b border-border">
+                      <div className="h-36 bg-muted flex items-center justify-center border-b border-border overflow-hidden">
                         {model.og_image_url ? (
                           <img
                             src={model.og_image_url}
                             alt={`${brandName} ${model.name}`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                         ) : (
-                          <span
-                            className="text-4xl font-black text-muted-foreground/20 uppercase"
-                            style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-                          >
+                          <span className="text-4xl font-black text-muted-foreground/20 uppercase">
                             {model.name}
                           </span>
                         )}
                       </div>
 
                       <div className="p-4">
-                        {/* Name + price */}
-                        <div className="flex items-start justify-between gap-2 mb-3">
+                        <div className="flex items-start justify-between gap-2 mb-2">
                           <div>
-                            <h3
-                              className="text-lg font-black uppercase text-foreground leading-none group-hover:text-emerald-400 transition-colors"
-                              style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
-                            >
+                            <h3 className="font-bold text-foreground group-hover:text-foreground/80 transition-colors">
                               {brandName} {model.name}
                             </h3>
                             {model.body_type && (
                               <span className="text-xs text-muted-foreground">{model.body_type}</span>
                             )}
                           </div>
-                          {price?.min && (
-                            <span className="text-sm font-bold text-emerald-400 whitespace-nowrap">
-                              From {formatPriceRange(price.min, null)}
+                          {years.length > 0 && (
+                            <span className="text-xs text-muted-foreground whitespace-nowrap">
+                              {years.length === 1 ? years[0] : `${years[years.length - 1]}–${years[0]}`}
                             </span>
                           )}
                         </div>
 
                         {/* Scores */}
-                        <div className="flex flex-wrap gap-1.5 mb-4">
+                        <div className="flex flex-wrap gap-1.5 mb-3">
                           {mc && (
-                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${mc.color} ${mc.bg} ${mc.border}`}>
-                              {model.maintenance_score} Maintenance
+                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${mc.color} ${mc.bg} ${mc.border}`}>
+                              {model.maintenance_score} Maint.
                             </span>
                           )}
                           {pc && (
-                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${pc.color} ${pc.bg} ${pc.border}`}>
+                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${pc.color} ${pc.bg} ${pc.border}`}>
                               {pc.icon} Parts
                             </span>
                           )}
                           {model.reliability_rating && (
-                            <span className="text-xs font-bold px-2 py-0.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                            <span className="text-xs font-medium px-2 py-0.5 rounded-full border border-amber-500/30 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400">
                               ★ {model.reliability_rating}
                             </span>
                           )}
                         </div>
 
-                        {/* Two CTAs */}
-                        <div className="grid grid-cols-2 gap-2">
-                          <Link
-                            href={`/${params.type}/${params.brand}/${model.slug}`}
-                            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-colors"
-                          >
-                            <DollarSign className="h-3 w-3" />
-                            Prices
-                          </Link>
-                          <Link
-                            href={`/${params.type}/${params.brand}/${model.slug}#parts`}
-                            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-border hover:border-emerald-500/50 text-foreground hover:text-emerald-400 text-xs font-bold transition-all"
-                          >
-                            <Wrench className="h-3 w-3" />
-                            Parts
-                          </Link>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Wrench className="h-3 w-3" />
+                          <span>Parts & Problems</span>
+                          <ChevronRight className="h-3 w-3 ml-auto" />
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>

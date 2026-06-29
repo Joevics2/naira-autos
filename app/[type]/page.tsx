@@ -84,12 +84,26 @@ export default async function VehicleTypePage(
   const dbType   = getDbType(params.type);
   const supabase = getSupabase();
 
-  // Get distinct brands with model counts — PUBLISHED models only
+  // Get distinct brand_slugs that have content in new tables
+  const [{ data: partBrands }, { data: problemBrands }] = await Promise.all([
+    supabase.from('vehicle_parts').select('brand_slug').eq('vehicle_type', dbType),
+    supabase.from('vehicle_problems').select('brand_slug').eq('vehicle_type', dbType),
+  ]);
+
+  const activeBrands = new Set([
+    ...(partBrands || []).map((r: any) => r.brand_slug),
+    ...(problemBrands || []).map((r: any) => r.brand_slug),
+  ]);
+
+  if (activeBrands.size === 0) notFound();
+
+  // Get brand info from vehicle_models — only for active brands
   const { data: models } = await supabase
     .from('vehicle_models')
     .select('brand_slug, brand_name, brand_logo_url')
     .eq('vehicle_type', dbType)
     .eq('status', 'published')
+    .in('brand_slug', Array.from(activeBrands))
     .order('brand_name');
 
   // Aggregate by brand
