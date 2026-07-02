@@ -18,13 +18,29 @@ type Params = { type: string; brand: string; model: string };
 
 export async function generateStaticParams() {
   const supabase = getSupabase();
-  const { data } = await supabase.from('vehicle_models').select('slug, brand_slug, vehicle_type');
-  return (data || []).map((m: any) => {
+
+  // Only pre-render models that actually have parts or problems content —
+  // same active-content rule as the type and brand pages, so legacy
+  // vehicle_models rows with no migrated data don't get static pages.
+  const [{ data: parts }, { data: problems }] = await Promise.all([
+    supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type'),
+    supabase.from('vehicle_problems').select('brand_slug, model_name, vehicle_type'),
+  ]);
+
+  const seen = new Set<string>();
+  const results: { type: string; brand: string; model: string }[] = [];
+
+  for (const row of [...(parts || []), ...(problems || [])]) {
     const typeSlug = Object.entries(VEHICLE_TYPES).find(
-      ([, info]) => info.singular.toLowerCase() === m.vehicle_type
-    )?.[0] ?? m.vehicle_type + 's';
-    return { type: typeSlug, brand: m.brand_slug, model: m.slug };
-  });
+      ([, info]) => info.singular.toLowerCase() === row.vehicle_type
+    )?.[0] ?? row.vehicle_type + 's';
+    const key = `${typeSlug}/${row.brand_slug}/${row.model_name}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      results.push({ type: typeSlug, brand: row.brand_slug, model: row.model_name });
+    }
+  }
+  return results;
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -51,21 +67,36 @@ export default async function ModelPage({ params }: { params: Params }) {
   const supabase = getSupabase();
   const dbType   = getDbType(params.type);
 
-  const [{ data: model }, { data: relatedModels }] = await Promise.all([
+  const [{ data: model }, { data: relatedModelsRaw }, { data: relatedPartModels }, { data: relatedProblemModels }] = await Promise.all([
     supabase.from('vehicle_models').select('*')
       .eq('slug', params.model).eq('brand_slug', params.brand).eq('vehicle_type', dbType).single(),
     supabase.from('vehicle_models').select('slug, name, body_type')
       .eq('brand_slug', params.brand).eq('vehicle_type', dbType)
-      .neq('slug', params.model).eq('popular', true).limit(6),
+      .neq('slug', params.model).eq('popular', true).limit(12),
+    supabase.from('vehicle_parts').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    supabase.from('vehicle_problems').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
   ]);
 
   if (!model) notFound();
+
+  // Only cross-link to sibling models that have migrated parts/problems content
+  const activeSiblingModels = new Set([
+    ...(relatedPartModels || []).map((r: any) => r.model_name),
+    ...(relatedProblemModels || []).map((r: any) => r.model_name),
+  ]);
+  const relatedModels = (relatedModelsRaw || [])
+    .filter((m: any) => activeSiblingModels.has(m.slug))
+    .slice(0, 6);
 
   // Fetch available years from both new tables
   const [{ data: partYears }, { data: problemYears }] = await Promise.all([
     supabase.from('vehicle_parts').select('year, image_url').eq('model_id', model.id).order('year', { ascending: false }),
     supabase.from('vehicle_problems').select('year').eq('model_id', model.id).order('year', { ascending: false }),
   ]);
+
+  // Model exists in vehicle_models but has no migrated parts/problems content —
+  // this is exactly the old-format case that should no longer be reachable.
+  if (!partYears?.length && !problemYears?.length) notFound();
 
   // Merge into unique sorted year list
   const allYearNums = Array.from(new Set([
