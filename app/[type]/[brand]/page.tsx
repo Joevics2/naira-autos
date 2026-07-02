@@ -127,7 +127,9 @@ export default async function BrandPage(
     const existing = yearMap.get(r.model_name)!;
     if (!existing.includes(r.year)) existing.push(r.year);
   }
-  for (const [key, years] of yearMap) yearMap.set(key, years.sort((a, b) => b - a));
+  for (const key of Array.from(yearMap.keys())) {
+    yearMap.set(key, yearMap.get(key)!.sort((a, b) => b - a));
+  }
 
   // Group models by body type
   const grouped: Record<string, VehicleModel[]> = {};
