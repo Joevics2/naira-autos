@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
-  ChevronRight, Wrench, Fuel, Settings, Users, Star, Calendar,
+  ChevronRight, Wrench, Fuel, Settings, Users, Star, Calendar, AlertTriangle,
 } from 'lucide-react';
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
@@ -239,7 +239,7 @@ export default async function ModelPage({ params }: { params: Params }) {
               <Calendar className="h-5 w-5 text-muted-foreground" />
               Select a Year
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {allYearNums.map(year => {
                 const info = yearMap[year];
                 const base = `/${params.type}/${params.brand}/${params.model}/${year}`;
@@ -263,16 +263,30 @@ export default async function ModelPage({ params }: { params: Params }) {
                       </div>
                     )}
                     <div className="p-3">
-                      <p className="font-bold text-foreground text-lg">{year}</p>
-                      <div className="flex gap-3 mt-1">
+                      <p className="font-bold text-foreground text-lg mb-2">{year}</p>
+                      <div className="flex gap-2">
                         {info.hasParts && (
-                          <Link href={`${base}/parts`} className="text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline">
-                            View Parts
+                          <Link
+                            href={`${base}/parts`}
+                            className="flex-1 flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                          >
+                            <span className="flex items-center gap-1.5 text-xs font-semibold">
+                              <Wrench className="h-3.5 w-3.5 flex-shrink-0" />
+                              View Parts
+                            </span>
+                            <ChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
                           </Link>
                         )}
                         {info.hasProblems && (
-                          <Link href={`${base}/problems`} className="text-xs text-amber-600 dark:text-amber-400 font-medium hover:underline">
-                            Common Issues
+                          <Link
+                            href={`${base}/problems`}
+                            className="flex-1 flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
+                          >
+                            <span className="flex items-center gap-1.5 text-xs font-semibold">
+                              <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
+                              Common Issues
+                            </span>
+                            <ChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
                           </Link>
                         )}
                       </div>
