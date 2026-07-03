@@ -250,7 +250,7 @@ export default async function PartsPage({ params }: { params: Params }) {
             href={`${yearBase}/problems`}
             className="flex items-center justify-between gap-2 mt-2 px-4 py-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
           >
-            <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{carLabel} Common Problems</p>
+            <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{carLabel} Common Issues</p>
             <ChevronRight className="h-4 w-4 text-amber-500 flex-shrink-0" />
           </Link>
         </div>

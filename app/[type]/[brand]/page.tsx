@@ -298,7 +298,7 @@ export default async function BrandPage(
 
                         <div className="flex items-center gap-1 text-xs text-muted-foreground">
                           <Wrench className="h-3 w-3" />
-                          <span>Parts & Problems</span>
+                          <span>Parts &amp; Issues</span>
                           <ChevronRight className="h-3 w-3 ml-auto" />
                         </div>
                       </div>

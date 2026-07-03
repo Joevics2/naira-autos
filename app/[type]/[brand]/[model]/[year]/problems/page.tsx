@@ -111,7 +111,7 @@ export default async function ProblemsPage({ params }: { params: Params }) {
             { label: record.brand_name, href: `/${params.type}/${params.brand}` },
             { label: record.model_name, href: `/${params.type}/${params.brand}/${params.model}` },
             { label: String(yearNum), href: yearBase },
-            { label: 'Problems', href: `${yearBase}/problems` },
+            { label: 'Issues', href: `${yearBase}/problems` },
           ].map((b, i) => (
             <span key={b.href} className="flex items-center gap-1">
               {i > 0 && <ChevronRight className="h-3 w-3" />}
@@ -134,7 +134,7 @@ export default async function ProblemsPage({ params }: { params: Params }) {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Common Problems</span>
+            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Common Issues</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
             {carLabel} Common Problems & Issues

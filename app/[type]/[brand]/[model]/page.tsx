@@ -242,18 +242,18 @@ export default async function ModelPage({ params }: { params: Params }) {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {allYearNums.map(year => {
                 const info = yearMap[year];
+                const base = `/${params.type}/${params.brand}/${params.model}/${year}`;
                 return (
-                  <Link
+                  <div
                     key={year}
-                    href={`/${params.type}/${params.brand}/${params.model}/${year}`}
-                    className="group flex flex-col border border-border rounded-xl overflow-hidden hover:border-foreground/30 transition-colors bg-card"
+                    className="flex flex-col border border-border rounded-xl overflow-hidden bg-card"
                   >
                     {info.imageUrl ? (
                       <div className="aspect-video bg-muted overflow-hidden">
                         <img
                           src={info.imageUrl}
                           alt={`${carLabel} ${year}`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover"
                           loading="lazy"
                         />
                       </div>
@@ -264,16 +264,20 @@ export default async function ModelPage({ params }: { params: Params }) {
                     )}
                     <div className="p-3">
                       <p className="font-bold text-foreground text-lg">{year}</p>
-                      <div className="flex gap-2 mt-1">
+                      <div className="flex gap-3 mt-1">
                         {info.hasParts && (
-                          <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">Parts</span>
+                          <Link href={`${base}/parts`} className="text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                            View Parts
+                          </Link>
                         )}
                         {info.hasProblems && (
-                          <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">Problems</span>
+                          <Link href={`${base}/problems`} className="text-xs text-amber-600 dark:text-amber-400 font-medium hover:underline">
+                            Common Issues
+                          </Link>
                         )}
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </div>
