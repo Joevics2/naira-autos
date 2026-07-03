@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
-  ChevronRight, Wrench, Fuel, Settings, Users, Star, Calendar, AlertTriangle,
+  ChevronRight, Wrench, Fuel, Settings, Users, Star, Calendar, AlertTriangle, ArrowLeft,
 } from 'lucide-react';
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
@@ -171,18 +171,26 @@ export default async function ModelPage({ params }: { params: Params }) {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-10">
 
         {/* Breadcrumb */}
-        <nav className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-          {[
-            { label: 'Home',          href: '/' },
-            { label: typeInfo.plural, href: '/vehicles' },
-            { label: vm.brand_name,   href: `/${params.type}/${params.brand}` },
-          ].map(({ label, href }) => (
-            <span key={href} className="flex items-center gap-1">
-              <Link href={href} className="hover:text-foreground transition-colors">{label}</Link>
-              <ChevronRight className="h-3 w-3" />
-            </span>
-          ))}
-          <span className="text-foreground font-medium">{vm.name}</span>
+        <nav className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-1">
+            {[
+              { label: 'Home',          href: '/' },
+              { label: typeInfo.plural, href: '/vehicles' },
+              { label: vm.brand_name,   href: `/${params.type}/${params.brand}` },
+            ].map(({ label, href }) => (
+              <span key={href} className="flex items-center gap-1">
+                <Link href={href} className="hover:text-foreground transition-colors">{label}</Link>
+                <ChevronRight className="h-3 w-3" />
+              </span>
+            ))}
+            <span className="text-foreground font-medium">{vm.name}</span>
+          </div>
+          <Link
+            href={`/${params.type}/${params.brand}`}
+            className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Back
+          </Link>
         </nav>
 
         {/* Hero */}
@@ -258,7 +266,8 @@ export default async function ModelPage({ params }: { params: Params }) {
                         />
                       </div>
                     ) : (
-                      <div className="aspect-video bg-muted flex items-center justify-center">
+                      <div className="aspect-video bg-muted flex flex-col items-center justify-center text-center px-3">
+                        <span className="text-sm font-semibold text-muted-foreground/50">{carLabel}</span>
                         <span className="text-3xl font-black text-muted-foreground/30">{year}</span>
                       </div>
                     )}
@@ -347,9 +356,9 @@ export default async function ModelPage({ params }: { params: Params }) {
           <h2 className="text-lg font-bold text-foreground mb-3">Free Tools</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {[
-              { href: '/tools/vin-checker',              label: 'VIN Checker',            sub: 'Verify vehicle history' },
-              { href: '/tools/import-duty-calculator',   label: 'Import Duty Calculator', sub: 'Estimate import costs' },
-              { href: '/tools/vehicle-papers-checklist', label: 'Papers Checklist',       sub: 'What to verify before buying' },
+              { href: '/tools/vin-checker',   label: 'VIN Checker',    sub: 'Verify vehicle history' },
+              { href: '/tools/ai-mechanic',   label: 'AI Mechanic',    sub: 'Diagnose a car problem' },
+              { href: '/tools/best-car-for',  label: 'Best Car For Me', sub: 'Find the right car for you' },
             ].map(({ href, label, sub }) => (
               <Link key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
                 <div>

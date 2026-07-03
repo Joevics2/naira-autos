@@ -102,29 +102,32 @@ export default async function PartsPage({ params }: { params: Params }) {
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-10">
 
-        {/* Back */}
-        <Link href={yearBase} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="h-4 w-4" /> Back to {carLabel}
-        </Link>
-
-        {/* Breadcrumbs */}
-        <nav className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground -mt-6">
-          {[
-            { label: 'Home', href: '/' },
-            { label: typeInfo.plural, href: '/vehicles' },
-            { label: record.brand_name, href: `/${params.type}/${params.brand}` },
-            { label: record.model_name, href: `/${params.type}/${params.brand}/${params.model}` },
-            { label: String(yearNum), href: yearBase },
-            { label: 'Parts', href: `${yearBase}/parts` },
-          ].map((b, i) => (
-            <span key={b.href} className="flex items-center gap-1">
-              {i > 0 && <ChevronRight className="h-3 w-3" />}
-              {i < 5
-                ? <Link href={b.href} className="hover:text-foreground transition-colors">{b.label}</Link>
-                : <span className="text-foreground font-medium">{b.label}</span>
-              }
-            </span>
-          ))}
+        {/* Breadcrumbs + Back */}
+        <nav className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-1">
+            {[
+              { label: 'Home', href: '/' },
+              { label: typeInfo.plural, href: '/vehicles' },
+              { label: record.brand_name, href: `/${params.type}/${params.brand}` },
+              { label: record.model_name, href: `/${params.type}/${params.brand}/${params.model}` },
+              { label: String(yearNum), href: null },
+              { label: 'Parts', href: null },
+            ].map((b, i) => (
+              <span key={b.label + i} className="flex items-center gap-1">
+                {i > 0 && <ChevronRight className="h-3 w-3" />}
+                {b.href
+                  ? <Link href={b.href} className="hover:text-foreground transition-colors">{b.label}</Link>
+                  : <span className="text-foreground font-medium">{b.label}</span>
+                }
+              </span>
+            ))}
+          </div>
+          <Link
+            href={`/${params.type}/${params.brand}/${params.model}`}
+            className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Back
+          </Link>
         </nav>
 
         {/* Vehicle image */}
@@ -260,9 +263,9 @@ export default async function PartsPage({ params }: { params: Params }) {
           <h2 className="text-lg font-bold text-foreground mb-3">Free Tools</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {[
-              { href: '/tools/vin-checker',              label: 'VIN Checker',            sub: 'Verify vehicle history' },
-              { href: '/tools/import-duty-calculator',   label: 'Import Duty Calculator', sub: 'Estimate import costs' },
-              { href: '/tools/registration-fee-calculator', label: 'Registration Fees',   sub: 'FRSC & state MVAA fees' },
+              { href: '/tools/vin-checker',   label: 'VIN Checker',    sub: 'Verify vehicle history' },
+              { href: '/tools/ai-mechanic',   label: 'AI Mechanic',    sub: 'Diagnose a car problem' },
+              { href: '/tools/best-car-for',  label: 'Best Car For Me', sub: 'Find the right car for you' },
             ].map(({ href, label, sub }) => (
               <Link key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
                 <div>

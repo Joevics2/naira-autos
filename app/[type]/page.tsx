@@ -14,7 +14,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ArrowLeft } from 'lucide-react';
 import { getSupabase, getDbType, VEHICLE_TYPES } from '@/lib/vehicle-helpers';
 
 export const revalidate = 86400; // 24 hours
@@ -144,10 +144,18 @@ export default async function VehicleTypePage(
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-10 space-y-10">
 
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-foreground font-medium">{typeInfo.plural}</span>
+          <nav aria-label="Breadcrumb" className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+              <ChevronRight className="h-3 w-3" />
+              <span className="text-foreground font-medium">{typeInfo.plural}</span>
+            </div>
+            <Link
+              href="/vehicles"
+              className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back
+            </Link>
           </nav>
 
           {/* Header */}
