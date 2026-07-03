@@ -14,7 +14,7 @@ interface VehicleProblem {
   brand_name: string;
   model_name: string;
   vehicle_type: string;
-  year: number;
+  year: string;   // e.g. "2015" or "2004-2010"
   image_url: string | null;
   intro: string | null;
   problems: Problem[];
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     .select('brand_name, model_name, year, meta_title, meta_description, image_url')
     .eq('brand_slug', params.brand)
     .eq('model_name', params.model)
-    .eq('year', parseInt(params.year))
+    .eq('year', params.year)
     .maybeSingle();
 
   if (!data) return {};
@@ -61,15 +61,12 @@ export default async function ProblemsPage({ params }: { params: Params }) {
   if (!typeInfo) notFound();
 
   const supabase = getSupabase();
-  const yearNum  = parseInt(params.year);
-  if (isNaN(yearNum)) notFound();
-
   const { data: record } = await supabase
     .from('vehicle_problems')
     .select('*')
     .eq('brand_slug', params.brand)
     .eq('model_name', params.model)
-    .eq('year', yearNum)
+    .eq('year', params.year)
     .maybeSingle() as { data: VehicleProblem | null };
 
   if (!record) notFound();
@@ -106,7 +103,7 @@ export default async function ProblemsPage({ params }: { params: Params }) {
               { label: typeInfo.plural, href: '/vehicles' },
               { label: record.brand_name, href: `/${params.type}/${params.brand}` },
               { label: record.model_name, href: `/${params.type}/${params.brand}/${params.model}` },
-              { label: String(yearNum), href: null },
+              { label: params.year, href: null },
               { label: 'Issues', href: null },
             ].map((b, i) => (
               <span key={b.label + i} className="flex items-center gap-1">

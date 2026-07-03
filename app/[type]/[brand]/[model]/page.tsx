@@ -107,15 +107,17 @@ export default async function ModelPage({ params }: { params: Params }) {
     .filter((m: any) => activeSiblingModels.has(m.slug))
     .slice(0, 6);
 
-  // Merge into unique sorted year list
-  const allYearNums = Array.from(new Set([
+  // Merge into unique year list, sorted by the leading year number
+  // (works for both "2015" and "2004-2010" range strings)
+  const leadingYear = (y: string) => parseInt(y.slice(0, 4), 10) || 0;
+  const allYears = Array.from(new Set([
     ...(partYears || []).map((r: any) => r.year),
     ...(problemYears || []).map((r: any) => r.year),
-  ])).sort((a, b) => b - a);
+  ])).sort((a, b) => leadingYear(b) - leadingYear(a));
 
   // Build a map: year → { hasParts, hasProblems, imageUrl }
-  const yearMap: Record<number, { hasParts: boolean; hasProblems: boolean; imageUrl: string | null }> = {};
-  for (const y of allYearNums) {
+  const yearMap: Record<string, { hasParts: boolean; hasProblems: boolean; imageUrl: string | null }> = {};
+  for (const y of allYears) {
     yearMap[y] = { hasParts: false, hasProblems: false, imageUrl: null };
   }
   for (const r of partYears || []) {
@@ -241,20 +243,20 @@ export default async function ModelPage({ params }: { params: Params }) {
         )}
 
         {/* Year cards */}
-        {allYearNums.length > 0 && (
+        {allYears.length > 0 && (
           <div>
             <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
               <Calendar className="h-5 w-5 text-muted-foreground" />
               Select a Year
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {allYearNums.map(year => {
+              {allYears.map(year => {
                 const info = yearMap[year];
                 const base = `/${params.type}/${params.brand}/${params.model}/${year}`;
                 return (
                   <div
                     key={year}
-                    className="flex flex-col border border-border rounded-xl overflow-hidden bg-card"
+                    className="flex flex-col border-2 border-border rounded-xl overflow-hidden bg-card"
                   >
                     {info.imageUrl ? (
                       <div className="aspect-video bg-muted overflow-hidden">
@@ -266,13 +268,12 @@ export default async function ModelPage({ params }: { params: Params }) {
                         />
                       </div>
                     ) : (
-                      <div className="aspect-video bg-muted flex flex-col items-center justify-center text-center px-3">
-                        <span className="text-sm font-semibold text-muted-foreground/50">{carLabel}</span>
-                        <span className="text-3xl font-black text-muted-foreground/30">{year}</span>
+                      <div className="aspect-video bg-muted flex items-center justify-center">
+                        <Calendar className="h-8 w-8 text-muted-foreground/20" />
                       </div>
                     )}
                     <div className="p-3">
-                      <p className="font-bold text-foreground text-lg mb-2">{year}</p>
+                      <p className="font-bold text-foreground text-base mb-2">{carLabel} {year}</p>
                       <div className="flex gap-2">
                         {info.hasParts && (
                           <Link

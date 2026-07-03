@@ -229,7 +229,7 @@ export interface VehiclePartRecord {
   brand_name: string;
   model_name: string;
   vehicle_type: string;
-  year: number;
+  year: string;   // e.g. "2015" or "2004-2010"
   image_url: string | null;
   intro: string | null;
   parts: SparePart[];
@@ -247,7 +247,7 @@ export interface VehicleProblemRecord {
   brand_name: string;
   model_name: string;
   vehicle_type: string;
-  year: number;
+  year: string;   // e.g. "2015" or "2004-2010"
   image_url: string | null;
   intro: string | null;
   problems: Problem[];
