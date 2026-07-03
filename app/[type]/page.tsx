@@ -84,37 +84,42 @@ export default async function VehicleTypePage(
   const dbType   = getDbType(params.type);
   const supabase = getSupabase();
 
-  // Get distinct brand_slugs that have content in new tables
-  const [{ data: partBrands }, { data: problemBrands }] = await Promise.all([
-    supabase.from('vehicle_parts').select('brand_slug').eq('vehicle_type', dbType),
-    supabase.from('vehicle_problems').select('brand_slug').eq('vehicle_type', dbType),
+  // Get distinct brands + models that have content in the new tables —
+  // these flat columns (brand_slug, brand_name, model_name) are the
+  // source of truth for what's "published" now, independent of whatever
+  // vehicle_models.status/vehicle_type happens to say.
+  const [{ data: partRows }, { data: problemRows }] = await Promise.all([
+    supabase.from('vehicle_parts').select('brand_slug, brand_name, model_name').eq('vehicle_type', dbType),
+    supabase.from('vehicle_problems').select('brand_slug, brand_name, model_name').eq('vehicle_type', dbType),
   ]);
 
-  const activeBrands = new Set([
-    ...(partBrands || []).map((r: any) => r.brand_slug),
-    ...(problemBrands || []).map((r: any) => r.brand_slug),
-  ]);
-
-  if (activeBrands.size === 0) notFound();
-
-  // Get brand info from vehicle_models — only for active brands
-  const { data: models } = await supabase
-    .from('vehicle_models')
-    .select('brand_slug, brand_name, brand_logo_url')
-    .eq('vehicle_type', dbType)
-    .eq('status', 'published')
-    .in('brand_slug', Array.from(activeBrands))
-    .order('brand_name');
-
-  // Aggregate by brand
-  const brandMap = new Map<string, { name: string; logo: string | null; count: number }>();
-  for (const m of (models || [])) {
-    if (!brandMap.has(m.brand_slug)) {
-      brandMap.set(m.brand_slug, { name: m.brand_name, logo: m.brand_logo_url, count: 0 });
+  const brandMap = new Map<string, { name: string; logo: string | null; models: Set<string> }>();
+  for (const r of [...(partRows || []), ...(problemRows || [])]) {
+    if (!brandMap.has(r.brand_slug)) {
+      brandMap.set(r.brand_slug, { name: r.brand_name, logo: null, models: new Set() });
     }
-    brandMap.get(m.brand_slug)!.count++;
+    brandMap.get(r.brand_slug)!.models.add(r.model_name);
   }
-  const brands = Array.from(brandMap.entries()).map(([slug, info]) => ({ slug, ...info }));
+
+  if (brandMap.size === 0) notFound();
+
+  // Best-effort logo enrichment from vehicle_models — matched on brand_slug
+  // only (no vehicle_type/status requirement), so a mismatch there never
+  // hides an otherwise-active brand.
+  const { data: logoRows } = await supabase
+    .from('vehicle_models')
+    .select('brand_slug, brand_logo_url')
+    .in('brand_slug', Array.from(brandMap.keys()))
+    .not('brand_logo_url', 'is', null);
+
+  for (const r of (logoRows || [])) {
+    const entry = brandMap.get(r.brand_slug);
+    if (entry && !entry.logo) entry.logo = r.brand_logo_url;
+  }
+
+  const brands = Array.from(brandMap.entries())
+    .map(([slug, info]) => ({ slug, name: info.name, logo: info.logo, count: info.models.size }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const url = `https://www.naira.autos/${params.type}`;
   const SCHEMA = {

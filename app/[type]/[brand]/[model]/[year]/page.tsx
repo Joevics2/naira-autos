@@ -33,15 +33,29 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const supabase = getSupabase();
+  const dbType = getDbType(params.type);
+
   const { data: m } = await supabase
     .from('vehicle_models')
     .select('brand_name, name')
     .eq('slug', params.model)
     .eq('brand_slug', params.brand)
-    .single();
+    .maybeSingle();
 
-  if (!m) return {};
-  const label = `${m.brand_name} ${m.name} ${params.year}`;
+  let brandName = m?.brand_name;
+  let modelName = m?.name;
+
+  if (!brandName || !modelName) {
+    const { data: p } = await supabase
+      .from('vehicle_parts')
+      .select('brand_name, model_name')
+      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
+      .limit(1).maybeSingle();
+    brandName = brandName ?? p?.brand_name ?? params.brand;
+    modelName = modelName ?? p?.model_name ?? params.model;
+  }
+
+  const label = `${brandName} ${modelName} ${params.year}`;
   const title = `${label} — Parts & Common Problems in Nigeria | Naira Autos`;
   const desc  = `Spare parts prices, common problems and owners advice for the ${label} in Nigeria.`;
   const url   = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}`;
@@ -61,24 +75,29 @@ export default async function YearPage({ params }: { params: Params }) {
   const yearNum   = parseInt(params.year);
   if (isNaN(yearNum)) notFound();
 
-  // Fetch model info
-  const { data: model } = await supabase
-    .from('vehicle_models')
-    .select('id, brand_name, name, brand_slug, vehicle_type, brand_logo_url, overview, reliability_rating, maintenance_score, parts_availability, nigeria_popularity, fuel_type, seating')
-    .eq('slug', params.model)
-    .eq('brand_slug', params.brand)
-    .eq('vehicle_type', dbType)
-    .single() as { data: VehicleModel | null };
-
-  if (!model) notFound();
-
-  // Check what content exists for this year
-  const [{ data: partsRow }, { data: problemsRow }] = await Promise.all([
-    supabase.from('vehicle_parts').select('slug, image_url, intro').eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', yearNum).maybeSingle(),
-    supabase.from('vehicle_problems').select('slug, image_url, intro').eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', yearNum).maybeSingle(),
+  // Fetch model info (enrichment only — no vehicle_type requirement) and
+  // this year's content in parallel. Content existence, not the
+  // vehicle_models match, is what decides whether this page exists.
+  const [{ data: modelRow }, { data: partsRow }, { data: problemsRow }] = await Promise.all([
+    supabase
+      .from('vehicle_models')
+      .select('id, brand_name, name, brand_slug, vehicle_type, brand_logo_url, overview, reliability_rating, maintenance_score, parts_availability, nigeria_popularity, fuel_type, seating')
+      .eq('slug', params.model)
+      .eq('brand_slug', params.brand)
+      .maybeSingle() as unknown as { data: VehicleModel | null },
+    supabase.from('vehicle_parts').select('slug, image_url, intro, brand_name, model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model).eq('year', yearNum).maybeSingle(),
+    supabase.from('vehicle_problems').select('slug, image_url, intro, brand_name, model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model).eq('year', yearNum).maybeSingle(),
   ]);
 
   if (!partsRow && !problemsRow) notFound();
+
+  const model: VehicleModel = modelRow ?? ({
+    brand_name: partsRow?.brand_name ?? problemsRow?.brand_name ?? params.brand,
+    name: params.model,
+    slug: params.model,
+    brand_slug: params.brand,
+    vehicle_type: dbType,
+  } as VehicleModel);
 
   const imageUrl  = partsRow?.image_url || problemsRow?.image_url || null;
   const carLabel  = `${model.brand_name} ${model.name} ${yearNum}`;

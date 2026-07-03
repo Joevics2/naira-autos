@@ -67,17 +67,36 @@ export default async function ModelPage({ params }: { params: Params }) {
   const supabase = getSupabase();
   const dbType   = getDbType(params.type);
 
-  const [{ data: model }, { data: relatedModelsRaw }, { data: relatedPartModels }, { data: relatedProblemModels }] = await Promise.all([
+  const [
+    { data: modelRow },
+    { data: relatedModelsRaw },
+    { data: relatedPartModels },
+    { data: relatedProblemModels },
+    { data: partYears },
+    { data: problemYears },
+  ] = await Promise.all([
+    // Enrichment only — no vehicle_type requirement, so a mismatch there
+    // never hides an otherwise-active model.
     supabase.from('vehicle_models').select('*')
-      .eq('slug', params.model).eq('brand_slug', params.brand).eq('vehicle_type', dbType).single(),
+      .eq('slug', params.model).eq('brand_slug', params.brand).maybeSingle(),
     supabase.from('vehicle_models').select('slug, name, body_type')
       .eq('brand_slug', params.brand).eq('vehicle_type', dbType)
       .neq('slug', params.model).eq('popular', true).limit(12),
     supabase.from('vehicle_parts').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
     supabase.from('vehicle_problems').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    // Source of truth for this model's content — keyed on brand_slug/model_name,
+    // not model_id, so a broken/missing model_id link doesn't hide content.
+    supabase.from('vehicle_parts').select('year, image_url, brand_name, model_name')
+      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
+      .order('year', { ascending: false }),
+    supabase.from('vehicle_problems').select('year, brand_name, model_name')
+      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
+      .order('year', { ascending: false }),
   ]);
 
-  if (!model) notFound();
+  // Model exists in vehicle_models but has no migrated parts/problems content —
+  // this is exactly the old-format case that should no longer be reachable.
+  if (!partYears?.length && !problemYears?.length) notFound();
 
   // Only cross-link to sibling models that have migrated parts/problems content
   const activeSiblingModels = new Set([
@@ -87,16 +106,6 @@ export default async function ModelPage({ params }: { params: Params }) {
   const relatedModels = (relatedModelsRaw || [])
     .filter((m: any) => activeSiblingModels.has(m.slug))
     .slice(0, 6);
-
-  // Fetch available years from both new tables
-  const [{ data: partYears }, { data: problemYears }] = await Promise.all([
-    supabase.from('vehicle_parts').select('year, image_url').eq('model_id', model.id).order('year', { ascending: false }),
-    supabase.from('vehicle_problems').select('year').eq('model_id', model.id).order('year', { ascending: false }),
-  ]);
-
-  // Model exists in vehicle_models but has no migrated parts/problems content —
-  // this is exactly the old-format case that should no longer be reachable.
-  if (!partYears?.length && !problemYears?.length) notFound();
 
   // Merge into unique sorted year list
   const allYearNums = Array.from(new Set([
@@ -115,6 +124,16 @@ export default async function ModelPage({ params }: { params: Params }) {
   for (const r of problemYears || []) {
     if (yearMap[r.year]) yearMap[r.year].hasProblems = true;
   }
+
+  const fallbackBrandName = partYears?.[0]?.brand_name ?? problemYears?.[0]?.brand_name ?? params.brand;
+  const model = modelRow ?? {
+    slug: params.model,
+    name: params.model,
+    brand_slug: params.brand,
+    brand_name: fallbackBrandName,
+    vehicle_type: dbType,
+    body_type: null,
+  };
 
   const vm       = model as VehicleModel;
   const carLabel = `${vm.brand_name} ${vm.name}`;

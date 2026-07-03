@@ -82,39 +82,60 @@ export default async function BrandPage(
   const supabase = getSupabase();
   const dbType   = getDbType(params.type);
 
-  // Get model_names that have content in new tables for this brand
+  // Get model_names (+ brand_name as a fallback) that have content in the
+  // new tables for this brand — this is the source of truth for what's
+  // active, independent of vehicle_models.status/vehicle_type agreement.
   const [{ data: partModels }, { data: problemModels }] = await Promise.all([
-    supabase.from('vehicle_parts').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
-    supabase.from('vehicle_problems').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    supabase.from('vehicle_parts').select('model_name, brand_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    supabase.from('vehicle_problems').select('model_name, brand_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
   ]);
 
-  const activeModelNames = new Set([
-    ...(partModels || []).map((r: any) => r.model_name),
-    ...(problemModels || []).map((r: any) => r.model_name),
-  ]);
+  const activeRows = [...(partModels || []), ...(problemModels || [])];
+  const activeModelNames = new Set(activeRows.map((r: any) => r.model_name));
 
   if (activeModelNames.size === 0) notFound();
 
-  const { data: models } = await supabase
+  // Enrichment from vehicle_models — matched on brand_slug + slug only,
+  // no vehicle_type/status requirement, so a mismatched field there never
+  // hides an otherwise-active model. Falls back gracefully if no match.
+  const { data: modelRows } = await supabase
     .from('vehicle_models')
     .select('*')
     .eq('brand_slug', params.brand)
-    .eq('vehicle_type', dbType)
-    .eq('status', 'published')
     .in('slug', Array.from(activeModelNames))
     .order('popular', { ascending: false })
     .order('sort_order');
 
-  if (!models?.length) notFound();
+  const enrichmentBySlug = new Map<string, any>();
+  for (const m of (modelRows || [])) enrichmentBySlug.set(m.slug, m);
 
-  // Brand info from first model row
-  const brandName        = models[0].brand_name;
-  const brandLogo        = models[0].brand_logo_url;
-  const brandCountry     = models[0].brand_country;
-  const brandDescription = models[0].brand_description;
+  // Brand-level info: prefer any vehicle_models row for this brand (regardless
+  // of vehicle_type/status) for logo/country/description; fall back to the
+  // flat brand_name already on the parts/problems rows.
+  const anyBrandModel = (modelRows || [])[0] ?? null;
+  const brandName        = anyBrandModel?.brand_name ?? activeRows[0]?.brand_name ?? params.brand;
+  const brandLogo        = anyBrandModel?.brand_logo_url ?? null;
+  const brandCountry     = anyBrandModel?.brand_country ?? null;
+  const brandDescription = anyBrandModel?.brand_description ?? null;
+
+  // Build the display model list from the active model names, enriched
+  // where possible — this guarantees every model with real content shows,
+  // even if vehicle_models has no matching row at all.
+  const models: VehicleModel[] = Array.from(activeModelNames).map((slug) => {
+    const enrich = enrichmentBySlug.get(slug);
+    if (enrich) return enrich as VehicleModel;
+    return {
+      slug,
+      name: slug,
+      brand_slug: params.brand,
+      brand_name: brandName,
+      vehicle_type: dbType,
+      body_type: null,
+    } as VehicleModel;
+  });
 
   // Get available years per model from new tables
-  const modelSlugs = (models || []).map((m: any) => m.slug);
+  const modelSlugs = models.map((m: any) => m.slug);
   const [{ data: partYears }, { data: problemYears }] = await Promise.all([
     supabase.from('vehicle_parts').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
     supabase.from('vehicle_problems').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
