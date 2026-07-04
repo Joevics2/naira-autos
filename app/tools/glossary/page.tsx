@@ -9,16 +9,16 @@ type GlossaryTerm = GlossaryTermSummary;
 // ── SEO ───────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: 'Nigerian Car Market Glossary — Tokunbo, Duty Paid, Grade A & More',
+  title: 'Car Market Glossary — Tokunbo, Duty Paid, Grade A & More',
   description:
-    'Understand Tokunbo, duty paid, Grade A, VIN, clearing cost, Ladipo pricing, and 100+ Nigerian car market terms. The essential buyer and seller glossary from Naira Autos.',
+    'Understand Tokunbo, duty paid, Grade A, VIN, clearing cost, and 100+ car market terms. The essential buyer and seller glossary from Naira Autos.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/glossary',
   },
   openGraph: {
-    title: 'Nigerian Car Market Glossary',
+    title: 'Car Market Glossary',
     description:
-      'Understand every term used when buying or selling cars in Nigeria. Tokunbo, Nigerian Used, Grade A, duty paid, VIN, Ladipo, and hundreds more.',
+      'Understand every term used when buying or selling cars. Tokunbo, Grade A, duty paid, VIN, and hundreds more.',
     url: 'https://www.naira.autos/tools/glossary',
     type: 'website',
     images: [
@@ -26,15 +26,15 @@ export const metadata: Metadata = {
         url: 'https://www.naira.autos/og/glossary.png',
         width: 1200,
         height: 630,
-        alt: 'Nigerian Car Market Glossary — Naira Autos',
+        alt: 'Car Market Glossary — Naira Autos',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nigerian Car Market Glossary',
+    title: 'Car Market Glossary',
     description:
-      'Understand every term used when buying or selling cars in Nigeria. Tokunbo, Nigerian Used, Grade A, duty paid, VIN, Ladipo, and hundreds more.',
+      'Understand every term used when buying or selling cars. Tokunbo, Grade A, duty paid, VIN, and hundreds more.',
     images: ['https://www.naira.autos/og/glossary.png'],
   },
 };
@@ -51,9 +51,9 @@ function GlossarySchema({ terms }: { terms: GlossaryTerm[] }) {
       {
         '@type': 'WebPage',
         '@id': 'https://www.naira.autos/tools/glossary',
-        name: 'Nigerian Car Market Glossary',
+        name: 'Car Market Glossary',
         description:
-          `Comprehensive glossary of ${terms.length} terms used in the Nigerian new and used car market.`,
+          `Comprehensive glossary of ${terms.length} terms used in the car market.`,
         url: 'https://www.naira.autos/tools/glossary',
         // FIX 2: dateModified for freshness signals
         dateModified: now,
@@ -69,8 +69,8 @@ function GlossarySchema({ terms }: { terms: GlossaryTerm[] }) {
       {
         '@type': 'DefinedTermSet',
         '@id': 'https://www.naira.autos/tools/glossary#termset',
-        name: 'Nigerian Car Market Glossary',
-        description: `${terms.length} terms used in the Nigerian new and used car market.`,
+        name: 'Car Market Glossary',
+        description: `${terms.length} terms used in the car market.`,
         url: 'https://www.naira.autos/tools/glossary',
         dateModified: now,
         hasDefinedTerm: terms.map(t => ({
@@ -144,11 +144,11 @@ export default async function GlossaryPage() {
                 className="font-black uppercase text-white leading-none tracking-tight mb-2"
                 style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}
               >
-                Nigerian Car Market Glossary
+                Car Market Glossary
               </h1>
               {/* FIX 4: Added contextual internal links in hero copy */}
               <p className="text-white/80 text-sm leading-relaxed max-w-2xl">
-                Every term you need to buy or sell a car in Nigeria — from{' '}
+                Every term you need to buy or sell a car — from{' '}
                 <Link href="/tools/glossary/tokunbo" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
                   Tokunbo
                 </Link>{' '}

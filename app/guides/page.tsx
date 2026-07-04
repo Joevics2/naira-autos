@@ -59,7 +59,7 @@ export default function GuidesPage() {
         <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-1">Naira Autos</p>
         <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Car Buying Guides</h1>
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Practical Nigerian car buying advice — comparisons, how-to guides, ownership tips and more.
+          Practical car buying advice — comparisons, how-to guides, ownership tips and more.
         </p>
       </div>
 
@@ -73,7 +73,7 @@ export default function GuidesPage() {
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-foreground">Nigerian Car Glossary</p>
+            <p className="text-sm font-semibold text-foreground">Car Glossary</p>
             <p className="text-xs text-muted-foreground">300+ terms — Tokunbo, Grade A, Duty Paid and more</p>
           </div>
         </div>

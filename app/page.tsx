@@ -2,12 +2,12 @@ import { HomePage } from '@/components/home/HomePage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Naira Autos - Nigeria\'s Car Tools Hub',
-  description: 'Free Nigerian automotive tools — import duty calculator, AI mechanic, auto loan calculator, VIN checker, fuel cost estimator, and more.',
-  keywords: 'car tools Nigeria, import duty calculator, auto loan calculator, AI mechanic, VIN checker, fuel cost calculator, car valuation Nigeria',
+  title: 'Naira Autos - Free Car Tools & Guides',
+  description: 'Free automotive tools and guides — import duty calculator, AI mechanic, auto loan calculator, VIN checker, fuel cost estimator, and more for car buyers worldwide.',
+  keywords: 'car tools, import duty calculator, auto loan calculator, AI mechanic, VIN checker, fuel cost calculator, car guides, car valuation',
   openGraph: {
-    title: 'Naira Autos - Nigeria\'s Car Tools Hub',
-    description: 'Every tool you need to buy, own, and maintain a car in Nigeria — all free.',
+    title: 'Naira Autos - Free Car Tools & Guides',
+    description: 'Every tool you need to buy, own, and maintain a car — all free, accessible worldwide.',
     url: 'https://naira.autos',
     siteName: 'Naira Autos',
     locale: 'en_NG',
@@ -23,7 +23,7 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Naira Autos',
-    description: 'Free Nigerian automotive tools — import duty, AI mechanic, loan calculator, VIN checker and more',
+    description: 'Free automotive tools and guides — import duty, AI mechanic, loan calculator, VIN checker, and more',
     url: 'https://naira.autos',
     publisher: {
       '@type': 'Organization',
@@ -41,7 +41,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="sr-only">Free Car Tools for Nigeria — Naira Autos</h1>
+      <h1 className="sr-only">Free Car Tools & Guides Worldwide — Naira Autos</h1>
       <HomePage />
     </>
   );

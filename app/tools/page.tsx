@@ -7,7 +7,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Automotive Tools | Naira Autos',
-  description: 'Free Nigerian automotive tools — import duty calculator, AI mechanic, auto loan calculator, VIN checker, fuel cost estimator, and more.',
+  description: 'Free automotive tools and guides — import duty calculator, AI mechanic, auto loan calculator, VIN checker, fuel cost estimator, and more.',
 };
 
 type Tool = {
@@ -26,7 +26,7 @@ const TOOLS: Tool[] = [
     href: '/evaluate-car',
     icon: Camera,
     label: 'Car Valuation',
-    description: 'Get an AI-powered estimate of your car\'s current Nigerian market value in seconds.',
+    description: 'Get an AI-powered estimate of your car\'s current market value in seconds.',
     badge: 'FREE',
     badgeColor: 'bg-amber-400/15 text-amber-400 border border-amber-400/30',
     category: 'AI & Smart',
@@ -73,7 +73,7 @@ const TOOLS: Tool[] = [
     href: '/tools/insurance-calculator',
     icon: Shield,
     label: 'Insurance Calculator',
-    description: 'Estimate your comprehensive or third-party car insurance premium in Nigeria.',
+    description: 'Estimate your comprehensive or third-party car insurance premium.',
     category: 'Finance',
   },
   {
@@ -95,7 +95,7 @@ const TOOLS: Tool[] = [
     href: '/tools/road-trip-calculator',
     icon: Map,
     label: 'Road Trip Calculator',
-    description: 'Plan any Nigerian road trip — total fuel cost, stops, and estimated travel time.',
+    description: 'Plan any road trip — total fuel cost, stops, and estimated travel time.',
     category: 'Running Costs',
   },
   // Due Diligence
@@ -110,7 +110,7 @@ const TOOLS: Tool[] = [
     href: '/tools/vehicle-papers-checklist',
     icon: ClipboardCheck,
     label: 'Vehicle Papers Checklist',
-    description: 'A complete checklist of all documents to verify before buying a used car in Nigeria.',
+    description: 'A complete checklist of all documents to verify before buying a used car.',
     category: 'Due Diligence',
   },
   // Resources
@@ -125,7 +125,7 @@ const TOOLS: Tool[] = [
     href: '/blog',
     icon: Newspaper,
     label: 'Blog & Tips',
-    description: 'In-depth guides on buying, selling, and maintaining cars in Nigeria.',
+    description: 'In-depth guides on buying, selling, and maintaining cars.',
     category: 'Resources',
   },
   {
