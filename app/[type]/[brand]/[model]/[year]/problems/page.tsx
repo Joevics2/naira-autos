@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ChevronRight, ArrowLeft, AlertTriangle } from 'lucide-react';
 import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, SEVERITY_CONFIG, FREQUENCY_CONFIG, type Problem, type FAQ } from '@/lib/vehicle-helpers';
 import { WhereToBuySection } from '@/components/WhereToBuySection';
+import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
@@ -143,6 +144,9 @@ export default async function ProblemsPage({ params }: { params: Params }) {
           {record.intro && (
             <p className="text-muted-foreground leading-relaxed">{record.intro}</p>
           )}
+          <div className="mt-3">
+            <WhereToBuyJumpLink />
+          </div>
         </div>
 
         {/* Problem summary */}
@@ -192,6 +196,10 @@ export default async function ProblemsPage({ params }: { params: Params }) {
             })}
           </div>
         )}
+
+        <div className="flex justify-center">
+          <WhereToBuyJumpLink />
+        </div>
 
         {/* Owner's advice */}
         {record.owners_advice && (

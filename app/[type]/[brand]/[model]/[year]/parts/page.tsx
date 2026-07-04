@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ChevronRight, ArrowLeft, Wrench } from 'lucide-react';
 import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, type SparePart, type FAQ } from '@/lib/vehicle-helpers';
 import { WhereToBuySection } from '@/components/WhereToBuySection';
+import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
@@ -148,6 +149,9 @@ export default async function PartsPage({ params }: { params: Params }) {
           {record.intro && (
             <p className="text-muted-foreground leading-relaxed">{record.intro}</p>
           )}
+          <div className="mt-3">
+            <WhereToBuyJumpLink />
+          </div>
         </div>
 
         {/* Parts by category */}
@@ -196,6 +200,10 @@ export default async function PartsPage({ params }: { params: Params }) {
             ))}
           </div>
         )}
+
+        <div className="flex justify-center">
+          <WhereToBuyJumpLink />
+        </div>
 
         {/* Buying guide */}
         {record.buying_guide && (
