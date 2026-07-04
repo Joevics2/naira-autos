@@ -15,8 +15,8 @@ Disallow: /distress-sales
 Disallow: /cheap-cars
 Disallow: /video-verified-cars
 Disallow: /car-dealers
-Disallow: /cars
 Disallow: /seller
 
 Sitemap: https://naira.autos/sitemap-blogs.xml
 Sitemap: https://naira.autos/sitemap-static.xml
+Sitemap: https://naira.autos/sitemap-vehicles.xml
