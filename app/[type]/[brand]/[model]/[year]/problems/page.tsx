@@ -48,8 +48,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   if (!data) return {};
   const label = `${data.brand_name} ${data.model_name} ${data.year}`;
-  const title = data.meta_title ?? `${label} Common Problems & Issues in Nigeria | Naira Autos`;
-  const desc  = data.meta_description ?? `Known problems, common issues and owners advice for the ${label} in Nigeria. What to check before buying.`;
+  const title = data.meta_title ?? `${label} Common Problems & Issues | Naira Autos`;
+  const desc  = data.meta_description ?? `Known problems, common issues and owner's advice for the ${label}. What to check before buying.`;
   const url   = `https://naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/problems`;
   return {
     title, description: desc,
@@ -89,7 +89,7 @@ export default async function ProblemsPage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Article',
-          headline: `${carLabel} Common Problems in Nigeria`,
+          headline: `${carLabel} Common Problems & Issues`,
           description: `Known problems and issues for the ${carLabel}.`,
           publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://naira.autos' },
         })}}

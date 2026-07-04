@@ -48,8 +48,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   if (!data) return {};
   const label = `${data.brand_name} ${data.model_name} ${data.year}`;
-  const title = data.meta_title ?? `${label} Spare Parts Prices in Nigeria | Naira Autos`;
-  const desc  = data.meta_description ?? `Common spare parts prices and availability for the ${label} in Nigeria. Engine, brakes, suspension, filters and more.`;
+  const title = data.meta_title ?? `${label} Spare Parts & Prices | Naira Autos`;
+  const desc  = data.meta_description ?? `Spare parts prices and availability for the ${label}. Engine, brakes, suspension, filters and more.`;
   const url   = `https://naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/parts`;
   return {
     title, description: desc,
@@ -94,7 +94,7 @@ export default async function PartsPage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Article',
-          headline: `${carLabel} Spare Parts Prices in Nigeria`,
+          headline: `${carLabel} Spare Parts & Pricing Guide`,
           description: `Spare parts prices and availability for the ${carLabel}.`,
           publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://naira.autos' },
         })}}
@@ -144,7 +144,7 @@ export default async function PartsPage({ params }: { params: Params }) {
             <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Spare Parts</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
-            {carLabel} Spare Parts Prices in Nigeria
+            {carLabel} Spare Parts & Pricing
           </h1>
           {record.intro && (
             <p className="text-muted-foreground leading-relaxed">{record.intro}</p>
