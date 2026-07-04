@@ -268,8 +268,9 @@ export default async function ModelPage({ params }: { params: Params }) {
                         />
                       </div>
                     ) : (
-                      <div className="aspect-video bg-muted flex items-center justify-center">
-                        <Calendar className="h-8 w-8 text-muted-foreground/20" />
+                      <div className="aspect-video bg-muted flex flex-col items-center justify-center text-center px-3 gap-1">
+                        <Calendar className="h-6 w-6 text-muted-foreground/25" />
+                        <span className="text-sm font-semibold text-muted-foreground/60">{carLabel} {year}</span>
                       </div>
                     )}
                     <div className="p-3">
