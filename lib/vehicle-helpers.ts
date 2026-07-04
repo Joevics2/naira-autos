@@ -258,12 +258,103 @@ export interface VehicleProblemRecord {
   faqs: FAQ[];
 }
 
-// WHERE TO BUY — used on parts pages
-export const WHERE_TO_BUY_MARKETS = [
-  { name: 'Ladipo Market, Lagos',     desc: 'Widest selection nationwide. Negotiate hard.',           type: 'market' },
-  { name: 'Nnewi, Anambra',          desc: 'Best for wholesale and rare parts.',                     type: 'market' },
-  { name: 'Sabon Gari Market, Kano', desc: 'Best coverage for Northern Nigeria.',                    type: 'market' },
-  { name: 'Watt Market, PH',         desc: 'Best option for Rivers and surrounding states.',         type: 'market' },
-  { name: 'Jiji.ng',                 desc: 'Search by model and year. Verify seller ratings.',       type: 'online' },
-  { name: 'Jumia',                   desc: 'Good for filters and brake pads. Fast delivery.',        type: 'online' },
-];
+// WHERE TO BUY — used on parts and problems pages. "global" is the
+// default view; each country has exactly 5 marketplaces with a short
+// reason to use them. Prefer marketplaces with known affiliate programs
+// (Amazon Associates, eBay Partner Network, AliExpress Affiliate, Awin
+// partners like AutoDoc/Oscaro) when they're also genuinely good options —
+// but a country's list should still be the 5 best places to buy, not just
+// whichever pays a commission.
+export const WHERE_TO_BUY_COUNTRIES = [
+  { code: 'global', name: 'Global',        flag: '🌍' },
+  { code: 'ng',      name: 'Nigeria',       flag: '🇳🇬' },
+  { code: 'us',      name: 'United States', flag: '🇺🇸' },
+  { code: 'gb',      name: 'United Kingdom', flag: '🇬🇧' },
+  { code: 'ca',      name: 'Canada',        flag: '🇨🇦' },
+  { code: 'de',      name: 'Germany',       flag: '🇩🇪' },
+  { code: 'fr',      name: 'France',        flag: '🇫🇷' },
+  { code: 'za',      name: 'South Africa',  flag: '🇿🇦' },
+  { code: 'in',      name: 'India',         flag: '🇮🇳' },
+  { code: 'ae',      name: 'UAE',           flag: '🇦🇪' },
+  { code: 'au',      name: 'Australia',     flag: '🇦🇺' },
+] as const;
+
+export const WHERE_TO_BUY_BY_COUNTRY: Record<string, { name: string; desc: string }[]> = {
+  global: [
+    { name: 'Amazon',       desc: 'Huge selection, buyer protection, ships to most countries.' },
+    { name: 'eBay Motors',  desc: 'Good for OEM and used parts. Check seller ratings first.' },
+    { name: 'AliExpress',   desc: 'Lower prices on aftermarket parts. Best for non-urgent orders.' },
+    { name: 'RockAuto',     desc: 'Massive catalog by make/model/year, competitive pricing.' },
+    { name: 'Partsouq',     desc: 'Ships worldwide, strong for OEM parts on imported/used cars.' },
+  ],
+  ng: [
+    { name: 'Jiji.ng',      desc: 'Nigeria\u2019s largest marketplace. Search by model, verify seller ratings.' },
+    { name: 'Jumia',        desc: 'Fast delivery for filters, brake pads, and common wear items.' },
+    { name: 'Konga',        desc: 'Alternative online marketplace, occasional deals on parts.' },
+    { name: 'Amazon',       desc: 'Good for parts not easily found locally, use a forwarding service.' },
+    { name: 'AliExpress',   desc: 'Cheapest option for aftermarket parts if you can wait on shipping.' },
+  ],
+  us: [
+    { name: 'Amazon',            desc: 'Fast Prime shipping, easy returns, huge selection.' },
+    { name: 'eBay Motors',       desc: 'Great for OEM, used, and hard-to-find parts.' },
+    { name: 'RockAuto',          desc: 'Deep catalog, transparent pricing, no membership needed.' },
+    { name: 'AutoZone',          desc: 'In-store pickup same day, nationwide branch network.' },
+    { name: 'CarParts.com',      desc: 'Parts-specialist retailer with frequent discount codes.' },
+  ],
+  gb: [
+    { name: 'Amazon UK',         desc: 'Fast delivery, easy returns, wide selection.' },
+    { name: 'eBay UK Motors',    desc: 'Strong for OEM and used parts across the UK.' },
+    { name: 'Euro Car Parts',    desc: 'UK\u2019s largest parts retailer, next-day delivery, click & collect.' },
+    { name: 'GSF Car Parts',     desc: 'Competitive trade and retail pricing, wide branch network.' },
+    { name: 'AutoDoc',           desc: 'Large European catalog with frequent discounts.' },
+  ],
+  ca: [
+    { name: 'Amazon Canada',     desc: 'Fast shipping and easy returns across Canada.' },
+    { name: 'eBay Motors',       desc: 'Good for OEM and used parts, ships within Canada.' },
+    { name: 'RockAuto',          desc: 'Ships to Canada, deep catalog and competitive pricing.' },
+    { name: 'Canadian Tire',     desc: 'Huge retail network, easy in-store pickup.' },
+    { name: 'PartSource',        desc: 'Canada-focused parts retailer with local branches.' },
+  ],
+  de: [
+    { name: 'Amazon.de',         desc: 'Fast delivery across Germany and the EU.' },
+    { name: 'AutoDoc',           desc: 'Leading European parts retailer, huge catalog coverage.' },
+    { name: 'Kfzteile24',        desc: 'Germany-focused retailer with fast dispatch.' },
+    { name: 'eBay Motors',       desc: 'Good for OEM and used parts across Germany.' },
+    { name: 'AliExpress',        desc: 'Cheaper aftermarket option if shipping time isn\u2019t urgent.' },
+  ],
+  fr: [
+    { name: 'Amazon.fr',         desc: 'Fast delivery across France.' },
+    { name: 'Oscaro',            desc: 'Leading French parts e-tailer, strong catalog and pricing.' },
+    { name: 'AutoDoc',           desc: 'Wide European catalog, ships across France.' },
+    { name: 'eBay Motors',       desc: 'Good for OEM and used parts.' },
+    { name: 'AliExpress',        desc: 'Budget option for aftermarket parts.' },
+  ],
+  za: [
+    { name: 'Takealot',          desc: 'South Africa\u2019s largest online retailer, fast local delivery.' },
+    { name: 'Midas',             desc: 'Established parts retail chain with nationwide branches.' },
+    { name: 'AutoZone SA',       desc: 'Local retail chain, good for common wear items.' },
+    { name: 'eBay Motors',       desc: 'Good for OEM and used parts, ships internationally.' },
+    { name: 'AliExpress',        desc: 'Cheapest option for aftermarket parts.' },
+  ],
+  in: [
+    { name: 'Amazon India',      desc: 'Fast delivery, easy returns, huge selection.' },
+    { name: 'Flipkart',          desc: 'Competitive pricing, fast delivery across India.' },
+    { name: 'Boodmo',            desc: 'India-focused catalog covering imported and local models.' },
+    { name: 'eBay Motors',       desc: 'Good for OEM and hard-to-find parts.' },
+    { name: 'AliExpress',        desc: 'Lower prices, longer shipping times.' },
+  ],
+  ae: [
+    { name: 'Partsouq',          desc: 'UAE-based, ships worldwide, excellent for OEM parts.' },
+    { name: 'Amazon.ae',         desc: 'Fast local delivery across the UAE.' },
+    { name: 'Dubizzle',          desc: 'Popular local classifieds for parts and accessories.' },
+    { name: 'eBay Motors',       desc: 'Good for OEM and used parts, ships internationally.' },
+    { name: 'AliExpress',        desc: 'Budget-friendly aftermarket option.' },
+  ],
+  au: [
+    { name: 'Amazon Australia',  desc: 'Fast delivery, easy returns, wide selection.' },
+    { name: 'eBay Motors',       desc: 'Great for OEM and used parts across Australia.' },
+    { name: 'Repco',             desc: 'Major Australian parts retailer with nationwide branches.' },
+    { name: 'Supercheap Auto',   desc: 'Big retail network, DIY-friendly staff and pricing.' },
+    { name: 'AliExpress',        desc: 'Lower-cost aftermarket option.' },
+  ],
+};

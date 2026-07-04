@@ -4,8 +4,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, ArrowLeft, Wrench, MapPin } from 'lucide-react';
-import { getSupabase, getDbType, VEHICLE_TYPES, WHERE_TO_BUY_MARKETS, formatPriceRange, type SparePart, type FAQ } from '@/lib/vehicle-helpers';
+import { ChevronRight, ArrowLeft, Wrench } from 'lucide-react';
+import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, type SparePart, type FAQ } from '@/lib/vehicle-helpers';
+import { WhereToBuySection } from '@/components/WhereToBuySection';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
@@ -209,20 +210,7 @@ export default async function PartsPage({ params }: { params: Params }) {
         )}
 
         {/* Where to buy */}
-        <div>
-          <h2 className="text-xl font-bold text-foreground mb-3">Where to Buy Parts in Nigeria</h2>
-          <div className="space-y-2">
-            {WHERE_TO_BUY_MARKETS.map(m => (
-              <div key={m.name} className="flex items-start gap-3 p-3 rounded-lg border border-border bg-card">
-                <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{m.name}</p>
-                  <p className="text-xs text-muted-foreground">{m.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <WhereToBuySection />
 
         {/* FAQs */}
         {faqs.length > 0 && (

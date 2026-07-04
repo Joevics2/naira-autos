@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, ArrowLeft, AlertTriangle } from 'lucide-react';
 import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, SEVERITY_CONFIG, FREQUENCY_CONFIG, type Problem, type FAQ } from '@/lib/vehicle-helpers';
+import { WhereToBuySection } from '@/components/WhereToBuySection';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
@@ -203,6 +204,9 @@ export default async function ProblemsPage({ params }: { params: Params }) {
             </div>
           </div>
         )}
+
+        {/* Where to buy — repair parts related to these issues */}
+        <WhereToBuySection />
 
         {/* FAQs */}
         {faqs.length > 0 && (
