@@ -80,7 +80,7 @@ export function GlossarySidebar({ related }: Props) {
       <div className="bg-card border border-border rounded-2xl p-5">
         <h3 className="text-sm font-bold text-foreground mb-3">Explore the Glossary</h3>
         <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-          Browse all terms alphabetically or search by topic across the full Nigerian car market glossary.
+          Browse all terms alphabetically or search by topic across the full car market glossary.
         </p>
         <Link
           href="/tools/glossary"

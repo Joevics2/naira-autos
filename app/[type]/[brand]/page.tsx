@@ -61,8 +61,8 @@ export async function generateMetadata(
   if (!sample) return {};
 
   const brandName = sample.brand_name;
-  const title = `${brandName} ${typeInfo.plural} Prices in Nigeria | Naira Autos`;
-  const desc  = `${brandName} ${typeInfo.plural.toLowerCase()} prices in Nigeria. Tokunbo and used prices, common problems, spare parts, and ownership costs for all ${brandName} models.`;
+  const title = `${brandName} ${typeInfo.plural} — Parts & Problems | Naira Autos`;
+  const desc  = `${brandName} ${typeInfo.plural.toLowerCase()} common problems, spare parts, and ownership costs for all ${brandName} models.`;
   const url   = `https://www.naira.autos/${params.type}/${params.brand}`;
   return {
     title, description: desc,
@@ -167,7 +167,7 @@ export default async function BrandPage(
     '@graph': [
       {
         '@type': 'WebPage',
-        name: `${brandName} ${typeInfo.plural} Prices in Nigeria`,
+        name: `${brandName} ${typeInfo.plural} — Parts & Problems`,
         url,
         breadcrumb: {
           '@type': 'BreadcrumbList',
@@ -226,7 +226,7 @@ export default async function BrandPage(
                 style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
               >
                 {brandName}<br />
-                <span className="text-emerald-500">in Nigeria</span>
+                <span className="text-emerald-500">{typeInfo.plural}</span>
               </h1>
               {brandDescription && (
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">{brandDescription}</p>

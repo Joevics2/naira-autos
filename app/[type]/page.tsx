@@ -32,8 +32,8 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const typeInfo = VEHICLE_TYPES[params.type];
   if (!typeInfo) return {};
-  const title = `${typeInfo.plural} Prices in Nigeria by Brand | Naira Autos`;
-  const desc  = `Browse ${typeInfo.plural.toLowerCase()} prices in Nigeria by brand. Tokunbo and used ${typeInfo.plural.toLowerCase()} prices, common problems, spare parts, and ownership guides.`;
+  const title = `${typeInfo.plural} Prices by Brand | Naira Autos`;
+  const desc  = `Browse ${typeInfo.plural.toLowerCase()} prices by brand. Common problems, spare parts, and ownership guides for every model.`;
   const url   = `https://www.naira.autos/${params.type}`;
   return {
     title, description: desc,
@@ -125,7 +125,7 @@ export default async function VehicleTypePage(
   const SCHEMA = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: `${typeInfo.plural} Prices in Nigeria by Brand`,
+    name: `${typeInfo.plural} Prices by Brand`,
     url,
     breadcrumb: {
       '@type': 'BreadcrumbList',
@@ -167,12 +167,12 @@ export default async function VehicleTypePage(
               className="text-5xl sm:text-6xl font-black uppercase text-foreground mb-4 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
             >
-              {typeInfo.plural} Prices<br />
-              <span className="text-emerald-500">in Nigeria</span>
+              {typeInfo.plural}<br />
+              <span className="text-emerald-500">Parts &amp; Problems</span>
             </h1>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
-              Tokunbo and Nigerian used prices, common problems, spare parts costs, and ownership guides
-              for every major {typeInfo.singular.toLowerCase()} brand on Nigerian roads.
+              Common problems, spare parts costs, and ownership guides
+              for every major {typeInfo.singular.toLowerCase()} brand.
             </p>
           </section>
 

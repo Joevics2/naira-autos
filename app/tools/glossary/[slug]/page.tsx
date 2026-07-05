@@ -117,12 +117,12 @@ export async function generateMetadata({
   const term = await getTerm(params.slug);
   if (!term) return { title: 'Term Not Found | Naira Autos' };
 
-  const title = term.meta_title ?? `${term.term} — Nigerian Car Market Glossary | Naira Autos`;
+  const title = term.meta_title ?? `${term.term} — Car Market Glossary | Naira Autos`;
 
   // FIX: More informative meta description fallback — leads with the value question
   const description =
     term.meta_description ??
-    `What does ${term.term} mean in Nigeria's car market? ${term.short_definition} Learn more in the Naira Autos glossary.`;
+    `What does ${term.term} mean in the car market? ${term.short_definition} Learn more in the Naira Autos glossary.`;
 
   return {
     title,
@@ -166,7 +166,7 @@ function TermSchema({ term }: { term: GlossaryTermFull }) {
   }
   if (term.price_impact) {
     faqItems.push({
-      question: `How does ${term.term} affect car price in Nigeria?`,
+      question: `How does ${term.term} affect car price?`,
       answer: term.price_impact.replace(/\n/g, ' ').slice(0, 500),
     });
   }
@@ -182,7 +182,7 @@ function TermSchema({ term }: { term: GlossaryTermFull }) {
       url,
       inDefinedTermSet: {
         '@type': 'DefinedTermSet',
-        name: 'Nigerian Car Market Glossary',
+        name: 'Car Market Glossary',
         url: 'https://www.naira.autos/tools/glossary',
       },
       dateModified: term.updated_at,
@@ -217,7 +217,7 @@ function TermSchema({ term }: { term: GlossaryTermFull }) {
   schemas.push({
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: term.meta_title ?? `${term.term} — Nigerian Car Market Glossary`,
+    headline: term.meta_title ?? `${term.term} — Car Market Glossary`,
     description: term.short_definition,
     url,
     dateModified: term.updated_at,
@@ -490,7 +490,7 @@ export default async function GlossaryTermPage({
             <div className="mt-6 bg-card border border-border rounded-2xl p-5">
               <h3 className="text-sm font-bold text-foreground mb-3">Explore the Glossary</h3>
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                Browse all terms alphabetically or search by topic across the full Nigerian car market glossary.
+                Browse all terms alphabetically or search by topic across the full car market glossary.
               </p>
               <Link
                 href="/tools/glossary"

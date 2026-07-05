@@ -51,8 +51,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     .eq('slug', params.model).eq('brand_slug', params.brand).single();
   if (!m) return {};
   const label = `${m.brand_name} ${m.name}`;
-  const title = m.meta_title ?? `${label} — Spare Parts & Common Problems in Nigeria | Naira Autos`;
-  const desc  = m.meta_description ?? `${label} spare parts prices and common problems in Nigeria. Select a year for detailed information.`;
+  const title = m.meta_title ?? `${label} — Spare Parts & Common Problems | Naira Autos`;
+  const desc  = m.meta_description ?? `${label} spare parts prices and common problems. Select a year for detailed information.`;
   const url   = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}`;
   return {
     title, description: desc, alternates: { canonical: url },

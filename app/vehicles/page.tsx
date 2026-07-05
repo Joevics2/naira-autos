@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { Car, Truck, Bus, Bike } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Car Prices in Nigeria by Type | Naira Autos',
-  description: 'Browse car prices in Nigeria by type. Find prices for cars, vans, buses, trucks, and motorcycles. Get spare parts info and ownership guides.',
+  title: 'Car Parts & Problems by Type | Naira Autos',
+  description: 'Browse cars, vans, buses, trucks, and motorcycles by type. Get common problems, spare parts info, and ownership guides for every brand and model.',
 };
 
 const VEHICLE_TYPES = [

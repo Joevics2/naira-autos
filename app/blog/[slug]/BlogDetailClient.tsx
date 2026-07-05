@@ -377,7 +377,7 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-foreground">Car Glossary</p>
-                  <p className="text-xs text-muted-foreground">300+ Nigerian car terms explained</p>
+                  <p className="text-xs text-muted-foreground">300+ car terms explained</p>
                 </div>
               </Link>
 

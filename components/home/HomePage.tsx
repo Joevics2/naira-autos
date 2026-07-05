@@ -60,7 +60,7 @@ const RESEARCH_TOOLS = [
 const BLOG_POSTS = [
   {
     href: 'https://www.naira.autos/blog/best-cars-for-uber-drivers-in-nigeria',
-    title: 'Best Cars for Uber Drivers in Nigeria',
+    title: 'Best Cars for Uber Drivers',
     excerpt: 'Fuel-smart, reliable picks for ride-hailing — with real-world costs and comfort ratings.',
     tag: 'Ride-hailing',
     readTime: '6 min',
@@ -68,23 +68,23 @@ const BLOG_POSTS = [
   },
   {
     href: 'https://www.naira.autos/blog/best-cars-under-5m-in-nigeria',
-    title: 'Best Cars Under ₦5 Million in Nigeria',
-    excerpt: 'Our top picks for reliable, value-for-money cars you can buy today under five million naira.',
+    title: 'Best Budget Cars Worth Buying',
+    excerpt: 'Our top picks for reliable, value-for-money cars you can buy today.',
     tag: 'Budget Buying',
     readTime: '7 min',
     image: 'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
   {
     href: 'https://www.naira.autos/blog/transfer-car-ownership-in-nigeria',
-    title: 'How to Transfer Car Ownership in Nigeria',
-    excerpt: 'A step-by-step guide to changing a vehicle\'s name at the FRSC and state licensing offices.',
+    title: 'How to Transfer Car Ownership',
+    excerpt: 'A step-by-step guide to changing a vehicle\'s registered owner with the licensing authority.',
     tag: 'Ownership',
     readTime: '5 min',
     image: 'https://images.pexels.com/photos/7534561/pexels-photo-7534561.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
   {
     href: 'https://www.naira.autos/blog/documents-to-buy-used-car-nigeria',
-    title: 'Documents You Need to Buy a Used Car in Nigeria',
+    title: 'Documents You Need to Buy a Used Car',
     excerpt: 'Never get scammed. Here are the exact documents to verify before handing over any money.',
     tag: 'Buying Guide',
     readTime: '5 min',
@@ -100,8 +100,8 @@ const BLOG_POSTS = [
   },
   {
     href: 'https://www.naira.autos/blog/toyota-vs-honda-fuel-consumption',
-    title: 'Toyota vs Honda: Fuel Consumption in Nigeria',
-    excerpt: 'We compare real-world fuel economy across popular models in Nigerian driving conditions.',
+    title: 'Toyota vs Honda: Fuel Consumption',
+    excerpt: 'We compare real-world fuel economy across popular models in everyday driving conditions.',
     tag: 'Comparison',
     readTime: '6 min',
     image: 'https://images.pexels.com/photos/1007410/pexels-photo-1007410.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -188,7 +188,7 @@ export function HomePage() {
           <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
             <span className="text-[11px] font-bold tracking-widest uppercase text-orange-600 dark:text-orange-400">
-              Nigeria's Car Intelligence Hub
+              Your Car Intelligence Hub
             </span>
           </div>
 
@@ -212,12 +212,11 @@ export function HomePage() {
             >
               to own a car
             </span>
-            <span className="text-foreground"> in Nigeria</span>
           </h1>
 
           <p className="text-muted-foreground max-w-lg mb-8 leading-relaxed" style={{ fontSize: 'clamp(14px, 2vw, 17px)' }}>
             Free calculators, AI diagnostics, duty costs, loan planners &amp; more —
-            all built for the Nigerian market.
+            all built for car buyers and owners everywhere.
           </p>
 
           {/* CTA row */}

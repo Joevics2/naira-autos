@@ -182,7 +182,7 @@ export default function ToolsPage() {
             <span className="text-emerald-400">TOOLS HUB</span>
           </h1>
           <p className="text-white/50 text-base md:text-lg font-light max-w-lg leading-relaxed">
-            Every tool you need to buy, sell, and own a car in Nigeria — all free, all in one place.
+            Every tool you need to buy, sell, and own a car — all free, all in one place.
           </p>
         </div>
       </div>
