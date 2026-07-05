@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Upload, Camera, Loader2, CheckCircle, AlertCircle, Share2, MessageCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { VALUATION_COUNTRIES, getValuationCountry, symbolFor } from '@/lib/currencies';
 
 const NIGERIAN_STATES = [
   'Lagos', 'Abuja (FCT)', 'Rivers', 'Kano', 'Oyo', 'Delta', 'Enugu', 'Anambra',
@@ -31,6 +32,8 @@ interface ValuationResult {
   suggestedPrice: number;
   priceRangeLow: number;
   priceRangeHigh: number;
+  currency: string;
+  country: string;
   confidence: string;
   similarListingsCount: number;
   valuationFactors: string[];
@@ -46,8 +49,8 @@ export interface ValuationFlowProps {
   onClose?: () => void;
 }
 
-function formatNairaFull(amount: number): string {
-  return `₦${amount.toLocaleString('en-NG')}`;
+function formatCurrencyFull(amount: number, symbol: string): string {
+  return `${symbol}${amount.toLocaleString('en-US')}`;
 }
 
 const CONDITIONS: { value: Condition; label: string; desc: string }[] = [
@@ -57,14 +60,16 @@ const CONDITIONS: { value: Condition; label: string; desc: string }[] = [
 ];
 
 // Full pipeline steps — used by homepage valuation (SerpAPI + Gemini, ~20-30s)
-const ANALYSIS_STEPS_FULL = [
-  'Uploading image for analysis...',
-  'Running reverse image search...',
-  'Identifying make, model & year...',
-  'Researching Nigerian market prices...',
-  'Calculating valuation...',
-  'Preparing your report...',
-];
+function analysisStepsFull(countryName: string) {
+  return [
+    'Uploading image for analysis...',
+    'Running reverse image search...',
+    'Identifying make, model & year...',
+    `Researching ${countryName} market prices...`,
+    'Calculating valuation...',
+    'Preparing your report...',
+  ];
+}
 
 // Fast steps — used by add-listing (Gemini only, ~5-8s)
 const ANALYSIS_STEPS_FAST = [
@@ -84,11 +89,16 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
   const [imageBase64, setImageBase64] = useState('');
   const [imageMimeType, setImageMimeType] = useState('image/jpeg');
   const [condition, setCondition] = useState<Condition>('good');
+  const [country, setCountry] = useState('');   // required — no default, must be actively chosen
   const [location, setLocation] = useState('Lagos');
   const [analysisStep, setAnalysisStep] = useState(0);
   const [result, setResult] = useState<ValuationResult | null>(null);
   const [error, setError] = useState('');
   const [isDragging, setIsDragging] = useState(false);
+
+  const selectedCountry = getValuationCountry(country || undefined);
+  const currencySymbol  = symbolFor(selectedCountry.currency);
+  const ANALYSIS_STEPS_FULL = analysisStepsFull(selectedCountry.name);
 
   const handleFile = useCallback((file: File) => {
     if (!file.type.startsWith('image/')) { setError('Please upload a JPG or PNG image.'); return; }
@@ -111,15 +121,17 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
   }, [handleFile]);
 
   const runAnalysis = async () => {
+    if (!country) { setError('Please select a country first.'); return; }
     setStep('analyzing'); setAnalysisStep(0); setError('');
     const interval = setInterval(() => {
       setAnalysisStep(prev => prev < ANALYSIS_STEPS_FULL.length - 1 ? prev + 1 : prev);
     }, 7000);
     try {
+      const loc = country === 'ng' ? location : selectedCountry.name;
       const res = await fetch('/api/car-valuation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageBase64, mimeType: imageMimeType, condition, location }),
+        body: JSON.stringify({ imageBase64, mimeType: imageMimeType, condition, location: loc, country }),
       });
       clearInterval(interval);
       const json = await res.json();
@@ -145,7 +157,7 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
   const handleSellForMe = () => {
     if (!result) return;
     const carName = `${result.yearRange} ${result.brand} ${result.model}${result.trim ? ' ' + result.trim : ''}`;
-    const msg = encodeURIComponent(`Hi, I used the Valuation tool on Naira Autos.\n\nCar: ${carName}\nValue: ${formatNairaFull(result.suggestedPrice)}\nRange: ${formatNairaFull(result.priceRangeLow)} - ${formatNairaFull(result.priceRangeHigh)}\nCondition: ${result.conditionLabel}\nLocation: ${result.location}\n\nI'd like to use the Sell For Me service.`);
+    const msg = encodeURIComponent(`Hi, I used the Valuation tool on Naira Autos.\n\nCar: ${carName}\nValue: ${formatCurrencyFull(result.suggestedPrice, currencySymbol)}\nRange: ${formatCurrencyFull(result.priceRangeLow, currencySymbol)} - ${formatCurrencyFull(result.priceRangeHigh, currencySymbol)}\nCondition: ${result.conditionLabel}\nLocation: ${result.location}\n\nI'd like to use the Sell For Me service.`);
     window.open(`https://wa.me/2349032032472?text=${msg}`, '_blank');
   };
 
@@ -223,20 +235,41 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
         </div>
 
         {imagePreview && (
-          <div className="flex items-center gap-2">
+          <div className="space-y-2">
             <select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="flex-1 h-9 rounded-lg border border-gray-200 dark:border-gray-600 px-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              required
+              className={`w-full h-9 rounded-lg border px-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+                country ? 'border-gray-200 dark:border-gray-600' : 'border-amber-400'
+              }`}
             >
-              {NIGERIAN_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+              <option value="" disabled>Select your country (required)</option>
+              {VALUATION_COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
+              ))}
             </select>
-            <Button onClick={runAnalysis} className="h-9 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4">
-              Analyse Car
-            </Button>
-            {onClose && (
-              <Button onClick={onClose} variant="outline" className="h-9 text-sm px-3">Cancel</Button>
-            )}
+            <div className="flex items-center gap-2">
+              {country === 'ng' && (
+                <select
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="flex-1 h-9 rounded-lg border border-gray-200 dark:border-gray-600 px-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  {NIGERIAN_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+              )}
+              <Button
+                onClick={runAnalysis}
+                disabled={!country}
+                className="flex-1 h-9 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Analyse Car
+              </Button>
+              {onClose && (
+                <Button onClick={onClose} variant="outline" className="h-9 text-sm px-3">Cancel</Button>
+              )}
+            </div>
           </div>
         )}
 
@@ -293,6 +326,7 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
   // STEP: RESULT
   if (step === 'result' && result) {
     const carName = `${result.yearRange} ${result.brand} ${result.model}${result.trim ? ' ' + result.trim : ''}`;
+    const resultSymbol = symbolFor((result.currency as any) || selectedCountry.currency);
     return (
       <div className="space-y-3">
 
@@ -317,17 +351,17 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
           <div className="flex items-center gap-3">
             <div>
               <p className="text-[10px] text-white/60 mb-0.5">Low</p>
-              <p className="text-xl font-black text-white leading-none">{formatNairaFull(result.priceRangeLow)}</p>
+              <p className="text-xl font-black text-white leading-none">{formatCurrencyFull(result.priceRangeLow, resultSymbol)}</p>
             </div>
             <div className="flex-1 flex flex-col items-center gap-1">
               <div className="w-full h-1.5 rounded-full bg-white/20 relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-amber-400 border-2 border-emerald-500 shadow-sm" />
               </div>
-              <p className="text-[10px] text-amber-300 font-semibold">~{formatNairaFull(result.suggestedPrice)}</p>
+              <p className="text-[10px] text-amber-300 font-semibold">~{formatCurrencyFull(result.suggestedPrice, resultSymbol)}</p>
             </div>
             <div className="text-right">
               <p className="text-[10px] text-white/60 mb-0.5">High</p>
-              <p className="text-xl font-black text-white leading-none">{formatNairaFull(result.priceRangeHigh)}</p>
+              <p className="text-xl font-black text-white leading-none">{formatCurrencyFull(result.priceRangeHigh, resultSymbol)}</p>
             </div>
           </div>
         </div>
@@ -351,12 +385,16 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
           ⚠️ {result.disclaimer || 'Estimate based on visible condition. Actual value depends on mileage, mechanical condition, and service history.'}
         </p>
 
-        {/* CTAs */}
+        {/* CTAs — "Sell For Me" is a Nigeria-only WhatsApp service, hidden elsewhere */}
         <div className="space-y-2">
-          <Button onClick={handleSellForMe} className="w-full h-11 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm">
-            <MessageCircle className="h-4 w-4 mr-1.5" /> Sell For Me — We Handle Everything
-          </Button>
-          <p className="text-xs text-muted-foreground text-center">5% commission · We list, negotiate & transfer on your behalf</p>
+          {result.country === 'ng' && (
+            <>
+              <Button onClick={handleSellForMe} className="w-full h-11 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm">
+                <MessageCircle className="h-4 w-4 mr-1.5" /> Sell For Me — We Handle Everything
+              </Button>
+              <p className="text-xs text-muted-foreground text-center">5% commission · We list, negotiate & transfer on your behalf</p>
+            </>
+          )}
           <button onClick={reset} className="text-xs text-muted-foreground hover:text-foreground underline w-full text-center transition-colors">
             Try another photo
           </button>

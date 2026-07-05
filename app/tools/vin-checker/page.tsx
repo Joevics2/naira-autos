@@ -4,12 +4,12 @@ import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import VINCheckerClient from './client';
 
 export const metadata: Metadata = {
-  title: 'Free VIN Decoder & VIN Checker Nigeria — Vehicle Identification Number Lookup',
-  description: 'Free VIN decoder and VIN checker for Nigeria. Decode any vehicle VIN or chassis number — make, model, year, engine specs, assembly origin. Essential free VIN check for Tokunbo buyers.',
+  title: 'Free VIN Decoder & VIN Checker — Vehicle Identification Number Lookup',
+  description: 'Free VIN decoder and VIN checker for any car. Decode any vehicle VIN or chassis number — make, model, year, engine specs, assembly origin. Essential free VIN check for used car buyers.',
   alternates: { canonical: 'https://www.naira.autos/tools/vin-checker' },
   openGraph: {
     title: 'Free VIN Decoder & Chassis Number Checker | Naira Autos',
-    description: 'Free VIN check for any Tokunbo car in Nigeria. Get make, model, year, engine and origin instantly.',
+    description: 'Free VIN check for any used car. Get make, model, year, engine and origin instantly.',
     url: 'https://www.naira.autos/tools/vin-checker',
   },
 };
@@ -20,8 +20,8 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/vin-checker',
-      name: 'Free VIN Decoder & VIN Checker Nigeria — Vehicle Identification Number Lookup',
-      description: 'Free VIN decoder and VIN checker for Nigeria. Decode any VIN or chassis number — make, model, year, engine specs, and assembly origin.',
+      name: 'Free VIN Decoder & VIN Checker — Vehicle Identification Number Lookup',
+      description: 'Free VIN decoder and VIN checker for any car. Decode any VIN or chassis number — make, model, year, engine specs, and assembly origin.',
       url: 'https://www.naira.autos/tools/vin-checker',
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
@@ -34,7 +34,7 @@ const SCHEMA = {
       mainEntity: [
         { '@type': 'Question', name: 'What is a VIN number on a car?', acceptedAnswer: { '@type': 'Answer', text: 'A VIN (Vehicle Identification Number) is a unique 17-character code assigned to every vehicle at manufacture. It encodes country of origin, manufacturer, vehicle type, engine, model year, assembly plant, and a unique serial. In Nigeria it is commonly called the chassis number.' } },
         { '@type': 'Question', name: 'How do I do a free VIN check online?', acceptedAnswer: { '@type': 'Answer', text: 'Enter the 17-character VIN above and click Decode VIN. Our free VIN check uses the NHTSA database to return make, model, year, engine specs, drive type, and assembly origin — completely free, no login required.' } },
-        { '@type': 'Question', name: 'Where is the VIN number on a car in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'The VIN appears in three locations: dashboard plate visible through windshield, driver\'s door jamb sticker, and chassis rail stamp under the bonnet. All three must match.' } },
+        { '@type': 'Question', name: 'Where is the VIN number on a car?', acceptedAnswer: { '@type': 'Answer', text: 'The VIN appears in three locations: dashboard plate visible through windshield, driver\'s door jamb sticker, and chassis rail stamp under the bonnet. All three must match.' } },
         { '@type': 'Question', name: 'Is this VIN decoder free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. 100% free. We use the publicly accessible NHTSA API. No account, login, or payment required. Works for US, Canadian, and Mexican vehicles — the majority of Tokunbo cars imported to Nigeria.' } },
         { '@type': 'Question', name: 'What is the difference between a VIN and a chassis number?', acceptedAnswer: { '@type': 'Answer', text: 'They are the same 17-character identifier. Internationally it is called VIN. In Nigeria and Commonwealth markets the same code is called the chassis number.' } },
         { '@type': 'Question', name: 'Does VIN decode work for Tokunbo cars imported to Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Most Tokunbo cars in Nigeria originate from the US, Canada, or Mexico — all in the NHTSA database. European or UK origin vehicles may return limited data.' } },
@@ -42,7 +42,7 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I get a free car history report from this VIN checker?', acceptedAnswer: { '@type': 'Answer', text: 'This tool provides free spec data from NHTSA. Full vehicle history — accidents, title status, ownership — requires a paid Carfax or AutoCheck report using the same VIN.' } },
       ],
     },
-    { '@type': 'SoftwareApplication', name: 'Free VIN Decoder & VIN Checker', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0', priceCurrency: 'NGN' } },
+    { '@type': 'SoftwareApplication', name: 'Free VIN Decoder & VIN Checker', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
   ],
 };
 
@@ -76,7 +76,7 @@ export default function VINCheckerPage() {
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
               Free VIN Decoder<br /><span className="text-blue-400">&amp; Chassis Number Checker</span>
             </h1>
-            <p className="text-white/80 text-lg font-semibold leading-snug mb-2">Free VIN check for any Tokunbo car in Nigeria.</p>
+            <p className="text-white/80 text-lg font-semibold leading-snug mb-2">Free VIN check for any used car, anywhere.</p>
             <p className="text-white/75 text-sm leading-relaxed">Enter the 17-character VIN (chassis number) from the dashboard, door jamb, or engine bay. Get a free VIN number lookup — make, model, year, engine specs, and assembly origin. No login required.</p>
           </div>
         </div>
@@ -89,16 +89,16 @@ export default function VINCheckerPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="space-y-6">
               <div>
-                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Free VIN Check for Tokunbo Cars in Nigeria</h2>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Free VIN Check for Any Used Car</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>Our <strong className="text-foreground">free VIN decoder</strong> uses the NHTSA public database. A <strong className="text-foreground">free VIN number lookup</strong> returns make, model, year, engine specs, drive type, body class, and assembly plant — everything you need to verify what a Tokunbo car actually is before buying.</p>
-                  <p>Most Tokunbo cars in Nigeria come from the US, Canada, or Mexico — all within the NHTSA database. The <strong className="text-foreground">chassis number checker</strong> confirms whether the seller's description matches the vehicle's manufacturer-recorded specifications.</p>
+                  <p>Our <strong className="text-foreground">free VIN decoder</strong> uses the NHTSA public database. A <strong className="text-foreground">free VIN number lookup</strong> returns make, model, year, engine specs, drive type, body class, and assembly plant — everything you need to verify what a used car actually is before buying, including Tokunbo imports.</p>
+                  <p>Most Tokunbo cars imported to Nigeria come from the US, Canada, or Mexico — all within the NHTSA database. The <strong className="text-foreground">chassis number checker</strong> confirms whether the seller's description matches the vehicle's manufacturer-recorded specifications.</p>
                 </div>
               </div>
               <div>
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>VIN Lookup vs Vehicle History Report</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>A <strong className="text-foreground">free VIN lookup</strong> returns what the car was when it left the factory. For what has happened since — accidents, odometer rollback, title status (salvage, flood, rebuilt) — you need a paid <strong className="text-foreground">vehicle history report</strong> from Carfax or AutoCheck. For any Tokunbo purchase above ₦5 million, a paid history report is strongly recommended.</p>
+                  <p>A <strong className="text-foreground">free VIN lookup</strong> returns what the car was when it left the factory. For what has happened since — accidents, odometer rollback, title status (salvage, flood, rebuilt) — you need a paid <strong className="text-foreground">vehicle history report</strong> from Carfax or AutoCheck. For any high-value used car purchase, a paid history report is strongly recommended.</p>
                 </div>
               </div>
               <div>

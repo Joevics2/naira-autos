@@ -4,12 +4,12 @@ import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import AutoLoanClient from './client';
 
 export const metadata: Metadata = {
-  title: 'Nigeria Car Loan Calculator — Free Auto Loan Affordability Tool',
-  description: 'Free car loan calculator for Nigeria. Calculate monthly repayments, total interest, and whether you can afford a car loan. Uses realistic Nigerian bank interest rates of 22–35%.',
+  title: 'Free Auto Loan & Car Loan Affordability Calculator',
+  description: 'Free car loan calculator. Calculate monthly repayments, total interest, and whether you can afford a car loan — in your own currency.',
   alternates: { canonical: 'https://www.naira.autos/tools/auto-loan-calculator' },
   openGraph: {
-    title: 'Nigeria Car Loan Calculator | Naira Autos',
-    description: 'Free Nigerian car loan affordability calculator — monthly repayments, total interest, and income ratio check.',
+    title: 'Auto Loan Calculator | Naira Autos',
+    description: 'Free car loan affordability calculator — monthly repayments, total interest, and income ratio check.',
     url: 'https://www.naira.autos/tools/auto-loan-calculator',
   },
 };
@@ -20,8 +20,8 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/auto-loan-calculator',
-      name: 'Nigeria Car Loan Calculator — Free Auto Loan Affordability Tool',
-      description: 'Free car loan calculator for Nigeria. Calculate monthly repayments and affordability using Nigerian bank interest rates.',
+      name: 'Free Auto Loan & Car Loan Affordability Calculator',
+      description: 'Free car loan calculator. Calculate monthly repayments and affordability in your own currency.',
       url: 'https://www.naira.autos/tools/auto-loan-calculator',
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
@@ -40,7 +40,7 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I get a car loan for a Tokunbo vehicle?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Most Nigerian banks and fintech lenders finance Tokunbo vehicles. Some lenders cap the vehicle age at 5–7 years and require comprehensive insurance on the vehicle.' } },
       ],
     },
-    { '@type': 'SoftwareApplication', name: 'Nigeria Auto Loan Calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0', priceCurrency: 'NGN' } },
+    { '@type': 'SoftwareApplication', name: 'Auto Loan Calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
   ],
 };
 
@@ -68,14 +68,14 @@ export default function AutoLoanCalculatorPage() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
-              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Nigerian rates · 2026</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Works in any currency</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
               Car Loan<br /><span className="text-emerald-400">Affordability Calculator</span>
             </h1>
-            <p className="text-white/80 text-lg font-semibold leading-snug mb-2">Can you afford that car loan in Nigeria?</p>
-            <p className="text-white/75 text-sm leading-relaxed">Free Nigerian car loan calculator. Enter the car price, your down payment, and loan term. See your monthly repayment instantly — with a realistic affordability check using Nigerian lender benchmarks.</p>
+            <p className="text-white/80 text-lg font-semibold leading-snug mb-2">Can you actually afford that car loan?</p>
+            <p className="text-white/75 text-sm leading-relaxed">Free car loan calculator. Enter the car price, your down payment, and loan term in your own currency. See your monthly repayment instantly — with an affordability check against your income.</p>
           </div>
         </div>
       </div>

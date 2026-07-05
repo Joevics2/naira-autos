@@ -4,25 +4,23 @@ import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, Chevro
 import { EvaluateCarClient } from './client';
 
 export const metadata: Metadata = {
-  title: 'Free Car Valuation Nigeria | How Much Is My Car Worth? | Naira Autos',
+  title: 'Free Car Valuation | How Much Is My Car Worth? | Naira Autos',
   description:
-    'Get a free AI-powered car valuation in Nigeria. Find out how much your Tokunbo or Nigerian-used car is worth in Lagos, Abuja, Port Harcourt and more. Upload a photo — instant Naira price estimate.',
+    'Get a free AI-powered car valuation. Find out how much your used car is worth, in your own currency. Upload a photo — instant price estimate for Nigeria, US, UK, and more.',
   keywords: [
-    'car valuation Nigeria',
-    'how much is my car worth Nigeria',
+    'car valuation',
+    'how much is my car worth',
+    'used car valuation',
+    'car price estimate',
+    'free car valuation',
+    'car market value',
     'tokunbo car price checker',
-    'used car valuation Nigeria',
-    'car price Nigeria',
-    'free car valuation Lagos',
-    'car worth Nigeria naira',
-    'Nigerian used car price estimate',
-    'sell my car Nigeria value',
-    'car market value Nigeria',
+    'car valuation Nigeria',
   ].join(', '),
   openGraph: {
-    title: 'Free Car Valuation Nigeria — How Much Is Your Car Worth?',
+    title: 'Free Car Valuation — How Much Is Your Car Worth?',
     description:
-      'AI-powered Nigerian market price estimate. Upload a photo of your Tokunbo or used car and get an instant Naira valuation. 100% free.',
+      'AI-powered market price estimate in your own currency. Upload a photo of your car and get an instant valuation. 100% free.',
     url: 'https://naira.autos/evaluate-car',
     siteName: 'Naira Autos',
     locale: 'en_NG',
@@ -36,9 +34,9 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'Free Car Valuation Nigeria',
+  name: 'Free Car Valuation',
   description:
-    'Free AI-powered car valuation tool for the Nigerian used car market. Instant Naira price estimate for Tokunbo and Nigerian-used vehicles.',
+    'Free AI-powered car valuation tool. Instant price estimate in your own currency for used vehicles, including Tokunbo and Nigerian-used cars.',
   url: 'https://naira.autos/evaluate-car',
   mainEntity: {
     '@type': 'SoftwareApplication',
@@ -48,10 +46,9 @@ const jsonLd = {
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: 'NGN',
     },
     description:
-      'Upload a photo of your car and get an instant AI-powered market valuation in Nigerian Naira, calibrated to Lagos, Abuja, and Port Harcourt market rates.',
+      'Upload a photo of your car and get an instant AI-powered market valuation, calibrated to your selected country\'s market rates.',
   },
   breadcrumb: {
     '@type': 'BreadcrumbList',
@@ -175,14 +172,14 @@ export default function EvaluateCarPage() {
               <span className="text-amber-400">CAR WORTH?</span>
             </h1>
             <p className="text-white/50 text-base md:text-lg font-light max-w-md mx-auto leading-relaxed">
-              Upload a photo — get an instant Nigerian market valuation powered by real listing data and AI.
+              Upload a photo — get an instant market valuation in your own currency, powered by real listing data and AI.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-5 text-white/30 text-xs font-medium">
               <span className="flex items-center gap-1.5">
                 <Camera className="h-3.5 w-3.5 text-amber-400" /> Photo analysis
               </span>
               <span className="w-px h-3 bg-white/20 hidden sm:block" />
-              <span>Lagos · Abuja · Port Harcourt</span>
+              <span>Nigeria · US · UK · and more</span>
               <span className="w-px h-3 bg-white/20 hidden sm:block" />
               <span className="text-amber-400 font-semibold">100% Free</span>
             </div>
@@ -255,7 +252,7 @@ export default function EvaluateCarPage() {
               Nigeria imports the vast majority of its used vehicles, which means car prices are directly linked to the Naira/USD exchange rate. When the Naira weakens — as it did significantly in 2023 and 2024 — the landed cost of Tokunbo cars rises sharply, pushing market prices up. With the Naira stabilising near ₦1,436/$ in early 2026, prices have begun to moderate slightly, but remain historically elevated compared to pre-2023 levels.
             </p>
             <p>
-              This means valuations from 2022 or earlier are unreliable guides to current market prices. Always use current market data — like our AI valuation tool, which is calibrated to live Nigerian market conditions.
+              This means valuations from 2022 or earlier are unreliable guides to current market prices. Always use current market data — like our AI valuation tool, which is calibrated to your selected country's live market conditions.
             </p>
 
             <h3 className="text-foreground font-bold text-base mt-6 mb-2">How Location Affects Car Value</h3>

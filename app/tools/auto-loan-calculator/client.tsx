@@ -5,6 +5,7 @@ import Link from 'next/link';
 import {
   Calculator, ChevronDown, RotateCcw, ChevronRight, ExternalLink, AlertTriangle
 } from 'lucide-react';
+import { CURRENCIES, symbolFor, type CurrencyCode } from '@/lib/currencies';
 
 const LENDERS = [
   { name: 'Autochek Finance', rate: '18–24%', note: 'Pan-African auto finance, online application', url: 'https://autochek.africa/ng/financing' },
@@ -15,7 +16,7 @@ const LENDERS = [
   { name: 'Stanbic IBTC Auto', rate: '22–28%', note: 'Salary and self-employed options', url: 'https://www.stanbicibtcbank.com' },
 ];
 
-function fmt(n: number) { return '₦' + Math.round(n).toLocaleString('en-NG'); }
+function fmt(n: number, symbol: string) { return symbol + Math.round(n).toLocaleString('en-US'); }
 
 function affordabilityLabel(ratio: number) {
   if (ratio <= 0.15) return { label: 'Comfortably affordable', color: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/10', border: 'border-emerald-200 dark:border-emerald-500/25', bar: 'bg-emerald-500' };
@@ -25,6 +26,8 @@ function affordabilityLabel(ratio: number) {
 }
 
 export default function AutoLoanClient() {
+  const [currency, setCurrency] = useState<CurrencyCode>('NGN');
+  const symbol = symbolFor(currency);
   const [carPrice, setCarPrice] = useState('8000000');
   const [downPayment, setDownPayment] = useState('2000000');
   const [interestRate, setInterestRate] = useState('28');
@@ -57,12 +60,26 @@ export default function AutoLoanClient() {
           {/* ── Inputs ── */}
           <div className="lg:col-span-2 space-y-4">
 
+            {/* Currency selector */}
+            <div>
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Currency</label>
+              <select
+                value={currency}
+                onChange={e => setCurrency(e.target.value as CurrencyCode)}
+                className="w-full h-10 text-sm border border-border rounded-xl bg-background text-foreground px-3 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20"
+              >
+                {CURRENCIES.map(c => (
+                  <option key={c.code} value={c.code}>{c.symbol} {c.code} — {c.label}</option>
+                ))}
+              </select>
+            </div>
+
             {/* Car price + Down payment */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Car Price (₦) <span className="text-red-500">*</span></label>
+                <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Car Price ({symbol}) <span className="text-red-500">*</span></label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">₦</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">{symbol}</span>
                   <input type="number" value={carPrice} onChange={e => setCarPrice(e.target.value)} placeholder="8000000" className={`${iCls} pl-7 pr-3`} />
                 </div>
               </div>
@@ -74,7 +91,7 @@ export default function AutoLoanClient() {
                   )}
                 </div>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">₦</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">{symbol}</span>
                   <input type="number" value={downPayment} onChange={e => setDownPayment(e.target.value)} placeholder="2000000" className={`${iCls} pl-7 pr-3`} />
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">Min 20–30%</p>
@@ -117,7 +134,7 @@ export default function AutoLoanClient() {
               <div>
                 <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Monthly Income <span className="text-muted-foreground font-normal">(optional)</span></label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">₦</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">{symbol}</span>
                   <input type="number" value={monthlyIncome} onChange={e => setMonthlyIncome(e.target.value)} placeholder="500000" className={`${iCls} pl-7 pr-3`} />
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">For affordability check</p>
@@ -146,7 +163,7 @@ export default function AutoLoanClient() {
                   <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-1">Monthly Repayment</p>
                   <p className="text-4xl font-black text-emerald-600 dark:text-emerald-400 leading-none"
                     style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                    {fmt(calc.monthly)}
+                    {fmt(calc.monthly, symbol)}
                   </p>
                   <p className="text-xs text-emerald-700/60 dark:text-emerald-400/60 mt-1.5">per month · {loanTermMonths} months · {interestRate}% p.a.</p>
                 </div>
@@ -155,15 +172,15 @@ export default function AutoLoanClient() {
                 <div className="grid grid-cols-3 gap-2">
                   <div className="p-3 rounded-xl bg-card border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Loan Amount</p>
-                    <p className="text-base font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{fmt(calc.principal)}</p>
+                    <p className="text-base font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{fmt(calc.principal, symbol)}</p>
                   </div>
                   <div className="p-3 rounded-xl bg-card border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Total Interest</p>
-                    <p className="text-base font-black text-red-600 dark:text-red-400" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{fmt(calc.totalInterest)}</p>
+                    <p className="text-base font-black text-red-600 dark:text-red-400" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{fmt(calc.totalInterest, symbol)}</p>
                   </div>
                   <div className="p-3 rounded-xl bg-card border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Total Paid</p>
-                    <p className="text-base font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{fmt(calc.totalRepaid)}</p>
+                    <p className="text-base font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{fmt(calc.totalRepaid, symbol)}</p>
                   </div>
                 </div>
 
@@ -177,9 +194,9 @@ export default function AutoLoanClient() {
                   </div>
                   <div className="flex flex-wrap gap-3 mt-2">
                     {[
-                      { color: 'bg-emerald-500', label: 'Down', value: fmt(calc.down) },
-                      { color: 'bg-blue-500', label: 'Principal', value: fmt(calc.principal) },
-                      { color: 'bg-red-400', label: 'Interest', value: fmt(calc.totalInterest) },
+                      { color: 'bg-emerald-500', label: 'Down', value: fmt(calc.down, symbol) },
+                      { color: 'bg-blue-500', label: 'Principal', value: fmt(calc.principal, symbol) },
+                      { color: 'bg-red-400', label: 'Interest', value: fmt(calc.totalInterest, symbol) },
                     ].map(({ color, label, value }) => (
                       <div key={label} className="flex items-center gap-1.5">
                         <span className={`w-2 h-2 rounded-sm flex-shrink-0 ${color}`} />
@@ -193,7 +210,7 @@ export default function AutoLoanClient() {
                 {calc.downPct < 20 && calc.principal > 0 && (
                   <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20">
                     <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-xs text-amber-800 dark:text-amber-200/80">Down payment is <strong>{calc.downPct.toFixed(0)}%</strong> — most Nigerian banks require 20–30% minimum.</p>
+                    <p className="text-xs text-amber-800 dark:text-amber-200/80">Down payment is <strong>{calc.downPct.toFixed(0)}%</strong> — most lenders require 20–30% minimum.</p>
                   </div>
                 )}
 
@@ -227,33 +244,37 @@ export default function AutoLoanClient() {
                   </div>
                 )}
 
-                {/* Loan providers */}
-                <button onClick={() => setShowLenders(v => !v)}
-                  className="w-full flex items-center justify-between py-2.5 px-3 rounded-xl border border-border bg-card hover:border-emerald-500/30 text-xs font-medium text-muted-foreground hover:text-foreground transition-all">
-                  <span>Nigerian car loan providers</span>
-                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showLenders ? 'rotate-180' : ''}`} />
-                </button>
-                {showLenders && (
-                  <div className="rounded-xl border border-border overflow-hidden">
-                    <div className="px-3 py-2 bg-muted/50 border-b border-border">
-                      <p className="text-xs font-bold text-foreground uppercase tracking-wide">Car Loan Providers — Nigeria</p>
-                    </div>
-                    <div className="divide-y divide-border">
-                      {LENDERS.map(l => (
-                        <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer"
-                          className="flex items-center justify-between px-3 py-2.5 hover:bg-muted/30 transition-colors group">
-                          <div>
-                            <p className="text-xs font-semibold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{l.name}</p>
-                            <p className="text-xs text-muted-foreground">{l.note}</p>
-                          </div>
-                          <div className="flex items-center gap-2 ml-3 flex-shrink-0">
-                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-2 py-0.5 rounded-full">{l.rate}</span>
-                            <ExternalLink className="h-3 w-3 text-muted-foreground/40" />
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
+                {/* Loan providers — Nigeria-specific, only shown for NGN */}
+                {currency === 'NGN' && (
+                  <>
+                    <button onClick={() => setShowLenders(v => !v)}
+                      className="w-full flex items-center justify-between py-2.5 px-3 rounded-xl border border-border bg-card hover:border-emerald-500/30 text-xs font-medium text-muted-foreground hover:text-foreground transition-all">
+                      <span>Nigerian car loan providers</span>
+                      <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showLenders ? 'rotate-180' : ''}`} />
+                    </button>
+                    {showLenders && (
+                      <div className="rounded-xl border border-border overflow-hidden">
+                        <div className="px-3 py-2 bg-muted/50 border-b border-border">
+                          <p className="text-xs font-bold text-foreground uppercase tracking-wide">Car Loan Providers — Nigeria</p>
+                        </div>
+                        <div className="divide-y divide-border">
+                          {LENDERS.map(l => (
+                            <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer"
+                              className="flex items-center justify-between px-3 py-2.5 hover:bg-muted/30 transition-colors group">
+                              <div>
+                                <p className="text-xs font-semibold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{l.name}</p>
+                                <p className="text-xs text-muted-foreground">{l.note}</p>
+                              </div>
+                              <div className="flex items-center gap-2 ml-3 flex-shrink-0">
+                                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-2 py-0.5 rounded-full">{l.rate}</span>
+                                <ExternalLink className="h-3 w-3 text-muted-foreground/40" />
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
 
                 {/* CTAs */}

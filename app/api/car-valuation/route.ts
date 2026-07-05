@@ -1,5 +1,6 @@
 // app/api/car-valuation/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { getValuationCountry, type ValuationCountry } from '@/lib/currencies';
 
 const GEMINI_MODELS = [
   'gemini-2.5-flash',
@@ -8,22 +9,26 @@ const GEMINI_MODELS = [
 ];
 
 // ─── Range widening ───────────────────────────────────────────────────────────
-function widenRange(mid: number): { low: number; high: number } {
+// Rounding + spread scale to the target currency's typical magnitude —
+// ₦2,000,000 and $2,000 need very different rounding granularity for the
+// same relative price point.
+function widenRange(mid: number, vc: ValuationCountry): { low: number; high: number } {
   let pct: number;
   let minSpread: number;
-  if (mid < 2_000_000)      { pct = 0.25; minSpread = 500_000; }
-  else if (mid < 5_000_000) { pct = 0.20; minSpread = 1_000_000; }
-  else                       { pct = 0.15; minSpread = 1_500_000; }
+  if (mid < vc.lowThreshold)      { pct = 0.25; minSpread = vc.minSpreadLow; }
+  else if (mid < vc.midThreshold) { pct = 0.20; minSpread = vc.minSpreadMid; }
+  else                             { pct = 0.15; minSpread = vc.minSpreadHigh; }
 
-  let low  = Math.round((mid * (1 - pct)) / 50_000) * 50_000;
-  let high = Math.round((mid * (1 + pct)) / 50_000) * 50_000;
+  const roundTo = vc.roundTo;
+  let low  = Math.round((mid * (1 - pct)) / roundTo) * roundTo;
+  let high = Math.round((mid * (1 + pct)) / roundTo) * roundTo;
 
   if (high - low < minSpread) {
-    const half = Math.round(minSpread / 2 / 50_000) * 50_000;
-    low  = Math.round(mid / 50_000) * 50_000 - half;
-    high = Math.round(mid / 50_000) * 50_000 + half;
+    const half = Math.round(minSpread / 2 / roundTo) * roundTo;
+    low  = Math.round(mid / roundTo) * roundTo - half;
+    high = Math.round(mid / roundTo) * roundTo + half;
   }
-  return { low: Math.max(low, 100_000), high };
+  return { low: Math.max(low, roundTo * 2), high };
 }
 
 // ─── JSON parser ──────────────────────────────────────────────────────────────
@@ -155,6 +160,7 @@ async function uploadToImgbb(imageBase64: string): Promise<string> {
 // Gemini receives everything and decides what to use.
 async function reverseImageSearchWithSerp(
   imageBase64: string,
+  vc: ValuationCountry,
 ): Promise<string> {
   const serpKeys = [
     process.env.SERP_API_KEY_1,
@@ -179,18 +185,17 @@ async function reverseImageSearchWithSerp(
     try {
       console.log(`[car-valuation] SerpAPI: trying key ${i + 1}/${serpKeys.length}...`);
 
-      // Adding `q` biases Google Lens toward Nigerian market results.
-      // "used car Nigeria" + "Tokunbo" (popular local term for foreign-used cars)
-      // pushes Lens to surface Nigerian listings, prices, and local context
+      // `q`, `gl`, and `location` bias Google Lens toward the selected
+      // country's market results (listings, prices, local context)
       // alongside the standard visual matches.
       const params = new URLSearchParams({
         engine:  'google_lens',
         api_key: key,
         url:     imageUrl,
-        q:       'used car sale price Nigeria naira',
+        q:       `used car sale price ${vc.name} ${vc.currency}`,
         hl:      'en',
-        gl:      'ng',   // country=Nigeria — biases results to .ng domains
-        location: 'Nigeria',
+        gl:      vc.code,      // country bias — biases results to that country's domains
+        location: vc.name,
       });
 
       const res = await fetch(`https://serpapi.com/search.json?${params.toString()}`, {
@@ -262,7 +267,7 @@ async function reverseImageSearchWithSerp(
   return '';
 }
 
-// ─── Step 2: Gemini Vision + SerpAPI dump → full Nigerian valuation ───────────
+// ─── Step 2: Gemini Vision + SerpAPI dump → country-aware valuation ───────────
 async function analyzeAndPriceWithGemini(
   model: string,
   imageBase64: string,
@@ -270,6 +275,7 @@ async function analyzeAndPriceWithGemini(
   serpDump: string,
   condition: string,
   location: string,
+  vc: ValuationCountry,
   apiKey: string,
 ): Promise<Record<string, any>> {
   const conditionLabel =
@@ -278,6 +284,7 @@ async function analyzeAndPriceWithGemini(
     :                           'Fair (visible wear, may need repairs)';
 
   const currentYear = new Date().getFullYear();
+  const isNigeria = vc.code === 'ng';
 
   const serpSection = serpDump
     ? `=== GOOGLE LENS REVERSE IMAGE SEARCH DATA ===
@@ -290,20 +297,42 @@ ${serpDump}
 === END OF GOOGLE LENS DATA ===`
     : 'No Google Lens data available — use your vision analysis of the image only.';
 
-  const prompt = `You are a senior Nigerian used car appraiser with deep knowledge of the Lagos, Abuja, and Port Harcourt markets. Your job is to analyze the car image AND the Google Lens search data below, then produce an accurate Nigerian market valuation.
+  // Nigeria's used-car market has a well-known local vs. foreign-import price
+  // split (Tokunbo). Other markets don't have an equivalent split, so this
+  // whole block of instructions/fields is Nigeria-only.
+  const carTypeInstructions = isNigeria
+    ? `4. Consider whether this is a Nigerian-used, Tokunbo (foreign-used), or brand-new vehicle based on the image
+5. Apply condition and body grade adjustments to the price`
+    : `4. Consider whether this is a used or brand-new vehicle based on the image
+5. Apply condition and body grade adjustments to the price`;
+
+  const carTypeField = isNigeria
+    ? `"estimatedCarType": "nigerian_used|foreign_used|brand_new",`
+    : `"estimatedCarType": "used|brand_new",`;
+
+  const pricingCarTypeRules = isNigeria
+    ? `- First assess estimatedCarType from the image (plate format, wear pattern, steering side, interior condition):
+    - nigerian_used: locally used car, typically lower price bracket
+    - foreign_used: Tokunbo/imported, typically 20-40% premium over nigerian_used equivalent
+    - brand_new: dealership-fresh, full market price
+- Price to the detected carType — do NOT assume Tokunbo unless the image evidence supports it`
+    : `- First assess estimatedCarType from the image (wear pattern, interior condition):
+    - used: pre-owned vehicle, price to condition and mileage indicators visible
+    - brand_new: dealership-fresh, full market price`;
+
+  const prompt = `You are a senior used car appraiser with deep knowledge of the ${vc.name} market${isNigeria ? ', specifically the Lagos, Abuja, and Port Harcourt markets' : ''}. Your job is to analyze the car image AND the Google Lens search data below, then produce an accurate ${vc.name} market valuation.
 
 ${serpSection}
 
 OWNER-REPORTED CONDITION: ${conditionLabel}
-VALUATION LOCATION: ${location}, Nigeria
+VALUATION LOCATION: ${location}, ${vc.name}
 CURRENT YEAR: ${currentYear}
 
 INSTRUCTIONS:
 1. Use your vision to identify the car from the image (make, model, year, trim, color, body condition)
 2. Cross-reference with the Google Lens data above to confirm identification
-3. Use both your training knowledge of the Nigerian used car market AND any pricing signals in the Lens data to estimate the Naira value
-4. Consider whether this is a Nigerian-used, Tokunbo (foreign-used), or brand-new vehicle based on the image
-5. Apply condition and body grade adjustments to the price
+3. Use both your training knowledge of the ${vc.name} used car market AND any pricing signals in the Lens data to estimate the ${vc.currency} value
+${carTypeInstructions}
 
 Return ONLY a single valid JSON object. No markdown, no preamble, no explanation — just the JSON.
 
@@ -318,7 +347,7 @@ Return ONLY a single valid JSON object. No markdown, no preamble, no explanation
   "color": "exterior color",
   "fuelType": "Petrol|Diesel|Hybrid|Electric",
   "transmission": "Automatic|Manual",
-  "estimatedCarType": "nigerian_used|foreign_used|brand_new",
+  ${carTypeField}
   "bodyGrade": "very_clean|clean|not_clean",
   "bodyGradeReason": "one sentence describing exterior condition from the image",
   "confidence": "High|Medium|Low",
@@ -326,19 +355,15 @@ Return ONLY a single valid JSON object. No markdown, no preamble, no explanation
   "similarListingsCount": 0,
   "valuationFactors": ["factor 1", "factor 2", "factor 3"],
   "disclaimer": "one sentence",
-  "description": "2-3 sentences in Nigerian English describing the car",
+  "description": "2-3 sentences describing the car",
   "reasonForSelling": "",
   "features": ["feature1", "feature2"]
 }
 
 PRICING RULES:
-- suggestedPrice must be an integer in Nigerian Naira (NGN), no decimals
-- Base price on current Nigerian market rates for this exact make/model/year/trim
-- First assess estimatedCarType from the image (plate format, wear pattern, steering side, interior condition):
-    - nigerian_used: locally used car, typically lower price bracket
-    - foreign_used: Tokunbo/imported, typically 20-40% premium over nigerian_used equivalent
-    - brand_new: dealership-fresh, full market price
-- Price to the detected carType — do NOT assume Tokunbo unless the image evidence supports it
+- suggestedPrice must be an integer in ${vc.name} ${vc.currency}, no decimals
+- Base price on current ${vc.name} market rates for this exact make/model/year/trim
+${pricingCarTypeRules}
 - bodyGrade adjustments: very_clean = no change | clean = -3% to -7% | not_clean = -10% to -15%
 - condition adjustments: Excellent = +5% | Good = no change | Fair = -10%
 
@@ -350,7 +375,7 @@ BODY GRADE (from image only):
 FEATURES — only include what is confirmed standard for this exact model and year:
 Air Conditioning, Power Steering, Power Windows, Power Locks, AM/FM Radio, CD Player, Bluetooth, USB/AUX, Backup Camera, Parking Sensors, ABS, Airbags, Alloy Wheels, Sunroof, Leather Seats, Heated Seats, Navigation GPS, Cruise Control, Keyless Entry, Push Start, Immobilizer
 
-VALUATION FACTORS — write exactly 3, in plain friendly language a Nigerian car buyer would understand. No jargon, no mention of search data or internal methodology.`;
+VALUATION FACTORS — write exactly 3, in plain friendly language a car buyer in ${vc.name} would understand. No jargon, no mention of search data or internal methodology.`;
 
   const cleanBase64 = imageBase64.replace(/^data:[^;]+;base64,/, '');
 
@@ -368,24 +393,33 @@ VALUATION FACTORS — write exactly 3, in plain friendly language a Nigerian car
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { imageBase64, mimeType, condition, location, skipSerp } = body;
+    const { imageBase64, mimeType, condition, location, country, skipSerp } = body;
 
     if (!imageBase64) return NextResponse.json({ error: 'No image provided' },    { status: 400 });
     if (!condition)   return NextResponse.json({ error: 'No condition provided' }, { status: 400 });
 
+    // country is required for every caller except add-listing mode
+    // (skipSerp=true), which is a Nigeria-only marketplace feature and
+    // always defaults to Nigeria regardless of what's passed.
+    if (!skipSerp && !country) {
+      return NextResponse.json({ error: 'Please select a country before evaluating.' }, { status: 400 });
+    }
+
+    const vc = getValuationCountry(skipSerp ? (country || 'ng') : country);
+
     const geminiKey = process.env.GEMINI_API_KEY;
     if (!geminiKey) return NextResponse.json({ error: 'GEMINI_API_KEY not configured' }, { status: 500 });
 
-    const loc  = location || 'Lagos';
+    const loc  = location || (vc.code === 'ng' ? 'Lagos' : vc.name);
     const mime = mimeType || 'image/jpeg';
 
-    console.log('[car-valuation] ENV CHECK — GEMINI_API_KEY:', !!geminiKey, '| IMGBB_API_KEY:', !!process.env.IMGBB_API_KEY, '| SERP_API_KEY_1:', !!process.env.SERP_API_KEY_1);
+    console.log('[car-valuation] ENV CHECK — GEMINI_API_KEY:', !!geminiKey, '| IMGBB_API_KEY:', !!process.env.IMGBB_API_KEY, '| SERP_API_KEY_1:', !!process.env.SERP_API_KEY_1, '| country:', vc.code);
 
     // Step 1: SerpAPI Google Lens (skipped when skipSerp=true, e.g. add-listing mode)
     console.log('[car-valuation] Step 1:', skipSerp ? 'SerpAPI skipped (Gemini-only mode)' : 'SerpAPI Google Lens...');
-    const serpDump = skipSerp ? '' : await reverseImageSearchWithSerp(imageBase64);
+    const serpDump = skipSerp ? '' : await reverseImageSearchWithSerp(imageBase64, vc);
 
-    // Step 2: Gemini — image + full SerpAPI dump → Nigerian valuation
+    // Step 2: Gemini — image + full SerpAPI dump → country-aware valuation
     console.log('[car-valuation] Step 2: Gemini analysis (image + SerpAPI data)...');
     let result: Record<string, any> | null = null;
     let lastError = '';
@@ -394,9 +428,9 @@ export async function POST(req: NextRequest) {
       try {
         result = await analyzeAndPriceWithGemini(
           model, imageBase64, mime,
-          serpDump, condition, loc, geminiKey,
+          serpDump, condition, loc, vc, geminiKey,
         );
-        console.log(`[car-valuation] Gemini [${model}] succeeded: ${result.brand} ${result.model} ${result.yearMid} @ ₦${result.suggestedPrice?.toLocaleString()}`);
+        console.log(`[car-valuation] Gemini [${model}] succeeded: ${result.brand} ${result.model} ${result.yearMid} @ ${vc.currency} ${result.suggestedPrice?.toLocaleString()}`);
         break;
       } catch (err: any) {
         lastError = err.message;
@@ -410,7 +444,7 @@ export async function POST(req: NextRequest) {
     }
 
     const mid = typeof result.suggestedPrice === 'number' ? result.suggestedPrice : 0;
-    const { low, high } = widenRange(mid);
+    const { low, high } = widenRange(mid, vc);
 
     return NextResponse.json({
       data: {
@@ -431,6 +465,8 @@ export async function POST(req: NextRequest) {
         suggestedPrice:       mid,
         priceRangeLow:        low,
         priceRangeHigh:       high,
+        currency:             vc.currency,
+        country:              vc.code,
         similarListingsCount: result.similarListingsCount || 0,
         valuationFactors:     result.valuationFactors     || [],
         disclaimer:           result.disclaimer           || '',

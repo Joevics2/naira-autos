@@ -4,12 +4,12 @@ import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import FuelCostClient from './client';
 
 export const metadata: Metadata = {
-  title: 'Nigeria Fuel Cost Calculator — Free Car Fuel Consumption Estimator',
-  description: 'Calculate fuel cost for any car in Nigeria. Select your model, pick a route, drag the pump price slider. Free fuel consumption calculator for 100+ Nigerian car models.',
+  title: 'Free Fuel Cost Calculator — Car Fuel Consumption Estimator',
+  description: 'Calculate fuel cost for any car in your own currency. Select your model, pick a route or enter a custom distance, and drag the pump price slider.',
   alternates: { canonical: 'https://www.naira.autos/tools/fuel-cost-calculator' },
   openGraph: {
-    title: 'Nigeria Fuel Cost Calculator | Naira Autos',
-    description: 'Free Nigerian fuel cost calculator for 100+ car models. City vs highway modes, Nigerian routes, live pump price slider.',
+    title: 'Fuel Cost Calculator | Naira Autos',
+    description: 'Free fuel cost calculator for 100+ car models. City vs highway modes, any currency, live pump price slider.',
     url: 'https://www.naira.autos/tools/fuel-cost-calculator',
   },
 };
@@ -20,8 +20,8 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/fuel-cost-calculator',
-      name: 'Nigeria Fuel Cost Calculator — Free Car Fuel Consumption Estimator',
-      description: 'Calculate fuel cost for any car in Nigeria. 100+ models, Nigerian routes, city and highway modes.',
+      name: 'Free Fuel Cost Calculator — Car Fuel Consumption Estimator',
+      description: 'Calculate fuel cost for any car in your own currency. 100+ models, custom routes, city and highway modes.',
       url: 'https://www.naira.autos/tools/fuel-cost-calculator',
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
@@ -39,7 +39,7 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Why does fuel consumption in Nigeria differ from manufacturer figures?', acceptedAnswer: { '@type': 'Answer', text: 'Real-world fuel consumption in Nigeria — especially in Lagos — is 25–40% higher than manufacturer highway figures due to stop-start traffic, idling in go-slow conditions, and aggressive driving patterns.' } },
       ],
     },
-    { '@type': 'SoftwareApplication', name: 'Nigeria Fuel Cost Calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0', priceCurrency: 'NGN' } },
+    { '@type': 'SoftwareApplication', name: 'Fuel Cost Calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
   ],
 };
 
@@ -67,14 +67,14 @@ export default function FuelCostCalculatorPage() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
-              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">100+ Nigerian models</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">100+ car models</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
-              Nigeria Fuel<br /><span className="text-emerald-400">Cost Calculator</span>
+              Fuel<br /><span className="text-emerald-400">Cost Calculator</span>
             </h1>
             <p className="text-white/80 text-lg font-semibold leading-snug mb-2">How much will that trip cost in fuel?</p>
-            <p className="text-white/75 text-sm leading-relaxed">Select your car, pick a Nigerian route, and drag the pump price slider. See your fuel cost instantly — with city and highway modes for Nigerian road conditions.</p>
+            <p className="text-white/75 text-sm leading-relaxed">Select your car, pick a route or enter a custom distance, and drag the pump price slider in your own currency. See your fuel cost instantly — with city and highway modes.</p>
           </div>
         </div>
       </div>

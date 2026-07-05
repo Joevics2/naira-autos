@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Fuel, RotateCcw, ChevronRight, Zap } from 'lucide-react';
+import { CURRENCIES, symbolFor, type CurrencyCode } from '@/lib/currencies';
 
 // ── Dataset ───────────────────────────────────────────────────────
 
@@ -203,6 +204,18 @@ const FUEL_DATA: Record<string, Record<string, { city: number; hwy: number; tank
   },
 };
 
+const PUMP_PRICE_CONFIG: Record<CurrencyCode, { min: number; max: number; step: number; presets: number[]; default: number }> = {
+  NGN: { min: 500, max: 2000, step: 50,  presets: [800, 950, 1000, 1100, 1500], default: 1000 },
+  USD: { min: 0.5, max: 3,    step: 0.05, presets: [0.9, 1.1, 1.3, 1.5, 2.0],   default: 1.3 },
+  GBP: { min: 1,   max: 2.5,  step: 0.05, presets: [1.3, 1.4, 1.5, 1.6, 1.8],   default: 1.5 },
+  EUR: { min: 1,   max: 2.5,  step: 0.05, presets: [1.4, 1.5, 1.6, 1.7, 1.9],   default: 1.6 },
+  CAD: { min: 1,   max: 2.5,  step: 0.05, presets: [1.3, 1.4, 1.5, 1.6, 1.8],   default: 1.5 },
+  AUD: { min: 1,   max: 3,    step: 0.05, presets: [1.6, 1.8, 1.9, 2.0, 2.2],   default: 1.9 },
+  ZAR: { min: 10,  max: 35,   step: 0.5,  presets: [20, 22, 23, 24, 26],        default: 23 },
+  INR: { min: 60,  max: 150,  step: 1,    presets: [90, 95, 100, 105, 110],     default: 100 },
+  AED: { min: 1.5, max: 4,    step: 0.05, presets: [2.4, 2.6, 2.8, 3.0, 3.2],   default: 2.8 },
+};
+
 const CITY_ROUTES: Record<string, number> = {
   'Lagos → Abuja': 791,
   'Lagos → Ibadan': 128,
@@ -221,15 +234,22 @@ const CITY_ROUTES: Record<string, number> = {
   'Custom distance': 0,
 };
 
-function fmt(n: number) { return '₦' + Math.round(n).toLocaleString('en-NG'); }
+function fmt(n: number, symbol: string) { return symbol + Math.round(n).toLocaleString('en-US'); }
 
 export default function FuelCostClient() {
+  const [currency, setCurrency] = useState<CurrencyCode>('NGN');
+  const symbol = symbolFor(currency);
   const [selectedBrand, setSelectedBrand] = useState('Toyota');
   const [selectedModel, setSelectedModel] = useState('Camry 2.5 (2012–2017)');
   const [selectedRoute, setSelectedRoute] = useState('Lagos → Abuja');
   const [customDistance, setCustomDistance] = useState('');
   const [driveMode, setDriveMode] = useState<'city' | 'highway' | 'mixed'>('mixed');
   const [pumpPrice, setPumpPrice] = useState(1000);
+  const priceConfig = PUMP_PRICE_CONFIG[currency];
+
+  useEffect(() => {
+    setPumpPrice(PUMP_PRICE_CONFIG[currency].default);
+  }, [currency]);
 
   useEffect(() => {
     const models = Object.keys(FUEL_DATA[selectedBrand] || {});
@@ -251,7 +271,7 @@ export default function FuelCostClient() {
     return { litres, cost, rate, cityL: carData.city, hwyL: carData.hwy, tank: carData.tank };
   }, [carData, isEV, distance, pumpPrice, driveMode]);
 
-  const reset = () => { setSelectedBrand('Toyota'); setSelectedModel('Camry 2.5 (2012–2017)'); setSelectedRoute('Lagos → Abuja'); setCustomDistance(''); setDriveMode('mixed'); setPumpPrice(1000); };
+  const reset = () => { setSelectedBrand('Toyota'); setSelectedModel('Camry 2.5 (2012–2017)'); setSelectedRoute('Lagos → Abuja'); setCustomDistance(''); setDriveMode('mixed'); setPumpPrice(priceConfig.default); };
   const selectCls = 'w-full h-11 px-3 text-sm border border-border rounded-xl bg-background text-foreground focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all cursor-pointer';
 
   return (
@@ -261,6 +281,16 @@ export default function FuelCostClient() {
 
           {/* ── Inputs ── */}
           <div className="lg:col-span-2 space-y-4">
+
+            {/* Currency */}
+            <div>
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Currency</label>
+              <select value={currency} onChange={e => setCurrency(e.target.value as CurrencyCode)} className={selectCls}>
+                {CURRENCIES.map(c => (
+                  <option key={c.code} value={c.code}>{c.symbol} {c.code} — {c.label}</option>
+                ))}
+              </select>
+            </div>
 
             {/* Brand + Model */}
             <div className="grid grid-cols-2 gap-3">
@@ -320,11 +350,11 @@ export default function FuelCostClient() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-xs font-bold text-foreground uppercase tracking-wide">Pump Price / Litre</label>
-                <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">₦{pumpPrice.toLocaleString()}</span>
+                <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">{symbol}{pumpPrice.toLocaleString()}</span>
               </div>
-              <input type="range" min={500} max={2000} step={50} value={pumpPrice} onChange={e => setPumpPrice(Number(e.target.value))} className="w-full accent-emerald-500 h-2 rounded-full mb-2" />
+              <input type="range" min={priceConfig.min} max={priceConfig.max} step={priceConfig.step} value={pumpPrice} onChange={e => setPumpPrice(Number(e.target.value))} className="w-full accent-emerald-500 h-2 rounded-full mb-2" />
               <div className="flex gap-1.5">
-                {[800, 950, 1000, 1100, 1500].map(p => (
+                {priceConfig.presets.map(p => (
                   <button key={p} onClick={() => setPumpPrice(p)}
                     className={`text-xs py-1 rounded-lg border transition-all font-medium flex-1 ${pumpPrice === p ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-card border-border text-muted-foreground hover:border-emerald-500/50'}`}>
                     {p}
@@ -364,10 +394,10 @@ export default function FuelCostClient() {
                   </p>
                   <p className="text-4xl font-black text-emerald-600 dark:text-emerald-400 leading-none"
                     style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                    {fmt(calc.cost)}
+                    {fmt(calc.cost, symbol)}
                   </p>
                   <p className="text-xs text-emerald-700/60 dark:text-emerald-400/60 mt-1.5">
-                    {calc.litres.toFixed(1)}L × ₦{pumpPrice.toLocaleString()}/L · {driveMode === 'city' ? 'City' : driveMode === 'highway' ? 'Highway' : 'Mixed'} · {calc.rate.toFixed(1)}L/100km
+                    {calc.litres.toFixed(1)}L × {symbol}{pumpPrice.toLocaleString()}/L · {driveMode === 'city' ? 'City' : driveMode === 'highway' ? 'Highway' : 'Mixed'} · {calc.rate.toFixed(1)}L/100km
                   </p>
                 </div>
 
@@ -379,7 +409,7 @@ export default function FuelCostClient() {
                   </div>
                   <div className="p-3 rounded-xl bg-card border border-border text-center">
                     <p className="text-xs text-muted-foreground mb-1">Per km</p>
-                    <p className="text-xl font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>₦{(calc.cost / distance).toFixed(0)}</p>
+                    <p className="text-xl font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{symbol}{(calc.cost / distance).toFixed(0)}</p>
                   </div>
                   <div className="p-3 rounded-xl bg-card border border-border text-center">
                     <p className="text-xs text-muted-foreground mb-1">Tank fill</p>
@@ -423,7 +453,7 @@ export default function FuelCostClient() {
                             <span className="text-xs text-muted-foreground">{rate.toFixed(1)}L/100km</span>
                           </div>
                           <div className="text-right">
-                            <span className="text-sm font-bold text-foreground">{fmt(cost)}</span>
+                            <span className="text-sm font-bold text-foreground">{fmt(cost, symbol)}</span>
                             <span className="text-xs text-muted-foreground ml-2">{((rate / 100) * distance).toFixed(1)}L</span>
                           </div>
                         </div>
