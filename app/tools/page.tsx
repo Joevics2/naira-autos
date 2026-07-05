@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -104,6 +104,15 @@ const TOOLS: Tool[] = [
     icon: Search,
     label: 'VIN Checker',
     description: 'Verify a car\'s history, specs, and origin using its Vehicle Identification Number.',
+    category: 'Due Diligence',
+  },
+  {
+    href: '/tools/obd-codes',
+    icon: ScanLine,
+    label: 'OBD-II Code Lookup',
+    description: 'What does your check engine light code mean? Causes, symptoms, and what to check first.',
+    badge: 'FREE',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Due Diligence',
   },
   {

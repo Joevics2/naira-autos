@@ -37,6 +37,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    {
+      // NOTE: this route already existed but was never linked from this index,
+      // meaning search engines couldn't discover it unless submitted manually.
+      url: `${siteUrl}/sitemap-vehicles.xml`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/sitemap-obd-codes.xml`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    },
   ];
 }
 
