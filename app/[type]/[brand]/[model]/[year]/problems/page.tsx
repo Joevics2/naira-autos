@@ -11,6 +11,8 @@ import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
+export const revalidate = 0; // fetch fresh every request while content is actively changing
+
 interface VehicleProblem {
   id: string;
   brand_name: string;

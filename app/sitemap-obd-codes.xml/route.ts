@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 import { getObdCodesSitemapEntries } from '@/lib/obd-codes';
 
 const siteUrl = 'https://naira.autos';
-export const revalidate = 604800; // 1 week
+export const revalidate = 0; // fetch fresh every request while content is actively changing
 
 export async function GET() {
   const codes = await getObdCodesSitemapEntries();

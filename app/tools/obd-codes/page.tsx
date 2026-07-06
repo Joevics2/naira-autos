@@ -71,7 +71,7 @@ function ObdCodesSchema({ codes }: { codes: ObdCodeSummary[] }) {
 
 // ── Page ──────────────────────────────────────────────────────────
 
-export const revalidate = 604800; // 1 week
+export const revalidate = 0; // fetch fresh every request while content is actively changing
 
 export default async function ObdCodesPage() {
   const codes = await getAllObdCodes();

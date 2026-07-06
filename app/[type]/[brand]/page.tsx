@@ -13,7 +13,7 @@ import {
   type VehicleModel,
 } from '@/lib/vehicle-helpers';
 
-export const revalidate = 86400; // 24 hours
+export const revalidate = 0; // fetch fresh every request while content is actively changing
 
 // ── Static params ─────────────────────────────────────────────
 

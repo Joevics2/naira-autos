@@ -16,6 +16,8 @@ import {
 
 type Params = { type: string; brand: string; model: string };
 
+export const revalidate = 0; // fetch fresh every request while content is actively changing
+
 export async function generateStaticParams() {
   const supabase = getSupabase();
 

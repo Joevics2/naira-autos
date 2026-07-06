@@ -17,7 +17,7 @@ export async function generateStaticParams() {
   return slugs.map(slug => ({ slug }));
 }
 
-export const revalidate = 604800; // 1 week
+export const revalidate = 0; // fetch fresh every request while content is actively changing
 
 // ── Metadata ──────────────────────────────────────────────────────
 
