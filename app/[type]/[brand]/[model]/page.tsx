@@ -19,18 +19,21 @@ type Params = { type: string; brand: string; model: string };
 export async function generateStaticParams() {
   const supabase = getSupabase();
 
-  // Only pre-render models that actually have parts or problems content —
-  // same active-content rule as the type and brand pages, so legacy
-  // vehicle_models rows with no migrated data don't get static pages.
-  const [{ data: parts }, { data: problems }] = await Promise.all([
+  // Only pre-render models that actually have parts, problems, or
+  // maintenance content — same active-content rule as the type and brand
+  // pages, so legacy vehicle_models rows with no migrated data don't get
+  // static pages. Any one of the three is enough; none of them require
+  // the others to exist.
+  const [{ data: parts }, { data: problems }, { data: maintenance }] = await Promise.all([
     supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type'),
     supabase.from('vehicle_problems').select('brand_slug, model_name, vehicle_type'),
+    supabase.from('vehicle_maintenance').select('brand_slug, model_name, vehicle_type'),
   ]);
 
   const seen = new Set<string>();
   const results: { type: string; brand: string; model: string }[] = [];
 
-  for (const row of [...(parts || []), ...(problems || [])]) {
+  for (const row of [...(parts || []), ...(problems || []), ...(maintenance || [])]) {
     const typeSlug = Object.entries(VEHICLE_TYPES).find(
       ([, info]) => info.singular.toLowerCase() === row.vehicle_type
     )?.[0] ?? row.vehicle_type + 's';
@@ -51,8 +54,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     .eq('slug', params.model).eq('brand_slug', params.brand).single();
   if (!m) return {};
   const label = `${m.brand_name} ${m.name}`;
-  const title = m.meta_title ?? `${label} — Spare Parts & Common Problems | Naira Autos`;
-  const desc  = m.meta_description ?? `${label} spare parts prices and common problems. Select a year for detailed information.`;
+  const title = m.meta_title ?? `${label} — Parts, Problems & Maintenance | Naira Autos`;
+  const desc  = m.meta_description ?? `${label} spare parts prices, common problems, and maintenance schedules. Select a year for detailed information.`;
   const url   = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}`;
   return {
     title, description: desc, alternates: { canonical: url },
@@ -72,8 +75,10 @@ export default async function ModelPage({ params }: { params: Params }) {
     { data: relatedModelsRaw },
     { data: relatedPartModels },
     { data: relatedProblemModels },
+    { data: relatedMaintenanceModels },
     { data: partYears },
     { data: problemYears },
+    { data: maintenanceYears },
   ] = await Promise.all([
     // Enrichment only — no vehicle_type requirement, so a mismatch there
     // never hides an otherwise-active model.
@@ -84,6 +89,7 @@ export default async function ModelPage({ params }: { params: Params }) {
       .neq('slug', params.model).eq('popular', true).limit(12),
     supabase.from('vehicle_parts').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
     supabase.from('vehicle_problems').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    supabase.from('vehicle_maintenance').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
     // Source of truth for this model's content — keyed on brand_slug/model_name,
     // not model_id, so a broken/missing model_id link doesn't hide content.
     supabase.from('vehicle_parts').select('year, image_url, brand_name, model_name')
@@ -92,16 +98,22 @@ export default async function ModelPage({ params }: { params: Params }) {
     supabase.from('vehicle_problems').select('year, brand_name, model_name')
       .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
       .order('year', { ascending: false }),
+    supabase.from('vehicle_maintenance').select('year, image_url, brand_name, model_name')
+      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
+      .order('year', { ascending: false }),
   ]);
 
-  // Model exists in vehicle_models but has no migrated parts/problems content —
-  // this is exactly the old-format case that should no longer be reachable.
-  if (!partYears?.length && !problemYears?.length) notFound();
+  // Model exists in vehicle_models but has no migrated parts/problems/
+  // maintenance content — this is exactly the old-format case that
+  // should no longer be reachable. Any one of the three is enough.
+  if (!partYears?.length && !problemYears?.length && !maintenanceYears?.length) notFound();
 
-  // Only cross-link to sibling models that have migrated parts/problems content
+  // Only cross-link to sibling models that have migrated content in any
+  // of the three tables
   const activeSiblingModels = new Set([
     ...(relatedPartModels || []).map((r: any) => r.model_name),
     ...(relatedProblemModels || []).map((r: any) => r.model_name),
+    ...(relatedMaintenanceModels || []).map((r: any) => r.model_name),
   ]);
   const relatedModels = (relatedModelsRaw || [])
     .filter((m: any) => activeSiblingModels.has(m.slug))
@@ -113,12 +125,14 @@ export default async function ModelPage({ params }: { params: Params }) {
   const allYears = Array.from(new Set([
     ...(partYears || []).map((r: any) => r.year),
     ...(problemYears || []).map((r: any) => r.year),
+    ...(maintenanceYears || []).map((r: any) => r.year),
   ])).sort((a, b) => leadingYear(b) - leadingYear(a));
 
-  // Build a map: year → { hasParts, hasProblems, imageUrl }
-  const yearMap: Record<string, { hasParts: boolean; hasProblems: boolean; imageUrl: string | null }> = {};
+  // Build a map: year → { hasParts, hasProblems, hasMaintenance, imageUrl }
+  // — any combination is valid, none of the three require the others.
+  const yearMap: Record<string, { hasParts: boolean; hasProblems: boolean; hasMaintenance: boolean; imageUrl: string | null }> = {};
   for (const y of allYears) {
-    yearMap[y] = { hasParts: false, hasProblems: false, imageUrl: null };
+    yearMap[y] = { hasParts: false, hasProblems: false, hasMaintenance: false, imageUrl: null };
   }
   for (const r of partYears || []) {
     if (yearMap[r.year]) { yearMap[r.year].hasParts = true; yearMap[r.year].imageUrl = r.image_url; }
@@ -126,8 +140,14 @@ export default async function ModelPage({ params }: { params: Params }) {
   for (const r of problemYears || []) {
     if (yearMap[r.year]) yearMap[r.year].hasProblems = true;
   }
+  for (const r of maintenanceYears || []) {
+    if (yearMap[r.year]) {
+      yearMap[r.year].hasMaintenance = true;
+      if (!yearMap[r.year].imageUrl) yearMap[r.year].imageUrl = r.image_url;
+    }
+  }
 
-  const fallbackBrandName = partYears?.[0]?.brand_name ?? problemYears?.[0]?.brand_name ?? params.brand;
+  const fallbackBrandName = partYears?.[0]?.brand_name ?? problemYears?.[0]?.brand_name ?? maintenanceYears?.[0]?.brand_name ?? params.brand;
   const model = modelRow ?? {
     slug: params.model,
     name: params.model,
@@ -275,11 +295,11 @@ export default async function ModelPage({ params }: { params: Params }) {
                     )}
                     <div className="p-3">
                       <p className="font-bold text-foreground text-base mb-2">{carLabel} {year}</p>
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-2">
                         {info.hasParts && (
                           <Link
                             href={`${base}/parts`}
-                            className="flex-1 flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                            className="flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
                           >
                             <span className="flex items-center gap-1.5 text-xs font-semibold">
                               <Wrench className="h-3.5 w-3.5 flex-shrink-0" />
@@ -291,11 +311,23 @@ export default async function ModelPage({ params }: { params: Params }) {
                         {info.hasProblems && (
                           <Link
                             href={`${base}/problems`}
-                            className="flex-1 flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
+                            className="flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
                           >
                             <span className="flex items-center gap-1.5 text-xs font-semibold">
                               <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
                               Common Issues
+                            </span>
+                            <ChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
+                          </Link>
+                        )}
+                        {info.hasMaintenance && (
+                          <Link
+                            href={`${base}/maintenance`}
+                            className="flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
+                          >
+                            <span className="flex items-center gap-1.5 text-xs font-semibold">
+                              <Settings className="h-3.5 w-3.5 flex-shrink-0" />
+                              Maintenance
                             </span>
                             <ChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
                           </Link>

@@ -2,9 +2,9 @@
 // Accessible at: https://naira.autos/sitemap-vehicles.xml
 //
 // Builds every reachable vehicle URL directly from vehicle_parts /
-// vehicle_problems (the source of truth for what's "active"), same
-// logic as generateStaticParams on the actual pages — so this sitemap
-// never lists a URL that would 404.
+// vehicle_problems / vehicle_maintenance (the source of truth for what's
+// "active"), same logic as generateStaticParams on the actual pages — so
+// this sitemap never lists a URL that would 404.
 
 import { NextResponse } from 'next/server';
 import { getSupabase, TYPE_SLUG_TO_DB } from '@/lib/vehicle-helpers';
@@ -19,9 +19,10 @@ const DB_TO_TYPE_SLUG: Record<string, string> = Object.fromEntries(
 export async function GET() {
   const supabase = getSupabase();
 
-  const [{ data: parts }, { data: problems }] = await Promise.all([
+  const [{ data: parts }, { data: problems }, { data: maintenance }] = await Promise.all([
     supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type, year'),
     supabase.from('vehicle_problems').select('brand_slug, model_name, vehicle_type, year'),
+    supabase.from('vehicle_maintenance').select('brand_slug, model_name, vehicle_type, year'),
   ]);
 
   const typeSet = new Set<string>();
@@ -29,6 +30,7 @@ export async function GET() {
   const modelSet = new Set<string>();
   const partUrls = new Set<string>();
   const problemUrls = new Set<string>();
+  const maintenanceUrls = new Set<string>();
 
   for (const row of (parts || [])) {
     const typeSlug = DB_TO_TYPE_SLUG[row.vehicle_type] ?? row.vehicle_type;
@@ -44,6 +46,13 @@ export async function GET() {
     modelSet.add(`${typeSlug}/${row.brand_slug}/${row.model_name}`);
     problemUrls.add(`${typeSlug}/${row.brand_slug}/${row.model_name}/${row.year}/problems`);
   }
+  for (const row of (maintenance || [])) {
+    const typeSlug = DB_TO_TYPE_SLUG[row.vehicle_type] ?? row.vehicle_type;
+    typeSet.add(typeSlug);
+    brandSet.add(`${typeSlug}/${row.brand_slug}`);
+    modelSet.add(`${typeSlug}/${row.brand_slug}/${row.model_name}`);
+    maintenanceUrls.add(`${typeSlug}/${row.brand_slug}/${row.model_name}/${row.year}/maintenance`);
+  }
 
   const entries: { path: string; priority: number; changefreq: string }[] = [
     ...Array.from(typeSet).map(path => ({ path, priority: 0.8, changefreq: 'weekly' })),
@@ -51,6 +60,7 @@ export async function GET() {
     ...Array.from(modelSet).map(path => ({ path, priority: 0.7, changefreq: 'weekly' })),
     ...Array.from(partUrls).map(path => ({ path, priority: 0.6, changefreq: 'monthly' })),
     ...Array.from(problemUrls).map(path => ({ path, priority: 0.6, changefreq: 'monthly' })),
+    ...Array.from(maintenanceUrls).map(path => ({ path, priority: 0.6, changefreq: 'monthly' })),
   ];
 
   const now = new Date().toISOString();

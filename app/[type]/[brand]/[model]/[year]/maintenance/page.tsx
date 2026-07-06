@@ -1,26 +1,30 @@
-// app/[type]/[brand]/[model]/[year]/parts/page.tsx
-// Route: /cars/toyota/camry/2018/parts
+// app/[type]/[brand]/[model]/[year]/maintenance/page.tsx
+// Route: /cars/toyota/camry/2023/maintenance
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, ArrowLeft, Wrench } from 'lucide-react';
-import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, type SparePart, type FAQ } from '@/lib/vehicle-helpers';
+import { ChevronRight, ArrowLeft, Settings, AlertTriangle, Wrench } from 'lucide-react';
+import {
+  getSupabase, getDbType, VEHICLE_TYPES,
+  MAINTENANCE_CATEGORY_CONFIG,
+  type MaintenanceItem, type FAQ,
+} from '@/lib/vehicle-helpers';
 import { WhereToBuySection } from '@/components/WhereToBuySection';
 import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
-interface VehiclePart {
+interface VehicleMaintenance {
   id: string;
   brand_name: string;
   model_name: string;
   vehicle_type: string;
-  year: string;   // e.g. "2015" or "2004-2010"
+  year: string;   // e.g. "2023" or "2022-2024"
   image_url: string | null;
   intro: string | null;
-  parts: SparePart[];
-  buying_guide: string | null;
+  schedule: MaintenanceItem[];
+  tips: string | null;
   slug: string;
   meta_title: string | null;
   meta_description: string | null;
@@ -29,7 +33,7 @@ interface VehiclePart {
 
 export async function generateStaticParams() {
   const supabase = getSupabase();
-  const { data } = await supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type, year');
+  const { data } = await supabase.from('vehicle_maintenance').select('brand_slug, model_name, vehicle_type, year');
   return (data || []).map((r: any) => {
     const typeSlug = Object.entries(VEHICLE_TYPES).find(([, info]) => info.singular.toLowerCase() === r.vehicle_type)?.[0] ?? r.vehicle_type + 's';
     return { type: typeSlug, brand: r.brand_slug, model: r.model_name, year: String(r.year) };
@@ -39,7 +43,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const supabase = getSupabase();
   const { data } = await supabase
-    .from('vehicle_parts')
+    .from('vehicle_maintenance')
     .select('brand_name, model_name, year, meta_title, meta_description, image_url')
     .eq('brand_slug', params.brand)
     .eq('model_name', params.model)
@@ -48,9 +52,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   if (!data) return {};
   const label = `${data.brand_name} ${data.model_name} ${data.year}`;
-  const title = data.meta_title ?? `${label} Spare Parts & Prices | Naira Autos`;
-  const desc  = data.meta_description ?? `Spare parts prices and availability for the ${label}. Engine, brakes, suspension, filters and more.`;
-  const url   = `https://naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/parts`;
+  const title = data.meta_title ?? `${label} Maintenance Schedule | Naira Autos`;
+  const desc  = data.meta_description ?? `Factory-recommended maintenance schedule for the ${label} — service intervals, fluids, filters, and what to check.`;
+  const url   = `https://naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/maintenance`;
   return {
     title, description: desc,
     alternates: { canonical: url },
@@ -58,20 +62,20 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   };
 }
 
-export default async function PartsPage({ params }: { params: Params }) {
+export default async function MaintenancePage({ params }: { params: Params }) {
   const typeInfo = VEHICLE_TYPES[params.type];
   if (!typeInfo) notFound();
 
   const supabase = getSupabase();
 
-  const [{ data: record }, { data: problemsCheck }, { data: maintenanceCheck }] = await Promise.all([
-    supabase.from('vehicle_parts').select('*')
+  const [{ data: record }, { data: partsCheck }, { data: problemsCheck }] = await Promise.all([
+    supabase.from('vehicle_maintenance').select('*')
       .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
-      .maybeSingle() as unknown as Promise<{ data: VehiclePart | null }>,
-    supabase.from('vehicle_problems').select('slug')
+      .maybeSingle() as unknown as Promise<{ data: VehicleMaintenance | null }>,
+    supabase.from('vehicle_parts').select('slug')
       .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
       .maybeSingle(),
-    supabase.from('vehicle_maintenance').select('slug')
+    supabase.from('vehicle_problems').select('slug')
       .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
       .maybeSingle(),
   ]);
@@ -79,17 +83,24 @@ export default async function PartsPage({ params }: { params: Params }) {
   if (!record) notFound();
 
   const carLabel = `${record.brand_name} ${record.model_name} ${record.year}`;
-  const parts    = (record.parts ?? []) as SparePart[];
-  const faqs     = (record.faqs  ?? []) as FAQ[];
+  const schedule = (record.schedule ?? []) as MaintenanceItem[];
+  const faqs     = (record.faqs ?? []) as FAQ[];
   const yearBase = `/${params.type}/${params.brand}/${params.model}/${params.year}`;
 
-  // Group parts by category
-  const byCategory: Record<string, SparePart[]> = {};
-  for (const part of parts) {
-    const cat = part.category ?? 'Other';
+  // Group schedule items by category
+  const byCategory: Record<string, MaintenanceItem[]> = {};
+  for (const item of schedule) {
+    const cat = item.category ?? 'Other';
     if (!byCategory[cat]) byCategory[cat] = [];
-    byCategory[cat].push(part);
+    byCategory[cat].push(item);
   }
+
+  const formatInterval = (item: MaintenanceItem) => {
+    const parts: string[] = [];
+    if (item.interval_km) parts.push(`${item.interval_km.toLocaleString()} km`);
+    if (item.interval_months) parts.push(`${item.interval_months} mo`);
+    return parts.length ? parts.join(' / ') : '—';
+  };
 
   return (
     <>
@@ -98,8 +109,8 @@ export default async function PartsPage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Article',
-          headline: `${carLabel} Spare Parts & Pricing Guide`,
-          description: `Spare parts prices and availability for the ${carLabel}.`,
+          headline: `${carLabel} Maintenance Schedule`,
+          description: `Factory-recommended maintenance schedule for the ${carLabel}.`,
           publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://naira.autos' },
         })}}
       />
@@ -115,7 +126,7 @@ export default async function PartsPage({ params }: { params: Params }) {
               { label: record.brand_name, href: `/${params.type}/${params.brand}` },
               { label: record.model_name, href: `/${params.type}/${params.brand}/${params.model}` },
               { label: params.year, href: null },
-              { label: 'Parts', href: null },
+              { label: 'Maintenance', href: null },
             ].map((b, i) => (
               <span key={b.label + i} className="flex items-center gap-1">
                 {i > 0 && <ChevronRight className="h-3 w-3" />}
@@ -144,11 +155,11 @@ export default async function PartsPage({ params }: { params: Params }) {
         {/* Title */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Wrench className="h-4 w-4 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Spare Parts</span>
+            <Settings className="h-4 w-4 text-muted-foreground" />
+            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Maintenance Schedule</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
-            {carLabel} Spare Parts & Pricing
+            {carLabel} Maintenance Schedule
           </h1>
           {record.intro && (
             <p className="text-muted-foreground leading-relaxed">{record.intro}</p>
@@ -158,50 +169,54 @@ export default async function PartsPage({ params }: { params: Params }) {
           </div>
         </div>
 
-        {/* Parts by category */}
+        {/* Schedule by category */}
         {Object.keys(byCategory).length > 0 && (
           <div className="space-y-8">
-            {Object.entries(byCategory).map(([category, catParts]) => (
-              <div key={category}>
-                <h2 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">{category}</h2>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="text-left text-xs text-muted-foreground border-b border-border">
-                        <th className="pb-2 pr-4 font-medium">Part</th>
-                        <th className="pb-2 pr-4 font-medium">Price Range</th>
-                        <th className="pb-2 pr-4 font-medium">Availability</th>
-                        <th className="pb-2 font-medium">Interval</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {catParts.map((part, i) => (
-                        <tr key={i} className="hover:bg-muted/30 transition-colors">
-                          <td className="py-3 pr-4">
-                            <span className="font-medium text-foreground">{part.part_name}</span>
-                            {part.notes && <p className="text-xs text-muted-foreground mt-0.5">{part.notes}</p>}
-                          </td>
-                          <td className="py-3 pr-4 text-foreground font-medium">
-                            {formatPriceRange(part.price_min, part.price_max)}
-                          </td>
-                          <td className="py-3 pr-4">
-                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                              part.availability === 'Excellent' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                              part.availability === 'Good'      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                              part.availability === 'Fair'      ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
-                              'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                            }`}>
-                              {part.availability ?? '—'}
-                            </span>
-                          </td>
-                          <td className="py-3 text-muted-foreground text-xs">{part.replacement_interval ?? '—'}</td>
+            {Object.entries(byCategory).map(([category, items]) => {
+              const cc = MAINTENANCE_CATEGORY_CONFIG[category];
+              return (
+                <div key={category}>
+                  <h2 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border flex items-center gap-2">
+                    {cc && <span className={`w-2.5 h-2.5 rounded-full ${cc.bg} border ${cc.border}`} />}
+                    {category}
+                  </h2>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="text-left text-xs text-muted-foreground border-b border-border">
+                          <th className="pb-2 pr-4 font-medium">Service</th>
+                          <th className="pb-2 pr-4 font-medium">Interval</th>
+                          <th className="pb-2 font-medium">Notes</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-border">
+                        {items.map((item, i) => (
+                          <tr key={i} className="hover:bg-muted/30 transition-colors">
+                            <td className="py-3 pr-4">
+                              <span className="font-medium text-foreground">{item.service_name}</span>
+                              {item.is_critical && (
+                                <span className="inline-flex items-center gap-1 ml-2 text-xs px-1.5 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+                                  <AlertTriangle className="h-3 w-3" /> Critical
+                                </span>
+                              )}
+                            </td>
+                            <td className="py-3 pr-4 text-foreground font-medium whitespace-nowrap">
+                              {formatInterval(item)}
+                              {item.severe_service_interval_km && (
+                                <p className="text-xs text-muted-foreground font-normal mt-0.5">
+                                  {item.severe_service_interval_km.toLocaleString()} km if severe use
+                                </p>
+                              )}
+                            </td>
+                            <td className="py-3 text-muted-foreground text-xs">{item.description ?? '—'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
 
@@ -209,19 +224,19 @@ export default async function PartsPage({ params }: { params: Params }) {
           <WhereToBuyJumpLink />
         </div>
 
-        {/* Buying guide */}
-        {record.buying_guide && (
+        {/* Tips */}
+        {record.tips && (
           <div>
-            <h2 className="text-xl font-bold text-foreground mb-3">Buying Guide</h2>
+            <h2 className="text-xl font-bold text-foreground mb-3">Upkeep Tips</h2>
             <div className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
-              {record.buying_guide.split('\n\n').map((p, i) => (
+              {record.tips.split('\n\n').map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
           </div>
         )}
 
-        {/* Where to buy */}
+        {/* Where to buy — maintenance items are exactly what people go buy */}
         <WhereToBuySection />
 
         {/* FAQs */}
@@ -245,9 +260,18 @@ export default async function PartsPage({ params }: { params: Params }) {
         )}
 
         {/* Also worth reading — only link to sibling pages that actually exist */}
-        {(problemsCheck || maintenanceCheck) && (
+        {(partsCheck || problemsCheck) && (
           <div className="border border-border rounded-xl p-5 bg-card space-y-2">
             <p className="text-sm font-semibold text-foreground mb-1">Also worth reading</p>
+            {partsCheck && (
+              <Link
+                href={`${yearBase}/parts`}
+                className="flex items-center justify-between gap-2 px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+              >
+                <p className="text-sm font-semibold text-blue-700 dark:text-blue-400">{carLabel} Spare Parts &amp; Pricing</p>
+                <ChevronRight className="h-4 w-4 text-blue-500 flex-shrink-0" />
+              </Link>
+            )}
             {problemsCheck && (
               <Link
                 href={`${yearBase}/problems`}
@@ -255,15 +279,6 @@ export default async function PartsPage({ params }: { params: Params }) {
               >
                 <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{carLabel} Common Issues</p>
                 <ChevronRight className="h-4 w-4 text-amber-500 flex-shrink-0" />
-              </Link>
-            )}
-            {maintenanceCheck && (
-              <Link
-                href={`${yearBase}/maintenance`}
-                className="flex items-center justify-between gap-2 px-4 py-3 rounded-lg bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
-              >
-                <p className="text-sm font-semibold text-teal-700 dark:text-teal-400">{carLabel} Maintenance Schedule</p>
-                <ChevronRight className="h-4 w-4 text-teal-500 flex-shrink-0" />
               </Link>
             )}
           </div>
@@ -276,7 +291,7 @@ export default async function PartsPage({ params }: { params: Params }) {
             {[
               { href: '/tools/vin-checker',   label: 'VIN Checker',    sub: 'Verify vehicle history' },
               { href: '/tools/ai-mechanic',   label: 'AI Mechanic',    sub: 'Diagnose a car problem' },
-              { href: '/tools/best-car-for',  label: 'Best Car For Me', sub: 'Find the right car for you' },
+              { href: '/tools/obd-codes',     label: 'OBD-II Codes',   sub: 'What does that code mean?' },
             ].map(({ href, label, sub }) => (
               <Link key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
                 <div>

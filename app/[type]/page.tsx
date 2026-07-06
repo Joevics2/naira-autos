@@ -32,8 +32,8 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const typeInfo = VEHICLE_TYPES[params.type];
   if (!typeInfo) return {};
-  const title = `${typeInfo.plural} Prices by Brand | Naira Autos`;
-  const desc  = `Browse ${typeInfo.plural.toLowerCase()} prices by brand. Common problems, spare parts, and ownership guides for every model.`;
+  const title = `${typeInfo.plural} — Parts, Problems & Maintenance | Naira Autos`;
+  const desc  = `Browse ${typeInfo.plural.toLowerCase()} by brand. Common problems, spare parts, maintenance schedules, and ownership guides for every model.`;
   const url   = `https://www.naira.autos/${params.type}`;
   return {
     title, description: desc,
@@ -88,13 +88,14 @@ export default async function VehicleTypePage(
   // these flat columns (brand_slug, brand_name, model_name) are the
   // source of truth for what's "published" now, independent of whatever
   // vehicle_models.status/vehicle_type happens to say.
-  const [{ data: partRows }, { data: problemRows }] = await Promise.all([
+  const [{ data: partRows }, { data: problemRows }, { data: maintenanceRows }] = await Promise.all([
     supabase.from('vehicle_parts').select('brand_slug, brand_name, model_name').eq('vehicle_type', dbType),
     supabase.from('vehicle_problems').select('brand_slug, brand_name, model_name').eq('vehicle_type', dbType),
+    supabase.from('vehicle_maintenance').select('brand_slug, brand_name, model_name').eq('vehicle_type', dbType),
   ]);
 
   const brandMap = new Map<string, { name: string; logo: string | null; models: Set<string> }>();
-  for (const r of [...(partRows || []), ...(problemRows || [])]) {
+  for (const r of [...(partRows || []), ...(problemRows || []), ...(maintenanceRows || [])]) {
     if (!brandMap.has(r.brand_slug)) {
       brandMap.set(r.brand_slug, { name: r.brand_name, logo: null, models: new Set() });
     }
@@ -125,7 +126,7 @@ export default async function VehicleTypePage(
   const SCHEMA = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: `${typeInfo.plural} Prices by Brand`,
+    name: `${typeInfo.plural} — Parts, Problems & Maintenance`,
     url,
     breadcrumb: {
       '@type': 'BreadcrumbList',

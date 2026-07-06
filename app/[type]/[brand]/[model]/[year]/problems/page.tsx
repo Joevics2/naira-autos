@@ -63,13 +63,17 @@ export default async function ProblemsPage({ params }: { params: Params }) {
   if (!typeInfo) notFound();
 
   const supabase = getSupabase();
-  const { data: record } = await supabase
-    .from('vehicle_problems')
-    .select('*')
-    .eq('brand_slug', params.brand)
-    .eq('model_name', params.model)
-    .eq('year', params.year)
-    .maybeSingle() as { data: VehicleProblem | null };
+  const [{ data: record }, { data: partsCheck }, { data: maintenanceCheck }] = await Promise.all([
+    supabase.from('vehicle_problems').select('*')
+      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
+      .maybeSingle() as unknown as Promise<{ data: VehicleProblem | null }>,
+    supabase.from('vehicle_parts').select('slug')
+      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
+      .maybeSingle(),
+    supabase.from('vehicle_maintenance').select('slug')
+      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
+      .maybeSingle(),
+  ]);
 
   if (!record) notFound();
 
@@ -236,17 +240,30 @@ export default async function ProblemsPage({ params }: { params: Params }) {
           </div>
         )}
 
-        {/* Also check parts */}
-        <div className="border border-border rounded-xl p-5 bg-card">
-          <p className="text-sm font-semibold text-foreground mb-2">Also worth reading</p>
-          <Link
-            href={`${yearBase}/parts`}
-            className="flex items-center justify-between gap-2 px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
-          >
-            <p className="text-sm font-semibold text-blue-700 dark:text-blue-400">{carLabel} Spare Parts Prices</p>
-            <ChevronRight className="h-4 w-4 text-blue-500 flex-shrink-0" />
-          </Link>
-        </div>
+        {/* Also worth reading — only link to sibling pages that actually exist */}
+        {(partsCheck || maintenanceCheck) && (
+          <div className="border border-border rounded-xl p-5 bg-card space-y-2">
+            <p className="text-sm font-semibold text-foreground mb-1">Also worth reading</p>
+            {partsCheck && (
+              <Link
+                href={`${yearBase}/parts`}
+                className="flex items-center justify-between gap-2 px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+              >
+                <p className="text-sm font-semibold text-blue-700 dark:text-blue-400">{carLabel} Spare Parts &amp; Pricing</p>
+                <ChevronRight className="h-4 w-4 text-blue-500 flex-shrink-0" />
+              </Link>
+            )}
+            {maintenanceCheck && (
+              <Link
+                href={`${yearBase}/maintenance`}
+                className="flex items-center justify-between gap-2 px-4 py-3 rounded-lg bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
+              >
+                <p className="text-sm font-semibold text-teal-700 dark:text-teal-400">{carLabel} Maintenance Schedule</p>
+                <ChevronRight className="h-4 w-4 text-teal-500 flex-shrink-0" />
+              </Link>
+            )}
+          </div>
+        )}
 
         {/* Related tools */}
         <div>

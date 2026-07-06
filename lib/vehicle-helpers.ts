@@ -258,6 +258,49 @@ export interface VehicleProblemRecord {
   faqs: FAQ[];
 }
 
+// MAINTENANCE — third content type alongside parts and problems.
+// Deliberately no price fields: factory service intervals barely vary by
+// country, so this stays fully global with zero currency work. Only
+// written for newer cars (incl. Chinese brands — BYD, GWM/Haval, Chery,
+// JAC, etc.) where owners actually search for factory schedules.
+export interface MaintenanceItem {
+  category: string;              // 'Fluids' | 'Filters' | 'Brakes' | 'Engine' | 'Belts & Hoses' | 'Tires' | 'Electrical'
+  service_name: string;          // e.g. 'Engine Oil & Filter'
+  interval_km?: number;
+  interval_months?: number;
+  severe_service_interval_km?: number;  // shorter interval under towing/dusty/stop-start use
+  description?: string;
+  is_critical?: boolean;          // safety- or engine-damage-critical if skipped (timing belt, brake fluid)
+}
+
+export interface VehicleMaintenanceRecord {
+  id: string;
+  model_id: number;
+  brand_slug: string;
+  brand_name: string;
+  model_name: string;
+  vehicle_type: string;
+  year: string;   // e.g. "2023" or "2022-2024"
+  image_url: string | null;
+  intro: string | null;
+  schedule: MaintenanceItem[];
+  tips: string | null;
+  slug: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  faqs: FAQ[];
+}
+
+export const MAINTENANCE_CATEGORY_CONFIG: Record<string, { color: string; bg: string; border: string }> = {
+  'Fluids':        { color: 'text-blue-700 dark:text-blue-300',     bg: 'bg-blue-500/10',    border: 'border-blue-500/30' },
+  'Filters':       { color: 'text-cyan-700 dark:text-cyan-300',     bg: 'bg-cyan-500/10',    border: 'border-cyan-500/30' },
+  'Brakes':        { color: 'text-red-700 dark:text-red-300',       bg: 'bg-red-500/10',     border: 'border-red-500/30' },
+  'Engine':        { color: 'text-amber-700 dark:text-amber-300',   bg: 'bg-amber-500/10',   border: 'border-amber-500/30' },
+  'Belts & Hoses':  { color: 'text-purple-700 dark:text-purple-300', bg: 'bg-purple-500/10',  border: 'border-purple-500/30' },
+  'Tires':         { color: 'text-slate-700 dark:text-slate-300',   bg: 'bg-slate-500/10',   border: 'border-slate-500/30' },
+  'Electrical':    { color: 'text-yellow-700 dark:text-yellow-300', bg: 'bg-yellow-500/10',  border: 'border-yellow-500/30' },
+};
+
 // WHERE TO BUY — used on parts and problems pages. "global" is the
 // default view; each country has exactly 5 marketplaces with a short
 // reason to use them. Prefer marketplaces with known affiliate programs

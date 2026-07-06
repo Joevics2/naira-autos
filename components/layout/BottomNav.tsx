@@ -10,7 +10,7 @@ export function BottomNav() {
   const navItems = [
     { href: '/', icon: Home, label: 'Home' },
     { href: '/tools', icon: Wrench, label: 'Tools' },
-    { href: '/vehicles', icon: CarFront, label: 'Prices & Parts', highlight: true },
+    { href: '/vehicles', icon: CarFront, label: 'Vehicle Info', highlight: true },
     { href: '/guides', icon: BookMarked, label: 'Guides' },
     { href: '/blog', icon: Newspaper, label: 'Blog' },
   ];

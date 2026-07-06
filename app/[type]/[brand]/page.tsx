@@ -85,12 +85,13 @@ export default async function BrandPage(
   // Get model_names (+ brand_name as a fallback) that have content in the
   // new tables for this brand — this is the source of truth for what's
   // active, independent of vehicle_models.status/vehicle_type agreement.
-  const [{ data: partModels }, { data: problemModels }] = await Promise.all([
+  const [{ data: partModels }, { data: problemModels }, { data: maintenanceModels }] = await Promise.all([
     supabase.from('vehicle_parts').select('model_name, brand_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
     supabase.from('vehicle_problems').select('model_name, brand_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    supabase.from('vehicle_maintenance').select('model_name, brand_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
   ]);
 
-  const activeRows = [...(partModels || []), ...(problemModels || [])];
+  const activeRows = [...(partModels || []), ...(problemModels || []), ...(maintenanceModels || [])];
   const activeModelNames = new Set(activeRows.map((r: any) => r.model_name));
 
   if (activeModelNames.size === 0) notFound();
@@ -136,20 +137,23 @@ export default async function BrandPage(
 
   // Get available years per model from new tables
   const modelSlugs = models.map((m: any) => m.slug);
-  const [{ data: partYears }, { data: problemYears }] = await Promise.all([
+  const [{ data: partYears }, { data: problemYears }, { data: maintenanceYears }] = await Promise.all([
     supabase.from('vehicle_parts').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
     supabase.from('vehicle_problems').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
+    supabase.from('vehicle_maintenance').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
   ]);
 
-  // Map model slug → sorted years available
-  const yearMap = new Map<string, number[]>();
-  for (const r of [...(partYears || []), ...(problemYears || [])]) {
+  // Map model slug → sorted years available (as strings — a year can be a
+  // single year "2015" or a range "2004-2010", same as parts/problems pages)
+  const leadingYear = (y: string) => parseInt(y.slice(0, 4), 10) || 0;
+  const yearMap = new Map<string, string[]>();
+  for (const r of [...(partYears || []), ...(problemYears || []), ...(maintenanceYears || [])]) {
     if (!yearMap.has(r.model_name)) yearMap.set(r.model_name, []);
     const existing = yearMap.get(r.model_name)!;
     if (!existing.includes(r.year)) existing.push(r.year);
   }
   for (const key of Array.from(yearMap.keys())) {
-    yearMap.set(key, yearMap.get(key)!.sort((a, b) => b - a));
+    yearMap.set(key, yearMap.get(key)!.sort((a, b) => leadingYear(b) - leadingYear(a)));
   }
 
   // Group models by body type

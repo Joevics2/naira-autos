@@ -22,17 +22,17 @@ export default function CarPricesPage() {
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span className="text-foreground font-medium">/</span>
-          <span className="text-foreground font-medium">Car Prices</span>
+          <span className="text-foreground font-medium">Vehicle Info</span>
         </nav>
 
         <h1
           className="font-black uppercase text-foreground mb-4 leading-none"
           style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 4vw, 56px)' }}
         >
-          Car Prices <span className="text-emerald-500">&</span> Parts
+          Parts, Problems <span className="text-emerald-500">&amp;</span> Maintenance
         </h1>
         <p className="text-muted-foreground text-sm mb-8 max-w-xl">
-          Choose a vehicle type to browse prices by brand, get spare parts information, and find ownership guides.
+          Choose a vehicle type to browse by brand, get spare parts and maintenance info, and find common problems for your model.
         </p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
