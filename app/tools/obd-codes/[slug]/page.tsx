@@ -350,26 +350,28 @@ export default async function ObdCodePage({
               </div>
             )}
 
-            {/* ── More from Naira Autos ── */}
-            <div className="mt-6 border border-border rounded-2xl p-5">
-              <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-                More from Naira Autos
-              </p>
-              <div className="space-y-2">
-                <Link href="/tools/ai-mechanic" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
-                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">AI Mechanic</p>
-                  <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Describe the symptom, get a free diagnosis</p>
-                </Link>
-                <Link href="/tools/vin-checker" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
-                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">VIN Checker</p>
-                  <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Decode any VIN — make, model, year, engine</p>
-                </Link>
-                <Link href="/vehicles" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
-                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Vehicle Information</p>
-                  <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Common problems & parts by model</p>
-                </Link>
+            {/* ── Related tools (same design as /tools/vin-checker) ── */}
+            <section className="mt-6">
+              <h3 className="text-sm font-bold text-foreground mb-3 uppercase tracking-wide">
+                More Free Tools
+              </h3>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  { href: '/tools/ai-mechanic', label: 'AI Mechanic', color: 'emerald' },
+                  { href: '/tools/vin-checker', label: 'VIN Checker', color: 'blue' },
+                  { href: '/vehicles', label: 'Vehicle Information', color: 'violet' },
+                ].map(({ href, label, color }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
+                  >
+                    <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
+                    <ChevronRight className={`h-4 w-4 text-${color}-500`} />
+                  </Link>
+                ))}
               </div>
-            </div>
+            </section>
 
             {/* ── Explore all codes ── */}
             <div className="mt-6 bg-card border border-border rounded-2xl p-5">

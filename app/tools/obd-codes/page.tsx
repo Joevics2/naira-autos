@@ -191,27 +191,55 @@ export default async function ObdCodesPage() {
             </div>
           )}
 
-          {/* Quick links */}
-          <div className="mt-16 flex flex-col gap-2">
-            {[
-              { label: 'AI Mechanic',        sub: 'Describe the symptom and get a free diagnosis', href: '/tools/ai-mechanic' },
-              { label: 'VIN Checker',        sub: 'Decode any VIN — make, model, year, engine',    href: '/tools/vin-checker' },
-              { label: 'Vehicle Information', sub: 'Common problems & parts by model',              href: '/vehicles' },
-              { label: 'Read Blog Posts',    sub: 'Tips, guides & buying advice',                   href: '/blog' },
-            ].map(({ label, sub, href }) => (
-              <Link
-                key={href}
-                href={href}
-                className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all group"
-              >
-                <div>
-                  <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{label}</p>
-                  <p className="text-xs text-emerald-700/60 dark:text-emerald-400/60 mt-0.5">{sub}</p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-emerald-500 flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            ))}
-          </div>
+          {/* ── SEO content ── */}
+          <section className="mt-16 max-w-3xl">
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Understanding OBD-II Diagnostic Trouble Codes
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                OBD-II (On-Board Diagnostics, second generation) is the standardized system every car and light truck sold since 1996 uses to monitor engine, transmission, and emissions performance. When something falls outside its normal operating range — a sensor reading, a fuel mixture, a misfire — the vehicle's computer stores a diagnostic trouble code and turns on the check engine light. That code is what a free OBD2 scanner or code reader retrieves, and it's the starting point for figuring out what's actually wrong.
+              </p>
+              <p>
+                Every OBD-II code follows the same format: a letter, followed by four numbers. The letter tells you which system is affected — <strong className="text-foreground">P</strong> for Powertrain (engine and transmission, by far the most common), <strong className="text-foreground">B</strong> for Body (airbags, power windows, climate control), <strong className="text-foreground">C</strong> for Chassis (brakes, steering, suspension), and <strong className="text-foreground">U</strong> for Network (communication between the car's different control modules). The first digit after the letter tells you whether it's a generic code defined by the SAE standard and shared across every manufacturer (0) or a manufacturer-specific code unique to that brand (1). The remaining three digits identify the specific fault — for example, P0300 means a random or multiple cylinder misfire, while P0420 means the catalytic converter isn't cleaning exhaust gases efficiently enough.
+              </p>
+              <p>
+                A steady check engine light usually means the issue can wait a few days without causing further damage, though it's still worth looking up the code and getting it checked soon. A <strong className="text-foreground">flashing</strong> check engine light is more urgent — it typically indicates an active misfire that's dumping unburned fuel into the exhaust system, which can damage the catalytic converter if you keep driving on it. When in doubt, reduce your speed, avoid heavy acceleration, and get the car looked at as soon as you reasonably can.
+              </p>
+              <p>
+                You don't need an expensive diagnostic tool to read your own codes. Basic OBD2 scanners and Bluetooth adapters that pair with a free smartphone app are inexpensive and plug into the OBD-II port, almost always located under the dashboard on the driver's side, usually within reach without tools. Once you have the code, look it up here to understand what it means, what commonly causes it, what symptoms to expect, and what to check first before paying for a diagnosis — many of the most common codes (like a loose fuel cap triggering an EVAP leak code, or a dirty mass airflow sensor triggering a lean-condition code) have simple, low-cost fixes you can rule out yourself.
+              </p>
+              <p>
+                This lookup covers the most commonly searched, well-documented generic codes — misfires, catalyst efficiency, fuel trim (lean/rich conditions), sensor faults, transmission codes, and network communication errors — with plain-language explanations of causes, symptoms, and diagnostic steps for each one. New codes are added regularly. If a code you're looking for isn't listed yet, our <Link href="/tools/ai-mechanic" className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">AI Mechanic</Link> can help you diagnose the underlying symptom directly.
+              </p>
+              <p>
+                One thing worth knowing before you spend money on repairs: a diagnostic trouble code tells you <em>what</em> the car's computer detected, not automatically <em>why</em>. The same code can have several different root causes — a lean-condition code, for example, could come from a vacuum leak, a dirty airflow sensor, a weak fuel pump, or a bad oxygen sensor. That's why each code page here lists the common causes in rough order of likelihood, alongside the symptoms you'd typically notice and the checks worth doing yourself before paying a mechanic to diagnose it from scratch. It won't replace a proper diagnosis for anything mechanical or safety-related, but it will tell you enough to ask the right questions and avoid being sold a repair you don't need.
+              </p>
+            </div>
+          </section>
+
+          {/* Related tools */}
+          <section className="mt-10">
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              More Free Tools
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { href: '/tools/ai-mechanic', label: 'AI Mechanic', color: 'emerald' },
+                { href: '/tools/vin-checker', label: 'VIN Checker', color: 'blue' },
+                { href: '/vehicles', label: 'Vehicle Information', color: 'violet' },
+              ].map(({ href, label, color }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
+                >
+                  <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
+                  <ChevronRight className={`h-4 w-4 text-${color}-500`} />
+                </Link>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     </>
