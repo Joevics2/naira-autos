@@ -5,9 +5,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, ArrowLeft, Wrench } from 'lucide-react';
-import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, type SparePart, type FAQ } from '@/lib/vehicle-helpers';
+import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, type SparePart, type FAQ, type AccessoryItem } from '@/lib/vehicle-helpers';
 import { WhereToBuySection } from '@/components/WhereToBuySection';
 import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
+import { AccessoriesSection } from '@/components/AccessoriesSection';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
@@ -27,6 +28,7 @@ interface VehiclePart {
   meta_title: string | null;
   meta_description: string | null;
   faqs: FAQ[];
+  accessories: AccessoryItem[];
 }
 
 export async function generateStaticParams() {
@@ -81,8 +83,9 @@ export default async function PartsPage({ params }: { params: Params }) {
   if (!record) notFound();
 
   const carLabel = `${record.brand_name} ${record.model_name} ${record.year}`;
-  const parts    = (record.parts ?? []) as SparePart[];
-  const faqs     = (record.faqs  ?? []) as FAQ[];
+  const parts       = (record.parts ?? []) as SparePart[];
+  const faqs        = (record.faqs  ?? []) as FAQ[];
+  const accessories = (record.accessories ?? []) as AccessoryItem[];
   const yearBase = `/${params.type}/${params.brand}/${params.model}/${params.year}`;
 
   // Group parts by category
@@ -222,6 +225,9 @@ export default async function PartsPage({ params }: { params: Params }) {
             </div>
           </div>
         )}
+
+        {/* Common Accessories — renders nothing if this vehicle has none */}
+        <AccessoriesSection title="Common Accessories" items={accessories} />
 
         {/* Where to buy */}
         <WhereToBuySection />
