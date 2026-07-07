@@ -8,10 +8,11 @@ import { ChevronRight, ArrowLeft, Settings, AlertTriangle, Wrench } from 'lucide
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
   MAINTENANCE_CATEGORY_CONFIG,
-  type MaintenanceItem, type FAQ,
+  type MaintenanceItem, type FAQ, type AccessoryItem,
 } from '@/lib/vehicle-helpers';
 import { WhereToBuySection } from '@/components/WhereToBuySection';
 import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
+import { AccessoriesSection } from '@/components/AccessoriesSection';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
@@ -31,6 +32,7 @@ interface VehicleMaintenance {
   meta_title: string | null;
   meta_description: string | null;
   faqs: FAQ[];
+  accessories: AccessoryItem[];
 }
 
 export async function generateStaticParams() {
@@ -85,8 +87,9 @@ export default async function MaintenancePage({ params }: { params: Params }) {
   if (!record) notFound();
 
   const carLabel = `${record.brand_name} ${record.model_name} ${record.year}`;
-  const schedule = (record.schedule ?? []) as MaintenanceItem[];
-  const faqs     = (record.faqs ?? []) as FAQ[];
+  const schedule     = (record.schedule ?? []) as MaintenanceItem[];
+  const faqs         = (record.faqs ?? []) as FAQ[];
+  const accessories  = (record.accessories ?? []) as AccessoryItem[];
   const yearBase = `/${params.type}/${params.brand}/${params.model}/${params.year}`;
 
   // Group schedule items by category
@@ -237,6 +240,9 @@ export default async function MaintenancePage({ params }: { params: Params }) {
             </div>
           </div>
         )}
+
+        {/* Add-ons & Upgrades — renders nothing if this vehicle has none */}
+        <AccessoriesSection title="Add-ons & Upgrades" items={accessories} />
 
         {/* Where to buy — maintenance items are exactly what people go buy */}
         <WhereToBuySection />
