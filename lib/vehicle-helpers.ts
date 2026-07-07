@@ -143,6 +143,13 @@ export interface Problem {
   repair_cost_max?: number;
 }
 
+export interface AccessoryItem {
+  name: string;
+  description?: string;
+  url: string;
+  cta: string;
+}
+
 export interface OwnershipCost {
   annual_fuel_cost_min?: number;
   annual_fuel_cost_max?: number;
