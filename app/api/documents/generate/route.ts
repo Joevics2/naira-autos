@@ -1,0 +1,119 @@
+// app/api/documents/generate/route.ts
+//
+// Step 2 of the AI Document Writer.
+//
+// Takes the (already-cached) jurisdiction legal requirements plus the
+// user's deal-specific details — or a request to use placeholders — and
+// assembles the full, formatted document. No grounding needed here: the
+// legal research already happened once in /api/documents/research. This
+// step is just clause-library assembly, so it's cheaper and faster.
+//
+// The filled document itself is returned to the client and never written
+// to the database — it contains real personal data and per the product
+// spec stays client-side only (localStorage).
+
+import { NextRequest, NextResponse } from 'next/server';
+import { callGemini, parseGeminiJSON } from '@/lib/gemini-documents';
+import { getDocumentType, getDocumentCountry, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/document-types';
+import type { LegalRequirements } from '../research/route';
+
+export interface GeneratedDocument {
+  title: string;
+  intro: string;
+  sections: { heading: string; body: string }[];
+  signatures: { role: string }[];
+}
+
+const GENERATE_SYSTEM_PROMPT = `You are an expert legal document drafter. You write complete, thorough, professionally formatted contracts and legal documents — the kind a real law firm would produce, not a one-paragraph summary.
+
+Return ONLY a valid JSON object, no markdown, no code fences, no preamble. Schema:
+
+{
+  "title": "DOCUMENT TITLE IN CAPS",
+  "intro": "One formal opening paragraph identifying the parties, the date, and the purpose of the agreement.",
+  "sections": [
+    { "heading": "1. SECTION NAME IN CAPS", "body": "Full clause text. Use \\n\\n between paragraphs within the same section if there is more than one. Write in complete, formal contract language, not bullet fragments." }
+  ],
+  "signatures": [ { "role": "Seller" }, { "role": "Buyer" } ]
+}
+
+Rules:
+- Be thorough and complete. A real contract has many sections — write ALL of the following that are relevant to this document type, each as its own numbered section: Parties/Recitals, full description of the vehicle/subject matter, price/consideration and payment terms, all jurisdiction-mandated disclosures (word them close to the real legal requirement given to you), condition/warranty or as-is clause, title and ownership transfer, risk of loss, representations and warranties of both parties, default and remedies (if this is a loan/lease/financed document), indemnification, governing law and jurisdiction (use the exact governing-law wording given to you), dispute resolution, notices, entire agreement clause, severability, counterparts, and any other clause implied by the mandatory clauses list you're given. Aim for a genuinely complete, multi-page contract — do not compress this into a short summary.
+- Use the exact required fields and details the user gave you. If a detail wasn't provided and placeholders were not requested, write a clearly marked blank like "____________________" rather than inventing real-sounding data.
+- If placeholders were requested, use bracketed ALL-CAPS placeholders like [SELLER FULL NAME], [VEHICLE VIN], [SALE PRICE], [DATE] etc. so the document is usable as a fill-in template.
+- Always end with a "SIGNATURES" section in the sections array whose body briefly states the parties agree to be bound, and separately list every signing party in the "signatures" array (role only, e.g. Seller, Buyer, Witness, Lender, Lessee — include Witness or Notary only if the jurisdiction requires it).
+- Write in formal, precise legal English appropriate to the given jurisdiction. Do not include the standard AI/legal disclaimer text yourself — that is added separately by the platform.`;
+
+export async function POST(req: NextRequest) {
+  try {
+    const {
+      documentTypeSlug,
+      country,
+      legalRequirements,
+      userDetails,
+      usePlaceholders,
+    }: {
+      documentTypeSlug: string;
+      country: string;
+      legalRequirements: LegalRequirements;
+      userDetails?: string;
+      usePlaceholders?: boolean;
+    } = await req.json();
+
+    if (!documentTypeSlug || !country || !legalRequirements) {
+      return NextResponse.json(
+        { error: 'documentTypeSlug, country, and legalRequirements are required.' },
+        { status: 400 }
+      );
+    }
+    if (!usePlaceholders && !userDetails?.trim()) {
+      return NextResponse.json(
+        { error: 'Please provide the details to use, or choose to use placeholders.' },
+        { status: 400 }
+      );
+    }
+
+    const docType = getDocumentType(documentTypeSlug);
+    const docCountry = getDocumentCountry(country);
+    if (!docType || !docCountry) {
+      return NextResponse.json({ error: 'Unknown document type or country.' }, { status: 400 });
+    }
+
+    const userPrompt = `Document type: ${docType.label}
+Jurisdiction: ${docCountry.name}
+
+Jurisdiction legal requirements (from prior research — follow these):
+${JSON.stringify(legalRequirements, null, 2)}
+
+${usePlaceholders
+        ? 'The user wants to preview this document with placeholder data. Use bracketed ALL-CAPS placeholders for every party name, ID number, date, and amount instead of real details.'
+        : `User-provided details to use in the document:\n${userDetails}`}
+
+Write the complete document now, following the JSON schema and rules in your instructions.`;
+
+    const result = await callGemini({
+      systemPrompt: GENERATE_SYSTEM_PROMPT,
+      userPrompt,
+      grounding: false,
+      temperature: 0.4,
+      maxOutputTokens: 8192,
+    });
+
+    const document = parseGeminiJSON<GeneratedDocument>(result.text);
+
+    return NextResponse.json({
+      document,
+      modelUsed: result.modelUsed,
+      isHighRisk: HIGH_RISK_DOCUMENT_TYPES.has(documentTypeSlug),
+    });
+  } catch (err: any) {
+    console.error('[documents/generate] error:', err);
+    return NextResponse.json(
+      { error: err.message || 'Failed to generate the document. Please try again.' },
+      { status: 500 }
+    );
+  }
+}
+
+export const runtime = 'nodejs';
+export const maxDuration = 60;

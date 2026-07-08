@@ -54,6 +54,15 @@ const TOOLS: Tool[] = [
     description: 'Side-by-side comparison of specs, fuel economy, price, and running costs.',
     category: 'AI & Smart',
   },
+  {
+    href: '/tools/document-generator',
+    icon: FileText,
+    label: 'Document Generator',
+    description: 'Generate a bill of sale, loan agreement, or other vehicle document — legal requirements researched for your country.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'AI & Smart',
+  },
   // Finance
   {
     href: '/tools/import-duty-calculator',
