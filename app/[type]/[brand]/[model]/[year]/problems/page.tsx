@@ -144,7 +144,7 @@ export default async function ProblemsPage({ params }: { params: Params }) {
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Common Issues</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 capitalize">
             {carLabel} Common Problems & Issues
           </h1>
           {record.intro && (

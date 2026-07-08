@@ -222,7 +222,7 @@ export default async function ModelPage({ params }: { params: Params }) {
           <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-1">
             {vm.brand_name} · {vm.body_type ?? typeInfo.singular}
           </p>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">{carLabel}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 capitalize">{carLabel}</h1>
           {vm.overview && (
             <p className="text-muted-foreground leading-relaxed text-sm">{vm.overview}</p>
           )}
@@ -267,10 +267,6 @@ export default async function ModelPage({ params }: { params: Params }) {
         {/* Year cards */}
         {allYears.length > 0 && (
           <div>
-            <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-muted-foreground" />
-              Select a Year
-            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {allYears.map(year => {
                 const info = yearMap[year];
@@ -292,11 +288,11 @@ export default async function ModelPage({ params }: { params: Params }) {
                     ) : (
                       <div className="aspect-video bg-muted flex flex-col items-center justify-center text-center px-3 gap-1">
                         <Calendar className="h-6 w-6 text-muted-foreground/25" />
-                        <span className="text-sm font-semibold text-muted-foreground/60">{carLabel} {year}</span>
+                        <span className="text-sm font-semibold text-muted-foreground/60 capitalize">{carLabel} {year}</span>
                       </div>
                     )}
                     <div className="p-3">
-                      <p className="font-bold text-foreground text-base mb-2">{carLabel} {year}</p>
+                      <p className="font-bold text-foreground text-base mb-2 capitalize">{carLabel} {year}</p>
                       <div className="flex flex-wrap gap-2">
                         {info.hasParts && (
                           <Link

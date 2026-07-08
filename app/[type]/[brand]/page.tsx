@@ -138,9 +138,9 @@ export default async function BrandPage(
   // Get available years per model from new tables
   const modelSlugs = models.map((m: any) => m.slug);
   const [{ data: partYears }, { data: problemYears }, { data: maintenanceYears }] = await Promise.all([
-    supabase.from('vehicle_parts').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
+    supabase.from('vehicle_parts').select('model_name, year, image_url').eq('brand_slug', params.brand).in('model_name', modelSlugs),
     supabase.from('vehicle_problems').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
-    supabase.from('vehicle_maintenance').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
+    supabase.from('vehicle_maintenance').select('model_name, year, image_url').eq('brand_slug', params.brand).in('model_name', modelSlugs),
   ]);
 
   // Map model slug → sorted years available (as strings — a year can be a
@@ -154,6 +154,23 @@ export default async function BrandPage(
   }
   for (const key of Array.from(yearMap.keys())) {
     yearMap.set(key, yearMap.get(key)!.sort((a, b) => leadingYear(b) - leadingYear(a)));
+  }
+
+  // Map model slug → image of its first (most recent) year — used as a
+  // fallback model-card image when vehicle_models has no og_image_url,
+  // the same image the model page itself would lead with.
+  const yearImageMap = new Map<string, { year: string; imageUrl: string | null }[]>();
+  for (const r of [...(partYears || []), ...(maintenanceYears || [])]) {
+    if (!yearImageMap.has(r.model_name)) yearImageMap.set(r.model_name, []);
+    const list = yearImageMap.get(r.model_name)!;
+    const existing = list.find(x => x.year === r.year);
+    if (existing) { if (!existing.imageUrl && r.image_url) existing.imageUrl = r.image_url; }
+    else list.push({ year: r.year, imageUrl: r.image_url ?? null });
+  }
+  const firstYearImageMap = new Map<string, string | null>();
+  for (const [modelName, list] of yearImageMap.entries()) {
+    const sorted = [...list].sort((a, b) => leadingYear(b.year) - leadingYear(a.year));
+    firstYearImageMap.set(modelName, sorted[0]?.imageUrl ?? null);
   }
 
   // Group models by body type
@@ -239,7 +256,12 @@ export default async function BrandPage(
           </section>
 
           {/* Models by body type */}
-          {bodyTypes.map(bodyType => (
+          <div className="space-y-8">
+            <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+              <Wrench className="h-5 w-5 text-muted-foreground" />
+              Select Model
+            </h2>
+            {bodyTypes.map(bodyType => (
             <section key={bodyType}>
               <h2 className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-4">
                 {bodyType}
@@ -250,6 +272,7 @@ export default async function BrandPage(
                   const mc    = model.maintenance_score ? MAINTENANCE_CONFIG[model.maintenance_score] : null;
                   const pc    = model.parts_availability ? PARTS_CONFIG[model.parts_availability] : null;
                   const latestYear = years[0] ?? null;
+                  const cardImage = model.og_image_url ?? firstYearImageMap.get(model.slug) ?? null;
 
                   return (
                     <Link
@@ -259,9 +282,9 @@ export default async function BrandPage(
                     >
                       {/* Model image or placeholder */}
                       <div className="h-36 bg-muted flex items-center justify-center border-b border-border overflow-hidden">
-                        {model.og_image_url ? (
+                        {cardImage ? (
                           <img
-                            src={model.og_image_url}
+                            src={cardImage}
                             alt={`${brandName} ${model.name}`}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
@@ -275,7 +298,7 @@ export default async function BrandPage(
                       <div className="p-4">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <div>
-                            <h3 className="font-bold text-foreground group-hover:text-foreground/80 transition-colors">
+                            <h3 className="font-bold text-foreground group-hover:text-foreground/80 transition-colors capitalize">
                               {brandName} {model.name}
                             </h3>
                             {model.body_type && (
@@ -319,7 +342,8 @@ export default async function BrandPage(
                 })}
               </div>
             </section>
-          ))}
+            ))}
+          </div>
 
           {/* Other brands in this type */}
           <section className="border-t border-border pt-8">

@@ -163,7 +163,7 @@ export default async function MaintenancePage({ params }: { params: Params }) {
             <Settings className="h-4 w-4 text-muted-foreground" />
             <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Maintenance Schedule</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 capitalize">
             {carLabel} Maintenance Schedule
           </h1>
           {record.intro && (
