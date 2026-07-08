@@ -168,7 +168,7 @@ export default async function BrandPage(
     else list.push({ year: r.year, imageUrl: r.image_url ?? null });
   }
   const firstYearImageMap = new Map<string, string | null>();
-  for (const [modelName, list] of yearImageMap.entries()) {
+  for (const [modelName, list] of Array.from(yearImageMap.entries())) {
     const sorted = [...list].sort((a, b) => leadingYear(b.year) - leadingYear(a.year));
     firstYearImageMap.set(modelName, sorted[0]?.imageUrl ?? null);
   }
