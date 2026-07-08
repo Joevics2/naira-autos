@@ -30,8 +30,29 @@ type Step = 'select' | 'researching' | 'details' | 'generating' | 'preview';
 
 const STORAGE_KEY = 'naira-autos-doc-generator-draft';
 
-const STANDARD_DISCLAIMER =
-  'This document was generated for informational purposes only and does not constitute legal advice. Naira Autos is not a law firm. For high-value or high-risk agreements, have this document reviewed by a licensed attorney in your jurisdiction before signing.';
+// Short, on-page only — not part of the generated document itself.
+const SHORT_DISCLAIMER =
+  'Informational only, not legal advice. Have high-value or high-risk agreements reviewed by a licensed attorney.';
+
+// Safety net: strips any stray markdown (**bold**, _italic_, leftover
+// asterisks) the model emits despite being told not to.
+function stripMarkdown(text: string): string {
+  if (!text) return text;
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/__(.*?)__/g, '$1')
+    .replace(/\*\*/g, '')
+    .trim();
+}
+
+function sanitizeDocument(doc: GeneratedDocument): GeneratedDocument {
+  return {
+    title: stripMarkdown(doc.title),
+    intro: stripMarkdown(doc.intro),
+    sections: doc.sections.map(s => ({ heading: stripMarkdown(s.heading), body: stripMarkdown(s.body) })),
+    signatures: doc.signatures,
+  };
+}
 
 export default function DocumentGeneratorClient() {
   const [step, setStep] = useState<Step>('select');
@@ -59,7 +80,7 @@ export default function DocumentGeneratorClient() {
         setDocumentTypeSlug(draft.documentTypeSlug || '');
         setCountry(draft.country || '');
         setLegalRequirements(draft.legalRequirements || null);
-        setGeneratedDocument(draft.generatedDocument);
+        setGeneratedDocument(sanitizeDocument(draft.generatedDocument));
         setIsHighRisk(!!draft.isHighRisk);
         setStep('preview');
       }
@@ -120,7 +141,7 @@ export default function DocumentGeneratorClient() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Generation failed.');
-      setGeneratedDocument(data.document);
+      setGeneratedDocument(sanitizeDocument(data.document));
       setIsHighRisk(!!data.isHighRisk);
       setStep('preview');
     } catch (err: any) {
@@ -224,11 +245,6 @@ export default function DocumentGeneratorClient() {
         );
       }
 
-      children.push(new Paragraph({
-        children: [new TextRun({ text: STANDARD_DISCLAIMER, italics: true, size: 16, color: '888888' })],
-        spacing: { before: 500 },
-      }));
-
       const doc = new Document({ sections: [{ children }] });
       const blob = await Packer.toBlob(doc);
       const url = URL.createObjectURL(blob);
@@ -276,6 +292,7 @@ export default function DocumentGeneratorClient() {
           <p className="text-muted-foreground leading-relaxed">
             Pick a document and a country. We research the real legal requirements for that jurisdiction, then draft a complete, formatted document you can edit and download.
           </p>
+          <p className="text-xs text-muted-foreground/80 mt-2 no-print">{SHORT_DISCLAIMER}</p>
         </div>
 
         {error && (
@@ -296,8 +313,12 @@ export default function DocumentGeneratorClient() {
                 className="w-full bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground"
               >
                 <option value="">Select a document…</option>
-                {DOCUMENT_TYPES.map(d => (
-                  <option key={d.slug} value={d.slug}>{d.label}</option>
+                {Array.from(new Set(DOCUMENT_TYPES.map(d => d.category))).map(category => (
+                  <optgroup key={category} label={category}>
+                    {DOCUMENT_TYPES.filter(d => d.category === category).map(d => (
+                      <option key={d.slug} value={d.slug}>{d.label}</option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
               {docType && <p className="text-xs text-muted-foreground mt-1.5">{docType.description}</p>}
@@ -311,8 +332,12 @@ export default function DocumentGeneratorClient() {
                 className="w-full bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground"
               >
                 <option value="">Select a country…</option>
-                {DOCUMENT_COUNTRIES.map(c => (
-                  <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
+                {Array.from(new Set(DOCUMENT_COUNTRIES.map(c => c.region))).map(region => (
+                  <optgroup key={region} label={region}>
+                    {DOCUMENT_COUNTRIES.filter(c => c.region === region).map(c => (
+                      <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
@@ -515,10 +540,6 @@ export default function DocumentGeneratorClient() {
                   ))}
                 </div>
               </div>
-
-              <p className="text-[10px] text-gray-500 italic leading-relaxed mt-10 pt-4 border-t border-gray-200">
-                {STANDARD_DISCLAIMER}
-              </p>
             </div>
           </div>
         )}

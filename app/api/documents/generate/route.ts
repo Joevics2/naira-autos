@@ -42,7 +42,9 @@ Rules:
 - Use the exact required fields and details the user gave you. If a detail wasn't provided and placeholders were not requested, write a clearly marked blank like "____________________" rather than inventing real-sounding data.
 - If placeholders were requested, use bracketed ALL-CAPS placeholders like [SELLER FULL NAME], [VEHICLE VIN], [SALE PRICE], [DATE] etc. so the document is usable as a fill-in template.
 - Always end with a "SIGNATURES" section in the sections array whose body briefly states the parties agree to be bound, and separately list every signing party in the "signatures" array (role only, e.g. Seller, Buyer, Witness, Lender, Lessee — include Witness or Notary only if the jurisdiction requires it).
-- Write in formal, precise legal English appropriate to the given jurisdiction. Do not include the standard AI/legal disclaimer text yourself — that is added separately by the platform.`;
+- Write in formal, precise legal English appropriate to the given jurisdiction.
+- Do NOT use markdown formatting anywhere in "title", "intro", "heading", or "body" — no **bold**, no _italic_, no markdown headers, no bullet dashes. Section headings are already rendered bold by the platform; within body text, if a term needs emphasis, write it in plain capitalized text (e.g. "Events of Default") instead of wrapping it in asterisks.
+- Do not write any disclaimer or "not legal advice" text yourself — the platform displays that separately, outside the document.`;
 
 export async function POST(req: NextRequest) {
   try {
