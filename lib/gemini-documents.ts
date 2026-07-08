@@ -8,7 +8,7 @@
 // it only knows the older `googleSearchRetrieval` tool built for 1.5.
 //
 // Model waterfall: gemini-2.5-flash-lite (primary) -> gemini-2.5-flash (backup)
-// Key rotation: GEMINI_API_KEY -> GEMINI_API_KEY_2 -> GEMINI_API_KEY_3
+// Key rotation: GEMINI_API_KEY -> GEMINI_API_KEY_2 -> GEMINI_API_KEY_3 -> GEMINI_API_KEY_4
 // Every (model, key) pair is tried in order until one succeeds — this
 // covers both "model unavailable" and "this key is rate-limited" failures.
 
@@ -19,6 +19,7 @@ function getApiKeys(): string[] {
     process.env.GEMINI_API_KEY,
     process.env.GEMINI_API_KEY_2,
     process.env.GEMINI_API_KEY_3,
+    process.env.GEMINI_API_KEY_4,
   ].filter((k): k is string => !!k);
 }
 
