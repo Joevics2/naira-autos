@@ -6,7 +6,9 @@ import { ChevronRight, Home, FileCheck2, Wand2 } from 'lucide-react';
 import { DocumentTemplateRow, fillTemplate } from '@/lib/document-templates-data';
 import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/document-types';
 import { GeneratedDocument } from '@/lib/document-format';
+import { DocumentHistoryEntry, saveToHistory } from '@/lib/document-history';
 import DocumentEditor from '@/components/documents/DocumentEditor';
+import DocumentHistoryList from '@/components/documents/DocumentHistoryList';
 
 const SHORT_DISCLAIMER =
   'Informational only, not legal advice. Have high-value or high-risk agreements reviewed by a licensed attorney.';
@@ -33,12 +35,26 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
 
   const handleFill = () => {
     const filled = fillTemplate(template, values, template.fields, usePlaceholders);
-    setGeneratedDocument({
+    const doc: GeneratedDocument = {
       title: filled.title,
       intro: filled.intro,
       sections: filled.sections,
       signatures: template.signatures,
+    };
+    setGeneratedDocument(doc);
+    saveToHistory({
+      source: 'template',
+      documentTypeSlug: docType.slug,
+      documentTypeLabel: docType.label,
+      countryCode: docCountry.code,
+      countryLabel: docCountry.name,
+      isHighRisk,
+      document: doc,
     });
+  };
+
+  const handleOpenHistoryEntry = (entry: DocumentHistoryEntry) => {
+    setGeneratedDocument(entry.document);
   };
 
   const handleReset = () => {
@@ -78,6 +94,8 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
             )}
 
             <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
+
+            <DocumentHistoryList filterSource="template" onOpen={handleOpenHistoryEntry} />
 
             {/* Fill-in form */}
             <div className="bg-card border border-border rounded-xl p-5 space-y-4">

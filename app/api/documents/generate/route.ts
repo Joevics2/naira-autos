@@ -9,13 +9,24 @@
 // step is just clause-library assembly, so it's cheaper and faster.
 //
 // The filled document itself is returned to the client and never written
-// to the database — it contains real personal data and per the product
-// spec stays client-side only (localStorage).
+// to the database when it contains real personal data — per the product
+// spec that stays client-side only (localStorage). The one exception:
+// when placeholders were used for a Template-tier document type and no
+// template exists yet for that (type, country) pair, the placeholder
+// version (no real personal data) is saved as a draft to seed the
+// Template library for review — see the auto-seed block below.
 
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import { callGemini, parseGeminiJSON } from '@/lib/gemini-documents';
 import { getDocumentType, getDocumentCountry, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/document-types';
+import { tokenizeGeneratedDocument } from '@/lib/document-tokenizer';
 import type { LegalRequirements } from '../research/route';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export interface GeneratedDocument {
   title: string;
@@ -102,6 +113,42 @@ Write the complete document now, following the JSON schema and rules in your ins
     });
 
     const document = parseGeminiJSON<GeneratedDocument>(result.text);
+
+    // ── Feature A: auto-seed the Template tier from AI output ──────────────
+    // Only when: placeholders were used (so there's no real personal data —
+    // just bracketed placeholders), this document type is tagged as a
+    // Template-tier candidate, and nothing already exists for this exact
+    // (type, country) pair. Saved as `draft` — never visible publicly until
+    // reviewed and published deliberately. Never blocks or fails the
+    // user's request if anything here goes wrong.
+    if (usePlaceholders && docType.tier === 'template') {
+      try {
+        const { data: existing } = await supabase
+          .from('document_templates')
+          .select('id')
+          .eq('document_type', documentTypeSlug)
+          .eq('country', country)
+          .maybeSingle();
+
+        if (!existing) {
+          const tokenized = tokenizeGeneratedDocument(document);
+          await supabase.from('document_templates').insert({
+            document_type: documentTypeSlug,
+            country,
+            title: tokenized.title,
+            intro: tokenized.intro,
+            sections: tokenized.sections,
+            signatures: document.signatures,
+            fields: tokenized.fields,
+            legal_note: legalRequirements.summary || '',
+            seo_intro: '',
+            status: 'draft',
+          });
+        }
+      } catch (seedErr: any) {
+        console.warn('[documents/generate] Draft template auto-seed skipped:', seedErr?.message || seedErr);
+      }
+    }
 
     return NextResponse.json({
       document,

@@ -1,14 +1,16 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import {
-  FileText, Loader2, ChevronRight, Home, Sparkles, CheckCircle2,
+  FileText, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2,
 } from 'lucide-react';
 import { DOCUMENT_TYPES, DOCUMENT_COUNTRIES } from '@/lib/document-types';
 import { GeneratedDocument, sanitizeDocument } from '@/lib/document-format';
+import { DocumentHistoryEntry, saveToHistory } from '@/lib/document-history';
 import DocumentEditor from '@/components/documents/DocumentEditor';
 import TemplateAvailableLink from '@/components/documents/TemplateAvailableLink';
+import DocumentHistoryList from '@/components/documents/DocumentHistoryList';
 
 interface LegalRequirements {
   summary: string;
@@ -22,8 +24,6 @@ interface LegalRequirements {
 }
 
 type Step = 'select' | 'researching' | 'details' | 'generating' | 'preview';
-
-const STORAGE_KEY = 'naira-autos-doc-generator-draft';
 
 // Short, on-page only — not part of the generated document itself.
 const SHORT_DISCLAIMER =
@@ -43,36 +43,13 @@ export default function DocumentGeneratorClient() {
   const docType = DOCUMENT_TYPES.find(d => d.slug === documentTypeSlug);
   const docCountry = DOCUMENT_COUNTRIES.find(c => c.code === country);
 
-  // ── Restore last draft on load ──────────────────────────────────────
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const draft = JSON.parse(raw);
-      if (draft.generatedDocument) {
-        setDocumentTypeSlug(draft.documentTypeSlug || '');
-        setCountry(draft.country || '');
-        setLegalRequirements(draft.legalRequirements || null);
-        setGeneratedDocument(sanitizeDocument(draft.generatedDocument));
-        setIsHighRisk(!!draft.isHighRisk);
-        setStep('preview');
-      }
-    } catch {
-      // ignore corrupt drafts
-    }
-  }, []);
-
-  // ── Persist draft (client-side only — never sent to the server) ─────
-  useEffect(() => {
-    if (step !== 'preview' || !generatedDocument) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        documentTypeSlug, country, legalRequirements, generatedDocument, isHighRisk,
-      }));
-    } catch {
-      // storage full or unavailable — fine, editing still works in-session
-    }
-  }, [step, generatedDocument, documentTypeSlug, country, legalRequirements, isHighRisk]);
+  const handleOpenHistoryEntry = (entry: DocumentHistoryEntry) => {
+    setDocumentTypeSlug(entry.documentTypeSlug);
+    setCountry(entry.countryCode);
+    setGeneratedDocument(sanitizeDocument(entry.document));
+    setIsHighRisk(entry.isHighRisk);
+    setStep('preview');
+  };
 
   const handleResearch = useCallback(async () => {
     if (!documentTypeSlug || !country) return;
@@ -114,14 +91,26 @@ export default function DocumentGeneratorClient() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Generation failed.');
-      setGeneratedDocument(sanitizeDocument(data.document));
+      const sanitized = sanitizeDocument(data.document);
+      setGeneratedDocument(sanitized);
       setIsHighRisk(!!data.isHighRisk);
       setStep('preview');
+      if (docType && docCountry) {
+        saveToHistory({
+          source: 'ai',
+          documentTypeSlug,
+          documentTypeLabel: docType.label,
+          countryCode: country,
+          countryLabel: docCountry.name,
+          isHighRisk: !!data.isHighRisk,
+          document: sanitized,
+        });
+      }
     } catch (err: any) {
       setError(err.message || 'Something went wrong writing this document. Please try again.');
       setStep('details');
     }
-  }, [legalRequirements, userDetails, usePlaceholders, documentTypeSlug, country]);
+  }, [legalRequirements, userDetails, usePlaceholders, documentTypeSlug, country, docType, docCountry]);
 
   const handleReset = () => {
     setStep('select');
@@ -133,7 +122,6 @@ export default function DocumentGeneratorClient() {
     setGeneratedDocument(null);
     setIsHighRisk(false);
     setError(null);
-    try { localStorage.removeItem(STORAGE_KEY); } catch {}
   };
 
   return (
@@ -226,6 +214,10 @@ export default function DocumentGeneratorClient() {
               Start
             </button>
           </div>
+        )}
+
+        {step === 'select' && (
+          <DocumentHistoryList filterSource="ai" onOpen={handleOpenHistoryEntry} />
         )}
 
         {/* ── Step: researching ─────────────────────────────────────── */}
