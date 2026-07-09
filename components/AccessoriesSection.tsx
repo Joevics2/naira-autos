@@ -4,6 +4,7 @@
 
 import { ShoppingBag } from 'lucide-react';
 import type { AccessoryItem } from '@/lib/vehicle-helpers';
+import { buildAmazonSearchUrl } from '@/lib/vehicle-helpers';
 
 interface AccessoriesSectionProps {
   title: string;
@@ -30,12 +31,12 @@ export function AccessoriesSection({ title, items }: AccessoriesSectionProps) {
               <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
             )}
             <a
-              href={item.url}
+              href={buildAmazonSearchUrl(item.name)}
               target="_blank"
               rel="noopener noreferrer sponsored"
               className="mt-auto inline-flex w-fit items-center text-sm font-medium text-primary underline underline-offset-2"
             >
-              {item.cta}
+              Shop on Amazon
             </a>
           </div>
         ))}

@@ -150,6 +150,22 @@ export interface AccessoryItem {
   cta: string;
 }
 
+// The content writer can't reliably produce a real, working product link for
+// an accessory — so we never trust `AccessoryItem.url`. Instead, every
+// accessory links to an Amazon search for its name. This also means a
+// single affiliate tag added here instantly applies to every accessory
+// across the whole site, instead of needing one per item.
+//
+// To add your Amazon Associates tag, set AMAZON_AFFILIATE_TAG below
+// (e.g. 'nairaautos-20') — leave it '' to link without a tag.
+const AMAZON_AFFILIATE_TAG = '';
+
+export function buildAmazonSearchUrl(query: string): string {
+  const params = new URLSearchParams({ k: query });
+  if (AMAZON_AFFILIATE_TAG) params.set('tag', AMAZON_AFFILIATE_TAG);
+  return `https://www.amazon.com/s?${params.toString()}`;
+}
+
 export interface OwnershipCost {
   annual_fuel_cost_min?: number;
   annual_fuel_cost_max?: number;
