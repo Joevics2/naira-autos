@@ -137,7 +137,7 @@ export default function VINCheckerPage() {
                   {[
                     { title: 'VIN Plate Swapping', desc: 'A dashboard plate from a clean-title car is installed in a salvage or flood-damaged chassis. The plate decodes correctly; the car is structurally compromised. This is common wherever import volumes are high, from Nigerian ports to Gulf re-export yards.' },
                     { title: 'Title Washing', desc: 'A salvage title is re-registered in a less strict US state, then exported to Nigeria, the UAE, or elsewhere appearing as clean-title. A Carfax reveals the original history before the vehicle crossed a border.' },
-                    { title: 'How to Protect Yourself', desc: 'Match the VIN or chassis number in all three physical locations. Run a Carfax (roughly $40–50 USD). Commission a pre-purchase inspection from an independent mechanic before paying, regardless of which country you're buying in.' },
+                    { title: 'How to Protect Yourself', desc: 'Match the VIN or chassis number in all three physical locations. Run a Carfax (roughly $40–50 USD). Commission a pre-purchase inspection from an independent mechanic before paying, regardless of which country you\'re buying in.' },
                   ].map(({ title, desc }) => (
                     <div key={title} className="p-3.5 rounded-xl bg-card border border-border">
                       <p className="text-sm font-bold text-foreground mb-1">{title}</p>
@@ -171,7 +171,8 @@ export default function VINCheckerPage() {
                 </div>
               </div>
 
-
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Get the VIN Right Before You Calculate Import Duty</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                   <p>In countries where import duty on used vehicles runs into the thousands of dollars — Nigeria, the wider ECOWAS region, and much of the Gulf included — getting the specification wrong is expensive twice over. First you overpay for a car that isn't what it was advertised as, then you may find your customs valuation and duty calculation were based on the wrong engine size or trim level entirely, since duty schedules in many countries are tied directly to engine displacement and vehicle age. Decoding the VIN before you buy, or before you clear a vehicle through port, gives you the accurate year and engine size to plug into an <Link href="/tools/import-duty-calculator" className="text-foreground underline underline-offset-2">import duty calculator</Link> or a <Link href="/tools/registration-fee-calculator" className="text-foreground underline underline-offset-2">registration fee calculator</Link>, rather than trusting a number a seller wrote on a listing.</p>
                 </div>
