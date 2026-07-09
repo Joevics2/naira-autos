@@ -17,7 +17,12 @@ export const metadata: Metadata = {
     template: '%s | Naira Autos',
   },
   description: 'Free tools and expert guides for buying and selling cars in Nigeria. Import duty calculator, car prices, spare parts costs, AI mechanic, and the most complete Nigerian auto glossary.',
-  manifest: '/manifest.json',
+  // Commented out: this manifest is what makes browsers treat the site as
+  // an installable PWA and show their native "Install app" / "Add to Home
+  // Screen" prompt automatically. Removing it stops that prompt. The
+  // manifest.json file itself is untouched — just re-add this line to
+  // bring installability (and the prompt) back.
+  // manifest: '/manifest.json',
   themeColor: '#258055',
   viewport: {
     width: 'device-width',
