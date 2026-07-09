@@ -69,8 +69,6 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                 {docType.label} Template — {docCountry.flag} {docCountry.name}
               </h1>
-              <p className="text-muted-foreground leading-relaxed">{template.seo_intro}</p>
-              <p className="text-xs text-muted-foreground/80 mt-2">{SHORT_DISCLAIMER}</p>
             </div>
 
             {template.legal_note && (
@@ -78,6 +76,8 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
                 {template.legal_note}
               </div>
             )}
+
+            <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
 
             {/* Fill-in form */}
             <div className="bg-card border border-border rounded-xl p-5 space-y-4">
@@ -138,6 +138,13 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
                 Fill Document
               </button>
             </div>
+
+            {/* SEO article content — moved below the form */}
+            {template.seo_intro && (
+              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
+                <p>{template.seo_intro}</p>
+              </div>
+            )}
           </>
         )}
 
