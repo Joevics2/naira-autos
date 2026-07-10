@@ -20,6 +20,7 @@ interface VehicleProblem {
   vehicle_type: string;
   year: string;   // e.g. "2015" or "2004-2010"
   image_url: string | null;
+  image_reference: string | null;
   intro: string | null;
   problems: Problem[];
   owners_advice: string | null;
@@ -133,8 +134,20 @@ export default async function ProblemsPage({ params }: { params: Params }) {
 
         {/* Vehicle image */}
         {record.image_url && (
-          <div className="w-full aspect-video rounded-xl overflow-hidden bg-muted">
-            <img src={record.image_url} alt={carLabel} className="w-full h-full object-cover" loading="eager" />
+          <div>
+            <div className="w-full aspect-video rounded-xl overflow-hidden bg-muted">
+              <img src={record.image_url} alt={carLabel} className="w-full h-full object-cover" loading="eager" />
+            </div>
+            {record.image_reference && (
+              <a
+                href={record.image_reference}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 mt-1.5 inline-block"
+              >
+                Image credit
+              </a>
+            )}
           </div>
         )}
 

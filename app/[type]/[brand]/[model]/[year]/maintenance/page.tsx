@@ -25,6 +25,7 @@ interface VehicleMaintenance {
   vehicle_type: string;
   year: string;   // e.g. "2023" or "2022-2024"
   image_url: string | null;
+  image_reference: string | null;
   intro: string | null;
   schedule: MaintenanceItem[];
   tips: string | null;
@@ -152,8 +153,20 @@ export default async function MaintenancePage({ params }: { params: Params }) {
 
         {/* Vehicle image */}
         {record.image_url && (
-          <div className="w-full aspect-video rounded-xl overflow-hidden bg-muted">
-            <img src={record.image_url} alt={carLabel} className="w-full h-full object-cover" loading="eager" />
+          <div>
+            <div className="w-full aspect-video rounded-xl overflow-hidden bg-muted">
+              <img src={record.image_url} alt={carLabel} className="w-full h-full object-cover" loading="eager" />
+            </div>
+            {record.image_reference && (
+              <a
+                href={record.image_reference}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 mt-1.5 inline-block"
+              >
+                Image credit
+              </a>
+            )}
           </div>
         )}
 

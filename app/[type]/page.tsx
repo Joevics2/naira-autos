@@ -224,7 +224,7 @@ export default async function VehicleTypePage(
                         </div>
                       )}
                       <div className="min-w-0">
-                        <p className="font-semibold text-foreground text-sm truncate group-hover:text-emerald-400 transition-colors">
+                        <p className="font-semibold text-foreground text-sm truncate capitalize group-hover:text-emerald-400 transition-colors">
                           {brand.name}
                         </p>
                         <p className="text-xs text-muted-foreground">
