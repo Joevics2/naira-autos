@@ -5,7 +5,10 @@ import Link from 'next/link';
 import {
   FileText, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2,
 } from 'lucide-react';
-import { DOCUMENT_TYPES, DOCUMENT_COUNTRIES } from '@/lib/document-types';
+import {
+  DOCUMENT_TYPES, DOCUMENT_COUNTRIES, DOCUMENT_TYPES_SORTED, DOCUMENT_TYPES_POPULAR_COUNT,
+  DOCUMENT_COUNTRIES_SORTED, DOCUMENT_COUNTRIES_POPULAR_COUNT,
+} from '@/lib/document-types';
 import { GeneratedDocument, sanitizeDocument } from '@/lib/document-format';
 import { DocumentHistoryEntry, saveToHistory } from '@/lib/document-history';
 import DocumentEditor from '@/components/documents/DocumentEditor';
@@ -172,12 +175,12 @@ export default function DocumentGeneratorClient() {
                 className="w-full bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground"
               >
                 <option value="">Select a document…</option>
-                {Array.from(new Set(DOCUMENT_TYPES.map(d => d.category))).map(category => (
-                  <optgroup key={category} label={category}>
-                    {DOCUMENT_TYPES.filter(d => d.category === category).map(d => (
-                      <option key={d.slug} value={d.slug}>{d.label}</option>
-                    ))}
-                  </optgroup>
+                {DOCUMENT_TYPES_SORTED.slice(0, DOCUMENT_TYPES_POPULAR_COUNT).map(d => (
+                  <option key={d.slug} value={d.slug}>{d.label}</option>
+                ))}
+                <option disabled>──────────</option>
+                {DOCUMENT_TYPES_SORTED.slice(DOCUMENT_TYPES_POPULAR_COUNT).map(d => (
+                  <option key={d.slug} value={d.slug}>{d.label}</option>
                 ))}
               </select>
               {docType && <p className="text-xs text-muted-foreground mt-1.5">{docType.description}</p>}
@@ -191,12 +194,12 @@ export default function DocumentGeneratorClient() {
                 className="w-full bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground"
               >
                 <option value="">Select a country…</option>
-                {Array.from(new Set(DOCUMENT_COUNTRIES.map(c => c.region))).map(region => (
-                  <optgroup key={region} label={region}>
-                    {DOCUMENT_COUNTRIES.filter(c => c.region === region).map(c => (
-                      <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
-                    ))}
-                  </optgroup>
+                {DOCUMENT_COUNTRIES_SORTED.slice(0, DOCUMENT_COUNTRIES_POPULAR_COUNT).map(c => (
+                  <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
+                ))}
+                <option disabled>──────────</option>
+                {DOCUMENT_COUNTRIES_SORTED.slice(DOCUMENT_COUNTRIES_POPULAR_COUNT).map(c => (
+                  <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
                 ))}
               </select>
             </div>
