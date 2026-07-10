@@ -160,6 +160,17 @@ export interface AccessoryItem {
 // (e.g. 'nairaautos-20') — leave it '' to link without a tag.
 const AMAZON_AFFILIATE_TAG = '';
 
+export function getImageSourceLabel(url: string): string {
+  try {
+    const hostname = new URL(url).hostname.replace(/^www\./, '').replace(/^en\./, '');
+    const parts = hostname.split('.');
+    const name = parts.length >= 2 ? parts[parts.length - 2] : hostname;
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  } catch {
+    return 'Source';
+  }
+}
+
 export function buildAmazonSearchUrl(query: string): string {
   const params = new URLSearchParams({ k: query });
   if (AMAZON_AFFILIATE_TAG) params.set('tag', AMAZON_AFFILIATE_TAG);

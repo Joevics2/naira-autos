@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { ChevronRight, ArrowRight, ArrowLeft, Wrench } from 'lucide-react';
 import {
   getSupabase, getDbType, VEHICLE_TYPES,
-  MAINTENANCE_CONFIG, PARTS_CONFIG,
+  MAINTENANCE_CONFIG, PARTS_CONFIG, getImageSourceLabel,
   type VehicleModel,
 } from '@/lib/vehicle-helpers';
 
@@ -138,9 +138,9 @@ export default async function BrandPage(
   // Get available years per model from new tables
   const modelSlugs = models.map((m: any) => m.slug);
   const [{ data: partYears }, { data: problemYears }, { data: maintenanceYears }] = await Promise.all([
-    supabase.from('vehicle_parts').select('model_name, year, image_url').eq('brand_slug', params.brand).in('model_name', modelSlugs),
+    supabase.from('vehicle_parts').select('model_name, year, image_url, image_reference').eq('brand_slug', params.brand).in('model_name', modelSlugs),
     supabase.from('vehicle_problems').select('model_name, year').eq('brand_slug', params.brand).in('model_name', modelSlugs),
-    supabase.from('vehicle_maintenance').select('model_name, year, image_url').eq('brand_slug', params.brand).in('model_name', modelSlugs),
+    supabase.from('vehicle_maintenance').select('model_name, year, image_url, image_reference').eq('brand_slug', params.brand).in('model_name', modelSlugs),
   ]);
 
   // Map model slug → sorted years available (as strings — a year can be a
@@ -156,21 +156,26 @@ export default async function BrandPage(
     yearMap.set(key, yearMap.get(key)!.sort((a, b) => leadingYear(b) - leadingYear(a)));
   }
 
-  // Map model slug → image of its first (most recent) year — used as a
-  // fallback model-card image when vehicle_models has no og_image_url,
-  // the same image the model page itself would lead with.
-  const yearImageMap = new Map<string, { year: string; imageUrl: string | null }[]>();
+  // Map model slug → image (+ reference) of its first (most recent) year —
+  // used as a fallback model-card image when vehicle_models has no
+  // og_image_url, the same image the model page itself would lead with.
+  const yearImageMap = new Map<string, { year: string; imageUrl: string | null; imageReference: string | null }[]>();
   for (const r of [...(partYears || []), ...(maintenanceYears || [])]) {
     if (!yearImageMap.has(r.model_name)) yearImageMap.set(r.model_name, []);
     const list = yearImageMap.get(r.model_name)!;
     const existing = list.find(x => x.year === r.year);
-    if (existing) { if (!existing.imageUrl && r.image_url) existing.imageUrl = r.image_url; }
-    else list.push({ year: r.year, imageUrl: r.image_url ?? null });
+    if (existing) {
+      if (!existing.imageUrl && r.image_url) { existing.imageUrl = r.image_url; existing.imageReference = r.image_reference ?? null; }
+    } else {
+      list.push({ year: r.year, imageUrl: r.image_url ?? null, imageReference: r.image_reference ?? null });
+    }
   }
   const firstYearImageMap = new Map<string, string | null>();
+  const firstYearReferenceMap = new Map<string, string | null>();
   for (const [modelName, list] of Array.from(yearImageMap.entries())) {
     const sorted = [...list].sort((a, b) => leadingYear(b.year) - leadingYear(a.year));
     firstYearImageMap.set(modelName, sorted[0]?.imageUrl ?? null);
+    firstYearReferenceMap.set(modelName, sorted[0]?.imageReference ?? null);
   }
 
   // Group models by body type
@@ -273,6 +278,7 @@ export default async function BrandPage(
                   const pc    = model.parts_availability ? PARTS_CONFIG[model.parts_availability] : null;
                   const latestYear = years[0] ?? null;
                   const cardImage = model.og_image_url ?? firstYearImageMap.get(model.slug) ?? null;
+                  const cardImageReference = model.og_image_url ? null : (firstYearReferenceMap.get(model.slug) ?? null);
 
                   return (
                     <Link
@@ -281,7 +287,7 @@ export default async function BrandPage(
                       className="group bg-card border border-border hover:border-foreground/30 rounded-xl overflow-hidden transition-colors"
                     >
                       {/* Model image or placeholder */}
-                      <div className="h-36 bg-muted flex items-center justify-center border-b border-border overflow-hidden">
+                      <div className="relative h-36 bg-muted flex items-center justify-center border-b border-border overflow-hidden">
                         {cardImage ? (
                           <img
                             src={cardImage}
@@ -291,6 +297,11 @@ export default async function BrandPage(
                         ) : (
                           <span className="text-4xl font-black text-muted-foreground/20 uppercase">
                             {model.name}
+                          </span>
+                        )}
+                        {cardImage && cardImageReference && (
+                          <span className="absolute top-1.5 right-1.5 bg-black/55 text-white text-[10px] leading-none px-1.5 py-1 rounded">
+                            Source: {getImageSourceLabel(cardImageReference)}
                           </span>
                         )}
                       </div>

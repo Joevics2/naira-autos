@@ -94,13 +94,13 @@ export default async function ModelPage({ params }: { params: Params }) {
     supabase.from('vehicle_maintenance').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
     // Source of truth for this model's content — keyed on brand_slug/model_name,
     // not model_id, so a broken/missing model_id link doesn't hide content.
-    supabase.from('vehicle_parts').select('year, image_url, brand_name, model_name')
+    supabase.from('vehicle_parts').select('year, image_url, image_reference, brand_name, model_name')
       .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
       .order('year', { ascending: false }),
     supabase.from('vehicle_problems').select('year, brand_name, model_name')
       .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
       .order('year', { ascending: false }),
-    supabase.from('vehicle_maintenance').select('year, image_url, brand_name, model_name')
+    supabase.from('vehicle_maintenance').select('year, image_url, image_reference, brand_name, model_name')
       .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
       .order('year', { ascending: false }),
   ]);
@@ -130,14 +130,14 @@ export default async function ModelPage({ params }: { params: Params }) {
     ...(maintenanceYears || []).map((r: any) => r.year),
   ])).sort((a, b) => leadingYear(b) - leadingYear(a));
 
-  // Build a map: year → { hasParts, hasProblems, hasMaintenance, imageUrl }
+  // Build a map: year → { hasParts, hasProblems, hasMaintenance, imageUrl, imageReference }
   // — any combination is valid, none of the three require the others.
-  const yearMap: Record<string, { hasParts: boolean; hasProblems: boolean; hasMaintenance: boolean; imageUrl: string | null }> = {};
+  const yearMap: Record<string, { hasParts: boolean; hasProblems: boolean; hasMaintenance: boolean; imageUrl: string | null; imageReference: string | null }> = {};
   for (const y of allYears) {
-    yearMap[y] = { hasParts: false, hasProblems: false, hasMaintenance: false, imageUrl: null };
+    yearMap[y] = { hasParts: false, hasProblems: false, hasMaintenance: false, imageUrl: null, imageReference: null };
   }
   for (const r of partYears || []) {
-    if (yearMap[r.year]) { yearMap[r.year].hasParts = true; yearMap[r.year].imageUrl = r.image_url; }
+    if (yearMap[r.year]) { yearMap[r.year].hasParts = true; yearMap[r.year].imageUrl = r.image_url; yearMap[r.year].imageReference = r.image_reference ?? null; }
   }
   for (const r of problemYears || []) {
     if (yearMap[r.year]) yearMap[r.year].hasProblems = true;
@@ -145,7 +145,7 @@ export default async function ModelPage({ params }: { params: Params }) {
   for (const r of maintenanceYears || []) {
     if (yearMap[r.year]) {
       yearMap[r.year].hasMaintenance = true;
-      if (!yearMap[r.year].imageUrl) yearMap[r.year].imageUrl = r.image_url;
+      if (!yearMap[r.year].imageUrl) { yearMap[r.year].imageUrl = r.image_url; yearMap[r.year].imageReference = r.image_reference ?? null; }
     }
   }
 
@@ -277,13 +277,25 @@ export default async function ModelPage({ params }: { params: Params }) {
                     className="flex flex-col border-2 border-border rounded-xl overflow-hidden bg-card"
                   >
                     {info.imageUrl ? (
-                      <div className="aspect-video bg-muted overflow-hidden">
-                        <img
-                          src={info.imageUrl}
-                          alt={`${carLabel} ${year}`}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
+                      <div>
+                        <div className="aspect-video bg-muted overflow-hidden">
+                          <img
+                            src={info.imageUrl}
+                            alt={`${carLabel} ${year}`}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                        {info.imageReference && (
+                          <a
+                            href={info.imageReference}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 px-3 pt-1"
+                          >
+                            Image credit
+                          </a>
+                        )}
                       </div>
                     ) : (
                       <div className="aspect-video bg-muted flex flex-col items-center justify-center text-center px-3 gap-1">
