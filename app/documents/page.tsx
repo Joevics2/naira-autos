@@ -5,6 +5,8 @@ import { getAllPublishedTemplates } from '@/lib/document-templates-data';
 import { getDocumentType, getDocumentCountry } from '@/lib/document-types';
 
 export const revalidate = 0;
+// TEMPORARY: see the matching note in app/documents/[type]/[country]/page.tsx
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Free Vehicle Document Templates | Naira Autos',
