@@ -56,17 +56,21 @@ export default async function DocumentsIndexPage() {
               <h2 className="text-xs font-bold tracking-widest uppercase text-sky-600 dark:text-sky-400 mb-3">{category}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {items.map(t => {
+                  // A published Supabase row is always shown — DOCUMENT_TYPES/
+                  // DOCUMENT_COUNTRIES only enrich the label when they match.
                   const docType = getDocumentType(t.document_type);
                   const docCountry = getDocumentCountry(t.country);
-                  if (!docType || !docCountry) return null;
+                  const label = docType?.label || t.title;
+                  const countryFlag = docCountry?.flag || '\u{1F30D}';
+                  const countryName = docCountry?.name || t.country.toUpperCase();
                   return (
                     <Link
                       key={t.id}
                       href={`/documents/${t.document_type}/${t.country}`}
                       className="bg-card border border-border hover:border-foreground/30 rounded-xl p-4 transition-colors"
                     >
-                      <p className="font-semibold text-foreground text-sm">{docType.label}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{docCountry.flag} {docCountry.name}</p>
+                      <p className="font-semibold text-foreground text-sm">{label}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{countryFlag} {countryName}</p>
                     </Link>
                   );
                 })}

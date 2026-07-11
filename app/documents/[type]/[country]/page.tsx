@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getDocumentTemplate, getAllPublishedTemplateParams } from '@/lib/document-templates-data';
-import { getDocumentType, getDocumentCountry } from '@/lib/document-types';
+import { getDocumentType, getDocumentCountry, type DocumentTypeDef, type DocumentCountryDef } from '@/lib/document-types';
 import TemplateDocumentClient from './client';
 
 // ── Static params (ISR) ───────────────────────────────────────────
@@ -20,15 +20,44 @@ export const revalidate = 0; // fetch fresh every request while the template lib
 // daily and want normal ISR caching back.
 export const dynamic = 'force-dynamic';
 
+// Supabase is the real source of truth for whether a template page exists —
+// DOCUMENT_TYPES/DOCUMENT_COUNTRIES are only used to enrich a page when the
+// slug happens to match one of the site's known labels/categories. When it
+// doesn't match (e.g. a template was added with a slug not yet in that
+// list), the page still renders using the template's own title/country code
+// instead of 404ing.
+function resolveDocType(slug: string, templateTitle: string): DocumentTypeDef {
+  return getDocumentType(slug) ?? {
+    slug,
+    label: templateTitle,
+    description: '',
+    tier: 'template',
+    category: 'Other',
+    popular: false,
+  };
+}
+
+function resolveDocCountry(code: string): DocumentCountryDef {
+  return getDocumentCountry(code) ?? {
+    code,
+    name: code.toUpperCase(),
+    flag: '\u{1F30D}',
+    region: 'Other',
+    popular: false,
+  };
+}
+
 // ── Metadata ──────────────────────────────────────────────────────
 export async function generateMetadata({
   params,
 }: {
   params: { type: string; country: string };
 }): Promise<Metadata> {
-  const docType = getDocumentType(params.type);
-  const docCountry = getDocumentCountry(params.country);
-  if (!docType || !docCountry) return { title: 'Document Not Found | Naira Autos' };
+  const template = await getDocumentTemplate(params.type, params.country);
+  if (!template) return { title: 'Document Not Found | Naira Autos' };
+
+  const docType = resolveDocType(params.type, template.title);
+  const docCountry = resolveDocCountry(params.country);
 
   const title = `${docType.label} Template for ${docCountry.name} (Free) | Naira Autos`;
   const description = `Free, ready-to-use ${docType.label} for ${docCountry.name}. Fill in your details, edit inline, then download as PDF or Word — no sign-up required.`;
@@ -80,13 +109,12 @@ export default async function TemplateDocumentPage({
 }: {
   params: { type: string; country: string };
 }) {
-  const docType = getDocumentType(params.type);
-  const docCountry = getDocumentCountry(params.country);
-  if (!docType || !docCountry) notFound();
-
+  // Supabase decides existence now, not the fixed DOCUMENT_TYPES list.
   const template = await getDocumentTemplate(params.type, params.country);
   if (!template) notFound();
 
+  const docType = resolveDocType(params.type, template.title);
+  const docCountry = resolveDocCountry(params.country);
   const url = `https://www.naira.autos/documents/${params.type}/${params.country}`;
 
   return (
