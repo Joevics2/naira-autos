@@ -200,7 +200,7 @@ export default async function PartsPage({ params }: { params: Params }) {
                             {part.notes && <p className="text-xs text-muted-foreground mt-0.5">{part.notes}</p>}
                           </td>
                           <td className="py-3 pr-4 text-foreground font-medium">
-                            {formatPriceRange(part.price_min, part.price_max)}
+                            {formatPriceRange(part.price_ngn_min, part.price_ngn_max)}
                           </td>
                           <td className="py-3 pr-4">
                             <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${

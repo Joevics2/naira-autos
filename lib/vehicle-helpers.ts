@@ -190,8 +190,10 @@ export interface OwnershipCost {
 export interface SparePart {
   category: string;
   part_name: string;
-  price_min?: number;
-  price_max?: number;
+  price_ngn_min?: number;
+  price_ngn_max?: number;
+  price_usd_min?: number;
+  price_usd_max?: number;
   replacement_interval?: string;
   availability?: string;
   oem_recommended?: boolean;
