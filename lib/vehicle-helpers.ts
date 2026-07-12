@@ -214,10 +214,22 @@ export function formatNaira(n?: number | null): string {
   return `₦${n.toLocaleString()}`;
 }
 
+export function formatUsd(n?: number | null): string {
+  if (!n) return '—';
+  if (n >= 1_000) return `$${(n / 1_000).toFixed(1)}k`;
+  return `$${n.toLocaleString()}`;
+}
+
 export function formatPriceRange(min?: number | null, max?: number | null): string {
   if (!min && !max) return '—';
   if (min && max && min !== max) return `${formatNaira(min)} – ${formatNaira(max)}`;
   return formatNaira(min ?? max);
+}
+
+export function formatPriceRangeUsd(min?: number | null, max?: number | null): string {
+  if (!min && !max) return '—';
+  if (min && max && min !== max) return `${formatUsd(min)} – ${formatUsd(max)}`;
+  return formatUsd(min ?? max);
 }
 
 export function formatYearLabel(start: number, end: number): string {

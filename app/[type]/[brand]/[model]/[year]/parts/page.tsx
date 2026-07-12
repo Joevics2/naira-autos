@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, ArrowLeft, Wrench } from 'lucide-react';
-import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRange, type SparePart, type FAQ, type AccessoryItem } from '@/lib/vehicle-helpers';
+import { getSupabase, getDbType, VEHICLE_TYPES, formatPriceRangeUsd, type SparePart, type FAQ, type AccessoryItem } from '@/lib/vehicle-helpers';
 import { WhereToBuySection } from '@/components/WhereToBuySection';
 import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
 import { AccessoriesSection } from '@/components/AccessoriesSection';
@@ -200,7 +200,7 @@ export default async function PartsPage({ params }: { params: Params }) {
                             {part.notes && <p className="text-xs text-muted-foreground mt-0.5">{part.notes}</p>}
                           </td>
                           <td className="py-3 pr-4 text-foreground font-medium">
-                            {formatPriceRange(part.price_ngn_min, part.price_ngn_max)}
+                            {formatPriceRangeUsd(part.price_usd_min, part.price_usd_max)}
                           </td>
                           <td className="py-3 pr-4">
                             <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
