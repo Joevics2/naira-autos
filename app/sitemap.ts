@@ -2,7 +2,7 @@
 
 import { MetadataRoute } from 'next';
 
-const siteUrl = 'https://naira.autos';
+const siteUrl = 'https://www.naira.autos';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -12,12 +12,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
-    {
-      url: `${siteUrl}/sitemap-listings.xml`,
-      lastModified: new Date(),
-      changeFrequency: 'hourly',
-      priority: 1,
-    },
+    // sitemap-listings.xml disabled: the route is app/_sitemap-listings.xml
+    // (underscore prefix = excluded from Next.js routing), part of the
+    // listings/marketplace feature being paused sitewide. This was
+    // returning a 404 to Google on every sitemap-index crawl. Restore by
+    // renaming the route folder (drop the underscore) and un-commenting.
+    // {
+    //   url: `${siteUrl}/sitemap-listings.xml`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'hourly',
+    //   priority: 1,
+    // },
     // sitemap-search.xml temporarily disabled
     // {
     //   url: `${siteUrl}/sitemap-search.xml`,
@@ -25,12 +30,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     //   changeFrequency: 'daily',
     //   priority: 0.9,
     // },
-    {
-      url: `${siteUrl}/sitemap-sellers.xml`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
+    // sitemap-sellers.xml disabled: same issue as sitemap-listings.xml above
+    // — the route is app/_sitemap-sellers.xml, excluded from routing.
+    // {
+    //   url: `${siteUrl}/sitemap-sellers.xml`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'daily',
+    //   priority: 0.8,
+    // },
     {
       url: `${siteUrl}/sitemap-blogs.xml`,
       lastModified: new Date(),

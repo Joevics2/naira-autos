@@ -4,7 +4,7 @@
 import { NextResponse } from 'next/server';
 import { getAllPublishedTemplates } from '@/lib/document-templates-data';
 
-const siteUrl = 'https://naira.autos';
+const siteUrl = 'https://www.naira.autos';
 export const revalidate = 0; // fetch fresh every request while the template library is actively growing
 // TEMPORARY: see the matching note in app/documents/[type]/[country]/page.tsx
 export const dynamic = 'force-dynamic';

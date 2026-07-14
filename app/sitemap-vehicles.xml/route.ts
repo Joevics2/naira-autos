@@ -9,7 +9,7 @@
 import { NextResponse } from 'next/server';
 import { getSupabase, TYPE_SLUG_TO_DB } from '@/lib/vehicle-helpers';
 
-const siteUrl = 'https://naira.autos';
+const siteUrl = 'https://www.naira.autos';
 export const revalidate = 0; // fetch fresh every request while content is actively changing
 
 const DB_TO_TYPE_SLUG: Record<string, string> = Object.fromEntries(

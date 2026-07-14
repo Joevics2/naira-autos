@@ -17,6 +17,4 @@ Disallow: /video-verified-cars
 Disallow: /car-dealers
 Disallow: /seller
 
-Sitemap: https://naira.autos/sitemap-blogs.xml
-Sitemap: https://naira.autos/sitemap-static.xml
-Sitemap: https://naira.autos/sitemap-vehicles.xml
+Sitemap: https://www.naira.autos/sitemap.xml

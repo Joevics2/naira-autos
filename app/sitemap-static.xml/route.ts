@@ -3,7 +3,7 @@
 
 import { NextResponse } from 'next/server';
 
-const siteUrl = 'https://naira.autos';
+const siteUrl = 'https://www.naira.autos';
 
 export const revalidate = 86400;
 
