@@ -87,6 +87,15 @@ const nextConfig = {
       permanent: true,
     }));
 
+    // Legacy vehicle-content URLs from an older content structure — these
+    // are still indexed by Google (with stale/defective cached content)
+    // but 404 live, since the current route pattern is
+    // /cars/:type/:brand/:model/:year/parts (etc.), not this older one.
+    // Add more entries here as you find others via Search Console.
+    const legacyVehicleContentRedirects = [
+      { source: '/cars/honda/accord/parts/accord-parts-2013-2022', destination: '/cars/honda/accord/2013-2022/parts', permanent: true },
+    ];
+
     // Wildcard catch-all for any future /listing/* and /seller/* not listed above
     const wildcardRedirects = [
       { source: '/listing/:slug*', destination: '/', permanent: true },
@@ -99,6 +108,7 @@ const nextConfig = {
       ...staticRedirects,
       ...listingRedirects,
       ...sellerRedirects,
+      ...legacyVehicleContentRedirects,
       ...wildcardRedirects,
     ];
   },
