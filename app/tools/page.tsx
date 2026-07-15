@@ -116,6 +116,13 @@ const TOOLS: Tool[] = [
     category: 'Due Diligence',
   },
   {
+    href: '/tools/vin-checker-global',
+    icon: Search,
+    label: 'VIN Checker (Global)',
+    description: 'Free VIN decoder for used car buyers anywhere in the world — US, UK, UAE, Gulf, and beyond.',
+    category: 'Due Diligence',
+  },
+  {
     href: '/tools/obd-codes',
     icon: ScanLine,
     label: 'OBD-II Code Lookup',
