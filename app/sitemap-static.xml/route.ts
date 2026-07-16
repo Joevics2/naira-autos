@@ -29,6 +29,7 @@ const staticPages = [
   { url: '/tools/glossary',                     priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/document-generator',           priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/wiper-blade-size-finder',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/headlight-bulb-finder',        priority: 0.7, changefreq: 'monthly' },
   { url: '/documents',                          priority: 0.7, changefreq: 'weekly'  },
   { url: '/about',                              priority: 0.5, changefreq: 'monthly' },
   { url: '/contact',                            priority: 0.5, changefreq: 'monthly' },

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -112,6 +112,15 @@ const TOOLS: Tool[] = [
     icon: Droplets,
     label: 'Wiper Blade Size Finder',
     description: 'Find the exact wiper blade sizes and connector type for your car by make, model, and year.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Running Costs',
+  },
+  {
+    href: '/tools/headlight-bulb-finder',
+    icon: Lightbulb,
+    label: 'Headlight Bulb Type Finder',
+    description: 'Find the exact low beam, high beam, and fog light bulb codes for your car by make, model, and year.',
     badge: 'NEW',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Running Costs',
