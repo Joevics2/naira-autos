@@ -5,6 +5,7 @@ import {
   Camera, Newspaper, ChevronRight, Zap, TrendingUp, ArrowUpRight,
   Clock, Tag,
 } from 'lucide-react';
+import { HomeFreshness } from './HomeFreshness';
 
 // ─── Tool definitions ──────────────────────────────────────────────────────
 
@@ -161,6 +162,7 @@ function Divider() {
 export function HomePage() {
   return (
     <main className="bg-background pb-28">
+      <HomeFreshness />
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden border-b border-border/60">
