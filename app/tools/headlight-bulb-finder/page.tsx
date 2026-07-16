@@ -106,6 +106,64 @@ export default function HeadlightBulbFinderPage() {
             </div>
           </div>
 
+          {/* Why bulb type matters */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Why the Right Bulb Type Actually Matters
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                Headlight bulbs look interchangeable at a glance — most are small glass or ceramic capsules with two metal prongs — but the base shape, pin spacing, filament position, and wattage rating are all engineered to match a specific headlight housing. Fit the wrong code and, at best, the bulb simply won&apos;t lock into the socket. At worst, it will physically fit but sit the filament in the wrong position inside the reflector or projector, which throws the beam pattern off, scatters light into oncoming drivers&apos; eyes, and can leave the road ahead of you darker rather than brighter, even though the bulb itself is &quot;working.&quot;
+              </p>
+              <p>
+                Low beam and high beam almost always use separate bulbs, and mixing them up is a common and completely avoidable mistake. A low beam bulb such as an H11 has a shield built into the filament housing that cuts the beam off sharply so it doesn&apos;t blind oncoming traffic, while a high beam bulb like a 9005 has no such shield and throws light much further down the road. Some vehicles simplify this with a single dual-filament bulb — H4 and H13 are the most common — where one bulb handles both functions by switching which filament is powered.
+              </p>
+              <p>
+                Wattage matters too, and it&apos;s easy to overlook. Fitting a significantly higher-wattage bulb than the housing was designed for, in the hope of a brighter beam, can overheat the plastic reflector or the wiring connector behind it, leading to melted housings, discolored connectors, or a blown fuse at the worst possible moment. If you want a brighter, whiter light, look for a bulb with the correct wattage rating for your socket but a different color temperature or gas fill, rather than simply chasing a bigger number.
+              </p>
+              <p>
+                This is why we built the tool above the way we did — instead of guessing between similar-looking codes, you select your make, model, and year and get the exact low beam, high beam, and fog light bulb type your car&apos;s base or mid trim uses, along with a warning if that trim commonly ships with factory Xenon or LED instead.
+              </p>
+            </div>
+          </div>
+
+          {/* Halogen vs Xenon vs LED */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Halogen vs. Xenon (HID) vs. LED — What&apos;s Actually in Your Headlight?
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                <strong className="text-foreground">Halogen</strong> bulbs are still the most common type on the road worldwide. They work like a traditional incandescent bulb with a tungsten filament inside a halogen gas capsule, they&apos;re inexpensive, they&apos;re a straightforward plug-and-play swap, and they&apos;re what almost every base and mid trim in our database uses for low and high beam.
+              </p>
+              <p>
+                <strong className="text-foreground">Xenon, also called HID (High-Intensity Discharge),</strong> produces light by striking an electric arc between two electrodes inside a gas-filled bulb rather than heating a filament. This gives a noticeably brighter, whiter light and was common as a factory option on premium trims and European luxury models through the 2010s and into the 2020s. Critically, Xenon bulbs need a ballast — a small electronic unit that supplies the high-voltage pulse to strike the arc — so you can&apos;t simply drop a Xenon-coded bulb into a halogen housing and expect it to work; the ballast, wiring, and sometimes the projector lens itself are all part of the system.
+              </p>
+              <p>
+                <strong className="text-foreground">LED</strong> headlights use light-emitting diode arrays and have become the default factory option on new cars over the last several years, prized for their low power draw, instant-on brightness, and long service life. The catch is that many factory LED headlight units are sealed, non-serviceable assemblies — there&apos;s no individual bulb to swap at all, and a failure means replacing the entire headlight housing rather than a $15 bulb. If our tool flags a trim as likely factory LED, that&apos;s worth confirming before you assume a simple bulb swap will fix a dim or dead headlight.
+              </p>
+            </div>
+          </div>
+
+          {/* How to replace */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Replacing a Halogen Headlight Bulb Yourself
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                On most cars with halogen bulbs, replacement is one of the easier DIY jobs under the hood. Open the bonnet, locate the round rubber or plastic cover on the back of the headlight housing, and twist it counter-clockwise to remove it. You&apos;ll usually see the bulb held in place by either a spring wire clip or a twist-lock collar — release the clip or twist the bulb a quarter-turn to free it, then unplug the electrical connector from the back.
+              </p>
+              <p>
+                Before fitting the new bulb, avoid touching the glass envelope with bare fingers — skin oil creates a hot spot when the bulb heats up, which can cause premature failure or even cause the glass to crack. Hold it by the base or use a clean cloth or gloves. Push the new bulb in, reconnect the wiring, lock the clip or collar back into place, and refit the rubber cover, making sure it seats fully to keep moisture out of the housing. Test both low and high beam before closing the bonnet.
+              </p>
+              <p>
+                If your car uses Xenon or LED headlights, this is generally not a job to attempt without research specific to your model — Xenon systems carry a high-voltage charge even with the car off, and factory LED units are often sealed assemblies with no field-serviceable bulb at all.
+              </p>
+            </div>
+          </div>
+
+
           {/* Bulb type guide */}
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>

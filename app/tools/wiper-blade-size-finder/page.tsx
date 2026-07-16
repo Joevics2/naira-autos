@@ -106,6 +106,43 @@ export default function WiperBladeSizeFinderPage() {
             </div>
           </div>
 
+          {/* Why size matters */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Why Getting Your Wiper Blade Size Right Actually Matters
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                Windshield wipers seem like the simplest part on a car — a strip of rubber on an arm — but the size and fit of that strip is more precise than most drivers realize. Every wiper blade is engineered by the automaker to sweep a specific arc on a specific windshield curvature. Fit a blade that is even an inch too long or too short and you lose clear visibility exactly where you need it most: the outer edges of your field of vision during rain, snow, or highway spray. A blade that&apos;s too long can also strike the A-pillar or side mirror housing, chipping the rubber edge or bending the wiper arm over time. One that&apos;s too short leaves a visible unwiped strip along the edge of the glass, which is where oncoming headlight glare tends to scatter at night.
+              </p>
+              <p>
+                It isn&apos;t just about length either. Automakers pair a driver-side blade with a longer sweep and a shorter passenger-side blade because the driver&apos;s field of view needs the wider arc, while the passenger side only needs to clear enough glass for basic visibility and to keep the wiper motor linkage balanced. Get the pairing backwards — for example, fitting two identical-length blades on a car designed for asymmetric sizes — and you can end up with the blades colliding at the base of the windshield or leaving oddly-shaped smear patterns that never fully clear.
+              </p>
+              <p>
+                The connector type matters just as much as the length. Auto parts stores stock &quot;universal&quot; wiper blades with multi-adapter kits precisely because there is no single global standard — a hook-style blade physically will not click onto a bayonet arm, and a side-pin blade will wobble or detach on an arm it wasn&apos;t designed for, even if you force the length to match. Buying blindly by brand reputation instead of your actual arm type is one of the most common reasons people end up returning wiper blades or driving around with a loose, rattling blade that skips across the glass instead of gliding.
+              </p>
+              <p>
+                This is exactly why we built this tool the way we did: rather than making you guess or dig through a paper catalog at the counter, you select your make, model, and year and get the driver, passenger, and rear sizes together with the connector type your car actually uses — in one lookup, worldwide, for free.
+              </p>
+            </div>
+          </div>
+
+          {/* Signs it's time to replace */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Signs Your Wiper Blades Need Replacing
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-muted-foreground leading-relaxed">
+              <p><strong className="text-foreground">Streaking.</strong> A thin film of water or a hazy smear left behind after a pass usually means the rubber edge has hardened or developed a micro-tear that no longer holds a clean bead of water.</p>
+              <p><strong className="text-foreground">Skipping or chattering.</strong> If the blade jumps or juddders across the glass instead of gliding smoothly, the rubber has likely lost its flexibility, or the metal frame underneath has bent slightly out of shape.</p>
+              <p><strong className="text-foreground">Squeaking.</strong> A high-pitched squeal on each pass is often the first audible sign that the rubber has glazed over and stopped conforming to the curve of your windshield.</p>
+              <p><strong className="text-foreground">Visible cracking or splitting.</strong> UV exposure and heat dry out wiper rubber over time — once you can see cracks along the wiping edge, the blade is on borrowed time and will only get worse.</p>
+              <p><strong className="text-foreground">Reduced coverage.</strong> If a patch of windshield stays wet or streaked no matter how many passes the wiper makes, the blade may have separated from the frame at one point along its length.</p>
+              <p><strong className="text-foreground">It&apos;s simply been a while.</strong> Even blades that look fine benefit from replacement every 6–12 months — rubber degrades from sun and heat even in a garage-kept car, well before it looks visibly damaged.</p>
+            </div>
+          </div>
+
+
           {/* Connector types */}
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
@@ -137,6 +174,28 @@ export default function WiperBladeSizeFinderPage() {
               </table>
             </div>
           </div>
+
+          {/* Blade styles */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Conventional, Beam, and Hybrid Blades — What&apos;s the Difference?
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                Once you know your size, you&apos;ll still need to pick a style, and this is a separate decision from length or connector type. <strong className="text-foreground">Conventional (frame-style)</strong> blades use a jointed metal skeleton with several pressure points along the rubber — they&apos;re inexpensive and widely available, but the exposed frame can collect ice and snow in cold climates, which stops it from flexing evenly against the glass.
+              </p>
+              <p>
+                <strong className="text-foreground">Beam blades</strong> replace that metal skeleton with a single curved strip, usually with a rubber or silicone spine, that distributes pressure evenly across the entire length. They tend to hug curved windshields more precisely, run quieter, and resist ice buildup better, which is why most new cars have shipped with beam blades as standard equipment for the past decade or so.
+              </p>
+              <p>
+                <strong className="text-foreground">Hybrid blades</strong> combine a beam-style rubber element with a partial frame for extra rigidity at highway speeds, aiming for a middle ground between the two. For most drivers, matching whatever style came on the car from the factory is the safest choice — but if your original blades were a basic conventional frame and you drive somewhere with real winters, upgrading to a beam blade in the same size is a common and worthwhile improvement.
+              </p>
+              <p>
+                One more buying tip: silicone wiper blades cost more upfront than standard rubber but last considerably longer and resist UV cracking better, since silicone doesn&apos;t oxidize and harden the way natural or synthetic rubber does. If you keep a car for the long haul rather than replacing it every few years, the extra cost of silicone blades typically pays for itself in fewer replacement cycles.
+              </p>
+            </div>
+          </div>
+
 
           {/* FAQ */}
           <div>
