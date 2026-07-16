@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -105,6 +105,15 @@ const TOOLS: Tool[] = [
     icon: Map,
     label: 'Road Trip Calculator',
     description: 'Plan any road trip — total fuel cost, stops, and estimated travel time.',
+    category: 'Running Costs',
+  },
+  {
+    href: '/tools/wiper-blade-size-finder',
+    icon: Droplets,
+    label: 'Wiper Blade Size Finder',
+    description: 'Find the exact wiper blade sizes and connector type for your car by make, model, and year.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Running Costs',
   },
   // Due Diligence
