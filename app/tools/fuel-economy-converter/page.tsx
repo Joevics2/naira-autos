@@ -37,6 +37,8 @@ const SCHEMA = {
         { '@type': 'Question', name: 'What is a good L/100km figure?', acceptedAnswer: { '@type': 'Answer', text: 'Roughly speaking, under 6 L/100km is very efficient (small cars, hybrids), 6-9 L/100km is typical for mid-size sedans and crossovers, and above 10 L/100km is common for larger SUVs, trucks, and performance cars. Lower numbers mean better fuel economy in this unit.' } },
         { '@type': 'Question', name: 'Why do some countries use MPG and others use L/100km?', acceptedAnswer: { '@type': 'Answer', text: 'It comes down to which measurement system a country adopted historically. The US and UK use miles and gallons, so fuel economy is expressed as miles per gallon. Most of the rest of the world uses the metric system, so fuel economy is expressed as liters consumed per 100 kilometers traveled, or km per liter.' } },
         { '@type': 'Question', name: 'What is km/L and how is it different from L/100km?', acceptedAnswer: { '@type': 'Answer', text: 'Both are metric fuel economy units, but they measure in opposite directions. Km/L tells you how many kilometers you travel per liter of fuel (higher is better), while L/100km tells you how many liters you burn over a fixed 100km distance (lower is better). Km/L is common in Japan and parts of Asia, while L/100km is the standard in Europe, Australia, and most of the rest of the world.' } },
+        { '@type': 'Question', name: 'How do I turn a fuel economy figure into a monthly budget?', acceptedAnswer: { '@type': 'Answer', text: 'Multiply your expected monthly distance in kilometers by the L/100km figure, divide by 100, then multiply by your local fuel price per liter to get an estimated monthly fuel cost.' } },
+        { '@type': 'Question', name: 'Why do two similar MPG figures give different real-world costs?', acceptedAnswer: { '@type': 'Answer', text: 'MPG and km/L are not linear against L/100km. The same MPG gap matters far more at the low end (for example 15 vs 20 MPG) than at the high end (55 vs 60 MPG), because the relationship between the units is inverse rather than a straight line.' } },
       ],
     },
     { '@type': 'SoftwareApplication', name: 'Fuel Economy Unit Converter', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
@@ -180,6 +182,24 @@ export default function FuelEconomyConverterPage() {
             </div>
           </div>
 
+          {/* Turning a figure into an actual budget */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Turning a Converted Figure Into a Real Fuel Budget
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                A converted number on its own is only half the picture — the real value comes from turning it into money. Once you know a car&apos;s consumption in L/100km, the arithmetic for a monthly fuel budget is simple: multiply your expected monthly distance in kilometers by the L/100km figure, divide by 100, and multiply by the local fuel price per liter. A car doing 8 L/100km driven 1,200km a month at a fuel price of ₦1,200/liter, for example, burns roughly 96 liters and costs about ₦115,200 for that month, before accounting for traffic, air conditioning use, or a heavy right foot, all of which push real-world consumption above the manufacturer&apos;s tested figure.
+              </p>
+              <p>
+                This is also where unit confusion gets expensive in practice, not just on paper. Someone comparing a &quot;35 MPG&quot; American listing against a &quot;15 km/L&quot; Japanese-market alternative has no intuitive way to tell which is actually cheaper to run without converting both into the same unit first — and the difference between US and UK MPG alone is large enough to change which car looks like the better deal. If you&apos;re budgeting for a car purchase, especially an import, it&apos;s worth running every spec sheet you&apos;re comparing through a converter like the one above before you commit, rather than trusting whichever number looks the biggest.
+              </p>
+              <p>
+                For a fuller cost picture that includes actual local fuel prices rather than just the physics of conversion, pair this tool with our <Link href="/tools/fuel-cost-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">Fuel Cost Calculator</Link>, which takes a consumption figure and turns it into a real naira-and-kobo running cost based on distance and current pump prices.
+              </p>
+            </div>
+          </div>
+
           {/* FAQ */}
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Fuel Economy Conversion FAQ</h2>
@@ -189,6 +209,8 @@ export default function FuelEconomyConverterPage() {
                 { q: 'Is UK MPG the same as US MPG?', a: 'No — the UK (imperial) gallon is about 20% larger than the US gallon, so the same car shows a higher MPG figure in UK MPG than in US MPG. Always check which gallon a figure is based on.' },
                 { q: 'What is a good L/100km figure?', a: 'Under 6 L/100km is very efficient, 6–9 L/100km is typical for mid-size cars and crossovers, and above 10 L/100km is common for larger SUVs and trucks. Lower is better in this unit.' },
                 { q: 'What is km/L and how is it different from L/100km?', a: 'Km/L tells you distance traveled per liter (higher is better), while L/100km tells you liters burned over a fixed 100km (lower is better) — they measure the same thing in opposite directions.' },
+                { q: 'How do I turn a fuel economy figure into a monthly budget?', a: 'Multiply your expected monthly distance in km by the L/100km figure, divide by 100, then multiply by your local fuel price per liter. That gives an estimated monthly fuel cost — pair it with our Fuel Cost Calculator for the full picture.' },
+                { q: 'Why do two "similar" MPG figures give different real-world costs?', a: 'Because MPG and km/L aren\'t linear against L/100km — the same MPG gap matters far more at the low end (say 15 vs 20 MPG) than at the high end (55 vs 60 MPG), since the relationship is inverse, not straight-line.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
