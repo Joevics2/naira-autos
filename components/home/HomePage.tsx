@@ -3,7 +3,7 @@ import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
   Ship, Shield, FileText, Map, ClipboardCheck, Search,
   Camera, Newspaper, ChevronRight, Zap, TrendingUp, ArrowUpRight,
-  Clock, Tag,
+  Clock, Tag, ChevronDown,
 } from 'lucide-react';
 import { HomeFreshness } from './HomeFreshness';
 
@@ -426,6 +426,72 @@ export function HomePage() {
               </div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── About / SEO content ──────────────────────────────────────────── */}
+      <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
+        <div className="max-w-3xl">
+          <SectionLabel>About Naira Autos</SectionLabel>
+          <h2 className="text-2xl sm:text-3xl font-black uppercase text-foreground leading-tight mb-5" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+            Every Tool You Need to Buy, Own, and Maintain a Car — Free
+          </h2>
+          <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+            <p>
+              Naira Autos started as a car marketplace for the Nigerian market, but the questions car owners actually search for — what wiper blades fit my car, how much will import duty cost, what does this OBD-II code mean, is this VIN legitimate — aren&apos;t unique to Nigeria. They&apos;re the same questions asked by a driver in Lagos, Lahore, London, or Lagos, Portugal. So rather than build another listings site, we&apos;ve focused on building a growing library of free, no-signup tools and calculators that answer those questions directly, backed by guides written to actually explain the &quot;why&quot; behind the numbers rather than just spit one out, whether you&apos;re shopping for your first car or maintaining one you&apos;ve had for a decade.
+            </p>
+            <p>
+              The tools fall into three broad groups. <strong className="text-foreground">AI-powered tools</strong> like the AI Mechanic and AI Document Generator use language models to interpret symptoms, generate legal documents, and answer open-ended questions that a fixed calculator can&apos;t. <strong className="text-foreground">Calculators</strong> handle the arithmetic that&apos;s easy to get wrong by hand — import duty, auto loan repayments, registration fees, fuel cost and economy, insurance premiums — turning a spec sheet or a set of assumptions into a real number you can budget against. <strong className="text-foreground">Research &amp; lookup tools</strong> — VIN checkers, the OBD-II code database, the wiper blade and headlight bulb finders, the auto glossary — exist for the moment you already have a car in front of you and need a fast, specific answer rather than a general article.
+            </p>
+            <p>
+              Some tools, like the import duty calculator and vehicle papers checklist, are deliberately built around Nigerian regulations and pricing, because that&apos;s where we started and where a large share of our readers are shopping or importing from. Others — the fuel economy converter, wiper blade finder, headlight bulb finder, and OBD-II lookup — are built to work the same way regardless of what country you&apos;re in, because a Toyota Camry&apos;s wiper size doesn&apos;t change at the border. We try to be upfront in each tool&apos;s own guide about which category it falls into, so you&apos;re never guessing whether a number applies to your market.
+            </p>
+            <p>
+              Everything here is free to use, with no account, paywall, or email capture required to get an answer. We keep the lights on through ads and by continuing to operate the car marketplace side of the business, not by charging for tools — if you find one useful, the best way to support it is to come back and use another one, or to tell someone else who&apos;s asking the same question you were.
+            </p>
+            <p>
+              We&apos;re also upfront about where the data behind each tool comes from and its limits. Reference figures like wiper blade lengths, headlight bulb codes, and OBD-II fault descriptions are drawn from widely documented manufacturer and industry standards for the common trim of each generation — genuinely useful as a starting point, but not a substitute for reading the code printed on your own bulb or measuring your own blade before you order a replacement, since higher trims and regional variants sometimes differ. Where a figure depends on something that changes often, like fuel prices or import duty rates, we try to note that clearly in the tool itself rather than let a stale number sit unlabeled on the page.
+            </p>
+          </div>
+        </div>
+
+        {/* Which tool should you use */}
+        <div className="max-w-3xl mt-10">
+          <h3 className="text-lg font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+            Not Sure Where to Start?
+          </h3>
+          <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+            <p>
+              If you&apos;re trying to work out what a car will actually cost to bring in and register, start with the <Link href="/tools/import-duty-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">import duty calculator</Link> and <Link href="/tools/registration-fee-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">registration fee calculator</Link>. If you&apos;re trying to figure out monthly running costs before you commit to a purchase, the <Link href="/tools/fuel-cost-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">fuel cost calculator</Link>, <Link href="/tools/fuel-economy-converter" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">fuel economy converter</Link>, and <Link href="/tools/auto-loan-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">auto loan calculator</Link> cover fuel and financing. If you already own the car and something&apos;s wrong with it, the <Link href="/tools/ai-mechanic" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI Mechanic</Link> and <Link href="/tools/obd-codes" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">OBD-II code lookup</Link> are the fastest way to a diagnosis, and the <Link href="/tools/wiper-blade-size-finder" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">wiper blade</Link> and <Link href="/tools/headlight-bulb-finder" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">headlight bulb</Link> finders get you the exact part number before you head to the counter. And if you&apos;re not sure a listing or a used car is what it claims to be, the <Link href="/tools/vin-checker" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">VIN checker</Link> and <Link href="/tools/vehicle-papers-checklist" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">vehicle papers checklist</Link> are built for exactly that kind of due diligence.
+            </p>
+          </div>
+        </div>
+
+        {/* Mini FAQ */}
+        <div className="max-w-3xl mt-10">
+          <h3 className="text-lg font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+            Common Questions
+          </h3>
+          <div className="space-y-2">
+            {[
+              { q: 'Is Naira Autos free to use?', a: 'Yes — every tool, calculator, and guide on the site is free with no signup or paywall. We support the site through ads and our car marketplace, not by charging for tools.' },
+              { q: 'Are the tools only useful for Nigeria?', a: 'No. Some tools like the import duty calculator are built specifically around Nigerian rules and pricing, but most — including the fuel economy converter, wiper blade finder, headlight bulb finder, and OBD-II lookup — work the same way anywhere in the world.' },
+              { q: 'How accurate are the calculators and lookup tools?', a: 'We aim for accuracy based on publicly documented standards and manufacturer reference data, but vehicle specs vary by trim and region, so we always recommend double-checking anything safety-related (like bulb type or brake specs) against your owner\'s manual or the part you\'re replacing.' },
+              { q: 'Do I need to create an account to use a tool?', a: 'No account is required for any tool on the site. A few features tied to the marketplace side, like listing a car for sale, do require sign-in.' },
+              { q: 'Which tools work outside Nigeria?', a: 'The fuel economy converter, wiper blade size finder, headlight bulb finder, OBD-II code lookup, and auto glossary are built to work the same way anywhere. Tools tied to specific duty rates, registration fees, or currency are Nigeria-focused, and we label those clearly.' },
+              { q: 'How often is the data on each tool updated?', a: 'Reference data like bulb and wiper sizes changes rarely, so we revisit it periodically as new models launch. Figures tied to prices, rates, or regulations are reviewed more frequently since those change on their own schedule, not ours.' },
+            ].map(({ q, a }) => (
+              <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
+                  <span className="text-sm font-semibold text-foreground">{q}</span>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 group-open:rotate-180 transition-transform" />
+                </summary>
+                <div className="px-4 pb-4"><p className="text-sm text-muted-foreground leading-relaxed">{a}</p></div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
