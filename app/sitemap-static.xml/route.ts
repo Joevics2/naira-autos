@@ -31,6 +31,7 @@ const staticPages = [
   { url: '/tools/wiper-blade-size-finder',      priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/headlight-bulb-finder',        priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/fuel-economy-converter',       priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/rideshare-earnings-calculator', priority: 0.7, changefreq: 'monthly' },
   { url: '/documents',                          priority: 0.7, changefreq: 'weekly'  },
   { url: '/about',                              priority: 0.5, changefreq: 'monthly' },
   { url: '/contact',                            priority: 0.5, changefreq: 'monthly' },

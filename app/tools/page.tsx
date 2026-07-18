@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -130,6 +130,15 @@ const TOOLS: Tool[] = [
     icon: ArrowLeftRight,
     label: 'Fuel Economy Unit Converter',
     description: 'Convert fuel economy instantly between MPG (US), MPG (UK), L/100km, and km/L.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Running Costs',
+  },
+  {
+    href: '/tools/rideshare-earnings-calculator',
+    icon: Percent,
+    label: 'Ride-Share Earnings Calculator',
+    description: 'See your real Uber, Bolt, or Lyft net profit after commission, fuel, and maintenance — any currency.',
     badge: 'NEW',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Running Costs',
