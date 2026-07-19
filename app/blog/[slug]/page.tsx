@@ -8,7 +8,10 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-type FAQ = { question: string; answer: string };
+// Always render fresh — a newly published/edited post should never be
+// served from a stale cached copy of this page.
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -151,22 +154,7 @@ export default async function BlogDetailPage({ params }: Props) {
     itemListElement: breadcrumbItems,
   };
 
-  const faqs: FAQ[] = Array.isArray(post.faqs) ? (post.faqs as FAQ[]) : [];
-
-  const faqSchema =
-    faqs.length > 0
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          mainEntity: faqs.map((faq) => ({
-            '@type': 'Question',
-            name: faq.question,
-            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-          })),
-        }
-      : null;
-
-  const schemas = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
+  const schemas = [articleSchema, breadcrumbSchema];
 
   return (
     <>
@@ -180,7 +168,6 @@ export default async function BlogDetailPage({ params }: Props) {
       <BlogDetailClient
         post={{ ...post, featured_image: imageUrl }}
         relatedPosts={relatedPosts}
-        faqs={faqs}
       />
     </>
   );

@@ -14,7 +14,6 @@ import {
   Tag,
   Clock,
   User,
-  ChevronDown,
   Check,
   Link2,
   BookOpen,
@@ -36,52 +35,13 @@ type BlogPost = {
   updated_at: string;
 };
 
-type FAQ = { question: string; answer: string };
-
 type Props = {
   post: BlogPost;
   relatedPosts: BlogPost[];
-  faqs: FAQ[];
 };
 
 // ── Category helpers ─────────────────────────────────────────────────
 const categorySlug = (cat: string) => cat.toLowerCase().replace(/\s+/g, '-');
-
-// ── FAQ Accordion ────────────────────────────────────────────────────
-function FAQAccordion({ faqs }: { faqs: FAQ[] }) {
-  const [open, setOpen] = useState<number | null>(null);
-
-  return (
-    <section className="mt-12" aria-labelledby="faq-heading">
-      <h2 id="faq-heading" className="text-2xl font-bold mb-6">
-        Frequently Asked Questions
-      </h2>
-      <div className="divide-y divide-border rounded-xl border overflow-hidden">
-        {faqs.map((faq, i) => (
-          <div key={i}>
-            <button
-              className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-muted/40 transition-colors"
-              onClick={() => setOpen(open === i ? null : i)}
-              aria-expanded={open === i}
-            >
-              <span className="font-medium pr-4">{faq.question}</span>
-              <ChevronDown
-                className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-200 ${
-                  open === i ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-            {open === i && (
-              <div className="px-6 pb-5 text-muted-foreground leading-relaxed">
-                {faq.answer}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 // ── Share Button ─────────────────────────────────────────────────────
 function ShareButton({ title, excerpt }: { title: string; excerpt: string | null }) {
@@ -118,7 +78,7 @@ function ShareButton({ title, excerpt }: { title: string; excerpt: string | null
 }
 
 // ── Main component ───────────────────────────────────────────────────
-export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
+export default function BlogDetailClient({ post, relatedPosts }: Props) {
   const router = useRouter();
 
   const catSlug = post.category ? categorySlug(post.category) : null;
@@ -224,9 +184,6 @@ export default function BlogDetailClient({ post, relatedPosts, faqs }: Props) {
             {post.content && (
               <BlogMarkdownRenderer content={post.content} />
             )}
-
-            {/* ── FAQ section ── */}
-            {faqs.length > 0 && <FAQAccordion faqs={faqs} />}
 
             {/* ── Tags ── */}
             {post.tags && post.tags.length > 0 && (
