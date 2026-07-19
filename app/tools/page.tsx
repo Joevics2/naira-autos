@@ -23,12 +23,21 @@ type Tool = {
 const TOOLS: Tool[] = [
   // AI / Smart
   {
-    href: '/evaluate-car',
+    href: '/evaluate-used-car',
     icon: Camera,
-    label: 'Car Valuation',
-    description: 'Get an AI-powered estimate of your car\'s current market value in seconds.',
+    label: 'AI Car Valuation (Photo)',
+    description: 'Upload a photo and get an AI-powered estimate of your car\'s current market value in seconds.',
     badge: 'FREE',
     badgeColor: 'bg-amber-400/15 text-amber-400 border border-amber-400/30',
+    category: 'AI & Smart',
+  },
+  {
+    href: '/evaluate-car',
+    icon: Percent,
+    label: 'Car Value Estimator (No Photo)',
+    description: 'Estimate what your car is worth from its price, age, mileage, and condition — no photo needed.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'AI & Smart',
   },
   {

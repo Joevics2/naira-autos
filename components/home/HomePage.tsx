@@ -11,10 +11,10 @@ import { HomeFreshness } from './HomeFreshness';
 
 const FEATURED_TOOLS = [
   {
-    href: '/evaluate-car',
+    href: '/evaluate-used-car',
     icon: Camera,
-    label: 'Car Valuation',
-    description: 'AI-powered market value in seconds',
+    label: 'AI Car Valuation',
+    description: 'Upload a photo, get market value in seconds',
     badge: 'FREE',
     accent: 'orange',
   },
@@ -231,7 +231,7 @@ export function HomePage() {
               <ChevronRight className="h-4 w-4" />
             </Link>
             <Link
-              href="/evaluate-car"
+              href="/evaluate-used-car"
               className="inline-flex items-center gap-2 border border-border hover:border-orange-400/60 bg-card hover:bg-orange-500/5 text-foreground font-semibold text-sm px-6 py-3 rounded-full transition-all"
             >
               <Camera className="h-4 w-4 text-orange-500" />

@@ -10,6 +10,7 @@ export const revalidate = 86400;
 const staticPages = [
   { url: '/',                                   priority: 1.0, changefreq: 'weekly'  },
   { url: '/sell-for-me',                        priority: 0.9, changefreq: 'weekly'  },
+  { url: '/evaluate-used-car',                  priority: 0.9, changefreq: 'weekly'  },
   { url: '/evaluate-car',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/blog',                               priority: 0.8, changefreq: 'daily'   },
   { url: '/vehicles',                           priority: 0.8, changefreq: 'weekly'  },

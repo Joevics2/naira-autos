@@ -4,9 +4,9 @@ import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, Chevro
 import { EvaluateCarClient } from './client';
 
 export const metadata: Metadata = {
-  title: 'Free Car Valuation | How Much Is My Car Worth? | Naira Autos',
+  title: 'AI Car Valuation | Upload a Photo, Get Your Used Car\'s Worth | Naira Autos',
   description:
-    'Get a free AI-powered car valuation. Find out how much your used car is worth, in your own currency. Upload a photo — instant price estimate for Nigeria, US, UK, and more.',
+    'Get a free AI-powered valuation of your used car. Upload a photo and get an instant price estimate in your own currency — for Nigeria, US, UK, and more.',
   keywords: [
     'car valuation',
     'how much is my car worth',
@@ -18,29 +18,29 @@ export const metadata: Metadata = {
     'car valuation Nigeria',
   ].join(', '),
   openGraph: {
-    title: 'Free Car Valuation — How Much Is Your Car Worth?',
+    title: 'AI Car Valuation — Upload a Photo, Get Your Car\'s Worth',
     description:
       'AI-powered market price estimate in your own currency. Upload a photo of your car and get an instant valuation. 100% free.',
-    url: 'https://naira.autos/evaluate-car',
+    url: 'https://naira.autos/evaluate-used-car',
     siteName: 'Naira Autos',
     locale: 'en_NG',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://naira.autos/evaluate-car',
+    canonical: 'https://naira.autos/evaluate-used-car',
   },
 };
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'Free Car Valuation',
+  name: 'AI Car Valuation (Upload a Photo)',
   description:
     'Free AI-powered car valuation tool. Instant price estimate in your own currency for used vehicles, including Tokunbo and Nigerian-used cars.',
-  url: 'https://naira.autos/evaluate-car',
+  url: 'https://naira.autos/evaluate-used-car',
   mainEntity: {
     '@type': 'SoftwareApplication',
-    name: 'Naira Autos Car Valuation Tool',
+    name: 'Naira Autos AI Car Valuation Tool',
     applicationCategory: 'AutomotiveApplication',
     operatingSystem: 'Web',
     offers: {
@@ -55,7 +55,7 @@ const jsonLd = {
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://naira.autos' },
       { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://naira.autos/tools' },
-      { '@type': 'ListItem', position: 3, name: 'Car Valuation', item: 'https://naira.autos/evaluate-car' },
+      { '@type': 'ListItem', position: 3, name: 'AI Car Valuation', item: 'https://naira.autos/evaluate-used-car' },
     ],
   },
   faqPage: {
@@ -147,7 +147,7 @@ const FAQ_ITEMS = [
   },
 ];
 
-export default function EvaluateCarPage() {
+export default function EvaluateUsedCarPage() {
   return (
     <>
       <script
@@ -205,7 +205,7 @@ export default function EvaluateCarPage() {
               className="font-black uppercase text-foreground leading-none mb-6"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(22px, 3vw, 34px)' }}
             >
-              WHAT DETERMINES YOUR CAR'S PRICE IN NIGERIA?
+              WHAT DETERMINES YOUR CAR&apos;S PRICE IN NIGERIA?
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {VALUATION_FACTORS.map(({ icon: Icon, title, body }) => (
@@ -232,19 +232,19 @@ export default function EvaluateCarPage() {
             </h2>
 
             <p>
-              Nigeria's used car market is one of the largest in sub-Saharan Africa — <strong className="text-foreground">over a million vehicles change hands every year</strong>, with the market valued at approximately $1.18 billion USD in 2025 and growing. Yet despite this scale, accurate pricing remains a challenge. There is no single, universally accepted valuation standard, and the gap between what sellers expect and what buyers are willing to pay is often wide.
+              Nigeria&apos;s used car market is one of the largest in sub-Saharan Africa — <strong className="text-foreground">over a million vehicles change hands every year</strong>, with the market valued at approximately $1.18 billion USD in 2025 and growing. Yet despite this scale, accurate pricing remains a challenge. There is no single, universally accepted valuation standard, and the gap between what sellers expect and what buyers are willing to pay is often wide.
             </p>
 
             <p>
-              Whether you're selling a 2016 Toyota Camry in Lagos or a 2014 Honda Accord in Abuja, knowing your car's true market value is the most important step before you list it. Price too high and your listing collects dust. Price too low and you leave hundreds of thousands of Naira on the table.
+              Whether you&apos;re selling a 2016 Toyota Camry in Lagos or a 2014 Honda Accord in Abuja, knowing your car&apos;s true market value is the most important step before you list it. Price too high and your listing collects dust. Price too low and you leave hundreds of thousands of Naira on the table.
             </p>
 
             <h3 className="text-foreground font-bold text-base mt-6 mb-2">Tokunbo vs. Nigerian Used: The Price Gap</h3>
             <p>
-              The most significant pricing divide in the Nigerian car market is between <strong className="text-foreground">Tokunbo (foreign-used)</strong> and <strong className="text-foreground">Nigerian-used</strong> vehicles. Tokunbo cars — typically imported from the United States, Canada, or Japan — command a 20–40% premium over locally used equivalents of the same make, model, and year. The reason is straightforward: Tokunbo cars tend to have lower mileage, more consistent maintenance histories, and fewer signs of Nigeria's tough road conditions.
+              The most significant pricing divide in the Nigerian car market is between <strong className="text-foreground">Tokunbo (foreign-used)</strong> and <strong className="text-foreground">Nigerian-used</strong> vehicles. Tokunbo cars — typically imported from the United States, Canada, or Japan — command a 20–40% premium over locally used equivalents of the same make, model, and year. The reason is straightforward: Tokunbo cars tend to have lower mileage, more consistent maintenance histories, and fewer signs of Nigeria&apos;s tough road conditions.
             </p>
             <p>
-              However, a clean Nigerian-used car with "first body" status — meaning one careful owner, no accidents, and full documentation — can sometimes achieve prices approaching the Tokunbo equivalent. The key is honesty about condition and completeness of paperwork.
+              However, a clean Nigerian-used car with &quot;first body&quot; status — meaning one careful owner, no accidents, and full documentation — can sometimes achieve prices approaching the Tokunbo equivalent. The key is honesty about condition and completeness of paperwork.
             </p>
 
             <h3 className="text-foreground font-bold text-base mt-6 mb-2">How Naira Exchange Rate Affects Car Prices</h3>
@@ -252,7 +252,7 @@ export default function EvaluateCarPage() {
               Nigeria imports the vast majority of its used vehicles, which means car prices are directly linked to the Naira/USD exchange rate. When the Naira weakens — as it did significantly in 2023 and 2024 — the landed cost of Tokunbo cars rises sharply, pushing market prices up. With the Naira stabilising near ₦1,436/$ in early 2026, prices have begun to moderate slightly, but remain historically elevated compared to pre-2023 levels.
             </p>
             <p>
-              This means valuations from 2022 or earlier are unreliable guides to current market prices. Always use current market data — like our AI valuation tool, which is calibrated to your selected country's live market conditions.
+              This means valuations from 2022 or earlier are unreliable guides to current market prices. Always use current market data — like our AI valuation tool, which is calibrated to your selected country&apos;s live market conditions.
             </p>
 
             <h3 className="text-foreground font-bold text-base mt-6 mb-2">How Location Affects Car Value</h3>
@@ -268,7 +268,7 @@ export default function EvaluateCarPage() {
               In the Nigerian market, <strong className="text-foreground">complete and genuine vehicle documents are non-negotiable for maximum value</strong>. Buyers — rightly — discount cars with incomplete paperwork because the risk of legal complications in ownership transfer is real. For Tokunbo cars, the original customs duty receipt and clearing documents are essential. For Nigerian-used cars, a clean chain of ownership and valid FRSC registration significantly reduce buyer hesitation.
             </p>
             <p>
-              Missing documents can reduce your car's achievable price by 15–25%, sometimes more. If your papers are incomplete, resolve that before listing — the cost of documentation is usually far less than the discount buyers will demand.
+              Missing documents can reduce your car&apos;s achievable price by 15–25%, sometimes more. If your papers are incomplete, resolve that before listing — the cost of documentation is usually far less than the discount buyers will demand.
             </p>
 
             <h3 className="text-foreground font-bold text-base mt-6 mb-2">Most Valuable Car Brands in Nigeria</h3>
