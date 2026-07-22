@@ -34,8 +34,8 @@ const TOOLS: Tool[] = [
   {
     href: '/evaluate-car',
     icon: Percent,
-    label: 'Car Value Estimator (No Photo)',
-    description: 'Estimate what your car is worth from its price, age, mileage, and condition — no photo needed.',
+    label: 'Car Valuation (Nigeria)',
+    description: 'Upload a photo and get an AI-powered valuation calibrated to the Nigerian market — Tokunbo vs Nigerian-used pricing.',
     badge: 'NEW',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'AI & Smart',

@@ -1,200 +1,312 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowLeft, ChevronRight, ChevronDown, Camera, TrendingDown, Gauge, Wrench } from 'lucide-react';
-import CarValueEstimatorClient from './client';
+import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield } from 'lucide-react';
+import { EvaluateCarClient } from './client';
 
 export const metadata: Metadata = {
-  title: 'Car Value Estimator — What\'s My Car Worth? (No Photo Needed)',
-  description: 'Estimate your car\'s current value from its original price, age, mileage, and condition — free, instant, works in any currency, no photo required.',
-  alternates: { canonical: 'https://www.naira.autos/evaluate-car' },
+  title: 'Free Car Valuation Nigeria | How Much Is My Car Worth? | Naira Autos',
+  description:
+    'Get a free AI-powered car valuation in Nigeria. Find out how much your Tokunbo or Nigerian-used car is worth in Lagos, Abuja, Port Harcourt and more. Upload a photo — instant Naira price estimate.',
+  keywords: [
+    'car valuation Nigeria',
+    'how much is my car worth Nigeria',
+    'tokunbo car price checker',
+    'used car valuation Nigeria',
+    'car price Nigeria',
+    'free car valuation Lagos',
+    'car worth Nigeria naira',
+    'Nigerian used car price estimate',
+    'sell my car Nigeria value',
+    'car market value Nigeria',
+  ].join(', '),
   openGraph: {
-    title: 'Car Value Estimator | Naira Autos',
-    description: 'Estimate your car\'s current market value from price, age, mileage, and condition — free and instant, any currency.',
-    url: 'https://www.naira.autos/evaluate-car',
+    title: 'Free Car Valuation Nigeria — How Much Is Your Car Worth?',
+    description:
+      'AI-powered Nigerian market price estimate. Upload a photo of your Tokunbo or used car and get an instant Naira valuation. 100% free.',
+    url: 'https://naira.autos/evaluate-car',
+    siteName: 'Naira Autos',
+    locale: 'en_NG',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://naira.autos/evaluate-car',
   },
 };
 
-const SCHEMA = {
+const jsonLd = {
   '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/evaluate-car',
-      name: 'Car Value Estimator — What\'s My Car Worth? (No Photo Needed)',
-      description: 'Estimate your car\'s current value from its original price, age, mileage, and condition — free, instant, works in any currency, no photo required.',
-      url: 'https://www.naira.autos/evaluate-car',
-      breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
-        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
-        { '@type': 'ListItem', position: 3, name: 'Car Value Estimator', item: 'https://www.naira.autos/evaluate-car' },
-      ]},
+  '@type': 'WebPage',
+  name: 'Free Car Valuation Nigeria',
+  description:
+    'Free AI-powered car valuation tool for the Nigerian used car market. Instant Naira price estimate for Tokunbo and Nigerian-used vehicles.',
+  url: 'https://naira.autos/evaluate-car',
+  mainEntity: {
+    '@type': 'SoftwareApplication',
+    name: 'Naira Autos Car Valuation Tool',
+    applicationCategory: 'AutomotiveApplication',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'NGN',
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        { '@type': 'Question', name: 'How much does a car depreciate each year?', acceptedAnswer: { '@type': 'Answer', text: 'A typical new car loses around 20% of its value in the first year, then roughly 10–15% a year for the next several years, before depreciation slows down after around year 5 or 6. Luxury and quickly-changing models tend to depreciate faster than economy models known for reliability.' } },
-        { '@type': 'Question', name: 'Does high mileage always lower a car\'s value?', acceptedAnswer: { '@type': 'Answer', text: 'Generally yes, but it matters relative to the car\'s age. A 5-year-old car with 40,000km is considered low mileage and can be worth more than average, while the same car with 150,000km is considered high mileage and worth less than average.' } },
-        { '@type': 'Question', name: 'How much does an accident history lower resale value?', acceptedAnswer: { '@type': 'Answer', text: 'A documented prior accident, even after a proper repair, commonly reduces a car\'s resale value by around 10–15% compared to an equivalent accident-free example, because buyers price in the uncertainty around hidden damage.' } },
-        { '@type': 'Question', name: 'What\'s the difference between this tool and the AI photo valuation?', acceptedAnswer: { '@type': 'Answer', text: 'This estimator uses general depreciation rules of thumb applied to numbers you enter — original price, age, mileage, and condition — with no photo required. The AI valuation tool instead analyzes an actual photo of your car and cross-references real listing data to identify the exact model and produce a market-calibrated estimate.' } },
-        { '@type': 'Question', name: 'Is this a guaranteed sale price?', acceptedAnswer: { '@type': 'Answer', text: 'No. It\'s a rule-of-thumb estimate meant to give you a reasonable starting point, not a guaranteed price. Actual resale value depends on local demand, specific trim, service history, and negotiation.' } },
-      ],
-    },
-    { '@type': 'SoftwareApplication', name: 'Car Value Estimator', applicationCategory: 'AutomotiveApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
-  ],
+    description:
+      'Upload a photo of your car and get an instant AI-powered market valuation in Nigerian Naira, calibrated to Lagos, Abuja, and Port Harcourt market rates.',
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://naira.autos' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://naira.autos/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Car Valuation', item: 'https://naira.autos/evaluate-car' },
+    ],
+  },
+  faqPage: {
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'How much is my Tokunbo car worth in Nigeria?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Tokunbo (foreign-used) car prices in Nigeria depend on the make, model, year, trim level, and condition. A Tokunbo Toyota Camry 2016 in good condition typically sells for ₦8–₦12 million in Lagos, while a Tokunbo Honda Accord 2016 ranges from ₦7–₦10 million. Use our free AI valuation tool for a precise estimate based on your specific car.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What factors affect car valuation in Nigeria?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The main factors are: (1) Brand and model — Toyota and Honda hold their value best in Nigeria. (2) Whether it is Tokunbo (foreign-used), Nigerian-used, or brand new. (3) Year of manufacture and trim level. (4) Body condition — dents, rust, or paint damage reduce value. (5) Engine and mechanical condition. (6) Completeness of vehicle documents (customs papers, proof of ownership). (7) Location — Lagos prices are typically 5–10% higher than Abuja or Port Harcourt.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is a Tokunbo car worth more than a Nigerian-used car?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, generally. Tokunbo (foreign-used) cars command a 20–40% premium over equivalent Nigerian-used cars because they typically have lower mileage, less wear, better maintenance history, and no local accident history. However, a clean Nigerian-used "first body" car can sometimes fetch a comparable price if condition and documents are impeccable.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I know if I am selling my car at the right price in Nigeria?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Use our free car valuation tool — upload a photo and get an AI-powered estimate calibrated to current Nigerian market data. You can also check active listings on Naira Autos to see what similar cars are selling for. As a rule, price your car 5–10% above your minimum acceptable price to leave room for negotiation, which is standard in the Nigerian car market.',
+        },
+      },
+    ],
+  },
 };
 
-export default function CarValueEstimatorPage() {
+const VALUATION_FACTORS = [
+  {
+    icon: TrendingUp,
+    title: 'Brand & Resale Value',
+    body: 'Toyota and Honda consistently command the highest resale values in Nigeria due to part availability and proven reliability. Lexus, Mercedes-Benz, and BMW retain value well at the top end.',
+  },
+  {
+    icon: Shield,
+    title: 'Tokunbo vs. Nigerian Used',
+    body: 'Foreign-used (Tokunbo) cars fetch 20–40% more than equivalent Nigerian-used cars. "First body" status — meaning one careful Nigerian owner — can partially close that gap.',
+  },
+  {
+    icon: CheckCircle2,
+    title: 'Documents & Papers',
+    body: 'Complete paperwork (customs duty receipt, proof of ownership, valid registration) is non-negotiable. Missing or questionable documents can reduce your car\'s value by 15–25%.',
+  },
+  {
+    icon: AlertCircle,
+    title: 'Body Condition',
+    body: 'A very clean exterior with no dents, rust, or faded paint can add 10–15% to market value. Visible body damage is the fastest way to lose Naira on your sale.',
+  },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: 'How much is my Tokunbo car worth in Nigeria?',
+    a: 'It depends on the make, model, year, trim, and condition. A Tokunbo Toyota Camry 2016 in clean condition typically sells for ₦8–₦12 million in Lagos. A Tokunbo Honda Accord 2016 ranges ₦7–₦10 million. Upload your car photo above for a precise estimate.',
+  },
+  {
+    q: 'What factors affect car valuation in Nigeria?',
+    a: 'The main factors are: brand (Toyota and Honda hold value best), Tokunbo vs. Nigerian-used status, year and trim, body condition, engine health, completeness of documents, and location. Lagos prices are typically 5–10% higher than Abuja or Port Harcourt.',
+  },
+  {
+    q: 'Is a Tokunbo car worth more than a Nigerian-used car?',
+    a: 'Yes, typically 20–40% more — because Tokunbo cars tend to have lower mileage, better maintenance history, and no local accident history. A clean Nigerian-used "first body" car can sometimes command a comparable price if condition and documents are excellent.',
+  },
+  {
+    q: 'How do I price my car correctly before selling in Nigeria?',
+    a: 'Use our free valuation tool above, then check active Naira Autos listings for similar cars. Price 5–10% above your minimum to allow room for negotiation — standard practice in the Nigerian market.',
+  },
+  {
+    q: 'Do car prices differ between Lagos, Abuja, and Port Harcourt?',
+    a: 'Yes. Lagos typically sees the highest prices due to market volume and faster buyer demand. Abuja is close behind. Port Harcourt and other cities tend to be 5–10% lower for most models.',
+  },
+  {
+    q: 'How accurate is an AI car valuation in Nigeria?',
+    a: 'Our AI valuation uses Gemini Vision to identify your exact car from the photo, then cross-references real Nigerian market data to produce a Naira price range. It\'s a reliable starting point — treat it as a benchmark, not a contract price, since final value depends on negotiation and buyer inspection.',
+  },
+];
+
+export default function EvaluateCarPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-      <div className="relative bg-[#080C10] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
-        <div className="absolute top-0 left-0 w-96 h-96 bg-sky-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-sky-500/20 border border-white/15 hover:border-sky-500/40 text-white/60 hover:text-sky-400 transition-all" aria-label="Back">
-              <ArrowLeft className="h-4 w-4" />
-            </Link>
-            <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
-              <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
-              <ChevronRight className="h-3 w-3" />
-              <span className="text-white/50">Car Value Estimator</span>
-            </nav>
-          </div>
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-xs font-bold tracking-widest uppercase text-white bg-sky-500 px-3 py-1 rounded-full">100% Free</span>
-              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">No photo needed</span>
-            </div>
-            <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
-              style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
-              Car Value<br /><span className="text-sky-400">Estimator</span>
+      <div className="min-h-screen bg-background">
+
+        {/* ── Dark hero ── */}
+        <div className="bg-[#080C10] pt-16 pb-12 px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
+              <Sparkles className="h-3 w-3" />
+              AI-Powered · Free
+            </span>
+            <h1
+              className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
+              style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(32px, 5vw, 64px)' }}
+            >
+              WHAT IS YOUR<br />
+              <span className="text-amber-400">CAR WORTH?</span>
             </h1>
-            <p className="text-white/80 text-lg font-semibold leading-snug mb-2">Just the numbers — price, age, mileage, condition.</p>
-            <p className="text-white/75 text-sm leading-relaxed">Get a rule-of-thumb estimate of your car&apos;s current value in seconds, in any currency. No photo, no signup — have a photo instead? Try our AI valuation tool.</p>
+            <p className="text-white/50 text-base md:text-lg font-light max-w-md mx-auto leading-relaxed">
+              Upload a photo — get an instant Nigerian market valuation powered by real listing data and AI.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-5 text-white/30 text-xs font-medium">
+              <span className="flex items-center gap-1.5">
+                <Camera className="h-3.5 w-3.5 text-amber-400" /> Photo analysis
+              </span>
+              <span className="w-px h-3 bg-white/20 hidden sm:block" />
+              <span>Lagos · Abuja · Port Harcourt</span>
+              <span className="w-px h-3 bg-white/20 hidden sm:block" />
+              <span className="text-amber-400 font-semibold">100% Free</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <CarValueEstimatorClient />
-
-      <div className="bg-muted/30 border-t border-border">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-12">
-
-          {/* How the estimate works */}
-          <div className="max-w-3xl">
-            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-              How This Estimate Is Calculated
-            </h2>
-            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-              <p>
-                Every car loses value the moment it&apos;s driven off the lot, and it keeps losing value on a fairly predictable curve from there — steepest in the first year, then gradually leveling off. This estimator applies that curve directly to the original price you enter: roughly 20% in year one, then about 15% a year through year five, and closer to 10% a year after that, compounding each year rather than simply subtracting a flat percentage. A car that&apos;s five years old, in other words, isn&apos;t worth &quot;75% off&quot; a flat rate — it&apos;s worth whatever&apos;s left after each of those years takes its own bite out of what remained.
-              </p>
-              <p>
-                On top of the age curve, the estimate adjusts for three more things you actually control or can observe: mileage relative to what&apos;s typical for the car&apos;s age (higher than average pulls the estimate down, lower than average pushes it up), condition (excellent, good, fair, or poor, each with its own multiplier), and whether the car has a documented accident in its history, which knocks off roughly 10–15% even after a proper repair, since buyers price in the uncertainty. None of these adjustments require knowing your specific make and model — they&apos;re general rules that hold reasonably well across most ordinary cars, which is exactly what makes this useful as a fast, no-photo starting point rather than a precise appraisal.
-              </p>
-            </div>
+        {/* ── Valuation widget ── */}
+        <div className="max-w-2xl mx-auto px-4 py-10">
+          <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+            <EvaluateCarClient />
           </div>
+        </div>
 
-          {/* Worked example */}
-          <div className="max-w-3xl">
-            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-              A Worked Example
-            </h2>
-            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-              <p>
-                Take a car that cost 15,000,000 brand new and is now 5 years old, with 90,000km on it and no accident history, in generally good condition. The age curve alone brings it down to roughly 41.8% of its original price — about 6,264,000 — after five successive years of depreciation compounding on top of each other rather than five flat 15% chunks subtracted at once. From there, the mileage adjustment comes into play: at 90,000km against an expected 75,000km for a car this age, that&apos;s about 20% more distance than typical, which trims the estimate by roughly 3%. Good condition with no accident history doesn&apos;t move the number further in either direction, since those are treated as the neutral baseline.
-              </p>
-              <p>
-                Put together, the estimate lands around 6,076,000 — a likely range of roughly 5,469,000 to 6,684,000 once you account for the fact that this is a rule-of-thumb figure, not an appraisal. That&apos;s about 60% total depreciation over five years, which lines up with the general expectation that a car in its fifth year has typically lost more than half its original value, with the steepest single-year drop already behind it from year one. Changing any one input — a cleaner condition rating, lower mileage, or a documented accident — shifts that number meaningfully, which is the point of entering your own numbers rather than reading a single industry average.
-              </p>
-            </div>
-          </div>
+        {/* ── SEO content ── */}
+        <div className="max-w-screen-lg mx-auto px-4 sm:px-6 pb-16 space-y-14">
 
-          {/* What moves the number */}
-          <div>
-            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-              What Moves Your Estimate the Most
+          {/* What affects valuation */}
+          <section>
+            <p className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-widest uppercase mb-2">
+              Understanding Value
+            </p>
+            <h2
+              className="font-black uppercase text-foreground leading-none mb-6"
+              style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(22px, 3vw, 34px)' }}
+            >
+              WHAT DETERMINES YOUR CAR&apos;S PRICE IN NIGERIA?
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              {[
-                { icon: TrendingDown, title: 'Age, especially year one', text: 'The first year alone typically accounts for around 20% of total depreciation — buying a car even a year old instead of brand new is one of the biggest value moves you can make.' },
-                { icon: Gauge, title: 'Mileage vs. expectations', text: 'A car with meaningfully more or less mileage than typical for its age moves the estimate in either direction — low mileage is a genuine selling point, not just a number.' },
-                { icon: Wrench, title: 'Condition and accident history', text: 'Deferred maintenance, visible wear, and a documented accident are the factors most within a seller\'s control to manage before valuing or listing a car.' },
-              ].map(({ icon: Icon, title, text }) => (
-                <div key={title} className="p-4 rounded-2xl bg-card border border-border">
-                  <div className="w-9 h-9 rounded-lg bg-sky-500/10 flex items-center justify-center mb-3">
-                    <Icon className="h-4.5 w-4.5 text-sky-500" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {VALUATION_FACTORS.map(({ icon: Icon, title, body }) => (
+                <div key={title} className="flex gap-4 p-5 rounded-2xl border border-border bg-card">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  <p className="text-sm font-bold text-foreground mb-1">{title}</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{text}</p>
+                  <div>
+                    <p className="font-bold text-foreground text-sm mb-1">{title}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
 
-          {/* Which tool to use */}
-          <div className="max-w-3xl">
-            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-              This Tool vs. Our AI Photo Valuation
+          {/* Long-form editorial content */}
+          <section className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground leading-relaxed space-y-5">
+            <h2
+              className="font-black uppercase text-foreground not-prose leading-none mb-4"
+              style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(22px, 3vw, 34px)' }}
+            >
+              CAR VALUATION IN NIGERIA: THE COMPLETE GUIDE
             </h2>
-            <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-              <p>
-                We offer two different ways to estimate a car&apos;s worth because they solve different problems. This estimator works from numbers alone — original price, age, mileage, and condition — using general depreciation rules that apply reasonably well to any car, in any market, without needing to identify the exact model. It&apos;s the faster option when you just want a ballpark figure or don&apos;t have a photo handy.
-              </p>
-              <p>
-                Our <Link href="/evaluate-used-car" className="text-sky-600 dark:text-sky-400 font-semibold hover:underline">AI car valuation tool</Link> takes a different approach: upload a photo, and it identifies your exact make, model, and trim, then cross-references real listing data to produce a market-calibrated estimate for your selected country. It&apos;s more precise when you have a photo on hand and want an estimate grounded in what similar cars are actually listed for, rather than a general rule of thumb.
-              </p>
-              <p>
-                A reasonable way to think about it: use this estimator when you&apos;re still deciding whether it&apos;s worth pursuing a sale or trade-in at all — it takes seconds and needs nothing but numbers you already know. Switch to the AI photo tool once you&apos;re ready to list the car and want a figure that reflects the specific market you&apos;re selling into, since it accounts for things this calculator deliberately doesn&apos;t attempt, like regional demand, current listing supply, and trim-specific pricing. Neither number is a substitute for a buyer&apos;s actual offer, but starting with the quick estimate and confirming with the photo-based one before you set an asking price is a sensible way to use both.
-              </p>
-            </div>
-          </div>
+
+            <p>
+              Nigeria&apos;s used car market is one of the largest in sub-Saharan Africa — <strong className="text-foreground">over a million vehicles change hands every year</strong>, with the market valued at approximately $1.18 billion USD in 2025 and growing. Yet despite this scale, accurate pricing remains a challenge. There is no single, universally accepted valuation standard, and the gap between what sellers expect and what buyers are willing to pay is often wide.
+            </p>
+
+            <p>
+              Whether you&apos;re selling a 2016 Toyota Camry in Lagos or a 2014 Honda Accord in Abuja, knowing your car&apos;s true market value is the most important step before you list it. Price too high and your listing collects dust. Price too low and you leave hundreds of thousands of Naira on the table.
+            </p>
+
+            <h3 className="text-foreground font-bold text-base mt-6 mb-2">Tokunbo vs. Nigerian Used: The Price Gap</h3>
+            <p>
+              The most significant pricing divide in the Nigerian car market is between <strong className="text-foreground">Tokunbo (foreign-used)</strong> and <strong className="text-foreground">Nigerian-used</strong> vehicles. Tokunbo cars — typically imported from the United States, Canada, or Japan — command a 20–40% premium over locally used equivalents of the same make, model, and year. The reason is straightforward: Tokunbo cars tend to have lower mileage, more consistent maintenance histories, and fewer signs of Nigeria&apos;s tough road conditions.
+            </p>
+            <p>
+              However, a clean Nigerian-used car with &quot;first body&quot; status — meaning one careful owner, no accidents, and full documentation — can sometimes achieve prices approaching the Tokunbo equivalent. The key is honesty about condition and completeness of paperwork.
+            </p>
+
+            <h3 className="text-foreground font-bold text-base mt-6 mb-2">How Naira Exchange Rate Affects Car Prices</h3>
+            <p>
+              Nigeria imports the vast majority of its used vehicles, which means car prices are directly linked to the Naira/USD exchange rate. When the Naira weakens — as it did significantly in 2023 and 2024 — the landed cost of Tokunbo cars rises sharply, pushing market prices up. With the Naira stabilising near ₦1,436/$ in early 2026, prices have begun to moderate slightly, but remain historically elevated compared to pre-2023 levels.
+            </p>
+            <p>
+              This means valuations from 2022 or earlier are unreliable guides to current market prices. Always use current market data — like our AI valuation tool, which is calibrated to live Nigerian market conditions.
+            </p>
+
+            <h3 className="text-foreground font-bold text-base mt-6 mb-2">How Location Affects Car Value</h3>
+            <p>
+              Car prices in Nigeria are not uniform across the country. Lagos, as the commercial capital and largest port city, typically sees the highest prices due to greater buyer density and faster transaction velocity. Abuja prices are close behind, driven by high-income government workers and corporate buyers. Port Harcourt, Kano, and other cities generally run 5–10% below Lagos pricing for equivalent vehicles.
+            </p>
+            <p>
+              Import and logistics costs also vary. Cars cleared through Apapa or Tin Can Island ports in Lagos carry different clearing fees than those brought in via Cotonou. Our valuation tool lets you specify your city so the estimate reflects your actual market.
+            </p>
+
+            <h3 className="text-foreground font-bold text-base mt-6 mb-2">The Role of Documentation in Car Value</h3>
+            <p>
+              In the Nigerian market, <strong className="text-foreground">complete and genuine vehicle documents are non-negotiable for maximum value</strong>. Buyers — rightly — discount cars with incomplete paperwork because the risk of legal complications in ownership transfer is real. For Tokunbo cars, the original customs duty receipt and clearing documents are essential. For Nigerian-used cars, a clean chain of ownership and valid FRSC registration significantly reduce buyer hesitation.
+            </p>
+            <p>
+              Missing documents can reduce your car&apos;s achievable price by 15–25%, sometimes more. If your papers are incomplete, resolve that before listing — the cost of documentation is usually far less than the discount buyers will demand.
+            </p>
+
+            <h3 className="text-foreground font-bold text-base mt-6 mb-2">Most Valuable Car Brands in Nigeria</h3>
+            <p>
+              Toyota consistently dominates the Nigerian market in both volume and resale value, led by the Camry, Corolla, Hilux, Land Cruiser, and Prado. Honda Accord and Civic are close behind. Lexus (particularly the RX, ES, and GX) holds its value well at the premium end. Mercedes-Benz E-Class and C-Class remain popular but depreciate faster than Japanese brands due to higher maintenance costs.
+            </p>
+            <p>
+              Chinese brands — Haval, Chery, BYD, and GAC — are growing rapidly in market share but currently experience faster depreciation as the resale market for these vehicles is still maturing. If resale value matters to you, Japanese brands remain the safest bet.
+            </p>
+          </section>
 
           {/* FAQ */}
-          <div>
-            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Car Value Estimator FAQ</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-              {[
-                { q: 'How much does a car depreciate each year?', a: 'Typically around 20% in the first year, then roughly 10–15% a year for the next several years, slowing down after about year five or six. Luxury and fast-changing models tend to depreciate faster than reliable economy models.' },
-                { q: 'Does high mileage always lower a car\'s value?', a: 'Generally yes, but it\'s relative to age — a 5-year-old car with 40,000km reads as low mileage and holds value better, while the same car with 150,000km reads as high mileage and is worth less than average.' },
-                { q: 'How much does accident history lower resale value?', a: 'A documented prior accident commonly reduces resale value by around 10–15% versus an equivalent accident-free car, even after a proper repair, because buyers price in the uncertainty around hidden damage.' },
-                { q: 'What\'s the difference between this and the AI photo valuation?', a: 'This tool uses general depreciation rules applied to numbers you enter, no photo needed. The AI tool analyzes an actual photo to identify your exact car and cross-references real listing data for a market-calibrated estimate.' },
-                { q: 'Is this a guaranteed sale price?', a: 'No — it\'s a rule-of-thumb estimate to give you a reasonable starting point, not a guarantee. Actual value depends on local demand, trim, service history, and negotiation.' },
-              ].map(({ q, a }) => (
-                <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
-                    <span className="text-sm font-semibold text-foreground">{q}</span>
-                    <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <div className="px-4 pb-4"><p className="text-sm text-muted-foreground leading-relaxed">{a}</p></div>
-                </details>
-              ))}
-            </div>
-          </div>
-
-          {/* Related tools */}
           <section>
-            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-              More Free Tools
+            <p className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-widest uppercase mb-2">
+              Common Questions
+            </p>
+            <h2
+              className="font-black uppercase text-foreground leading-none mb-6"
+              style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(22px, 3vw, 34px)' }}
+            >
+              FREQUENTLY ASKED QUESTIONS
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                { href: '/evaluate-used-car', label: 'AI Photo Valuation', color: 'orange' },
-                { href: '/tools/auto-loan-calculator', label: 'Auto Loan Calculator', color: 'emerald' },
-                { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'blue' },
-              ].map(({ href, label, color }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
+            <div className="space-y-3">
+              {FAQ_ITEMS.map(({ q, a }) => (
+                <details
+                  key={q}
+                  className="group border border-border rounded-xl overflow-hidden bg-card"
                 >
-                  <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
-                  <ChevronRight className={`h-4 w-4 text-${color}-500`} />
-                </Link>
+                  <summary className="flex items-center justify-between px-5 py-4 cursor-pointer font-semibold text-foreground text-sm select-none list-none">
+                    {q}
+                    <span className="ml-4 flex-shrink-0 text-muted-foreground text-lg leading-none group-open:rotate-45 transition-transform duration-200">+</span>
+                  </summary>
+                  <p className="px-5 pb-4 pt-1 text-sm text-muted-foreground leading-relaxed border-t border-border">
+                    {a}
+                  </p>
+                </details>
               ))}
             </div>
           </section>
