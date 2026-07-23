@@ -3,7 +3,24 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Fuel, RotateCcw, ChevronRight, Zap } from 'lucide-react';
-import { CURRENCIES, symbolFor, type CurrencyCode } from '@/lib/currencies';
+import { symbolFor, type CurrencyCode } from '@/lib/currencies';
+
+// This calculator only has pump-price presets tuned for these 9 currencies
+// — intentionally narrower than the shared CurrencyCode union, which now
+// covers 50+ countries for the car valuation tool.
+type FuelCurrencyCode = 'NGN' | 'USD' | 'GBP' | 'EUR' | 'CAD' | 'AUD' | 'ZAR' | 'INR' | 'AED';
+
+const FUEL_CURRENCIES: { code: FuelCurrencyCode; symbol: string; label: string }[] = [
+  { code: 'NGN', symbol: '₦', label: 'Nigerian Naira' },
+  { code: 'USD', symbol: '$', label: 'US Dollar' },
+  { code: 'GBP', symbol: '£', label: 'British Pound' },
+  { code: 'EUR', symbol: '€', label: 'Euro' },
+  { code: 'CAD', symbol: 'C$', label: 'Canadian Dollar' },
+  { code: 'AUD', symbol: 'A$', label: 'Australian Dollar' },
+  { code: 'ZAR', symbol: 'R', label: 'South African Rand' },
+  { code: 'INR', symbol: '₹', label: 'Indian Rupee' },
+  { code: 'AED', symbol: 'د.إ', label: 'UAE Dirham' },
+];
 
 // ── Dataset ───────────────────────────────────────────────────────
 
@@ -204,7 +221,7 @@ const FUEL_DATA: Record<string, Record<string, { city: number; hwy: number; tank
   },
 };
 
-const PUMP_PRICE_CONFIG: Record<CurrencyCode, { min: number; max: number; step: number; presets: number[]; default: number }> = {
+const PUMP_PRICE_CONFIG: Record<FuelCurrencyCode, { min: number; max: number; step: number; presets: number[]; default: number }> = {
   NGN: { min: 500, max: 2000, step: 50,  presets: [800, 950, 1000, 1100, 1500], default: 1000 },
   USD: { min: 0.5, max: 3,    step: 0.05, presets: [0.9, 1.1, 1.3, 1.5, 2.0],   default: 1.3 },
   GBP: { min: 1,   max: 2.5,  step: 0.05, presets: [1.3, 1.4, 1.5, 1.6, 1.8],   default: 1.5 },
@@ -237,7 +254,7 @@ const CITY_ROUTES: Record<string, number> = {
 function fmt(n: number, symbol: string) { return symbol + Math.round(n).toLocaleString('en-US'); }
 
 export default function FuelCostClient() {
-  const [currency, setCurrency] = useState<CurrencyCode>('NGN');
+  const [currency, setCurrency] = useState<FuelCurrencyCode>('NGN');
   const symbol = symbolFor(currency);
   const [selectedBrand, setSelectedBrand] = useState('Toyota');
   const [selectedModel, setSelectedModel] = useState('Camry 2.5 (2012–2017)');
@@ -285,8 +302,8 @@ export default function FuelCostClient() {
             {/* Currency */}
             <div>
               <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Currency</label>
-              <select value={currency} onChange={e => setCurrency(e.target.value as CurrencyCode)} className={selectCls}>
-                {CURRENCIES.map(c => (
+              <select value={currency} onChange={e => setCurrency(e.target.value as FuelCurrencyCode)} className={selectCls}>
+                {FUEL_CURRENCIES.map(c => (
                   <option key={c.code} value={c.code}>{c.symbol} {c.code} — {c.label}</option>
                 ))}
               </select>

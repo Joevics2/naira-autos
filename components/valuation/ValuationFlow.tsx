@@ -80,16 +80,18 @@ const ANALYSIS_STEPS_FAST = [
 ];
 
 // ─── HOMEPAGE MODE: compact inline flow ──────────────────────────────────────
-export function ValuationInline({ onClose }: { onClose?: () => void }) {
+export function ValuationInline({ onClose, market = 'global' }: { onClose?: () => void; market?: 'ng' | 'global' }) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const isNgOnly = market === 'ng';
 
   const [step, setStep] = useState<Step>('upload');
   const [imagePreview, setImagePreview] = useState('');
   const [imageBase64, setImageBase64] = useState('');
   const [imageMimeType, setImageMimeType] = useState('image/jpeg');
   const [condition, setCondition] = useState<Condition>('good');
-  const [country, setCountry] = useState('');   // required — no default, must be actively chosen
+  // Nigerian page: locked to 'ng', no picker. Global page: required, must be actively chosen.
+  const [country, setCountry] = useState(isNgOnly ? 'ng' : '');
   const [location, setLocation] = useState('Lagos');
   const [analysisStep, setAnalysisStep] = useState(0);
   const [result, setResult] = useState<ValuationResult | null>(null);
@@ -236,19 +238,21 @@ export function ValuationInline({ onClose }: { onClose?: () => void }) {
 
         {imagePreview && (
           <div className="space-y-2">
-            <select
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              required
-              className={`w-full h-9 rounded-lg border px-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                country ? 'border-gray-200 dark:border-gray-600' : 'border-amber-400'
-              }`}
-            >
-              <option value="" disabled>Select your country (required)</option>
-              {VALUATION_COUNTRIES.map((c) => (
-                <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
-              ))}
-            </select>
+            {!isNgOnly && (
+              <select
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                required
+                className={`w-full h-9 rounded-lg border px-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+                  country ? 'border-gray-200 dark:border-gray-600' : 'border-amber-400'
+                }`}
+              >
+                <option value="" disabled>Select your country (required)</option>
+                {VALUATION_COUNTRIES.map((c) => (
+                  <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
+                ))}
+              </select>
+            )}
             <div className="flex items-center gap-2">
               {country === 'ng' && (
                 <select
