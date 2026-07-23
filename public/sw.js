@@ -1,56 +1,26 @@
-const CACHE_NAME = 'naira-autos-v1';
-const PRECACHE_URLS = ['/'];
+// This service worker previously cache-first'd the homepage, which caused
+// stale HTML (referencing deleted, hashed build assets) to be served after
+// every deploy — breaking layout/CSS for returning visitors.
+//
+// This version does the opposite: it deletes all caches it controls and
+// unregisters itself, so any device that installed the old worker heals
+// on its next visit. Once rolled out for a while, this file (and its
+// registration, if any exists) can be removed entirely.
 
-self.addEventListener('install', (event) => {
-  // Use individual cache.add() calls so one missing file never kills the install
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) =>
-      Promise.allSettled(
-        PRECACHE_URLS.map((url) =>
-          cache.add(url).catch((err) => console.warn('[SW] Failed to precache:', url, err))
-        )
-      )
-    ).then(() => self.skipWaiting())
-  );
+self.addEventListener('install', () => {
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      )
-    ).then(() => self.clients.claim())
+    caches.keys()
+      .then((cacheNames) => Promise.all(cacheNames.map((name) => caches.delete(name))))
+      .then(() => self.registration.unregister())
+      .then(() => self.clients.matchAll({ type: 'window' }))
+      .then((clients) => {
+        clients.forEach((client) => client.navigate(client.url));
+      })
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  // Only handle GET requests — skip Supabase API, analytics, etc.
-  if (event.request.method !== 'GET') return;
-  const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin) return;
-
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
-  );
-});
-
-self.addEventListener('push', (event) => {
-  const options = {
-    body: event.data ? event.data.text() : 'New notification',
-    icon: '/icon-192x192.png',
-    badge: '/icon-192x192.png',
-    vibrate: [100, 50, 100],
-    data: { dateOfArrival: Date.now(), primaryKey: 1 },
-  };
-  event.waitUntil(
-    self.registration.showNotification('Naira Autos', options)
-  );
-});
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  event.waitUntil(clients.openWindow('/'));
-});
+// No fetch handler — requests pass straight through to the network.
