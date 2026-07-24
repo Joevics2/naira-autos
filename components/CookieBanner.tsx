@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { hasBottomNav } from '@/lib/bottom-nav-routes';
 
 /**
  * Compliant cookie consent banner.
@@ -81,6 +83,8 @@ function updateGoogleConsent(value: ConsentValue) {
 
 export function CookieBanner() {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
+  const stackAboveNav = hasBottomNav(pathname);
 
   useEffect(() => {
     const stored = readStoredConsent();
@@ -106,11 +110,12 @@ export function CookieBanner() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-[#080C10] border-t border-white/10 px-4 py-4 flex flex-wrap items-center justify-between gap-3"
+      className={`fixed left-0 right-0 z-40 bg-[#080C10] border-t border-white/10 px-3 py-2 sm:px-4 sm:py-2.5 flex items-center gap-3 transition-[bottom] ${
+        stackAboveNav ? 'safe-area-above-nav' : 'bottom-0 safe-area-pb'
+      }`}
     >
-      <p className="text-xs text-white/60 max-w-xl">
-        We use cookies for analytics and to serve relevant ads via Google AdSense.
-        You can accept or reject non-essential cookies.{' '}
+      <p className="text-[11px] sm:text-xs text-white/60 flex-1 truncate sm:whitespace-normal">
+        We use cookies for analytics and ads.{' '}
         <Link
           href="/privacy"
           className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors"
@@ -118,16 +123,16 @@ export function CookieBanner() {
           Learn more
         </Link>
       </p>
-      <div className="flex gap-2 shrink-0">
+      <div className="flex gap-1.5 sm:gap-2 shrink-0">
         <button
           onClick={() => handleChoice('rejected')}
-          className="bg-white/10 hover:bg-white/20 transition-colors text-white text-xs font-semibold px-5 py-2 rounded-md"
+          className="bg-white/10 hover:bg-white/20 transition-colors text-white text-xs font-semibold px-3 py-1.5 sm:px-5 sm:py-2 rounded-md min-h-[36px] sm:min-h-0"
         >
           Reject
         </button>
         <button
           onClick={() => handleChoice('accepted')}
-          className="bg-emerald-600 hover:bg-emerald-500 transition-colors text-white text-xs font-semibold px-5 py-2 rounded-md"
+          className="bg-emerald-600 hover:bg-emerald-500 transition-colors text-white text-xs font-semibold px-3 py-1.5 sm:px-5 sm:py-2 rounded-md min-h-[36px] sm:min-h-0"
         >
           Accept
         </button>

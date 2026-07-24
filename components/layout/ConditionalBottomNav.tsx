@@ -2,13 +2,11 @@
 
 import { usePathname } from 'next/navigation';
 import { BottomNav } from '@/components/layout/BottomNav';
-
-// Bottom nav appears ONLY on these exact routes — not on any sub-pages
-const SHOW_ON_PATHS = ['/', '/tools', '/vehicles', '/tools/document-generator', '/blog'];
+import { hasBottomNav } from '@/lib/bottom-nav-routes';
 
 export function ConditionalBottomNav() {
   const pathname = usePathname();
-  const shouldShow = SHOW_ON_PATHS.includes(pathname);
+  const shouldShow = hasBottomNav(pathname);
   if (!shouldShow) return null;
   return <BottomNav />;
 }

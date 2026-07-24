@@ -129,4 +129,12 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .safe-area-above-nav {
+    bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+  }
 }
