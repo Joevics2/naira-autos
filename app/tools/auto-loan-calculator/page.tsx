@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: 'Free car loan affordability calculator — monthly repayments, total interest, and income ratio check.',
     url: 'https://www.naira.autos/tools/auto-loan-calculator',
   },
+  keywords: ['car loan calculator','auto loan calculator','car loan repayment calculator','vehicle loan calculator','used car loan in nigeria without collateral','car loan without collateral','monthly car loan payments','car financing calculator','how much interest on car loan'],
 };
 
 const SCHEMA = {
@@ -117,6 +118,7 @@ export default function AutoLoanCalculatorPage() {
                 { q: 'Can I get a car loan for a Tokunbo vehicle?', a: 'Yes. Most Nigerian banks and fintech lenders finance Tokunbo vehicles. Some lenders cap vehicle age at 5–7 years and require comprehensive insurance.' },
                 { q: 'Is it better to buy outright or take a loan?', a: 'Outright purchase is always cheaper — no interest. However, if a loan lets you preserve working capital or buy a better-condition vehicle that reduces maintenance costs, the tradeoff can make sense. Calculate the total interest cost above and weigh it against the benefit.' },
                 { q: 'What happens if I miss a car loan repayment in Nigeria?', a: 'Missed payments attract penalty interest and negatively affect your credit bureau record (CRC or FirstCentral). Persistent defaults can result in vehicle repossession under the chattel mortgage. Always contact your lender proactively if you anticipate difficulty.' },
+                { q: 'Can I get a car loan in Nigeria without collateral?', a: 'Some fintech lenders and cooperative schemes offer used-car loans without additional collateral beyond the vehicle itself (which serves as the chattel mortgage), but these typically require a steady verifiable income, a guarantor, and carry higher interest rates than bank loans that ask for extra security.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">

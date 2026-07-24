@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     'how much is third party insurance nigeria','comprehensive vs third party nigeria',
     'car insurance quote nigeria','cheapest car insurance nigeria',
     'motor insurance nigeria rates','vehicle insurance cost nigeria 2025',
+    'cheap car insurance quotes nigeria','compare car insurance nigeria',
+    'insurance premium estimate nigeria','naicom comprehensive motor insurance premium percentage',
+    'negotiate best insurance rate nigeria','get insurance quote nigeria',
   ],
 };
 
@@ -76,6 +79,11 @@ const SCHEMA = {
           '@type': 'Question',
           name: 'How do I verify my car insurance policy in Nigeria?',
           acceptedAnswer: { '@type': 'Answer', text: 'Always verify car insurance in Nigeria through the Nigerian Insurance Industry Database (NIID) at www.askniid.org or by dialling *565*11# on your mobile phone. Enter your vehicle registration number to confirm your policy is active and genuine. Fake insurance certificates are common in Nigeria — roadside vendors often sell fraudulent documents. Only purchase insurance from NAICOM-licensed companies and verify the policy immediately after purchase.' }
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I compare cheap car insurance quotes in Nigeria?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Start with this calculator to get an estimated premium range based on NAICOM rates, then request quotes from 2–3 licensed insurers such as Leadway, AIICO, AXA Mansard, or Custodian using that range as a benchmark. Any quote below the NAICOM minimum — ₦15,000 third party or 5% of sum insured for comprehensive — should be treated as a red flag rather than a genuine bargain.' }
         },
       ],
     },
@@ -360,6 +368,10 @@ export default function InsuranceCalculatorPage() {
                 {
                   q: 'How do I verify my car insurance policy in Nigeria?',
                   a: 'Visit askniid.org or dial *565*11# and enter your vehicle registration number. Always verify after purchase — fake insurance certificates are common. Only buy from NAICOM-licensed insurers.',
+                },
+                {
+                  q: 'How do I compare cheap car insurance quotes in Nigeria?',
+                  a: 'Use this calculator to get an estimated premium range first, then request quotes from 2–3 NAICOM-licensed insurers (e.g. Leadway, AIICO, AXA Mansard, Custodian) using that range as a benchmark — quotes below the NAICOM minimum (₦15,000 third party, 5% comprehensive) should be treated as a red flag, not a bargain.',
                 },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">

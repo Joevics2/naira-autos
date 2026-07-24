@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Documents needed to buy, sell, or import a car in Nigeria. FRSC + NCS requirements, bill of sale template, change of ownership guide. Free interactive checklist.',
     url: 'https://www.naira.autos/tools/vehicle-papers-checklist',
   },
-  keywords: ['car papers nigeria','car documents nigeria','car registration nigeria','vehicle papers checklist','bill of sale for car nigeria','vehicle bill of sale','car bill of sale','change of ownership nigeria','proof of ownership car nigeria','vehicle registration certificate','car documents needed','tokunbo car papers','import car nigeria documents','frsc documents','customs paper car nigeria','car sale contract template nigeria','private car sale contract','vehicle inspection form'],
+  keywords: ['car papers nigeria','car documents nigeria','car registration nigeria','vehicle papers checklist','bill of sale for car nigeria','vehicle bill of sale','car bill of sale','change of ownership nigeria','proof of ownership car nigeria','vehicle registration certificate','car documents needed','tokunbo car papers','import car nigeria documents','frsc documents','customs paper car nigeria','car sale contract template nigeria','private car sale contract','vehicle inspection form','transfer of ownership of a car','how to do change of ownership of a car in nigeria','vehicle ownership transfer documents','how long does change of ownership take'],
 };
 
 const SCHEMA = {
@@ -171,6 +171,7 @@ export default function VehiclePapersChecklistPage() {
                 { q: 'What documents are needed to import a Tokunbo car?', a: 'You need: Form M (CBN pre-import approval, before shipment), original Bill of Lading, CCVO, Packing List, Nigerian cargo insurance, CED, Customs SAD form (via licensed agent), duty payment receipt. The clearance certificate issued after becomes your proof of ownership.' },
                 { q: 'How do I write a private car sale contract in Nigeria?', a: 'Include: full names and ID numbers of buyer and seller, complete vehicle description (make, model, year, plate, engine number, chassis number), agreed price, payment method, date, and both signatures with a witness. The seller should keep a signed copy.' },
                 { q: 'Can I drive a car in Nigeria without a roadworthiness certificate?', a: 'No. Driving without a valid roadworthiness certificate is a FRSC-enforceable offence. The vehicle can be impounded and the driver fined. The certificate must be renewed annually at your state VIO or MVAA.' },
+                { q: 'How do I do change of ownership for a car in Nigeria?', a: 'Take the signed bill of sale, the seller\u2019s original registration and proof of ownership documents, both parties\u2019 valid ID, and the vehicle itself to your state MVAA office. They process the transfer and issue a new registration in the buyer\u2019s name — see our Registration Fee Calculator for the current cost by state.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">

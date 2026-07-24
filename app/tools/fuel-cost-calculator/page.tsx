@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: 'Free fuel cost calculator for 100+ car models. City vs highway modes, any currency, live pump price slider.',
     url: 'https://www.naira.autos/tools/fuel-cost-calculator',
   },
+  keywords: ['fuel cost calculator','how much gas for 2 hours of driving','how much gas is 4 hours of driving','fuel efficient cars in nigeria','most fuel efficient cars in nigeria','how much is 50 liters of fuel in nigeria','trip fuel cost calculator','gas money calculator for drive','journey fuel cost calculator','cars with low fuel consumption in nigeria','how much petrol per litre'],
 };
 
 const SCHEMA = {
@@ -146,6 +147,7 @@ export default function FuelCostCalculatorPage() {
                 { q: 'How much does a Lagos to Abuja trip cost in fuel?', a: 'The Lagos–Abuja distance is approximately 791km. A Toyota Camry 2.5 at highway consumption (7.2L/100km) needs about 57 litres. At ₦1,000/litre, that is approximately ₦57,000 in fuel.' },
                 { q: 'What is the fuel consumption of a Lexus RX 350?', a: 'A Lexus RX 350 (2016–2022) uses approximately 12.5L/100km in city driving and 9.0L/100km on the highway, with a 72-litre tank. A Lagos–Abuja trip on highway would require approximately 71 litres — needing a refuel en route.' },
                 { q: 'Why does my car use more fuel than the manufacturer says?', a: 'Manufacturer fuel consumption figures are measured under controlled conditions. Nigerian conditions — Lagos traffic, frequent hard braking, hot weather, air conditioning use, and road quality — typically increase real-world consumption 25–40% above official figures.' },
+                { q: 'How much gas do I need for a 2-hour drive?', a: 'A 2-hour highway drive at 80–100km/h covers roughly 160–200km. For a typical sedan at 7–8L/100km highway, that\u2019s about 12–16 litres — enter the distance in this calculator to get an exact figure for your specific car and current pump price.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">

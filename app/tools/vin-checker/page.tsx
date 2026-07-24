@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Free VIN Decoder & VIN Checker — Vehicle Identification Number Lookup',
   description: 'Free VIN decoder and VIN checker for any car. Decode any vehicle VIN or chassis number — make, model, year, engine specs, assembly origin. Essential free VIN check for used car buyers.',
   alternates: { canonical: 'https://www.naira.autos/tools/vin-checker' },
+  keywords: ['vin check nigeria','vin number lookup free','free vin check nigeria','vin checker','vin number check nigeria','vin check free','what is vin number in nigeria','vin meaning in nigeria','vin search nigeria','is vin same as chassis number','engine number check nigeria','how to check vin number in nigeria','free vin decoder'],
   openGraph: {
     title: 'Free VIN Decoder & Chassis Number Checker | Naira Autos',
     description: 'Free VIN check for any used car. Get make, model, year, engine and origin instantly.',
@@ -40,6 +41,7 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Does VIN decode work for Tokunbo cars imported to Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Most Tokunbo cars in Nigeria originate from the US, Canada, or Mexico — all in the NHTSA database. European or UK origin vehicles may return limited data.' } },
         { '@type': 'Question', name: 'What does the VIN tell you about a car?', acceptedAnswer: { '@type': 'Answer', text: 'Make, model, trim, year, engine type, displacement, horsepower, body style, drive type, transmission, country and city of assembly, and safety features. It does not reveal ownership history — that requires a paid Carfax report.' } },
         { '@type': 'Question', name: 'Can I get a free car history report from this VIN checker?', acceptedAnswer: { '@type': 'Answer', text: 'This tool provides free spec data from NHTSA. Full vehicle history — accidents, title status, ownership — requires a paid Carfax or AutoCheck report using the same VIN.' } },
+        { '@type': 'Question', name: 'Is the engine number the same as the VIN or chassis number?', acceptedAnswer: { '@type': 'Answer', text: 'No. The engine number is stamped on the engine block itself and identifies that specific engine, while the VIN/chassis number identifies the whole vehicle. They are recorded separately on vehicle papers.' } },
       ],
     },
     { '@type': 'SoftwareApplication', name: 'Free VIN Decoder & VIN Checker', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
@@ -126,6 +128,7 @@ export default function VINCheckerPage() {
                   { q: 'Can I find vehicle specs by VIN for free?', a: 'Yes. Our free VIN decoder returns make, model, year, engine, body type, drive type, and origin from the NHTSA manufacturer database at no cost.' },
                   { q: 'How do I check if a VIN is valid?', a: 'A valid VIN is exactly 17 characters — letters (A–Z, no I, O, Q) and numbers. Position 9 is a mathematical check digit. If incorrect, the VIN has been tampered with. Our tool validates this automatically.' },
                   { q: 'What if the VIN decoder shows no results?', a: 'Usually means a European or UK vehicle — outside the NHTSA database. We decode the model year from VIN position 10. For European vehicles, contact the manufacturer\'s official VIN service.' },
+                  { q: 'Is the engine number the same as the VIN or chassis number?', a: 'No. The engine number is stamped separately on the engine block and identifies that specific engine, while the VIN/chassis number identifies the whole vehicle. Engine numbers aren\u2019t decoded by this tool — for a genuine engine swap check, compare the physical stamp against the vehicle\u2019s papers.' },
                 ].map(({ q, a }) => (
                   <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                     <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Free distance, drive-time, and fuel cost calculator for 35+ Nigerian routes. Lagos to Abuja, Lagos to Port Harcourt, and more — instant results.',
     url: 'https://www.naira.autos/tools/road-trip-calculator',
   },
-  keywords: ['lagos to abuja distance','how many hours from lagos to abuja by road','lagos to abuja by road','distance from lagos to abuja','lagos to abuja km','road trip cost calculator','fuel cost calculator','calculate gas for trip','trip cost calculator','fuel trip calculator','road trip fuel calculator','petrol cost calculator','journey fuel cost calculator','travel cost calculator','lagos to abuja fuel cost','lagos abuja distance','road trip cost nigeria','fuel cost nigeria','trip expense calculator'],
+  keywords: ['lagos to abuja distance','how many hours from lagos to abuja by road','lagos to abuja by road','distance from lagos to abuja','lagos to abuja km','road trip cost calculator','fuel cost calculator','calculate gas for trip','trip cost calculator','fuel trip calculator','road trip fuel calculator','petrol cost calculator','journey fuel cost calculator','travel cost calculator','lagos to abuja fuel cost','lagos abuja distance','road trip cost nigeria','fuel cost nigeria','trip expense calculator','how many kilometers from lagos to abuja','lagos to ibadan distance','how many km is lagos to ibadan','lagos to port harcourt by road'],
 };
 
 const SCHEMA = {
@@ -229,6 +229,7 @@ export default function RoadTripCalculatorPage() {
                 { q: 'How do I calculate fuel cost for a trip in Nigeria?', a: 'Multiply the distance (km) by your car\'s fuel consumption rate (L/100km) divided by 100, then multiply by the pump price per litre. Example: 791km × 9L/100km ÷ 100 × ₦1,000 = ₦71,190. This calculator does it automatically for 100+ Nigerian car models.' },
                 { q: 'What is the cheapest car to drive Lagos to Abuja?', a: 'The most fuel-efficient cars on Nigerian roads include the Honda Civic 1.5T (6–8.5L/100km), Toyota Corolla 2.0 (6.2–8.8L/100km), and Hyundai Elantra (6.2–9.0L/100km). At ₦1,000/litre over 791km, a Civic 1.5T costs approximately ₦57,000 versus ₦127,000 for a Land Cruiser.' },
                 { q: 'Should I use city or highway figures for a Nigerian road trip?', a: 'For interstate routes, use Mixed mode — which averages city and highway figures. Lagos exits and Abuja approaches involve heavy traffic (city conditions), while the main highway stretch is more open. Mixed is the most realistic for most Nigerian long-distance trips. Highway-only is suitable if you leave Lagos before 5am.' },
+                { q: 'How many kilometers is Lagos to Ibadan?', a: 'Lagos to Ibadan is approximately 130km via the Lagos–Ibadan Expressway, typically taking 2–2.5 hours depending on traffic at the Lagos toll gates and expressway construction sections. Select the route above for an exact fuel cost for your car.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">

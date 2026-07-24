@@ -6,6 +6,7 @@ import VINCheckerClient from './client';
 export const metadata: Metadata = {
   title: 'Free VIN Decoder & VIN Checker — Vehicle Identification Number Lookup',
   description: 'Free VIN decoder and VIN checker for any car, anywhere in the world. Decode any vehicle VIN or chassis number — make, model, year, engine specs, assembly origin. Essential free VIN check for used car buyers in the US, UK, UAE, and beyond.',
+  keywords: ['vin number lookup free','vin check','vin checker','vin check free','vin decoder check','is vin same as chassis number','free vin decoder','north american vin decoder','ford vin decoder saudi','chevrolet vin decoder saudi','jeep vin decoder saudi','ford vin decoder dubai','ford vin decoder abu dhabi','free vin check online','vin verification'],
   alternates: { canonical: 'https://www.naira.autos/tools/vin-checker-global' },
   openGraph: {
     title: 'Free VIN Decoder & Chassis Number Checker | Naira Autos',
@@ -190,6 +191,7 @@ export default function VINCheckerPage() {
                   { q: 'What if the VIN decoder shows no results?', a: 'Usually means a European, UK, GCC-spec, or Asian-market vehicle — outside the NHTSA database. We decode the model year from VIN position 10 regardless. For those vehicles, contact the manufacturer\'s official VIN service.' },
                   { q: 'Is there a UK equivalent of this VIN check?', a: 'UK-registered cars run through the DVLA and HPI systems rather than NHTSA. This tool is most useful in the UK for vehicles imported from North America.' },
                   { q: 'Can I use a VIN check for a car in Ireland, South Africa, or New Zealand?', a: 'Yes, provided the vehicle was originally built for the US, Canadian, or Mexican market before being shipped and re-registered locally. This is common with pickups, SUVs, and muscle cars imported by enthusiasts and dealers in all three countries.' },
+                  { q: 'Is the engine number the same as the VIN or chassis number?', a: 'No. The engine number is stamped on the engine block itself and identifies that specific engine, while the VIN/chassis number identifies the whole vehicle. This tool decodes the VIN/chassis number — not the separate engine stamp.' },
                   { q: 'Does the VIN affect how much import duty I pay?', a: 'Indirectly, yes. Many countries calculate import duty using the vehicle\'s age and engine size, both of which the VIN confirms. Decoding it accurately before you calculate duty helps you avoid budgeting around the wrong figures.' },
                   { q: 'Can a VIN check tell me if a car was in an accident?', a: 'No. The free VIN decoder only returns factory specification — make, model, year, engine, and origin. Accident history, odometer readings, and title status require a paid vehicle history report such as Carfax or AutoCheck.' },
                   { q: 'Does this work for Ford, Toyota, Honda, Chevy, and GMC vehicles?', a: 'Yes. It reads directly from the shared NHTSA manufacturer database, so a Ford VIN lookup, Toyota VIN decoder check, Honda VIN lookup, GMC VIN lookup, or Chevy VIN number lookup all work the same way — just paste in the VIN.' },

@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     'Nigerian used car price estimate',
     'sell my car Nigeria value',
     'car market value Nigeria',
+    'value my car',
+    'how much is a car in naira',
+    'cars under 5 million naira',
+    '5 million naira cars in nigeria',
+    'resale value nigeria',
   ].join(', '),
   openGraph: {
     title: 'Free Car Valuation Nigeria — How Much Is Your Car Worth?',
@@ -146,6 +151,10 @@ const FAQ_ITEMS = [
   {
     q: 'How accurate is an AI car valuation in Nigeria?',
     a: 'Our AI valuation uses Gemini Vision to identify your exact car from the photo, then cross-references real Nigerian market data to produce a Naira price range. It\'s a reliable starting point — treat it as a benchmark, not a contract price, since final value depends on negotiation and buyer inspection.',
+  },
+  {
+    q: 'What kind of car can I get for 5 million naira in Nigeria?',
+    a: 'Around ₦5 million typically buys a well-maintained Nigerian-used mid-size sedan or a modest Tokunbo compact/SUV from the early-to-mid 2010s, depending on mileage, condition, and location. Use the valuation tool above with a photo of the specific car you\'re considering for a more precise estimate.',
   },
 ];
 

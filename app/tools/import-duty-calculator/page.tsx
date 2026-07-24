@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: 'Free car import duty calculator for Nigeria — customs duty, NAC levy, FOB levy, VAT, and total landed cost.',
     url: 'https://www.naira.autos/tools/import-duty-calculator',
   },
+  keywords: ['import duty on cars in nigeria','custom duty on cars in nigeria','car import duty in nigeria','how much is custom duty for cars in nigeria','custom duty on used cars in nigeria','current import duty on cars in nigeria','nigeria vehicle import duty reduction','car duty price in nigeria','nigeria car custom duty calculator','nigeria customs duty rates on imported cars','cost of clearing cars in nigeria 2026','car import duty calculator','nac levy nigeria'],
 };
 
 const SCHEMA = {
@@ -42,6 +43,8 @@ const SCHEMA = {
         { '@type': 'Question', name: 'How does VAT apply to imported cars in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'VAT on imported cars is 7.5% of the combined base of CIF value + import duty + NAC levy — not on CIF alone. This compounding effect means VAT adds more than a simple 7.5% of the car price.' } },
         { '@type': 'Question', name: 'Can NCS charge more than my invoice price?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. NCS maintains an internal vehicle valuation database and routinely overrides the declared CIF with a higher assessed value — sometimes 20–50% above your invoice. The sensitivity slider in the calculator lets you model this.' } },
         { '@type': 'Question', name: 'What documents do I need to clear a car at the Nigerian port?', acceptedAnswer: { '@type': 'Answer', text: 'Core documents: Form M (CBN forex approval), Bill of Lading, commercial invoice, packing list, Single Goods Declaration (SGD), and proof of payment. A licensed clearing agent handles this process.' } },
+        { '@type': 'Question', name: 'How much does it cost to clear a car at Lagos port?', acceptedAnswer: { '@type': 'Answer', text: 'Total clearing cost combines customs duty and taxes (roughly 42–49% of CIF value) with terminal handling, shipping line release, and clearing agent charges, which typically add ₦300,000–₦800,000 on top of the customs bill depending on vehicle size and port congestion.' } },
+        { '@type': 'Question', name: 'Has Nigeria reduced car import duty recently?', acceptedAnswer: { '@type': 'Answer', text: 'Nigeria periodically reviews vehicle import duty rates as part of the National Automotive Industry Development Plan. Always confirm the current rate with Nigeria Customs Service before relying on older figures, since this calculator is updated when official rate changes are confirmed.' } },
       ],
     },
     {
@@ -173,6 +176,7 @@ export default function ImportDutyCalculatorPage() {
                     { q: 'What is the duty on used cars in Nigeria?', a: 'Used passenger vehicles (Tokunbo) attract 20% import duty + 15% NAC levy + 4% FOB levy + 7.5% VAT — an effective total of approximately 42–49% of CIF value.' },
                     { q: 'What is the dutiable value of a car?', a: 'The dutiable value is the CIF (Cost + Insurance + Freight) as assessed by NCS — which may exceed your invoice if NCS uses their internal database valuation.' },
                     { q: 'Can I import a car older than 12 years into Nigeria?', a: 'The general NCS policy restricts importation of vehicles older than 12 years. Vehicles exceeding this age may face seizure or require special permits.' },
+                    { q: 'How much does it cost to clear a car at Lagos port?', a: 'Clearing cost = customs duty/taxes (about 42–49% of CIF) plus terminal handling, shipping line release, and agent fees, which usually add ₦300,000–₦800,000 depending on vehicle size and how long it sits at the port.' },
                   ].map(({ q, a }) => (
                     <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                       <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">

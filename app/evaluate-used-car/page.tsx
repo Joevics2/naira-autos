@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     'sell my car price check',
     'used car price checker worldwide',
     'car worth calculator',
+    'value my car',
+    'resale value',
+    'used car values',
   ].join(', '),
   openGraph: {
     title: 'Free AI Car Valuation — What Is Your Car Worth?',

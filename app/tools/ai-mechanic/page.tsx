@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     description: 'Instant car diagnosis online. Upload engine sounds, photos, or describe the fault. Get urgency rating, causes, DIY steps, and repair cost in Naira. Free, no login.',
     url: 'https://www.naira.autos/tools/ai-mechanic',
   },
+  keywords: ['ai car diagnostics free','ai mechanic','ai mechanic free','instant mechanic ai','online mechanic','free ai mechanic','best ai for car diagnostics','free auto diagnosis','online car diagnostic'],
 };
 
 // ── Schema ────────────────────────────────────────────────────────
