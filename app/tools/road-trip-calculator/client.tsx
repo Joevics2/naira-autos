@@ -149,6 +149,18 @@ const ALL_CITIES = Array.from(new Set(ALL_ROUTES.flatMap(r=>[r.from,r.to]))).sor
 
 function fmt(n:number){ return '₦'+Math.round(n).toLocaleString('en-NG'); }
 
+// Average effective speed on Nigerian interstate routes — accounts for traffic,
+// checkpoints, and road conditions, not just open-highway cruising speed.
+const AVG_KMH = 65;
+function estimateDriveTime(km: number): string {
+  const totalHours = km / AVG_KMH;
+  const hours = Math.floor(totalHours);
+  const minutes = Math.round((totalHours - hours) * 60);
+  if (hours === 0) return `${minutes} min`;
+  if (minutes === 0) return `${hours} hr`;
+  return `${hours} hr ${minutes} min`;
+}
+
 export default function RoadTripClient() {
   const [origin,setOrigin]             = useState('Lagos');
   const [destination,setDestination]   = useState('Abuja');
@@ -237,9 +249,11 @@ export default function RoadTripClient() {
               )}
               {!useCustom && routeEntry && (
                 <div className="col-span-2 -mt-1">
-                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <p className="text-xs text-muted-foreground flex items-center gap-1 flex-wrap">
                     <ArrowRight className="h-3 w-3 text-amber-500 shrink-0"/>
                     {origin} to {destination}: <strong className="text-foreground ml-1">{routeEntry.km.toLocaleString()}km</strong>
+                    <span className="text-muted-foreground/50">·</span>
+                    <strong className="text-foreground">~{estimateDriveTime(routeEntry.km)}</strong> drive
                     <button onClick={()=>setUseCustom(true)} className="ml-2 text-amber-500 underline">custom</button>
                   </p>
                 </div>
@@ -324,8 +338,9 @@ export default function RoadTripClient() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
+                    {label:'Drive time',   val:estimateDriveTime(distance)},
                     {label:'Litres needed', val:`${calc.litres.toFixed(1)}L`},
                     {label:'Cost per km',   val:`₦${(calc.cost/distance).toFixed(0)}`},
                     {label:'Tank fill-ups', val:calc.tank>0?`${Math.ceil(calc.litres/calc.tank)}x`:'—'},
