@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { FileText, RotateCcw, ChevronRight, Info } from 'lucide-react';
+import { NIGERIA_STATES as STATES, ALL_NIGERIA_STATES as ALL_STATES } from '@/lib/nigeria-vehicle-fees';
 
 type VehicleType    = 'standard' | 'suv' | 'motorcycle' | 'tricycle' | 'commercial' | 'articulated';
 type TransactionType = 'new_registration' | 'change_ownership' | 'licence_renewal' | 'roadworthiness' | 'drivers_licence';
@@ -14,55 +15,6 @@ const FRSC_PLATE: Record<PlateType, number>          = { standard:30000, fancy:4
 const FRSC_LICENCE_MOTOR: Record<LicenceDuration, number> = { '3year':15000, '5year':21000 };
 const FRSC_LICENCE_MOTO:  Record<LicenceDuration, number> = { '3year':7000,  '5year':11000 };
 const FRSC_MOTO_PLATE = 12000;
-
-interface StateData {
-  zone: string; portal?: string;
-  newRegAddon:[number,number]; licenceRenewal:[number,number];
-  roadworthiness:[number,number]; changeOwnershipAddon:[number,number];
-  confidence:'high'|'medium'|'low'; note?:string;
-}
-
-const STATES: Record<string,StateData> = {
-  'Lagos':       { zone:'Southwest',    portal:'lagosmepb.org',                   newRegAddon:[5000,15000],  licenceRenewal:[4000,6000],   roadworthiness:[5000,12000], changeOwnershipAddon:[5625,8625],   confidence:'high',   note:'Lagos MVAA official price list (June 2025) is the only fully published state schedule in Nigeria.' },
-  'FCT (Abuja)': { zone:'North Central',portal:'selfservice.fctevreg.com',        newRegAddon:[1500,4000],   licenceRenewal:[5000,12000],  roadworthiness:[5000,10000], changeOwnershipAddon:[3000,8000],   confidence:'medium', note:'FCT DRTS portal upgraded June 2025. Total registration ≈ ₦31,852 per recent NMVA-1 form.' },
-  'Ogun':        { zone:'Southwest',    portal:'portal.ogetax.ogunstate.gov.ng',  newRegAddon:[8000,20000],  licenceRenewal:[1250,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[4000,8000],   confidence:'medium', note:'Ogun OGIRS portal lists detailed add-on fees by engine capacity.' },
-  'Oyo':         { zone:'Southwest',    newRegAddon:[20000,50000], licenceRenewal:[2300,10000],  roadworthiness:[5000,12000], changeOwnershipAddon:[8000,15000],  confidence:'medium' },
-  'Osun':        { zone:'Southwest',    newRegAddon:[20000,50000], licenceRenewal:[2000,8000],   roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'medium' },
-  'Ondo':        { zone:'Southwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,12000],  roadworthiness:[5000,12000], changeOwnershipAddon:[8000,15000],  confidence:'medium' },
-  'Ekiti':       { zone:'Southwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Rivers':      { zone:'South South',  portal:'rivtamis.riversbirs.gov.ng',      newRegAddon:[45000,70000], licenceRenewal:[2300,10000],  roadworthiness:[7500,10000], changeOwnershipAddon:[20000,30000], confidence:'medium', note:'Rivers State is among the most expensive for renewals — Port Harcourt users report ₦35,000–₦70,000 for full papers.' },
-  'Delta':       { zone:'South South',  newRegAddon:[20000,50000], licenceRenewal:[3000,12000],  roadworthiness:[5000,12000], changeOwnershipAddon:[10000,20000], confidence:'low' },
-  'Edo':         { zone:'South South',  portal:'eirs.gov.ng',                     newRegAddon:[20000,50000], licenceRenewal:[3000,12000],  roadworthiness:[5000,12000], changeOwnershipAddon:[10000,20000], confidence:'low' },
-  'Bayelsa':     { zone:'South South',  portal:'bir.by.gov.ng',                   newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[10000,20000], confidence:'low' },
-  'Akwa Ibom':   { zone:'South South',  newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,12000], changeOwnershipAddon:[10000,20000], confidence:'low' },
-  'Cross River': { zone:'South South',  newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[10000,20000], confidence:'low' },
-  'Enugu':       { zone:'Southeast',    newRegAddon:[20000,50000], licenceRenewal:[3400,10000],  roadworthiness:[8000,12000], changeOwnershipAddon:[8000,15000],  confidence:'medium', note:'Enugu: vehicle licence ≈ ₦3,400–₦4,200, roadworthiness ₦8,000–₦9,100 per user reports.' },
-  'Anambra':     { zone:'Southeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,12000],  roadworthiness:[5000,12000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Imo':         { zone:'Southeast',    portal:'imovreg.iirs.im.gov.ng',          newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,12000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Abia':        { zone:'Southeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,12000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Ebonyi':      { zone:'Southeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Kano':        { zone:'Northwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,12000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Kaduna':      { zone:'Northwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,12000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Katsina':     { zone:'Northwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Sokoto':      { zone:'Northwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Zamfara':     { zone:'Northwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Kebbi':       { zone:'Northwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Jigawa':      { zone:'Northwest',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Niger':       { zone:'North Central',newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[750,10000],  changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Kwara':       { zone:'North Central',newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Kogi':        { zone:'North Central',newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Benue':       { zone:'North Central',newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Nassarawa':   { zone:'North Central',newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Plateau':     { zone:'North Central',newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Taraba':      { zone:'Northeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Adamawa':     { zone:'Northeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Gombe':       { zone:'Northeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Bauchi':      { zone:'Northeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Yobe':        { zone:'Northeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-  'Borno':       { zone:'Northeast',    newRegAddon:[20000,50000], licenceRenewal:[3000,10000],  roadworthiness:[5000,10000], changeOwnershipAddon:[8000,15000],  confidence:'low' },
-};
-
-const ALL_STATES = Object.keys(STATES).sort();
 
 const TRANSACTION_OPTIONS: { key:TransactionType; label:string; icon:string }[] = [
   { key:'new_registration',  label:'New Registration',    icon:'🆕' },

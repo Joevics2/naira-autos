@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -99,6 +99,15 @@ const TOOLS: Tool[] = [
     icon: FileText,
     label: 'Registration Fees',
     description: 'Calculate number plate, change of ownership, and FRSC registration costs by state.',
+    category: 'Finance',
+  },
+  {
+    href: '/tools/vehicle-license',
+    icon: IdCard,
+    label: 'Vehicle License Renewal',
+    description: 'Requirements, step-by-step process, official portals, and costs for renewing your vehicle license — by country.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Finance',
   },
   // Running Costs
