@@ -219,6 +219,7 @@ export default function VINCheckerPage() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
+                { href: '/tools/chassis-number-check', label: 'Chassis Number Check', color: 'sky' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Vehicle Papers Checklist', color: 'violet' },
                 { href: '/tools/registration-fee-calculator', label: 'Registration Fee Calculator', color: 'blue' },
                 { href: '/tools/vin-checker', label: 'VIN Checker (Nigeria)', color: 'emerald' },

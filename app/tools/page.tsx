@@ -177,6 +177,15 @@ const TOOLS: Tool[] = [
     category: 'Due Diligence',
   },
   {
+    href: '/tools/chassis-number-check',
+    icon: Search,
+    label: 'Chassis Number Check',
+    description: 'Free chassis number check and verification, worldwide — make, model, year, engine specs, and origin.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Due Diligence',
+  },
+  {
     href: '/tools/obd-codes',
     icon: ScanLine,
     label: 'OBD-II Code Lookup',
