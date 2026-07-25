@@ -1,26 +1,36 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ChevronRight, ChevronDown, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import VehicleLicenseNigeriaClient from './client';
 
 export const metadata: Metadata = {
-  title: 'Vehicle License Renewal Nigeria 2026 — Requirements, Steps & State Portals',
-  description: 'How to renew your Nigerian vehicle license: required documents, step-by-step process, official state portals (Lagos MVAA, FCT DRTS), and typical costs. Not the same as your driver\'s license — see the difference.',
+  title: 'FRSC Vehicle License Renewal Nigeria 2026 — Cost, Road Worthiness & Car Documents',
+  description: 'How much is vehicle license renewal in Lagos, Abuja, and across Nigeria? Full cost breakdown, road worthiness renewal price, vehicle documents checklist, and how to renew online — updated 2026.',
   keywords: [
-    'vehicle license renewal nigeria',
-    'how to renew vehicle license nigeria',
-    'vehicle license renewal nigeria online',
-    'vehicle license vs drivers license nigeria',
-    'nvis frsc portal',
-    'lagos mvaa portal',
-    'road worthiness renewal cost',
-    'vehicle license renewal requirements nigeria',
-    'expired vehicle license fine nigeria',
+    'frsc vehicle license renewal',
+    'how much is vehicle license renewal in lagos',
+    'how much is vehicle license renewal in abuja',
+    'how much is vehicle license renewal in nigeria',
+    'road worthiness renewal',
+    'how much is road worthiness renewal in lagos',
+    'how much is road worthiness in lagos',
+    'how much does it cost to register a car in nigeria',
+    'how much to register a car in nigeria',
+    'cost of renewing vehicle particulars in nigeria',
+    'list of car documents in nigeria',
+    'vehicle documents checklist',
+    'vehicle particulars',
+    'road worthiness renewal online',
+    'how to renew vehicle license online in lagos',
+    'nvis frsc gov ng vehicle registration',
+    'proof of ownership renewal online',
+    'car renewal registration fee',
+    'cost of vehicle registration in nigeria',
   ].join(', '),
   alternates: { canonical: 'https://www.naira.autos/tools/vehicle-license/nigeria' },
   openGraph: {
-    title: 'Vehicle License Renewal Nigeria — Requirements, Steps & Portals | Naira Autos',
-    description: 'Free guide to renewing your Nigerian vehicle license — requirements, process, official portals, and costs by state.',
+    title: 'FRSC Vehicle License Renewal Nigeria 2026 — Cost & Road Worthiness | Naira Autos',
+    description: 'How much is vehicle license renewal in Lagos, Abuja, and across Nigeria? Full cost breakdown, road worthiness price, and documents checklist.',
     url: 'https://www.naira.autos/tools/vehicle-license/nigeria',
   },
 };
@@ -30,10 +40,10 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebPage',
-      name: 'Vehicle License Renewal Nigeria — Requirements, Steps & State Portals',
-      description: 'How to renew a Nigerian vehicle license — requirements, process, official portals, and costs by state.',
+      name: 'FRSC Vehicle License Renewal Nigeria — Cost, Road Worthiness & Car Documents',
+      description: 'How much is vehicle license renewal in Lagos, Abuja, and across Nigeria — cost breakdown, road worthiness renewal price, and documents checklist.',
       url: 'https://www.naira.autos/tools/vehicle-license/nigeria',
-      dateModified: '2026-07-24',
+      dateModified: '2026-07-25',
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -47,11 +57,12 @@ const jsonLd = {
     {
       '@type': 'FAQPage',
       mainEntity: [
-        { '@type': 'Question', name: 'Is a vehicle license the same as a driver\'s license in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'No — they are completely different documents. The vehicle license (also called the vehicle particulars sticker) is tied to your car and renewed annually at your state MVAA or VIO. Your driver\'s license is tied to you personally, issued by the FRSC, and valid for 3 or 5 years. Renewing one has no effect on the other.' } },
-        { '@type': 'Question', name: 'How do I renew my vehicle license online in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Lagos and FCT residents can renew fully online: Lagos via the MVAA portal (lagosmvnla.ng), FCT via the DRTS self-service portal (selfservice.fctevreg.com). Enter your plate number, verify your details, pay online, then visit a collection station for the physical sticker or inspection. Most other states still require an in-person visit to the state MVAA or VIO office.' } },
-        { '@type': 'Question', name: 'What documents do I need to renew a vehicle license in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Typically: your expiring vehicle license, valid third-party or comprehensive insurance, a roadworthiness certificate (often renewed together), proof of ownership, a valid ID (NIN increasingly required), your plate number and VIN/chassis number, and proof of payment for any outstanding fines.' } },
-        { '@type': 'Question', name: 'How much does vehicle license renewal cost in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'It varies by state, engine size, and vehicle type. A full renewal package (license + roadworthiness + insurance) typically runs ₦15,000–₦50,000+ for a private saloon car. Use the state picker above for a range specific to your state, or the Naira Autos Registration Fee Calculator for a detailed breakdown.' } },
-        { '@type': 'Question', name: 'What happens if my vehicle license expires in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'You risk fines (typically ₦5,000–₦15,000 per expired document), vehicle impoundment, and compounding penalties the longer you wait. FRSC has significantly increased enforcement in recent years. Renew at least 30 days before expiry to avoid delays.' } },
+        { '@type': 'Question', name: 'How much is vehicle license renewal in Lagos?', acceptedAnswer: { '@type': 'Answer', text: 'Lagos vehicle license renewal typically costs ₦4,000–₦6,000 for a saloon car, ₦5,000–₦7,000 for an SUV, and ₦8,000+ for commercial vehicles. Add roadworthiness (₦4,000–₦8,000) and insurance (₦5,000–₦15,000) for the full package — usually ₦15,000–₦30,000 total.' } },
+        { '@type': 'Question', name: 'How much is vehicle license renewal in Abuja?', acceptedAnswer: { '@type': 'Answer', text: 'FCT vehicle license renewal via the DRTS portal typically runs ₦5,000–₦12,000 for the license alone, similar to Lagos rates. Full packages including roadworthiness and insurance usually total ₦20,000–₦30,000.' } },
+        { '@type': 'Question', name: 'How much is road worthiness renewal in Lagos?', acceptedAnswer: { '@type': 'Answer', text: 'Roadworthiness certificate renewal in Lagos typically costs ₦4,000–₦8,000, done at a VIO/VIS inspection center and usually renewed alongside your vehicle license.' } },
+        { '@type': 'Question', name: 'How much does it cost to register a car in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'New vehicle registration (distinct from annual renewal) includes an FRSC number plate (₦30,000 standard), state registration add-ons (₦1,500–₦50,000 depending on state), roadworthiness, and initial license fees — commonly ₦40,000–₦90,000+ total depending on state and vehicle type. Use the Registration Fee Calculator for an exact breakdown by state.' } },
+        { '@type': 'Question', name: 'What is the list of car documents required in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'The core vehicle documents (often called "vehicle particulars") are: the vehicle license, roadworthiness certificate, proof of ownership/registration certificate, valid insurance certificate, and for imported cars, customs duty payment documents. Commercial vehicles also need a hackney permit.' } },
+        { '@type': 'Question', name: 'Can I renew my vehicle license online in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Yes in Lagos (lagosmvnla.ng) and FCT (selfservice.fctevreg.com) — enter your plate number, verify details, pay online, then visit a station for the physical sticker or inspection. Most other states still require an in-person office visit.' } },
       ],
     },
   ],
@@ -79,44 +90,14 @@ export default function VehicleLicenseNigeriaPage() {
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">Free Guide</span>
+              <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">Free Calculator</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">36 States + FCT</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
-              Vehicle License<br /><span className="text-emerald-400">Renewal — Nigeria</span>
+              Vehicle License &amp;<br /><span className="text-emerald-400">Road Worthiness Renewal</span>
             </h1>
-            <p className="text-white/75 text-sm leading-relaxed">Requirements, step-by-step process, official state portals, and typical costs — pick your state below.</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Vehicle License vs Driver's License — the #1 point of confusion */}
-      <div className="bg-amber-500/5 border-y border-amber-500/20">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-6">
-          <div className="flex items-start gap-3 mb-4">
-            <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" />
-            <p className="text-sm font-bold text-foreground">This page is about your Vehicle License — not your Driver&apos;s License. They are different documents.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-card border border-emerald-500/30">
-              <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-2">Vehicle License (this page)</p>
-              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                <li>Belongs to your <strong className="text-foreground">car</strong>, not you</li>
-                <li>Renewed <strong className="text-foreground">every year</strong></li>
-                <li>Issued by your <strong className="text-foreground">state MVAA/VIO</strong></li>
-                <li>Also called the &quot;vehicle particulars sticker&quot;</li>
-              </ul>
-            </div>
-            <div className="p-4 rounded-xl bg-card border border-border">
-              <p className="text-xs font-bold tracking-widest uppercase text-muted-foreground mb-2">Driver&apos;s License (not this page)</p>
-              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                <li>Belongs to <strong className="text-foreground">you</strong>, the driver</li>
-                <li>Valid for <strong className="text-foreground">3 or 5 years</strong></li>
-                <li>Issued nationally by the <strong className="text-foreground">FRSC</strong></li>
-                <li>Use the <Link href="/tools/registration-fee-calculator" className="text-amber-600 dark:text-amber-400 hover:underline">Registration Fee Calculator</Link> (Driver&apos;s Licence mode) for this</li>
-              </ul>
-            </div>
+            <p className="text-white/75 text-sm leading-relaxed">How much is vehicle license renewal in your state, right now? Pick your state, expiry date, and vehicle type for a live cost estimate.</p>
           </div>
         </div>
       </div>
@@ -126,23 +107,65 @@ export default function VehicleLicenseNigeriaPage() {
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-14">
 
-          {/* Editorial content */}
-          <div className="space-y-10">
+          {/* Editorial content — 1000+ words */}
+          <div className="max-w-screen-lg space-y-10 text-sm text-muted-foreground leading-relaxed">
+
             <div>
               <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                Why Vehicle License Renewal Matters
+                What Are &quot;Vehicle Particulars&quot; in Nigeria?
               </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm text-muted-foreground leading-relaxed">
-                <div className="space-y-4">
-                  <p>Nigerian vehicle license renewal is handled primarily at the state level — Lagos through MVAA, FCT through DRTS — with FRSC/NVIS providing national database oversight. It is required annually, and the exact process and fees vary slightly by state.</p>
-                  <p>Renewal is rarely just one document. Your vehicle license, roadworthiness certificate, and insurance typically expire around the same time and are usually renewed together, since most states check them as a bundle before issuing a new sticker.</p>
-                </div>
-                <div className="space-y-4">
-                  <p>Enforcement has tightened significantly in recent years — expired documents now carry a real risk of fines and vehicle impoundment, not just a warning. There is no nationwide grace period, so the safest approach is renewing 30 days before expiry rather than waiting.</p>
-                  <p>Fees are set by each state and adjusted periodically by the Joint Tax Board (JTB), which is why this guide gives ranges rather than fixed prices — always confirm the exact figure on your state&apos;s official portal before paying.</p>
-                </div>
-              </div>
+              <p className="mb-3">&quot;Vehicle particulars&quot; is the umbrella term Nigerians use for the full set of documents a car needs to be legally on the road — it isn&apos;t one paper, it&apos;s a bundle that typically expires together. The core set is: the <strong className="text-foreground">vehicle license</strong> (the annual sticker proving your car is registered with your state), the <strong className="text-foreground">roadworthiness certificate</strong> (proof your car passed a safety inspection), your <strong className="text-foreground">proof of ownership</strong> (registration certificate, issued once and updated only on sale), and a valid <strong className="text-foreground">insurance certificate</strong> (mandatory third-party minimum). Commercial vehicles also need a hackney permit, and imported (&quot;tokunbo&quot;) vehicles need customs duty payment documents on top of the standard set.</p>
+              <p>Of these, the vehicle license, roadworthiness certificate, and insurance are annual — they expire every year and need renewing together. Proof of ownership is different: it&apos;s issued once at registration and only needs updating if the car changes hands. This distinction matters because a lot of the confusion around &quot;how much does renewal cost&quot; comes from people budgeting for the full particulars bundle when they only actually need to renew the annual pieces.</p>
             </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                FRSC Vehicle License Renewal: How the Process Works
+              </h2>
+              <p className="mb-3">Vehicle license renewal in Nigeria is handled at the state level — Lagos through the Motor Vehicle Administration Agency (MVAA), FCT through the Directorate of Road Traffic Services (DRTS) — while the Federal Road Safety Corps (FRSC) maintains the National Vehicle Identification Scheme (NVIS) as the national oversight database. You can check your plate number and current document status for free on the NVIS portal at nvis.frsc.gov.ng before starting any renewal.</p>
+              <p className="mb-3">There&apos;s no single national online system — each state runs its own portal and pricing, which is why renewal cost and process vary so much depending on where your car is registered. Lagos and FCT are the furthest along on digitization; most other states still require an in-person visit to the state MVAA, VIO, or Board of Internal Revenue office.</p>
+              <p>The typical sequence is: confirm your plate details on NVIS, make sure your insurance is current (buy it first if not), clear any outstanding fines, complete a roadworthiness inspection at a VIO/VIS center, then submit documents and pay — online where available, or in person otherwise. Processing runs from same-day in fast states to about a week elsewhere.</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                How Much Is Vehicle License Renewal in Lagos and Abuja?
+              </h2>
+              <p className="mb-3">Lagos is the most consistently priced state because MVAA publishes an official fee schedule. A private saloon car (1.6–2.0L) typically pays ₦4,000–₦6,000 for the vehicle license itself, with an SUV or jeep slightly higher at ₦5,000–₦7,000, and commercial buses from ₦8,000. Add the roadworthiness certificate (₦4,000–₦8,000) and insurance (₦5,000–₦15,000, more for comprehensive) and a full Lagos renewal package usually lands between ₦15,000 and ₦30,000 for a private car.</p>
+              <p className="mb-3">Abuja (FCT) rates via the DRTS portal are broadly similar — the vehicle license alone runs ₦5,000–₦12,000, with full packages including roadworthiness typically totaling ₦20,000–₦30,000. Both cities support paying online, which is worth doing since it avoids the queues that offline processing involves.</p>
+              <p>Outside Lagos and FCT, published fee schedules are rarer, so figures come from user reports rather than official documents in many states — Rivers State (Port Harcourt) tends to run higher, commonly ₦20,000–₦40,000 for a full renewal via agents, while states like Ogun tend to run cheaper. Use the state picker above for the range specific to your state.</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                Road Worthiness Renewal: Cost and How It Works
+              </h2>
+              <p className="mb-3">The roadworthiness certificate is a separate document from your vehicle license, though the two are usually renewed at the same visit. It&apos;s issued after a physical inspection at a Vehicle Inspection Office (VIO) or Vehicle Inspection Service (VIS) center, where an inspector checks brakes, lights, tyres, and emissions. If your car fails, you&apos;ll need to fix the issue and return — brake work is the most common failure point, typically averaging around ₦20,000 to put right.</p>
+              <p>In Lagos, roadworthiness renewal typically costs ₦4,000–₦8,000. Some states bundle this cost into a combined &quot;vehicle particulars&quot; fee rather than pricing it separately, which is part of why online searches for &quot;road worthiness renewal online&quot; often lead to state MVAA or VIO portals rather than a standalone roadworthiness-specific site — the roadworthiness step is folded into the same renewal flow as your vehicle license.</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                New Registration vs. Renewal: Know Which One You Need
+              </h2>
+              <p className="mb-3">&quot;How much does it cost to register a car in Nigeria&quot; and &quot;how much is vehicle license renewal&quot; are two different questions with very different answers, and it&apos;s easy to conflate them. New registration is what happens once, when a car is first put on the road (or re-registered after import) — it includes the FRSC number plate (₦30,000 for a standard plate nationally), state registration add-ons, roadworthiness, and the first vehicle license. Depending on your state, total new registration commonly runs ₦40,000–₦90,000 or more.</p>
+              <p>Renewal, by contrast, is the annual repeat cost once the car is already registered and plated — no new plate fee, just the vehicle license and roadworthiness (and insurance) renewing again. That&apos;s the far smaller number (₦15,000–₦30,000 range for most states) that this page and the calculator above are built around. If you&apos;re not sure which situation you&apos;re in, the simplest check is: do you already have a plate number on the car? If yes, you need renewal, not new registration.</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                Proof of Ownership and Change of Registration
+              </h2>
+              <p>Proof of ownership (your vehicle registration certificate) is not an annual renewal — it stays valid as long as you own the car and only needs updating when ownership changes (a sale, gift, or inheritance). &quot;Change of vehicle registration&quot; or change-of-ownership processing is a separate transaction from license renewal, usually costing ₦8,000–₦30,000 depending on state, on top of a fresh FRSC plate fee if the plate number itself is also changing. A growing number of states now offer this online, though most still require submitting the original documents in person to confirm the transfer is legitimate. If you&apos;ve just bought a used car, this is the step to do first — driving on the previous owner&apos;s particulars, even if technically still valid, causes problems if you&apos;re ever stopped or need to renew.</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                Penalties for Expired Vehicle Documents
+              </h2>
+              <p>FRSC enforcement has tightened considerably — expired documents now carry a real risk of fines and impoundment rather than just a warning. Typical fines run ₦5,000–₦15,000 per expired document (license, roadworthiness, or insurance counted separately), and impoundment adds a retrieval cost on top, commonly ₦20,000 or more. There&apos;s no uniform national grace period, so the safest approach is renewing at least 30 days before your documents expire rather than waiting — the calculator above will flag how many days you have left once you enter your expiry date.</p>
+            </div>
+
           </div>
 
           {/* FAQ */}
@@ -152,10 +175,12 @@ export default function VehicleLicenseNigeriaPage() {
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {[
-                { q: 'Is a vehicle license the same as a driver\'s license?', a: 'No. The vehicle license is tied to your car and renewed annually through your state MVAA/VIO. Your driver\'s license is tied to you personally, issued nationally by the FRSC, and valid for 3 or 5 years. Renewing one has no effect on the other.' },
-                { q: 'Can I renew my vehicle license online?', a: 'Yes in Lagos (lagosmvnla.ng) and FCT (selfservice.fctevreg.com) — enter your plate number, verify details, pay online, then collect your sticker or complete inspection at a station. Most other states still require an in-person office visit.' },
-                { q: 'What documents do I need?', a: 'Your expiring vehicle license, valid insurance, a roadworthiness certificate, proof of ownership, a valid ID (NIN increasingly required), your plate/VIN details, and proof of payment for any outstanding fines.' },
-                { q: 'What if my license has already expired?', a: 'Renew as soon as possible — fines typically run ₦5,000–₦15,000 per expired document and can compound the longer you wait, with real impoundment risk in states with active enforcement like Lagos.' },
+                { q: 'How much is vehicle license renewal in Lagos?', a: 'Typically ₦4,000–₦6,000 for a saloon car, ₦5,000–₦7,000 for an SUV. Add roadworthiness (₦4,000–₦8,000) and insurance for a full package of ₦15,000–₦30,000.' },
+                { q: 'How much is vehicle license renewal in Abuja?', a: 'FCT license renewal via the DRTS portal runs ₦5,000–₦12,000 for the license alone; full packages with roadworthiness typically total ₦20,000–₦30,000.' },
+                { q: 'How much is road worthiness renewal in Lagos?', a: 'Roadworthiness certificate renewal in Lagos typically costs ₦4,000–₦8,000, done at a VIO/VIS inspection center alongside your license renewal.' },
+                { q: 'How much does it cost to register a car in Nigeria?', a: 'New registration (not renewal) includes an FRSC plate (₦30,000), state add-ons, roadworthiness, and initial license — commonly ₦40,000–₦90,000+ total. Use the Registration Fee Calculator for your state\'s exact breakdown.' },
+                { q: 'What is the list of car documents required in Nigeria?', a: 'Vehicle license, roadworthiness certificate, proof of ownership/registration certificate, valid insurance, and (for imports) customs duty documents. Commercial vehicles also need a hackney permit.' },
+                { q: 'Can I renew my vehicle license online?', a: 'Yes in Lagos (lagosmvnla.ng) and FCT (selfservice.fctevreg.com). Most other states still require an in-person MVAA/VIO office visit.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
