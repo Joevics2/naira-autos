@@ -124,7 +124,7 @@ export default function ChassisNumberCheckerClient() {
                 onKeyDown={e => e.key === 'Enter' && decode()}
                 placeholder="Enter Chassis Number (17 characters)"
                 maxLength={17} spellCheck={false}
-                className="w-full h-12 px-4 text-sm font-mono tracking-wider border-2 border-muted-foreground/40 rounded-xl bg-background text-foreground placeholder:text-muted-foreground/60 placeholder:font-sans placeholder:tracking-normal focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                className="w-full h-12 px-4 text-sm font-mono tracking-wider border-2 border-muted-foreground rounded-xl bg-background text-foreground placeholder:text-muted-foreground/60 placeholder:font-sans placeholder:tracking-normal focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
               />
               {vin && (
                 <button onClick={copyVin} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-muted-foreground transition-colors">
@@ -133,7 +133,7 @@ export default function ChassisNumberCheckerClient() {
               )}
             </div>
             <button onClick={decode} disabled={loading || vin.length < 17}
-              className={`flex items-center gap-2 px-5 rounded-xl text-sm font-bold transition-all flex-shrink-0 border-2 ${!loading && vin.length === 17 ? 'bg-blue-500 hover:bg-blue-400 text-white border-blue-500 shadow-lg shadow-blue-500/25' : 'bg-muted text-muted-foreground border-muted-foreground/40 cursor-not-allowed'}`}>
+              className={`flex items-center gap-2 px-5 rounded-xl text-sm font-bold transition-all flex-shrink-0 border-2 ${!loading && vin.length === 17 ? 'bg-blue-500 hover:bg-blue-400 text-white border-blue-500 shadow-lg shadow-blue-500/25' : 'bg-muted text-muted-foreground border-muted-foreground cursor-not-allowed'}`}>
               {loading ? <><div className="w-4 h-4 border-2 border-muted-foreground/30 border-t-foreground rounded-full animate-spin" />Decoding...</> : <><Search className="h-4 w-4" />Decode</>}
             </button>
           </div>
