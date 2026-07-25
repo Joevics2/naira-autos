@@ -59,6 +59,8 @@ const jsonLd = {
         { '@type': 'Question', name: 'Has Nigeria\'s car import age limit always been 12 years?', acceptedAnswer: { '@type': 'Answer', text: 'No. The limit was 15 years for a long stretch before the Nigeria Customs Service reduced it to 12 years in May 2022 as part of its VIN Valuation Policy.' } },
         { '@type': 'Question', name: 'Does the 12-year rule apply to a car I already own in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'No. The rule applies only to new imports at the point of entry. A car already registered in Nigeria can continue to be owned, driven, and resold regardless of its age.' } },
         { '@type': 'Question', name: 'Is it safe to bring in an older car through Cotonou or Seme instead of a seaport?', acceptedAnswer: { '@type': 'Answer', text: 'It carries real risk. Vehicles routed through land borders bypass the VIN Valuation System check at seaports, but they still cannot be legally registered in Nigeria and lack proper customs duty documents. Enforcement crackdowns since 2025 have made this a high-risk route rather than a reliable shortcut, and undocumented vehicles run into problems at resale or renewal.' } },
+        { '@type': 'Question', name: 'What can I do if my car is too old to import into Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Look for a newer unit of the same model — most popular models (Camry, Corolla, Accord, CR-V) have several generations within the 12-year window. If the vehicle is already overseas and close to the cutoff, shipping sooner rather than later can matter, since the cutoff year moves forward every January. There is no waiver or penalty-payment option for an over-age vehicle at Nigerian ports — it will be seized.' } },
+        { '@type': 'Question', name: 'How many years until a newly-eligible car ages out of Nigeria\u2019s import window?', acceptedAnswer: { '@type': 'Answer', text: 'A vehicle stays importable for 12 years from its manufacture date. For example, a car manufactured in 2018 remains importable through the end of 2030, then becomes ineligible in 2031 as the rolling cutoff moves forward.' } },
       ],
     },
   ],
@@ -150,7 +152,15 @@ export default function ImportAgeLimitNigeriaPage() {
               <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
                 A Brief History of the Age Limit
               </h2>
-              <p>The age limit has tightened in stages rather than appearing overnight. For a long stretch, the rule allowed vehicles up to 15 years old. In May 2022, the Nigeria Customs Service reduced this to 12 years as part of its VIN Valuation Policy, aimed at standardizing import duties and curbing undervaluation. That 12-year threshold is what remains in force today.</p>
+              <p>The age limit has tightened in stages rather than appearing overnight. For a long stretch, the rule allowed vehicles up to 15 years old. In May 2022, the Nigeria Customs Service reduced this to 12 years as part of its VIN Valuation Policy, aimed at standardizing import duties and curbing undervaluation. That 12-year threshold is what remains in force today, and it&apos;s worth remembering the cutoff is a rolling window — a car that qualifies this year can age out a year or two later, so the &quot;oldest importable model year&quot; moves forward every January.</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                What To Do If Your Car Doesn&apos;t Qualify
+              </h2>
+              <p className="mb-3">There is no waiver, penalty payment, or exception that lets an over-age vehicle clear Nigerian customs — unlike expired vehicle particulars, which can be settled with a fine, an age-barred import is simply seized. If a car you&apos;re eyeing overseas falls outside the window, the practical options are: look for a newer model-year unit of the same car (most popular imports — Toyota Camry, Corolla, Honda Accord, CR-V, Lexus RX — have several generations that fall inside 12 years at any given time), or check whether a different trim or year of the same nameplate clears the bar.</p>
+              <p>If a car is currently eligible but close to the edge, timing matters — the cutoff moves forward every January 1st, so a vehicle that qualifies today may not next year. Shipping earlier rather than later removes that risk. Before committing to a purchase, run the exact VIN-plate manufacture year through the checker above rather than relying on the auction listing&apos;s model year.</p>
             </div>
 
           </div>
@@ -168,6 +178,8 @@ export default function ImportAgeLimitNigeriaPage() {
                 { q: 'What happens if I import a car older than 12 years?', a: 'It\'s classified as a prohibited import and seized at the port — not released even if you offer to pay duty.' },
                 { q: 'Has the limit always been 12 years?', a: 'No — it was 15 years until the Nigeria Customs Service reduced it in May 2022 under the VIN Valuation Policy.' },
                 { q: 'Does the rule apply to a car I already own in Nigeria?', a: 'No. It only applies to new imports at the point of entry — you can keep, drive, and resell an older car you already own.' },
+                { q: 'Is it safe to bring in an older car through Cotonou or Seme?', a: 'It carries real risk — the vehicle bypasses the seaport VIN check but still can\'t be legally registered and lacks proper duty documents, which causes problems at resale or renewal.' },
+                { q: 'What can I do if my car doesn\'t qualify for import?', a: 'Look for a newer model-year unit of the same car — most popular nameplates have several generations inside the 12-year window. There\'s no waiver for an over-age vehicle.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
