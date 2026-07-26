@@ -24,6 +24,7 @@ const staticPages = [
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/chassis-number-check',         priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/plate-number-checker',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vehicle-papers-checklist',     priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/insurance-calculator',         priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/best-car-for',                 priority: 0.7, changefreq: 'monthly' },

@@ -195,6 +195,15 @@ const TOOLS: Tool[] = [
     category: 'Due Diligence',
   },
   {
+    href: '/tools/plate-number-checker',
+    icon: Search,
+    label: 'Plate Number Checker',
+    description: 'Free Nigeria plate number checker — decode LGA of registration, registration year, and plate format.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Due Diligence',
+  },
+  {
     href: '/tools/obd-codes',
     icon: ScanLine,
     label: 'OBD-II Code Lookup',

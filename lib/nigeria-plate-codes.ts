@@ -1,0 +1,216 @@
+// Nigeria vehicle plate LGA-prefix dataset.
+//
+// Source: eduweb.com.ng per-state plate-code pages (fetched and cross-checked
+// against official LGA counts per state — see COVERED_STATES below for the
+// count match for each state currently included). Lagos was additionally
+// cross-verified against an independent second source.
+//
+// This is a growing dataset, not a claim of full national coverage — see
+// COVERED_STATES for what's verified so far. Anything not in PLATE_CODES
+// should be verified directly at https://nvis.frsc.gov.ng/VehicleManagement/VerifyPlateNo
+// rather than guessed.
+
+export interface PlateCodeEntry {
+  code: string;
+  lga: string;
+  state: string;
+}
+
+export const COVERED_STATES = [
+  { state: 'Lagos', lgaCount: 20, verified: 20 },
+  { state: 'FCT (Abuja)', lgaCount: 6, verified: 6 },
+  { state: 'Kano', lgaCount: 44, verified: 44 },
+  { state: 'Ogun', lgaCount: 20, verified: 20 },
+  { state: 'Anambra', lgaCount: 21, verified: 21 },
+  { state: 'Akwa Ibom', lgaCount: 31, verified: 31 },
+  { state: 'Enugu', lgaCount: 17, verified: 17 },
+];
+
+export const PLATE_CODES: PlateCodeEntry[] = [
+  // Lagos (20 LGAs)
+  { code: 'GGE', lga: 'Agege', state: 'Lagos' },
+  { code: 'AGL', lga: 'Ajeromi-Ifelodun', state: 'Lagos' },
+  { code: 'KTU', lga: 'Alimosho', state: 'Lagos' },
+  { code: 'FST', lga: 'Amuwo-Odofin', state: 'Lagos' },
+  { code: 'APP', lga: 'Apapa', state: 'Lagos' },
+  { code: 'BDG', lga: 'Badagry', state: 'Lagos' },
+  { code: 'EPE', lga: 'Epe', state: 'Lagos' },
+  { code: 'EKY', lga: 'Eti-Osa', state: 'Lagos' },
+  { code: 'AKD', lga: 'Ibeju-Lekki', state: 'Lagos' },
+  { code: 'FKJ', lga: 'Ifako-Ijaiye', state: 'Lagos' },
+  { code: 'KJA', lga: 'Ikeja', state: 'Lagos' },
+  { code: 'KRD', lga: 'Ikorodu', state: 'Lagos' },
+  { code: 'KSF', lga: 'Kosofe', state: 'Lagos' },
+  { code: 'AAA', lga: 'Lagos Island', state: 'Lagos' },
+  { code: 'LND', lga: 'Lagos Mainland', state: 'Lagos' },
+  { code: 'MUS', lga: 'Mushin', state: 'Lagos' },
+  { code: 'JJJ', lga: 'Ojo', state: 'Lagos' },
+  { code: 'LSD', lga: 'Oshodi-Isolo', state: 'Lagos' },
+  { code: 'SMK', lga: 'Somolu', state: 'Lagos' },
+  { code: 'LSR', lga: 'Surulere', state: 'Lagos' },
+
+  // FCT / Abuja (6 area councils)
+  { code: 'ABJ', lga: 'Abaji', state: 'FCT (Abuja)' },
+  { code: 'ABC', lga: 'Abuja Municipal Area Council', state: 'FCT (Abuja)' },
+  { code: 'BWR', lga: 'Bwari', state: 'FCT (Abuja)' },
+  { code: 'GWA', lga: 'Gwagwalada', state: 'FCT (Abuja)' },
+  { code: 'KUJ', lga: 'Kuje', state: 'FCT (Abuja)' },
+  { code: 'KWL', lga: 'Kwali', state: 'FCT (Abuja)' },
+
+  // Kano (44 LGAs)
+  { code: 'AJG', lga: 'Ajingi', state: 'Kano' },
+  { code: 'ABS', lga: 'Albasu', state: 'Kano' },
+  { code: 'BGW', lga: 'Bagwai', state: 'Kano' },
+  { code: 'BBJ', lga: 'Bebeji', state: 'Kano' },
+  { code: 'BCH', lga: 'Bichi', state: 'Kano' },
+  { code: 'BNK', lga: 'Bunkure', state: 'Kano' },
+  { code: 'DAL', lga: 'Dala', state: 'Kano' },
+  { code: 'DBT', lga: 'Danbatta', state: 'Kano' },
+  { code: 'DKD', lga: 'Dawakin Kudu', state: 'Kano' },
+  { code: 'DTF', lga: 'Dawakin Tofa', state: 'Kano' },
+  { code: 'DGW', lga: 'Doguwa', state: 'Kano' },
+  { code: 'FGE', lga: 'Fagge', state: 'Kano' },
+  { code: 'DSW', lga: 'Gabasawa', state: 'Kano' },
+  { code: 'GAK', lga: 'Garko', state: 'Kano' },
+  { code: 'GNM', lga: 'Garun Mallam', state: 'Kano' },
+  { code: 'GYA', lga: 'Gaya', state: 'Kano' },
+  { code: 'GZW', lga: 'Gezawa', state: 'Kano' },
+  { code: 'GWL', lga: 'Gwale', state: 'Kano' },
+  { code: 'GRZ', lga: 'Gwarzo', state: 'Kano' },
+  { code: 'KMC', lga: 'Kano Municipal', state: 'Kano' },
+  { code: 'KRY', lga: 'Karaye', state: 'Kano' },
+  { code: 'KBY', lga: 'Kibiya', state: 'Kano' },
+  { code: 'KKU', lga: 'Kiru', state: 'Kano' },
+  { code: 'KBT', lga: 'Kumbotso', state: 'Kano' },
+  { code: 'KNC', lga: 'Kunchi', state: 'Kano' },
+  { code: 'KUR', lga: 'Kura', state: 'Kano' },
+  { code: 'MDB', lga: 'Madobi', state: 'Kano' },
+  { code: 'MKK', lga: 'Makoda', state: 'Kano' },
+  { code: 'MJB', lga: 'Minjibir', state: 'Kano' },
+  { code: 'NSR', lga: 'Nassarawa', state: 'Kano' },
+  { code: 'RAN', lga: 'Rano', state: 'Kano' },
+  { code: 'RMG', lga: 'Rimin Gado', state: 'Kano' },
+  { code: 'RGG', lga: 'Rogo', state: 'Kano' },
+  { code: 'SNN', lga: 'Shanono', state: 'Kano' },
+  { code: 'SML', lga: 'Sumaila', state: 'Kano' },
+  { code: 'TAK', lga: 'Takai', state: 'Kano' },
+  { code: 'TRN', lga: 'Tarauni', state: 'Kano' },
+  { code: 'TEA', lga: 'Tofa', state: 'Kano' },
+  { code: 'TYW', lga: 'Tsanyawa', state: 'Kano' },
+  { code: 'TWD', lga: 'Tudun Wada', state: 'Kano' },
+  { code: 'UGG', lga: 'Ungogo', state: 'Kano' },
+  { code: 'WRA', lga: 'Warawa', state: 'Kano' },
+  { code: 'WDL', lga: 'Wudil', state: 'Kano' },
+  { code: 'KBK', lga: 'Kabo', state: 'Kano' },
+
+  // Ogun (20 LGAs)
+  { code: 'AKM', lga: 'Abeokuta North', state: 'Ogun' },
+  { code: 'AAB', lga: 'Abeokuta South', state: 'Ogun' },
+  { code: 'OTA', lga: 'Ado-Odo/Ota', state: 'Ogun' },
+  { code: 'TRE', lga: 'Ewekoro', state: 'Ogun' },
+  { code: 'FFF', lga: 'Ifo', state: 'Ogun' },
+  { code: 'AYE', lga: 'Yewa North (Egbado North)', state: 'Ogun' },
+  { code: 'LAR', lga: 'Yewa South (Egbado South)', state: 'Ogun' },
+  { code: 'GBE', lga: 'Ijebu East', state: 'Ogun' },
+  { code: 'JGB', lga: 'Ijebu North', state: 'Ogun' },
+  { code: 'JNE', lga: 'Ijebu North East', state: 'Ogun' },
+  { code: 'JBD', lga: 'Ijebu Ode', state: 'Ogun' },
+  { code: 'KNN', lga: 'Ikenne', state: 'Ogun' },
+  { code: 'MEK', lga: 'Imeko Afon', state: 'Ogun' },
+  { code: 'PKA', lga: 'Ipokia', state: 'Ogun' },
+  { code: 'WDE', lga: 'Obafemi Owode', state: 'Ogun' },
+  { code: 'DED', lga: 'Odeda', state: 'Ogun' },
+  { code: 'DGB', lga: 'Odogbolu', state: 'Ogun' },
+  { code: 'ABG', lga: 'Ogun Waterside', state: 'Ogun' },
+  { code: 'JRM', lga: 'Remo North', state: 'Ogun' },
+  { code: 'SMG', lga: 'Shagamu', state: 'Ogun' },
+
+  // Anambra (21 LGAs)
+  { code: 'AGU', lga: 'Aguata', state: 'Anambra' },
+  { code: 'AAH', lga: 'Anambra East', state: 'Anambra' },
+  { code: 'NZM', lga: 'Anambra West', state: 'Anambra' },
+  { code: 'NEN', lga: 'Anaocha', state: 'Anambra' },
+  { code: 'ACA', lga: 'Awka North', state: 'Anambra' },
+  { code: 'AWK', lga: 'Awka South', state: 'Anambra' },
+  { code: 'NKK', lga: 'Ayamelum', state: 'Anambra' },
+  { code: 'KPP', lga: 'Dunukofia', state: 'Anambra' },
+  { code: 'ZBL', lga: 'Ekwusigo', state: 'Anambra' },
+  { code: 'GDD', lga: 'Idemili North', state: 'Anambra' },
+  { code: 'JJT', lga: 'Idemili South', state: 'Anambra' },
+  { code: 'HAL', lga: 'Ogbaru/Mala', state: 'Anambra' },
+  { code: 'ABN', lga: 'Njikoka', state: 'Anambra' },
+  { code: 'NNE', lga: 'Nnewi North', state: 'Anambra' },
+  { code: 'UKP', lga: 'Nnewi South', state: 'Anambra' },
+  { code: 'ATN', lga: 'Ogbaru', state: 'Anambra' },
+  { code: 'NSH', lga: 'Onitsha North', state: 'Anambra' },
+  { code: 'FGG', lga: 'Onitsha South', state: 'Anambra' },
+  { code: 'AJL', lga: 'Orumba North', state: 'Anambra' },
+  { code: 'UMZ', lga: 'Orumba South', state: 'Anambra' },
+  { code: 'HTE', lga: 'Oyi', state: 'Anambra' },
+
+  // Akwa Ibom (31 LGAs)
+  { code: 'ABK', lga: 'Abak', state: 'Akwa Ibom' },
+  { code: 'KRT', lga: 'Eastern Obolo', state: 'Akwa Ibom' },
+  { code: 'KET', lga: 'Eket', state: 'Akwa Ibom' },
+  { code: 'KST', lga: 'Esit Eket', state: 'Akwa Ibom' },
+  { code: 'AFH', lga: 'Essien Udim', state: 'Akwa Ibom' },
+  { code: 'AEE', lga: 'Etim Ekpo', state: 'Akwa Ibom' },
+  { code: 'ETN', lga: 'Etinan', state: 'Akwa Ibom' },
+  { code: 'PNG', lga: 'Ibeno', state: 'Akwa Ibom' },
+  { code: 'NGD', lga: 'Ibesikpo Asutan', state: 'Akwa Ibom' },
+  { code: 'BMT', lga: 'Ibiono Ibom', state: 'Akwa Ibom' },
+  { code: 'NYA', lga: 'Ika', state: 'Akwa Ibom' },
+  { code: 'KKN', lga: 'Ikono', state: 'Akwa Ibom' },
+  { code: 'KTS', lga: 'Ikot Abasi', state: 'Akwa Ibom' },
+  { code: 'KTE', lga: 'Ikot Ekpene', state: 'Akwa Ibom' },
+  { code: 'DRK', lga: 'Ini', state: 'Akwa Ibom' },
+  { code: 'TTU', lga: 'Itu', state: 'Akwa Ibom' },
+  { code: 'ENW', lga: 'Mbo', state: 'Akwa Ibom' },
+  { code: 'MKP', lga: 'Mkpat Enin', state: 'Akwa Ibom' },
+  { code: 'AFG', lga: 'Nsit Ibom', state: 'Akwa Ibom' },
+  { code: 'KTD', lga: 'Nsit Ubium', state: 'Akwa Ibom' },
+  { code: 'TAI', lga: 'Nsit Atai', state: 'Akwa Ibom' },
+  { code: 'NTE', lga: 'Obot Akara', state: 'Akwa Ibom' },
+  { code: 'KPD', lga: 'Okobo', state: 'Akwa Ibom' },
+  { code: 'ABT', lga: 'Onna', state: 'Akwa Ibom' },
+  { code: 'RNN', lga: 'Oron', state: 'Akwa Ibom' },
+  { code: 'KTM', lga: 'Oruk Anam', state: 'Akwa Ibom' },
+  { code: 'EYF', lga: 'Udung Uko', state: 'Akwa Ibom' },
+  { code: 'KPK', lga: 'Ukanafun', state: 'Akwa Ibom' },
+  { code: 'UFG', lga: 'Uruan Offong Oruko', state: 'Akwa Ibom' },
+  { code: 'DUU', lga: 'Uruan', state: 'Akwa Ibom' },
+  { code: 'UYY', lga: 'Uyo', state: 'Akwa Ibom' },
+
+  // Enugu (17 LGAs)
+  { code: 'DBR', lga: 'Aninri', state: 'Enugu' },
+  { code: 'AWG', lga: 'Awgu', state: 'Enugu' },
+  { code: 'NKW', lga: 'Enugu East', state: 'Enugu' },
+  { code: 'ENU', lga: 'Enugu North', state: 'Enugu' },
+  { code: 'UWN', lga: 'Enugu South', state: 'Enugu' },
+  { code: 'AGW', lga: 'Ezeagu', state: 'Enugu' },
+  { code: 'GBD', lga: 'Igbo Etiti', state: 'Enugu' },
+  { code: 'ENZ', lga: 'Igbo Eze North', state: 'Enugu' },
+  { code: 'BBG', lga: 'Igbo Eze South', state: 'Enugu' },
+  { code: 'KEM', lga: 'Isi Uzo', state: 'Enugu' },
+  { code: 'MGL', lga: 'Nkanu East', state: 'Enugu' },
+  { code: 'AGN', lga: 'Nkanu West', state: 'Enugu' },
+  { code: 'NSK', lga: 'Nsukka', state: 'Enugu' },
+  { code: 'JRV', lga: 'Oji River', state: 'Enugu' },
+  { code: 'BLF', lga: 'Udenu', state: 'Enugu' },
+  { code: 'UDD', lga: 'Udi', state: 'Enugu' },
+  { code: 'UMU', lga: 'Uzo-Uwani', state: 'Enugu' },
+];
+
+export function lookupPlateCode(prefix: string): PlateCodeEntry | null {
+  const clean = prefix.trim().toUpperCase();
+  return PLATE_CODES.find((e) => e.code === clean) ?? null;
+}
+
+// Decode the 4th character of a post-2011 plate into a registration year.
+// A=2011, B=2012, ... skipping nothing, sequential through the alphabet.
+export function decodePlateYear(yearLetter: string): number | null {
+  const letter = yearLetter.trim().toUpperCase();
+  if (!/^[A-Z]$/.test(letter)) return null;
+  const index = letter.charCodeAt(0) - 'A'.charCodeAt(0);
+  return 2011 + index;
+}

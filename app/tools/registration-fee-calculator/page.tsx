@@ -267,6 +267,7 @@ export default function RegistrationFeeCalculatorPage() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
+                { href: '/tools/plate-number-checker', label: 'Plate Number Checker', color: 'sky' },
                 { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Vehicle Papers Checklist', color: 'violet' },
                 { href: '/tools/insurance-calculator', label: 'Insurance Calculator', color: 'blue' },
