@@ -35,6 +35,8 @@ export const COVERED_STATES = [
   { state: 'Plateau', lgaCount: 17, verified: 17 },
   { state: 'Kwara', lgaCount: 16, verified: 16 },
   { state: 'Ebonyi', lgaCount: 13, verified: 13 },
+  { state: 'Abia', lgaCount: 17, verified: 16 }, // source missing Umu Nneochi LGA — excluded rather than guessed
+  { state: 'Adamawa', lgaCount: 21, verified: 21 },
 ];
 
 export const PLATE_CODES: PlateCodeEntry[] = [
@@ -468,6 +470,47 @@ export const PLATE_CODES: PlateCodeEntry[] = [
   { code: 'HKW', lga: 'Ohaukwu', state: 'Ebonyi' },
   { code: 'BZR', lga: 'Ohaozara', state: 'Ebonyi' },
   { code: 'NCA', lga: 'Onicha', state: 'Ebonyi' },
+
+  // Abia (16 of 17 LGAs — source missing Umu Nneochi)
+  { code: 'EZA', lga: 'Aba North', state: 'Abia' },
+  { code: 'ABA', lga: 'Aba South', state: 'Abia' },
+  { code: 'ACH', lga: 'Arochukwu', state: 'Abia' },
+  { code: 'BND', lga: 'Bende', state: 'Abia' },
+  { code: 'KWU', lga: 'Ikwuano', state: 'Abia' },
+  { code: 'KPU', lga: 'Isiala Ngwa North', state: 'Abia' },
+  { code: 'MBA', lga: 'Isiala Ngwa South', state: 'Abia' },
+  { code: 'MBL', lga: 'Isuikwuato', state: 'Abia' },
+  { code: 'NGK', lga: 'Obi Ngwa', state: 'Abia' },
+  { code: 'HAF', lga: 'Ohafia', state: 'Abia' },
+  { code: 'SSM', lga: 'Osisioma', state: 'Abia' },
+  { code: 'GWB', lga: 'Ugwunagbo', state: 'Abia' },
+  { code: 'KKE', lga: 'Ukwa West', state: 'Abia' },
+  { code: 'KEK', lga: 'Ukwa East', state: 'Abia' },
+  { code: 'UMA', lga: 'Umuahia North', state: 'Abia' },
+  { code: 'APR', lga: 'Umuahia South', state: 'Abia' },
+
+  // Adamawa (21 LGAs)
+  { code: 'DSA', lga: 'Demsa', state: 'Adamawa' },
+  { code: 'FUR', lga: 'Fufore', state: 'Adamawa' },
+  { code: 'GAN', lga: 'Ganye', state: 'Adamawa' },
+  { code: 'GRE', lga: 'Girei', state: 'Adamawa' },
+  { code: 'GMB', lga: 'Gombi', state: 'Adamawa' },
+  { code: 'GUY', lga: 'Guyuk', state: 'Adamawa' },
+  { code: 'HNG', lga: 'Hong', state: 'Adamawa' },
+  { code: 'JAD', lga: 'Jada', state: 'Adamawa' },
+  { code: 'JMT', lga: 'Yola North (Jimeta)', state: 'Adamawa' },
+  { code: 'LMR', lga: 'Lamurde', state: 'Adamawa' },
+  { code: 'MDG', lga: 'Madagali', state: 'Adamawa' },
+  { code: 'MAH', lga: 'Maiha', state: 'Adamawa' },
+  { code: 'MWA', lga: 'Mayo-Belwa', state: 'Adamawa' },
+  { code: 'MCH', lga: 'Michika', state: 'Adamawa' },
+  { code: 'MUB', lga: 'Mubi North', state: 'Adamawa' },
+  { code: 'GYL', lga: 'Mubi South', state: 'Adamawa' },
+  { code: 'NUM', lga: 'Numan', state: 'Adamawa' },
+  { code: 'SHG', lga: 'Shelleng', state: 'Adamawa' },
+  { code: 'SNG', lga: 'Song', state: 'Adamawa' },
+  { code: 'TNG', lga: 'Toungo', state: 'Adamawa' },
+  { code: 'YLA', lga: 'Yola South', state: 'Adamawa' },
 ];
 
 export function lookupPlateCode(prefix: string): PlateCodeEntry | null {
