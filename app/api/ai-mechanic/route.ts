@@ -27,7 +27,13 @@ const GEMINI_MODELS = [
 ];
 
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;   // 10 MB inline
-const MAX_AUDIO_BYTES = 20 * 1024 * 1024;   // 20 MB
+// Free tier caps audio analysis at the first 30s of any clip — this is
+// enforced client-side (trimmed to a mono 16kHz WAV before upload, ~1MB
+// for 30s) to bound Gemini audio-decoding cost per request. This byte
+// ceiling is just the backstop for browsers where client-side trimming
+// isn't supported (falls back to sending the original file) — it is
+// NOT itself a reliable duration check, since bitrate varies by format.
+const MAX_AUDIO_BYTES = 8 * 1024 * 1024;    // 8 MB
 const MAX_VIDEO_BYTES = 50 * 1024 * 1024;   // 50 MB
 
 const SYSTEM_PROMPT = `You are a friendly but no-nonsense Nigerian automotive mechanic with 25 years hands-on experience. 
