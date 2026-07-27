@@ -57,11 +57,6 @@ const SCHEMA = {
         },
         {
           '@type': 'Question',
-          name: 'Is the AI diagnosis always accurate?',
-          acceptedAnswer: { '@type': 'Answer', text: 'No — it is not always 100% accurate. It is a strong starting point based on the description, photo, audio, or video you provide, but it can miss things a hands-on inspection with a lift and diagnostic scanner would catch. Treat it as a first opinion, not a final answer, and always see a qualified mechanic in person for brakes, steering, or fuel-related issues regardless of what the diagnosis says.' },
-        },
-        {
-          '@type': 'Question',
           name: 'Is this the same as asking a mechanic online?',
           acceptedAnswer: { '@type': 'Answer', text: 'It is better in many ways. When you ask a mechanic online in a forum or WhatsApp group, you get one person\'s opinion based on a text description. Our online mechanic service analyses your description plus any photos, audio, or video you provide, cross-references it against thousands of known fault patterns, and returns a ranked diagnosis with confidence scores.' },
         },
@@ -375,7 +370,6 @@ export default function AIMechanicPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {[
                 { q: 'What is an AI mechanic and how does it work?', a: 'An AI mechanic is a virtual auto mechanic that uses artificial intelligence to diagnose car problems remotely. You describe your problem, upload optional media, and the AI analyses your inputs against a vast knowledge base of vehicle faults, Nigerian road conditions, and local repair costs.' },
-                { q: 'Is the AI diagnosis always accurate?', a: 'No — it\'s not always 100% accurate. It\'s a strong starting point, but it can miss things a hands-on inspection with a lift and scanner would catch. Treat it as a first opinion, and always see a mechanic in person for brakes, steering, or fuel issues regardless of what it says.' },
                 { q: 'Is this the same as asking a mechanic online?', a: 'It is better in many ways. When you ask a mechanic online in a forum or WhatsApp group, you get one person\'s opinion. Our service analyses your description plus photos, audio, or video, cross-references it against thousands of known fault patterns, and returns a ranked diagnosis with confidence scores.' },
                 { q: 'Can I get an online auto repair estimate for any car brand?', a: 'Yes. Our online vehicle repair estimate covers Toyota, Honda, Mercedes-Benz, Lexus, Kia, Hyundai, BMW, Mitsubishi, Nissan, Ford, Innoson, Peugeot, and all other brands on Nigerian roads.' },
                 { q: 'How accurate is the online car repair estimate calculator?', a: 'Our auto repair cost estimate draws from Nigerian market data. We give a range (minimum to maximum) so you know what is reasonable. If a mechanic quotes significantly above our maximum, that is a red flag worth investigating.' },

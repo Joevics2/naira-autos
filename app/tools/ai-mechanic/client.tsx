@@ -7,100 +7,8 @@ import {
   AlertCircle, XCircle, ChevronRight,
   Loader2, X, Zap, Car, Gauge,
   Plus, Trash2, MessageSquare, Send, History,
-  Check, ArrowLeft, Info, Lock
+  Check, ArrowLeft
 } from 'lucide-react';
-
-// ── Audio cap: free tier analyses only the first 30s of any clip ───
-// (Gemini audio decoding is billed per second — this bounds cost per
-// analysis. Longer clips are trimmed client-side before upload rather
-// than rejected, so the user still gets a result.)
-const FREE_AUDIO_CAP_SECONDS = 30;
-
-function getAudioDuration(file: File): Promise<number> {
-  return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const audio = document.createElement('audio');
-    audio.preload = 'metadata';
-    audio.onloadedmetadata = () => {
-      const d = audio.duration;
-      URL.revokeObjectURL(url);
-      if (!isFinite(d) || isNaN(d)) reject(new Error('duration unavailable'));
-      else resolve(d);
-    };
-    audio.onerror = () => { URL.revokeObjectURL(url); reject(new Error('metadata load failed')); };
-    audio.src = url;
-  });
-}
-
-// Encodes a decoded AudioBuffer (already sliced to the cap) to a mono
-// 16kHz WAV Blob — small file size, and WAV needs no codec on Gemini's side.
-function encodeWav(buffer: AudioBuffer): Blob {
-  const numSamples = buffer.length;
-  const sampleRate = buffer.sampleRate;
-  const data = buffer.getChannelData(0); // mono
-  const bytesPerSample = 2;
-  const blockAlign = bytesPerSample;
-  const byteRate = sampleRate * blockAlign;
-  const dataSize = numSamples * bytesPerSample;
-  const bufferSize = 44 + dataSize;
-  const ab = new ArrayBuffer(bufferSize);
-  const view = new DataView(ab);
-
-  const writeStr = (offset: number, s: string) => { for (let i = 0; i < s.length; i++) view.setUint8(offset + i, s.charCodeAt(i)); };
-
-  writeStr(0, 'RIFF');
-  view.setUint32(4, 36 + dataSize, true);
-  writeStr(8, 'WAVE');
-  writeStr(12, 'fmt ');
-  view.setUint32(16, 16, true);
-  view.setUint16(20, 1, true);        // PCM
-  view.setUint16(22, 1, true);        // mono
-  view.setUint32(24, sampleRate, true);
-  view.setUint32(28, byteRate, true);
-  view.setUint16(32, blockAlign, true);
-  view.setUint16(34, 16, true);       // bits per sample
-  writeStr(36, 'data');
-  view.setUint32(40, dataSize, true);
-
-  let offset = 44;
-  for (let i = 0; i < numSamples; i++) {
-    const s = Math.max(-1, Math.min(1, data[i]));
-    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
-    offset += 2;
-  }
-  return new Blob([ab], { type: 'audio/wav' });
-}
-
-// Decodes any browser-supported audio file and trims it to the first
-// `maxSeconds`, downmixed to mono. Returns null if decoding isn't
-// supported (caller should fall back to sending the original file).
-async function trimAudioToSeconds(file: File, maxSeconds: number): Promise<File | null> {
-  try {
-    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-    if (!AudioCtx) return null;
-    const ctx = new AudioCtx();
-    const arrayBuffer = await file.arrayBuffer();
-    const decoded = await ctx.decodeAudioData(arrayBuffer.slice(0));
-    const sampleRate = decoded.sampleRate;
-    const framesToKeep = Math.min(decoded.length, Math.floor(maxSeconds * sampleRate));
-
-    const trimmed = ctx.createBuffer(1, framesToKeep, sampleRate);
-    const out = trimmed.getChannelData(0);
-    if (decoded.numberOfChannels > 1) {
-      const ch0 = decoded.getChannelData(0);
-      const ch1 = decoded.getChannelData(1);
-      for (let i = 0; i < framesToKeep; i++) out[i] = (ch0[i] + ch1[i]) / 2;
-    } else {
-      out.set(decoded.getChannelData(0).subarray(0, framesToKeep));
-    }
-
-    ctx.close();
-    const blob = encodeWav(trimmed);
-    return new File([blob], file.name.replace(/\.[^.]+$/, '') + '-trimmed.wav', { type: 'audio/wav' });
-  } catch {
-    return null;
-  }
-}
 
 // ── Types ─────────────────────────────────────────────────────────
 
@@ -390,11 +298,8 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         </div>
 
         {/* Disclaimer */}
-        <div className="px-4 py-3 bg-slate-700/40 flex items-start gap-2">
-          <AlertTriangle className="h-3.5 w-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <p className="text-xs text-slate-400 leading-relaxed">
-            AI-generated diagnosis based on what you described and uploaded — it isn&apos;t always 100% accurate and can miss things a hands-on inspection would catch. Use it as a starting point, not a final answer. For brakes, steering, or fuel issues, stop driving and see a qualified mechanic regardless of what this says.
-          </p>
+        <div className="px-4 py-3 bg-slate-700/40">
+          <p className="text-xs text-slate-500 leading-relaxed">This is an AI-assisted diagnosis. Use it as a starting point. Always confirm with a qualified technician before making repairs.</p>
         </div>
 
       </div>
@@ -455,7 +360,6 @@ export default function AIMechanicClient() {
   const [error, setError] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [recordingSeconds, setRecordingSeconds] = useState(0);
-  const [audioNotice, setAudioNotice] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const recordingChunksRef = useRef<Blob[]>([]);
   const recordingTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -524,7 +428,7 @@ export default function AIMechanicClient() {
       setActiveId(s.id);
     }
     setSidebarOpen(false);
-    setText(''); setImageFile(null); setAudioFile(null); setVideoFile(null); setAudioNotice(null); setAudioNotice(null); setError('');
+    setText(''); setImageFile(null); setAudioFile(null); setVideoFile(null); setError('');
   };
 
   const deleteSession = (id: string) => {
@@ -559,17 +463,7 @@ export default function AIMechanicClient() {
       mediaRecorderRef.current = recorder;
       setIsRecording(true);
       setRecordingSeconds(0);
-      setAudioNotice(null);
-      recordingTimerRef.current = setInterval(() => {
-        setRecordingSeconds(s => {
-          const next = s + 1;
-          if (next >= FREE_AUDIO_CAP_SECONDS) {
-            stopRecording();
-            setAudioNotice(`Recording capped at ${FREE_AUDIO_CAP_SECONDS}s on the free tier — that's usually enough for a clear engine sound. Longer clips are coming as a paid option.`);
-          }
-          return next;
-        });
-      }, 1000);
+      recordingTimerRef.current = setInterval(() => setRecordingSeconds(s => s + 1), 1000);
     } catch {
       alert('Microphone access denied. Please allow microphone access and try again.');
     }
@@ -580,34 +474,6 @@ export default function AIMechanicClient() {
       mediaRecorderRef.current.stop();
     }
     if (recordingTimerRef.current) clearInterval(recordingTimerRef.current);
-  };
-
-  const handleAudioSelected = async (f: File) => {
-    setAudioNotice(null);
-    try {
-      const duration = await getAudioDuration(f);
-      if (duration <= FREE_AUDIO_CAP_SECONDS) {
-        setAudioFile(f);
-        return;
-      }
-      const trimmed = await trimAudioToSeconds(f, FREE_AUDIO_CAP_SECONDS);
-      if (trimmed) {
-        setAudioFile(trimmed);
-        setAudioNotice(
-          `This clip is ${Math.round(duration)}s long — on the free tier we'll only analyse the first ${FREE_AUDIO_CAP_SECONDS}s. Longer clips are coming as a paid option.`
-        );
-      } else {
-        // Couldn't decode/trim in-browser — send the original file and
-        // let the server-side size cap be the backstop.
-        setAudioFile(f);
-        setAudioNotice(
-          `This clip is ${Math.round(duration)}s long. We recommend trimming it to ${FREE_AUDIO_CAP_SECONDS}s or less before uploading.`
-        );
-      }
-    } catch {
-      // Duration couldn't be read (unsupported format/browser) — pass through.
-      setAudioFile(f);
-    }
   };
 
   const handleSubmit = async () => {
@@ -632,7 +498,7 @@ export default function AIMechanicClient() {
     const withUser: ChatSession = { ...activeSession, title, messages: [...activeSession.messages, userMsg], updatedAt: Date.now() };
     persist(sessions.map(s => s.id === activeId ? withUser : s));
 
-    setText(''); setImageFile(null); setAudioFile(null); setVideoFile(null); setAudioNotice(null);
+    setText(''); setImageFile(null); setAudioFile(null); setVideoFile(null);
     setLoading(true); setError('');
 
     try {
@@ -872,7 +738,7 @@ export default function AIMechanicClient() {
                     className="w-full px-4 pt-3 pb-2 text-sm bg-transparent text-white placeholder:text-white/40 focus:outline-none resize-none leading-relaxed" />
                   <div className="flex items-center gap-2 px-3 pb-2 pt-1.5 border-t border-white/20 flex-wrap">
                     {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={handleAudioSelected} onClear={() => { setAudioFile(null); setAudioNotice(null); }} maxMB={20} />}
+                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
                     {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                     {/* Record button */}
                     {showAudioUpload && !audioFile && (
@@ -889,16 +755,6 @@ export default function AIMechanicClient() {
                         </button>
                       )
                     )}
-                  </div>
-                  {audioNotice && (
-                    <div className="mx-3 mb-2 flex items-start gap-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/25">
-                      <Lock className="h-3.5 w-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-amber-200/90 leading-relaxed">{audioNotice}</p>
-                    </div>
-                  )}
-                  <div className="px-3 pb-1 flex items-start gap-1.5">
-                    <Info className="h-3 w-3 text-white/25 flex-shrink-0 mt-0.5" />
-                    <p className="text-[11px] text-white/30 leading-relaxed">AI diagnosis isn&apos;t always 100% accurate — treat it as a starting point, not a final answer. For brakes, steering, or fuel issues, stop driving and see a mechanic regardless of what this says.</p>
                   </div>
                   <div className="px-3 pb-3">
                     <button onClick={handleSubmit} disabled={!hasInput || loading}
@@ -958,7 +814,7 @@ export default function AIMechanicClient() {
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex gap-2 flex-wrap">
                       {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={handleAudioSelected} onClear={() => { setAudioFile(null); setAudioNotice(null); }} maxMB={20} />}
+                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
                       {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                       {showAudioUpload && !audioFile && (
                         isRecording ? (
@@ -979,12 +835,6 @@ export default function AIMechanicClient() {
                       <Plus className="h-3 w-3" /> New chat
                     </button>
                   </div>
-                  {audioNotice && (
-                    <div className="mt-2 flex items-start gap-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/25">
-                      <Lock className="h-3.5 w-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-amber-200/90 leading-relaxed">{audioNotice}</p>
-                    </div>
-                  )}
                 </div>
               </div>
             )}
