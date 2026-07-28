@@ -1039,6 +1039,16 @@ Plates issued before the 2011 revision used a different layout (2 letters, 3 dig
 | Somolu | SMK |
 | Surulere | LSR |
 
+## Why Plate Verification Matters in Lagos
+
+Lagos is Nigeria's commercial nerve centre and by far the country's busiest vehicle market — a huge share of Nigeria's Tokunbo (foreign-used) and locally-used car sales pass through Lagos ports and dealerships before being distributed nationwide. That volume also means Lagos sees the country's highest concentration of vehicle-history disputes: cloned plates, mismatched chassis numbers, and re-registered vehicles come up more often here simply because of the sheer number of transactions happening daily.
+
+Because of this, cross-checking a plate's LGA code against the seller's claimed location is a useful first-pass habit before a Lagos car purchase. A seller claiming a car is "fresh from Apapa port" but showing a plate registered in Ikorodu (KRD) or Badagry (BDG) years earlier isn't necessarily lying — plates don't automatically update just because a car changes hands within the state — but it's a detail worth asking about directly, since older registrations can carry a very different service and accident history than the seller's pitch suggests.
+
+Lagos's 20 LGAs also roughly map to distinct used-car buying corridors: Apapa (APP) and the ports area for freshly cleared imports, Ikeja (KJA) and Surulere (LSR) for established dealership rows, and Alimosho (KTU) or Ojo (JJJ) for higher-volume, budget-focused markets. None of this is a hard rule — a car can be resold and driven anywhere within the state without its plate code changing — but LGA clustering is a useful contextual signal to pair alongside a proper VIN check.
+
+If you're buying in Lagos, pair this plate lookup with a full [VIN Checker](https://www.naira.autos/tools/vin-checker) run and a read through our [Vehicle Papers Checklist](https://www.naira.autos/tools/vehicle-papers-checklist) before handing over payment. The LGA code alone won't tell you whether a car has a clean title, but it's a fast, free first filter that costs nothing to run.
+
 ## Check a Lagos State Plate Instantly
 
 Rather than searching this table manually, use the free [Nigeria Plate Number Checker](https://www.naira.autos/tools/plate-number-checker/nigeria) — enter any plate number and it decodes the LGA, registration year, and format automatically.
@@ -1079,6 +1089,18 @@ Plates issued before the 2011 revision used a different layout (2 letters, 3 dig
 | Gwagwalada | GWA |
 | Kuje | KUJ |
 | Kwali | KWL |
+
+## Vehicle Registration in Nigeria's Federal Capital
+
+Abuja occupies a different position in Nigeria's vehicle market than Lagos, Rivers, or Kano — it's a planned capital, not an organically grown commercial centre, and its vehicle population skews heavily toward government fleets, diplomatic vehicles, and a professional/civil-service buyer base rather than the high-volume commercial trade seen elsewhere in the country.
+
+That composition shows up in the plates themselves. Diplomatic vehicles carry a separate green-plate system administered through the Ministry of Foreign Affairs rather than the standard FRSC LGA codes covered here, so a plate beginning with anything other than the 6 Area Council codes above (ABJ, ABC, BWR, GWA, KUJ, KWL) likely isn't a standard privately-owned FCT registration at all.
+
+Abuja Municipal Area Council (ABC) accounts for the overwhelming majority of FCT registrations, since it covers the city centre and most of the actual urban population — Garki, Wuse, Maitama, and the other well-known districts all fall under AMAC rather than having their own separate codes. The other 5 area councils (Abaji, Bwari, Gwagwalada, Kuje, Kwali) are far more rural, and a car registered under one of those codes but being sold in a central Abuja dealership isn't unusual — just a detail worth a friendly question, not a red flag by itself.
+
+Because Abuja's used-car market leans toward well-maintained, lower-mileage vehicles — a reasonable byproduct of its civil-service-heavy buyer base — plate and chassis verification here is less about catching outright fraud and more about confirming a car's actual history matches what a premium asking price is implying.
+
+Run a full [VIN Checker](https://www.naira.autos/tools/vin-checker) alongside this LGA lookup, and use the [Registration Fee Calculator](https://www.naira.autos/tools/registration-fee-calculator) to budget accurately if you're transferring a vehicle into FCT from another state.
 
 ## Check a Abuja (FCT) Plate Instantly
 
@@ -1137,6 +1159,18 @@ Plates issued before the 2011 revision used a different layout (2 letters, 3 dig
 | Oyigbo | AFM |
 | Port Harcourt | PHC |
 | Tai | SKN |
+
+## Rivers State's Vehicle Market and the Oil Economy
+
+Rivers State's vehicle market is shaped heavily by its position as the centre of Nigeria's oil and gas industry. Port Harcourt (PHC) — the state's commercial capital and by far its most common plate code — carries an outsized share of the state's total vehicle registrations, reflecting both its population and its density of corporate and industry fleet vehicles.
+
+That oil-economy influence matters for used-car buyers specifically: Rivers has one of the higher concentrations of well-maintained, company-fleet-origin vehicles in Nigeria, since international and indigenous oil service companies typically rotate their vehicle fleets on structured maintenance and replacement schedules rather than running cars until they fail. A used SUV or pickup coming out of a Port Harcourt fleet disposal can be a genuinely good buy — but it's also exactly the profile fraudulent sellers like to imitate, claiming "ex-company fleet" origin for vehicles that were never anything of the sort.
+
+This is where a plate and chassis cross-check earns its keep. A genuine ex-fleet vehicle usually has consistent, traceable registration history within Rivers State — the same PHC or nearby LGA code throughout, service records that match, and a chassis number that decodes cleanly. A car with a chassis number pointing to a different origin market entirely, or a patchwork of ownership documents, deserves far more scrutiny regardless of how convincing the "fleet vehicle" pitch sounds.
+
+Rivers' 23 LGAs beyond Port Harcourt — Obio/Akpor (RUM), Eleme (NCH), and others in the immediate metro area — see steady vehicle turnover too, since Port Harcourt's urban sprawl extends well past the city's formal boundary. If a plate code doesn't match the area a seller claims, it's rarely disqualifying on its own, but it's still worth asking about directly.
+
+Before buying in Rivers State, run the seller's chassis number through our [Chassis Number Check](https://www.naira.autos/tools/chassis-number-check) and confirm the paperwork against our [Vehicle Papers Checklist](https://www.naira.autos/tools/vehicle-papers-checklist).
 
 ## Check a Rivers State Plate Instantly
 
@@ -1216,6 +1250,18 @@ Plates issued before the 2011 revision used a different layout (2 letters, 3 dig
 | Ungogo | UGG |
 | Warawa | WRA |
 | Wudil | WDL |
+
+## Kano's Trading Legacy and Its Vehicle Market
+
+Kano is Northern Nigeria's largest commercial hub, with a trading history that predates Nigeria itself — the city has been a major trans-Saharan trade centre for centuries, and that commercial identity carries directly into how vehicles move through the state today. With 44 Local Government Areas, Kano has more LGA-level plate codes than any other state in the country, a direct reflection of its size and population.
+
+Commercial and cargo vehicles make up an unusually large share of Kano's registered fleet compared to most southern Nigerian states, since the city remains a primary distribution point for goods moving between northern Nigeria and neighbouring countries like Niger and Chad. If you're buying a pickup, truck, or commercial van in Kano specifically, checking its registration history is arguably more important than for an equivalent private car — high-utilisation commercial vehicles accumulate wear, ownership changes, and modification history far faster than personal vehicles do.
+
+Kano Municipal (KMC) covers the historic city centre and old commercial districts, while central, high-density LGAs like Fagge (FGE) and Nassarawa (NSR) see some of the heaviest used-vehicle turnover in the state. Vehicles registered under Kano's more rural LGA codes — and there are dozens, from Ajingi to Wudil — but being sold in the central city markets aren't unusual, since commercial vehicles in particular travel widely within the state for work. Still, it's worth understanding a vehicle's actual history rather than assuming a central plate code guarantees a central-market background.
+
+Because commercial vehicle fraud — cloned plates on stolen cargo vehicles, mismatched engine and chassis numbers after repairs — is a real risk in any high-commercial-volume market, pairing this LGA lookup with a full chassis check is worth the extra few minutes regardless of what type of vehicle you're buying.
+
+Run the seller's number through our [Chassis Number Check](https://www.naira.autos/tools/chassis-number-check) before finalising any purchase in Kano, and use the [Vehicle Papers Checklist](https://www.naira.autos/tools/vehicle-papers-checklist) to confirm every document lines up.
 
 ## Check a Kano State Plate Instantly
 
