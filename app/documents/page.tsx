@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, Home, FileCheck2 } from 'lucide-react';
 import { getAllPublishedTemplates } from '@/lib/document-templates-data';
-import { getDocumentType, getDocumentCountry } from '@/lib/document-types';
+import DocumentsIndexClient from '@/components/documents/DocumentsIndexClient';
 
 export const revalidate = 0;
 // TEMPORARY: see the matching note in app/documents/[type]/[country]/page.tsx
@@ -16,14 +16,6 @@ export const metadata: Metadata = {
 
 export default async function DocumentsIndexPage() {
   const templates = await getAllPublishedTemplates();
-
-  const grouped = new Map<string, typeof templates>();
-  for (const t of templates) {
-    const docType = getDocumentType(t.document_type);
-    const category = docType?.category || 'Other';
-    if (!grouped.has(category)) grouped.set(category, []);
-    grouped.get(category)!.push(t);
-  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,39 +38,13 @@ export default async function DocumentsIndexPage() {
           </p>
         </div>
 
-        {templates.length === 0 && (
+        {templates.length === 0 ? (
           <p className="text-sm text-muted-foreground">No templates published yet — check back soon.</p>
+        ) : (
+          <DocumentsIndexClient templates={templates} />
         )}
-
-        <div className="space-y-8">
-          {Array.from(grouped.entries()).map(([category, items]) => (
-            <section key={category}>
-              <h2 className="text-xs font-bold tracking-widest uppercase text-sky-600 dark:text-sky-400 mb-3">{category}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {items.map(t => {
-                  // A published Supabase row is always shown — DOCUMENT_TYPES/
-                  // DOCUMENT_COUNTRIES only enrich the label when they match.
-                  const docType = getDocumentType(t.document_type);
-                  const docCountry = getDocumentCountry(t.country);
-                  const label = docType?.label || t.title;
-                  const countryFlag = docCountry?.flag || '\u{1F30D}';
-                  const countryName = docCountry?.name || t.country.toUpperCase();
-                  return (
-                    <Link
-                      key={t.id}
-                      href={`/documents/${t.document_type}/${t.country}`}
-                      className="bg-card border border-border hover:border-foreground/30 rounded-xl p-4 transition-colors"
-                    >
-                      <p className="font-semibold text-foreground text-sm">{label}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{countryFlag} {countryName}</p>
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
-        </div>
       </div>
     </div>
   );
 }
+

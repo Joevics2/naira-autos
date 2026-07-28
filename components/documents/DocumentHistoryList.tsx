@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { History, Trash2, ShieldAlert } from 'lucide-react';
 import { DocumentHistoryEntry, getHistory, deleteFromHistory, clearHistory } from '@/lib/document-history';
 
@@ -23,9 +24,14 @@ export default function DocumentHistoryList({ onOpen, filterSource }: DocumentHi
 
   return (
     <div className="bg-card border border-border rounded-xl p-5 space-y-3 no-print">
-      <div className="flex items-center gap-2">
-        <History className="h-4 w-4 text-muted-foreground" />
-        <h2 className="text-sm font-semibold text-foreground">Your saved documents</h2>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <History className="h-4 w-4 text-muted-foreground" />
+          <h2 className="text-sm font-semibold text-foreground">Your saved documents</h2>
+        </div>
+        <Link href="/documents/my-documents" className="text-xs font-medium text-sky-600 dark:text-sky-400 hover:underline flex-shrink-0">
+          View all →
+        </Link>
       </div>
 
       <div className="flex items-start gap-2 text-xs text-muted-foreground bg-background border border-border rounded-lg px-3 py-2">

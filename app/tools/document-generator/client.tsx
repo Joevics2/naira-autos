@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import {
-  FileText, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2,
+  FileText, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2, History,
 } from 'lucide-react';
 import {
   DOCUMENT_TYPES, DOCUMENT_COUNTRIES, DOCUMENT_TYPES_SORTED, DOCUMENT_TYPES_POPULAR_COUNT,
@@ -131,13 +131,22 @@ export default function DocumentGeneratorClient() {
     <div className="min-h-screen bg-background">
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-sm text-muted-foreground no-print">
-          <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <span className="text-foreground font-medium">Document Generator</span>
-        </nav>
+        <div className="flex items-center justify-between gap-3 no-print">
+          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <Link href="/tools" className="hover:text-foreground">Tools</Link>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="text-foreground font-medium">Document Generator</span>
+          </nav>
+          <Link
+            href="/documents/my-documents"
+            className="inline-flex items-center gap-1.5 bg-card border border-border hover:border-sky-500/40 hover:text-sky-500 text-xs font-semibold text-foreground rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
+          >
+            <History className="h-3.5 w-3.5" />
+            My Documents
+          </Link>
+        </div>
 
         <div>
           <div className="flex items-center gap-2 mb-2">
