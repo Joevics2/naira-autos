@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 const COUNTRIES: { code: string; name: string; flag: string; href?: string; live: boolean }[] = [
   { code: 'ng', name: 'Nigeria',              flag: '🇳🇬', href: '/tools/import-duty-calculator', live: true },
   { code: 'gh', name: 'Ghana',                flag: '🇬🇭', href: '/tools/import-duty-calculator-ghana', live: true },
-  { code: 'ke', name: 'Kenya',                flag: '🇰🇪', live: false },
+  { code: 'ke', name: 'Kenya',                flag: '🇰🇪', href: '/tools/import-duty-calculator-kenya', live: true },
   { code: 'ug', name: 'Uganda',                flag: '🇺🇬', live: false },
   { code: 'tz', name: 'Tanzania',              flag: '🇹🇿', live: false },
   { code: 'zm', name: 'Zambia',                flag: '🇿🇲', live: false },
