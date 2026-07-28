@@ -44,7 +44,8 @@ const SCHEMA = {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home',  item: 'https://www.naira.autos' },
           { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
-          { '@type': 'ListItem', position: 3, name: 'Insurance Calculator', item: 'https://www.naira.autos/tools/insurance-calculator' },
+          { '@type': 'ListItem', position: 3, name: 'Insurance Calculator', item: 'https://www.naira.autos/tools/insurance-calculator-countries' },
+          { '@type': 'ListItem', position: 4, name: 'Nigeria', item: 'https://www.naira.autos/tools/insurance-calculator' },
         ],
       },
     },
@@ -176,9 +177,9 @@ export default function InsuranceCalculatorPage() {
           {/* Breadcrumb + back */}
           <div className="flex items-center gap-3">
             <Link
-              href="/tools"
+              href="/tools/insurance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-violet-500/20 border border-white/15 hover:border-violet-500/40 text-white/60 hover:text-violet-400 transition-all"
-              aria-label="Back to Tools"
+              aria-label="Back to Insurance Calculator"
             >
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -187,7 +188,9 @@ export default function InsuranceCalculatorPage() {
               <ChevronRight className="h-3 w-3" />
               <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
-              <span className="text-white/60">Insurance Calculator</span>
+              <Link href="/tools/insurance-calculator-countries" className="hover:text-white/60 transition-colors">Insurance Calculator</Link>
+              <ChevronRight className="h-3 w-3" />
+              <span className="text-white/60">🇳🇬 Nigeria</span>
             </nav>
           </div>
 
