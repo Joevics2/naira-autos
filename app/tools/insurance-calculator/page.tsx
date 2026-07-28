@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import InsuranceQuoteClient from './client';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Car Insurance Calculator Nigeria 2025 — Third Party & Comprehensive Rates',
@@ -388,22 +389,7 @@ export default function InsuranceCalculatorPage() {
           </div>
 
           {/* Related tools */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              { href: '/tools/car-comparison',      label: 'Car Comparison Tool',    color: 'blue' },
-              { href: '/tools/best-car-for',         label: 'Best Car For...',        color: 'emerald' },
-              { href: '/tools/ai-car-valuation',     label: 'AI Car Valuation',       color: 'violet' },
-            ].map(({ href, label, color }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 border border-${color}-200 hover:bg-${color}-100 transition-all`}
-              >
-                <p className={`text-sm font-bold text-${color}-700`}>{label}</p>
-                <ChevronRight className={`h-4 w-4 text-${color}-500`} />
-              </Link>
-            ))}
-          </div>
+          <RelatedTools tool="insurance-calculator" />
 
         </div>
       </div>

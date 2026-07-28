@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import RegistrationFeeClient from './client';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Nigeria Vehicle Registration Fee Calculator 2025 — FRSC & State MVAA Fees',
@@ -261,28 +262,7 @@ export default function RegistrationFeeCalculatorPage() {
           </p>
 
           {/* Related tools */}
-          <section>
-            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-              More Free Tools
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                { href: '/tools/plate-number-checker', label: 'Plate Number Checker', color: 'sky' },
-                { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
-                { href: '/tools/vehicle-papers-checklist', label: 'Vehicle Papers Checklist', color: 'violet' },
-                { href: '/tools/insurance-calculator', label: 'Insurance Calculator', color: 'blue' },
-              ].map(({ href, label, color }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
-                >
-                  <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
-                  <ChevronRight className={`h-4 w-4 text-${color}-500`} />
-                </Link>
-              ))}
-            </div>
-          </section>
+          <RelatedTools tool="registration-fee-calculator" />
 
         </div>
       </div>
