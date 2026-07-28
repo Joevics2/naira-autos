@@ -104,10 +104,12 @@ const TOOLS: Tool[] = [
     category: 'Finance',
   },
   {
-    href: '/tools/registration-fee-calculator',
+    href: '/tools/registration-fee-calculator-countries',
     icon: FileText,
     label: 'Registration Fees',
-    description: 'Calculate number plate, change of ownership, and FRSC registration costs by state.',
+    description: 'Calculate number plate, change of ownership, and vehicle registration costs — by country.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Finance',
   },
   {
