@@ -20,6 +20,7 @@ const staticPages = [
   { url: '/tools/auto-loan-calculator',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator',       priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator',  priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/registration-fee-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/fuel-cost-calculator',         priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/road-trip-calculator',         priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },

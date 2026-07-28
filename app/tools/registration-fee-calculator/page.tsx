@@ -30,7 +30,8 @@ const SCHEMA = {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
           { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
-          { '@type': 'ListItem', position: 3, name: 'Registration Fee Calculator', item: 'https://www.naira.autos/tools/registration-fee-calculator' },
+          { '@type': 'ListItem', position: 3, name: 'Registration Fee Calculator', item: 'https://www.naira.autos/tools/registration-fee-calculator-countries' },
+          { '@type': 'ListItem', position: 4, name: 'Nigeria', item: 'https://www.naira.autos/tools/registration-fee-calculator' },
         ],
       },
     },
@@ -69,7 +70,7 @@ export default function RegistrationFeeCalculatorPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
+            <Link href="/tools/registration-fee-calculator-countries" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
@@ -77,7 +78,9 @@ export default function RegistrationFeeCalculatorPage() {
               <ChevronRight className="h-3 w-3" />
               <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
-              <span className="text-white/50">Registration Fee Calculator</span>
+              <Link href="/tools/registration-fee-calculator-countries" className="hover:text-white/60 transition-colors">Registration Fee Calculator</Link>
+              <ChevronRight className="h-3 w-3" />
+              <span className="text-white/50">🇳🇬 Nigeria</span>
             </nav>
           </div>
           <div className="max-w-2xl">
