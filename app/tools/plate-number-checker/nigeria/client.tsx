@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Search, MapPin, Calendar, ExternalLink, AlertCircle } from 'lucide-react';
-import { lookupPlateCode, decodePlateYear, COVERED_STATES } from '@/lib/nigeria-plate-codes';
+import { lookupPlateCode, decodePlateYear } from '@/lib/nigeria-plate-codes';
 
 interface DecodedPlate {
   prefix: string;
@@ -113,7 +113,7 @@ export default function PlateNumberCheckerClient() {
                     &ldquo;{result.prefix}&rdquo; isn&apos;t in our LGA database yet
                   </p>
                   <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-                    We currently cover {COVERED_STATES.map((s) => s.state).join(', ')}. For every other state, verify directly with FRSC below.
+                    This checker covers all 36 states plus the FCT, but this specific prefix isn&apos;t recognised — it may be an older pre-2011 format, a rare/reissued code, or a typo. Verify directly with FRSC below.
                   </p>
                 </div>
               </div>

@@ -16,6 +16,7 @@ const staticPages = [
   { url: '/vehicles',                           priority: 0.8, changefreq: 'weekly'  },
   { url: '/tools',                              priority: 0.9, changefreq: 'weekly'  },
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/engine-sound-analyzer',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator',       priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator',  priority: 0.8, changefreq: 'monthly' },

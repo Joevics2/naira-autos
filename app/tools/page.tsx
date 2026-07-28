@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History, Mic,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -47,6 +47,15 @@ const TOOLS: Tool[] = [
     description: 'Describe a symptom or upload a photo and get an instant diagnosis with local repair cost estimates.',
     badge: 'FREE',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AI & Smart',
+  },
+  {
+    href: '/tools/engine-sound-analyzer',
+    icon: Mic,
+    label: 'Engine Sound Analyzer',
+    description: 'Record or upload the sound your car is making and get an instant AI diagnosis of the likely cause.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'AI & Smart',
   },
   {
