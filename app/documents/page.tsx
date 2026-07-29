@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ChevronRight, Home, FileCheck2 } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Home, FileCheck2 } from 'lucide-react';
 import { getAllPublishedTemplates } from '@/lib/document-templates-data';
 import DocumentsIndexClient from '@/components/documents/DocumentsIndexClient';
 
@@ -20,11 +20,16 @@ export default async function DocumentsIndexPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-6 space-y-6">
-        <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <span className="text-foreground font-medium">Document Templates</span>
-        </nav>
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0" aria-label="Back">
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="text-foreground font-medium">Document Templates</span>
+          </nav>
+        </div>
 
         <div>
           <div className="flex items-center gap-2 mb-2">

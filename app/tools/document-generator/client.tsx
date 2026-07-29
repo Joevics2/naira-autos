@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import {
-  Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2, History,
+  ArrowLeft, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2, History,
 } from 'lucide-react';
 import {
   DOCUMENT_TYPES, DOCUMENT_COUNTRIES, DOCUMENT_TYPES_SORTED, DOCUMENT_TYPES_POPULAR_COUNT,
@@ -122,12 +122,17 @@ export default function DocumentGeneratorClient() {
     <div className="min-h-screen bg-background">
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 text-sm text-muted-foreground no-print">
-          <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <span className="text-foreground font-medium">Document Generator</span>
+        <div className="flex items-center gap-3 no-print">
+          <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-emerald-500/10 border border-border hover:border-emerald-500/40 text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex-shrink-0" aria-label="Back">
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <Link href="/tools" className="hover:text-foreground">Tools</Link>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="text-foreground font-medium">Document Generator</span>
+          </div>
         </div>
 
         <div>
@@ -147,15 +152,6 @@ export default function DocumentGeneratorClient() {
             <FileCheck2 className="h-3.5 w-3.5" />
             Prefer a fixed template instead? Browse free templates →
           </Link>
-          <div className="flex justify-end">
-            <Link
-              href="/documents/my-documents"
-              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-600 text-white text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors mt-3 no-print"
-            >
-              <History className="h-3.5 w-3.5" />
-              My Documents
-            </Link>
-          </div>
         </div>
 
         {error && (
@@ -164,9 +160,19 @@ export default function DocumentGeneratorClient() {
           </div>
         )}
 
+        <div className="flex justify-end">
+          <Link
+            href="/documents/my-documents"
+            className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-600 text-white text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors no-print"
+          >
+            <History className="h-3.5 w-3.5" />
+            My Documents
+          </Link>
+        </div>
+
         {/* ── Step: select ──────────────────────────────────────────── */}
         {step === 'select' && (
-          <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+          <div className="bg-card border border-border rounded-xl p-5 space-y-4 mt-2">
             <div>
               <label className="text-sm font-medium text-foreground mb-1.5 block">Document type</label>
               <select
