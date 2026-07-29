@@ -3,17 +3,16 @@
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import {
-  FileText, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2, History,
+  Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2, History,
 } from 'lucide-react';
 import {
   DOCUMENT_TYPES, DOCUMENT_COUNTRIES, DOCUMENT_TYPES_SORTED, DOCUMENT_TYPES_POPULAR_COUNT,
   DOCUMENT_COUNTRIES_SORTED, DOCUMENT_COUNTRIES_POPULAR_COUNT,
 } from '@/lib/document-types';
 import { GeneratedDocument, sanitizeDocument } from '@/lib/document-format';
-import { DocumentHistoryEntry, saveToHistory } from '@/lib/document-history';
+import { saveToHistory } from '@/lib/document-history';
 import DocumentEditor from '@/components/documents/DocumentEditor';
 import TemplateAvailableLink from '@/components/documents/TemplateAvailableLink';
-import DocumentHistoryList from '@/components/documents/DocumentHistoryList';
 
 interface LegalRequirements {
   summary: string;
@@ -45,14 +44,6 @@ export default function DocumentGeneratorClient() {
 
   const docType = DOCUMENT_TYPES.find(d => d.slug === documentTypeSlug);
   const docCountry = DOCUMENT_COUNTRIES.find(c => c.code === country);
-
-  const handleOpenHistoryEntry = (entry: DocumentHistoryEntry) => {
-    setDocumentTypeSlug(entry.documentTypeSlug);
-    setCountry(entry.countryCode);
-    setGeneratedDocument(sanitizeDocument(entry.document));
-    setIsHighRisk(entry.isHighRisk);
-    setStep('preview');
-  };
 
   const handleResearch = useCallback(async () => {
     if (!documentTypeSlug || !country) return;
@@ -131,21 +122,12 @@ export default function DocumentGeneratorClient() {
     <div className="min-h-screen bg-background">
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Breadcrumb */}
-        <div className="flex items-center justify-between gap-3 no-print">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
-            <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/tools" className="hover:text-foreground">Tools</Link>
-            <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium">Document Generator</span>
-          </nav>
-          <Link
-            href="/documents/my-documents"
-            className="inline-flex items-center gap-1.5 bg-card border border-border hover:border-sky-500/40 hover:text-sky-500 text-xs font-semibold text-foreground rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
-          >
-            <History className="h-3.5 w-3.5" />
-            My Documents
-          </Link>
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground no-print">
+          <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <Link href="/tools" className="hover:text-foreground">Tools</Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <span className="text-foreground font-medium">Document Generator</span>
         </div>
 
         <div>
@@ -165,6 +147,15 @@ export default function DocumentGeneratorClient() {
             <FileCheck2 className="h-3.5 w-3.5" />
             Prefer a fixed template instead? Browse free templates →
           </Link>
+          <div>
+            <Link
+              href="/documents/my-documents"
+              className="inline-flex items-center gap-1.5 bg-card border border-border hover:border-sky-500/40 hover:text-sky-500 text-xs font-semibold text-foreground rounded-lg px-3 py-1.5 transition-colors mt-3 no-print"
+            >
+              <History className="h-3.5 w-3.5" />
+              My Documents
+            </Link>
+          </div>
         </div>
 
         {error && (
@@ -226,10 +217,6 @@ export default function DocumentGeneratorClient() {
               Start
             </button>
           </div>
-        )}
-
-        {step === 'select' && (
-          <DocumentHistoryList filterSource="ai" onOpen={handleOpenHistoryEntry} />
         )}
 
         {/* ── Step: researching ─────────────────────────────────────── */}
