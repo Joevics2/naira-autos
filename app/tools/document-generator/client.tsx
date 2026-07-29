@@ -147,10 +147,10 @@ export default function DocumentGeneratorClient() {
             <FileCheck2 className="h-3.5 w-3.5" />
             Prefer a fixed template instead? Browse free templates →
           </Link>
-          <div>
+          <div className="flex justify-end">
             <Link
               href="/documents/my-documents"
-              className="inline-flex items-center gap-1.5 bg-card border border-border hover:border-sky-500/40 hover:text-sky-500 text-xs font-semibold text-foreground rounded-lg px-3 py-1.5 transition-colors mt-3 no-print"
+              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-600 text-white text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors mt-3 no-print"
             >
               <History className="h-3.5 w-3.5" />
               My Documents
