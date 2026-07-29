@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History, Mic, Gauge,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History, Mic, Gauge, Globe2,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -87,6 +87,15 @@ const TOOLS: Tool[] = [
     icon: Ship,
     label: 'Import Duty Calculator',
     description: 'Calculate customs duty, clearing fees, and total landed cost for any imported vehicle — by country.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finance',
+  },
+  {
+    href: '/tools/china-car-import-calculator',
+    icon: Globe2,
+    label: 'China Car Import Calculator',
+    description: 'Cost of importing a Chinese car (Chery, Geely, GAC, BYD & more) — customs breakdown and EV exemption.',
     badge: 'NEW',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Finance',
