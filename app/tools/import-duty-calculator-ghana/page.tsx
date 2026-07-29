@@ -260,7 +260,7 @@ export default function ImportDutyCalculatorGhanaPage() {
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
               More Import Duty Calculators
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
               <Link href="/tools/import-duty-calculator" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">🇳🇬 Nigeria</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
@@ -268,6 +268,10 @@ export default function ImportDutyCalculatorGhanaPage() {
               <Link href="/tools/import-duty-calculator-kenya" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 hover:bg-orange-100 dark:hover:bg-orange-500/20 transition-all">
                 <p className="text-sm font-bold text-orange-700 dark:text-orange-400">🇰🇪 Kenya</p>
                 <ChevronRight className="h-4 w-4 text-orange-500" />
+              </Link>
+              <Link href="/tools/import-duty-calculator-south-africa" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+                <p className="text-sm font-bold text-sky-700 dark:text-sky-400">🇿🇦 South Africa</p>
+                <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>
               <Link href="/tools/import-duty-calculator-countries" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
                 <p className="text-sm font-bold text-blue-700 dark:text-blue-400">See All Countries</p>
