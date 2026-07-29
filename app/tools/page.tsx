@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History, Mic,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History, Mic, Gauge,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -234,6 +234,15 @@ const TOOLS: Tool[] = [
     icon: ClipboardCheck,
     label: 'Vehicle Papers Checklist',
     description: 'A complete checklist of all documents to verify before buying a used car.',
+    category: 'Due Diligence',
+  },
+  {
+    href: '/tools/mileage-explainer',
+    icon: Gauge,
+    label: 'Mileage Explainer',
+    description: 'What does that odometer reading actually mean? See it as real-world distance — by country.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Due Diligence',
   },
   // Resources
