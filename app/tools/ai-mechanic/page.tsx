@@ -6,15 +6,15 @@ import AIMechanicClient from './client';
 // ── Metadata (server-rendered into <head>) ────────────────────────
 
 export const metadata: Metadata = {
-  title: 'AI Mechanic Nigeria — Free Online Car Diagnosis Tool | Axion',
-  description: 'Free AI car diagnosis for Nigeria. Describe your problem, upload engine sounds or photos, and get an instant diagnosis with Naira repair cost estimates. No login required.',
+  title: 'AI Mechanic — Free Online Car Diagnosis Tool | Naira Autos',
+  description: 'Free AI mechanic and online car diagnosis tool. Describe your problem, upload engine sounds, photos, or video, and get an instant auto repair estimate — with Nigerian Naira pricing built in. No login required.',
   alternates: { canonical: 'https://www.naira.autos/tools/ai-mechanic' },
   openGraph: {
-    title: 'Axion — Free AI Mechanic for Nigerian Cars | Naira Autos',
-    description: 'Instant car diagnosis online. Upload engine sounds, photos, or describe the fault. Get urgency rating, causes, DIY steps, and repair cost in Naira. Free, no login.',
+    title: 'Axion — Free AI Mechanic & Online Car Diagnosis | Naira Autos',
+    description: 'Instant car diagnosis online, anywhere. Upload engine sounds, photos, or describe the fault. Get urgency rating, likely causes, DIY steps, and a repair cost estimate. Free, no login.',
     url: 'https://www.naira.autos/tools/ai-mechanic',
   },
-  keywords: ['ai car diagnostics free','ai mechanic','ai mechanic free','instant mechanic ai','online mechanic','free ai mechanic','best ai for car diagnostics','free auto diagnosis','online car diagnostic'],
+  keywords: ['ai mechanic','online mechanic','auto repair estimate online','online car repair estimate','ask a mechanic online','online mechanic diagnosis','online car mechanic','car repair quotes online','online auto mechanic','online vehicle repair estimate','free ai mechanic','online mechanic help','certified mechanic online','toyota mechanic online','bmw mechanic online','mercedes mechanic online'],
 };
 
 // ── Schema ────────────────────────────────────────────────────────
@@ -25,8 +25,8 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/ai-mechanic',
-      name: 'AI Mechanic Nigeria — Free Online Car Diagnosis Tool',
-      description: 'Free AI-powered car diagnostic tool for Nigeria. Upload engine sounds, photos, or describe faults. Get an instant diagnosis with urgency rating and repair cost in Naira.',
+      name: 'AI Mechanic — Free Online Car Diagnosis Tool',
+      description: 'Free AI-powered online mechanic. Upload engine sounds, photos, or describe faults. Get an instant diagnosis with urgency rating and a repair cost estimate, calibrated to Nigerian market pricing.',
       url: 'https://www.naira.autos/tools/ai-mechanic',
       breadcrumb: {
         '@type': 'BreadcrumbList',
@@ -43,7 +43,7 @@ const SCHEMA = {
         {
           '@type': 'Question',
           name: 'What is an AI mechanic and how does it work?',
-          acceptedAnswer: { '@type': 'Answer', text: 'An AI mechanic is a virtual auto mechanic that uses artificial intelligence to diagnose car problems remotely. You describe your problem, upload optional media, and the AI analyses your inputs against a vast knowledge base of vehicle faults, Nigerian road conditions, and local repair costs.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'An AI mechanic is a virtual auto mechanic that uses artificial intelligence to diagnose car problems remotely. You describe your problem, upload optional media, and the AI analyses your inputs against a vast knowledge base of vehicle faults — with repair cost estimates calibrated to Nigerian market pricing.' },
         },
         {
           '@type': 'Question',
@@ -54,6 +54,16 @@ const SCHEMA = {
           '@type': 'Question',
           name: 'Is this free?',
           acceptedAnswer: { '@type': 'Answer', text: 'Yes. Completely free — no login, no subscription, no payment required. Open the page and start diagnosing immediately.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is the AI diagnosis always accurate?',
+          acceptedAnswer: { '@type': 'Answer', text: 'No — it is not always 100% accurate. It is a strong starting point based on the description, photo, audio, or video you provide, but it can miss things a hands-on inspection with a lift and diagnostic scanner would catch. Treat it as a first opinion, not a final answer, and always see a qualified mechanic in person for brakes, steering, or fuel-related issues regardless of what the diagnosis says.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does this work for BMW, Mercedes, Toyota, or any other brand?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Ask about a BMW mechanic issue, a Mercedes mechanic issue, a Toyota mechanic issue, or any other brand online — the AI covers all major manufacturers. Repair cost estimates are calibrated to Nigerian market pricing; if you are elsewhere, use the estimate as a directional guide rather than an exact local figure.' },
         },
         {
           '@type': 'Question',
@@ -68,7 +78,7 @@ const SCHEMA = {
         {
           '@type': 'Question',
           name: 'Can I get an online auto repair estimate for any car brand?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Our online vehicle repair estimate covers Toyota, Honda, Mercedes-Benz, Lexus, Kia, Hyundai, BMW, Mitsubishi, Nissan, Ford, Innoson, Peugeot, and all other brands commonly found on Nigerian roads.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Our online vehicle repair estimate covers Toyota, Honda, Mercedes-Benz, Lexus, Kia, Hyundai, BMW, Mitsubishi, Nissan, Ford, Innoson, Peugeot, and every other major brand, wherever you\'re driving. Cost estimates are calibrated to Nigerian market pricing.' },
         },
         {
           '@type': 'Question',
@@ -84,10 +94,10 @@ const SCHEMA = {
     },
     {
       '@type': 'SoftwareApplication',
-      name: 'Axion — AI Mechanic Nigeria',
+      name: 'Axion — AI Mechanic',
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
-      description: 'Free AI-powered car diagnosis for Nigeria. Describe faults, upload engine sounds or photos, get instant diagnosis with Naira repair estimates.',
+      description: 'Free AI-powered online mechanic and car diagnosis tool. Describe faults, upload engine sounds or photos, get instant diagnosis with a repair estimate calibrated to Nigerian market pricing.',
       url: 'https://www.naira.autos/tools/ai-mechanic',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'NGN' },
     },
@@ -121,7 +131,7 @@ export default function AIMechanicPage() {
               {[
                 { step: '01', title: 'Enter your vehicle details', desc: 'Select your brand, model, and year. We save this on your device so you never type it again — every diagnosis is automatically personalised to your car.', icon: <Car className="h-5 w-5" /> },
                 { step: '02', title: 'Describe or upload media', desc: 'Type what is wrong in plain English. For better accuracy, attach a photo of the fault, an engine sound recording, or a short video. Even 10 seconds of audio can transform diagnosis accuracy.', icon: <Mic className="h-5 w-5" /> },
-                { step: '03', title: 'Get your instant diagnosis', desc: 'Receive a full diagnosis: urgency level, ranked likely causes, DIY steps you can act on today, and repair cost estimates in Naira based on Lagos, Abuja, and Port Harcourt market prices.', icon: <Zap className="h-5 w-5" /> },
+                { step: '03', title: 'Get your instant diagnosis', desc: 'Receive a full diagnosis: urgency level, ranked likely causes, DIY steps you can act on today, and a repair cost estimate calibrated to Nigerian market pricing.', icon: <Zap className="h-5 w-5" /> },
               ].map(({ step, title, desc, icon }) => (
                 <div key={step} className="relative bg-card border border-border rounded-2xl p-6">
                   <div className="flex items-start justify-between mb-4">
@@ -151,10 +161,10 @@ export default function AIMechanicPage() {
                 { title: 'Engine Fault Diagnosis', desc: 'Knocking, misfires, rough idling, overheating, oil pressure warnings, check engine lights — our AI identifies the most likely causes ranked by probability.' },
                 { title: 'Audio & Sound Analysis', desc: 'Upload a recording of the knock, rattle, squeal, or grinding. Our AI analyses the acoustic pattern to identify the fault.' },
                 { title: 'Instant Urgency Assessment', desc: 'Every diagnosis includes a clear four-level verdict: Safe to Drive, Monitor Closely, See a Mechanic Soon, or Stop Driving Immediately.' },
-                { title: 'Car Repair Quotes Online', desc: 'All cost estimates are grounded in Nigerian market prices — parts and labour at roadside mechanics and workshops across Lagos, Abuja, and Port Harcourt.' },
+                { title: 'Car Repair Quotes Online', desc: 'Cost estimates are calibrated to Nigerian market pricing — parts and labour at roadside mechanics and workshops across Lagos, Abuja, and Port Harcourt. Wherever else you drive, use them as a directional guide.' },
                 { title: 'DIY Step-by-Step Actions', desc: 'Where a fault is something you can check or fix yourself, we tell you exactly how — before you spend money on a mechanic.' },
                 { title: 'Conversational Follow-Up', desc: 'Ask follow-up questions and get answers in full context. Every session is saved on your device.' },
-                { title: 'Multi-Vehicle Support', desc: 'Toyota, Honda, Mercedes-Benz, Lexus, Kia, Hyundai, Innoson, Mitsubishi, and every other brand on Nigerian roads.' },
+                { title: 'Multi-Vehicle Support', desc: 'Toyota, Honda, Mercedes-Benz, Lexus, Kia, Hyundai, BMW, Mitsubishi, Nissan, Ford, Innoson, Peugeot, and every other major brand and market.' },
                 { title: 'Photo & Video Diagnosis', desc: 'Send a photo of dashboard warning lights, unusual fluid leaks, or visible damage. Each piece of media increases diagnosis certainty significantly.' },
                 { title: 'Parts Identification', desc: 'Every diagnosis lists the specific components most likely involved so you know exactly what to ask for at Ladipo market or any workshop.' },
               ].map(({ title, desc }) => (
@@ -175,11 +185,11 @@ export default function AIMechanicPage() {
 
               <div>
                 <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                  The Smartest Way to Get Car Repair Help Online in Nigeria
+                  The Smartest Way to Get Car Repair Help Online
                 </h2>
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-                  <p>Every Nigerian driver has been there: a strange noise starts on Monday morning, you Google it for 20 minutes, get conflicting answers from three different forums, and end up at a mechanic who charges you NGN 5,000 just to look at it. Our <strong className="text-foreground">online mechanic service</strong> is built to break that cycle.</p>
-                  <p>Naira Autos AI Mechanic is Nigeria's first <strong className="text-foreground">virtual auto mechanic</strong> — a free <strong className="text-foreground">online mechanic diagnosis</strong> tool that combines multimodal AI with automotive knowledge specific to Nigerian road conditions. Unlike a generic chatbot or a UK-trained tool, this system understands adulterated fuel, Lagos potholes, tropical heat effects on rubber seals, generator charging damage on alternators, and what parts actually cost in Ladipo or Onitsha market today.</p>
+                  <p>Every driver has been there: a strange noise starts on Monday morning, you Google it for 20 minutes, get conflicting answers from three different forums, and end up paying a mechanic just to look at it. Our <strong className="text-foreground">online mechanic service</strong> is built to break that cycle.</p>
+                  <p>Axion is a free <strong className="text-foreground">online mechanic diagnosis</strong> tool that combines multimodal AI with automotive knowledge covering every major brand and market — Toyota, BMW, Mercedes, Honda, and more. It also carries specific intelligence for Nigerian road conditions: adulterated fuel, Lagos potholes, tropical heat effects on rubber seals, generator charging damage on alternators, and what parts cost in Ladipo or Onitsha market today. Repair cost estimates are calibrated to Nigerian market pricing; wherever else you're driving, use them as a directional guide.</p>
                   <p>When you need to <strong className="text-foreground">ask a mechanic online</strong> — right now, at 11pm, when no workshop is open — this is where you come. Get an answer in seconds, not hours. No appointment. No waiting room. No consultation fee.</p>
                 </div>
               </div>
@@ -189,7 +199,7 @@ export default function AIMechanicPage() {
                   Get an Auto Repair Estimate Online Before You Visit Any Workshop
                 </h2>
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-                  <p>One of the most common ways Nigerian drivers get overcharged is by arriving at a workshop without knowing what a fair price looks like. Before you visit anyone, use our <strong className="text-foreground">online auto repair estimate</strong> feature to find out what your repair should cost — parts plus labour, broken down clearly.</p>
+                  <p>One of the most common ways drivers get overcharged is by arriving at a workshop without knowing what a fair price looks like. Before you visit anyone, use our <strong className="text-foreground">online auto repair estimate</strong> feature to find out what your repair should cost — parts plus labour, broken down clearly.</p>
                   <p>Our <strong className="text-foreground">online car repair estimate calculator</strong> takes your specific vehicle — year, brand, model — then adjusts for the most likely fault based on everything you have described. The estimate you get is contextual, not generic. A 2010 Camry with 180,000km showing oil pressure warnings gets a different estimate than a 2020 Camry with 40,000km showing the same light, because the likely cause is different.</p>
                 </div>
               </div>
@@ -201,6 +211,16 @@ export default function AIMechanicPage() {
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                   <p>Searching for a <strong className="text-foreground">mechanic near me</strong> at 10pm? Looking for <strong className="text-foreground">auto repair near me</strong> on a Sunday? Our <strong className="text-foreground">online car mechanic</strong> is available 24 hours a day, 7 days a week.</p>
                   <p>A 3-minute diagnosis here can save you hours of searching and thousands of naira in unnecessary repairs. When you do go to a mechanic, you will go knowing exactly what is wrong, what it should cost, and what to watch out for.</p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                  Toyota Mechanic Online, BMW Mechanic Online, Mercedes Mechanic Online — All Covered
+                </h2>
+                <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+                  <p>Whichever brand you drive, the AI has manufacturer-specific fault patterns built in. Ask about a <strong className="text-foreground">Toyota mechanic online</strong> issue, a <strong className="text-foreground">BMW mechanic online</strong> issue, a <strong className="text-foreground">Mercedes mechanic online</strong> question, or bring up a Honda, Subaru, Dodge, Hyundai, Kia, Lexus, Nissan, Ford, or Mitsubishi — every major brand and market is covered, not just what's common on Nigerian roads.</p>
+                  <p>Give your brand, model, and year once and the AI factors in what's known to go wrong on that specific vehicle, at that mileage, rather than giving you a generic answer that applies to every car equally.</p>
                 </div>
               </div>
 
@@ -292,15 +312,15 @@ export default function AIMechanicPage() {
           <section className="bg-[#080C10] rounded-2xl p-8 lg:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               <div>
-                <span className="text-xs font-bold tracking-widest uppercase text-emerald-400 mb-3 block">Built for Nigerian Roads</span>
+                <span className="text-xs font-bold tracking-widest uppercase text-emerald-400 mb-3 block">Bonus Intelligence</span>
                 <h2 className="text-3xl font-black uppercase text-white mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                  Your Online Mechanic for Car Problems in Nigeria
+                  Also Tuned for Nigerian Road Conditions
                 </h2>
                 <p className="text-white/50 text-sm leading-relaxed mb-4">
-                  Most virtual auto mechanic tools are trained on Western road conditions, UK MOT data, and American repair shop rates. They do not know that Nigerian petrol stations regularly sell adulterated fuel that strips engine oil viscosity 40% faster than the manufacturer expects. They do not know that Lagos roads can destroy a CV joint in 30,000km that should last 150,000km.
+                  The diagnosis works the same wherever you're driving. But most virtual auto mechanic tools are trained purely on Western road conditions, UK MOT data, and American repair shop rates — they don't know that Nigerian petrol stations regularly sell adulterated fuel that strips engine oil viscosity 40% faster than the manufacturer expects, or that Lagos roads can destroy a CV joint in 30,000km that should last 150,000km.
                 </p>
                 <p className="text-white/50 text-sm leading-relaxed">
-                  Axion knows all of this. When you ask about your Toyota Corolla's knocking sound after a fuel fill-up, it considers adulteration first — because in Nigeria, that is statistically the most likely cause.
+                  Axion knows this too. Ask about your Toyota Corolla's knocking sound after a fuel fill-up, and if you're in Nigeria, it considers adulteration first — because that's statistically the most likely cause here.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -369,9 +389,11 @@ export default function AIMechanicPage() {
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {[
-                { q: 'What is an AI mechanic and how does it work?', a: 'An AI mechanic is a virtual auto mechanic that uses artificial intelligence to diagnose car problems remotely. You describe your problem, upload optional media, and the AI analyses your inputs against a vast knowledge base of vehicle faults, Nigerian road conditions, and local repair costs.' },
+                { q: 'What is an AI mechanic and how does it work?', a: 'An AI mechanic is a virtual auto mechanic that uses artificial intelligence to diagnose car problems remotely. You describe your problem, upload optional media, and the AI analyses your inputs against a vast knowledge base of vehicle faults — with repair cost estimates calibrated to Nigerian market pricing.' },
+                { q: 'Is the AI diagnosis always accurate?', a: 'No — it\'s not always 100% accurate. It\'s a strong starting point, but it can miss things a hands-on inspection with a lift and scanner would catch. Treat it as a first opinion, and always see a mechanic in person for brakes, steering, or fuel issues regardless of what it says.' },
+                { q: 'Does this work for BMW, Mercedes, Toyota, or any other brand?', a: 'Yes. Ask about a BMW mechanic issue, a Mercedes mechanic issue, a Toyota mechanic issue, or any other brand — the AI covers all major manufacturers. Cost estimates are calibrated to Nigerian market pricing; elsewhere, use them as a directional guide.' },
                 { q: 'Is this the same as asking a mechanic online?', a: 'It is better in many ways. When you ask a mechanic online in a forum or WhatsApp group, you get one person\'s opinion. Our service analyses your description plus photos, audio, or video, cross-references it against thousands of known fault patterns, and returns a ranked diagnosis with confidence scores.' },
-                { q: 'Can I get an online auto repair estimate for any car brand?', a: 'Yes. Our online vehicle repair estimate covers Toyota, Honda, Mercedes-Benz, Lexus, Kia, Hyundai, BMW, Mitsubishi, Nissan, Ford, Innoson, Peugeot, and all other brands on Nigerian roads.' },
+                { q: 'Can I get an online auto repair estimate for any car brand?', a: 'Yes. Our online vehicle repair estimate covers Toyota, Honda, Mercedes-Benz, Lexus, Kia, Hyundai, BMW, Mitsubishi, Nissan, Ford, Innoson, Peugeot, and every other major brand, wherever you\'re driving. Estimates are calibrated to Nigerian market pricing.' },
                 { q: 'How accurate is the online car repair estimate calculator?', a: 'Our auto repair cost estimate draws from Nigerian market data. We give a range (minimum to maximum) so you know what is reasonable. If a mechanic quotes significantly above our maximum, that is a red flag worth investigating.' },
                 { q: 'Can the AI diagnose my car from an engine sound alone?', a: 'Yes. Audio is one of our most powerful inputs. Upload a recording of the knock, rattle, squeal, or grinding — even 10 seconds recorded on your phone. Our AI analyses the acoustic pattern and can often pinpoint whether you are dealing with worn bearings, piston slap, brake pad wear, or another specific fault.' },
                 { q: 'What if I need a mobile mechanic or car repair near me?', a: 'Our tool diagnoses your problem first so you know exactly what to ask for before you start searching. If the fault requires physical inspection or specialist equipment, we tell you clearly — and we tell you what type of mechanic or workshop to look for.' },
@@ -397,7 +419,7 @@ export default function AIMechanicPage() {
               Ready? Diagnose Your Car Now.
             </h2>
             <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto leading-relaxed">
-              Free. Instant. No login. Nigeria's most accurate online mechanic diagnosis — available right now.
+              Free. Instant. No login. Get your online mechanic diagnosis right now.
             </p>
             <a href="#axion-chat"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm shadow-lg shadow-emerald-500/25 transition-all">
