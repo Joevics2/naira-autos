@@ -27,7 +27,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'tz', name: 'Tanzania',              flag: '🇹🇿', live: false },
   { code: 'zm', name: 'Zambia',                flag: '🇿🇲', live: false },
   { code: 'rw', name: 'Rwanda',                flag: '🇷🇼', live: false },
-  { code: 'za', name: 'South Africa',          flag: '🇿🇦', live: false },
+  { code: 'za', name: 'South Africa',          flag: '🇿🇦', href: '/tools/import-duty-calculator-south-africa', live: true },
   { code: 'ae', name: 'UAE',                   flag: '🇦🇪', live: false },
   { code: 'sa', name: 'Saudi Arabia',          flag: '🇸🇦', live: false },
   { code: 'pk', name: 'Pakistan',              flag: '🇵🇰', live: false },
