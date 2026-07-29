@@ -17,9 +17,15 @@ export interface RelatedToolLink {
 
 export const RELATED_TOOLS: Record<string, RelatedToolLink[]> = {
   'import-duty-calculator': [
+    { href: '/tools/china-car-import-calculator', label: 'China Car Import Calculator', color: 'sky' },
     { href: '/tools/registration-fee-calculator', label: 'Registration Fee Calculator', color: 'blue' },
     { href: '/tools/auto-loan-calculator', label: 'Auto Loan Calculator', color: 'emerald' },
     { href: '/tools/vin-checker', label: 'VIN Checker', color: 'violet' },
+  ],
+  'china-car-import-calculator': [
+    { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
+    { href: '/tools/vin-checker', label: 'VIN Checker', color: 'violet' },
+    { href: '/tools/registration-fee-calculator', label: 'Registration Fee Calculator', color: 'blue' },
   ],
   'auto-loan-calculator': [
     { href: '/tools/insurance-calculator', label: 'Insurance Calculator', color: 'blue' },

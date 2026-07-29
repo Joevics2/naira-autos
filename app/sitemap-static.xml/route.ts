@@ -21,6 +21,7 @@ const staticPages = [
   { url: '/tools/engine-sound-analyzer/knocking-noise',  priority: 0.85, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/rattling-noise',  priority: 0.75, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator',       priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/china-car-import-calculator',  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator-ghana', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator-kenya', priority: 0.7, changefreq: 'monthly' },
