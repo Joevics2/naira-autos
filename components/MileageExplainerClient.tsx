@@ -2,13 +2,13 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import {
-  RefreshCw, Info, Clock, Gauge, AlertTriangle,
+  RefreshCw, Info, AlertTriangle,
 } from 'lucide-react';
 import {
   haversineKm, kmToMiles, milesToKm, computeMileageResult,
 } from '@/lib/mileage-engine';
 import type { MileageCity } from '@/lib/mileage-cities';
-import MileageShareCard, { heroFraming, tagline, type ShareCardData } from '@/components/MileageShareCard';
+import MileageShareCard, { mainSentence, supportingSentence, type ShareCardData } from '@/components/MileageShareCard';
 
 type Unit = 'km' | 'mi';
 
@@ -76,8 +76,8 @@ export default function MileageExplainerClient({
     };
   }, [result, from, to, mileageInput, unit]);
 
-  const hero = shareCardData ? heroFraming(shareCardData) : null;
-  const flavorLine = shareCardData ? tagline(shareCardData) : '';
+  const mainLine = shareCardData ? mainSentence(shareCardData) : '';
+  const supportLine = shareCardData ? supportingSentence(shareCardData) : '';
 
   const iCls = 'w-full h-11 text-sm border border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all';
 
@@ -138,54 +138,17 @@ export default function MileageExplainerClient({
 
           {/* ── Results ── */}
           <div className="lg:col-span-3 space-y-4">
-            {result && from && to && hero ? (
+            {result && from && to ? (
               <>
                 <div className="bg-card border border-border rounded-2xl p-6">
-                  <p className="text-xs text-muted-foreground mb-2">{fmt(parseFloat(mileageInput) || 0)} {unitLabel(unit)} on the odometer is like...</p>
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="text-5xl leading-none">{hero.emoji}</span>
-                    <p className="text-4xl sm:text-5xl font-black text-emerald-500 leading-none" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                      {hero.big}
-                    </p>
-                  </div>
-                  <p className="text-xl sm:text-2xl font-black text-foreground leading-snug mb-1.5" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                    {hero.label}
+                  <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wide mb-3">Result</p>
+                  <p className="text-xl sm:text-2xl font-bold text-foreground leading-snug mb-2">
+                    {mainLine}
                   </p>
-                  <p className="text-sm italic text-muted-foreground mb-5">{flavorLine}</p>
+                  <p className="text-sm text-muted-foreground mb-4">{supportLine}</p>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-                    <div className="bg-muted/40 rounded-xl p-3 text-center">
-                      <span className="text-xl">🌍</span>
-                      <p className="text-lg font-black text-foreground">{fmt(result.earthLaps, 1)}</p>
-                      <p className="text-[10px] text-muted-foreground">laps around Earth</p>
-                    </div>
-                    <div className="bg-muted/40 rounded-xl p-3 text-center">
-                      <span className="text-xl">🌕</span>
-                      <p className="text-lg font-black text-foreground">{fmt(result.moonTrips, 2)}</p>
-                      <p className="text-[10px] text-muted-foreground">trips to the Moon</p>
-                    </div>
-                    <div className="bg-muted/40 rounded-xl p-3 text-center">
-                      <span className="text-xl">⏱️</span>
-                      <p className="text-lg font-black text-foreground">{fmt(result.drivingDays, 1)}</p>
-                      <p className="text-[10px] text-muted-foreground">days non-stop driving</p>
-                    </div>
-                    {avgAnnualMileageKm ? (
-                      <div className="bg-muted/40 rounded-xl p-3 text-center">
-                        <Gauge className="h-5 w-5 text-emerald-500 mx-auto" />
-                        <p className="text-lg font-black text-foreground">{fmt(result.yearsAtAverage, 1)}</p>
-                        <p className="text-[10px] text-muted-foreground">years at typical use</p>
-                      </div>
-                    ) : (
-                      <div className="bg-muted/40 rounded-xl p-3 text-center">
-                        <Clock className="h-5 w-5 text-amber-500 mx-auto" />
-                        <p className="text-lg font-black text-foreground">{fmt(result.drivingHours)}</p>
-                        <p className="text-[10px] text-muted-foreground">hours behind the wheel</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <p className="text-[11px] text-muted-foreground mb-4">
-                    Exact math: {fmt(result.oneWayTrips, 1)} one-way trips · {fmt(result.distanceUnit)} {unitLabel(unit)} each way, straight-line.
+                  <p className="text-xs text-muted-foreground mb-4 pb-4 border-b border-border">
+                    In numbers: {fmt(result.oneWayTrips, 1)} one-way trips ({fmt(result.distanceUnit)} {unitLabel(unit)} each way, straight-line) · {fmt(result.earthLaps, 1)} Earth laps · {fmt(result.moonTrips, 2)} Moon trips · {avgAnnualMileageKm ? `${fmt(result.yearsAtAverage, 1)} years at typical local use` : `${fmt(result.drivingHours)} hours behind the wheel`}.
                   </p>
 
                   {result.flag && (

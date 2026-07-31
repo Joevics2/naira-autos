@@ -14,32 +14,27 @@ export interface ShareCardData {
   drivingDays: number;
 }
 
-const CARD_SIZE = 1080;
-
 function fmt(n: number, digits = 0) {
   return n.toLocaleString('en-US', { maximumFractionDigits: digits });
 }
 
-/** Pick the single most impressive way to frame the result — the whole
- *  point of the card is one number that makes someone stop scrolling. */
-export function heroFraming(d: ShareCardData) {
-  if (d.moonTrips >= 1) return { emoji: '🌕', big: `${fmt(d.moonTrips, 1)}x`, label: 'trips to the Moon and back' };
-  if (d.earthLaps >= 3) return { emoji: '🌍', big: `${fmt(d.earthLaps, 1)}x`, label: 'laps around planet Earth' };
-  if (d.roundTrips >= 1) return { emoji: '🔁', big: `${fmt(d.roundTrips, 1)}x`, label: `${d.fromCity} ↔ ${d.toCity}, round trip` };
-  return { emoji: '🚗', big: `${fmt(d.roundTrips, 2)}x`, label: `${d.fromCity} → ${d.toCity}` };
+/** The one main sentence the card is built around — plain, readable,
+ *  no isolated giant number that can look broken on small results (e.g.
+ *  a lone "0.26x" blown up to 190px). */
+export function mainSentence(d: ShareCardData): string {
+  if (d.roundTrips >= 1) {
+    return `${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity} to ${d.toCity} and back ${fmt(d.roundTrips, 1)} times.`;
+  }
+  return `${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity} to ${d.toCity} ${fmt(d.roundTrips * 2, 1)} times.`;
 }
 
-export function tagline(d: ShareCardData): string {
-  const pool = d.moonTrips >= 1
-    ? ['This car could apply for astronaut training. 🧑\u200d🚀', 'NASA might want a word.', 'Basically interstellar at this point.']
-    : d.earthLaps >= 1
-    ? ['This thing has EARNED its keep.', 'At this point it deserves a pension.', 'Not a car — a frequent flyer.']
-    : d.roundTrips >= 3
-    ? ['That is serious road time.', 'Certified road warrior. 🛣️', 'This car has seen things.']
-    : ['Barely broken in.', 'Still got that new-car smell (probably).', 'Just warming up.'];
-  // deterministic pick so it doesn't flicker between re-renders
-  const seed = Math.round(d.roundTrips * 7 + d.earthLaps * 13);
-  return pool[seed % pool.length];
+/** One contextual supporting fact — not three. Moon only gets mentioned
+ *  once it's a genuinely notable milestone; otherwise Earth laps or
+ *  driving days, whichever reads more naturally at that scale. */
+export function supportingSentence(d: ShareCardData): string {
+  if (d.moonTrips >= 1) return `That's enough distance to have driven to the Moon and back ${fmt(d.moonTrips, 1)} times.`;
+  if (d.earthLaps >= 1) return `That's about ${fmt(d.earthLaps, 1)} laps around planet Earth.`;
+  return `That's roughly ${fmt(d.drivingDays, 1)} days of non-stop driving.`;
 }
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
@@ -52,7 +47,9 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath();
 }
 
-function wrapCenteredText(ctx: CanvasRenderingContext2D, text: string, cx: number, y: number, maxWidth: number, lineHeight: number): number {
+/** Left-aligned wrap (not centered) — reads like a normal paragraph
+ *  instead of a poster. Returns the y position right after the text. */
+function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number): number {
   const words = text.split(' ');
   let line = '';
   const lines: string[] = [];
@@ -66,121 +63,71 @@ function wrapCenteredText(ctx: CanvasRenderingContext2D, text: string, cx: numbe
     }
   }
   if (line) lines.push(line);
-  lines.forEach((l, i) => ctx.fillText(l, cx, y + i * lineHeight));
-  return lines.length;
+  lines.forEach((l, i) => ctx.fillText(l, x, y + i * lineHeight));
+  return y + lines.length * lineHeight;
 }
+
+const CARD_W = 1080;
+const CARD_H = 860;
 
 function drawCard(canvas: HTMLCanvasElement, d: ShareCardData) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-  const S = CARD_SIZE;
-  ctx.clearRect(0, 0, S, S);
+  const W = CARD_W, H = CARD_H;
+  ctx.clearRect(0, 0, W, H);
 
-  // Background
-  ctx.fillStyle = '#080C10';
-  ctx.fillRect(0, 0, S, S);
-  const glow = ctx.createRadialGradient(S * 0.85, S * 0.1, 0, S * 0.85, S * 0.1, S * 0.6);
-  glow.addColorStop(0, 'rgba(16,185,129,0.20)');
+  // Plain dark background, one subtle glow — not busy
+  ctx.fillStyle = '#0B0F12';
+  ctx.fillRect(0, 0, W, H);
+  const glow = ctx.createRadialGradient(W * 0.9, H * 0.05, 0, W * 0.9, H * 0.05, W * 0.5);
+  glow.addColorStop(0, 'rgba(16,185,129,0.10)');
   glow.addColorStop(1, 'rgba(16,185,129,0)');
   ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, S, S);
-  const glow2 = ctx.createRadialGradient(S * 0.1, S * 0.95, 0, S * 0.1, S * 0.95, S * 0.5);
-  glow2.addColorStop(0, 'rgba(16,185,129,0.12)');
-  glow2.addColorStop(1, 'rgba(16,185,129,0)');
-  ctx.fillStyle = glow2;
-  ctx.fillRect(0, 0, S, S);
+  ctx.fillRect(0, 0, W, H);
 
-  // Top bar — brand
+  const marginX = 80;
+  const maxWidth = W - marginX * 2;
   ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'left';
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '900 40px Arial, sans-serif';
-  ctx.fillText('naira.autos', 64, 96);
+
+  // Small plain category label — no badge/pill, just says what this is
+  ctx.font = '700 26px Arial, sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.font = '600 24px Arial, sans-serif';
-  ctx.fillText('Car Intelligence Hub', 64, 128);
+  ctx.fillText('CAR MILEAGE CHECK', marginX, 100);
 
-  // Badge top-right
-  ctx.textAlign = 'right';
-  const badgeText = '🚗 MILEAGE CHECK';
-  ctx.font = '700 24px Arial, sans-serif';
-  const badgeW = ctx.measureText(badgeText).width + 48;
-  roundRect(ctx, S - 64 - badgeW, 64, badgeW, 52, 26);
-  ctx.fillStyle = 'rgba(16,185,129,0.15)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(16,185,129,0.4)';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.fillStyle = '#34d399';
-  ctx.textAlign = 'center';
-  ctx.fillText(badgeText, S - 64 - badgeW / 2, 98);
-
-  const hero = heroFraming(d);
-
-  // Mileage recap pill
-  ctx.textAlign = 'center';
-  ctx.font = '700 30px Arial, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.fillText(`${fmt(d.mileage)} ${d.unit === 'km' ? 'KM' : 'MILES'} ON THE CLOCK`, S / 2, 235);
-
-  // Hero emoji
-  ctx.font = '150px Arial, sans-serif';
-  ctx.fillText(hero.emoji, S / 2, 400);
-
-  // Hero big number
-  ctx.font = '900 190px Arial, sans-serif';
-  ctx.fillStyle = '#34d399';
-  ctx.fillText(hero.big, S / 2, 560);
-
-  // Hero label
-  ctx.font = '700 42px Arial, sans-serif';
+  // Main sentence — the actual content, readable size
+  ctx.font = '700 52px Arial, sans-serif';
   ctx.fillStyle = '#ffffff';
-  wrapCenteredText(ctx, hero.label, S / 2, 620, S - 160, 52);
+  let y = wrapText(ctx, mainSentence(d), marginX, 190, maxWidth, 66);
 
-  // Tagline
-  ctx.font = 'italic 600 30px Arial, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.fillText(tagline(d), S / 2, 700);
+  // Supporting sentence
+  y += 40;
+  ctx.font = '500 34px Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  wrapText(ctx, supportingSentence(d), marginX, y, maxWidth, 46);
 
-  // Stat row
-  const stats = [
-    { emoji: '🌍', big: fmt(d.earthLaps, 1), label: 'Earth laps' },
-    { emoji: '🌕', big: fmt(d.moonTrips, 2), label: 'Moon trips' },
-    { emoji: '⏱️', big: fmt(d.drivingDays, 1), label: 'days non-stop' },
-  ];
-  const cardW = 280, cardH = 190, gap = 30;
-  const totalW = cardW * 3 + gap * 2;
-  const startX = (S - totalW) / 2;
-  const cardY = 750;
-  stats.forEach((s, i) => {
-    const x = startX + i * (cardW + gap);
-    roundRect(ctx, x, cardY, cardW, cardH, 24);
-    ctx.fillStyle = 'rgba(255,255,255,0.05)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-    ctx.textAlign = 'center';
-    ctx.font = '52px Arial, sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText(s.emoji, x + cardW / 2, cardY + 66);
-    ctx.font = '900 44px Arial, sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText(s.big, x + cardW / 2, cardY + 122);
-    ctx.font = '600 22px Arial, sans-serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
-    ctx.fillText(s.label, x + cardW / 2, cardY + 155);
-  });
-
-  // Bottom CTA bar
-  const ctaY = S - 130;
-  roundRect(ctx, 64, ctaY, S - 128, 80, 20);
-  ctx.fillStyle = '#10b981';
+  // Bottom footer — the ONLY naira.autos branding on the card
+  const footerH = 96;
+  const footerY = H - footerH - 60;
+  roundRect(ctx, marginX, footerY, maxWidth, footerH, 18);
+  ctx.fillStyle = 'rgba(16,185,129,0.10)';
   ctx.fill();
-  ctx.fillStyle = '#04110c';
+  ctx.strokeStyle = 'rgba(16,185,129,0.35)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  ctx.textAlign = 'left';
   ctx.font = '800 32px Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Check your car\'s mileage free  →  naira.autos', S / 2, ctaY + 51);
+  ctx.fillStyle = '#34d399';
+  ctx.fillText('naira.autos', marginX + 32, footerY + 44);
+  ctx.font = '500 24px Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText('Free car mileage check', marginX + 32, footerY + 74);
+
+  ctx.textAlign = 'right';
+  ctx.font = '600 26px Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  ctx.fillText('Check yours →', marginX + maxWidth - 32, footerY + 60);
 }
 
 export default function MileageShareCard({ data }: { data: ShareCardData | null }) {
@@ -251,7 +198,7 @@ export default function MileageShareCard({ data }: { data: ShareCardData | null 
           <img src={previewUrl} alt="Shareable mileage card preview" className="w-full h-auto block" />
         )}
       </div>
-      <canvas ref={canvasRef} width={CARD_SIZE} height={CARD_SIZE} className="hidden" />
+      <canvas ref={canvasRef} width={CARD_W} height={CARD_H} className="hidden" />
       <div className="flex gap-2">
         <button onClick={share} disabled={busy}
           className="flex-1 flex items-center justify-center gap-1.5 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold transition-all disabled:opacity-60">
