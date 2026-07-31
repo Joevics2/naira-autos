@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { Download, Share2, Loader2 } from 'lucide-react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { Download, Share2, Copy, Check, Loader2 } from 'lucide-react';
 
 export interface ShareCardData {
   mileage: number;
   unit: 'km' | 'mi';
   fromCity: string;
   toCity: string;
+  fromCountryCode: string;
+  toCountryCode: string;
   roundTrips: number;
   earthLaps: number;
   moonTrips: number;
@@ -18,23 +20,37 @@ function fmt(n: number, digits = 0) {
   return n.toLocaleString('en-US', { maximumFractionDigits: digits });
 }
 
+/** ISO 3166-1 alpha-2 → flag emoji, via Unicode regional indicator symbols. */
+function flagEmoji(countryCode: string): string {
+  if (!countryCode || countryCode.length !== 2) return '';
+  return countryCode
+    .toUpperCase()
+    .replace(/./g, (c) => String.fromCodePoint(127397 + c.charCodeAt(0)));
+}
+
 /** The one main sentence the card is built around — plain, readable,
  *  no isolated giant number that can look broken on small results (e.g.
  *  a lone "0.26x" blown up to 190px). */
 export function mainSentence(d: ShareCardData): string {
+  const fromFlag = flagEmoji(d.fromCountryCode);
+  const toFlag = flagEmoji(d.toCountryCode);
   if (d.roundTrips >= 1) {
-    return `${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity} to ${d.toCity} and back ${fmt(d.roundTrips, 1)} times.`;
+    return `🚗 ${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity}${fromFlag ? ' ' + fromFlag : ''} to ${d.toCity}${toFlag ? ' ' + toFlag : ''} and back ${fmt(d.roundTrips, 1)} times.`;
   }
-  return `${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity} to ${d.toCity} ${fmt(d.roundTrips * 2, 1)} times.`;
+  return `🚗 ${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity}${fromFlag ? ' ' + fromFlag : ''} to ${d.toCity}${toFlag ? ' ' + toFlag : ''} ${fmt(d.roundTrips * 2, 1)} times.`;
 }
 
 /** One contextual supporting fact — not three. Moon only gets mentioned
  *  once it's a genuinely notable milestone; otherwise Earth laps or
  *  driving days, whichever reads more naturally at that scale. */
 export function supportingSentence(d: ShareCardData): string {
-  if (d.moonTrips >= 1) return `That's enough distance to have driven to the Moon and back ${fmt(d.moonTrips, 1)} times.`;
-  if (d.earthLaps >= 1) return `That's about ${fmt(d.earthLaps, 1)} laps around planet Earth.`;
-  return `That's roughly ${fmt(d.drivingDays, 1)} days of non-stop driving.`;
+  if (d.moonTrips >= 1) return `🌕 That's enough distance to have driven to the Moon and back ${fmt(d.moonTrips, 1)} times.`;
+  if (d.earthLaps >= 1) return `🌍 That's like driving round the world ${fmt(d.earthLaps, 1)} times.`;
+  return `⏱️ That's roughly ${fmt(d.drivingDays, 1)} days of non-stop driving.`;
+}
+
+export function shareText(d: ShareCardData): string {
+  return `${mainSentence(d)} ${supportingSentence(d)}\n\nCheck your car's mileage free → naira.autos/tools/mileage-explainer`;
 }
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
@@ -47,9 +63,10 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath();
 }
 
-/** Left-aligned wrap (not centered) — reads like a normal paragraph
- *  instead of a poster. Returns the y position right after the text. */
-function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number): number {
+/** Wraps text and returns the line array without drawing — lets us
+ *  measure total height first so blocks of text can be vertically
+ *  centered instead of pinned to the top with dead space below. */
+function wrapLines(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
   const words = text.split(' ');
   let line = '';
   const lines: string[] = [];
@@ -63,12 +80,15 @@ function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: num
     }
   }
   if (line) lines.push(line);
-  lines.forEach((l, i) => ctx.fillText(l, x, y + i * lineHeight));
-  return y + lines.length * lineHeight;
+  return lines;
 }
 
-const CARD_W = 1080;
-const CARD_H = 860;
+function drawLines(ctx: CanvasRenderingContext2D, lines: string[], x: number, y: number, lineHeight: number) {
+  lines.forEach((l, i) => ctx.fillText(l, x, y + i * lineHeight));
+}
+
+const CARD_W = 1200;
+const CARD_H = 630; // landscape — standard link-preview ratio, no wasted space
 
 function drawCard(canvas: HTMLCanvasElement, d: ShareCardData) {
   const ctx = canvas.getContext('2d');
@@ -79,37 +99,56 @@ function drawCard(canvas: HTMLCanvasElement, d: ShareCardData) {
   // Plain dark background, one subtle glow — not busy
   ctx.fillStyle = '#0B0F12';
   ctx.fillRect(0, 0, W, H);
-  const glow = ctx.createRadialGradient(W * 0.9, H * 0.05, 0, W * 0.9, H * 0.05, W * 0.5);
+  const glow = ctx.createRadialGradient(W * 0.92, H * 0.08, 0, W * 0.92, H * 0.08, W * 0.5);
   glow.addColorStop(0, 'rgba(16,185,129,0.10)');
   glow.addColorStop(1, 'rgba(16,185,129,0)');
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H);
 
-  const marginX = 80;
+  const marginX = 70;
   const maxWidth = W - marginX * 2;
   ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'left';
 
-  // Small plain category label — no badge/pill, just says what this is
-  ctx.font = '700 26px Arial, sans-serif';
+  // Small plain category label
+  ctx.font = '700 22px Arial, sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.fillText('CAR MILEAGE CHECK', marginX, 100);
+  ctx.fillText('🚙 CAR MILEAGE CHECK', marginX, 68);
 
-  // Main sentence — the actual content, readable size
-  ctx.font = '700 52px Arial, sans-serif';
+  // Footer geometry (needed now to compute the center space above it)
+  const footerH = 84;
+  const footerMarginBottom = 40;
+  const footerY = H - footerH - footerMarginBottom;
+
+  // Measure both text blocks first so they can be vertically centered
+  // in the space between the label and the footer — no dead gap.
+  const mainFont = '700 46px Arial, sans-serif';
+  const mainLineHeight = 58;
+  ctx.font = mainFont;
+  const mainLines = wrapLines(ctx, mainSentence(d), maxWidth);
+
+  const supportFont = '500 28px Arial, sans-serif';
+  const supportLineHeight = 40;
+  ctx.font = supportFont;
+  const supportLines = wrapLines(ctx, supportingSentence(d), maxWidth);
+
+  const blockGap = 26;
+  const totalTextHeight = mainLines.length * mainLineHeight + blockGap + supportLines.length * supportLineHeight;
+
+  const topBound = 110; // just below the label
+  const bottomBound = footerY - 30;
+  const startY = topBound + Math.max(0, (bottomBound - topBound - totalTextHeight) / 2) + mainLineHeight * 0.7;
+
+  ctx.font = mainFont;
   ctx.fillStyle = '#ffffff';
-  let y = wrapText(ctx, mainSentence(d), marginX, 190, maxWidth, 66);
+  drawLines(ctx, mainLines, marginX, startY, mainLineHeight);
 
-  // Supporting sentence
-  y += 40;
-  ctx.font = '500 34px Arial, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  wrapText(ctx, supportingSentence(d), marginX, y, maxWidth, 46);
+  ctx.font = supportFont;
+  ctx.fillStyle = 'rgba(255,255,255,0.62)';
+  drawLines(ctx, supportLines, marginX, startY + mainLines.length * mainLineHeight + blockGap, supportLineHeight);
 
   // Bottom footer — the ONLY naira.autos branding on the card
-  const footerH = 96;
-  const footerY = H - footerH - 60;
-  roundRect(ctx, marginX, footerY, maxWidth, footerH, 18);
+  roundRect(ctx, marginX, footerY, maxWidth, footerH, 16);
   ctx.fillStyle = 'rgba(16,185,129,0.10)';
   ctx.fill();
   ctx.strokeStyle = 'rgba(16,185,129,0.35)';
@@ -117,23 +156,24 @@ function drawCard(canvas: HTMLCanvasElement, d: ShareCardData) {
   ctx.stroke();
 
   ctx.textAlign = 'left';
-  ctx.font = '800 32px Arial, sans-serif';
+  ctx.font = '800 28px Arial, sans-serif';
   ctx.fillStyle = '#34d399';
-  ctx.fillText('naira.autos', marginX + 32, footerY + 44);
-  ctx.font = '500 24px Arial, sans-serif';
+  ctx.fillText('🚘 naira.autos', marginX + 28, footerY + 38);
+  ctx.font = '500 20px Arial, sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.fillText('Free car mileage check', marginX + 32, footerY + 74);
+  ctx.fillText('Free car mileage check', marginX + 28, footerY + 64);
 
   ctx.textAlign = 'right';
-  ctx.font = '600 26px Arial, sans-serif';
+  ctx.font = '600 24px Arial, sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,0.75)';
-  ctx.fillText('Check yours →', marginX + maxWidth - 32, footerY + 60);
+  ctx.fillText('Check yours →', marginX + maxWidth - 28, footerY + 51);
 }
 
 export default function MileageShareCard({ data }: { data: ShareCardData | null }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [canShareFiles, setCanShareFiles] = useState(false);
 
   useEffect(() => {
@@ -179,31 +219,40 @@ export default function MileageShareCard({ data }: { data: ShareCardData | null 
         await navigator.share({
           files: [file],
           title: 'My car\'s mileage, explained',
-          text: 'Check what your car\'s mileage actually means — free tool at naira.autos',
+          text: data ? shareText(data) : undefined,
         });
       } else {
         await download();
       }
     } catch { /* user cancelled share sheet — not an error */ } finally { setBusy(false); }
-  }, [getBlob, canShareFiles, download]);
+  }, [getBlob, canShareFiles, download, data]);
+
+  const copyText = useCallback(async () => {
+    if (!data) return;
+    try {
+      await navigator.clipboard.writeText(shareText(data));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard unavailable — silently ignore */ }
+  }, [data]);
 
   if (!data) return null;
 
   return (
     <div className="bg-card border border-border rounded-2xl p-4 sm:p-5">
       <p className="text-xs font-bold text-foreground uppercase tracking-wide mb-3">Share this</p>
-      <div className="rounded-xl overflow-hidden border border-border mb-4 bg-[#080C10]">
+      <div className="rounded-xl overflow-hidden border border-border mb-4 bg-[#0B0F12]">
         {previewUrl && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={previewUrl} alt="Shareable mileage card preview" className="w-full h-auto block" />
         )}
       </div>
       <canvas ref={canvasRef} width={CARD_W} height={CARD_H} className="hidden" />
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-2">
         <button onClick={share} disabled={busy}
           className="flex-1 flex items-center justify-center gap-1.5 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold transition-all disabled:opacity-60">
           {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Share2 className="h-4 w-4" />}
-          Share
+          Share Image
         </button>
         <button onClick={download} disabled={busy}
           className="flex-1 flex items-center justify-center gap-1.5 h-11 rounded-xl border border-border bg-background hover:border-emerald-500/50 text-foreground text-sm font-bold transition-all disabled:opacity-60">
@@ -211,6 +260,11 @@ export default function MileageShareCard({ data }: { data: ShareCardData | null 
           Download
         </button>
       </div>
+      <button onClick={copyText}
+        className="w-full flex items-center justify-center gap-1.5 h-10 rounded-xl border border-dashed border-border text-muted-foreground hover:text-foreground hover:border-emerald-500/50 text-xs font-bold transition-all">
+        {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+        {copied ? 'Copied!' : 'Copy caption text'}
+      </button>
       <p className="text-[11px] text-muted-foreground mt-2.5 text-center">Post it under any car listing — watch people ask what it means. 👀</p>
     </div>
   );

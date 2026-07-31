@@ -69,6 +69,8 @@ export default function MileageExplainerClient({
       unit,
       fromCity: from.name,
       toCity: to.name,
+      fromCountryCode: from.countryCode,
+      toCountryCode: to.countryCode,
       roundTrips: result.roundTrips,
       earthLaps: result.earthLaps,
       moonTrips: result.moonTrips,
