@@ -485,8 +485,8 @@ export default function FuelCostClient() {
                     <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400">Loan calculator</p>
                     <ChevronRight className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" />
                   </Link>
-                  <Link href="/listings" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
-                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400">Browse cars</p>
+                  <Link href="/tools/best-car-for" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400">Find a fuel-efficient car</p>
                     <ChevronRight className="h-3.5 w-3.5 text-blue-600 dark:text-blue-500" />
                   </Link>
                 </div>
