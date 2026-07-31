@@ -38,6 +38,7 @@ const COUNTRIES: { code: string; name: string; flag: string; live: boolean }[] =
   { code: 'ke', name: 'Kenya', flag: '🇰🇪', live: false },
   { code: 'za', name: 'South Africa', flag: '🇿🇦', live: false },
 ];
+const LIVE_COUNTRIES = COUNTRIES.filter(c => c.live);
 
 function fmt(n: number) { return '₦' + Math.round(n).toLocaleString('en-NG'); }
 function pct(r: number) { return (r * 100).toFixed(1) + '%'; }
@@ -135,32 +136,32 @@ export default function ChinaCarImportCalculatorClient() {
     <div className="bg-background">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-8 space-y-6">
 
-        {/* Country selector */}
-        <div>
-          <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-2">
-            <Globe2 className="inline h-3.5 w-3.5 mr-1 -mt-0.5" />
-            Destination Country
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {COUNTRIES.map(c => (
-              <button
-                key={c.code}
-                disabled={!c.live}
-                onClick={() => c.live && setCountry(c.code)}
-                title={c.live ? undefined : 'Coming soon'}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold border transition-all ${
-                  country === c.code
-                    ? 'bg-emerald-500 border-emerald-500 text-white'
-                    : c.live
-                      ? 'bg-card border-border text-muted-foreground hover:border-emerald-500/50'
-                      : 'bg-muted/20 border-dashed border-border text-muted-foreground/50 cursor-not-allowed'
-                }`}
-              >
-                <span>{c.flag}</span> {c.name} {!c.live && <span className="text-[9px] uppercase tracking-wide">Soon</span>}
-              </button>
-            ))}
+        {/* Country selector — only countries with a live ruleset render here.
+            Unbuilt ones (Ghana/Kenya/South Africa) stay out entirely rather
+            than showing a "Soon" placeholder, per site-wide policy. */}
+        {LIVE_COUNTRIES.length > 1 && (
+          <div>
+            <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-2">
+              <Globe2 className="inline h-3.5 w-3.5 mr-1 -mt-0.5" />
+              Destination Country
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {LIVE_COUNTRIES.map(c => (
+                <button
+                  key={c.code}
+                  onClick={() => setCountry(c.code)}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold border transition-all ${
+                    country === c.code
+                      ? 'bg-emerald-500 border-emerald-500 text-white'
+                      : 'bg-card border-border text-muted-foreground hover:border-emerald-500/50'
+                  }`}
+                >
+                  <span>{c.flag}</span> {c.name}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Model presets */}
         <div>
