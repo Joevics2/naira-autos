@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Globe2 } from 'lucide-react';
 import MileageExplainerClient from '@/components/MileageExplainerClient';
 import { CountryScrollStrip } from '@/components/CountryScrollStrip';
-import { CITIES } from '@/lib/mileage-cities';
+import { globalLandmarkCities } from '@/lib/mileage-cities';
 
 export const metadata: Metadata = {
   title: 'Mileage Explainer — What Does Your Odometer Reading Actually Mean?',
@@ -46,8 +46,9 @@ const SCHEMA = {
   ],
 };
 
-// Global mode: full city list (Nigeria + international landmarks), no single national benchmark
-const GLOBAL_CITIES = CITIES;
+// Global mode: curated international landmark cities only — Nigeria (and
+// every future country) has its own dedicated page with its own local list.
+const GLOBAL_CITIES = globalLandmarkCities();
 
 const COUNTRY_LINKS = [
   { code: 'ng', flag: '🇳🇬', name: 'Nigeria', href: '/tools/mileage-explainer-nigeria' },
