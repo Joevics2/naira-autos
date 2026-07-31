@@ -1,13 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ChevronRight, Search, Lock } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Search } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Plate Number Checker — Choose Your Country | Naira Autos',
-  description: 'Free plate number checker by country — decode the LGA/region of registration, registration year, and plate format. Start with Nigeria; more countries coming soon.',
+  description: 'Free plate number checker by country — decode the LGA/region of registration, registration year, and plate format.',
   alternates: { canonical: 'https://www.naira.autos/tools/plate-number-checker' },
 };
 
+/**
+ * Roadmap of countries for this tool. Only entries with `live: true` are
+ * rendered — everything else stays out of the page entirely (no "Soon"
+ * placeholders) until the page for that country actually exists.
+ * To ship a new country: build its page, then flip `live: true` and add `href`.
+ */
 const COUNTRIES: { code: string; name: string; flag: string; href?: string; live: boolean }[] = [
   { code: 'ng', name: 'Nigeria',        flag: '🇳🇬', href: '/tools/plate-number-checker/nigeria', live: true },
   { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', live: false },
@@ -18,6 +24,8 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'in', name: 'India',          flag: '🇮🇳', live: false },
   { code: 'ae', name: 'UAE',            flag: '🇦🇪', live: false },
 ];
+
+const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
 
 export default function PlateNumberCheckerCountryPickerPage() {
   return (
@@ -54,31 +62,17 @@ export default function PlateNumberCheckerCountryPickerPage() {
 
       <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {COUNTRIES.map((c) =>
-            c.live ? (
-              <Link
-                key={c.code}
-                href={c.href!}
-                className="group flex flex-col items-center gap-2 p-5 rounded-2xl border border-border bg-card hover:border-blue-500/40 hover:shadow-lg transition-all"
-              >
-                <span className="text-3xl">{c.flag}</span>
-                <span className="text-sm font-bold text-foreground">{c.name}</span>
-                <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400">Open Checker →</span>
-              </Link>
-            ) : (
-              <div
-                key={c.code}
-                className="flex flex-col items-center gap-2 p-5 rounded-2xl border border-dashed border-border bg-muted/20 opacity-60 cursor-not-allowed"
-                title="Coming soon"
-              >
-                <span className="text-3xl grayscale">{c.flag}</span>
-                <span className="text-sm font-bold text-muted-foreground">{c.name}</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-                  <Lock className="h-2.5 w-2.5" /> Soon
-                </span>
-              </div>
-            )
-          )}
+          {LIVE_COUNTRIES.map((c) => (
+            <Link
+              key={c.code}
+              href={c.href!}
+              className="group flex flex-col items-center gap-2 p-5 rounded-2xl border border-border bg-card hover:border-blue-500/40 hover:shadow-lg transition-all"
+            >
+              <span className="text-3xl">{c.flag}</span>
+              <span className="text-sm font-bold text-foreground">{c.name}</span>
+              <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400">Open Checker →</span>
+            </Link>
+          ))}
         </div>
       </div>
     </div>

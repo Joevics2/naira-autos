@@ -32,18 +32,20 @@ const MODEL_PRESETS: ModelPreset[] = [
   { label: 'BYD Atto 3 (EV)', fobUSD: 19000, freightUSD: 1700, engineBracket: 'under-2000', isEV: true },
 ];
 
+// Roadmap of countries for this tool. Only entries with `live: true` are
+// rendered as selectable buttons — no "Coming soon" placeholders shown.
 const COUNTRIES: { code: string; name: string; flag: string; live: boolean }[] = [
   { code: 'ng', name: 'Nigeria', flag: '🇳🇬', live: true },
   { code: 'gh', name: 'Ghana', flag: '🇬🇭', live: false },
   { code: 'ke', name: 'Kenya', flag: '🇰🇪', live: false },
   { code: 'za', name: 'South Africa', flag: '🇿🇦', live: false },
 ];
+const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
 
 function fmt(n: number) { return '₦' + Math.round(n).toLocaleString('en-NG'); }
 function pct(r: number) { return (r * 100).toFixed(1) + '%'; }
 
 export default function ChinaCarImportCalculatorClient() {
-  const [country, setCountry] = useState('ng');
   const [vehicleType, setVehicleType] = useState<'used' | 'new'>('used');
   const [isEV, setIsEV] = useState(false);
   const [engineBracket, setEngineBracket] = useState<GreenTaxBracketId>('under-2000');
@@ -135,30 +137,14 @@ export default function ChinaCarImportCalculatorClient() {
     <div className="bg-background">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-8 space-y-6">
 
-        {/* Country selector */}
+        {/* Destination country */}
         <div>
           <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-2">
             <Globe2 className="inline h-3.5 w-3.5 mr-1 -mt-0.5" />
             Destination Country
           </label>
-          <div className="flex flex-wrap gap-2">
-            {COUNTRIES.map(c => (
-              <button
-                key={c.code}
-                disabled={!c.live}
-                onClick={() => c.live && setCountry(c.code)}
-                title={c.live ? undefined : 'Coming soon'}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold border transition-all ${
-                  country === c.code
-                    ? 'bg-emerald-500 border-emerald-500 text-white'
-                    : c.live
-                      ? 'bg-card border-border text-muted-foreground hover:border-emerald-500/50'
-                      : 'bg-muted/20 border-dashed border-border text-muted-foreground/50 cursor-not-allowed'
-                }`}
-              >
-                <span>{c.flag}</span> {c.name} {!c.live && <span className="text-[9px] uppercase tracking-wide">Soon</span>}
-              </button>
-            ))}
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold border border-emerald-500 bg-emerald-500 text-white w-fit">
+            <span>{LIVE_COUNTRIES[0].flag}</span> {LIVE_COUNTRIES[0].name}
           </div>
         </div>
 
