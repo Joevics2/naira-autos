@@ -2,13 +2,13 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import {
-  RefreshCw, Copy, Check, Info, Globe2, Moon, Clock, Gauge, AlertTriangle,
+  RefreshCw, Info, Clock, Gauge, AlertTriangle,
 } from 'lucide-react';
 import {
   haversineKm, kmToMiles, milesToKm, computeMileageResult,
-  EARTH_CIRCUMFERENCE_KM, MOON_DISTANCE_KM,
 } from '@/lib/mileage-engine';
 import type { MileageCity } from '@/lib/mileage-cities';
+import MileageShareCard, { heroFraming, tagline, type ShareCardData } from '@/components/MileageShareCard';
 
 type Unit = 'km' | 'mi';
 
@@ -36,7 +36,6 @@ export default function MileageExplainerClient({
   const [fromCity, setFromCity] = useState(defaultFromName);
   const [toCity, setToCity] = useState(defaultToName);
   const [vehicleAge, setVehicleAge] = useState('');
-  const [copied, setCopied] = useState(false);
 
   const from = cities.find((c) => c.name === fromCity) ?? cities[0];
   const to = cities.find((c) => c.name === toCity) ?? cities[1] ?? cities[0];
@@ -63,18 +62,22 @@ export default function MileageExplainerClient({
     return { ...r, distanceUnit: unit === 'km' ? distanceKm : kmToMiles(distanceKm), flag };
   }, [mileageInput, unit, from, to, avgAnnualMileageKm, vehicleAge]);
 
-  const shareText = useMemo(() => {
-    if (!result || !from || !to) return '';
-    return `${fmt(parseFloat(mileageInput) || 0)} ${unitLabel(unit)} on the odometer is like driving from ${from.name} to ${to.name} and back ${fmt(result.roundTrips, 1)} times — or ${fmt(result.earthLaps, 1)} laps around the Earth. 🌍`;
+  const shareCardData: ShareCardData | null = useMemo(() => {
+    if (!result || !from || !to) return null;
+    return {
+      mileage: parseFloat(mileageInput) || 0,
+      unit,
+      fromCity: from.name,
+      toCity: to.name,
+      roundTrips: result.roundTrips,
+      earthLaps: result.earthLaps,
+      moonTrips: result.moonTrips,
+      drivingDays: result.drivingDays,
+    };
   }, [result, from, to, mileageInput, unit]);
 
-  const copyShare = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(shareText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch { /* clipboard unavailable — silently ignore */ }
-  }, [shareText]);
+  const hero = shareCardData ? heroFraming(shareCardData) : null;
+  const flavorLine = shareCardData ? tagline(shareCardData) : '';
 
   const iCls = 'w-full h-11 text-sm border border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all';
 
@@ -129,53 +132,61 @@ export default function MileageExplainerClient({
 
             <div className="flex items-start gap-2 text-[11px] text-muted-foreground bg-muted/20 rounded-xl p-3">
               <Info className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
-              <p>Distances are straight-line ("as the crow flies"), not driving-route distance — real road distance is typically 10–25% longer. This tool is for scale and intuition, not a route planner.</p>
+              <p>Distances are straight-line (&ldquo;as the crow flies&rdquo;), not driving-route distance — real road distance is typically 10–25% longer. This tool is for scale and intuition, not a route planner.</p>
             </div>
           </div>
 
           {/* ── Results ── */}
           <div className="lg:col-span-3 space-y-4">
-            {result && from && to ? (
+            {result && from && to && hero ? (
               <>
                 <div className="bg-card border border-border rounded-2xl p-6">
-                  <p className="text-xs text-muted-foreground mb-1">{fmt(parseFloat(mileageInput) || 0)} {unitLabel(unit)} is like driving...</p>
-                  <p className="text-2xl sm:text-3xl font-black text-foreground leading-snug mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                    {from.name} <span className="text-emerald-500">→</span> {to.name} and back <span className="text-emerald-500">{fmt(result.roundTrips, 1)}</span> times
+                  <p className="text-xs text-muted-foreground mb-2">{fmt(parseFloat(mileageInput) || 0)} {unitLabel(unit)} on the odometer is like...</p>
+                  <div className="flex items-center gap-3 mb-1">
+                    <span className="text-5xl leading-none">{hero.emoji}</span>
+                    <p className="text-4xl sm:text-5xl font-black text-emerald-500 leading-none" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                      {hero.big}
+                    </p>
+                  </div>
+                  <p className="text-xl sm:text-2xl font-black text-foreground leading-snug mb-1.5" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                    {hero.label}
                   </p>
-                  <p className="text-xs text-muted-foreground mb-5">
-                    ({fmt(result.oneWayTrips, 1)} one-way trips · {fmt(result.distanceUnit)} {unitLabel(unit)} each way, straight-line)
-                  </p>
+                  <p className="text-sm italic text-muted-foreground mb-5">{flavorLine}</p>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
                     <div className="bg-muted/40 rounded-xl p-3 text-center">
-                      <Globe2 className="h-4 w-4 text-blue-500 mx-auto mb-1" />
+                      <span className="text-xl">🌍</span>
                       <p className="text-lg font-black text-foreground">{fmt(result.earthLaps, 1)}</p>
                       <p className="text-[10px] text-muted-foreground">laps around Earth</p>
                     </div>
                     <div className="bg-muted/40 rounded-xl p-3 text-center">
-                      <Moon className="h-4 w-4 text-indigo-500 mx-auto mb-1" />
+                      <span className="text-xl">🌕</span>
                       <p className="text-lg font-black text-foreground">{fmt(result.moonTrips, 2)}</p>
                       <p className="text-[10px] text-muted-foreground">trips to the Moon</p>
                     </div>
                     <div className="bg-muted/40 rounded-xl p-3 text-center">
-                      <Clock className="h-4 w-4 text-amber-500 mx-auto mb-1" />
+                      <span className="text-xl">⏱️</span>
                       <p className="text-lg font-black text-foreground">{fmt(result.drivingDays, 1)}</p>
                       <p className="text-[10px] text-muted-foreground">days non-stop driving</p>
                     </div>
                     {avgAnnualMileageKm ? (
                       <div className="bg-muted/40 rounded-xl p-3 text-center">
-                        <Gauge className="h-4 w-4 text-emerald-500 mx-auto mb-1" />
+                        <Gauge className="h-5 w-5 text-emerald-500 mx-auto" />
                         <p className="text-lg font-black text-foreground">{fmt(result.yearsAtAverage, 1)}</p>
                         <p className="text-[10px] text-muted-foreground">years at typical use</p>
                       </div>
                     ) : (
                       <div className="bg-muted/40 rounded-xl p-3 text-center">
-                        <Gauge className="h-4 w-4 text-emerald-500 mx-auto mb-1" />
+                        <Clock className="h-5 w-5 text-amber-500 mx-auto" />
                         <p className="text-lg font-black text-foreground">{fmt(result.drivingHours)}</p>
                         <p className="text-[10px] text-muted-foreground">hours behind the wheel</p>
                       </div>
                     )}
                   </div>
+
+                  <p className="text-[11px] text-muted-foreground mb-4">
+                    Exact math: {fmt(result.oneWayTrips, 1)} one-way trips · {fmt(result.distanceUnit)} {unitLabel(unit)} each way, straight-line.
+                  </p>
 
                   {result.flag && (
                     <div className={`flex items-start gap-2 rounded-xl p-3 mb-4 border ${
@@ -192,15 +203,11 @@ export default function MileageExplainerClient({
                   )}
 
                   {avgAnnualMileageNote && (
-                    <p className="text-[11px] text-muted-foreground mb-4">{avgAnnualMileageNote}</p>
+                    <p className="text-[11px] text-muted-foreground">{avgAnnualMileageNote}</p>
                   )}
-
-                  <button onClick={copyShare}
-                    className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-                    {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-                    {copied ? 'Copied!' : 'Copy shareable summary'}
-                  </button>
                 </div>
+
+                <MileageShareCard data={shareCardData} />
               </>
             ) : (
               <div className="bg-card border border-border rounded-2xl p-8 text-center text-sm text-muted-foreground">
