@@ -85,13 +85,18 @@ export default function MyDocumentsClient() {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-6 space-y-6">
-        <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          <span>/</span>
-          <Link href="/documents" className="hover:text-foreground">Documents</Link>
-          <span>/</span>
-          <span className="text-foreground font-medium">My Documents</span>
-        </nav>
+        <div className="flex items-center gap-3">
+          <Link href="/documents" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0" aria-label="Back">
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground">Home</Link>
+            <span>/</span>
+            <Link href="/documents" className="hover:text-foreground">Documents</Link>
+            <span>/</span>
+            <span className="text-foreground font-medium">My Documents</span>
+          </nav>
+        </div>
 
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">My Documents</h1>

@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Home, FileCheck2, Wand2, History } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Home, FileCheck2, Wand2, History } from 'lucide-react';
 import { DocumentTemplateRow, fillTemplate } from '@/lib/document-templates-data';
 import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/document-types';
 import { GeneratedDocument } from '@/lib/document-format';
-import { DocumentHistoryEntry, saveToHistory } from '@/lib/document-history';
+import { saveToHistory } from '@/lib/document-history';
 import DocumentEditor from '@/components/documents/DocumentEditor';
-import DocumentHistoryList from '@/components/documents/DocumentHistoryList';
 
 const SHORT_DISCLAIMER =
   'Informational only, not legal advice. Have high-value or high-risk agreements reviewed by a licensed attorney.';
@@ -53,10 +52,6 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
     });
   };
 
-  const handleOpenHistoryEntry = (entry: DocumentHistoryEntry) => {
-    setGeneratedDocument(entry.document);
-  };
-
   const handleReset = () => {
     setGeneratedDocument(null);
     setValues({});
@@ -68,16 +63,21 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Breadcrumb */}
         <div className="flex items-center justify-between gap-3 no-print flex-wrap">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground flex-wrap">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
-            <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/documents" className="hover:text-foreground">Documents</Link>
-            <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium">{docType.label} — {docCountry.name}</span>
-          </nav>
+          <div className="flex items-center gap-3 flex-wrap">
+            <Link href="/documents" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0" aria-label="Back">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+            <nav className="flex items-center gap-1.5 text-sm text-muted-foreground flex-wrap">
+              <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
+              <ChevronRight className="h-3.5 w-3.5" />
+              <Link href="/documents" className="hover:text-foreground">Documents</Link>
+              <ChevronRight className="h-3.5 w-3.5" />
+              <span className="text-foreground font-medium">{docType.label} — {docCountry.name}</span>
+            </nav>
+          </div>
           <Link
             href="/documents/my-documents"
-            className="inline-flex items-center gap-1.5 bg-card border border-border hover:border-sky-500/40 hover:text-sky-500 text-xs font-semibold text-foreground rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
+            className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-600 text-white text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
           >
             <History className="h-3.5 w-3.5" />
             My Documents
@@ -103,8 +103,6 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
             )}
 
             <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
-
-            <DocumentHistoryList filterSource="template" onOpen={handleOpenHistoryEntry} />
 
             {/* Fill-in form */}
             <div className="bg-card border border-border rounded-xl p-5 space-y-4">
