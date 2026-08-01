@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { ChevronRight, ShieldCheck, Wrench, FileCheck, ShieldAlert } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Us — Founded by Joevics | Naira Autos',
-  description: 'Built by Joevics, a passionate car enthusiast and Nigerian car dealer with over 5 years of hands-on market experience. Demystifying the car buying process.',
+  title: 'About Us — Founded by Joshua Victor | Naira Autos',
+  description: 'Built by Joshua Victor, a passionate car enthusiast and Nigerian car dealer with over 5 years of hands-on market experience. Demystifying the car buying process.',
   alternates: {
     canonical: 'https://www.naira.autos/about',
   },
   openGraph: {
-    title: 'About Naira Autos — Founded by Joevics',
+    title: 'About Naira Autos — Founded by Joshua Victor',
     description: 'How a trusted car dealer with over 5 years of experience built a suite of free tools to protect Nigerian car buyers from getting ripped off.',
     url: 'https://www.naira.autos/about',
     type: 'website',
@@ -36,7 +36,7 @@ export default function AboutPage() {
               The Story Behind Naira Autos
             </h1>
             <p className="text-white/80 text-sm sm:text-base leading-relaxed">
-              Naira Autos was founded by <strong>Joevics</strong>, a lifelong car enthusiast and active car dealer with over 5 years of hands-on experience in the Nigerian automotive market. We build real tools to solve the real problems buyers and owners face every single day.
+              Naira Autos was founded by <strong>Joshua Victor</strong>, a lifelong car enthusiast and active car dealer with over 5 years of hands-on experience in the Nigerian automotive market. We build real tools to solve the real problems buyers and owners face every single day.
             </p>
           </div>
         </div>
@@ -50,16 +50,16 @@ export default function AboutPage() {
             {/* Biography & Mission Statement */}
             <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
               <h2 className="text-xl font-black uppercase text-foreground mb-2" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                Meet Joevics
+                Meet Joshua Victor
               </h2>
               <p>
-                After spending half a decade sourcing, inspecting, clearing, and selling vehicles across Nigeria, Joevics saw a massive structural problem: <strong>the deep lack of transparent data for the everyday buyer.</strong> 
+                After spending half a decade sourcing, inspecting, clearing, and selling vehicles across Nigeria, Joshua Victor saw a massive structural problem: <strong>the deep lack of transparent data for the everyday buyer.</strong> 
               </p>
               <p>
                 In the local market, bad actors frequently take advantage of buyers who don't understand custom clearing rates, how to verify hidden mechanical faults, or how to spot altered mileage on incoming <em>Tokunbo</em> cars. 
               </p>
               <p>
-                "As a dealer, I’ve seen buyers lose millions of Naira simply because they didn't have access to basic, accurate diagnostic tools before making a bank transfer," says Joevics. "Naira Autos was built to completely eliminate that information asymmetry."
+                "As a dealer, I’ve seen buyers lose millions of Naira simply because they didn't have access to basic, accurate diagnostic tools before making a bank transfer," says Joshua Victor. "Naira Autos was built to completely eliminate that information asymmetry."
               </p>
               <p>
                 By combining years of practical dealership knowledge with digital automation, this platform offers a suite of completely free tools—such as our custom Import Duty Calculator, AI Mechanic diagnostic assistant, and accurate VIN verification tools.

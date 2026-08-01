@@ -11,7 +11,7 @@ type GlossaryTerm = GlossaryTermSummary;
 export const metadata: Metadata = {
   title: 'Car Market Glossary — Tokunbo, Duty Paid, Grade A & More',
   description:
-    'Understand Tokunbo, duty paid, Grade A, VIN, clearing cost, and 100+ car market terms. The essential buyer and seller glossary from Naira Autos.',
+    'Understand Tokunbo, duty paid, Grade A, VIN, clearing cost, and other car market terms. The essential buyer and seller glossary from Naira Autos.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/glossary',
   },

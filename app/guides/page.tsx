@@ -74,7 +74,7 @@ export default function GuidesPage() {
           </div>
           <div>
             <p className="text-sm font-semibold text-foreground">Car Glossary</p>
-            <p className="text-xs text-muted-foreground">300+ terms — Tokunbo, Grade A, Duty Paid and more</p>
+            <p className="text-xs text-muted-foreground">Tokunbo, Grade A, Duty Paid and more</p>
           </div>
         </div>
         <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
