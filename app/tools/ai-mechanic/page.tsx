@@ -291,10 +291,10 @@ export default function AIMechanicPage() {
                 <h3 className="font-bold text-foreground text-sm mb-3">Also on Naira Autos</h3>
                 <ul className="space-y-2">
                   {[
-                    { label: 'Browse car listings', href: '/listings' },
-                    { label: 'Post your car for sale', href: '/add-listing' },
-                    { label: 'Get a free car valuation', href: '/#valuation' },
-                    { label: 'Request a vehicle', href: '/requests' },
+                    { label: 'Free car valuation', href: '/evaluate-car' },
+                    { label: 'Engine Sound Analyzer', href: '/tools/engine-sound-analyzer' },
+                    { label: 'Import Duty Calculator', href: '/tools/import-duty-calculator' },
+                    { label: 'Vehicle Papers Checklist', href: '/tools/vehicle-papers-checklist' },
                   ].map(({ label, href }) => (
                     <li key={href}>
                       <Link href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">

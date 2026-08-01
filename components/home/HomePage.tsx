@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { TOOLS } from '@/lib/tools-list';
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
   Ship, Shield, FileText, Map, ClipboardCheck, Search,
@@ -242,7 +243,7 @@ export function HomePage() {
           {/* Stats strip */}
           <div className="flex flex-wrap gap-6 mt-10 pt-8 border-t border-border/60">
             {[
-              { value: '12+', label: 'Free tools' },
+              { value: `${TOOLS.length}+`, label: 'Free tools' },
               { value: 'AI', label: 'Powered diagnostics' },
               { value: '₦0', label: 'Always free' },
             ].map(({ value, label }) => (

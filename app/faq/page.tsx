@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const FAQ_ITEMS = [
   {
     question: "What is Naira Autos and who built it?",
-    answer: "Naira Autos is a complete digital car tools hub founded by Joevics, a passionate car enthusiast and Nigerian car dealer with over 5 years of active market experience. We build free, data-driven software tools to give everyday car buyers, owners, and sellers transparent information.",
+    answer: "Naira Autos is a complete digital car tools hub founded by Joshua Victor, a passionate car enthusiast and Nigerian car dealer with over 5 years of active market experience. We build free, data-driven software tools to give everyday car buyers, owners, and sellers transparent information.",
     icon: <HelpCircle className="h-5 w-5 text-emerald-400" />
   },
   {
@@ -100,7 +100,7 @@ export default function FAQPage() {
               Frequently Asked Questions
             </h1>
             <p className="text-white/80 text-sm leading-relaxed">
-              Clear, transparent answers about our system logic, data validation, and how tool founder Joevics leverages 5+ years of dealership experience to keep you safe in the automotive market.
+              Clear, transparent answers about our system logic, data validation, and how tool founder Joshua Victor leverages 5+ years of dealership experience to keep you safe in the automotive market.
             </p>
           </div>
         </div>
