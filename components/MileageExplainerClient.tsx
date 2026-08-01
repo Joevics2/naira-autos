@@ -32,6 +32,10 @@ interface Props {
   /** Per-country benchmark lookup — only read while enableCountrySelect
    *  is on and a specific country is picked. */
   benchmarks?: Record<string, MileageBenchmark>;
+  /** For a page already dedicated to one country (e.g. Nigeria), pass its
+   *  code so the picker's default option reads as that country instead of
+   *  a misleading "All/Mixed", and so that country isn't listed twice. */
+  lockedCountryCode?: string;
 }
 
 function fmt(n: number, digits = 0) { return n.toLocaleString('en-US', { maximumFractionDigits: digits }); }
@@ -40,7 +44,7 @@ function unitLabel(u: Unit) { return u === 'km' ? 'km' : 'miles'; }
 export default function MileageExplainerClient({
   countryName, defaultUnit, cities, defaultFromName, defaultToName,
   avgAnnualMileageKm, avgAnnualMileageNote, vehicleCheckHref,
-  enableCountrySelect, benchmarks,
+  enableCountrySelect, benchmarks, lockedCountryCode,
 }: Props) {
   const [unit, setUnit] = useState<Unit>(defaultUnit);
   const [mileageInput, setMileageInput] = useState('100000');
@@ -49,7 +53,16 @@ export default function MileageExplainerClient({
   const [vehicleAge, setVehicleAge] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('all');
 
-  const countries = useMemo(() => (enableCountrySelect ? availableCountries() : []), [enableCountrySelect]);
+  const allCountries = useMemo(() => (enableCountrySelect ? availableCountries() : []), [enableCountrySelect]);
+  // Exclude the locked country from the pick-a-different-country list —
+  // it's already covered by the default option, no need to list it twice.
+  const countries = useMemo(
+    () => (lockedCountryCode ? allCountries.filter((c) => c.code !== lockedCountryCode) : allCountries),
+    [allCountries, lockedCountryCode]
+  );
+  const baseOptionLabel = lockedCountryCode
+    ? `${flagEmoji(lockedCountryCode)} ${countryName ?? allCountries.find((c) => c.code === lockedCountryCode)?.name ?? 'Default'} (default)`
+    : '🌍 All / Mixed';
 
   const effectiveCities = useMemo(() => {
     if (enableCountrySelect && selectedCountry !== 'all') return citiesForCountry(selectedCountry);
@@ -160,7 +173,7 @@ export default function MileageExplainerClient({
                   Country
                 </label>
                 <select value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)} className={iCls}>
-                  <option value="all">🌍 All / Mixed</option>
+                  <option value="all">{baseOptionLabel}</option>
                   {countries.map((c) => (
                     <option key={c.code} value={c.code}>{flagEmoji(c.code)} {c.name}</option>
                   ))}

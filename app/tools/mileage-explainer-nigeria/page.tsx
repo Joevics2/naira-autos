@@ -121,6 +121,9 @@ export default function MileageExplainerNigeriaPage() {
         avgAnnualMileageKm={AVG_ANNUAL_MILEAGE_KM}
         avgAnnualMileageNote={AVG_NOTE}
         vehicleCheckHref="/tools/vin-checker"
+        enableCountrySelect
+        benchmarks={MILEAGE_BENCHMARKS}
+        lockedCountryCode="ng"
       />
 
       {/* ── SEO content ── */}
