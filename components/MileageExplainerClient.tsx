@@ -1,14 +1,16 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import {
-  RefreshCw, Info, AlertTriangle,
+  RefreshCw, Info, AlertTriangle, Globe2,
 } from 'lucide-react';
 import {
   haversineKm, kmToMiles, milesToKm, computeMileageResult,
 } from '@/lib/mileage-engine';
-import type { MileageCity } from '@/lib/mileage-cities';
-import MileageShareCard, { mainSentence, supportingSentence, type ShareCardData } from '@/components/MileageShareCard';
+import { citiesForCountry, availableCountries, type MileageCity } from '@/lib/mileage-cities';
+import { flagEmoji } from '@/lib/country-meta';
+import type { MileageBenchmark } from '@/lib/mileage-benchmarks';
+import MileageShareCard, { hookLine, mainSentence, supportingSentence, type ShareCardData } from '@/components/MileageShareCard';
 
 type Unit = 'km' | 'mi';
 
@@ -22,6 +24,14 @@ interface Props {
   avgAnnualMileageKm?: number;
   avgAnnualMileageNote?: string;
   vehicleCheckHref?: string;
+  /** When true, shows a country picker above From/To. Picking a country
+   *  filters cities to that country and resets From/To to its top two
+   *  cities; picking "All" reverts to the base `cities`/default props.
+   *  Used by the global hub page — dedicated country pages leave this off. */
+  enableCountrySelect?: boolean;
+  /** Per-country benchmark lookup — only read while enableCountrySelect
+   *  is on and a specific country is picked. */
+  benchmarks?: Record<string, MileageBenchmark>;
 }
 
 function fmt(n: number, digits = 0) { return n.toLocaleString('en-US', { maximumFractionDigits: digits }); }
@@ -30,15 +40,52 @@ function unitLabel(u: Unit) { return u === 'km' ? 'km' : 'miles'; }
 export default function MileageExplainerClient({
   countryName, defaultUnit, cities, defaultFromName, defaultToName,
   avgAnnualMileageKm, avgAnnualMileageNote, vehicleCheckHref,
+  enableCountrySelect, benchmarks,
 }: Props) {
   const [unit, setUnit] = useState<Unit>(defaultUnit);
   const [mileageInput, setMileageInput] = useState('100000');
   const [fromCity, setFromCity] = useState(defaultFromName);
   const [toCity, setToCity] = useState(defaultToName);
   const [vehicleAge, setVehicleAge] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('all');
 
-  const from = cities.find((c) => c.name === fromCity) ?? cities[0];
-  const to = cities.find((c) => c.name === toCity) ?? cities[1] ?? cities[0];
+  const countries = useMemo(() => (enableCountrySelect ? availableCountries() : []), [enableCountrySelect]);
+
+  const effectiveCities = useMemo(() => {
+    if (enableCountrySelect && selectedCountry !== 'all') return citiesForCountry(selectedCountry);
+    return cities;
+  }, [enableCountrySelect, selectedCountry, cities]);
+
+  // When the country picker changes, jump From/To to that country's top
+  // two cities (e.g. Nigeria → Lagos/Abuja) instead of leaving stale
+  // selections from a different country in place.
+  useEffect(() => {
+    if (!enableCountrySelect) return;
+    if (selectedCountry === 'all') {
+      setFromCity(defaultFromName);
+      setToCity(defaultToName);
+    } else {
+      const list = citiesForCountry(selectedCountry);
+      if (list[0]) setFromCity(list[0].name);
+      if (list[1]) setToCity(list[1].name);
+    }
+    // defaultFromName/defaultToName are stable per-page constants, not
+    // reactive state — only selectedCountry should retrigger this.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCountry, enableCountrySelect]);
+
+  const effectiveAvgAnnualMileageKm = enableCountrySelect && selectedCountry !== 'all'
+    ? benchmarks?.[selectedCountry]?.avgAnnualMileageKm
+    : avgAnnualMileageKm;
+  const effectiveAvgAnnualMileageNote = enableCountrySelect && selectedCountry !== 'all'
+    ? benchmarks?.[selectedCountry]?.note
+    : avgAnnualMileageNote;
+  const effectiveCountryName = enableCountrySelect && selectedCountry !== 'all'
+    ? countries.find((c) => c.code === selectedCountry)?.name
+    : countryName;
+
+  const from = effectiveCities.find((c) => c.name === fromCity) ?? effectiveCities[0];
+  const to = effectiveCities.find((c) => c.name === toCity) ?? effectiveCities[1] ?? effectiveCities[0];
 
   const swapCities = useCallback(() => { setFromCity(to.name); setToCity(from.name); }, [from, to]);
 
@@ -47,7 +94,7 @@ export default function MileageExplainerClient({
     if (mileage <= 0 || !from || !to) return null;
     const mileageKm = unit === 'km' ? mileage : milesToKm(mileage);
     const distanceKm = haversineKm(from.lat, from.lng, to.lat, to.lng);
-    const avgKm = avgAnnualMileageKm ?? 0;
+    const avgKm = effectiveAvgAnnualMileageKm ?? 0;
     const r = computeMileageResult(mileageKm, distanceKm, avgKm);
 
     let flag: 'low' | 'high' | null = null;
@@ -60,7 +107,7 @@ export default function MileageExplainerClient({
     }
 
     return { ...r, distanceUnit: unit === 'km' ? distanceKm : kmToMiles(distanceKm), flag };
-  }, [mileageInput, unit, from, to, avgAnnualMileageKm, vehicleAge]);
+  }, [mileageInput, unit, from, to, effectiveAvgAnnualMileageKm, vehicleAge]);
 
   const shareCardData: ShareCardData | null = useMemo(() => {
     if (!result || !from || !to) return null;
@@ -78,6 +125,7 @@ export default function MileageExplainerClient({
     };
   }, [result, from, to, mileageInput, unit]);
 
+  const hook = shareCardData ? hookLine(shareCardData) : '';
   const mainLine = shareCardData ? mainSentence(shareCardData) : '';
   const supportLine = shareCardData ? supportingSentence(shareCardData) : '';
 
@@ -105,11 +153,26 @@ export default function MileageExplainerClient({
               </div>
             </div>
 
+            {enableCountrySelect && (
+              <div>
+                <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">
+                  <Globe2 className="inline h-3.5 w-3.5 mr-1 -mt-0.5" />
+                  Country
+                </label>
+                <select value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)} className={iCls}>
+                  <option value="all">🌍 All / Mixed</option>
+                  {countries.map((c) => (
+                    <option key={c.code} value={c.code}>{flagEmoji(c.code)} {c.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             <div className="grid grid-cols-[1fr_auto_1fr] gap-2 items-end">
               <div>
                 <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">From</label>
                 <select value={fromCity} onChange={(e) => setFromCity(e.target.value)} className={iCls}>
-                  {cities.map((c) => <option key={c.name} value={c.name}>{c.name}</option>)}
+                  {effectiveCities.map((c) => <option key={c.name} value={c.name}>{c.name}</option>)}
                 </select>
               </div>
               <button onClick={swapCities} aria-label="Swap cities"
@@ -119,12 +182,12 @@ export default function MileageExplainerClient({
               <div>
                 <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">To</label>
                 <select value={toCity} onChange={(e) => setToCity(e.target.value)} className={iCls}>
-                  {cities.map((c) => <option key={c.name} value={c.name}>{c.name}</option>)}
+                  {effectiveCities.map((c) => <option key={c.name} value={c.name}>{c.name}</option>)}
                 </select>
               </div>
             </div>
 
-            {avgAnnualMileageKm ? (
+            {effectiveAvgAnnualMileageKm ? (
               <div>
                 <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Vehicle Age (optional)</label>
                 <input type="number" value={vehicleAge} onChange={(e) => setVehicleAge(e.target.value)} placeholder="e.g. 5 (years)" className={iCls} />
@@ -144,13 +207,14 @@ export default function MileageExplainerClient({
               <>
                 <div className="bg-card border border-border rounded-2xl p-6">
                   <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wide mb-3">Result</p>
+                  <p className="text-lg font-black text-foreground mb-2">{hook}</p>
                   <p className="text-xl sm:text-2xl font-bold text-foreground leading-snug mb-2">
                     {mainLine}
                   </p>
                   <p className="text-sm text-muted-foreground mb-4">{supportLine}</p>
 
                   <p className="text-xs text-muted-foreground mb-4 pb-4 border-b border-border">
-                    In numbers: {fmt(result.oneWayTrips, 1)} one-way trips ({fmt(result.distanceUnit)} {unitLabel(unit)} each way, straight-line) · {fmt(result.earthLaps, 1)} Earth laps · {fmt(result.moonTrips, 2)} Moon trips · {avgAnnualMileageKm ? `${fmt(result.yearsAtAverage, 1)} years at typical local use` : `${fmt(result.drivingHours)} hours behind the wheel`}.
+                    In numbers: {fmt(result.oneWayTrips, 1)} one-way trips ({fmt(result.distanceUnit)} {unitLabel(unit)} each way, straight-line) · {fmt(result.earthLaps, 1)} Earth laps · {fmt(result.moonTrips, 2)} Moon trips · {effectiveAvgAnnualMileageKm ? `${fmt(result.yearsAtAverage, 1)} years at typical local use` : `${fmt(result.drivingHours)} hours behind the wheel`}.
                   </p>
 
                   {result.flag && (
@@ -160,15 +224,15 @@ export default function MileageExplainerClient({
                       <AlertTriangle className={`h-4 w-4 flex-shrink-0 mt-0.5 ${result.flag === 'low' ? 'text-red-500' : 'text-amber-500'}`} />
                       <p className={`text-xs ${result.flag === 'low' ? 'text-red-700 dark:text-red-300' : 'text-amber-700 dark:text-amber-300'}`}>
                         {result.flag === 'low'
-                          ? <>This is well below the typical mileage for a car this age in {countryName ?? 'this market'}. Unusually low mileage can be genuine (highway-driven, garage-kept) — but it&apos;s also a common odometer-rollback pattern, so it&apos;s worth verifying.</>
-                          : <>This is well above the typical mileage for a car this age in {countryName ?? 'this market'} — not necessarily a problem, but worth factoring into wear-and-tear expectations and price negotiation.</>}
+                          ? <>This is well below the typical mileage for a car this age in {effectiveCountryName ?? 'this market'}. Unusually low mileage can be genuine (highway-driven, garage-kept) — but it&apos;s also a common odometer-rollback pattern, so it&apos;s worth verifying.</>
+                          : <>This is well above the typical mileage for a car this age in {effectiveCountryName ?? 'this market'} — not necessarily a problem, but worth factoring into wear-and-tear expectations and price negotiation.</>}
                         {vehicleCheckHref && <> <a href={vehicleCheckHref} className="underline font-semibold">Check the VIN history →</a></>}
                       </p>
                     </div>
                   )}
 
-                  {avgAnnualMileageNote && (
-                    <p className="text-[11px] text-muted-foreground">{avgAnnualMileageNote}</p>
+                  {effectiveAvgAnnualMileageNote && (
+                    <p className="text-[11px] text-muted-foreground">{effectiveAvgAnnualMileageNote}</p>
                   )}
                 </div>
 

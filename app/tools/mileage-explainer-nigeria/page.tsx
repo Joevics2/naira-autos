@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import MileageExplainerClient from '@/components/MileageExplainerClient';
 import { CountryScrollStrip } from '@/components/CountryScrollStrip';
 import { citiesForCountry } from '@/lib/mileage-cities';
+import { MILEAGE_BENCHMARKS } from '@/lib/mileage-benchmarks';
 
 export const metadata: Metadata = {
   title: 'Nigeria Car Mileage Explainer — Is That Km Reading Normal? | Naira Autos',
@@ -63,11 +64,8 @@ const COUNTRY_LINKS = [
   { code: 'ng', flag: '🇳🇬', name: 'Nigeria', href: '/tools/mileage-explainer-nigeria' },
 ];
 
-// Sourced from Cartrack Nigeria's commonly cited 15,000–20,000 km/year rule of
-// thumb, consistent with Carmudi Nigeria market survey data (~17,900 km/year
-// in early ownership). Used as the calculator's benchmark anchor.
-const AVG_ANNUAL_MILEAGE_KM = 18000;
-const AVG_NOTE = 'Based on a typical range of 15,000–20,000 km/year cited by Nigerian car-tracking and marketplace data (Cartrack Nigeria, Carmudi Nigeria) — actual usage varies a lot by city and driving pattern.';
+const AVG_ANNUAL_MILEAGE_KM = MILEAGE_BENCHMARKS.ng.avgAnnualMileageKm;
+const AVG_NOTE = MILEAGE_BENCHMARKS.ng.note;
 
 export default function MileageExplainerNigeriaPage() {
   return (
@@ -136,13 +134,13 @@ export default function MileageExplainerNigeriaPage() {
             </h2>
             <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
               <p>
-                Nigerian car buyers see mileage figures constantly in listings — "Tokunbo, 85,000 km" or "Nigerian-used, 210,000 km" — but the number rarely comes with useful context. Industry estimates from car-tracking and marketplace data put typical usage in Nigeria at around <strong className="text-foreground">15,000–20,000 km a year</strong>, somewhat above the global average, driven largely by Lagos&apos;s heavy stop-start traffic and long commute distances. On that basis, a 5-year-old car showing 75,000–100,000 km is broadly typical, and a 10-year-old car around 150,000–200,000 km isn&apos;t unusual either.
+                Nigerian car buyers see mileage figures constantly in listings — &ldquo;Tokunbo, 85,000 km&rdquo; or &ldquo;Nigerian-used, 210,000 km&rdquo; — but the number rarely comes with useful context. Industry estimates from car-tracking and marketplace data put typical usage in Nigeria at around <strong className="text-foreground">15,000–20,000 km a year</strong>, somewhat above the global average, driven largely by Lagos&apos;s heavy stop-start traffic and long commute distances. On that basis, a 5-year-old car showing 75,000–100,000 km is broadly typical, and a 10-year-old car around 150,000–200,000 km isn&apos;t unusual either.
               </p>
               <p>
-                What matters more than the raw figure is <strong className="text-foreground">whether the mileage fits the car&apos;s age and where it was driven</strong>. A Tokunbo (foreign-used) vehicle imported with 120,000 km may have spent most of that distance on smoother roads abroad, while a Nigerian-used car showing the same figure has likely absorbed far more wear from local road conditions, overloading, and stop-start Lagos or Port Harcourt traffic. Neither number is automatically "better" — both deserve a look at service history rather than a snap judgment based on the odometer alone.
+                What matters more than the raw figure is <strong className="text-foreground">whether the mileage fits the car&apos;s age and where it was driven</strong>. A Tokunbo (foreign-used) vehicle imported with 120,000 km may have spent most of that distance on smoother roads abroad, while a Nigerian-used car showing the same figure has likely absorbed far more wear from local road conditions, overloading, and stop-start Lagos or Port Harcourt traffic. Neither number is automatically &ldquo;better&rdquo; — both deserve a look at service history rather than a snap judgment based on the odometer alone.
               </p>
               <p>
-                This tool takes the km reading you enter and puts it in two kinds of context: a real distance comparison between Nigerian cities (so "180,000 km" stops being an abstract number and becomes "Lagos to Kano and back over 100 times"), and a check against the typical 15,000–20,000 km/year range for the vehicle&apos;s stated age, flagging readings that look unusually low or unusually high for that age.
+                This tool takes the km reading you enter and puts it in two kinds of context: a real distance comparison between Nigerian cities (so &ldquo;180,000 km&rdquo; stops being an abstract number and becomes &ldquo;Lagos to Kano and back over 100 times&rdquo;), and a check against the typical 15,000–20,000 km/year range for the vehicle&apos;s stated age, flagging readings that look unusually low or unusually high for that age.
               </p>
             </div>
           </div>
@@ -162,7 +160,7 @@ export default function MileageExplainerNigeriaPage() {
                 Spotting Odometer Rollback
               </h2>
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                <p>Odometer fraud — winding a car&apos;s mileage back before resale — does happen in the Nigerian used car market, and a reading that&apos;s implausibly low for the car&apos;s visible age and condition is the most common warning sign. Worn pedal rubber, a shiny or sagging driver&apos;s seat, and steering wheel wear that doesn&apos;t match a "low" mileage claim are all worth checking in person.</p>
+                <p>Odometer fraud — winding a car&apos;s mileage back before resale — does happen in the Nigerian used car market, and a reading that&apos;s implausibly low for the car&apos;s visible age and condition is the most common warning sign. Worn pedal rubber, a shiny or sagging driver&apos;s seat, and steering wheel wear that doesn&apos;t match a &ldquo;low&rdquo; mileage claim are all worth checking in person.</p>
                 <p>Where possible, cross-check the current reading against any available service stickers or past inspection records, and run a <Link href="/tools/vin-checker" className="text-foreground underline underline-offset-2">VIN check</Link> to see if a prior recorded mileage is on file. A gap between what the odometer shows now and what was recorded earlier is a clear red flag.</p>
               </div>
             </div>

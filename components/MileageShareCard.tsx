@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Download, Share2, Copy, Check, Loader2 } from 'lucide-react';
 
+import { flagEmoji } from '@/lib/country-meta';
+
 export interface ShareCardData {
   mileage: number;
   unit: 'km' | 'mi';
@@ -20,37 +22,33 @@ function fmt(n: number, digits = 0) {
   return n.toLocaleString('en-US', { maximumFractionDigits: digits });
 }
 
-/** ISO 3166-1 alpha-2 → flag emoji, via Unicode regional indicator symbols. */
-function flagEmoji(countryCode: string): string {
-  if (!countryCode || countryCode.length !== 2) return '';
-  return countryCode
-    .toUpperCase()
-    .replace(/./g, (c) => String.fromCodePoint(127397 + c.charCodeAt(0)));
+/** The hook — a question, framed to make someone want the answer. */
+export function hookLine(d: ShareCardData): string {
+  return `Is ${fmt(d.mileage)} ${d.unit} a lot for a car? 🤔`;
 }
 
-/** The one main sentence the card is built around — plain, readable,
- *  no isolated giant number that can look broken on small results (e.g.
- *  a lone "0.26x" blown up to 190px). */
+/** The payoff — plain, readable, no isolated giant number that can look
+ *  broken on small results (e.g. a lone "0.26x" blown up to 190px). */
 export function mainSentence(d: ShareCardData): string {
   const fromFlag = flagEmoji(d.fromCountryCode);
   const toFlag = flagEmoji(d.toCountryCode);
   if (d.roundTrips >= 1) {
-    return `🚗 ${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity}${fromFlag ? ' ' + fromFlag : ''} to ${d.toCity}${toFlag ? ' ' + toFlag : ''} and back ${fmt(d.roundTrips, 1)} times.`;
+    return `🚗 It's roughly the same as driving from ${d.fromCity}${fromFlag ? ' ' + fromFlag : ''} to ${d.toCity}${toFlag ? ' ' + toFlag : ''} and back ${fmt(d.roundTrips, 1)} times.`;
   }
-  return `🚗 ${fmt(d.mileage)} ${d.unit} is like driving from ${d.fromCity}${fromFlag ? ' ' + fromFlag : ''} to ${d.toCity}${toFlag ? ' ' + toFlag : ''} ${fmt(d.roundTrips * 2, 1)} times.`;
+  return `🚗 It's roughly the same as driving from ${d.fromCity}${fromFlag ? ' ' + fromFlag : ''} to ${d.toCity}${toFlag ? ' ' + toFlag : ''} ${fmt(d.roundTrips * 2, 1)} times.`;
 }
 
 /** One contextual supporting fact — not three. Moon only gets mentioned
  *  once it's a genuinely notable milestone; otherwise Earth laps or
  *  driving days, whichever reads more naturally at that scale. */
 export function supportingSentence(d: ShareCardData): string {
-  if (d.moonTrips >= 1) return `🌕 That's enough distance to have driven to the Moon and back ${fmt(d.moonTrips, 1)} times.`;
-  if (d.earthLaps >= 1) return `🌍 That's like driving round the world ${fmt(d.earthLaps, 1)} times.`;
-  return `⏱️ That's roughly ${fmt(d.drivingDays, 1)} days of non-stop driving.`;
+  if (d.moonTrips >= 1) return `🌕 Or to the Moon and back ${fmt(d.moonTrips, 1)} times.`;
+  if (d.earthLaps >= 1) return `🌍 Or driving around the Earth ${fmt(d.earthLaps, 1)} times.`;
+  return `⏱️ Or roughly ${fmt(d.drivingDays, 1)} days of non-stop driving.`;
 }
 
 export function shareText(d: ShareCardData): string {
-  return `${mainSentence(d)} ${supportingSentence(d)}\n\nCheck your car's mileage free → naira.autos/tools/mileage-explainer`;
+  return `${hookLine(d)}\n\n${mainSentence(d)}\n${supportingSentence(d)}\n\nDecode your car's mileage\n👉 naira.autos/tools/mileage-explainer`;
 }
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
@@ -111,41 +109,55 @@ function drawCard(canvas: HTMLCanvasElement, d: ShareCardData) {
   ctx.textAlign = 'left';
 
   // Small plain category label
-  ctx.font = '700 22px Arial, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.fillText('🚙 CAR MILEAGE CHECK', marginX, 68);
+  ctx.font = '700 20px Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.fillText('CAR MILEAGE CHECK', marginX, 58);
 
   // Footer geometry (needed now to compute the center space above it)
   const footerH = 84;
-  const footerMarginBottom = 40;
+  const footerMarginBottom = 36;
   const footerY = H - footerH - footerMarginBottom;
 
-  // Measure both text blocks first so they can be vertically centered
+  // Measure all three text blocks first so they can be vertically centered
   // in the space between the label and the footer — no dead gap.
-  const mainFont = '700 46px Arial, sans-serif';
-  const mainLineHeight = 58;
+  const hookFont = '800 40px Arial, sans-serif';
+  const hookLineHeight = 50;
+  ctx.font = hookFont;
+  const hookLines = wrapLines(ctx, hookLine(d), maxWidth);
+
+  const mainFont = '600 32px Arial, sans-serif';
+  const mainLineHeight = 44;
   ctx.font = mainFont;
   const mainLines = wrapLines(ctx, mainSentence(d), maxWidth);
 
-  const supportFont = '500 28px Arial, sans-serif';
-  const supportLineHeight = 40;
+  const supportFont = '500 30px Arial, sans-serif';
+  const supportLineHeight = 42;
   ctx.font = supportFont;
   const supportLines = wrapLines(ctx, supportingSentence(d), maxWidth);
 
-  const blockGap = 26;
-  const totalTextHeight = mainLines.length * mainLineHeight + blockGap + supportLines.length * supportLineHeight;
+  const blockGap = 22;
+  const totalTextHeight =
+    hookLines.length * hookLineHeight + blockGap +
+    mainLines.length * mainLineHeight +
+    supportLines.length * supportLineHeight;
 
-  const topBound = 110; // just below the label
+  const topBound = 96; // just below the label
   const bottomBound = footerY - 30;
-  const startY = topBound + Math.max(0, (bottomBound - topBound - totalTextHeight) / 2) + mainLineHeight * 0.7;
+  let y = topBound + Math.max(0, (bottomBound - topBound - totalTextHeight) / 2) + hookLineHeight * 0.72;
+
+  ctx.font = hookFont;
+  ctx.fillStyle = '#ffffff';
+  drawLines(ctx, hookLines, marginX, y, hookLineHeight);
+  y += hookLines.length * hookLineHeight + blockGap;
 
   ctx.font = mainFont;
-  ctx.fillStyle = '#ffffff';
-  drawLines(ctx, mainLines, marginX, startY, mainLineHeight);
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  drawLines(ctx, mainLines, marginX, y, mainLineHeight);
+  y += mainLines.length * mainLineHeight;
 
   ctx.font = supportFont;
-  ctx.fillStyle = 'rgba(255,255,255,0.62)';
-  drawLines(ctx, supportLines, marginX, startY + mainLines.length * mainLineHeight + blockGap, supportLineHeight);
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  drawLines(ctx, supportLines, marginX, y, supportLineHeight);
 
   // Bottom footer — the ONLY naira.autos branding on the card
   roundRect(ctx, marginX, footerY, maxWidth, footerH, 16);
@@ -156,17 +168,12 @@ function drawCard(canvas: HTMLCanvasElement, d: ShareCardData) {
   ctx.stroke();
 
   ctx.textAlign = 'left';
-  ctx.font = '800 28px Arial, sans-serif';
+  ctx.font = '700 26px Arial, sans-serif';
   ctx.fillStyle = '#34d399';
-  ctx.fillText('🚘 naira.autos', marginX + 28, footerY + 38);
-  ctx.font = '500 20px Arial, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.fillText('Free car mileage check', marginX + 28, footerY + 64);
-
-  ctx.textAlign = 'right';
+  ctx.fillText("Decode your car's mileage", marginX + 28, footerY + 36);
   ctx.font = '600 24px Arial, sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,0.75)';
-  ctx.fillText('Check yours →', marginX + maxWidth - 28, footerY + 51);
+  ctx.fillText('👉 naira.autos/tools/mileage-explainer', marginX + 28, footerY + 66);
 }
 
 export default function MileageShareCard({ data }: { data: ShareCardData | null }) {

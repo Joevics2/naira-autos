@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronRight, ChevronDown, Globe2 } from 'lucide-react';
 import MileageExplainerClient from '@/components/MileageExplainerClient';
 import { CountryScrollStrip } from '@/components/CountryScrollStrip';
 import { globalLandmarkCities } from '@/lib/mileage-cities';
+import { MILEAGE_BENCHMARKS } from '@/lib/mileage-benchmarks';
 
 export const metadata: Metadata = {
   title: 'Mileage Explainer — What Does Your Odometer Reading Actually Mean?',
@@ -107,6 +108,9 @@ export default function MileageExplainerPage() {
         cities={GLOBAL_CITIES}
         defaultFromName="New York"
         defaultToName="Los Angeles"
+        enableCountrySelect
+        benchmarks={MILEAGE_BENCHMARKS}
+        vehicleCheckHref="/tools/vin-checker-global"
       />
 
       {/* ── SEO content ── */}
@@ -120,7 +124,7 @@ export default function MileageExplainerPage() {
             </h2>
             <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
               <p>
-                A car listing says "100,000 miles" or "160,000 km" and most buyers have the same reaction: a vague sense that it&apos;s either fine or a problem, without much to actually anchor that feeling to. The number alone doesn&apos;t tell you much — a car driven 100,000 miles over 15 years of gentle weekend use has lived a very different life than one that hit the same number in 4 years of daily highway commuting.
+                A car listing says &ldquo;100,000 miles&rdquo; or &ldquo;160,000 km&rdquo; and most buyers have the same reaction: a vague sense that it&apos;s either fine or a problem, without much to actually anchor that feeling to. The number alone doesn&apos;t tell you much — a car driven 100,000 miles over 15 years of gentle weekend use has lived a very different life than one that hit the same number in 4 years of daily highway commuting.
               </p>
               <p>
                 What actually matters is <strong className="text-foreground">mileage relative to age</strong>. Most drivers worldwide cover somewhere between 10,000 and 20,000 km (roughly 6,000–12,500 miles) a year, though this varies a lot by country — commute culture, public transport availability, road quality, and fuel prices all push that number up or down. A car with mileage well below what&apos;s typical for its age isn&apos;t automatically great news either — it can mean genuinely light use, but it&apos;s also one of the classic signs of odometer rollback, where a seller winds back the reading to make a high-mileage car look better than it is.
@@ -134,10 +138,10 @@ export default function MileageExplainerPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="space-y-4">
               <h2 className="text-xl font-black uppercase text-foreground mb-2" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                What "High Mileage" Actually Means
+                What &ldquo;High Mileage&rdquo; Actually Means
               </h2>
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                <p>There&apos;s no universal cutoff where a car crosses from "fine" to "high mileage" — it depends on the vehicle, how it was driven, and how well it was maintained. A diesel engine built for long highway runs can comfortably exceed 300,000 km with regular servicing, while a car driven mostly in short stop-start city trips can show wear well before six figures.</p>
+                <p>There&apos;s no universal cutoff where a car crosses from &ldquo;fine&rdquo; to &ldquo;high mileage&rdquo; — it depends on the vehicle, how it was driven, and how well it was maintained. A diesel engine built for long highway runs can comfortably exceed 300,000 km with regular servicing, while a car driven mostly in short stop-start city trips can show wear well before six figures.</p>
                 <p>As a rough starting point, most buyers treat mileage as a flag worth a closer look — not a dealbreaker — once it&apos;s meaningfully above the typical annual average multiplied by the car&apos;s age. A full service history that lines up with the mileage is a far stronger signal than the number by itself.</p>
               </div>
             </div>
@@ -158,10 +162,10 @@ export default function MileageExplainerPage() {
             </h2>
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
               <p>
-                "Normal" mileage isn&apos;t the same everywhere. Drivers in large, spread-out countries with long commutes and limited public transport — much of the United States, for example — tend to rack up more distance per year than drivers in dense cities with shorter trips and heavier traffic. Road quality matters too: the same number of kilometers can represent very different amounts of mechanical wear depending on whether it was mostly smooth highway driving or constant stop-start traffic over rough roads.
+                &ldquo;Normal&rdquo; mileage isn&apos;t the same everywhere. Drivers in large, spread-out countries with long commutes and limited public transport — much of the United States, for example — tend to rack up more distance per year than drivers in dense cities with shorter trips and heavier traffic. Road quality matters too: the same number of kilometers can represent very different amounts of mechanical wear depending on whether it was mostly smooth highway driving or constant stop-start traffic over rough roads.
               </p>
               <p>
-                This is exactly why a single global "high mileage" threshold doesn&apos;t really work, and why the country-specific versions of this tool anchor to local typical-use figures instead of one worldwide number. If your country isn&apos;t listed yet in the strip above, the global calculator here still works fine for the distance comparisons — you&apos;ll just want to research your own market&apos;s typical annual mileage separately when judging whether a number looks high or low.
+                This is exactly why a single global &ldquo;high mileage&rdquo; threshold doesn&apos;t really work, and why the country-specific versions of this tool anchor to local typical-use figures instead of one worldwide number. If your country isn&apos;t listed yet in the strip above, the global calculator here still works fine for the distance comparisons — you&apos;ll just want to research your own market&apos;s typical annual mileage separately when judging whether a number looks high or low.
               </p>
             </div>
           </div>
