@@ -8,7 +8,14 @@ import AIMechanicClient from './client';
 export const metadata: Metadata = {
   title: 'AI Mechanic — Free Online Car Diagnosis Tool | Naira Autos',
   description: 'Free AI mechanic and online car diagnosis tool. Describe your problem, upload engine sounds, photos, or video, and get an instant auto repair estimate — with Nigerian Naira pricing built in. No login required.',
-  alternates: { canonical: 'https://www.naira.autos/tools/ai-mechanic' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/ai-mechanic',
+    languages: {
+      'en': 'https://www.naira.autos/tools/ai-mechanic',
+      'es': 'https://www.naira.autos/tools/ai-mechanic/es',
+      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
+    },
+  },
   openGraph: {
     title: 'Axion — Free AI Mechanic & Online Car Diagnosis | Naira Autos',
     description: 'Instant car diagnosis online, anywhere. Upload engine sounds, photos, or describe the fault. Get urgency rating, likely causes, DIY steps, and a repair cost estimate. Free, no login.',
