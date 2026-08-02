@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/ai-mechanic',
     languages: {
       'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/tools/ai-mechanic/es',
+      'es': 'https://www.naira.autos/tools/mecanico-virtual',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },

@@ -9,17 +9,17 @@ export const metadata: Metadata = {
   title: 'Mecánico Virtual con IA — Diagnóstico de Auto Online Gratis | Naira Autos',
   description: 'Mecánico virtual gratis con inteligencia artificial. Describe la falla, sube fotos, audio o video del problema y recibe un diagnóstico al instante con presupuesto de reparación. Sin registro.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/ai-mechanic/es',
+    canonical: 'https://www.naira.autos/tools/mecanico-virtual',
     languages: {
       'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/tools/ai-mechanic/es',
+      'es': 'https://www.naira.autos/tools/mecanico-virtual',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },
   openGraph: {
     title: 'Axion — Mecánico Virtual con IA Gratis | Naira Autos',
     description: 'Diagnóstico de auto online al instante, en cualquier lugar. Sube audio del motor, fotos o describe la falla. Recibe nivel de urgencia, causas probables, pasos a seguir y presupuesto de reparación. Gratis, sin registro.',
-    url: 'https://www.naira.autos/tools/ai-mechanic/es',
+    url: 'https://www.naira.autos/tools/mecanico-virtual',
   },
   keywords: ['mecánico virtual','mecánico online gratis','diagnóstico de auto online','diagnóstico de coche gratis','qué le pasa a mi carro','taller mecánico online','preguntar a un mecánico online','cotización de reparación de auto','mecánico con inteligencia artificial','revisar mi auto online','diagnóstico por sonido del motor','presupuesto de reparación de auto'],
 };
@@ -31,17 +31,17 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/ai-mechanic/es',
+      '@id': 'https://www.naira.autos/tools/mecanico-virtual',
       name: 'Mecánico Virtual con IA — Diagnóstico de Auto Online Gratis',
       description: 'Mecánico virtual gratuito con inteligencia artificial. Sube audio del motor, fotos, o describe la falla. Recibe un diagnóstico al instante con nivel de urgencia y presupuesto de reparación.',
-      url: 'https://www.naira.autos/tools/ai-mechanic/es',
+      url: 'https://www.naira.autos/tools/mecanico-virtual',
       inLanguage: 'es',
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
           { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/tools' },
-          { '@type': 'ListItem', position: 3, name: 'Mecánico IA', item: 'https://www.naira.autos/tools/ai-mechanic/es' },
+          { '@type': 'ListItem', position: 3, name: 'Mecánico IA', item: 'https://www.naira.autos/tools/mecanico-virtual' },
         ],
       },
     },
@@ -91,7 +91,7 @@ const SCHEMA = {
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
       description: 'Mecánico virtual gratuito con inteligencia artificial. Describe fallas, sube audio del motor o fotos, recibe un diagnóstico instantáneo con presupuesto de reparación calibrado a precios del mercado nigeriano.',
-      url: 'https://www.naira.autos/tools/ai-mechanic/es',
+      url: 'https://www.naira.autos/tools/mecanico-virtual',
       inLanguage: 'es',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'NGN' },
     },

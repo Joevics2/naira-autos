@@ -567,10 +567,9 @@ export default function AIMechanicClient() {
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">AI Mechanic</span>
           </nav>
-          <div className="flex items-center gap-1.5 ml-auto">
-            <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white">EN</span>
-            <Link href="/tools/ai-mechanic/es" className="px-2.5 py-1 rounded-full text-xs font-semibold border border-white/15 text-white/50 hover:text-white hover:border-white/30 transition-all">ES</Link>
-          </div>
+          <Link href="/tools/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors ml-auto">
+            Leer en Español →
+          </Link>
         </div>
 
         {/* Two-column layout */}
