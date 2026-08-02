@@ -17,6 +17,11 @@ const staticPages = [
   { url: '/tools',                              priority: 0.9, changefreq: 'weekly'  },
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
+  // NOTE: /herramientas (Spanish tools index) intentionally NOT added yet —
+  // only has 2 live tools right now. Add it once it reaches ~5 tools
+  // (expected soon) so Google's first crawl finds real substance, not a
+  // thin 2-link hub. Same threshold applies to future language indexes
+  // (/outils, /werkzeuge, etc.) as they're built.
   { url: '/tools/engine-sound-analyzer',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/ticking-noise',   priority: 0.85, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/knocking-noise',  priority: 0.85, changefreq: 'monthly' },
