@@ -16,6 +16,7 @@ const staticPages = [
   { url: '/vehicles',                           priority: 0.8, changefreq: 'weekly'  },
   { url: '/tools',                              priority: 0.9, changefreq: 'weekly'  },
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/ai-mechanic/es',                priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/ticking-noise',   priority: 0.85, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/knocking-noise',  priority: 0.85, changefreq: 'monthly' },

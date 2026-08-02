@@ -123,6 +123,11 @@ async function tryModel(modelName: string, parts: any[]): Promise<{ text: string
   return { text, model: modelName };
 }
 
+const LANGUAGE_NAMES: Record<string, string> = {
+  en: 'English',
+  es: 'Spanish',
+};
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -132,6 +137,7 @@ export async function POST(req: NextRequest) {
     const vehicleModel = (formData.get('model') as string) || '';
     const vehicleYear = (formData.get('year') as string) || '';
     const vehicleMileage = (formData.get('mileage') as string) || '';
+    const language = (formData.get('language') as string) || 'en';
 
     const imageFile = formData.get('image') as File | null;
     const audioFile = formData.get('audio') as File | null;
@@ -152,9 +158,14 @@ export async function POST(req: NextRequest) {
       vehicleContext += '\n\n';
     }
 
-    const textPrompt = vehicleContext + (description
+    let textPrompt = vehicleContext + (description
       ? `Customer complaint: ${description}`
       : 'No verbal description provided — analyse based on the media files only.');
+
+    if (language !== 'en') {
+      const langName = LANGUAGE_NAMES[language] || language;
+      textPrompt += `\n\nIMPORTANT: Respond entirely in ${langName}. Every string value in the JSON response (summary, urgency_label, likely_causes, recommended_actions, next_steps_to_confirm, parts_to_check, notes, disclaimer, certainty_note) must be written in ${langName} — natural, conversational ${langName} as a native ${langName}-speaking mechanic would write it, not a literal translation. Keep the JSON keys themselves in English exactly as specified below.`;
+    }
 
     // ── Build Gemini parts array ──────────────────────────────────────────────
     const parts: any[] = [{ text: textPrompt }];
