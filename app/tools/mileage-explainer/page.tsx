@@ -9,7 +9,14 @@ import { MILEAGE_BENCHMARKS } from '@/lib/mileage-benchmarks';
 export const metadata: Metadata = {
   title: 'Mileage Explainer — What Does Your Odometer Reading Actually Mean?',
   description: 'Free mileage calculator that puts any odometer reading in real-world context — distance between cities, laps around the Earth, trips to the Moon. See if a car\'s mileage looks normal for its age.',
-  alternates: { canonical: 'https://www.naira.autos/tools/mileage-explainer' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/mileage-explainer',
+    languages: {
+      en: 'https://www.naira.autos/tools/mileage-explainer',
+      es: 'https://www.naira.autos/tools/calculadora-de-kilometraje',
+      'x-default': 'https://www.naira.autos/tools/mileage-explainer',
+    },
+  },
   openGraph: {
     title: 'Mileage Explainer | Naira Autos',
     description: 'What does 100,000 miles actually look like? A free tool that turns any odometer reading into real-world distance comparisons.',
@@ -78,10 +85,15 @@ export default function MileageExplainerPage() {
             </nav>
           </div>
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
-              <Globe2 className="h-3 w-3" />
-              Free Tool · Global
-            </span>
+            <div className="flex items-center gap-2 mb-5">
+              <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
+                <Globe2 className="h-3 w-3" />
+                Free Tool · Global
+              </span>
+              <Link href="/tools/calculadora-de-kilometraje" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+                Leer en Español →
+              </Link>
+            </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
               What Does That<br /><span className="text-emerald-400">Mileage Actually Mean?</span>
