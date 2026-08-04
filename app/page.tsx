@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://naira.autos/',
+    languages: {
+      en: 'https://naira.autos/',
+      es: 'https://www.naira.autos/inicio',
+      'x-default': 'https://naira.autos/',
+    },
   },
 };
 
