@@ -195,7 +195,11 @@ export default function DecodificadorDeVinPage() {
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
               Más Herramientas Gratuitas
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <Link href="/tools/verificar-numero-de-chasis" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+                <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Verificar Número de Chasis</p>
+                <ChevronRight className="h-4 w-4 text-sky-500" />
+              </Link>
               <Link href="/tools/mecanico-virtual" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mecánico Virtual con IA</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />

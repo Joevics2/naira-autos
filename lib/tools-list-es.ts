@@ -1,4 +1,4 @@
-import { Wrench, Gauge, ScanLine } from 'lucide-react';
+import { Wrench, Gauge, ScanLine, Search } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -39,6 +39,15 @@ export const TOOLS_ES: ToolEs[] = [
     icon: ScanLine,
     label: 'Decodificador de VIN',
     description: 'Consulta gratis el VIN, NIV o número de chasis de cualquier auto — marca, modelo, año, motor y país de origen.',
+    badge: 'GRATIS',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Debida Diligencia',
+  },
+  {
+    href: '/tools/verificar-numero-de-chasis',
+    icon: Search,
+    label: 'Verificar Número de Chasis',
+    description: 'Consulta gratis el número de chasis o bastidor de cualquier auto — marca, modelo, año, motor y origen al instante.',
     badge: 'GRATIS',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Debida Diligencia',

@@ -18,9 +18,10 @@ const staticPages = [
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
   // NOTE: /herramientas (Spanish tools index) intentionally NOT added yet —
-  // only has 2 live tools right now. Add it once it reaches ~5 tools
-  // (expected soon) so Google's first crawl finds real substance, not a
-  // thin 2-link hub. Same threshold applies to future language indexes
+  // currently at 4 live tools (mecanico-virtual, calculadora-de-kilometraje,
+  // decodificador-de-vin, verificar-numero-de-chasis). Add it once it
+  // reaches ~5 tools so Google's first crawl finds real substance, not a
+  // thin hub. Same threshold applies to future language indexes
   // (/outils, /werkzeuge, etc.) as they're built.
   { url: '/tools/engine-sound-analyzer',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/ticking-noise',   priority: 0.85, changefreq: 'monthly' },
@@ -43,6 +44,7 @@ const staticPages = [
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/chassis-number-check',         priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/verificar-numero-de-chasis',   priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/plate-number-checker',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/plate-number-checker/nigeria', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vehicle-papers-checklist',     priority: 0.7, changefreq: 'monthly' },
@@ -58,6 +60,10 @@ const staticPages = [
   { url: '/tools/import-age-limit/nigeria',     priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vehicle-license',              priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vehicle-license/nigeria',      priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/import-duty-calculator-south-africa', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/mileage-explainer',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/mileage-explainer-nigeria',    priority: 0.75, changefreq: 'monthly' },
+  { url: '/tools/calculadora-de-kilometraje',   priority: 0.8, changefreq: 'monthly' },
   { url: '/documents',                          priority: 0.7, changefreq: 'weekly'  },
   { url: '/about',                              priority: 0.5, changefreq: 'monthly' },
   { url: '/contact',                            priority: 0.5, changefreq: 'monthly' },
