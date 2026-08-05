@@ -277,6 +277,7 @@ async function analyzeAndPriceWithGemini(
   location: string,
   vc: ValuationCountry,
   apiKey: string,
+  lang?: string,
 ): Promise<Record<string, any>> {
   const conditionLabel =
     condition === 'excellent' ? 'Excellent (like new, all working)'
@@ -285,6 +286,15 @@ async function analyzeAndPriceWithGemini(
 
   const currentYear = new Date().getFullYear();
   const isNigeria = vc.code === 'ng';
+  const isSpanish = lang === 'es';
+
+  // Only the free-text fields get translated. Enum-like fields (bodyType,
+  // vehicleType, fuelType, transmission, confidence, estimatedCarType) must
+  // stay in English regardless of lang — the frontend matches on their
+  // exact English values (e.g. result.confidence === 'High').
+  const languageInstruction = isSpanish
+    ? `\nLANGUAGE: Write "description", "bodyGradeReason", "disclaimer", and every string inside "valuationFactors" in natural, fluent Spanish. Keep every other field — bodyType, vehicleType, fuelType, transmission, confidence, estimatedCarType, and all JSON keys — in English exactly as specified below; do not translate those.\n`
+    : '';
 
   const serpSection = serpDump
     ? `=== GOOGLE LENS REVERSE IMAGE SEARCH DATA ===
@@ -321,7 +331,7 @@ ${serpDump}
     - brand_new: dealership-fresh, full market price`;
 
   const prompt = `You are a senior used car appraiser with deep knowledge of the ${vc.name} market${isNigeria ? ', specifically the Lagos, Abuja, and Port Harcourt markets' : ''}. Your job is to analyze the car image AND the Google Lens search data below, then produce an accurate ${vc.name} market valuation.
-
+${languageInstruction}
 ${serpSection}
 
 OWNER-REPORTED CONDITION: ${conditionLabel}
@@ -393,7 +403,7 @@ VALUATION FACTORS — write exactly 3, in plain friendly language a car buyer in
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { imageBase64, mimeType, condition, location, country, skipSerp } = body;
+    const { imageBase64, mimeType, condition, location, country, skipSerp, lang } = body;
 
     if (!imageBase64) return NextResponse.json({ error: 'No image provided' },    { status: 400 });
     if (!condition)   return NextResponse.json({ error: 'No condition provided' }, { status: 400 });
@@ -428,7 +438,7 @@ export async function POST(req: NextRequest) {
       try {
         result = await analyzeAndPriceWithGemini(
           model, imageBase64, mime,
-          serpDump, condition, loc, vc, geminiKey,
+          serpDump, condition, loc, vc, geminiKey, lang,
         );
         console.log(`[car-valuation] Gemini [${model}] succeeded: ${result.brand} ${result.model} ${result.yearMid} @ ${vc.currency} ${result.suggestedPrice?.toLocaleString()}`);
         break;

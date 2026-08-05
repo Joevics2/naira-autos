@@ -11,18 +11,20 @@ const staticPages = [
   { url: '/',                                   priority: 1.0, changefreq: 'weekly'  },
   { url: '/sell-for-me',                        priority: 0.9, changefreq: 'weekly'  },
   { url: '/evaluate-used-car',                  priority: 0.9, changefreq: 'weekly'  },
+  { url: '/cuanto-vale-mi-auto',                priority: 0.9, changefreq: 'weekly'  },
   { url: '/evaluate-car',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/blog',                               priority: 0.8, changefreq: 'daily'   },
   { url: '/vehicles',                           priority: 0.8, changefreq: 'weekly'  },
   { url: '/tools',                              priority: 0.9, changefreq: 'weekly'  },
+  { url: '/herramientas',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
-  // NOTE: /herramientas (Spanish tools index) intentionally NOT added yet —
-  // currently at 4 live tools (mecanico-virtual, calculadora-de-kilometraje,
-  // decodificador-de-vin, verificar-numero-de-chasis). Add it once it
-  // reaches ~5 tools so Google's first crawl finds real substance, not a
-  // thin hub. Same threshold applies to future language indexes
-  // (/outils, /werkzeuge, etc.) as they're built.
+  // /herramientas (Spanish tools index) added below — now at 5 live tools
+  // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
+  // decodificador-de-vin, verificar-numero-de-chasis), past the ~5
+  // threshold we'd set for a first crawl to find real substance. Same
+  // threshold applies to future language indexes (/outils, /werkzeuge,
+  // etc.) as they're built.
   { url: '/tools/engine-sound-analyzer',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/ticking-noise',   priority: 0.85, changefreq: 'monthly' },
   { url: '/tools/engine-sound-analyzer/knocking-noise',  priority: 0.85, changefreq: 'monthly' },

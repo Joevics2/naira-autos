@@ -1,4 +1,4 @@
-import { Wrench, Gauge, ScanLine, Search } from 'lucide-react';
+import { Wrench, Gauge, ScanLine, Search, Camera } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -16,6 +16,15 @@ export type ToolEs = {
 };
 
 export const TOOLS_ES: ToolEs[] = [
+  {
+    href: '/cuanto-vale-mi-auto',
+    icon: Camera,
+    label: '¿Cuánto Vale Mi Auto?',
+    description: 'Sube una foto y recibe una tasación de mercado instantánea con IA, en tu propia moneda — México, España, Argentina y más.',
+    badge: 'GRATIS',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'IA y Herramientas Inteligentes',
+  },
   {
     href: '/tools/mecanico-virtual',
     icon: Wrench,

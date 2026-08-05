@@ -33,6 +33,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://naira.autos/evaluate-used-car',
+    languages: {
+      en: 'https://www.naira.autos/evaluate-used-car',
+      es: 'https://www.naira.autos/cuanto-vale-mi-auto',
+      'x-default': 'https://www.naira.autos/evaluate-used-car',
+    },
   },
 };
 
@@ -174,10 +179,15 @@ export default function EvaluateUsedCarPage() {
         {/* ── Dark hero ── */}
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
-              <Sparkles className="h-3 w-3" />
-              AI-Powered · Free
-            </span>
+            <div className="flex items-center justify-center gap-2 mb-5">
+              <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
+                <Sparkles className="h-3 w-3" />
+                AI-Powered · Free
+              </span>
+              <Link href="/cuanto-vale-mi-auto" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+                Leer en Español →
+              </Link>
+            </div>
             <h1
               className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(32px, 5vw, 64px)' }}
