@@ -41,6 +41,7 @@ const staticPages = [
   { url: '/tools/road-trip-calculator',         priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/chassis-number-check',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/plate-number-checker',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/plate-number-checker/nigeria', priority: 0.8, changefreq: 'monthly' },

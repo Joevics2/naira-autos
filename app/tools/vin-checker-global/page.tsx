@@ -7,7 +7,14 @@ export const metadata: Metadata = {
   title: 'Free VIN Decoder & VIN Checker — Vehicle Identification Number Lookup',
   description: 'Free VIN decoder and VIN checker for any car, anywhere in the world. Decode any vehicle VIN or chassis number — make, model, year, engine specs, assembly origin. Essential free VIN check for used car buyers in the US, UK, UAE, and beyond.',
   keywords: ['vin number lookup free','vin check','vin checker','vin check free','vin decoder check','is vin same as chassis number','free vin decoder','north american vin decoder','ford vin decoder saudi','chevrolet vin decoder saudi','jeep vin decoder saudi','ford vin decoder dubai','ford vin decoder abu dhabi','free vin check online','vin verification'],
-  alternates: { canonical: 'https://www.naira.autos/tools/vin-checker-global' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/vin-checker-global',
+    languages: {
+      en: 'https://www.naira.autos/tools/vin-checker-global',
+      es: 'https://www.naira.autos/tools/decodificador-de-vin',
+      'x-default': 'https://www.naira.autos/tools/vin-checker-global',
+    },
+  },
   openGraph: {
     title: 'Free VIN Decoder & Chassis Number Checker | Naira Autos',
     description: 'Free VIN check for any used car, anywhere. Get make, model, year, engine and origin instantly.',
@@ -78,6 +85,9 @@ export default function VINCheckerPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Powered by NHTSA</span>
+              <Link href="/tools/decodificador-de-vin" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+                Leer en Español →
+              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
