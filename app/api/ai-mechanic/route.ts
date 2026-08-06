@@ -4,12 +4,23 @@
 // returns structured diagnostic JSON.
 //
 // Model waterfall — tries each in order until one succeeds:
-//   gemini-2.5-flash-lite  (primary — fast & cheap)
-//   gemini-2.5-flash
-//   gemini-2.5-flash-preview-09-2025
-//   gemini-2.5-flash-lite-preview-09-2025
-//   gemini-2.5-pro
-//   gemini-3-flash-preview
+//   gemini-3.5-flash-lite   (primary — fast & cheap, GA)
+//   gemini-3.6-flash        (latest, most capable Flash-tier, GA Jul 2026)
+//   gemini-3.5-flash        (GA May 2026)
+//   gemini-2.5-flash-lite   (previous-gen fallback, still live)
+//   gemini-2.5-flash        (previous-gen fallback, still live)
+//   gemini-2.5-pro          (previous-gen fallback, most capable, still live)
+//
+// Last updated Aug 2026 — the previous list (gemini-2.5-flash-preview-
+// 09-2025, gemini-2.5-flash-lite-preview-09-2025, gemini-3-flash-preview)
+// was stale: the two dated preview snapshots had cycled out after their
+// GA versions shipped, and gemini-3-flash-preview is officially
+// superseded per Google's own deprecations page (recommended replacement:
+// gemini-3.5-flash) — meaning every model in the old waterfall could fail,
+// exhausting it and returning "AI service is temporarily unavailable" for
+// every request. If this list starts failing again, check
+// https://ai.google.dev/gemini-api/docs/deprecations for current model
+// names before assuming it's a code bug.
 //
 // Required env var:
 //   GEMINI_API_KEY
@@ -18,12 +29,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const GEMINI_MODELS = [
+  'gemini-3.5-flash-lite',
+  'gemini-3.6-flash',
+  'gemini-3.5-flash',
   'gemini-2.5-flash-lite',
   'gemini-2.5-flash',
-  'gemini-2.5-flash-preview-09-2025',
-  'gemini-2.5-flash-lite-preview-09-2025',
   'gemini-2.5-pro',
-  'gemini-3-flash-preview',
 ];
 
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;   // 10 MB inline
@@ -138,6 +149,7 @@ export async function POST(req: NextRequest) {
     const vehicleYear = (formData.get('year') as string) || '';
     const vehicleMileage = (formData.get('mileage') as string) || '';
     const language = (formData.get('language') as string) || 'en';
+    const contextRaw = (formData.get('context') as string) || '';
 
     const imageFile = formData.get('image') as File | null;
     const audioFile = formData.get('audio') as File | null;
@@ -161,6 +173,26 @@ export async function POST(req: NextRequest) {
     let textPrompt = vehicleContext + (description
       ? `Customer complaint: ${description}`
       : 'No verbal description provided — analyse based on the media files only.');
+
+    // Follow-up messages: the frontend sends the last few assistant summaries
+    // as JSON in `context` so Axion can build on the earlier diagnosis
+    // instead of starting fresh each message. This was being sent but never
+    // read — every follow-up lost all prior conversation memory.
+    if (contextRaw) {
+      try {
+        const priorSummaries: string[] = JSON.parse(contextRaw);
+        if (Array.isArray(priorSummaries) && priorSummaries.length > 0) {
+          textPrompt =
+            `Earlier in this conversation, you already gave these diagnoses:\n` +
+            priorSummaries.map((s, i) => `${i + 1}. ${s}`).join('\n') +
+            `\n\nThe customer is now following up. Treat this as a continuation of the same case — refer back to what you already said where relevant, and update or narrow your diagnosis rather than starting over.\n\n` +
+            textPrompt;
+        }
+      } catch {
+        // Malformed context shouldn't break the request — fall back to a
+        // fresh diagnosis rather than failing the whole call.
+      }
+    }
 
     if (language !== 'en') {
       const langName = LANGUAGE_NAMES[language] || language;
