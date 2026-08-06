@@ -38,6 +38,26 @@ type BlogPost = {
 type Props = {
   post: BlogPost;
   relatedPosts: BlogPost[];
+  lang?: 'en' | 'es';
+  basePath?: string; // '/blog' or '/blog-de-autos'
+};
+
+// ── UI chrome strings (not content) per language ───────────────────
+const STRINGS = {
+  en: {
+    home: 'Home', blog: 'Blog', back: 'Back', minRead: 'min read',
+    tags: 'Tags:', filedUnder: 'Filed under:', foundHelpful: 'Found this helpful? Share it.',
+    moreIn: (cat: string) => `More in ${cat}`, relatedArticles: 'Related Articles', seeAll: 'See all →',
+    browseCategories: 'Browse Categories', glossary: 'Car Glossary', glossaryDesc: '300+ car terms explained',
+    locale: 'en-NG',
+  },
+  es: {
+    home: 'Inicio', blog: 'Blog', back: 'Atrás', minRead: 'min de lectura',
+    tags: 'Etiquetas:', filedUnder: 'Categoría:', foundHelpful: '¿Te fue útil? Compártelo.',
+    moreIn: (cat: string) => `Más en ${cat}`, relatedArticles: 'Artículos Relacionados', seeAll: 'Ver todo →',
+    browseCategories: 'Explorar Categorías', glossary: 'Glosario de Autos', glossaryDesc: '300+ términos explicados',
+    locale: 'es-MX',
+  },
 };
 
 // ── Category helpers ─────────────────────────────────────────────────
@@ -78,17 +98,18 @@ function ShareButton({ title, excerpt }: { title: string; excerpt: string | null
 }
 
 // ── Main component ───────────────────────────────────────────────────
-export default function BlogDetailClient({ post, relatedPosts }: Props) {
+export default function BlogDetailClient({ post, relatedPosts, lang = 'en', basePath = '/blog' }: Props) {
   const router = useRouter();
+  const t = STRINGS[lang];
 
   const catSlug = post.category ? categorySlug(post.category) : null;
 
   const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Blog', href: '/blog' },
+    { label: t.home, href: '/' },
+    { label: t.blog, href: basePath },
     ...(post.category && catSlug
       ? [
-          { label: post.category, href: `/blog?category=${catSlug}` },
+          { label: post.category, href: `${basePath}?category=${catSlug}` },
           { label: post.title },
         ]
       : [{ label: post.title }]),
@@ -106,10 +127,10 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Back link */}
         <Link
-  href="/blog"
+  href={basePath}
   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
 >
-  <ChevronLeft className="h-4 w-4" /> Back
+  <ChevronLeft className="h-4 w-4" /> {t.back}
 </Link>
 
         <div className="grid lg:grid-cols-3 gap-10">
@@ -121,7 +142,7 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
             {/* Category badge */}
             {post.category && catSlug && (
               <Link
-                href={`/blog?category=${catSlug}`}
+                href={`${basePath}?category=${catSlug}`}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase px-3 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors mb-4"
               >
                 <Tag className="h-3 w-3" />
@@ -151,7 +172,7 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
               )}
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-3.5 w-3.5" />
-                {new Date(post.created_at).toLocaleDateString('en-NG', {
+                {new Date(post.created_at).toLocaleDateString(t.locale, {
                   day: 'numeric',
                   month: 'long',
                   year: 'numeric',
@@ -160,7 +181,7 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
               {post.read_time && (
                 <span className="flex items-center gap-1.5">
                   <Clock className="h-3.5 w-3.5" />
-                  {post.read_time} min read
+                  {post.read_time} {t.minRead}
                 </span>
               )}
               <ShareButton title={post.title} excerpt={post.excerpt} />
@@ -188,11 +209,11 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
             {/* ── Tags ── */}
             {post.tags && post.tags.length > 0 && (
               <div className="mt-10 pt-6 border-t flex flex-wrap gap-2">
-                <span className="text-sm text-muted-foreground mr-1 self-center">Tags:</span>
+                <span className="text-sm text-muted-foreground mr-1 self-center">{t.tags}</span>
                 {post.tags.map((tag) => (
                   <Link
                     key={tag}
-                    href={`/blog?tag=${encodeURIComponent(tag)}`}
+                    href={`${basePath}?tag=${encodeURIComponent(tag)}`}
                     className="text-xs px-3 py-1 rounded-full border border-border hover:border-primary hover:text-primary transition-colors"
                   >
                     {tag}
@@ -204,9 +225,9 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
             {/* ── Category footer ── */}
             {post.category && catSlug && (
               <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Filed under:</span>
+                <span>{t.filedUnder}</span>
                 <Link
-                  href={`/blog?category=${catSlug}`}
+                  href={`${basePath}?category=${catSlug}`}
                   className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
                 >
                   <Tag className="h-3 w-3" />
@@ -217,10 +238,10 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
 
             {/* ── Share footer ── */}
             <div className="mt-8 p-4 bg-muted/30 rounded-xl flex items-center justify-between gap-4">
-              <p className="text-sm text-muted-foreground">Found this helpful? Share it.</p>
+              <p className="text-sm text-muted-foreground">{t.foundHelpful}</p>
               <div className="flex items-center gap-3">
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://naira.autos/blog/${post.slug}`)}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://naira.autos${basePath}/${post.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-medium px-3 py-1.5 rounded-md bg-black text-white hover:bg-black/80 transition-colors"
@@ -251,14 +272,14 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
                 <div className="rounded-xl border bg-card p-5">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">
-                      {post.category ? `More in ${post.category}` : 'Related Articles'}
+                      {post.category ? t.moreIn(post.category) : t.relatedArticles}
                     </h3>
                     {post.category && catSlug && (
                       <Link
-                        href={`/blog?category=${catSlug}`}
+                        href={`${basePath}?category=${catSlug}`}
                         className="text-xs text-primary hover:underline"
                       >
-                        See all →
+                        {t.seeAll}
                       </Link>
                     )}
                   </div>
@@ -267,7 +288,7 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
                     {relatedPosts.map((related) => (
                       <Link
                         key={related.id}
-                        href={`/blog/${related.slug}`}
+                        href={`${basePath}/${related.slug}`}
                         className="flex gap-3 group"
                       >
                         <img
@@ -281,7 +302,7 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
                           </h4>
                           <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
                             <span>
-                              {new Date(related.created_at).toLocaleDateString('en-NG', {
+                              {new Date(related.created_at).toLocaleDateString(t.locale, {
                                 day: 'numeric',
                                 month: 'short',
                               })}
@@ -289,7 +310,7 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
                             {related.read_time && (
                               <>
                                 <span>·</span>
-                                <span>{related.read_time} min</span>
+                                <span>{related.read_time} {t.minRead}</span>
                               </>
                             )}
                           </div>
@@ -303,14 +324,14 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
               {/* Browse by category */}
               <div className="rounded-xl border bg-card p-5">
                 <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground mb-3">
-                  Browse Categories
+                  {t.browseCategories}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {['Reviews', 'Comparisons', 'Buying Guide', 'Maintenance', 'News', 'Tips'].map(
                     (cat) => (
                       <Link
                         key={cat}
-                        href={`/blog?category=${categorySlug(cat)}`}
+                        href={`${basePath}?category=${categorySlug(cat)}`}
                         className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
                           post.category === cat
                             ? 'bg-primary text-primary-foreground border-primary'
@@ -333,8 +354,8 @@ export default function BlogDetailClient({ post, relatedPosts }: Props) {
                   <BookOpen className="h-4 w-4 text-muted-foreground" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-foreground">Car Glossary</p>
-                  <p className="text-xs text-muted-foreground">300+ car terms explained</p>
+                  <p className="text-sm font-semibold text-foreground">{t.glossary}</p>
+                  <p className="text-xs text-muted-foreground">{t.glossaryDesc}</p>
                 </div>
               </Link>
 

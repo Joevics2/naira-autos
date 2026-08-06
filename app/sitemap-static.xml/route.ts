@@ -14,6 +14,11 @@ const staticPages = [
   { url: '/cuanto-vale-mi-auto',                priority: 0.9, changefreq: 'weekly'  },
   { url: '/evaluate-car',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/blog',                               priority: 0.8, changefreq: 'daily'   },
+  // NOTE: /blog-de-autos (Spanish blog index) intentionally not added yet —
+  // zero Spanish posts exist. Add once a handful are published, same
+  // threshold logic as /herramientas above. Individual Spanish posts
+  // don't need this same wait — sitemap-blogs.xml already picks them up
+  // dynamically and routes them to /blog-de-autos/[slug] correctly.
   { url: '/vehicles',                           priority: 0.8, changefreq: 'weekly'  },
   { url: '/tools',                              priority: 0.9, changefreq: 'weekly'  },
   { url: '/herramientas',                       priority: 0.9, changefreq: 'weekly'  },

@@ -21,7 +21,7 @@ export async function GET() {
 
   const { data: blogs, error } = await supabase
     .from('blog_posts')
-    .select('slug, updated_at')
+    .select('slug, updated_at, language')
     .eq('published', true)
     .order('updated_at', { ascending: false });
 
@@ -30,14 +30,19 @@ export async function GET() {
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 
+  // Base path per language — keep in sync with BASE_PATH_BY_LANG in
+  // app/blog/[slug]/page.tsx and app/blog-de-autos/[slug]/page.tsx.
+  const BASE_PATH_BY_LANG: Record<string, string> = { en: '/blog', es: '/blog-de-autos' };
+
   const urls = (blogs || [])
     .map((blog) => {
       const lastMod = blog.updated_at
         ? new Date(blog.updated_at).toISOString()
         : new Date().toISOString();
+      const basePath = BASE_PATH_BY_LANG[blog.language] || '/blog';
       return `
   <url>
-    <loc>${siteUrl}/blog/${blog.slug}</loc>
+    <loc>${siteUrl}${basePath}/${blog.slug}</loc>
     <lastmod>${lastMod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

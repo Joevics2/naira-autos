@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import BlogDetailClient from './BlogDetailClient';
+import BlogDetailClient from '../../blog/[slug]/BlogDetailClient';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
 type Props = {
@@ -12,6 +12,8 @@ type Props = {
 // served from a stale cached copy of this page.
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+
+const BASE_PATH_BY_LANG: Record<string, string> = { en: '/blog', es: '/blog-de-autos' };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -24,14 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .maybeSingle();
 
   if (!post) {
-    return { title: 'Article Not Found | Naira Autos' };
+    return { title: 'Artículo No Encontrado | Naira Autos' };
   }
 
   const imageUrl = post.featured_image || getBlogFallbackImage(slug);
-  const description = post.excerpt || `Read about ${post.title} on the Naira Autos blog`;
+  const description = post.excerpt || `Lee sobre ${post.title} en el blog de Naira Autos`;
 
   // ── hreflang: find every published language sibling of this post ──
-  const BASE_PATH_BY_LANG: Record<string, string> = { en: '/blog', es: '/blog-de-autos' };
   let languages: Record<string, string> | undefined;
   if (post.translation_group_id) {
     const { data: siblings } = await supabase
@@ -45,12 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         const base = BASE_PATH_BY_LANG[s.language] || '/blog';
         languages[s.language] = `https://naira.autos${base}/${s.slug}`;
       }
-      languages['x-default'] = languages['en'] || `https://naira.autos/blog/${slug}`;
+      languages['x-default'] = languages['en'] || `https://naira.autos/blog-de-autos/${slug}`;
     }
   }
 
   return {
-    title: `${post.title} | Naira Autos Blog`,
+    title: `${post.title} | Blog de Naira Autos`,
     description,
     keywords: post.tags ?? [],
     authors: post.author_name ? [{ name: post.author_name }] : [{ name: 'Naira Autos' }],
@@ -72,13 +73,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [imageUrl],
     },
     alternates: {
-      canonical: `https://naira.autos/blog/${slug}`,
+      canonical: `https://naira.autos/blog-de-autos/${slug}`,
       ...(languages ? { languages } : {}),
     },
   };
 }
 
-export default async function BlogDetailPage({ params }: Props) {
+export default async function BlogDeAutosDetailPage({ params }: Props) {
   const { slug } = await params;
 
   const { data: post } = await supabase
@@ -86,11 +87,12 @@ export default async function BlogDetailPage({ params }: Props) {
     .select('*')
     .eq('slug', slug)
     .eq('published', true)
+    .eq('language', 'es')
     .maybeSingle();
 
   if (!post) notFound();
 
-  // ── Related posts: same category first, fill with latest ────────
+  // ── Related posts: same category first, fill with latest — Spanish only ──
   let relatedPosts: typeof post[] = [];
 
   if (post.category) {
@@ -98,6 +100,7 @@ export default async function BlogDetailPage({ params }: Props) {
       .from('blog_posts')
       .select('id, title, slug, excerpt, featured_image, created_at, category, read_time')
       .eq('published', true)
+      .eq('language', 'es')
       .eq('category', post.category)
       .neq('id', post.id)
       .limit(3);
@@ -110,6 +113,7 @@ export default async function BlogDetailPage({ params }: Props) {
       .from('blog_posts')
       .select('id, title, slug, excerpt, featured_image, created_at, category, read_time')
       .eq('published', true)
+      .eq('language', 'es')
       .not('id', 'in', `(${excludeIds.join(',')})`)
       .order('created_at', { ascending: false })
       .limit(3 - relatedPosts.length);
@@ -118,7 +122,7 @@ export default async function BlogDetailPage({ params }: Props) {
 
   // ── Resolve image (featured or deterministic fallback) ───────────
   const siteUrl = 'https://naira.autos';
-  const postUrl = `${siteUrl}/blog/${post.slug}`;
+  const postUrl = `${siteUrl}/blog-de-autos/${post.slug}`;
   const imageUrl = post.featured_image || getBlogFallbackImage(slug);
 
   const categorySlug = post.category
@@ -149,19 +153,19 @@ export default async function BlogDetailPage({ params }: Props) {
     keywords: post.tags ? (post.tags as string[]).join(', ') : '',
     articleSection: post.category || '',
     ...(post.read_time ? { timeRequired: `PT${post.read_time}M` } : {}),
-    inLanguage: 'en-NG',
+    inLanguage: 'es',
   };
 
   const breadcrumbItems = [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog` },
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog-de-autos` },
     ...(post.category && categorySlug
       ? [
           {
             '@type': 'ListItem',
             position: 3,
             name: post.category,
-            item: `${siteUrl}/blog?category=${categorySlug}`,
+            item: `${siteUrl}/blog-de-autos?category=${categorySlug}`,
           },
           { '@type': 'ListItem', position: 4, name: post.title, item: postUrl },
         ]
@@ -188,8 +192,9 @@ export default async function BlogDetailPage({ params }: Props) {
       <BlogDetailClient
         post={{ ...post, featured_image: imageUrl }}
         relatedPosts={relatedPosts}
+        lang="es"
+        basePath="/blog-de-autos"
       />
     </>
   );
-                }
-  
+}

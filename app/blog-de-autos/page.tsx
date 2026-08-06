@@ -17,7 +17,7 @@ type BlogPost = {
   created_at: string;
 };
 
-export default function BlogPage() {
+export default function BlogDeAutosPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,7 +32,7 @@ export default function BlogPage() {
         .from('blog_posts')
         .select('*')
         .eq('published', true)
-        .eq('language', 'en')
+        .eq('language', 'es')
         .order('created_at', { ascending: false });
 
       if (data) setBlogs(data as BlogPost[]);
@@ -53,20 +53,20 @@ export default function BlogPage() {
       <div className="bg-primary py-12">
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="flex items-center gap-2 mb-4">
-            <Link href="/blog-de-autos" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Leer en Español →
+            <Link href="/blog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              Read in English →
             </Link>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Naira Autos Blog</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Blog de Autos de Naira Autos</h1>
           <p className="text-white/80 max-w-2xl">
-            Expert tips, guides, and insights for buying and selling cars
+            Consejos, guías, y información útil para comprar y vender autos
           </p>
           <Link
             href="/tools/glossary"
             className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white text-sm font-semibold rounded-lg px-4 py-2 mt-4 transition-colors"
           >
             <BookText className="h-4 w-4" />
-            Browse Car Glossary
+            Ver Glosario de Autos
           </Link>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default function BlogPage() {
         <div className="relative max-w-md mb-8">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
-            placeholder="Search articles..."
+            placeholder="Buscar artículos..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -87,16 +87,18 @@ export default function BlogPage() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-muted-foreground">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <p className="text-sm">Loading articles...</p>
+            <p className="text-sm">Cargando artículos...</p>
           </div>
         ) : filteredBlogs.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg">No articles found</p>
+            <p className="text-muted-foreground text-lg">
+              {searchTerm ? 'No se encontraron artículos' : 'Aún no hay artículos en español — vuelve pronto.'}
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredBlogs.map((blog) => (
-              <Link key={blog.id} href={`/blog/${blog.slug}`}>
+              <Link key={blog.id} href={`/blog-de-autos/${blog.slug}`}>
                 <Card className="h-full hover:shadow-lg transition-all overflow-hidden">
                   <div className="aspect-video overflow-hidden">
                     <img
@@ -113,7 +115,7 @@ export default function BlogPage() {
                       {blog.excerpt}
                     </p>
                     <div className="mt-4 text-xs text-muted-foreground">
-                      {new Date(blog.created_at).toLocaleDateString('en-NG', {
+                      {new Date(blog.created_at).toLocaleDateString('es-MX', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
@@ -128,5 +130,4 @@ export default function BlogPage() {
       </div>
     </div>
   );
-  }
-        
+}
