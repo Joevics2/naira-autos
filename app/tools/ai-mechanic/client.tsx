@@ -480,10 +480,6 @@ export default function AIMechanicClient() {
     const trimmed = text.trim();
     if (!trimmed && !imageFile && !audioFile && !videoFile) return;
     if (!activeSession) return;
-    if (!vehicle.brand || !vehicle.model || !vehicle.year) {
-      setError('Please fill in your vehicle details (brand, model, and year) before diagnosing.');
-      return;
-    }
 
     const userMsg: ChatMessage = {
       id: uid(), role: 'user', text: trimmed,
@@ -716,23 +712,24 @@ export default function AIMechanicClient() {
                     <p className="text-xs text-red-300">{error}</p>
                   </div>
                 )}
-                <div className="flex gap-2 mb-2">
+                <div className="flex gap-2 mb-1.5">
                   <div className="relative flex-1 min-w-0">
                     <select value={vehicle.brand} onChange={e => persistVehicle({ ...vehicle, brand: e.target.value })}
                       className={`w-full h-12 pl-3 pr-8 text-sm border rounded-xl bg-white/10 text-white/90 focus:outline-none focus:border-emerald-500/50 transition-all appearance-none cursor-pointer ${!vehicle.brand ? 'border-white/20' : 'border-emerald-500/40'}`}
                       style={{ backgroundImage: dropdownArrowSvg, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}>
-                      <option value="" style={{ background: '#080C10' }}>Brand *</option>
+                      <option value="" style={{ background: '#080C10' }}>Brand (optional)</option>
                       {NIGERIAN_BRANDS.map(b => <option key={b} value={b} style={{ background: '#080C10' }}>{b}</option>)}
                     </select>
                   </div>
-                  <input type="text" placeholder="Model *" value={vehicle.model}
+                  <input type="text" placeholder="Model (optional)" value={vehicle.model}
                     onChange={e => persistVehicle({ ...vehicle, model: e.target.value })}
                     className={`flex-1 min-w-0 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.model ? 'border-emerald-500/40' : 'border-white/20'}`} />
-                  <input type="number" placeholder="Year *" value={vehicle.year}
+                  <input type="number" placeholder="Year (optional)" value={vehicle.year}
                     onChange={e => persistVehicle({ ...vehicle, year: e.target.value })}
                     min="1980" max={new Date().getFullYear() + 1}
-                    className={`w-24 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.year ? 'border-emerald-500/40' : 'border-white/20'}`} />
+                    className={`w-28 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.year ? 'border-emerald-500/40' : 'border-white/20'}`} />
                 </div>
+                <p className="text-xs text-white/30 mb-2">Optional, but the more Axion knows about your car, the sharper the diagnosis.</p>
 
                 <div className="border border-white/20 rounded-xl bg-white/10 overflow-hidden focus-within:border-emerald-500/50 transition-all">
                   <textarea value={text} onChange={e => setText(e.target.value)} onKeyDown={handleKey}
