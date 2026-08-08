@@ -188,11 +188,16 @@ export function HomePage() {
         <div className="relative max-w-screen-xl mx-auto px-5 sm:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24">
 
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-            <span className="text-[11px] font-bold tracking-widest uppercase text-orange-600 dark:text-orange-400">
-              Your Car Intelligence Hub
-            </span>
+          <div className="flex items-center gap-2 mb-6">
+            <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+              <span className="text-[11px] font-bold tracking-widest uppercase text-orange-600 dark:text-orange-400">
+                Your Car Intelligence Hub
+              </span>
+            </div>
+            <Link href="/inicio" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors">
+              Leer en Español →
+            </Link>
           </div>
 
           {/* Headline */}

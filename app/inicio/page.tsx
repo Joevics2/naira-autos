@@ -2,6 +2,16 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { TOOLS_ES } from '@/lib/tools-list-es';
+import { supabase } from '@/lib/supabase';
+import { getBlogFallbackImage } from '@/lib/blogImages';
+
+type LatestPost = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  featured_image: string | null;
+};
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -42,7 +52,21 @@ const SCHEMA = {
   },
 };
 
-export default function InicioPage() {
+export default async function InicioPage() {
+  // Latest Spanish blog posts — hidden entirely when none exist yet,
+  // same "never show it half-empty" rule as everything else on the site.
+  // Appears automatically the moment the first Spanish post is published,
+  // no code change needed.
+  const { data: latestPosts } = await supabase
+    .from('blog_posts')
+    .select('id, title, slug, excerpt, featured_image')
+    .eq('published', true)
+    .eq('language', 'es')
+    .order('created_at', { ascending: false })
+    .limit(3);
+
+  const posts = (latestPosts ?? []) as LatestPost[];
+
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
@@ -118,6 +142,45 @@ export default function InicioPage() {
         </div>
       </div>
 
+      {/* ── Últimos Artículos (solo si hay contenido publicado) ── */}
+      {posts.length > 0 && (
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2
+              className="font-black uppercase text-foreground leading-none"
+              style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
+            >
+              Últimos Artículos
+            </h2>
+            <Link href="/blog-de-autos" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Ver todos <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {posts.map((post) => (
+              <Link
+                key={post.id}
+                href={`/blog-de-autos/${post.slug}`}
+                className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
+              >
+                <div className="aspect-video overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={post.featured_image || getBlogFallbackImage(post.slug)}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="font-bold text-sm text-foreground leading-tight line-clamp-2 mb-1">{post.title}</p>
+                  {post.excerpt && <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{post.excerpt}</p>}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ── Qué es Naira Autos ── */}
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-14">
@@ -132,7 +195,7 @@ export default function InicioPage() {
               Naira Autos es una plataforma de herramientas automotrices gratuitas pensada para resolver problemas reales al comprar, vender o mantener un auto — sin necesidad de crear una cuenta ni pagar nada.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Esta versión en español está en sus primeras etapas. Por ahora incluye un mecánico virtual con inteligencia artificial, una calculadora de kilometraje y un verificador de número de chasis — iremos sumando más herramientas, artículos y contenido con el tiempo.
+              Esta versión en español está en sus primeras etapas. Por ahora incluye {TOOLS_ES.length} herramientas gratuitas — un mecánico virtual con inteligencia artificial, tasación de autos por foto, calculadora de kilometraje y verificación de VIN/chasis entre ellas — e iremos sumando más herramientas, artículos y contenido con el tiempo.
             </p>
           </div>
         </div>

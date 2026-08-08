@@ -55,6 +55,9 @@ export default function HerramientasPage() {
               <Sparkles className="h-3 w-3" />
               Herramientas Gratis
             </span>
+            <Link href="/inicio" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Inicio
+            </Link>
             <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Read in English →
             </Link>
