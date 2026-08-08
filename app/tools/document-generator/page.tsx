@@ -6,7 +6,14 @@ import DocumentGeneratorClient from './client';
 export const metadata: Metadata = {
   title: 'AI Vehicle Document Generator — Bill of Sale & More | Naira Autos',
   description: 'Generate a jurisdiction-correct vehicle bill of sale, loan agreement, lease, power of attorney, and more — free, AI-drafted, with legal requirements researched for your country. Edit, then download as PDF or Word.',
-  alternates: { canonical: 'https://www.naira.autos/tools/document-generator' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/document-generator',
+    languages: {
+      en: 'https://www.naira.autos/tools/document-generator',
+      es: 'https://www.naira.autos/tools/generador-de-documentos-ia',
+      'x-default': 'https://www.naira.autos/tools/document-generator',
+    },
+  },
   openGraph: {
     title: 'AI Vehicle Document Generator | Naira Autos',
     description: 'Pick a document type and country. Our AI researches the real legal requirements for your jurisdiction and drafts a complete, formatted document — free, no login.',

@@ -1,0 +1,77 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { History, Trash2, ShieldAlert } from 'lucide-react';
+import { DocumentHistoryEntry, getHistory, deleteFromHistory, clearHistory } from '@/lib/document-history';
+
+interface DocumentHistoryListEsProps {
+  onOpen: (entry: DocumentHistoryEntry) => void;
+  filterSource?: 'ai' | 'template';
+}
+
+export default function DocumentHistoryListEs({ onOpen, filterSource }: DocumentHistoryListEsProps) {
+  const [entries, setEntries] = useState<DocumentHistoryEntry[] | null>(null);
+
+  useEffect(() => {
+    setEntries(getHistory());
+  }, []);
+
+  if (!entries || entries.length === 0) return null;
+
+  const visible = filterSource ? entries.filter(e => e.source === filterSource) : entries;
+  if (visible.length === 0) return null;
+
+  return (
+    <div className="bg-card border border-border rounded-xl p-5 space-y-3 no-print">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <History className="h-4 w-4 text-muted-foreground" />
+          <h2 className="text-sm font-semibold text-foreground">Tus documentos guardados</h2>
+        </div>
+        <Link href="/plantillas/mis-documentos" className="text-xs font-medium text-sky-600 dark:text-sky-400 hover:underline flex-shrink-0">
+          Ver todos →
+        </Link>
+      </div>
+
+      <div className="flex items-start gap-2 text-xs text-muted-foreground bg-background border border-border rounded-lg px-3 py-2">
+        <ShieldAlert className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
+        <span>Guardado solo en este dispositivo/navegador — nunca se envía a nuestros servidores. Bórralo antes de usar una computadora compartida o pública.</span>
+      </div>
+
+      <div className="space-y-2">
+        {visible.map(entry => (
+          <div
+            key={entry.id}
+            className="flex items-center justify-between gap-3 border border-border rounded-lg px-3 py-2.5 hover:border-foreground/30 transition-colors"
+          >
+            <button
+              onClick={() => onOpen(entry)}
+              className="flex-1 text-left min-w-0"
+            >
+              <p className="text-sm font-medium text-foreground truncate">{entry.documentTypeLabel} — {entry.countryLabel}</p>
+              <p className="text-xs text-muted-foreground">
+                {new Date(entry.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                {' · '}{entry.source === 'ai' ? 'IA' : 'Plantilla'}
+              </p>
+            </button>
+            <button
+              onClick={() => setEntries(deleteFromHistory(entry.id))}
+              className="text-muted-foreground hover:text-red-500 p-1.5 transition-colors flex-shrink-0"
+              aria-label="Eliminar este documento guardado"
+            >
+              <Trash2 className="h-4 w-4" />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <button
+        onClick={() => { clearHistory(); setEntries([]); }}
+        className="text-xs font-medium text-muted-foreground hover:text-red-500 transition-colors"
+      >
+        Borrar todos los documentos guardados
+      </button>
+    </div>
+  );
+}

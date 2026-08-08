@@ -1,4 +1,4 @@
-import { Wrench, Gauge, ScanLine, Search, Camera } from 'lucide-react';
+import { Wrench, Gauge, ScanLine, Search, Camera, FileText } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -16,6 +16,15 @@ export type ToolEs = {
 };
 
 export const TOOLS_ES: ToolEs[] = [
+  {
+    href: '/tools/generador-de-documentos-ia',
+    icon: FileText,
+    label: 'Generador de Documentos con IA',
+    description: 'Genera un contrato de compraventa u otro documento vehicular — con los requisitos legales de tu país investigados por IA.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'IA y Herramientas Inteligentes',
+  },
   {
     href: '/cuanto-vale-mi-auto',
     icon: Camera,

@@ -11,8 +11,8 @@ import {
 } from '@/lib/document-types';
 import { GeneratedDocument, sanitizeDocument } from '@/lib/document-format';
 import { saveToHistory } from '@/lib/document-history';
-import DocumentEditor from '@/components/documents/DocumentEditor';
-import TemplateAvailableLink from '@/components/documents/TemplateAvailableLink';
+import DocumentEditorEs from '@/components/documents/DocumentEditorEs';
+import TemplateAvailableLinkEs from '@/components/documents/TemplateAvailableLinkEs';
 
 interface LegalRequirements {
   summary: string;
@@ -27,11 +27,10 @@ interface LegalRequirements {
 
 type Step = 'select' | 'researching' | 'details' | 'generating' | 'preview';
 
-// Short, on-page only — not part of the generated document itself.
 const SHORT_DISCLAIMER =
-  'Informational only, not legal advice. Have high-value or high-risk agreements reviewed by a licensed attorney.';
+  'Solo informativo, no es asesoría legal. Haz que un abogado con licencia revise los acuerdos de alto valor o alto riesgo.';
 
-export default function DocumentGeneratorClient() {
+export default function GeneradorDeDocumentosClienteEs() {
   const [step, setStep] = useState<Step>('select');
   const [documentTypeSlug, setDocumentTypeSlug] = useState('');
   const [country, setCountry] = useState('');
@@ -56,11 +55,11 @@ export default function DocumentGeneratorClient() {
         body: JSON.stringify({ documentTypeSlug, country }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Research failed.');
+      if (!res.ok) throw new Error(data.error || 'La investigación falló.');
       setLegalRequirements(data.legalRequirements);
       setStep('details');
     } catch (err: any) {
-      setError(err.message || 'Something went wrong researching this document. Please try again.');
+      setError(err.message || 'Algo salió mal investigando este documento. Intenta de nuevo.');
       setStep('select');
     }
   }, [documentTypeSlug, country]);
@@ -68,7 +67,7 @@ export default function DocumentGeneratorClient() {
   const handleGenerate = useCallback(async () => {
     if (!legalRequirements) return;
     if (!usePlaceholders && !userDetails.trim()) {
-      setError('Please add the details to use, or tap "Use placeholder details".');
+      setError('Agrega los datos a usar, o toca "Usar datos de ejemplo".');
       return;
     }
     setError(null);
@@ -84,7 +83,7 @@ export default function DocumentGeneratorClient() {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Generation failed.');
+      if (!res.ok) throw new Error(data.error || 'La generación falló.');
       const sanitized = sanitizeDocument(data.document);
       setGeneratedDocument(sanitized);
       setIsHighRisk(!!data.isHighRisk);
@@ -101,7 +100,7 @@ export default function DocumentGeneratorClient() {
         });
       }
     } catch (err: any) {
-      setError(err.message || 'Something went wrong writing this document. Please try again.');
+      setError(err.message || 'Algo salió mal redactando este documento. Intenta de nuevo.');
       setStep('details');
     }
   }, [legalRequirements, userDetails, usePlaceholders, documentTypeSlug, country, docType, docCountry]);
@@ -123,37 +122,37 @@ export default function DocumentGeneratorClient() {
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Breadcrumb */}
         <div className="flex items-center gap-3 no-print">
-          <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-emerald-500/10 border border-border hover:border-emerald-500/40 text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex-shrink-0" aria-label="Back">
+          <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-emerald-500/10 border border-border hover:border-emerald-500/40 text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex-shrink-0" aria-label="Atrás">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
+            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Inicio</Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/tools" className="hover:text-foreground">Tools</Link>
+            <Link href="/herramientas" className="hover:text-foreground">Herramientas</Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium">Document Generator</span>
+            <span className="text-foreground font-medium">Generador de Documentos</span>
           </div>
         </div>
 
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="h-4 w-4 text-emerald-500" />
-            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">AI-Powered · Free</span>
-            <Link href="/tools/generador-de-documentos-ia" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
-              Leer en Español →
+            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Con IA · Gratis</span>
+            <Link href="/tools/document-generator" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
+              Read in English →
             </Link>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">AI Vehicle Document Generator</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Generador de Documentos con IA</h1>
           <p className="text-muted-foreground leading-relaxed">
-            Pick a document and a country. We research the real legal requirements for that jurisdiction, then draft a complete, formatted document you can edit and download.
+            Elige un documento y un país. Investigamos los requisitos legales reales de esa jurisdicción y redactamos un documento completo y con formato que puedes editar y descargar.
           </p>
           <p className="text-xs text-muted-foreground/80 mt-2 no-print">{SHORT_DISCLAIMER}</p>
           <Link
-            href="/documents"
+            href="/plantillas"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 dark:text-sky-400 hover:underline mt-3 no-print"
           >
             <FileCheck2 className="h-3.5 w-3.5" />
-            Prefer a fixed template instead? Browse free templates →
+            ¿Prefieres una plantilla fija? Explora las plantillas gratis →
           </Link>
         </div>
 
@@ -165,25 +164,25 @@ export default function DocumentGeneratorClient() {
 
         <div className="flex justify-end">
           <Link
-            href="/documents/my-documents"
+            href="/plantillas/mis-documentos"
             className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-600 text-white text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors no-print"
           >
             <History className="h-3.5 w-3.5" />
-            My Documents
+            Mis Documentos
           </Link>
         </div>
 
-        {/* ── Step: select ──────────────────────────────────────────── */}
+        {/* ── Paso: seleccionar ────────────────────────────────────────── */}
         {step === 'select' && (
           <div className="bg-card border border-border rounded-xl p-5 space-y-4 mt-2">
             <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Document type</label>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">Tipo de documento</label>
               <select
                 value={documentTypeSlug}
                 onChange={e => setDocumentTypeSlug(e.target.value)}
                 className="w-full bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground"
               >
-                <option value="">Select a document…</option>
+                <option value="">Selecciona un documento…</option>
                 {DOCUMENT_TYPES_SORTED.slice(0, DOCUMENT_TYPES_POPULAR_COUNT).map(d => (
                   <option key={d.slug} value={d.slug}>{d.label}</option>
                 ))}
@@ -196,13 +195,13 @@ export default function DocumentGeneratorClient() {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Country</label>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">País</label>
               <select
                 value={country}
                 onChange={e => setCountry(e.target.value)}
                 className="w-full bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground"
               >
-                <option value="">Select a country…</option>
+                <option value="">Selecciona un país…</option>
                 {DOCUMENT_COUNTRIES_SORTED.slice(0, DOCUMENT_COUNTRIES_POPULAR_COUNT).map(c => (
                   <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
                 ))}
@@ -214,7 +213,7 @@ export default function DocumentGeneratorClient() {
             </div>
 
             {documentTypeSlug && country && (
-              <TemplateAvailableLink documentTypeSlug={documentTypeSlug} country={country} />
+              <TemplateAvailableLinkEs documentTypeSlug={documentTypeSlug} country={country} />
             )}
 
             <button
@@ -223,21 +222,21 @@ export default function DocumentGeneratorClient() {
               className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold rounded-lg py-3 transition-colors"
             >
               <Sparkles className="h-4 w-4" />
-              Start
+              Empezar
             </button>
           </div>
         )}
 
-        {/* ── Step: researching ─────────────────────────────────────── */}
+        {/* ── Paso: investigando ───────────────────────────────────────── */}
         {step === 'researching' && (
           <div className="bg-card border border-border rounded-xl p-8 flex flex-col items-center text-center gap-3">
             <Loader2 className="h-6 w-6 text-emerald-500 animate-spin" />
-            <p className="text-foreground font-medium">Researching legal requirements…</p>
-            <p className="text-sm text-muted-foreground">Checking what {docCountry?.name} requires for a {docType?.label.toLowerCase()}.</p>
+            <p className="text-foreground font-medium">Investigando requisitos legales…</p>
+            <p className="text-sm text-muted-foreground">Verificando qué requiere {docCountry?.name} para {docType?.label.toLowerCase()}.</p>
           </div>
         )}
 
-        {/* ── Step: details ────────────────────────────────────────── */}
+        {/* ── Paso: detalles ───────────────────────────────────────────── */}
         {step === 'details' && legalRequirements && (
           <div className="bg-card border border-border rounded-xl p-5 space-y-4">
             <div className="flex items-start gap-2">
@@ -247,7 +246,7 @@ export default function DocumentGeneratorClient() {
 
             <div className="bg-background border border-border rounded-lg p-4">
               <p className="text-sm font-medium text-foreground mb-2">
-                To generate your {docType?.label} for {docCountry?.name}, I'll need:
+                Para generar tu {docType?.label} para {docCountry?.name}, necesitaré:
               </p>
               <ul className="space-y-1">
                 {legalRequirements.requiredFields.map((f, i) => (
@@ -260,7 +259,7 @@ export default function DocumentGeneratorClient() {
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-sm font-medium text-foreground">Your details</label>
+                <label className="text-sm font-medium text-foreground">Tus datos</label>
                 <button
                   type="button"
                   onClick={() => { setUsePlaceholders(true); setUserDetails(''); }}
@@ -270,7 +269,7 @@ export default function DocumentGeneratorClient() {
                       : 'border-dashed border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground'
                   }`}
                 >
-                  Use placeholder details
+                  Usar datos de ejemplo
                 </button>
               </div>
               <textarea
@@ -278,8 +277,8 @@ export default function DocumentGeneratorClient() {
                 onChange={e => { setUserDetails(e.target.value); if (usePlaceholders) setUsePlaceholders(false); }}
                 disabled={usePlaceholders}
                 placeholder={usePlaceholders
-                  ? 'Placeholder names and sample details will be used instead — you can fill them in after downloading.'
-                  : 'Type everything you have — names, vehicle details, price, dates, etc. One message is enough.'}
+                  ? 'Se usarán nombres y datos de ejemplo — puedes llenarlos después de descargar.'
+                  : 'Escribe todo lo que tengas — nombres, datos del vehículo, precio, fechas, etc. Un solo mensaje es suficiente.'}
                 rows={6}
                 className="w-full bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground disabled:opacity-60 disabled:cursor-not-allowed resize-none"
               />
@@ -290,7 +289,7 @@ export default function DocumentGeneratorClient() {
                 onClick={() => setStep('select')}
                 className="px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
-                Back
+                Atrás
               </button>
               <button
                 onClick={handleGenerate}
@@ -298,24 +297,24 @@ export default function DocumentGeneratorClient() {
                 className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold rounded-lg py-3 transition-colors"
               >
                 <Sparkles className="h-4 w-4" />
-                Generate Document
+                Generar Documento
               </button>
             </div>
           </div>
         )}
 
-        {/* ── Step: generating ─────────────────────────────────────── */}
+        {/* ── Paso: generando ──────────────────────────────────────────── */}
         {step === 'generating' && (
           <div className="bg-card border border-border rounded-xl p-8 flex flex-col items-center text-center gap-3">
             <Loader2 className="h-6 w-6 text-emerald-500 animate-spin" />
-            <p className="text-foreground font-medium">Writing your document…</p>
-            <p className="text-sm text-muted-foreground">Drafting a complete, formatted {docType?.label.toLowerCase()}.</p>
+            <p className="text-foreground font-medium">Redactando tu documento…</p>
+            <p className="text-sm text-muted-foreground">Elaborando {docType?.label.toLowerCase()} completo y con formato.</p>
           </div>
         )}
 
-        {/* ── Step: preview ────────────────────────────────────────── */}
+        {/* ── Paso: vista previa ───────────────────────────────────────── */}
         {step === 'preview' && generatedDocument && (
-          <DocumentEditor
+          <DocumentEditorEs
             document={generatedDocument}
             onChange={setGeneratedDocument}
             isHighRisk={isHighRisk}
