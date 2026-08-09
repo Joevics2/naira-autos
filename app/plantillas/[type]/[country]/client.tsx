@@ -90,6 +90,9 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
               <div className="flex items-center gap-2 mb-2">
                 <FileCheck2 className="h-4 w-4 text-sky-500" />
                 <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Plantilla Gratis · Sin Registro</span>
+                <Link href={`/documents/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
+                  Read in English →
+                </Link>
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                 Plantilla de {docType.label} — {docCountry.flag} {docCountry.name}

@@ -99,7 +99,12 @@ export default function MyDocumentsClient() {
         </div>
 
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">My Documents</h1>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">My Documents</h1>
+            <Link href="/plantillas/mis-documentos" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors">
+              Leer en Español →
+            </Link>
+          </div>
           <p className="text-muted-foreground leading-relaxed">
             Every document you&apos;ve filled in or generated on this browser, in one place.
           </p>
