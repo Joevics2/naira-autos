@@ -105,7 +105,7 @@ export async function generateStaticParams() {
   return slugs.map(slug => ({ slug }));
 }
 
-export const revalidate = 60;
+export const revalidate = 86400; // ISR: 24h — was 60s, effectively no caching
 
 // ── Metadata ──────────────────────────────────────────────────────
 

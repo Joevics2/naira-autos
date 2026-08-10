@@ -4,9 +4,7 @@ import { ArrowLeft, ChevronRight, Home, FileCheck2 } from 'lucide-react';
 import { getAllPublishedTemplates } from '@/lib/document-templates-data';
 import DocumentsIndexClient from '@/components/documents/DocumentsIndexClient';
 
-export const revalidate = 0;
-// TEMPORARY: see the matching note in app/documents/[type]/[country]/page.tsx
-export const dynamic = 'force-dynamic';
+export const revalidate = 86400; // ISR: 24h revalidation — see the matching note in app/documents/[type]/[country]/page.tsx
 
 export const metadata: Metadata = {
   title: 'Free Vehicle Document Templates | Naira Autos',

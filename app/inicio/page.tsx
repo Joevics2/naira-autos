@@ -13,8 +13,14 @@ type LatestPost = {
   featured_image: string | null;
 };
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ISR: revalidate once every 24h so newly-published blog posts show up in
+// the "latest posts" section within a day, instead of hitting Supabase on
+// every single request. (Note: unlike app/page.tsx, this page actually
+// queries Supabase directly, so it belongs in the same caching fix as the
+// blog/documents/vehicle pages — the English homepage's force-dynamic is
+// for an unrelated PWA-manifest-staleness reason and doesn't touch Supabase
+// at all, so it was left alone.)
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: 'Naira Autos en Español — Herramientas Gratis para tu Auto',

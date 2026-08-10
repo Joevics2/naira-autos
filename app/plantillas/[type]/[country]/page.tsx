@@ -9,8 +9,7 @@ export async function generateStaticParams() {
   return params;
 }
 
-export const revalidate = 0;
-export const dynamic = 'force-dynamic';
+export const revalidate = 86400; // ISR: 24h revalidation — see the matching note in app/documents/[type]/[country]/page.tsx
 
 function resolveDocType(slug: string, templateTitle: string): DocumentTypeDef {
   return getDocumentType(slug) ?? {

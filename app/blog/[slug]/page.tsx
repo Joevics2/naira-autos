@@ -8,10 +8,12 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// Always render fresh — a newly published/edited post should never be
-// served from a stale cached copy of this page.
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ISR: statically generate this page and revalidate once every 24h, so a
+// newly published/edited post shows up within a day without every single
+// request hitting Supabase directly. (Previously force-dynamic + revalidate
+// 0, which disabled caching entirely — force-dynamic overrides revalidate,
+// so setting a revalidate window alone wouldn't have done anything.)
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

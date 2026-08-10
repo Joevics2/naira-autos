@@ -4,8 +4,7 @@ import { ArrowLeft, ChevronRight, Home, FileCheck2 } from 'lucide-react';
 import { getAllPublishedTemplates } from '@/lib/document-templates-data';
 import DocumentsIndexClientEs from '@/components/documents/DocumentsIndexClientEs';
 
-export const revalidate = 0;
-export const dynamic = 'force-dynamic';
+export const revalidate = 86400; // ISR: 24h revalidation — see the matching note in app/documents/[type]/[country]/page.tsx
 
 export const metadata: Metadata = {
   title: 'Plantillas de Documentos Vehiculares Gratis | Naira Autos',

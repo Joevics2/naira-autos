@@ -16,7 +16,7 @@ import {
 
 type Params = { type: string; brand: string; model: string };
 
-export const revalidate = 0; // fetch fresh every request while content is actively changing
+export const revalidate = 86400; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
 
 export async function generateStaticParams() {
   const supabase = getSupabase();

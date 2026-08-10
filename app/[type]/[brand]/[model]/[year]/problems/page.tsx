@@ -11,7 +11,7 @@ import { WhereToBuyJumpLink } from '@/components/WhereToBuyJumpLink';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
-export const revalidate = 0; // fetch fresh every request while content is actively changing
+export const revalidate = 86400; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
 
 interface VehicleProblem {
   id: string;

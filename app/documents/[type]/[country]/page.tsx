@@ -10,15 +10,13 @@ export async function generateStaticParams() {
   return params;
 }
 
-export const revalidate = 0; // fetch fresh every request while the template library is actively growing
-
-// TEMPORARY: forces every request to hit Supabase directly with zero caching,
-// so newly-added templates show up immediately without a redeploy. Because
-// this page also uses generateStaticParams, revalidate=0 alone isn't
-// reliable once a page has been statically generated on Vercel — this is
-// the actual override. Remove this line once you're done adding templates
-// daily and want normal ISR caching back.
-export const dynamic = 'force-dynamic';
+// ISR: statically generate every known template at build time, then
+// revalidate once every 24h so a newly-published template shows up within
+// a day without every request hitting Supabase directly. (Was force-dynamic
+// + revalidate 0 while templates were being added daily — reverted now
+// that's settled down; see the git history on this line if it needs to go
+// back to force-dynamic during another active-adding period.)
+export const revalidate = 86400;
 
 // Supabase is the real source of truth for whether a template page exists —
 // DOCUMENT_TYPES/DOCUMENT_COUNTRIES are only used to enrich a page when the
