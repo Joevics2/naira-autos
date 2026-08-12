@@ -86,22 +86,21 @@ type UrgencyLevel = 'safe' | 'monitor' | 'urgent' | 'stop_driving';
 interface DiagnosisResult {
   summary: string;
   urgency: UrgencyLevel;
-  urgency_label: string;
   certainty: number;
   certainty_note: string;
   likely_causes: Array<{ cause: string; probability: 'high' | 'medium' | 'low'; explanation: string }>;
   next_steps_to_confirm: string[];
   recommended_actions: Array<{ action: string; priority: 'immediate' | 'soon' | 'when_convenient'; diy: boolean }>;
   parts_to_check: string[];
-  estimated_repair_cost_ngn: { min: number | null; max: number | null; note: string };
+  estimated_repair_cost_usd: { min: number | null; max: number | null; note: string };
   disclaimer: string;
 }
 
-const URGENCY_CONFIG: Record<UrgencyLevel, { bg: string; text: string; icon: React.ReactNode }> = {
-  safe:         { bg: 'bg-emerald-950/40', text: 'text-emerald-300', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" /> },
-  monitor:      { bg: 'bg-amber-950/40',   text: 'text-amber-300',   icon: <AlertCircle className="h-4 w-4 text-amber-400" /> },
-  urgent:       { bg: 'bg-orange-950/40',  text: 'text-orange-300',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" /> },
-  stop_driving: { bg: 'bg-red-950/40',     text: 'text-red-300',     icon: <XCircle className="h-4 w-4 text-red-400" /> },
+const URGENCY_CONFIG: Record<UrgencyLevel, { bg: string; text: string; icon: React.ReactNode; label: string }> = {
+  safe:         { bg: 'bg-emerald-950/40', text: 'text-emerald-300', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'Safe to Drive' },
+  monitor:      { bg: 'bg-amber-950/40',   text: 'text-amber-300',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'Monitor Closely' },
+  urgent:       { bg: 'bg-orange-950/40',  text: 'text-orange-300',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'See a Mechanic Soon' },
+  stop_driving: { bg: 'bg-red-950/40',     text: 'text-red-300',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'Stop Driving Immediately' },
 };
 
 const PROB_COLORS = { high: 'bg-red-900/50 text-red-300', medium: 'bg-amber-900/50 text-amber-300', low: 'bg-blue-900/50 text-blue-300' };
@@ -113,13 +112,13 @@ const PRIORITY_CONFIG = {
 
 function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
   const urg = URGENCY_CONFIG[diagnosis.urgency];
-  const hasCost = !!(diagnosis.estimated_repair_cost_ngn?.min || diagnosis.estimated_repair_cost_ngn?.max);
+  const hasCost = !!(diagnosis.estimated_repair_cost_usd?.min || diagnosis.estimated_repair_cost_usd?.max);
   const costStr = hasCost
-    ? (diagnosis.estimated_repair_cost_ngn.min && diagnosis.estimated_repair_cost_ngn.max
-        ? '₦' + diagnosis.estimated_repair_cost_ngn.min.toLocaleString() + ' – ₦' + diagnosis.estimated_repair_cost_ngn.max.toLocaleString()
-        : diagnosis.estimated_repair_cost_ngn.min
-        ? 'From ₦' + diagnosis.estimated_repair_cost_ngn.min.toLocaleString()
-        : 'Up to ₦' + (diagnosis.estimated_repair_cost_ngn.max?.toLocaleString() ?? ''))
+    ? (diagnosis.estimated_repair_cost_usd.min && diagnosis.estimated_repair_cost_usd.max
+        ? '$' + diagnosis.estimated_repair_cost_usd.min.toLocaleString() + ' – $' + diagnosis.estimated_repair_cost_usd.max.toLocaleString()
+        : diagnosis.estimated_repair_cost_usd.min
+        ? 'From $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
+        : 'Up to $' + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
     : null;
   const diyActions = (diagnosis.recommended_actions ?? []).filter(a => a.diy);
   const mechanicActions = (diagnosis.recommended_actions ?? []).filter(a => !a.diy);
@@ -130,7 +129,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
       <div className={`px-4 py-3 ${urg.bg}`} style={{ borderLeftWidth: 3, borderLeftColor: 'currentColor' }}>
         <div className="flex items-center gap-2 mb-1.5">
           {urg.icon}
-          <span className={`text-xs font-black uppercase tracking-widest ${urg.text}`}>{diagnosis.urgency_label}</span>
+          <span className={`text-xs font-black uppercase tracking-widest ${urg.text}`}>{urg.label}</span>
           {hasCost && costStr && <span className="ml-auto text-xs font-bold text-slate-300 bg-black/20 px-2.5 py-0.5 rounded-full">{costStr}</span>}
         </div>
         <p className="text-sm leading-relaxed text-slate-100">{diagnosis.summary}</p>
@@ -192,7 +191,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
           <div className="px-4 py-3.5">
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Repair cost estimate</p>
             <p className="text-lg font-black text-slate-100">{costStr}</p>
-            <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_ngn.note}</p>
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_usd.note}</p>
           </div>
         )}
 
