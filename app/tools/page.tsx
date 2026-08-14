@@ -4,8 +4,8 @@ import { Sparkles, ArrowRight } from 'lucide-react';
 import { TOOLS } from '@/lib/tools-list';
 
 export const metadata: Metadata = {
-  title: 'Automotive Tools | Naira Autos',
-  description: 'Free automotive tools and guides — import duty calculator, AI mechanic, auto loan calculator, VIN checker, fuel cost estimator, and more.',
+  title: 'Free Calculators & Diagnostic Resources | Naira Autos',
+  description: 'A handful of free calculators and diagnostic resources for car owners — import duty, AI mechanic, auto loan, VIN check, fuel cost, and more.',
   alternates: {
     canonical: 'https://www.naira.autos/tools',
     languages: {

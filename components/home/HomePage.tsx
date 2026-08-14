@@ -1,62 +1,39 @@
 import Link from 'next/link';
-import { TOOLS } from '@/lib/tools-list';
 import {
-  Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search,
-  Camera, Newspaper, ChevronRight, Zap, TrendingUp, ArrowUpRight,
-  Clock, Tag, ChevronDown,
+  Wrench, Calculator, Ship, Search, Camera, ChevronRight, ArrowUpRight,
+  Clock, ChevronDown, Settings, AlertTriangle, PackageSearch, FileCheck2,
 } from 'lucide-react';
 import { HomeFreshness } from './HomeFreshness';
 
-// ─── Tool definitions ──────────────────────────────────────────────────────
+// ─── Vehicle guides — real, published brand/model/year content ─────────────
+// Curated set covering all three guide types (maintenance, parts, problems)
+// across well-known models. Pulled from the live database, not placeholders.
 
-const FEATURED_TOOLS = [
-  {
-    href: '/evaluate-used-car',
-    icon: Camera,
-    label: 'AI Car Valuation',
-    description: 'Upload a photo, get market value in seconds',
-    badge: 'FREE',
-    accent: 'orange',
-  },
-  {
-    href: '/tools/ai-mechanic',
-    icon: Wrench,
-    label: 'AI Mechanic',
-    description: 'Diagnose any symptom with local cost estimates',
-    badge: 'FREE',
-    accent: 'green',
-  },
-  {
-    href: '/tools/import-duty-calculator',
-    icon: Ship,
-    label: 'Import Duty',
-    description: 'Full landed cost for any imported vehicle',
-    accent: 'blue',
-  },
-  {
-    href: '/tools/best-car-for',
-    icon: CarFront,
-    label: 'Best Car For Me',
-    description: 'Personalised picks by budget & use case',
-    accent: 'purple',
-  },
+const VEHICLE_GUIDES = [
+  { href: '/cars/toyota/corolla/2014-2019/maintenance', brand: 'Toyota', model: 'Corolla', years: '2014–2019', kind: 'Maintenance Schedule', icon: Settings },
+  { href: '/cars/honda/civic/2001-2005/problems',       brand: 'Honda',  model: 'Civic',   years: '2001–2005', kind: 'Common Problems',     icon: AlertTriangle },
+  { href: '/cars/toyota/rav4/2013-2018/parts',           brand: 'Toyota', model: 'RAV4',    years: '2013–2018', kind: 'Parts & Prices',       icon: PackageSearch },
+  { href: '/cars/bmw/3/1999-2006/maintenance',           brand: 'BMW',    model: '3 Series',years: '1999–2006', kind: 'Maintenance Schedule', icon: Settings },
+  { href: '/cars/nissan/altima/2002-2006/problems',      brand: 'Nissan', model: 'Altima',  years: '2002–2006', kind: 'Common Problems',     icon: AlertTriangle },
+  { href: '/cars/volkswagen/golf/2004-2008/parts',       brand: 'Volkswagen', model: 'Golf',years: '2004–2008', kind: 'Parts & Prices',       icon: PackageSearch },
 ];
 
-const CALC_TOOLS = [
-  { href: '/tools/auto-loan-calculator',        icon: Calculator,     label: 'Auto Loan Calculator',    description: 'Monthly repayment planner' },
-  { href: '/tools/fuel-cost-calculator',        icon: Fuel,           label: 'Fuel Cost Calculator',    description: 'Trip & monthly estimates' },
-  { href: '/tools/insurance-calculator',        icon: Shield,         label: 'Insurance Estimator',     description: 'Coverage cost by car type' },
-  { href: '/tools/registration-fee-calculator', icon: FileText,       label: 'Registration Fees',       description: 'State-by-state fee guide' },
-  { href: '/tools/road-trip-calculator',        icon: Map,            label: 'Road Trip Planner',       description: 'Route cost & fuel planner' },
+// ─── Document templates — real, published country-specific templates ───────
+
+const DOCUMENT_GUIDES = [
+  { href: '/documents/vehicle-bill-of-sale/ng',                 label: 'Vehicle Bill of Sale',        country: 'Nigeria',        flag: '🇳🇬' },
+  { href: '/documents/vehicle-bill-of-sale/us',                 label: 'Vehicle Bill of Sale',        country: 'United States',  flag: '🇺🇸' },
+  { href: '/documents/private-vehicle-sale-receipt-agreement/gb', label: 'Private Sale Agreement',    country: 'United Kingdom', flag: '🇬🇧' },
+  { href: '/documents/as-is-vehicle-sale-agreement/ca',         label: 'As-Is Sale Agreement',         country: 'Canada',         flag: '🇨🇦' },
 ];
 
-const RESEARCH_TOOLS = [
-  { href: '/tools/car-comparison',              icon: GitCompare,     label: 'Compare Cars',            description: 'Side-by-side specs & costs' },
-  { href: '/tools/vin-checker',                 icon: Search,         label: 'VIN Checker',             description: 'Full vehicle history report' },
-  { href: '/tools/vehicle-papers-checklist',    icon: ClipboardCheck, label: 'Papers Checklist',        description: 'All docs before you buy' },
-  { href: '/vehicles',                          icon: TrendingUp,     label: 'Market Prices',           description: 'Live prices by brand & model' },
-  { href: '/tools/glossary',                    icon: BookOpen,       label: 'Car Glossary',            description: 'Tokunbo, Grade A & more' },
+// ─── A handful of calculators — trimmed from the full set on /tools ────────
+
+const QUICK_CALCULATORS = [
+  { href: '/tools/ai-mechanic',                 icon: Wrench,     label: 'AI Mechanic',           description: 'Diagnose a symptom with cost estimates' },
+  { href: '/tools/import-duty-calculator',      icon: Ship,       label: 'Import Duty Calculator', description: 'Full landed cost for an imported car' },
+  { href: '/tools/auto-loan-calculator',        icon: Calculator, label: 'Auto Loan Calculator',   description: 'Monthly repayment planner' },
+  { href: '/tools/vin-checker',                 icon: Search,     label: 'VIN Checker',            description: 'Decode any vehicle identification number' },
 ];
 
 const BLOG_POSTS = [
@@ -119,29 +96,10 @@ const TAG_COLORS: Record<string, string> = {
   'Comparison':   'bg-orange-500/10 text-orange-600 dark:text-orange-400',
 };
 
-// ─── Accent config ─────────────────────────────────────────────────────────
-
-const ACCENT: Record<string, { card: string; icon: string; badge: string }> = {
-  orange: {
-    card:  'hover:border-orange-400/40 hover:bg-orange-500/[0.03]',
-    icon:  'text-orange-500',
-    badge: 'bg-orange-500/10 text-orange-500',
-  },
-  green: {
-    card:  'hover:border-emerald-400/40 hover:bg-emerald-500/[0.03]',
-    icon:  'text-emerald-500',
-    badge: 'bg-emerald-500/10 text-emerald-500',
-  },
-  blue: {
-    card:  'hover:border-sky-400/40 hover:bg-sky-500/[0.03]',
-    icon:  'text-sky-500',
-    badge: 'bg-sky-500/10 text-sky-500',
-  },
-  purple: {
-    card:  'hover:border-violet-400/40 hover:bg-violet-500/[0.03]',
-    icon:  'text-violet-500',
-    badge: 'bg-violet-500/10 text-violet-500',
-  },
+const GUIDE_KIND_COLOR: Record<string, string> = {
+  'Maintenance Schedule': 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  'Common Problems':      'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+  'Parts & Prices':       'bg-sky-500/10 text-sky-600 dark:text-sky-400',
 };
 
 // ─── Sub-components ────────────────────────────────────────────────────────
@@ -192,7 +150,7 @@ export function HomePage() {
             <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1">
               <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
               <span className="text-[11px] font-bold tracking-widest uppercase text-orange-600 dark:text-orange-400">
-                Your Car Intelligence Hub
+                Your Car Ownership Guide
               </span>
             </div>
             <Link href="/inicio" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors">
@@ -209,7 +167,7 @@ export function HomePage() {
               letterSpacing: '-0.01em',
             }}
           >
-            Every tool you need<br />
+            Everything about<br />
             <span
               className="relative inline-block"
               style={{
@@ -218,22 +176,22 @@ export function HomePage() {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              to own a car
+              owning a car
             </span>
           </h1>
 
           <p className="text-muted-foreground max-w-lg mb-8 leading-relaxed" style={{ fontSize: 'clamp(14px, 2vw, 17px)' }}>
-            Free calculators, AI diagnostics, duty costs, loan planners &amp; more —
-            all built for car buyers and owners everywhere.
+            Maintenance schedules, common problems, and parts guides by make and model,
+            ready-to-use document templates, and expert buying advice — for car owners everywhere.
           </p>
 
           {/* CTA row */}
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/tools"
+              href="/cars"
               className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold text-sm px-6 py-3 rounded-full transition-colors shadow-lg shadow-orange-500/20"
             >
-              Browse all tools
+              Explore vehicle guides
               <ChevronRight className="h-4 w-4" />
             </Link>
             <Link
@@ -248,8 +206,8 @@ export function HomePage() {
           {/* Stats strip */}
           <div className="flex flex-wrap gap-6 mt-10 pt-8 border-t border-border/60">
             {[
-              { value: `${TOOLS.length}+`, label: 'Free tools' },
-              { value: 'AI', label: 'Powered diagnostics' },
+              { value: '1,000+', label: 'Vehicle guides' },
+              { value: '160', label: 'Countries covered' },
               { value: '₦0', label: 'Always free' },
             ].map(({ value, label }) => (
               <div key={label} className="flex items-baseline gap-2">
@@ -263,61 +221,36 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── AI-Powered Spotlights ──────────────────────────────────────────── */}
+      {/* ── Vehicle Guides ───────────────────────────────────────────────── */}
       <section className="max-w-screen-xl mx-auto px-5 sm:px-8 pt-12">
-        <SectionLabel>AI-Powered Tools</SectionLabel>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {FEATURED_TOOLS.map(({ href, icon: Icon, label, description, badge, accent }) => {
-            const ac = ACCENT[accent] ?? ACCENT.orange;
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`group relative flex items-start gap-4 p-5 rounded-2xl border border-border bg-card ${ac.card} transition-all duration-200`}
-              >
-                <div className="shrink-0 w-11 h-11 rounded-xl bg-muted flex items-center justify-center">
-                  <Icon className={`h-5 w-5 ${ac.icon}`} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <p className="font-bold text-foreground text-sm">{label}</p>
-                    {badge && (
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider ${ac.badge}`}>
-                        {badge}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-snug">{description}</p>
-                </div>
-                <ArrowUpRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-orange-500 shrink-0 mt-0.5 transition-colors" />
-              </Link>
-            );
-          })}
+        <div className="flex items-end justify-between mb-5">
+          <SectionLabel>Maintenance, Parts &amp; Common Problems</SectionLabel>
+          <Link
+            href="/cars"
+            className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
+          >
+            All vehicle guides <ChevronRight className="h-3 w-3" />
+          </Link>
         </div>
-      </section>
-
-      <Divider />
-
-      {/* ── Calculators ───────────────────────────────────────────────────── */}
-      <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
-        <SectionLabel>Calculators</SectionLabel>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {CALC_TOOLS.map(({ href, icon: Icon, label, description }) => (
+          {VEHICLE_GUIDES.map(({ href, brand, model, years, kind, icon: Icon }) => (
             <Link
               key={href}
               href={href}
-              className="group flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-orange-400/40 hover:bg-orange-500/[0.03] transition-all duration-200"
+              className="group flex items-start gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-orange-400/40 hover:bg-orange-500/[0.03] transition-all duration-200"
             >
-              <div className="shrink-0 w-9 h-9 rounded-lg bg-muted flex items-center justify-center">
+              <div className="shrink-0 w-9 h-9 rounded-lg bg-muted flex items-center justify-center mt-0.5">
                 <Icon className="h-4 w-4 text-orange-500" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-foreground text-sm leading-tight">{label}</p>
-                <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{description}</p>
+                <p className="font-semibold text-foreground text-sm leading-tight">{brand} {model}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">{years}</p>
+                <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mt-1.5 ${GUIDE_KIND_COLOR[kind]}`}>
+                  {kind}
+                </span>
               </div>
-              <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-orange-500 shrink-0 transition-colors" />
+              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-orange-500 shrink-0 mt-1 transition-colors" />
             </Link>
           ))}
         </div>
@@ -325,25 +258,33 @@ export function HomePage() {
 
       <Divider />
 
-      {/* ── Research & Lookup ─────────────────────────────────────────────── */}
+      {/* ── Document Templates ───────────────────────────────────────────── */}
       <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
-        <SectionLabel>Research &amp; Lookup</SectionLabel>
+        <div className="flex items-end justify-between mb-5">
+          <SectionLabel>Document Templates</SectionLabel>
+          <Link
+            href="/documents"
+            className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
+          >
+            All templates <ChevronRight className="h-3 w-3" />
+          </Link>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {RESEARCH_TOOLS.map(({ href, icon: Icon, label, description }) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {DOCUMENT_GUIDES.map(({ href, label, country, flag }) => (
             <Link
               key={href}
               href={href}
-              className="group flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-sky-400/40 hover:bg-sky-500/[0.03] transition-all duration-200"
+              className="group flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-sky-400/40 hover:bg-sky-500/[0.03] transition-all duration-200"
             >
-              <div className="shrink-0 w-9 h-9 rounded-lg bg-muted flex items-center justify-center">
-                <Icon className="h-4 w-4 text-sky-500" />
+              <div className="shrink-0 w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-base">
+                {flag}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-foreground text-sm leading-tight">{label}</p>
-                <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{description}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">{country}</p>
               </div>
-              <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-sky-500 shrink-0 transition-colors" />
+              <FileCheck2 className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-sky-500 shrink-0 transition-colors" />
             </Link>
           ))}
         </div>
@@ -397,7 +338,7 @@ export function HomePage() {
           </div>
         </Link>
 
-        {/* Remaining posts — 2-col grid */}
+        {/* Remaining posts — grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {BLOG_POSTS.slice(1).map((post) => (
             <Link
@@ -437,40 +378,74 @@ export function HomePage() {
 
       <Divider />
 
+      {/* ── A few quick calculators ──────────────────────────────────────── */}
+      <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
+        <div className="flex items-end justify-between mb-5">
+          <SectionLabel>A Few Handy Calculators</SectionLabel>
+          <Link
+            href="/tools"
+            className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
+          >
+            See all <ChevronRight className="h-3 w-3" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {QUICK_CALCULATORS.map(({ href, icon: Icon, label, description }) => (
+            <Link
+              key={href}
+              href={href}
+              className="group flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-orange-400/40 hover:bg-orange-500/[0.03] transition-all duration-200"
+            >
+              <div className="shrink-0 w-9 h-9 rounded-lg bg-muted flex items-center justify-center">
+                <Icon className="h-4 w-4 text-orange-500" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-foreground text-sm leading-tight">{label}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{description}</p>
+              </div>
+              <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-orange-500 shrink-0 transition-colors" />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <Divider />
+
       {/* ── About / SEO content ──────────────────────────────────────────── */}
       <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
         <div className="max-w-3xl">
           <SectionLabel>About Naira Autos</SectionLabel>
           <h2 className="text-2xl sm:text-3xl font-black uppercase text-foreground leading-tight mb-5" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-            Free Tools to Buy, Own, and Maintain a Car
+            A Guide for Buying, Owning, and Maintaining a Car
           </h2>
           <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
             <p>
-              Naira Autos is a growing library of free, no-signup tools and calculators built around the specific questions car owners actually search for — what wiper blades fit my car, how much will import duty cost, what does this OBD-II code mean, is this VIN legitimate. Those questions look the same whether you&apos;re asking from Lagos, London, or Los Angeles, so most of what we build is designed to work the same way regardless of where you&apos;re driving, with guides that explain the &quot;why&quot; behind each number rather than just handing one back.
+              Naira Autos is a growing library of vehicle guides built around the specific questions car owners actually search for — what does this maintenance schedule look like, why does my car make this noise, what parts fit my specific model year, what documents do I need to sell a car legally where I live. We organise that by make, model, and year, so a guide is specific to your actual car rather than generic advice that might not apply to your trim or region.
             </p>
             <p>
-              Broadly, the tools cluster into a few groups. <strong className="text-foreground">AI-powered tools</strong> like the AI Mechanic and AI Document Generator interpret symptoms and answer open-ended questions a fixed calculator can&apos;t. <strong className="text-foreground">Calculators</strong> handle arithmetic that&apos;s easy to get wrong by hand — fuel cost and economy, loan repayments, import duty, registration fees — turning assumptions into a number you can budget against. <strong className="text-foreground">Research &amp; lookup tools</strong> — VIN checkers, the OBD-II code database, wiper blade and headlight bulb finders — exist for the moment you already have a car in front of you and need a fast, specific answer. This isn&apos;t a fixed list; we&apos;re adding new tools to the site regularly, and where a tool depends on rules or pricing specific to one country, we say so clearly rather than let you assume it applies everywhere.
+              The core of the site is <strong className="text-foreground">vehicle guides</strong> — maintenance schedules, common problems, and parts references organised by brand and model, so you can look up exactly what your specific car needs rather than sifting through advice written for a different generation or market. Alongside that is a growing set of <strong className="text-foreground">document templates</strong> covering vehicle sales, transfers, and other paperwork across 160 countries, each researched for the legal requirements of that specific jurisdiction rather than a single generic template. We also publish <strong className="text-foreground">buying guides and comparisons</strong> on the blog, and keep a small set of <strong className="text-foreground">calculators</strong> on hand for the arithmetic that's easy to get wrong by hand — import duty, loan repayments, fuel costs — for when a number matters more than an explanation.
             </p>
             <p>
-              That last point matters because the site is built to keep expanding rather than sit still. New tools go up most months, and the direction we&apos;re building in is global by default — a converter, a lookup, or a calculator gets built to work the same way no matter which country you&apos;re driving in unless the underlying rule genuinely is country-specific, like a customs duty rate or a registration fee schedule. So if a particular question you have isn&apos;t covered yet, it&apos;s worth checking back — the library you see today is a snapshot, not the finished product.
+              This isn't a fixed library — new vehicle guides and document templates go up regularly, and where a guide depends on rules or pricing specific to one country, we say so clearly rather than let you assume it applies everywhere. The direction we're building in is global by default: a guide gets written to work for its specific make, model, and market, with country-specific detail called out explicitly rather than assumed.
             </p>
             <p>
-              Everything here is free to use, with no account, paywall, or email capture required to get an answer. We keep the lights on through ads and our car marketplace, not by charging for tools — if you find one useful, the best way to support it is to come back and use another one, or to point someone else at it who&apos;s asking the same question you were.
+              Everything here is free to use, with no account, paywall, or email capture required to read a guide or fill in a document. We keep the lights on through advertising and our car marketplace, not by charging for content — if you find a guide useful, the best way to support it is to come back when you need the next one, or point someone else at it who's asking the same question you were.
             </p>
             <p>
-              We&apos;re also upfront about where the data behind each tool comes from and its limits. Reference figures like wiper blade lengths, headlight bulb codes, and OBD-II fault descriptions are drawn from widely documented manufacturer and industry standards for the common trim of each generation — genuinely useful as a starting point, but not a substitute for reading the code printed on your own bulb or measuring your own blade before you order a replacement, since higher trims and regional variants sometimes differ. Where a figure depends on something that changes often, like fuel prices or duty rates, we try to note that clearly in the tool itself rather than let a stale number sit unlabeled on the page.
+              We're upfront about where the information behind each guide comes from and its limits. Reference figures like maintenance intervals, part numbers, and common-fault patterns are drawn from widely documented manufacturer and industry data for the common trim of each generation — genuinely useful as a starting point, but not a substitute for checking your own owner's manual or the part on your own car, since higher trims and regional variants sometimes differ. Where a figure depends on something that changes often, like fuel prices or duty rates, we try to note that clearly rather than let a stale number sit unlabeled on the page.
             </p>
           </div>
         </div>
 
-        {/* Which tool should you use */}
+        {/* Where to start */}
         <div className="max-w-3xl mt-10">
           <h3 className="text-lg font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
             Not Sure Where to Start?
           </h3>
           <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
             <p>
-              A few starting points from the current lineup — new additions get their own spot here over time. If you&apos;re trying to work out what a car will actually cost to bring in and register, start with the <Link href="/tools/import-duty-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">import duty calculator</Link> and <Link href="/tools/registration-fee-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">registration fee calculator</Link>. If you&apos;re trying to figure out monthly running costs before you commit to a purchase, the <Link href="/tools/fuel-cost-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">fuel cost calculator</Link>, <Link href="/tools/fuel-economy-converter" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">fuel economy converter</Link>, and <Link href="/tools/auto-loan-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">auto loan calculator</Link> cover fuel and financing. If you already own the car and something&apos;s wrong with it, the <Link href="/tools/ai-mechanic" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI Mechanic</Link> and <Link href="/tools/obd-codes" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">OBD-II code lookup</Link> are the fastest way to a diagnosis, and the <Link href="/tools/wiper-blade-size-finder" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">wiper blade</Link> and <Link href="/tools/headlight-bulb-finder" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">headlight bulb</Link> finders get you the exact part number before you head to the counter. And if you&apos;re not sure a listing or a used car is what it claims to be, the <Link href="/tools/vin-checker" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">VIN checker</Link> and <Link href="/tools/vehicle-papers-checklist" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">vehicle papers checklist</Link> are built for exactly that kind of due diligence. The full, current set is always on the <Link href="/tools" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">tools page</Link>.
+              A few starting points from the current library — new additions get their own spot here over time. If you already own the car and want to know what it needs, search your make and model under <Link href="/cars" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">vehicle guides</Link> for its maintenance schedule, common problems, and parts reference. If you're buying or selling and need paperwork, browse <Link href="/documents" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">document templates</Link> for your country, or use the <Link href="/tools/document-generator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI document generator</Link> for something more specific. If you're trying to work out what a car will actually cost to bring in and register, start with the <Link href="/tools/import-duty-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">import duty calculator</Link> and <Link href="/tools/registration-fee-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">registration fee calculator</Link>. And if something's actively wrong with the car in front of you, the <Link href="/tools/ai-mechanic" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI Mechanic</Link> and <Link href="/tools/obd-codes" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">OBD-II code lookup</Link> are the fastest way to a diagnosis. The full current set of calculators is on the <Link href="/tools" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">calculators page</Link>.
             </p>
           </div>
         </div>
@@ -482,12 +457,12 @@ export function HomePage() {
           </h3>
           <div className="space-y-2">
             {[
-              { q: 'Is Naira Autos free to use?', a: 'Yes — every tool, calculator, and guide on the site is free with no signup or paywall. We support the site through ads and our car marketplace, not by charging for tools.' },
-              { q: 'Is Naira Autos only useful if I\'m in Nigeria?', a: 'No. Most tools — fuel economy conversion, wiper blade and headlight bulb lookups, OBD-II codes, the auto glossary, and more — are built to work the same way anywhere in the world. A smaller set are tied to Nigerian duty rates, registration fees, or currency, and those are labeled clearly so you\'re never guessing whether a number applies to your market.' },
-              { q: 'How accurate are the calculators and lookup tools?', a: 'We aim for accuracy based on publicly documented standards and manufacturer reference data, but vehicle specs vary by trim and region, so we always recommend double-checking anything safety-related (like bulb type or brake specs) against your owner\'s manual or the part you\'re replacing.' },
-              { q: 'Do I need to create an account to use a tool?', a: 'No account is required for any tool on the site. A few features tied to the marketplace side, like listing a car for sale, do require sign-in.' },
-              { q: 'Are you adding more tools?', a: 'Yes — new tools go up regularly, and most new additions are built to work globally first rather than for one market. The current full list always lives on the tools page.' },
-              { q: 'How often is the data on each tool updated?', a: 'Reference data like bulb and wiper sizes changes rarely, so we revisit it periodically as new models launch. Figures tied to prices, rates, or regulations are reviewed more frequently since those change on their own schedule, not ours.' },
+              { q: 'Is Naira Autos free to use?', a: 'Yes — every guide, document template, and calculator on the site is free with no signup or paywall. We support the site through advertising and our car marketplace, not by charging for content.' },
+              { q: 'Is Naira Autos only useful if I\'m in Nigeria?', a: 'No. Vehicle guides cover models sold worldwide, document templates cover 160 countries, and reference tools like the auto glossary and OBD-II code lookup work the same way anywhere. A smaller set of calculators are tied to Nigerian duty rates, registration fees, or currency, and those are labeled clearly so you\'re never guessing whether a number applies to your market.' },
+              { q: 'How accurate are the vehicle guides and calculators?', a: 'We aim for accuracy based on publicly documented standards and manufacturer reference data, but vehicle specs vary by trim and region, so we always recommend double-checking anything safety-related against your owner\'s manual or the part you\'re replacing.' },
+              { q: 'Do I need to create an account to use the site?', a: 'No account is required to read a guide, fill in a document, or use a calculator. A few features tied to the marketplace side, like listing a car for sale, do require sign-in.' },
+              { q: 'Are you adding more guides and templates?', a: 'Yes — new vehicle guides and document templates go up regularly, and most new additions are built to work globally first rather than for one market.' },
+              { q: 'How often is the data on each guide updated?', a: 'Reference data like maintenance intervals and part numbers changes rarely, so we revisit it periodically as new models launch. Figures tied to prices, rates, or regulations are reviewed more frequently since those change on their own schedule, not ours.' },
             ].map(({ q, a }) => (
               <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                 <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
