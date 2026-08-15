@@ -96,6 +96,21 @@ const nextConfig = {
       { source: '/cars/honda/accord/parts/accord-parts-2013-2022', destination: '/cars/honda/accord/2013-2022/parts', permanent: true },
     ];
 
+    // Document template duplicates merged into a single canonical slug
+    // (same document type + country, previously split across two rows in
+    // document_templates — richer content kept under the shorter slug,
+    // duplicate row deleted). Redirect both /documents (en) and /plantillas
+    // (es) so old links/rankings land on the surviving page instead of 404.
+    const mergedDocumentTemplateRedirects = [
+      ['hire-purchase-agreement-motor-vehicle', 'hire-purchase-agreement', 'ng'],
+      ['vehicle-sales-agreement-ethiopia', 'vehicle-sales-agreement', 'et'],
+      ['vehicle-sale-warranty-transfer-agreement', 'vehicle-sale-and-warranty-transfer-agreement', 'ng'],
+      ['vehicle-sale-contract-qa', 'vehicle-sale-contract', 'qa'],
+    ].flatMap(([oldSlug, newSlug, country]) => [
+      { source: `/documents/${oldSlug}/${country}`, destination: `/documents/${newSlug}/${country}`, permanent: true },
+      { source: `/plantillas/${oldSlug}/${country}`, destination: `/plantillas/${newSlug}/${country}`, permanent: true },
+    ]);
+
     // Wildcard catch-all for any future /listing/* and /seller/* not listed above
     const wildcardRedirects = [
       { source: '/listing/:slug*', destination: '/', permanent: true },
@@ -109,6 +124,7 @@ const nextConfig = {
       ...listingRedirects,
       ...sellerRedirects,
       ...legacyVehicleContentRedirects,
+      ...mergedDocumentTemplateRedirects,
       ...wildcardRedirects,
     ];
   },

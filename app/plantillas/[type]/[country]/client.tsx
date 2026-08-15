@@ -136,10 +136,17 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
               resetLabel="Editar Datos"
             />
 
-            {/* Contenido SEO */}
+            {/* Contenido SEO — párrafos reales, no un solo bloque */}
             {template.seo_intro && (
-              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
-                <p>{template.seo_intro}</p>
+              <div className="border-t border-border pt-6 space-y-4">
+                <h2 className="text-lg font-semibold text-foreground">
+                  Sobre esta Plantilla de {docType.label}
+                </h2>
+                <div className="prose-sm text-foreground/80 leading-relaxed space-y-4">
+                  {template.seo_intro.split(/\n{2,}/).map((para, i) => (
+                    <p key={i}>{para.trim()}</p>
+                  ))}
+                </div>
               </div>
             )}
           </>
