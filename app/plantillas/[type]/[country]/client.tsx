@@ -18,10 +18,33 @@ interface TemplateDocumentClientEsProps {
   docCountry: DocumentCountryDef;
 }
 
+// Deterministic token-fill — same helper used for both the placeholder
+// preview and the user-filled result, just called with different args.
+function buildDoc(
+  template: DocumentTemplateRow,
+  values: Record<string, string>,
+  usePlaceholders: boolean
+): GeneratedDocument {
+  const filled = fillTemplate(template, values, template.fields, usePlaceholders);
+  return {
+    title: filled.title,
+    intro: filled.intro,
+    sections: filled.sections,
+    signatures: template.signatures,
+  };
+}
+
 export default function TemplateDocumentClientEs({ template, docType, docCountry }: TemplateDocumentClientEsProps) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [usePlaceholders, setUsePlaceholders] = useState(false);
-  const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument | null>(null);
+  // The document is always rendered — it starts out placeholder-filled so
+  // the first thing a visitor (and Google) sees is a complete preview, not
+  // an empty form. `showForm` toggles the field form in and out; it never
+  // gates whether a document is shown.
+  const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument>(
+    () => buildDoc(template, {}, true)
+  );
+  const [showForm, setShowForm] = useState(false);
 
   const isHighRisk = HIGH_RISK_DOCUMENT_TYPES.has(docType.slug);
 
@@ -33,14 +56,9 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
   const missingRequired = !usePlaceholders && template.fields.some(f => f.required && !values[f.id]?.trim());
 
   const handleFill = () => {
-    const filled = fillTemplate(template, values, template.fields, usePlaceholders);
-    const doc: GeneratedDocument = {
-      title: filled.title,
-      intro: filled.intro,
-      sections: filled.sections,
-      signatures: template.signatures,
-    };
+    const doc = buildDoc(template, values, usePlaceholders);
     setGeneratedDocument(doc);
+    setShowForm(false);
     saveToHistory({
       source: 'template',
       documentTypeSlug: docType.slug,
@@ -52,10 +70,10 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
     });
   };
 
-  const handleReset = () => {
-    setGeneratedDocument(null);
+  const handleShowForm = () => {
     setValues({});
     setUsePlaceholders(false);
+    setShowForm(true);
   };
 
   return (
@@ -84,30 +102,60 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
           </Link>
         </div>
 
-        {!generatedDocument && (
-          <>
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <FileCheck2 className="h-4 w-4 text-sky-500" />
-                <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Plantilla Gratis · Sin Registro</span>
-                <Link href={`/documents/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
-                  Read in English →
-                </Link>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                Plantilla de {docType.label} — {docCountry.flag} {docCountry.name}
-              </h1>
-            </div>
+        {/* Encabezado — visible tanto en la vista previa como en el formulario */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <FileCheck2 className="h-4 w-4 text-sky-500" />
+            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Plantilla Gratis · Sin Registro</span>
+            <Link href={`/documents/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
+              Read in English →
+            </Link>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+            Plantilla de {docType.label} — {docCountry.flag} {docCountry.name}
+          </h1>
+        </div>
 
-            {template.legal_note && (
-              <div className="bg-sky-500/10 border border-sky-500/30 text-sky-700 dark:text-sky-400 rounded-lg px-4 py-3 text-sm">
-                {template.legal_note}
+        {template.legal_note && (
+          <div className="bg-sky-500/10 border border-sky-500/30 text-sky-700 dark:text-sky-400 rounded-lg px-4 py-3 text-sm">
+            {template.legal_note}
+          </div>
+        )}
+
+        <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
+
+        {/* ── Vista previa: rellenada con datos de ejemplo por defecto, o el documento propio del usuario. Editable en línea. ── */}
+        {!showForm && (
+          <>
+            <DocumentEditorEs
+              document={generatedDocument}
+              onChange={setGeneratedDocument}
+              isHighRisk={isHighRisk}
+              fileNamePrefix={docType.label}
+              onReset={handleShowForm}
+              resetLabel="Editar Datos"
+            />
+
+            {/* Contenido SEO */}
+            {template.seo_intro && (
+              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
+                <p>{template.seo_intro}</p>
               </div>
             )}
+          </>
+        )}
 
-            <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
+        {/* ── Formulario para llenar ── */}
+        {showForm && (
+          <>
+            <button
+              onClick={() => setShowForm(false)}
+              className="no-print flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Volver a la vista previa
+            </button>
 
-            {/* Formulario para llenar */}
             <div className="bg-card border border-border rounded-xl p-5 space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold text-foreground">Llena tus datos</h2>
@@ -166,25 +214,7 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
                 Llenar Documento
               </button>
             </div>
-
-            {/* Contenido SEO — debajo del formulario */}
-            {template.seo_intro && (
-              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
-                <p>{template.seo_intro}</p>
-              </div>
-            )}
           </>
-        )}
-
-        {generatedDocument && (
-          <DocumentEditorEs
-            document={generatedDocument}
-            onChange={setGeneratedDocument}
-            isHighRisk={isHighRisk}
-            fileNamePrefix={docType.label}
-            onReset={handleReset}
-            resetLabel="Editar Datos de Nuevo"
-          />
         )}
       </div>
     </div>

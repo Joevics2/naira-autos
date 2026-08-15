@@ -18,10 +18,33 @@ interface TemplateDocumentClientProps {
   docCountry: DocumentCountryDef;
 }
 
+// Deterministic token-fill — same helper used for both the placeholder
+// preview and the user-filled result, just called with different args.
+function buildDoc(
+  template: DocumentTemplateRow,
+  values: Record<string, string>,
+  usePlaceholders: boolean
+): GeneratedDocument {
+  const filled = fillTemplate(template, values, template.fields, usePlaceholders);
+  return {
+    title: filled.title,
+    intro: filled.intro,
+    sections: filled.sections,
+    signatures: template.signatures,
+  };
+}
+
 export default function TemplateDocumentClient({ template, docType, docCountry }: TemplateDocumentClientProps) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [usePlaceholders, setUsePlaceholders] = useState(false);
-  const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument | null>(null);
+  // The document is always rendered — it starts out placeholder-filled so
+  // the first thing a visitor (and Google) sees is a complete preview, not
+  // an empty form. `showForm` toggles the field form in and out; it never
+  // gates whether a document is shown.
+  const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument>(
+    () => buildDoc(template, {}, true)
+  );
+  const [showForm, setShowForm] = useState(false);
 
   const isHighRisk = HIGH_RISK_DOCUMENT_TYPES.has(docType.slug);
 
@@ -33,14 +56,9 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
   const missingRequired = !usePlaceholders && template.fields.some(f => f.required && !values[f.id]?.trim());
 
   const handleFill = () => {
-    const filled = fillTemplate(template, values, template.fields, usePlaceholders);
-    const doc: GeneratedDocument = {
-      title: filled.title,
-      intro: filled.intro,
-      sections: filled.sections,
-      signatures: template.signatures,
-    };
+    const doc = buildDoc(template, values, usePlaceholders);
     setGeneratedDocument(doc);
+    setShowForm(false);
     saveToHistory({
       source: 'template',
       documentTypeSlug: docType.slug,
@@ -52,10 +70,10 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
     });
   };
 
-  const handleReset = () => {
-    setGeneratedDocument(null);
+  const handleShowForm = () => {
     setValues({});
     setUsePlaceholders(false);
+    setShowForm(true);
   };
 
   return (
@@ -84,30 +102,60 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
           </Link>
         </div>
 
-        {!generatedDocument && (
-          <>
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <FileCheck2 className="h-4 w-4 text-sky-500" />
-                <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
-                <Link href={`/plantillas/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
-                  Leer en Español →
-                </Link>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                {docType.label} Template — {docCountry.flag} {docCountry.name}
-              </h1>
-            </div>
+        {/* Header — shown on both the preview and the form */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <FileCheck2 className="h-4 w-4 text-sky-500" />
+            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
+            <Link href={`/plantillas/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
+              Leer en Español →
+            </Link>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+            {docType.label} Template — {docCountry.flag} {docCountry.name}
+          </h1>
+        </div>
 
-            {template.legal_note && (
-              <div className="bg-sky-500/10 border border-sky-500/30 text-sky-700 dark:text-sky-400 rounded-lg px-4 py-3 text-sm">
-                {template.legal_note}
+        {template.legal_note && (
+          <div className="bg-sky-500/10 border border-sky-500/30 text-sky-700 dark:text-sky-400 rounded-lg px-4 py-3 text-sm">
+            {template.legal_note}
+          </div>
+        )}
+
+        <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
+
+        {/* ── Preview: placeholder-filled by default, or the user's own filled document. Fully editable inline. ── */}
+        {!showForm && (
+          <>
+            <DocumentEditor
+              document={generatedDocument}
+              onChange={setGeneratedDocument}
+              isHighRisk={isHighRisk}
+              fileNamePrefix={docType.label}
+              onReset={handleShowForm}
+              resetLabel="Edit Details"
+            />
+
+            {/* SEO article content */}
+            {template.seo_intro && (
+              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
+                <p>{template.seo_intro}</p>
               </div>
             )}
+          </>
+        )}
 
-            <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
+        {/* ── Fill-in form ── */}
+        {showForm && (
+          <>
+            <button
+              onClick={() => setShowForm(false)}
+              className="no-print flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to preview
+            </button>
 
-            {/* Fill-in form */}
             <div className="bg-card border border-border rounded-xl p-5 space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold text-foreground">Fill in your details</h2>
@@ -166,25 +214,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
                 Fill Document
               </button>
             </div>
-
-            {/* SEO article content — moved below the form */}
-            {template.seo_intro && (
-              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
-                <p>{template.seo_intro}</p>
-              </div>
-            )}
           </>
-        )}
-
-        {generatedDocument && (
-          <DocumentEditor
-            document={generatedDocument}
-            onChange={setGeneratedDocument}
-            isHighRisk={isHighRisk}
-            fileNamePrefix={docType.label}
-            onReset={handleReset}
-            resetLabel="Edit Details Again"
-          />
         )}
       </div>
     </div>
