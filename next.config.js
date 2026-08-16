@@ -6,7 +6,6 @@ const nextConfig = {
   images: { unoptimized: true },
 
   async redirects() {
-  async redirects() {
     // Document template duplicates merged into a single canonical slug
     // (same document type + country, previously split across two rows in
     // document_templates — richer content kept under the shorter slug,
