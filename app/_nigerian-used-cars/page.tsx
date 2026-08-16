@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { getNigerianUsedCars } from '@/lib/listing-cache';
 import ListingsGrid from '@/components/listinggrid/listinggrid';
 
-const BASE_URL = 'https://naira.autos';
+const BASE_URL = 'https://www.naira.autos';
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'Nigerian Used Cars for Sale in Nigeria | Fairly Used Cars | Naira Autos';

@@ -1,11 +1,11 @@
 // File: app/sitemap-listings.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-listings.xml
+// Accessible at: https://www.naira.autos/sitemap-listings.xml
 // Slug format: /{year}-{brand}-{model}-{id} e.g. /listing/2000-toyota-dyna-578849b2-3b3d-4dcc-9b79-fae129640416
 
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
-const siteUrl = 'https://naira.autos';
+const siteUrl = 'https://www.naira.autos';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600;

@@ -1,5 +1,5 @@
 // File: app/sitemap-obd-codes.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-obd-codes.xml
+// Accessible at: https://www.naira.autos/sitemap-obd-codes.xml
 
 import { NextResponse } from 'next/server';
 import { getObdCodesSitemapEntries } from '@/lib/obd-codes';

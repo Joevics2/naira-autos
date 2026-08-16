@@ -1,5 +1,5 @@
 // File: app/sitemap-static.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-static.xml
+// Accessible at: https://www.naira.autos/sitemap-static.xml
 
 import { NextResponse } from 'next/server';
 

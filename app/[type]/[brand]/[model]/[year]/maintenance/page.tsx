@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const label = `${data.brand_name} ${data.model_name} ${data.year}`;
   const title = data.meta_title ?? `${label} Maintenance Schedule | Naira Autos`;
   const desc  = data.meta_description ?? `Factory-recommended maintenance schedule for the ${label} — service intervals, fluids, filters, and what to check.`;
-  const url   = `https://naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/maintenance`;
+  const url   = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/maintenance`;
   return {
     title, description: desc,
     alternates: { canonical: url },
@@ -117,7 +117,7 @@ export default async function MaintenancePage({ params }: { params: Params }) {
           '@type': 'Article',
           headline: `${carLabel} Maintenance Schedule`,
           description: `Factory-recommended maintenance schedule for the ${carLabel}.`,
-          publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://naira.autos' },
+          publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
         })}}
       />
 

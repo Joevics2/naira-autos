@@ -17,17 +17,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Naira Autos - Free Car Tools & Guides',
     description: 'Every tool you need to buy, own, and maintain a car — all free, accessible worldwide.',
-    url: 'https://naira.autos',
+    url: 'https://www.naira.autos',
     siteName: 'Naira Autos',
     locale: 'en_NG',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://naira.autos/',
+    canonical: 'https://www.naira.autos/',
     languages: {
-      en: 'https://naira.autos/',
+      en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
-      'x-default': 'https://naira.autos/',
+      'x-default': 'https://www.naira.autos/',
     },
   },
 };
@@ -38,13 +38,13 @@ export default function Home() {
     '@type': 'WebSite',
     name: 'Naira Autos',
     description: 'Free automotive tools and guides — import duty, AI mechanic, loan calculator, VIN checker, and more',
-    url: 'https://naira.autos',
+    url: 'https://www.naira.autos',
     publisher: {
       '@type': 'Organization',
       name: 'Naira Autos',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://naira.autos/logo.png',
+        url: 'https://www.naira.autos/logo.png',
       },
     },
   };

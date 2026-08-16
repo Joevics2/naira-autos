@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const label = `${data.brand_name} ${data.model_name} ${data.year}`;
   const title = data.meta_title ?? `${label} Common Problems & Issues | Naira Autos`;
   const desc  = data.meta_description ?? `Known problems, common issues and owner's advice for the ${label}. What to check before buying.`;
-  const url   = `https://naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/problems`;
+  const url   = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/problems`;
   return {
     title, description: desc,
     alternates: { canonical: url },
@@ -98,7 +98,7 @@ export default async function ProblemsPage({ params }: { params: Params }) {
           '@type': 'Article',
           headline: `${carLabel} Common Problems & Issues`,
           description: `Known problems and issues for the ${carLabel}.`,
-          publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://naira.autos' },
+          publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
         })}}
       />
 

@@ -125,7 +125,7 @@ export async function uploadVideoToYouTube(listing: {
             listing.description || '',
             '',
             '✅ Verified listing on naira.autos',
-            `🔗 https://naira.autos/listing/${listing.id}`,
+            `🔗 https://www.naira.autos/listing/${listing.id}`,
           ].join('\n'),
           tags: [
             'naira.autos',

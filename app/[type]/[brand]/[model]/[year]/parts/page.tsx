@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const label = `${data.brand_name} ${data.model_name} ${data.year}`;
   const title = data.meta_title ?? `${label} Spare Parts & Prices | Naira Autos`;
   const desc  = data.meta_description ?? `Spare parts prices and availability for the ${label}. Engine, brakes, suspension, filters and more.`;
-  const url   = `https://naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/parts`;
+  const url   = `https://www.naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/parts`;
   return {
     title, description: desc,
     alternates: { canonical: url },
@@ -106,7 +106,7 @@ export default async function PartsPage({ params }: { params: Params }) {
           '@type': 'Article',
           headline: `${carLabel} Spare Parts & Pricing Guide`,
           description: `Spare parts prices and availability for the ${carLabel}.`,
-          publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://naira.autos' },
+          publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
         })}}
       />
 

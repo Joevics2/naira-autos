@@ -1,5 +1,5 @@
 // File: app/sitemap-blogs.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-blogs.xml
+// Accessible at: https://www.naira.autos/sitemap-blogs.xml
 
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';

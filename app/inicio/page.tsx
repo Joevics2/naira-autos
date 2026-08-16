@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.naira.autos/inicio',
     languages: {
-      en: 'https://naira.autos/',
+      en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
-      'x-default': 'https://naira.autos/',
+      'x-default': 'https://www.naira.autos/',
     },
   },
 };
@@ -54,7 +54,7 @@ const SCHEMA = {
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
-    logo: { '@type': 'ImageObject', url: 'https://naira.autos/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.naira.autos/logo.png' },
   },
 };
 

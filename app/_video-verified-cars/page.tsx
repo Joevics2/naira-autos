@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { getVideoVerifiedCars } from '@/lib/listing-cache';
 import ListingsGrid from '@/components/listinggrid/listinggrid';
 
-const BASE_URL = 'https://naira.autos';
+const BASE_URL = 'https://www.naira.autos';
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'Video Verified Cars for Sale in Nigeria | Cars with Video Tours | Naira Autos';

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   alternates: {
-    canonical: 'https://naira.autos/sell-for-me',
+    canonical: 'https://www.naira.autos/sell-for-me',
   },
 };
 

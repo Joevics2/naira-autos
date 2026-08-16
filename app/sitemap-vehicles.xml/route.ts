@@ -1,5 +1,5 @@
 // File: app/sitemap-vehicles.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-vehicles.xml
+// Accessible at: https://www.naira.autos/sitemap-vehicles.xml
 //
 // Builds every reachable vehicle URL directly from vehicle_parts /
 // vehicle_problems / vehicle_maintenance (the source of truth for what's

@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     title: 'Free AI Car Valuation — What Is Your Car Worth?',
     description:
       'AI-powered used car valuation in your own currency, covering 50+ countries. Upload a photo and get an instant estimate. 100% free.',
-    url: 'https://naira.autos/evaluate-used-car',
+    url: 'https://www.naira.autos/evaluate-used-car',
     siteName: 'Naira Autos',
     locale: 'en_US',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://naira.autos/evaluate-used-car',
+    canonical: 'https://www.naira.autos/evaluate-used-car',
     languages: {
       en: 'https://www.naira.autos/evaluate-used-car',
       es: 'https://www.naira.autos/cuanto-vale-mi-auto',
@@ -47,7 +47,7 @@ const jsonLd = {
   name: 'Free AI Car Valuation Worldwide',
   description:
     'Free AI-powered car valuation tool. Instant used-car price estimate in your own currency, calibrated to your country\'s market across 50+ supported countries.',
-  url: 'https://naira.autos/evaluate-used-car',
+  url: 'https://www.naira.autos/evaluate-used-car',
   dateModified: '2026-07-24',
   mainEntity: {
     '@type': 'SoftwareApplication',
@@ -64,9 +64,9 @@ const jsonLd = {
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://naira.autos' },
-      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://naira.autos/tools' },
-      { '@type': 'ListItem', position: 3, name: 'AI Car Valuation', item: 'https://naira.autos/evaluate-used-car' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+      { '@type': 'ListItem', position: 3, name: 'AI Car Valuation', item: 'https://www.naira.autos/evaluate-used-car' },
     ],
   },
   faqPage: {

@@ -5,17 +5,17 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://naira.autos/sell-for-me',
-      url: 'https://naira.autos/sell-for-me',
+      '@id': 'https://www.naira.autos/sell-for-me',
+      url: 'https://www.naira.autos/sell-for-me',
       name: 'Sell or Find Your Car in Nigeria | Naira Autos Concierge',
       description:
         'Sell your car hassle-free in Nigeria — we market it, screen buyers, and you pay only after it sells. Or let us find your next car: we verify the vehicle and the seller before sending you.',
       inLanguage: 'en-NG',
-      isPartOf: { '@id': 'https://naira.autos' },
+      isPartOf: { '@id': 'https://www.naira.autos' },
     },
     {
       '@type': 'Service',
-      '@id': 'https://naira.autos/sell-for-me#sell-service',
+      '@id': 'https://www.naira.autos/sell-for-me#sell-service',
       name: 'Sell For Me',
       serviceType: 'Car Sales Concierge',
       description:
@@ -23,7 +23,7 @@ const jsonLd = {
       provider: {
         '@type': 'LocalBusiness',
         name: 'Naira Autos',
-        url: 'https://naira.autos',
+        url: 'https://www.naira.autos',
         telephone: '+2349032047288',
         address: {
           '@type': 'PostalAddress',
@@ -46,7 +46,7 @@ const jsonLd = {
     },
     {
       '@type': 'Service',
-      '@id': 'https://naira.autos/sell-for-me#find-service',
+      '@id': 'https://www.naira.autos/sell-for-me#find-service',
       name: 'Find For Me',
       serviceType: 'Car Buying Concierge',
       description:
@@ -54,7 +54,7 @@ const jsonLd = {
       provider: {
         '@type': 'LocalBusiness',
         name: 'Naira Autos',
-        url: 'https://naira.autos',
+        url: 'https://www.naira.autos',
         telephone: '+2349032047288',
       },
       areaServed: { '@type': 'Country', name: 'Nigeria' },

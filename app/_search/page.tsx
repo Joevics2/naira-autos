@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import SearchClient from './SearchClient';
 
-const BASE_URL = 'https://naira.autos';
+const BASE_URL = 'https://www.naira.autos';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { supabase } from '@/lib/supabase';
 import DealersClient from './DealersClient';
 
-const BASE_URL = 'https://naira.autos';
+const BASE_URL = 'https://www.naira.autos';
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'Car Dealers in Nigeria | Verified Car Dealers | Naira Autos';

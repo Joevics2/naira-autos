@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { getDistressSales } from '@/lib/listing-cache';
 import ListingsGrid from '@/components/listinggrid/listinggrid';
 
-const BASE_URL = 'https://naira.autos';
+const BASE_URL = 'https://www.naira.autos';
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'Distress Car Sales in Nigeria | Urgent Car Sales | Naira Autos';

@@ -31,6 +31,7 @@ type BlogPost = {
 export default function GuidesPage() {
   const [guides, setGuides]   = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallbackToAll, setFallbackToAll] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -41,7 +42,23 @@ export default function GuidesPage() {
           .eq('published', true)
           .in('category', GUIDE_CATEGORIES)
           .order('created_at', { ascending: false });
-        setGuides((data as BlogPost[]) || []);
+
+        if (data && data.length > 0) {
+          setGuides(data as BlogPost[]);
+        } else {
+          // No posts tagged into the guide-specific categories yet —
+          // rather than dead-ending on an empty "coming soon" page, show
+          // the most recent published posts generally. Avoids ever
+          // serving a visitor (or a crawler) a page with no real content.
+          const { data: recent } = await supabase
+            .from('blog_posts')
+            .select('id, title, slug, excerpt, featured_image, category, created_at')
+            .eq('published', true)
+            .order('created_at', { ascending: false })
+            .limit(12);
+          setGuides((recent as BlogPost[]) || []);
+          setFallbackToAll(true);
+        }
       } catch (e) {
         console.error(e);
       } finally {
@@ -87,13 +104,16 @@ export default function GuidesPage() {
         </div>
       ) : guides.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-muted-foreground text-sm mb-4">Guides coming soon.</p>
+          <p className="text-muted-foreground text-sm mb-4">No articles published yet — check back soon.</p>
           <Link href="/blog" className="text-sm font-medium text-foreground underline underline-offset-2">
             Browse all blog posts
           </Link>
         </div>
       ) : (
         <div className="space-y-4">
+          {fallbackToAll && (
+            <p className="text-xs text-muted-foreground -mt-2 mb-2">Showing recent articles from the blog.</p>
+          )}
           {guides.map(post => {
             const image = post.featured_image || getBlogFallbackImage(post.slug);
             const date  = new Date(post.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' });

@@ -8,7 +8,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Footer } from '@/components/layout/Footer';
 import { CookieBanner } from '@/components/CookieBanner';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naira.autos';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.naira.autos';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

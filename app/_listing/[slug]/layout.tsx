@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
       ],
       type: 'website',
-      url: `https://naira.autos/listing/${listingSlug}`,
+      url: `https://www.naira.autos/listing/${listingSlug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [imageUrl],
     },
     alternates: {
-      canonical: `https://naira.autos/listing/${listingSlug}`,
+      canonical: `https://www.naira.autos/listing/${listingSlug}`,
     },
   };
 }

@@ -1,10 +1,10 @@
 // File: app/sitemap-sellers.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-sellers.xml
+// Accessible at: https://www.naira.autos/sitemap-sellers.xml
 
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
-const siteUrl = 'https://naira.autos';
+const siteUrl = 'https://www.naira.autos';
 const SELLERS_PER_SITEMAP = 500;
 
 export const revalidate = 86400;

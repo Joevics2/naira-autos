@@ -1,9 +1,9 @@
 // File: app/sitemap-search.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-search.xml
+// Accessible at: https://www.naira.autos/sitemap-search.xml
 
 import { NextResponse } from 'next/server';
 
-const siteUrl = 'https://naira.autos';
+const siteUrl = 'https://www.naira.autos';
 
 export const revalidate = 86400;
 

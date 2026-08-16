@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const firstImage = listing.images?.[0] ?? '/og-image.png';
   const location = [listing.location_lga, listing.location_state ?? 'Nigeria'].filter(Boolean).join(', ');
-  const canonical = `https://naira.autos/listing/${buildListingSlug(listing)}`;
+  const canonical = `https://www.naira.autos/listing/${buildListingSlug(listing)}`;
   const conditionLabel = listing.condition === 'brand_new' ? 'Brand New' : listing.condition === 'foreign_used' ? 'Foreign Used' : 'Nigerian Used';
   const title = `${listing.year} ${listing.brand} ${listing.model} for Sale in ${location} | Naira Autos`;
   const description = `Buy this ${listing.year} ${listing.brand} ${listing.model} (${conditionLabel}) in ${location}. ${listing.transmission ? listing.transmission + ' transmission. ' : ''}${listing.mileage ? listing.mileage.toLocaleString() + ' km. ' : ''}Price: ₦${listing.price.toLocaleString()}. ${listing.description ? listing.description.slice(0, 100) + '...' : ''}`;
@@ -91,7 +91,7 @@ export default async function ListingDetailPage({ params }: Props) {
   if (!listing) notFound();
 
   const location = [listing.city_area, listing.location_lga, listing.location_state].filter(Boolean).join(', ');
-  const canonical = `https://naira.autos/listing/${buildListingSlug(listing)}`;
+  const canonical = `https://www.naira.autos/listing/${buildListingSlug(listing)}`;
   const firstImage = listing.images?.[0] ?? '/og-image.png';
   const conditionLabel = listing.condition === 'brand_new' ? 'Brand New' : listing.condition === 'foreign_used' ? 'Foreign Used' : 'Nigerian Used';
 
@@ -152,7 +152,7 @@ export default async function ListingDetailPage({ params }: Props) {
             publisher: {
               '@type': 'Organization',
               name: 'Naira Autos',
-              logo: { '@type': 'ImageObject', url: 'https://naira.autos/logo.png' },
+              logo: { '@type': 'ImageObject', url: 'https://www.naira.autos/logo.png' },
             },
           },
         }
@@ -168,9 +168,9 @@ export default async function ListingDetailPage({ params }: Props) {
     '@type': 'BreadcrumbList',
     '@id': `${canonical}#breadcrumb`,
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home',   item: 'https://naira.autos' },
-      { '@type': 'ListItem', position: 2, name: 'Search', item: 'https://naira.autos/search' },
-      { '@type': 'ListItem', position: 3, name: listing.brand, item: `https://naira.autos/search?brand=${encodeURIComponent(listing.brand)}` },
+      { '@type': 'ListItem', position: 1, name: 'Home',   item: 'https://www.naira.autos' },
+      { '@type': 'ListItem', position: 2, name: 'Search', item: 'https://www.naira.autos/search' },
+      { '@type': 'ListItem', position: 3, name: listing.brand, item: `https://www.naira.autos/search?brand=${encodeURIComponent(listing.brand)}` },
       { '@type': 'ListItem', position: 4, name: `${listing.year} ${listing.brand} ${listing.model}`, item: canonical },
     ],
   };
@@ -247,8 +247,8 @@ export default async function ListingDetailPage({ params }: Props) {
     publisher: {
       '@type': 'Organization',
       name: 'Naira Autos',
-      url: 'https://naira.autos',
-      logo: { '@type': 'ImageObject', url: 'https://naira.autos/logo.png' },
+      url: 'https://www.naira.autos',
+      logo: { '@type': 'ImageObject', url: 'https://www.naira.autos/logo.png' },
     },
   };
 

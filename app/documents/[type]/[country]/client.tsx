@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, Home, FileCheck2, Wand2, History } from 'lucide-react';
 import { DocumentTemplateRow, fillTemplate } from '@/lib/document-templates-data';
@@ -18,12 +18,26 @@ interface TemplateDocumentClientProps {
   docCountry: DocumentCountryDef;
 }
 
+type View = 'preview' | 'form' | 'generated';
+
 export default function TemplateDocumentClient({ template, docType, docCountry }: TemplateDocumentClientProps) {
+  // Page 1 (default, what Google/first-time visitors see) is a fully
+  // filled-out placeholder preview of the actual document — real,
+  // substantive content instead of a blank form. "Edit" moves to the
+  // form (page 2); the form's "Fill Document" moves to the real
+  // generated document.
+  const [view, setView] = useState<View>('preview');
   const [values, setValues] = useState<Record<string, string>>({});
   const [usePlaceholders, setUsePlaceholders] = useState(false);
   const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument | null>(null);
 
   const isHighRisk = HIGH_RISK_DOCUMENT_TYPES.has(docType.slug);
+
+  const previewDocument = useMemo<GeneratedDocument>(() => {
+    const filled = fillTemplate(template, {}, template.fields, true);
+    return { title: filled.title, intro: filled.intro, sections: filled.sections, signatures: template.signatures };
+  }, [template]);
+  const [previewDoc, setPreviewDoc] = useState<GeneratedDocument>(previewDocument);
 
   const handleFieldChange = (id: string, value: string) => {
     setValues(v => ({ ...v, [id]: value }));
@@ -41,6 +55,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
       signatures: template.signatures,
     };
     setGeneratedDocument(doc);
+    setView('generated');
     saveToHistory({
       source: 'template',
       documentTypeSlug: docType.slug,
@@ -56,6 +71,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
     setGeneratedDocument(null);
     setValues({});
     setUsePlaceholders(false);
+    setView('form');
   };
 
   return (
@@ -84,29 +100,53 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
           </Link>
         </div>
 
-        {!generatedDocument && (
-          <>
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <FileCheck2 className="h-4 w-4 text-sky-500" />
-                <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
-                <Link href={`/plantillas/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
-                  Leer en Español →
-                </Link>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                {docType.label} Template — {docCountry.flag} {docCountry.name}
-              </h1>
+        {view !== 'generated' && (
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <FileCheck2 className="h-4 w-4 text-sky-500" />
+              <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
+              <Link href={`/plantillas/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
+                Leer en Español →
+              </Link>
             </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+              {docType.label} Template — {docCountry.flag} {docCountry.name}
+            </h1>
+          </div>
+        )}
 
-            {template.legal_note && (
-              <div className="bg-sky-500/10 border border-sky-500/30 text-sky-700 dark:text-sky-400 rounded-lg px-4 py-3 text-sm">
-                {template.legal_note}
+        {view !== 'generated' && template.legal_note && (
+          <div className="bg-sky-500/10 border border-sky-500/30 text-sky-700 dark:text-sky-400 rounded-lg px-4 py-3 text-sm">
+            {template.legal_note}
+          </div>
+        )}
+
+        {view !== 'generated' && <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>}
+
+        {view === 'preview' && (
+          <>
+            <p className="text-xs text-muted-foreground bg-muted/50 border border-border rounded-lg px-3 py-2.5">
+              This is a preview filled with placeholder text so you can see exactly what you&apos;ll get. Click <strong>Edit Your Details</strong> below to fill in the real information, or download this preview as-is and fill it in by hand.
+            </p>
+            <DocumentEditor
+              document={previewDoc}
+              onChange={setPreviewDoc}
+              isHighRisk={isHighRisk}
+              fileNamePrefix={docType.label}
+              onReset={() => setView('form')}
+              resetLabel="Edit Your Details"
+            />
+
+            {template.seo_intro && (
+              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
+                <p>{template.seo_intro}</p>
               </div>
             )}
+          </>
+        )}
 
-            <p className="text-xs text-muted-foreground/80">{SHORT_DISCLAIMER}</p>
-
+        {view === 'form' && (
+          <>
             {/* Fill-in form */}
             <div className="bg-card border border-border rounded-xl p-5 space-y-4">
               <div className="flex items-center justify-between">
@@ -126,7 +166,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
 
               {usePlaceholders ? (
                 <p className="text-sm text-muted-foreground bg-background border border-border rounded-lg px-3 py-2.5">
-                  Placeholder fields like [SELLER'S FULL NAME] will be used — fill them in after downloading.
+                  Placeholder fields like [SELLER&apos;S FULL NAME] will be used — fill them in after downloading.
                 </p>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -165,18 +205,19 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
                 <Wand2 className="h-4 w-4" />
                 Fill Document
               </button>
-            </div>
 
-            {/* SEO article content — moved below the form */}
-            {template.seo_intro && (
-              <div className="prose-sm text-muted-foreground leading-relaxed border-t border-border pt-6">
-                <p>{template.seo_intro}</p>
-              </div>
-            )}
+              <button
+                type="button"
+                onClick={() => setView('preview')}
+                className="w-full text-center text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                ← Back to preview
+              </button>
+            </div>
           </>
         )}
 
-        {generatedDocument && (
+        {view === 'generated' && generatedDocument && (
           <DocumentEditor
             document={generatedDocument}
             onChange={setGeneratedDocument}

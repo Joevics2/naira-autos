@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     title: 'Free Car Valuation Nigeria — How Much Is Your Car Worth?',
     description:
       'AI-powered Nigerian market price estimate. Upload a photo of your Tokunbo or used car and get an instant Naira valuation. 100% free.',
-    url: 'https://naira.autos/evaluate-car',
+    url: 'https://www.naira.autos/evaluate-car',
     siteName: 'Naira Autos',
     locale: 'en_NG',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://naira.autos/evaluate-car',
+    canonical: 'https://www.naira.autos/evaluate-car',
   },
 };
 
@@ -43,7 +43,7 @@ const jsonLd = {
   name: 'Free Car Valuation Nigeria',
   description:
     'Free AI-powered car valuation tool for the Nigerian used car market. Instant Naira price estimate for Tokunbo and Nigerian-used vehicles.',
-  url: 'https://naira.autos/evaluate-car',
+  url: 'https://www.naira.autos/evaluate-car',
   mainEntity: {
     '@type': 'SoftwareApplication',
     name: 'Naira Autos Car Valuation Tool',
@@ -60,9 +60,9 @@ const jsonLd = {
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://naira.autos' },
-      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://naira.autos/tools' },
-      { '@type': 'ListItem', position: 3, name: 'Car Valuation', item: 'https://naira.autos/evaluate-car' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Car Valuation', item: 'https://www.naira.autos/evaluate-car' },
     ],
   },
   faqPage: {

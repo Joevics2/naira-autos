@@ -1,5 +1,5 @@
 // File: app/sitemap-documents.xml/route.ts
-// Accessible at: https://naira.autos/sitemap-documents.xml
+// Accessible at: https://www.naira.autos/sitemap-documents.xml
 
 import { NextResponse } from 'next/server';
 import { getAllPublishedTemplates } from '@/lib/document-templates-data';

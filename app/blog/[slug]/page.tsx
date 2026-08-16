@@ -45,9 +45,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages = {};
       for (const s of siblings) {
         const base = BASE_PATH_BY_LANG[s.language] || '/blog';
-        languages[s.language] = `https://naira.autos${base}/${s.slug}`;
+        languages[s.language] = `https://www.naira.autos${base}/${s.slug}`;
       }
-      languages['x-default'] = languages['en'] || `https://naira.autos/blog/${slug}`;
+      languages['x-default'] = languages['en'] || `https://www.naira.autos/blog/${slug}`;
     }
   }
 
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [imageUrl],
     },
     alternates: {
-      canonical: `https://naira.autos/blog/${slug}`,
+      canonical: `https://www.naira.autos/blog/${slug}`,
       ...(languages ? { languages } : {}),
     },
   };
@@ -119,7 +119,7 @@ export default async function BlogDetailPage({ params }: Props) {
   }
 
   // ── Resolve image (featured or deterministic fallback) ───────────
-  const siteUrl = 'https://naira.autos';
+  const siteUrl = 'https://www.naira.autos';
   const postUrl = `${siteUrl}/blog/${post.slug}`;
   const imageUrl = post.featured_image || getBlogFallbackImage(slug);
 

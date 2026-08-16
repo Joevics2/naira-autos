@@ -46,10 +46,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${sellerName} - ${roleLabel.replace('-', ' ')} | Naira Autos`,
       description: `View ${sellerName}'s car listings in Nigeria`,
       type: 'website',
-      url: `https://naira.autos/seller/${slug}`,
+      url: `https://www.naira.autos/seller/${slug}`,
     },
     alternates: {
-      canonical: `https://naira.autos/seller/${slug}`,
+      canonical: `https://www.naira.autos/seller/${slug}`,
     },
   };
 }
