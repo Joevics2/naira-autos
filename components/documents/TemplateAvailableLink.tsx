@@ -12,8 +12,8 @@ interface TemplateAvailableLinkProps {
 
 // Checks (client-side, public read) whether a reviewed, published fixed
 // template exists for this exact (document type, country) pair, and if so,
-// offers a quick way to use that instead of the AI-assembled version —
-// same output, but instant and free since there's no AI call at all.
+// offers a quick way to use that instead of the Axios-assembled version —
+// same output, but instant and free since there's no Axios call at all.
 export default function TemplateAvailableLink({ documentTypeSlug, country }: TemplateAvailableLinkProps) {
   const [available, setAvailable] = useState(false);
 
@@ -47,7 +47,7 @@ export default function TemplateAvailableLink({ documentTypeSlug, country }: Tem
       className="flex items-center gap-2 bg-sky-500/10 border border-sky-500/30 text-sky-600 dark:text-sky-400 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-sky-500/15 transition-colors"
     >
       <FileCheck2 className="h-4 w-4 flex-shrink-0" />
-      A ready-made template exists for this document — skip the AI and fill it in directly →
+      A ready-made template exists for this document — skip Axios and fill it in directly →
     </Link>
   );
 }

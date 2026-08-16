@@ -17,7 +17,6 @@ type UrgencyLevel = 'safe' | 'monitor' | 'urgent' | 'stop_driving';
 interface DiagnosisResult {
   summary: string;
   urgency: UrgencyLevel;
-  urgency_label: string;
   urgency_color: string;
   certainty: number;
   certainty_note: string;
@@ -26,7 +25,7 @@ interface DiagnosisResult {
   next_steps_to_confirm: string[];
   recommended_actions: Array<{ action: string; priority: 'immediate' | 'soon' | 'when_convenient'; diy: boolean }>;
   parts_to_check: string[];
-  estimated_repair_cost_ngn: { min: number | null; max: number | null; note: string };
+  estimated_repair_cost_usd: { min: number | null; max: number | null; note: string };
   disclaimer: string;
   model_used: string;
 }
@@ -72,12 +71,12 @@ const NIGERIAN_BRANDS = [
 ];
 
 const URGENCY_CONFIG: Record<UrgencyLevel, {
-  bg: string; border: string; text: string; badgeBg: string; icon: React.ReactNode;
+  bg: string; border: string; text: string; badgeBg: string; icon: React.ReactNode; label: string;
 }> = {
-  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" /> },
-  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" /> },
-  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" /> },
-  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" /> },
+  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'Safe to Drive' },
+  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'Monitor Closely' },
+  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'See a Mechanic Soon' },
+  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'Stop Driving Immediately' },
 };
 
 const PROB_COLORS = {
@@ -187,13 +186,13 @@ function AxionLoadingSteps() {
 
 function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
   const urg = URGENCY_CONFIG[diagnosis.urgency];
-  const hasCost = !!(diagnosis.estimated_repair_cost_ngn?.min || diagnosis.estimated_repair_cost_ngn?.max);
+  const hasCost = !!(diagnosis.estimated_repair_cost_usd?.min || diagnosis.estimated_repair_cost_usd?.max);
   const costStr = hasCost
-    ? (diagnosis.estimated_repair_cost_ngn.min && diagnosis.estimated_repair_cost_ngn.max
-        ? '₦' + diagnosis.estimated_repair_cost_ngn.min.toLocaleString() + ' – ₦' + diagnosis.estimated_repair_cost_ngn.max.toLocaleString()
-        : diagnosis.estimated_repair_cost_ngn.min
-        ? 'From ₦' + diagnosis.estimated_repair_cost_ngn.min.toLocaleString()
-        : 'Up to ₦' + (diagnosis.estimated_repair_cost_ngn.max?.toLocaleString() ?? ''))
+    ? (diagnosis.estimated_repair_cost_usd.min && diagnosis.estimated_repair_cost_usd.max
+        ? '$' + diagnosis.estimated_repair_cost_usd.min.toLocaleString() + ' – $' + diagnosis.estimated_repair_cost_usd.max.toLocaleString()
+        : diagnosis.estimated_repair_cost_usd.min
+        ? 'From $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
+        : 'Up to $' + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
     : null;
   const diyActions = (diagnosis.recommended_actions ?? []).filter(a => a.diy);
   const mechanicActions = (diagnosis.recommended_actions ?? []).filter(a => !a.diy);
@@ -206,7 +205,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
       <div className={`px-4 py-3 border-b ${urg.bg} ${urg.border} border-b-0`} style={{ borderLeftWidth: 3 }}>
         <div className="flex items-center gap-2 mb-1.5">
           {urg.icon}
-          <span className={`text-xs font-black uppercase tracking-widest ${urg.text}`}>{diagnosis.urgency_label}</span>
+          <span className={`text-xs font-black uppercase tracking-widest ${urg.text}`}>{urg.label}</span>
           {hasCost && costStr && (
             <span className="ml-auto text-xs font-bold text-slate-300 bg-black/20 px-2.5 py-0.5 rounded-full">{costStr}</span>
           )}
@@ -288,7 +287,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
           <div className="px-4 py-3.5">
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Repair cost estimate</p>
             <p className="text-lg font-black text-slate-100">{costStr}</p>
-            <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_ngn.note}</p>
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_usd.note}</p>
           </div>
         )}
 

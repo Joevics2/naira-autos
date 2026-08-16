@@ -27,9 +27,9 @@ export async function generateStaticParams() {
   // static pages. Any one of the three is enough; none of them require
   // the others to exist.
   const [{ data: parts }, { data: problems }, { data: maintenance }] = await Promise.all([
-    supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type'),
-    supabase.from('vehicle_problems').select('brand_slug, model_name, vehicle_type'),
-    supabase.from('vehicle_maintenance').select('brand_slug, model_name, vehicle_type'),
+    supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type').eq('is_published', true),
+    supabase.from('vehicle_problems').select('brand_slug, model_name, vehicle_type').eq('is_published', true),
+    supabase.from('vehicle_maintenance').select('brand_slug, model_name, vehicle_type').eq('is_published', true),
   ]);
 
   const seen = new Set<string>();
@@ -89,19 +89,19 @@ export default async function ModelPage({ params }: { params: Params }) {
     supabase.from('vehicle_models').select('slug, name, body_type')
       .eq('brand_slug', params.brand).eq('vehicle_type', dbType)
       .neq('slug', params.model).eq('popular', true).limit(12),
-    supabase.from('vehicle_parts').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
-    supabase.from('vehicle_problems').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
-    supabase.from('vehicle_maintenance').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType),
+    supabase.from('vehicle_parts').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('is_published', true),
+    supabase.from('vehicle_problems').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('is_published', true),
+    supabase.from('vehicle_maintenance').select('model_name').eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('is_published', true),
     // Source of truth for this model's content — keyed on brand_slug/model_name,
     // not model_id, so a broken/missing model_id link doesn't hide content.
     supabase.from('vehicle_parts').select('year, image_url, image_reference, brand_name, model_name')
-      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
+      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model).eq('is_published', true)
       .order('year', { ascending: false }),
     supabase.from('vehicle_problems').select('year, brand_name, model_name')
-      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
+      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model).eq('is_published', true)
       .order('year', { ascending: false }),
     supabase.from('vehicle_maintenance').select('year, image_url, image_reference, brand_name, model_name')
-      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model)
+      .eq('brand_slug', params.brand).eq('vehicle_type', dbType).eq('model_name', params.model).eq('is_published', true)
       .order('year', { ascending: false }),
   ]);
 
@@ -200,7 +200,6 @@ export default async function ModelPage({ params }: { params: Params }) {
             {[
               { label: 'Home',          href: '/' },
               { label: typeInfo.plural, href: '/vehicles' },
-              { label: vm.brand_name,   href: `/${params.type}/${params.brand}` },
             ].map(({ label, href }) => (
               <span key={href} className="flex items-center gap-1">
                 <Link href={href} className="hover:text-foreground transition-colors">{label}</Link>
@@ -210,7 +209,7 @@ export default async function ModelPage({ params }: { params: Params }) {
             <span className="text-foreground font-medium">{vm.name}</span>
           </div>
           <Link
-            href={`/${params.type}/${params.brand}`}
+            href="/vehicles"
             className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back

@@ -28,7 +28,9 @@ export function Footer() {
           <span className="text-border">|</span>
           <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
           <span className="text-border">|</span>
-          <Link href="/tools" className="hover:text-primary transition-colors">Tools</Link>
+          <Link href="/documents" className="hover:text-primary transition-colors">Document Templates</Link>
+          <span className="text-border">|</span>
+          <Link href="/tools" className="hover:text-primary transition-colors">Calculators</Link>
         </div>
 
         {/* Copyright */}

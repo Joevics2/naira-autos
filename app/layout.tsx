@@ -13,10 +13,10 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.naira.autos';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Naira Autos — Car Prices, Tools & Guides for Nigeria',
+    default: 'Naira Autos — Car Guides, Prices & Ownership Resources for Nigeria',
     template: '%s | Naira Autos',
   },
-  description: 'Free tools and expert guides for buying and selling cars in Nigeria. Import duty calculator, car prices, spare parts costs, AI mechanic, and the most complete Nigerian auto glossary.',
+  description: 'Vehicle maintenance schedules, common problems, parts guides, and document templates by make and model, plus car prices and expert buying guides for Nigeria — with a handful of free calculators for the numbers that matter.',
   // Commented out: this manifest is what makes browsers treat the site as
   // an installable PWA and show their native "Install app" / "Add to Home
   // Screen" prompt automatically. Removing it stops that prompt. The
@@ -40,21 +40,21 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_NG',
     siteName: 'Naira Autos',
-    title: 'Naira Autos — Car Prices, Tools & Guides for Nigeria',
-    description: 'Free tools and expert guides for buying and selling cars in Nigeria. Import duty calculator, car prices, spare parts costs, AI mechanic, and the most complete Nigerian auto glossary.',
+    title: 'Naira Autos — Car Guides, Prices & Ownership Resources for Nigeria',
+    description: 'Vehicle maintenance schedules, common problems, parts guides, and document templates by make and model, plus car prices and expert buying guides for Nigeria — with a handful of free calculators for the numbers that matter.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Naira Autos — Car Prices, Tools & Guides for Nigeria',
+        alt: 'Naira Autos — Car Guides, Prices & Ownership Resources for Nigeria',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Naira Autos — Car Prices, Tools & Guides for Nigeria',
-    description: 'Free tools and expert guides for buying and selling cars in Nigeria. Import duty calculator, car prices, spare parts, and the Nigerian auto glossary.',
+    title: 'Naira Autos — Car Guides, Prices & Ownership Resources for Nigeria',
+    description: 'Vehicle maintenance schedules, common problems, and parts guides by make and model, plus car prices and expert buying guides for Nigeria.',
     images: ['/og-image.png'],
   },
   robots: {

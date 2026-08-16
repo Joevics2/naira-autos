@@ -34,7 +34,7 @@ interface VehiclePart {
 
 export async function generateStaticParams() {
   const supabase = getSupabase();
-  const { data } = await supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type, year');
+  const { data } = await supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type, year').eq('is_published', true);
   return (data || []).map((r: any) => {
     const typeSlug = Object.entries(VEHICLE_TYPES).find(([, info]) => info.singular.toLowerCase() === r.vehicle_type)?.[0] ?? r.vehicle_type + 's';
     return { type: typeSlug, brand: r.brand_slug, model: r.model_name, year: String(r.year) };
@@ -71,13 +71,13 @@ export default async function PartsPage({ params }: { params: Params }) {
 
   const [{ data: record }, { data: problemsCheck }, { data: maintenanceCheck }] = await Promise.all([
     supabase.from('vehicle_parts').select('*')
-      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
+      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year).eq('is_published', true)
       .maybeSingle() as unknown as Promise<{ data: VehiclePart | null }>,
     supabase.from('vehicle_problems').select('slug')
-      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
+      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year).eq('is_published', true)
       .maybeSingle(),
     supabase.from('vehicle_maintenance').select('slug')
-      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year)
+      .eq('brand_slug', params.brand).eq('model_name', params.model).eq('year', params.year).eq('is_published', true)
       .maybeSingle(),
   ]);
 
@@ -118,7 +118,7 @@ export default async function PartsPage({ params }: { params: Params }) {
             {[
               { label: 'Home', href: '/' },
               { label: typeInfo.plural, href: '/vehicles' },
-              { label: record.brand_name, href: `/${params.type}/${params.brand}` },
+              { label: record.brand_name, href: null },
               { label: record.model_name, href: `/${params.type}/${params.brand}/${params.model}` },
               { label: params.year, href: null },
               { label: 'Parts', href: null },
