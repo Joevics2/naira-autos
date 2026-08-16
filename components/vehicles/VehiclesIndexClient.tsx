@@ -92,7 +92,7 @@ export default function VehiclesIndexClient({ cards, typeCounts }: Props) {
 
   return (
     <div className="bg-background min-h-screen">
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-10 space-y-10">
 
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -189,7 +189,7 @@ export default function VehiclesIndexClient({ cards, typeCounts }: Props) {
         ) : (
           <>
             <p className="text-xs text-muted-foreground">{sorted.length} result{sorted.length !== 1 ? 's' : ''}</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {sorted.map(c => <VehicleCard key={c.key} card={c} />)}
             </div>
           </>
@@ -203,25 +203,21 @@ function VehicleCard({ card }: { card: VehicleCardData }) {
   const mc = card.maintenanceScore ? MAINTENANCE_CONFIG[card.maintenanceScore] : null;
   const pc = card.partsAvailability ? PARTS_CONFIG[card.partsAvailability] : null;
 
-  // NOTE: the destination pages (model detail + parts/problems/maintenance
-  // routes) are temporarily disabled — see app/[type]/**/page.original.tsx.
-  // Until those come back, these render as plain info tags instead of
-  // links, so the card never points at a 404.
-  const tags: { label: string; icon: LucideIcon; color: string }[] = [
-    card.problemsHref && { label: 'Problems', icon: AlertTriangle, color: 'text-red-500 bg-red-500/10 border-red-500/20' },
-    card.partsHref && { label: 'Parts', icon: Wrench, color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
-    card.maintenanceHref && { label: 'Maintenance', icon: Calendar, color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
-  ].filter((b): b is { label: string; icon: LucideIcon; color: string } => Boolean(b));
+  const buttons: { href: string; label: string; icon: LucideIcon; color: string }[] = [
+    card.problemsHref && { href: card.problemsHref, label: 'Problems', icon: AlertTriangle, color: 'hover:bg-red-500/10 hover:text-red-500' },
+    card.partsHref && { href: card.partsHref, label: 'Parts', icon: Wrench, color: 'hover:bg-blue-500/10 hover:text-blue-500' },
+    card.maintenanceHref && { href: card.maintenanceHref, label: 'Maintenance', icon: Calendar, color: 'hover:bg-emerald-500/10 hover:text-emerald-500' },
+  ].filter((b): b is { href: string; label: string; icon: LucideIcon; color: string } => Boolean(b));
 
   return (
-    <div className="bg-card border border-border rounded-xl overflow-hidden flex flex-col">
-      <div className="block">
-        <div className="relative h-36 bg-muted flex items-center justify-center border-b border-border overflow-hidden">
+    <div className="group bg-card border border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500 rounded-xl overflow-hidden transition-colors flex flex-col shadow-sm">
+      <Link href={card.modelHref} className="block">
+        <div className="relative h-36 bg-muted flex items-center justify-center border-b border-zinc-300 dark:border-zinc-700 overflow-hidden">
           {card.image ? (
             <img
               src={card.image}
               alt={`${card.brandName} ${card.modelName}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
             />
           ) : (
@@ -240,7 +236,7 @@ function VehicleCard({ card }: { card: VehicleCardData }) {
         </div>
 
         <div className="p-4 pb-3">
-          <h3 className="font-bold text-foreground capitalize leading-tight mb-1.5">
+          <h3 className="font-bold text-foreground group-hover:text-foreground/80 transition-colors capitalize leading-tight mb-1.5">
             {card.brandName} {card.modelName}
           </h3>
           <div className="flex items-center justify-between gap-2 mb-2">
@@ -268,20 +264,21 @@ function VehicleCard({ card }: { card: VehicleCardData }) {
             </div>
           )}
         </div>
-      </div>
+      </Link>
 
-      {/* Available content types for this model — informational only for now (detail pages are paused) */}
-      <div className="mt-auto flex flex-wrap gap-1.5 px-4 pb-4 pt-1">
-        {tags.map(t => {
-          const Icon = t.icon;
+      {/* 1-3 action buttons — only for categories actually published for this model */}
+      <div className={`mt-auto grid gap-px bg-zinc-300 dark:bg-zinc-700 p-px ${buttons.length === 3 ? 'grid-cols-3' : buttons.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+        {buttons.map(b => {
+          const Icon = b.icon;
           return (
-            <span
-              key={t.label}
-              className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-md border ${t.color}`}
+            <Link
+              key={b.label}
+              href={b.href}
+              className={`flex items-center justify-center gap-1.5 bg-card ${b.color} text-foreground text-xs font-semibold py-2.5 transition-colors`}
             >
-              <Icon className="h-3 w-3" />
-              {t.label}
-            </span>
+              <Icon className="h-3.5 w-3.5" />
+              <span className="truncate">{b.label}</span>
+            </Link>
           );
         })}
       </div>
