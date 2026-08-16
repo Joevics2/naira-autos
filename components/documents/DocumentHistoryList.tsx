@@ -52,7 +52,7 @@ export default function DocumentHistoryList({ onOpen, filterSource }: DocumentHi
               <p className="text-sm font-medium text-foreground truncate">{entry.documentTypeLabel} — {entry.countryLabel}</p>
               <p className="text-xs text-muted-foreground">
                 {new Date(entry.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                {' · '}{entry.source === 'ai' ? 'AI Writer' : 'Template'}
+                {' · '}{entry.source === 'ai' ? 'Axios' : 'Template'}
               </p>
             </button>
             <button

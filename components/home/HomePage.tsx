@@ -10,12 +10,12 @@ import { HomeFreshness } from './HomeFreshness';
 // across well-known models. Pulled from the live database, not placeholders.
 
 const VEHICLE_GUIDES = [
-  { href: '/cars/toyota/corolla/2014-2019/maintenance', brand: 'Toyota', model: 'Corolla', years: '2014–2019', kind: 'Maintenance Schedule', icon: Settings },
-  { href: '/cars/honda/civic/2001-2005/problems',       brand: 'Honda',  model: 'Civic',   years: '2001–2005', kind: 'Common Problems',     icon: AlertTriangle },
-  { href: '/cars/toyota/rav4/2013-2018/parts',           brand: 'Toyota', model: 'RAV4',    years: '2013–2018', kind: 'Parts & Prices',       icon: PackageSearch },
-  { href: '/cars/bmw/3/1999-2006/maintenance',           brand: 'BMW',    model: '3 Series',years: '1999–2006', kind: 'Maintenance Schedule', icon: Settings },
-  { href: '/cars/nissan/altima/2002-2006/problems',      brand: 'Nissan', model: 'Altima',  years: '2002–2006', kind: 'Common Problems',     icon: AlertTriangle },
-  { href: '/cars/volkswagen/golf/2004-2008/parts',       brand: 'Volkswagen', model: 'Golf',years: '2004–2008', kind: 'Parts & Prices',       icon: PackageSearch },
+  { href: '/vehicles', brand: 'Toyota', model: 'Corolla', years: '2014–2019', kind: 'Maintenance Schedule', icon: Settings },
+  { href: '/vehicles', brand: 'Honda',  model: 'Civic',   years: '2001–2005', kind: 'Common Problems',     icon: AlertTriangle },
+  { href: '/vehicles', brand: 'Toyota', model: 'RAV4',    years: '2013–2018', kind: 'Parts & Prices',       icon: PackageSearch },
+  { href: '/vehicles', brand: 'BMW',    model: '3 Series',years: '1999–2006', kind: 'Maintenance Schedule', icon: Settings },
+  { href: '/vehicles', brand: 'Nissan', model: 'Altima',  years: '2002–2006', kind: 'Common Problems',     icon: AlertTriangle },
+  { href: '/vehicles', brand: 'Volkswagen', model: 'Golf',years: '2004–2008', kind: 'Parts & Prices',       icon: PackageSearch },
 ];
 
 // ─── Document templates — real, published country-specific templates ───────
@@ -188,7 +188,7 @@ export function HomePage() {
           {/* CTA row */}
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/cars"
+              href="/vehicles"
               className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold text-sm px-6 py-3 rounded-full transition-colors shadow-lg shadow-orange-500/20"
             >
               Explore vehicle guides
@@ -226,7 +226,7 @@ export function HomePage() {
         <div className="flex items-end justify-between mb-5">
           <SectionLabel>Maintenance, Parts &amp; Common Problems</SectionLabel>
           <Link
-            href="/cars"
+            href="/vehicles"
             className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
           >
             All vehicle guides <ChevronRight className="h-3 w-3" />
@@ -445,7 +445,7 @@ export function HomePage() {
           </h3>
           <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
             <p>
-              A few starting points from the current library — new additions get their own spot here over time. If you already own the car and want to know what it needs, search your make and model under <Link href="/cars" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">vehicle guides</Link> for its maintenance schedule, common problems, and parts reference. If you're buying or selling and need paperwork, browse <Link href="/documents" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">document templates</Link> for your country, or use the <Link href="/tools/document-generator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI document generator</Link> for something more specific. If you're trying to work out what a car will actually cost to bring in and register, start with the <Link href="/tools/import-duty-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">import duty calculator</Link> and <Link href="/tools/registration-fee-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">registration fee calculator</Link>. And if something's actively wrong with the car in front of you, the <Link href="/tools/ai-mechanic" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI Mechanic</Link> and <Link href="/tools/obd-codes" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">OBD-II code lookup</Link> are the fastest way to a diagnosis. The full current set of calculators is on the <Link href="/tools" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">calculators page</Link>.
+              A few starting points from the current library — new additions get their own spot here over time. If you already own the car and want to know what it needs, search your make and model under <Link href="/vehicles" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">vehicle guides</Link> for its maintenance schedule, common problems, and parts reference. If you're buying or selling and need paperwork, browse <Link href="/documents" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">document templates</Link> for your country, or use the <Link href="/tools/document-generator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI document generator</Link> for something more specific. If you're trying to work out what a car will actually cost to bring in and register, start with the <Link href="/tools/import-duty-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">import duty calculator</Link> and <Link href="/tools/registration-fee-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">registration fee calculator</Link>. And if something's actively wrong with the car in front of you, the <Link href="/tools/ai-mechanic" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI Mechanic</Link> and <Link href="/tools/obd-codes" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">OBD-II code lookup</Link> are the fastest way to a diagnosis. The full current set of calculators is on the <Link href="/tools" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">calculators page</Link>.
             </p>
           </div>
         </div>

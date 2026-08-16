@@ -1,84 +1,33 @@
 // File: app/sitemap-vehicles.xml/route.ts
 // Accessible at: https://naira.autos/sitemap-vehicles.xml
 //
-// Builds every reachable vehicle URL directly from vehicle_parts /
-// vehicle_problems / vehicle_maintenance (the source of truth for what's
-// "active"), same logic as generateStaticParams on the actual pages — so
-// this sitemap never lists a URL that would 404.
+// TEMPORARILY SIMPLIFIED (2026-08-16) — the granular /type, /type/brand,
+// /type/brand/model, and /type/brand/model/year/(parts|problems|maintenance)
+// routes are disabled (see their page.original.tsx files) while vehicle
+// content is consolidated into a single searchable hub at /vehicles.
+// Listing hundreds of URLs here that now 404 would hurt more than help,
+// so this sitemap lists just the hub page until those routes come back.
+//
+// Full original per-model/per-year sitemap generator preserved in
+// ./route.original.ts — restore by deleting this file and renaming that
+// one back to route.ts.
 
 import { NextResponse } from 'next/server';
-import { getSupabase, TYPE_SLUG_TO_DB } from '@/lib/vehicle-helpers';
 
 const siteUrl = 'https://www.naira.autos';
-export const revalidate = 0; // fetch fresh every request while content is actively changing
-
-const DB_TO_TYPE_SLUG: Record<string, string> = Object.fromEntries(
-  Object.entries(TYPE_SLUG_TO_DB).map(([slug, db]) => [db, slug])
-);
+export const revalidate = 0;
 
 export async function GET() {
-  const supabase = getSupabase();
-
-  const [{ data: parts }, { data: problems }, { data: maintenance }] = await Promise.all([
-    supabase.from('vehicle_parts').select('brand_slug, model_name, vehicle_type, year'),
-    supabase.from('vehicle_problems').select('brand_slug, model_name, vehicle_type, year'),
-    supabase.from('vehicle_maintenance').select('brand_slug, model_name, vehicle_type, year'),
-  ]);
-
-  const typeSet = new Set<string>();
-  const brandSet = new Set<string>();
-  const modelSet = new Set<string>();
-  const partUrls = new Set<string>();
-  const problemUrls = new Set<string>();
-  const maintenanceUrls = new Set<string>();
-
-  for (const row of (parts || [])) {
-    const typeSlug = DB_TO_TYPE_SLUG[row.vehicle_type] ?? row.vehicle_type;
-    typeSet.add(typeSlug);
-    brandSet.add(`${typeSlug}/${row.brand_slug}`);
-    modelSet.add(`${typeSlug}/${row.brand_slug}/${row.model_name}`);
-    partUrls.add(`${typeSlug}/${row.brand_slug}/${row.model_name}/${row.year}/parts`);
-  }
-  for (const row of (problems || [])) {
-    const typeSlug = DB_TO_TYPE_SLUG[row.vehicle_type] ?? row.vehicle_type;
-    typeSet.add(typeSlug);
-    brandSet.add(`${typeSlug}/${row.brand_slug}`);
-    modelSet.add(`${typeSlug}/${row.brand_slug}/${row.model_name}`);
-    problemUrls.add(`${typeSlug}/${row.brand_slug}/${row.model_name}/${row.year}/problems`);
-  }
-  for (const row of (maintenance || [])) {
-    const typeSlug = DB_TO_TYPE_SLUG[row.vehicle_type] ?? row.vehicle_type;
-    typeSet.add(typeSlug);
-    brandSet.add(`${typeSlug}/${row.brand_slug}`);
-    modelSet.add(`${typeSlug}/${row.brand_slug}/${row.model_name}`);
-    maintenanceUrls.add(`${typeSlug}/${row.brand_slug}/${row.model_name}/${row.year}/maintenance`);
-  }
-
-  const entries: { path: string; priority: number; changefreq: string }[] = [
-    ...Array.from(typeSet).map(path => ({ path, priority: 0.8, changefreq: 'weekly' })),
-    ...Array.from(brandSet).map(path => ({ path, priority: 0.7, changefreq: 'weekly' })),
-    ...Array.from(modelSet).map(path => ({ path, priority: 0.7, changefreq: 'weekly' })),
-    ...Array.from(partUrls).map(path => ({ path, priority: 0.6, changefreq: 'monthly' })),
-    ...Array.from(problemUrls).map(path => ({ path, priority: 0.6, changefreq: 'monthly' })),
-    ...Array.from(maintenanceUrls).map(path => ({ path, priority: 0.6, changefreq: 'monthly' })),
-  ];
-
   const now = new Date().toISOString();
-  const urls = entries
-    .map(
-      (e) => `
-  <url>
-    <loc>${siteUrl}/${e.path}</loc>
-    <lastmod>${now}</lastmod>
-    <changefreq>${e.changefreq}</changefreq>
-    <priority>${e.priority}</priority>
-  </url>`,
-    )
-    .join('');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
+  <url>
+    <loc>${siteUrl}/vehicles</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>`;
 
   return new NextResponse(xml, {

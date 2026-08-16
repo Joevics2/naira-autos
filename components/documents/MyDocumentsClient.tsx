@@ -121,7 +121,7 @@ export default function MyDocumentsClient() {
             <div className="flex items-center justify-center gap-3">
               <Link href="/documents" className="text-sm font-semibold text-sky-500 hover:underline">Browse Templates</Link>
               <span className="text-muted-foreground">·</span>
-              <Link href="/tools/document-generator" className="text-sm font-semibold text-sky-500 hover:underline">Try AI Writer</Link>
+              <Link href="/tools/document-generator" className="text-sm font-semibold text-sky-500 hover:underline">Try Axios</Link>
             </div>
           </div>
         ) : (
@@ -164,7 +164,7 @@ export default function MyDocumentsClient() {
               {([
                 { key: 'all', label: 'All' },
                 { key: 'template', label: 'Templates' },
-                { key: 'ai', label: 'AI Writer' },
+                { key: 'ai', label: 'Axios' },
               ] as { key: SourceFilter; label: string }[]).map(opt => (
                 <button
                   key={opt.key}
@@ -203,7 +203,7 @@ export default function MyDocumentsClient() {
                         <p className="text-xs text-muted-foreground mt-0.5">{entry.countryLabel}</p>
                         <p className="text-xs text-muted-foreground/70 mt-0.5">
                           {new Date(entry.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                          {' · '}{entry.source === 'ai' ? 'AI Writer' : 'Template'}
+                          {' · '}{entry.source === 'ai' ? 'Axios' : 'Template'}
                         </p>
                       </span>
                     </button>

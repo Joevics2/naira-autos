@@ -16,7 +16,7 @@ interface DocumentEditorEsProps {
 // Spanish translation of the editor CONTROLS only (buttons, hints, warning).
 // The document itself — title, sections, and the SIGNATURES block — renders
 // exactly as it does on the English version, since that content either comes
-// from the template's own per-country data or from the AI generator, neither
+// from the template's own per-country data or from Axios, neither
 // of which this component translates.
 export default function DocumentEditorEs({
   document: generatedDocument,

@@ -121,7 +121,7 @@ export default function MyDocumentsClientEs() {
             <div className="flex items-center justify-center gap-3">
               <Link href="/plantillas" className="text-sm font-semibold text-sky-500 hover:underline">Explorar Plantillas</Link>
               <span className="text-muted-foreground">·</span>
-              <Link href="/tools/generador-de-documentos-ia" className="text-sm font-semibold text-sky-500 hover:underline">Probar el Redactor con IA</Link>
+              <Link href="/tools/generador-de-documentos-ia" className="text-sm font-semibold text-sky-500 hover:underline">Probar Axios</Link>
             </div>
           </div>
         ) : (
@@ -163,7 +163,7 @@ export default function MyDocumentsClientEs() {
               {([
                 { key: 'all', label: 'Todos' },
                 { key: 'template', label: 'Plantillas' },
-                { key: 'ai', label: 'Redactor IA' },
+                { key: 'ai', label: 'Axios' },
               ] as { key: SourceFilter; label: string }[]).map(opt => (
                 <button
                   key={opt.key}
@@ -202,7 +202,7 @@ export default function MyDocumentsClientEs() {
                         <p className="text-xs text-muted-foreground mt-0.5">{entry.countryLabel}</p>
                         <p className="text-xs text-muted-foreground/70 mt-0.5">
                           {new Date(entry.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                          {' · '}{entry.source === 'ai' ? 'Redactor IA' : 'Plantilla'}
+                          {' · '}{entry.source === 'ai' ? 'Axios' : 'Plantilla'}
                         </p>
                       </span>
                     </button>

@@ -46,8 +46,8 @@ export default async function DocumentsIndexPage() {
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vehicle Document Templates</h1>
           <p className="text-muted-foreground leading-relaxed">
-            Ready-made, country-specific vehicle document templates. Fill in your details and download as PDF or Word — instantly, no AI wait. Need a document that isn't listed here yet?{' '}
-            <Link href="/tools/document-generator" className="text-sky-500 hover:underline">Try the AI Document Generator</Link> instead.
+            Ready-made, country-specific vehicle document templates. Fill in your details and download as PDF or Word — instantly, no wait. Need a document that isn't listed here yet?{' '}
+            <Link href="/tools/document-generator" className="text-sky-500 hover:underline">Try the Axios Document Generator</Link> instead.
           </p>
         </div>
 
