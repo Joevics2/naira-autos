@@ -60,12 +60,14 @@ export async function generateMetadata({
   const title = `${docType.label} Template for ${docCountry.name} (Free) | Naira Autos`;
   const description = `Free, ready-to-use ${docType.label} for ${docCountry.name}. Fill in your details, edit inline, then download as PDF or Word — no sign-up required.`;
   const url = `https://www.naira.autos/documents/${params.type}/${params.country}`;
+  const esUrl = `https://www.naira.autos/plantillas/${params.type}/${params.country}`;
 
   return {
     title,
     description,
     alternates: {
       canonical: url,
+      languages: { en: url, es: esUrl, 'x-default': url },
     },
     openGraph: { title, description, url, type: 'article' },
     twitter: { card: 'summary_large_image', title, description },

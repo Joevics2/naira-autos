@@ -86,13 +86,13 @@ export default function MyDocumentsClientEs() {
     <div className="min-h-screen bg-background">
       <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-6 space-y-6">
         <div className="flex items-center gap-3">
-          <Link href="/documents" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0" aria-label="Atrás">
+          <Link href="/plantillas" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0" aria-label="Atrás">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground">Inicio</Link>
             <span>/</span>
-            <Link href="/documents" className="hover:text-foreground">Plantillas</Link>
+            <Link href="/plantillas" className="hover:text-foreground">Plantillas</Link>
             <span>/</span>
             <span className="text-foreground font-medium">Mis Documentos</span>
           </nav>
@@ -119,7 +119,7 @@ export default function MyDocumentsClientEs() {
           <div className="bg-card border border-dashed border-border rounded-xl p-8 text-center space-y-3">
             <p className="text-sm text-muted-foreground">Todavía no has guardado ningún documento en este navegador.</p>
             <div className="flex items-center justify-center gap-3">
-              <Link href="/documents" className="text-sm font-semibold text-sky-500 hover:underline">Explorar Plantillas</Link>
+              <Link href="/plantillas" className="text-sm font-semibold text-sky-500 hover:underline">Explorar Plantillas</Link>
               <span className="text-muted-foreground">·</span>
               <Link href="/tools/generador-de-documentos-ia" className="text-sm font-semibold text-sky-500 hover:underline">Probar Axios</Link>
             </div>

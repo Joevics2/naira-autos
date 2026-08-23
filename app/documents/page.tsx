@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description: 'Free, ready-to-use vehicle document templates by country — bill of sale, gift affidavits, inspection reports, and more. Fill in your details and download as PDF or Word.',
   alternates: {
     canonical: 'https://www.naira.autos/documents',
+    languages: {
+      en: 'https://www.naira.autos/documents',
+      es: 'https://www.naira.autos/plantillas',
+      'x-default': 'https://www.naira.autos/documents',
+    },
   },
 };
 
@@ -35,6 +40,9 @@ export default async function DocumentsIndexPage() {
           <div className="flex items-center gap-2 mb-2">
             <FileCheck2 className="h-4 w-4 text-sky-500" />
             <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Free · No Sign-Up</span>
+            <Link href="/plantillas" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-2">
+              Leer en Español →
+            </Link>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vehicle Document Templates</h1>
           <p className="text-muted-foreground leading-relaxed">
