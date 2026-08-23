@@ -14,15 +14,8 @@ export async function GET() {
 
   const entries: { path: string; lastmod: string; priority: number; changefreq: string }[] = [
     { path: 'documents', lastmod: new Date().toISOString(), priority: 0.7, changefreq: 'weekly' },
-    { path: 'plantillas', lastmod: new Date().toISOString(), priority: 0.7, changefreq: 'weekly' },
     ...templates.map(t => ({
       path: `documents/${t.document_type}/${t.country}`,
-      lastmod: t.updated_at,
-      priority: 0.6,
-      changefreq: 'monthly',
-    })),
-    ...templates.map(t => ({
-      path: `plantillas/${t.document_type}/${t.country}`,
       lastmod: t.updated_at,
       priority: 0.6,
       changefreq: 'monthly',

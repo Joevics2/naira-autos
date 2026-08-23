@@ -74,7 +74,6 @@ const staticPages = [
   { url: '/tools/mileage-explainer-nigeria',    priority: 0.75, changefreq: 'monthly' },
   { url: '/tools/calculadora-de-kilometraje',   priority: 0.8, changefreq: 'monthly' },
   { url: '/documents',                          priority: 0.7, changefreq: 'weekly'  },
-  { url: '/plantillas',                         priority: 0.7, changefreq: 'weekly'  },
   { url: '/about',                              priority: 0.5, changefreq: 'monthly' },
   { url: '/contact',                            priority: 0.5, changefreq: 'monthly' },
   { url: '/faq',                                priority: 0.5, changefreq: 'monthly' },

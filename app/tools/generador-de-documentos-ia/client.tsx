@@ -148,7 +148,7 @@ export default function GeneradorDeDocumentosClienteEs() {
           </p>
           <p className="text-xs text-muted-foreground/80 mt-2 no-print">{SHORT_DISCLAIMER}</p>
           <Link
-            href="/plantillas"
+            href="/documents"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 dark:text-sky-400 hover:underline mt-3 no-print"
           >
             <FileCheck2 className="h-3.5 w-3.5" />

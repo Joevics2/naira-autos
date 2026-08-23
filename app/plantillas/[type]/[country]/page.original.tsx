@@ -2,28 +2,15 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getDocumentTemplate, getAllPublishedTemplateParams } from '@/lib/document-templates-data';
 import { getDocumentType, getDocumentCountry, type DocumentTypeDef, type DocumentCountryDef } from '@/lib/document-types';
-import TemplateDocumentClient from './client';
+import TemplateDocumentClientEs from './client';
 
-// ── Static params (ISR) ───────────────────────────────────────────
 export async function generateStaticParams() {
   const params = await getAllPublishedTemplateParams();
   return params;
 }
 
-// ISR: statically generate every known template at build time, then
-// revalidate once every 24h so a newly-published template shows up within
-// a day without every request hitting Supabase directly. (Was force-dynamic
-// + revalidate 0 while templates were being added daily — reverted now
-// that's settled down; see the git history on this line if it needs to go
-// back to force-dynamic during another active-adding period.)
-export const revalidate = 86400;
+export const revalidate = 86400; // ISR: 24h revalidation — see the matching note in app/documents/[type]/[country]/page.tsx
 
-// Supabase is the real source of truth for whether a template page exists —
-// DOCUMENT_TYPES/DOCUMENT_COUNTRIES are only used to enrich a page when the
-// slug happens to match one of the site's known labels/categories. When it
-// doesn't match (e.g. a template was added with a slug not yet in that
-// list), the page still renders using the template's own title/country code
-// instead of 404ing.
 function resolveDocType(slug: string, templateTitle: string): DocumentTypeDef {
   return getDocumentType(slug) ?? {
     slug,
@@ -45,34 +32,34 @@ function resolveDocCountry(code: string): DocumentCountryDef {
   };
 }
 
-// ── Metadata ──────────────────────────────────────────────────────
 export async function generateMetadata({
   params,
 }: {
   params: { type: string; country: string };
 }): Promise<Metadata> {
   const template = await getDocumentTemplate(params.type, params.country);
-  if (!template) return { title: 'Document Not Found | Naira Autos' };
+  if (!template) return { title: 'Documento No Encontrado | Naira Autos' };
 
   const docType = resolveDocType(params.type, template.title);
   const docCountry = resolveDocCountry(params.country);
 
-  const title = `${docType.label} Template for ${docCountry.name} (Free) | Naira Autos`;
-  const description = `Free, ready-to-use ${docType.label} for ${docCountry.name}. Fill in your details, edit inline, then download as PDF or Word — no sign-up required.`;
-  const url = `https://www.naira.autos/documents/${params.type}/${params.country}`;
+  const title = `Plantilla de ${docType.label} para ${docCountry.name} (Gratis) | Naira Autos`;
+  const description = `Plantilla gratis y lista para usar de ${docType.label} para ${docCountry.name}. Llena tus datos, edita en línea y descarga en PDF o Word — sin registro.`;
+  const url = `https://www.naira.autos/plantillas/${params.type}/${params.country}`;
+  const enUrl = `https://www.naira.autos/documents/${params.type}/${params.country}`;
 
   return {
     title,
     description,
     alternates: {
       canonical: url,
+      languages: { en: enUrl, es: url, 'x-default': enUrl },
     },
     openGraph: { title, description, url, type: 'article' },
     twitter: { card: 'summary_large_image', title, description },
   };
 }
 
-// ── JSON-LD ───────────────────────────────────────────────────────
 function TemplateSchema({
   docTypeLabel, countryName, url,
 }: { docTypeLabel: string; countryName: string; url: string }) {
@@ -81,16 +68,17 @@ function TemplateSchema({
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       '@id': url,
-      name: `${docTypeLabel} Template for ${countryName}`,
+      name: `Plantilla de ${docTypeLabel} para ${countryName}`,
       url,
+      inLanguage: 'es',
       isPartOf: { '@type': 'WebSite', name: 'Naira Autos', url: 'https://www.naira.autos' },
     },
     {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
-        { '@type': 'ListItem', position: 2, name: 'Document Templates', item: 'https://www.naira.autos/documents' },
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Plantillas de Documentos', item: 'https://www.naira.autos/plantillas' },
         { '@type': 'ListItem', position: 3, name: `${docTypeLabel} — ${countryName}`, item: url },
       ],
     },
@@ -104,23 +92,22 @@ function TemplateSchema({
   );
 }
 
-export default async function TemplateDocumentPage({
+export default async function PlantillaDocumentoPage({
   params,
 }: {
   params: { type: string; country: string };
 }) {
-  // Supabase decides existence now, not the fixed DOCUMENT_TYPES list.
   const template = await getDocumentTemplate(params.type, params.country);
   if (!template) notFound();
 
   const docType = resolveDocType(params.type, template.title);
   const docCountry = resolveDocCountry(params.country);
-  const url = `https://www.naira.autos/documents/${params.type}/${params.country}`;
+  const url = `https://www.naira.autos/plantillas/${params.type}/${params.country}`;
 
   return (
     <>
       <TemplateSchema docTypeLabel={docType.label} countryName={docCountry.name} url={url} />
-      <TemplateDocumentClient template={template} docType={docType} docCountry={docCountry} />
+      <TemplateDocumentClientEs template={template} docType={docType} docCountry={docCountry} />
     </>
   );
 }

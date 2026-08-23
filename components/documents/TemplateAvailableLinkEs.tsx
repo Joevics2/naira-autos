@@ -39,7 +39,7 @@ export default function TemplateAvailableLinkEs({ documentTypeSlug, country }: T
 
   return (
     <Link
-      href={`/plantillas/${documentTypeSlug}/${country}`}
+      href={`/documents/${documentTypeSlug}/${country}`}
       className="flex items-center gap-2 bg-sky-500/10 border border-sky-500/30 text-sky-600 dark:text-sky-400 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-sky-500/15 transition-colors"
     >
       <FileCheck2 className="h-4 w-4 flex-shrink-0" />
