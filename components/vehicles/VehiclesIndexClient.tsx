@@ -9,8 +9,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Search, X, SlidersHorizontal, Wrench, AlertTriangle, Calendar, type LucideIcon } from 'lucide-react';
-import { MAINTENANCE_CONFIG, PARTS_CONFIG, getImageSourceLabel } from '@/lib/vehicle-helpers';
+import { Search, X, SlidersHorizontal, Wrench, AlertTriangle, Calendar, ChevronRight, type LucideIcon } from 'lucide-react';
 
 export interface VehicleCardData {
   key: string;
@@ -200,87 +199,80 @@ export default function VehiclesIndexClient({ cards, typeCounts }: Props) {
 }
 
 function VehicleCard({ card }: { card: VehicleCardData }) {
-  const mc = card.maintenanceScore ? MAINTENANCE_CONFIG[card.maintenanceScore] : null;
-  const pc = card.partsAvailability ? PARTS_CONFIG[card.partsAvailability] : null;
+  const buttons: { href: string; label: string; icon: LucideIcon; classes: string }[] = [
+    card.partsHref && {
+      href: card.partsHref, label: 'View Parts', icon: Wrench,
+      classes: 'border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30',
+    },
+    card.problemsHref && {
+      href: card.problemsHref, label: 'Common Issues', icon: AlertTriangle,
+      classes: 'border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30',
+    },
+    card.maintenanceHref && {
+      href: card.maintenanceHref, label: 'Maintenance', icon: Calendar,
+      classes: 'border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30',
+    },
+  ].filter((b): b is { href: string; label: string; icon: LucideIcon; classes: string } => Boolean(b));
 
-  const buttons: { href: string; label: string; icon: LucideIcon; color: string }[] = [
-    card.problemsHref && { href: card.problemsHref, label: 'Problems', icon: AlertTriangle, color: 'hover:bg-red-500/10 hover:text-red-500' },
-    card.partsHref && { href: card.partsHref, label: 'Parts', icon: Wrench, color: 'hover:bg-blue-500/10 hover:text-blue-500' },
-    card.maintenanceHref && { href: card.maintenanceHref, label: 'Maintenance', icon: Calendar, color: 'hover:bg-emerald-500/10 hover:text-emerald-500' },
-  ].filter((b): b is { href: string; label: string; icon: LucideIcon; color: string } => Boolean(b));
+  const titleLine = [card.brandName, card.modelName].filter(Boolean).join(' ') + (card.yearRangeLabel ? ` ${card.yearRangeLabel}` : '');
 
   return (
-    <div className="group bg-card border border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500 rounded-xl overflow-hidden transition-colors flex flex-col shadow-sm">
+    <div className="flex flex-col border-2 border-border rounded-xl overflow-hidden bg-card shadow-sm">
       <Link href={card.modelHref} className="block">
-        <div className="relative h-36 bg-muted flex items-center justify-center border-b border-zinc-300 dark:border-zinc-700 overflow-hidden">
-          {card.image ? (
-            <img
-              src={card.image}
-              alt={`${card.brandName} ${card.modelName}`}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
-            />
-          ) : (
-            <span className="text-2xl font-black text-muted-foreground/20 uppercase text-center px-3 leading-tight">
-              {card.brandName} {card.modelName}
-            </span>
-          )}
-          {card.image && card.imageReference && (
-            <span className="absolute top-1.5 right-1.5 bg-black/55 text-white text-[10px] leading-none px-1.5 py-1 rounded">
-              Source: {getImageSourceLabel(card.imageReference)}
-            </span>
-          )}
-          <span className="absolute top-1.5 left-1.5 bg-black/55 text-white text-[10px] font-semibold leading-none px-1.5 py-1 rounded uppercase tracking-wide">
-            {card.typeLabel}
-          </span>
-        </div>
-
-        <div className="p-4 pb-3">
-          <h3 className="font-bold text-foreground group-hover:text-foreground/80 transition-colors capitalize leading-tight mb-1.5">
-            {card.brandName} {card.modelName}
-          </h3>
-          <div className="flex items-center justify-between gap-2 mb-2">
-            {card.bodyType && <span className="text-xs text-muted-foreground">{card.bodyType}</span>}
-            {card.yearRangeLabel && <span className="text-xs text-muted-foreground whitespace-nowrap ml-auto">{card.yearRangeLabel}</span>}
-          </div>
-
-          {(mc || pc || card.reliabilityRating) && (
-            <div className="flex flex-wrap gap-1.5">
-              {mc && (
-                <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${mc.color} ${mc.bg} ${mc.border}`}>
-                  {card.maintenanceScore} Maint.
-                </span>
-              )}
-              {pc && (
-                <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${pc.color} ${pc.bg} ${pc.border}`}>
-                  {pc.icon} Parts
-                </span>
-              )}
-              {card.reliabilityRating && (
-                <span className="text-xs font-medium px-2 py-0.5 rounded-full border border-amber-500/30 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400">
-                  ★ {card.reliabilityRating}
-                </span>
-              )}
+        {card.image ? (
+          <div>
+            <div className="relative aspect-video bg-muted overflow-hidden">
+              <img
+                src={card.image}
+                alt={titleLine}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <span className="absolute top-1.5 left-1.5 bg-black/55 text-white text-[10px] font-semibold leading-none px-1.5 py-1 rounded uppercase tracking-wide">
+                {card.typeLabel}
+              </span>
             </div>
-          )}
+            {card.imageReference && (
+              <a
+                href={card.imageReference}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={e => e.stopPropagation()}
+                className="block text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 px-3 pt-1"
+              >
+                Image credit
+              </a>
+            )}
+          </div>
+        ) : (
+          <div className="aspect-video bg-muted flex flex-col items-center justify-center text-center px-3 gap-1">
+            <span className="text-sm font-semibold text-muted-foreground/60 capitalize">{titleLine}</span>
+          </div>
+        )}
+        <div className="px-3 pt-2">
+          <p className="font-bold text-foreground text-base capitalize leading-tight">{titleLine}</p>
         </div>
       </Link>
 
-      {/* 1-3 action buttons — only for categories actually published for this model */}
-      <div className={`mt-auto grid gap-px bg-zinc-300 dark:bg-zinc-700 p-px ${buttons.length === 3 ? 'grid-cols-3' : buttons.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-        {buttons.map(b => {
-          const Icon = b.icon;
-          return (
-            <Link
-              key={b.label}
-              href={b.href}
-              className={`flex items-center justify-center gap-1.5 bg-card ${b.color} text-foreground text-xs font-semibold py-2.5 transition-colors`}
-            >
-              <Icon className="h-3.5 w-3.5" />
-              <span className="truncate">{b.label}</span>
-            </Link>
-          );
-        })}
+      <div className="p-3 pt-2 mt-auto">
+        <div className="flex flex-wrap gap-2">
+          {buttons.map(b => {
+            const Icon = b.icon;
+            return (
+              <Link
+                key={b.label}
+                href={b.href}
+                className={`flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border transition-colors ${b.classes}`}
+              >
+                <span className="flex items-center gap-1.5 text-xs font-semibold">
+                  <Icon className="h-3.5 w-3.5 flex-shrink-0" />
+                  {b.label}
+                </span>
+                <ChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
