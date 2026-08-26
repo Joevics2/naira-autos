@@ -21,8 +21,21 @@ const nextConfig = {
       { source: `/plantillas/${oldSlug}/${country}`, destination: `/plantillas/${newSlug}/${country}`, permanent: true },
     ]);
 
+    // /[type] and /[type]/[brand] listing routes were consolidated into a
+    // single searchable /vehicles hub and now 404 (see app/[type]/page.tsx
+    // and app/[type]/[brand]/page.tsx — both disabled, originals kept as
+    // page.original.tsx). GSC still has several of these indexed as 200s
+    // from before the change, so redirect both levels to /vehicles for
+    // every vehicle type. `:brand` matches exactly one path segment, so
+    // this does not touch the still-active /[type]/[brand]/[model] pages.
+    const disabledVehicleListingRedirects = ['cars', 'trucks', 'vans', 'motorcycles', 'buses'].flatMap(type => [
+      { source: `/${type}`, destination: '/vehicles', permanent: true },
+      { source: `/${type}/:brand`, destination: '/vehicles', permanent: true },
+    ]);
+
     return [
       ...mergedDocumentTemplateRedirects,
+      ...disabledVehicleListingRedirects,
     ];
   },
 };
