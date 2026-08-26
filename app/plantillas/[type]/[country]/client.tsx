@@ -8,6 +8,7 @@ import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@
 import { GeneratedDocument } from '@/lib/document-format';
 import { saveToHistory } from '@/lib/document-history';
 import DocumentEditorEs from '@/components/documents/DocumentEditorEs';
+import BlogMarkdownRenderer from '@/components/BlogMarkdownRenderer';
 
 const SHORT_DISCLAIMER =
   'Solo informativo, no es asesoría legal. Haz que un abogado con licencia revise los acuerdos de alto valor o alto riesgo.';
@@ -136,17 +137,13 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
               resetLabel="Editar Datos"
             />
 
-            {/* Contenido SEO — párrafos reales, no un solo bloque */}
+            {/* Contenido SEO — renderizado como markdown, mismo renderer que el blog */}
             {template.seo_intro && (
               <div className="border-t border-border pt-6 space-y-4">
                 <h2 className="text-lg font-semibold text-foreground">
                   Sobre esta Plantilla de {docType.label}
                 </h2>
-                <div className="prose-sm text-foreground/80 leading-relaxed space-y-4">
-                  {template.seo_intro.split(/\n{2,}/).map((para, i) => (
-                    <p key={i}>{para.trim()}</p>
-                  ))}
-                </div>
+                <BlogMarkdownRenderer content={template.seo_intro} />
               </div>
             )}
           </>

@@ -8,6 +8,7 @@ import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@
 import { GeneratedDocument } from '@/lib/document-format';
 import { saveToHistory } from '@/lib/document-history';
 import DocumentEditor from '@/components/documents/DocumentEditor';
+import BlogMarkdownRenderer from '@/components/BlogMarkdownRenderer';
 
 const SHORT_DISCLAIMER =
   'Informational only, not legal advice. Have high-value or high-risk agreements reviewed by a licensed attorney.';
@@ -136,17 +137,13 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
               resetLabel="Edit Details"
             />
 
-            {/* SEO article content — real paragraphs, not one collapsed block */}
+            {/* SEO article content — rendered as markdown, same renderer as blog posts */}
             {template.seo_intro && (
               <div className="border-t border-border pt-6 space-y-4">
                 <h2 className="text-lg font-semibold text-foreground">
                   About This {docType.label} Template
                 </h2>
-                <div className="prose-sm text-foreground/80 leading-relaxed space-y-4">
-                  {template.seo_intro.split(/\n{2,}/).map((para, i) => (
-                    <p key={i}>{para.trim()}</p>
-                  ))}
-                </div>
+                <BlogMarkdownRenderer content={template.seo_intro} />
               </div>
             )}
           </>
