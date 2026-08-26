@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Loader2, Download, FileDown, RotateCcw, AlertTriangle } from 'lucide-react';
+import { Loader2, Download, FileDown, AlertTriangle } from 'lucide-react';
 import { GeneratedDocument, sanitizeDocument } from '@/lib/document-format';
 
 interface DocumentEditorProps {
@@ -9,8 +9,6 @@ interface DocumentEditorProps {
   onChange: (doc: GeneratedDocument) => void;
   isHighRisk?: boolean;
   fileNamePrefix: string;
-  onReset: () => void;
-  resetLabel?: string;
 }
 
 export default function DocumentEditor({
@@ -18,8 +16,6 @@ export default function DocumentEditor({
   onChange,
   isHighRisk,
   fileNamePrefix,
-  onReset,
-  resetLabel = 'Start Over',
 }: DocumentEditorProps) {
   const [downloading, setDownloading] = useState<'pdf' | 'docx' | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -145,13 +141,6 @@ export default function DocumentEditor({
         >
           {downloading === 'docx' ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileDown className="h-4 w-4" />}
           Download Word
-        </button>
-        <button
-          onClick={onReset}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm font-medium px-4 py-2.5 transition-colors ml-auto"
-        >
-          <RotateCcw className="h-4 w-4" />
-          {resetLabel}
         </button>
       </div>
 

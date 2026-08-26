@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Loader2, Download, FileDown, RotateCcw, AlertTriangle } from 'lucide-react';
+import { Loader2, Download, FileDown, AlertTriangle } from 'lucide-react';
 import { GeneratedDocument, sanitizeDocument } from '@/lib/document-format';
 
 interface DocumentEditorEsProps {
@@ -9,8 +9,6 @@ interface DocumentEditorEsProps {
   onChange: (doc: GeneratedDocument) => void;
   isHighRisk?: boolean;
   fileNamePrefix: string;
-  onReset: () => void;
-  resetLabel?: string;
 }
 
 // Spanish translation of the editor CONTROLS only (buttons, hints, warning).
@@ -23,8 +21,6 @@ export default function DocumentEditorEs({
   onChange,
   isHighRisk,
   fileNamePrefix,
-  onReset,
-  resetLabel = 'Empezar de Nuevo',
 }: DocumentEditorEsProps) {
   const [downloading, setDownloading] = useState<'pdf' | 'docx' | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -148,13 +144,6 @@ export default function DocumentEditorEs({
         >
           {downloading === 'docx' ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileDown className="h-4 w-4" />}
           Descargar Word
-        </button>
-        <button
-          onClick={onReset}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm font-medium px-4 py-2.5 transition-colors ml-auto"
-        >
-          <RotateCcw className="h-4 w-4" />
-          {resetLabel}
         </button>
       </div>
 

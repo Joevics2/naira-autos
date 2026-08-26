@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ChevronRight, Home, FileCheck2, Wand2, History } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Home, FileCheck2, Wand2, History, Pencil } from 'lucide-react';
 import { DocumentTemplateRow, fillTemplate } from '@/lib/document-templates-data';
 import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/document-types';
 import { GeneratedDocument } from '@/lib/document-format';
@@ -79,7 +79,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6">
+      <div className={`max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6 ${!showForm ? 'pb-24' : ''}`}>
         {/* Breadcrumb */}
         <div className="flex items-center justify-between gap-3 no-print flex-wrap">
           <div className="flex items-center gap-3 flex-wrap">
@@ -133,8 +133,6 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
               onChange={setGeneratedDocument}
               isHighRisk={isHighRisk}
               fileNamePrefix={docType.label}
-              onReset={handleShowForm}
-              resetLabel="Edit Details"
             />
 
             {/* SEO article content — rendered as markdown, same renderer as blog posts */}
@@ -221,6 +219,21 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
           </>
         )}
       </div>
+
+      {/* Fixed bottom bar — Edit Details stays reachable no matter how far down the document you've scrolled */}
+      {!showForm && (
+        <div className="no-print fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur border-t border-border">
+          <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-3">
+            <button
+              onClick={handleShowForm}
+              className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold rounded-lg py-3 transition-colors"
+            >
+              <Pencil className="h-4 w-4" />
+              Edit Details
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
