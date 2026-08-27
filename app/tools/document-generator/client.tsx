@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import {
-  ArrowLeft, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2, History,
+  ArrowLeft, Loader2, ChevronRight, Home, Sparkles, CheckCircle2, FileCheck2, History, RotateCcw,
 } from 'lucide-react';
 import {
   DOCUMENT_TYPES, DOCUMENT_COUNTRIES, DOCUMENT_TYPES_SORTED, DOCUMENT_TYPES_POPULAR_COUNT,
@@ -315,13 +315,21 @@ export default function DocumentGeneratorClient() {
 
         {/* ── Step: preview ────────────────────────────────────────── */}
         {step === 'preview' && generatedDocument && (
-          <DocumentEditor
-            document={generatedDocument}
-            onChange={setGeneratedDocument}
-            isHighRisk={isHighRisk}
-            fileNamePrefix={docType?.label || 'document'}
-            onReset={handleReset}
-          />
+          <>
+            <DocumentEditor
+              document={generatedDocument}
+              onChange={setGeneratedDocument}
+              isHighRisk={isHighRisk}
+              fileNamePrefix={docType?.label || 'document'}
+            />
+            <button
+              onClick={handleReset}
+              className="no-print flex items-center gap-2 border-2 border-border hover:border-foreground/40 text-foreground text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors"
+            >
+              <RotateCcw className="h-4 w-4" />
+              Start Over
+            </button>
+          </>
         )}
       </div>
     </div>

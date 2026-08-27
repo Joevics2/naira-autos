@@ -73,8 +73,6 @@ export default function MyDocumentsClient() {
             onChange={(doc) => setOpenEntry({ ...openEntry, document: doc })}
             isHighRisk={openEntry.isHighRisk}
             fileNamePrefix={openEntry.documentTypeLabel}
-            onReset={() => setOpenEntry(null)}
-            resetLabel="Back to My Documents"
           />
         </div>
       </div>
