@@ -167,7 +167,7 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
                   className={`text-xs font-medium px-3 py-1 rounded-full border transition-colors ${
                     usePlaceholders
                       ? 'bg-sky-600 border-sky-600 text-white'
-                      : 'border-dashed border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground'
+                      : 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/30'
                   }`}
                 >
                   Usar datos de ejemplo
