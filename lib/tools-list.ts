@@ -218,6 +218,15 @@ export const TOOLS: Tool[] = [
     category: 'Due Diligence',
   },
   {
+    href: '/tools/engine-number-analyzer',
+    icon: ScanLine,
+    label: 'Engine Number Analyzer',
+    description: 'Free engine number analyzer — enter an engine number or code and get the family, brand, displacement, and common applications.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Due Diligence',
+  },
+  {
     href: '/tools/plate-number-checker',
     icon: Search,
     label: 'Plate Number Checker',

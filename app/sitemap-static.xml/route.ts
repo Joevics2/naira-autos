@@ -53,6 +53,7 @@ const staticPages = [
   { url: '/tools/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/chassis-number-check',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/verificar-numero-de-chasis',   priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/engine-number-analyzer',       priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/plate-number-checker',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/plate-number-checker/nigeria', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vehicle-papers-checklist',     priority: 0.7, changefreq: 'monthly' },
