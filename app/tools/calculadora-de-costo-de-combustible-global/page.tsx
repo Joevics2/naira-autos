@@ -146,7 +146,7 @@ export default function CalculadoraDeCostoDeCombustibleGlobalPage() {
               </div>
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                 <p>Como el precio de la gasolina cambia con frecuencia y varía por país — y en el caso de Argentina, incluso mes a mes — no fijamos un único &ldquo;precio actual&rdquo;. El control deslizante te permite ajustar el precio exacto que pagas hoy, en cualquier país hispanohablante.</p>
-                <p>¿Prefieres una versión pensada específicamente para tu país? Por ahora esta calculadora global cubre España, México, Argentina, Colombia y Chile con precios de referencia reales — más países se irán agregando.</p>
+                <p>Esta calculadora prioriza España, México, Argentina, Colombia y Chile con precios de referencia reales, pero el selector de moneda y de ruta también da acceso a las otras 48 monedas y países que cubre la versión completa — más de 200 ciudades en total.</p>
               </div>
             </div>
           </div>

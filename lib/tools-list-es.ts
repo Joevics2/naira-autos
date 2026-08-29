@@ -47,7 +47,7 @@ export const TOOLS_ES: ToolEs[] = [
     href: '/tools/calculadora-de-costo-de-combustible-global',
     icon: Gauge,
     label: 'Calculadora de Costo de Combustible',
-    description: 'Calcula el gasto de gasolina o diésel de cualquier auto en tu propia moneda — España, México, Argentina, Colombia, Chile y más.',
+    description: 'Calcula el gasto de gasolina o diésel de cualquier auto en tu propia moneda — España, México, Argentina, Colombia, Chile y otros 48 países más.',
     badge: 'NUEVO',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Costos y Mantenimiento',

@@ -5,7 +5,14 @@ import Link from 'next/link';
 import { Fuel, RotateCcw, ChevronRight, Zap, Globe2 } from 'lucide-react';
 import { FUEL_DATA } from '@/lib/fuel-data';
 import { FUEL_CURRENCIES, FUEL_CURRENCIES_ES_PRIORITY, PUMP_PRICE_CONFIG, type FuelCurrencyCode } from '@/lib/fuel-currencies';
-import { GLOBAL_ROUTES_ES } from '@/lib/fuel-routes';
+import { GLOBAL_ROUTES, GLOBAL_ROUTES_ES } from '@/lib/fuel-routes';
+
+// Countries already covered by the Spanish-priority list, so they aren't
+// shown twice when the full world list is appended below it.
+const ES_COUNTRIES = new Set(['España', 'México', 'Argentina', 'Colombia', 'Chile']);
+const WORLD_ROUTES_BY_COUNTRY = GLOBAL_ROUTES
+  .filter(r => r.country !== 'Custom' && !ES_COUNTRIES.has(r.country))
+  .reduce((acc, r) => { (acc[r.country] ||= []).push(r); return acc; }, {} as Record<string, typeof GLOBAL_ROUTES>);
 
 function fmt(n: number, symbol: string) { return symbol + Math.round(n).toLocaleString('es-ES'); }
 
@@ -116,9 +123,19 @@ export default function GlobalFuelCostClientEs() {
             <div>
               <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Ruta</label>
               <select value={selectedRoute} onChange={e => setSelectedRoute(e.target.value)} className={`${selectCls} mb-2`}>
-                {GLOBAL_ROUTES_ES.map(r => (
-                  <option key={r.label} value={r.label}>{r.label}{r.km > 0 ? ` — ${r.km.toLocaleString()}km` : ''}</option>
+                <optgroup label="Países de habla hispana">
+                  {GLOBAL_ROUTES_ES.filter(r => r.country !== 'Personalizado').map(r => (
+                    <option key={r.label} value={r.label}>{r.label} — {r.km.toLocaleString()}km</option>
+                  ))}
+                </optgroup>
+                {Object.entries(WORLD_ROUTES_BY_COUNTRY).map(([country, routes]) => (
+                  <optgroup key={country} label={country}>
+                    {routes.map(r => (
+                      <option key={r.label} value={r.label}>{r.label} — {r.km.toLocaleString()}km</option>
+                    ))}
+                  </optgroup>
                 ))}
+                <option value="Distancia personalizada">Distancia personalizada</option>
               </select>
               {selectedRoute === 'Distancia personalizada' && (
                 <div className="relative">

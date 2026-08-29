@@ -6,7 +6,7 @@ import { FUEL_CURRENCIES } from '@/lib/fuel-currencies';
 
 export const metadata: Metadata = {
   title: 'Global Gas / Fuel Cost Calculator — Any Car, Any Currency, Any Country',
-  description: 'Free fuel cost calculator covering 13 currencies and city-to-city routes across Nigeria, the US, UK, Canada, Australia, South Africa, India, UAE, Mexico, Spain, Argentina, Colombia, and Chile.',
+  description: 'Free fuel cost calculator covering 44 currencies and real road-distance routes across 53 countries and 200+ cities worldwide.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
     languages: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Global Gas / Fuel Cost Calculator | Naira Autos',
-    description: 'Calculate fuel cost for any car in 13 currencies, with real routes across 13 countries.',
+    description: 'Calculate fuel cost for any car in 44 currencies, with real routes across 53 countries.',
     url: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
   },
   keywords: ['global fuel cost calculator','international fuel cost calculator','gas cost calculator by country','fuel cost calculator usd','fuel cost calculator eur','trip cost calculator international','how much does gas cost in different countries','road trip fuel calculator international','petrol price by country calculator'],
@@ -32,7 +32,7 @@ const SCHEMA = {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/fuel-cost-calculator-global',
       name: 'Global Fuel Cost Calculator — Any Car, Any Currency, Any Country',
-      description: 'Free fuel cost calculator covering 13 currencies and real routes across 13 countries.',
+      description: 'Free fuel cost calculator covering 44 currencies and real routes across 53 countries.',
       url: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
       datePublished: '2026-08-28',
       dateModified: LAST_UPDATED,
@@ -116,7 +116,7 @@ export default function GlobalFuelCostCalculatorPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm text-muted-foreground leading-relaxed">
               <div className="space-y-3">
                 <p>Our original fuel cost calculator was built for Nigerian drivers — Naira pricing, Lagos–Abuja style routes, local pump-price ranges. As traffic started coming in from outside Nigeria, we built this global version alongside it rather than diluting the Nigeria-specific one.</p>
-                <p>This tool currently covers <strong className="text-foreground">13 currencies</strong> and real road-distance routes across <strong className="text-foreground">13 countries</strong>: Nigeria, the United States, United Kingdom, Canada, Australia, South Africa, India, the UAE, Mexico, Spain, Argentina, Colombia, and Chile — with more being added as we verify pricing data for each new market.</p>
+                <p>This tool now covers <strong className="text-foreground">44 currencies</strong> and real road-distance routes across <strong className="text-foreground">53 countries</strong> and <strong className="text-foreground">200+ cities</strong> — from Lagos to Tokyo, Cairo to Buenos Aires, Warsaw to Wellington. Pricing is refreshed market by market as we verify official or regulator-published data rather than estimating, so a handful of currencies (e.g. Iran, Argentina, Nigeria) carry wider slider ranges because their pump prices move fast.</p>
               </div>
               <div className="space-y-3">
                 <p>Every pump-price default here is sourced from national fuel-price trackers or regulator data (Pemex/CRE, YPF pricing coverage, CREG, ENAP/MEPCO, and others) as of late August 2026 — not a guess. Prices in Argentina and Nigeria move often, so the slider defaults to a recent reference point; adjust it to match whatever you&rsquo;re actually paying today.</p>

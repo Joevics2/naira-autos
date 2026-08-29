@@ -109,9 +109,17 @@ export default function GlobalFuelCostClient() {
             <div>
               <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Route</label>
               <select value={selectedRoute} onChange={e => setSelectedRoute(e.target.value)} className={`${selectCls} mb-2`}>
-                {GLOBAL_ROUTES.map(r => (
-                  <option key={r.label} value={r.label}>{r.label}{r.km > 0 ? ` — ${r.km.toLocaleString()}km` : ''}</option>
+                {Object.entries(GLOBAL_ROUTES.filter(r => r.country !== 'Custom').reduce((acc, r) => {
+                  (acc[r.country] ||= []).push(r);
+                  return acc;
+                }, {} as Record<string, typeof GLOBAL_ROUTES>)).map(([country, routes]) => (
+                  <optgroup key={country} label={country}>
+                    {routes.map(r => (
+                      <option key={r.label} value={r.label}>{r.label} — {r.km.toLocaleString()}km</option>
+                    ))}
+                  </optgroup>
                 ))}
+                <option value="Custom distance">Custom distance</option>
               </select>
               {selectedRoute === 'Custom distance' && (
                 <div className="relative">

@@ -154,7 +154,7 @@ export const TOOLS: Tool[] = [
     href: '/tools/fuel-cost-calculator-global',
     icon: Globe2,
     label: 'Gas / Fuel Cost Calculator — Global',
-    description: '13 currencies, real routes across 13 countries — gas or fuel cost for any car, anywhere in the world.',
+    description: '44 currencies, real routes across 53 countries and 200+ cities — gas or fuel cost for any car, anywhere in the world.',
     badge: 'NEW',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Running Costs',
