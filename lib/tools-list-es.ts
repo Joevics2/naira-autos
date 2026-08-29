@@ -1,4 +1,4 @@
-import { Wrench, Gauge, ScanLine, Search, Camera, FileText } from 'lucide-react';
+import { Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -77,6 +77,15 @@ export const TOOLS_ES: ToolEs[] = [
     description: 'Consulta gratis el número de chasis o bastidor de cualquier auto — marca, modelo, año, motor y origen al instante.',
     badge: 'GRATIS',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Debida Diligencia',
+  },
+  {
+    href: '/tools/verificar-numero-de-motor',
+    icon: Cog,
+    label: 'Verificar Número de Motor',
+    description: 'Analiza gratis el número o código de motor de cualquier vehículo — marca, cilindrada, configuración y aplicaciones comunes al instante.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Debida Diligencia',
   },
 ];

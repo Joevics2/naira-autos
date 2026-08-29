@@ -7,7 +7,14 @@ export const metadata: Metadata = {
   title: 'Engine Number Analyzer — Free Engine Code Checker & Decoder | Naira Autos',
   description: 'Free engine number analyzer, worldwide. Enter any engine number or engine code and get the family, brand, displacement, and common applications instantly — no login, no payment. Works for Toyota, Honda, BMW, Nissan and more.',
   keywords: ['engine number checker', 'engine number analyzer', 'engine code lookup', 'what does my engine number mean', 'engine number decoder', 'vehicle engine number check', 'engine number verification', 'vehicle engine number check online', 'engine number check free', 'check engine number online', 'how to check engine number online', 'engine code meaning', 'what does engine number tell you', 'engine number lookup', 'decode engine number', 'engine family code', '2JZ engine number', 'K20A engine code', 'B58 engine number', 'engine number vs chassis number', 'can engine number and chassis number be different'],
-  alternates: { canonical: 'https://www.naira.autos/tools/engine-number-analyzer' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/engine-number-analyzer',
+    languages: {
+      en: 'https://www.naira.autos/tools/engine-number-analyzer',
+      es: 'https://www.naira.autos/tools/verificar-numero-de-motor',
+      'x-default': 'https://www.naira.autos/tools/engine-number-analyzer',
+    },
+  },
   openGraph: {
     title: 'Free Engine Number Analyzer | Naira Autos',
     description: 'Enter any engine number or engine code and get the family, brand, displacement, and common applications — free, instant, worldwide.',
@@ -68,9 +75,12 @@ export default function EngineNumberAnalyzerPage() {
             </nav>
           </div>
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-4 flex-wrap">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-sky-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Family-Code Match</span>
+              <Link href="/tools/verificar-numero-de-motor" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+                Leer en español →
+              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
