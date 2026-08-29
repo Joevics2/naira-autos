@@ -12,6 +12,7 @@ export const COUNTRY_NAMES: Record<string, string> = {
   id: 'Indonesia', my: 'Malaysia', vn: 'Vietnam', us: 'United States', gb: 'United Kingdom',
   ca: 'Canada', au: 'Australia', nz: 'New Zealand', ie: 'Ireland', de: 'Germany',
   fr: 'France', br: 'Brazil', mx: 'Mexico', eg: 'Egypt', jm: 'Jamaica', cn: 'China',
+  es: 'Spain', ar: 'Argentina', co: 'Colombia', cl: 'Chile',
 };
 
 /** Spanish display names, keyed identically to COUNTRY_NAMES. Used by the
@@ -25,6 +26,7 @@ export const COUNTRY_NAMES_ES: Record<string, string> = {
   id: 'Indonesia', my: 'Malasia', vn: 'Vietnam', us: 'Estados Unidos', gb: 'Reino Unido',
   ca: 'Canadá', au: 'Australia', nz: 'Nueva Zelanda', ie: 'Irlanda', de: 'Alemania',
   fr: 'Francia', br: 'Brasil', mx: 'México', eg: 'Egipto', jm: 'Jamaica', cn: 'China',
+  es: 'España', ar: 'Argentina', co: 'Colombia', cl: 'Chile',
 };
 
 /** City display-name overrides for languages with well-established

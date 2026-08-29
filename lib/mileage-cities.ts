@@ -191,6 +191,28 @@ export const CITIES: MileageCity[] = [
   { name: 'Guadalajara', countryCode: 'mx', lat: 20.6597, lng: -103.3496 },
   { name: 'Monterrey', countryCode: 'mx', lat: 25.6866, lng: -100.3161 },
 
+  // Spain
+  { name: 'Madrid', countryCode: 'es', lat: 40.4168, lng: -3.7038, global: true },
+  { name: 'Barcelona', countryCode: 'es', lat: 41.3851, lng: 2.1734 },
+  { name: 'Valencia', countryCode: 'es', lat: 39.4699, lng: -0.3763 },
+  { name: 'Sevilla', countryCode: 'es', lat: 37.3891, lng: -5.9845 },
+
+  // Argentina
+  { name: 'Buenos Aires', countryCode: 'ar', lat: -34.6037, lng: -58.3816, global: true },
+  { name: 'Córdoba', countryCode: 'ar', lat: -31.4201, lng: -64.1888 },
+  { name: 'Rosario', countryCode: 'ar', lat: -32.9468, lng: -60.6393 },
+  { name: 'Mendoza', countryCode: 'ar', lat: -32.8908, lng: -68.8272 },
+
+  // Colombia
+  { name: 'Bogotá', countryCode: 'co', lat: 4.7110, lng: -74.0721, global: true },
+  { name: 'Medellín', countryCode: 'co', lat: 6.2442, lng: -75.5812 },
+  { name: 'Cali', countryCode: 'co', lat: 3.4516, lng: -76.5320 },
+
+  // Chile
+  { name: 'Santiago', countryCode: 'cl', lat: -33.4489, lng: -70.6693, global: true },
+  { name: 'Valparaíso', countryCode: 'cl', lat: -33.0472, lng: -71.6127 },
+  { name: 'Concepción', countryCode: 'cl', lat: -36.8201, lng: -73.0444 },
+
   // Egypt
   { name: 'Cairo', countryCode: 'eg', lat: 30.0444, lng: 31.2357, global: true },
   { name: 'Alexandria', countryCode: 'eg', lat: 31.2001, lng: 29.9187 },

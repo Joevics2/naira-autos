@@ -101,6 +101,9 @@ export default function FuelCostCalculatorPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">100+ car models</span>
+              <Link href="/tools/fuel-cost-calculator-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+                Outside Nigeria? Use the global calculator →
+              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

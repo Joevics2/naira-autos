@@ -2,72 +2,29 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Fuel, RotateCcw, ChevronRight, Zap } from 'lucide-react';
-import { symbolFor, type CurrencyCode } from '@/lib/currencies';
+import { Fuel, RotateCcw, ChevronRight, Zap, Globe2 } from 'lucide-react';
 import { FUEL_DATA } from '@/lib/fuel-data';
+import { FUEL_CURRENCIES, FUEL_CURRENCIES_ES_PRIORITY, PUMP_PRICE_CONFIG, type FuelCurrencyCode } from '@/lib/fuel-currencies';
+import { GLOBAL_ROUTES_ES } from '@/lib/fuel-routes';
 
-// This calculator only has pump-price presets tuned for these 9 currencies
-// — intentionally narrower than the shared CurrencyCode union, which now
-// covers 50+ countries for the car valuation tool.
-type FuelCurrencyCode = 'NGN' | 'USD' | 'GBP' | 'EUR' | 'CAD' | 'AUD' | 'ZAR' | 'INR' | 'AED';
+function fmt(n: number, symbol: string) { return symbol + Math.round(n).toLocaleString('es-ES'); }
 
-const FUEL_CURRENCIES: { code: FuelCurrencyCode; symbol: string; label: string }[] = [
-  { code: 'NGN', symbol: '₦', label: 'Nigerian Naira' },
-  { code: 'USD', symbol: '$', label: 'US Dollar' },
-  { code: 'GBP', symbol: '£', label: 'British Pound' },
-  { code: 'EUR', symbol: '€', label: 'Euro' },
-  { code: 'CAD', symbol: 'C$', label: 'Canadian Dollar' },
-  { code: 'AUD', symbol: 'A$', label: 'Australian Dollar' },
-  { code: 'ZAR', symbol: 'R', label: 'South African Rand' },
-  { code: 'INR', symbol: '₹', label: 'Indian Rupee' },
-  { code: 'AED', symbol: 'د.إ', label: 'UAE Dirham' },
+// Spanish-speaking markets shown first, then the rest of the supported
+// currencies so the tool is still fully usable outside those markets.
+const CURRENCIES_ORDERED = [
+  ...FUEL_CURRENCIES_ES_PRIORITY.map(code => FUEL_CURRENCIES.find(c => c.code === code)!),
+  ...FUEL_CURRENCIES.filter(c => !FUEL_CURRENCIES_ES_PRIORITY.includes(c.code)),
 ];
 
-// ── Dataset ───────────────────────────────────────────────────────
-
-
-
-const PUMP_PRICE_CONFIG: Record<FuelCurrencyCode, { min: number; max: number; step: number; presets: number[]; default: number }> = {
-  NGN: { min: 500, max: 2000, step: 50,  presets: [800, 950, 1000, 1100, 1500], default: 1000 },
-  USD: { min: 0.5, max: 3,    step: 0.05, presets: [0.9, 1.1, 1.3, 1.5, 2.0],   default: 1.3 },
-  GBP: { min: 1,   max: 2.5,  step: 0.05, presets: [1.3, 1.4, 1.5, 1.6, 1.8],   default: 1.5 },
-  EUR: { min: 1,   max: 2.5,  step: 0.05, presets: [1.4, 1.5, 1.6, 1.7, 1.9],   default: 1.6 },
-  CAD: { min: 1,   max: 2.5,  step: 0.05, presets: [1.3, 1.4, 1.5, 1.6, 1.8],   default: 1.5 },
-  AUD: { min: 1,   max: 3,    step: 0.05, presets: [1.6, 1.8, 1.9, 2.0, 2.2],   default: 1.9 },
-  ZAR: { min: 10,  max: 35,   step: 0.5,  presets: [20, 22, 23, 24, 26],        default: 23 },
-  INR: { min: 60,  max: 150,  step: 1,    presets: [90, 95, 100, 105, 110],     default: 100 },
-  AED: { min: 1.5, max: 4,    step: 0.05, presets: [2.4, 2.6, 2.8, 3.0, 3.2],   default: 2.8 },
-};
-
-const CITY_ROUTES: Record<string, number> = {
-  'Lagos → Abuja': 791,
-  'Lagos → Ibadan': 128,
-  'Lagos → Benin City': 320,
-  'Lagos → Port Harcourt': 669,
-  'Lagos → Warri': 352,
-  'Lagos → Ondo': 282,
-  'Abuja → Kaduna': 187,
-  'Abuja → Kano': 370,
-  'Abuja → Jos': 295,
-  'Abuja → Enugu': 370,
-  'Abuja → Minna': 155,
-  'Port Harcourt → Calabar': 212,
-  'Kano → Maiduguri': 550,
-  'Enugu → Onitsha': 72,
-  'Custom distance': 0,
-};
-
-function fmt(n: number, symbol: string) { return symbol + Math.round(n).toLocaleString('en-US'); }
-
-export default function FuelCostClient() {
-  const [currency, setCurrency] = useState<FuelCurrencyCode>('NGN');
-  const symbol = symbolFor(currency);
+export default function GlobalFuelCostClientEs() {
+  const [currency, setCurrency] = useState<FuelCurrencyCode>('EUR');
+  const symbol = FUEL_CURRENCIES.find(c => c.code === currency)?.symbol ?? '€';
   const [selectedBrand, setSelectedBrand] = useState('Toyota');
   const [selectedModel, setSelectedModel] = useState('Camry 2.5 (2012–2017)');
-  const [selectedRoute, setSelectedRoute] = useState('Lagos → Abuja');
+  const [selectedRoute, setSelectedRoute] = useState('Madrid → Barcelona');
   const [customDistance, setCustomDistance] = useState('');
   const [driveMode, setDriveMode] = useState<'city' | 'highway' | 'mixed'>('mixed');
-  const [pumpPrice, setPumpPrice] = useState(1000);
+  const [pumpPrice, setPumpPrice] = useState(1.6);
   const priceConfig = PUMP_PRICE_CONFIG[currency];
 
   useEffect(() => {
@@ -84,7 +41,8 @@ export default function FuelCostClient() {
   const carData = FUEL_DATA[selectedBrand]?.[selectedModel];
   const isEV = carData?.city === 0 && carData?.hwy === 0;
 
-  const distance = selectedRoute === 'Custom distance' ? parseFloat(customDistance) || 0 : CITY_ROUTES[selectedRoute] || 0;
+  const routeKm = GLOBAL_ROUTES_ES.find(r => r.label === selectedRoute)?.km ?? 0;
+  const distance = selectedRoute === 'Distancia personalizada' ? parseFloat(customDistance) || 0 : routeKm;
 
   const calc = useMemo(() => {
     if (!carData || isEV || !distance || !pumpPrice) return null;
@@ -94,7 +52,7 @@ export default function FuelCostClient() {
     return { litres, cost, rate, cityL: carData.city, hwyL: carData.hwy, tank: carData.tank };
   }, [carData, isEV, distance, pumpPrice, driveMode]);
 
-  const reset = () => { setSelectedBrand('Toyota'); setSelectedModel('Camry 2.5 (2012–2017)'); setSelectedRoute('Lagos → Abuja'); setCustomDistance(''); setDriveMode('mixed'); setPumpPrice(priceConfig.default); };
+  const reset = () => { setSelectedBrand('Toyota'); setSelectedModel('Camry 2.5 (2012–2017)'); setSelectedRoute('Madrid → Barcelona'); setCustomDistance(''); setDriveMode('mixed'); setPumpPrice(priceConfig.default); };
   const selectCls = 'w-full h-11 px-3 text-sm border border-border rounded-xl bg-background text-foreground focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all cursor-pointer';
 
   return (
@@ -102,46 +60,48 @@ export default function FuelCostClient() {
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-          {/* ── Inputs ── */}
+          {/* ── Entradas ── */}
           <div className="lg:col-span-2 space-y-4">
 
-            {/* Currency */}
+            {/* Moneda */}
             <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Currency</label>
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+                <Globe2 className="h-3 w-3" /> Moneda y país
+              </label>
               <select value={currency} onChange={e => setCurrency(e.target.value as FuelCurrencyCode)} className={selectCls}>
-                {FUEL_CURRENCIES.map(c => (
-                  <option key={c.code} value={c.code}>{c.symbol} {c.code} — {c.label}</option>
+                {CURRENCIES_ORDERED.map(c => (
+                  <option key={c.code} value={c.code}>{c.symbol} {c.code} — {c.labelEs}</option>
                 ))}
               </select>
             </div>
 
-            {/* Brand + Model */}
+            {/* Marca + Modelo */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Brand</label>
+                <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Marca</label>
                 <select value={selectedBrand} onChange={e => setSelectedBrand(e.target.value)} className={selectCls}>
                   {brands.map(b => <option key={b} value={b}>{b}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Model &amp; Year</label>
+                <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Modelo y año</label>
                 <select value={selectedModel} onChange={e => setSelectedModel(e.target.value)} className={selectCls}>
                   {models.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
                 {carData && !isEV && (
-                  <p className="text-xs text-muted-foreground mt-1">City: <strong className="text-foreground">{carData.city}</strong> · Hwy: <strong className="text-foreground">{carData.hwy}</strong> L/100km</p>
+                  <p className="text-xs text-muted-foreground mt-1">Ciudad: <strong className="text-foreground">{carData.city}</strong> · Carretera: <strong className="text-foreground">{carData.hwy}</strong> L/100km</p>
                 )}
               </div>
             </div>
 
-            {/* Drive mode */}
+            {/* Modo de conducción */}
             <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Driving Condition</label>
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Condición de conducción</label>
               <div className="grid grid-cols-3 gap-1.5">
                 {([
-                  { key: 'city', label: '🏙 City', sub: 'Stop-start' },
-                  { key: 'mixed', label: '⚡ Mixed', sub: 'Default' },
-                  { key: 'highway', label: '🛣 Highway', sub: 'Open road' },
+                  { key: 'city', label: '🏙 Ciudad', sub: 'Parar y arrancar' },
+                  { key: 'mixed', label: '⚡ Mixto', sub: 'Por defecto' },
+                  { key: 'highway', label: '🛣 Carretera', sub: 'Vía libre' },
                 ] as const).map(({ key, label, sub }) => (
                   <button key={key} onClick={() => setDriveMode(key)}
                     className={`py-2 rounded-xl text-xs font-bold border transition-all ${driveMode === key ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-card border-border text-muted-foreground hover:border-emerald-500/50'}`}>
@@ -152,31 +112,31 @@ export default function FuelCostClient() {
               </div>
             </div>
 
-            {/* Route + Custom */}
+            {/* Ruta + Personalizada */}
             <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Route</label>
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Ruta</label>
               <select value={selectedRoute} onChange={e => setSelectedRoute(e.target.value)} className={`${selectCls} mb-2`}>
-                {Object.entries(CITY_ROUTES).map(([route, km]) => (
-                  <option key={route} value={route}>{route}{km > 0 ? ` — ${km}km` : ''}</option>
+                {GLOBAL_ROUTES_ES.map(r => (
+                  <option key={r.label} value={r.label}>{r.label}{r.km > 0 ? ` — ${r.km.toLocaleString()}km` : ''}</option>
                 ))}
               </select>
-              {selectedRoute === 'Custom distance' && (
+              {selectedRoute === 'Distancia personalizada' && (
                 <div className="relative">
-                  <input type="number" value={customDistance} onChange={e => setCustomDistance(e.target.value)} placeholder="Enter distance in km"
+                  <input type="number" value={customDistance} onChange={e => setCustomDistance(e.target.value)} placeholder="Ingresa la distancia en km"
                     className="w-full h-11 pl-4 pr-10 text-sm border border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-emerald-500 transition-all" />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">km</span>
                 </div>
               )}
             </div>
 
-            {/* Pump price slider */}
+            {/* Precio por litro */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-bold text-foreground uppercase tracking-wide">Pump Price / Litre</label>
-                <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">{symbol}{pumpPrice.toLocaleString()}</span>
+                <label className="text-xs font-bold text-foreground uppercase tracking-wide">Precio por litro</label>
+                <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">{symbol}{pumpPrice.toLocaleString('es-ES')}</span>
               </div>
               <input type="range" min={priceConfig.min} max={priceConfig.max} step={priceConfig.step} value={pumpPrice} onChange={e => setPumpPrice(Number(e.target.value))} className="w-full accent-emerald-500 h-2 rounded-full mb-2" />
-              <div className="flex gap-1.5">
+              <div className="flex gap-1.5 flex-wrap">
                 {priceConfig.presets.map(p => (
                   <button key={p} onClick={() => setPumpPrice(p)}
                     className={`text-xs py-1 rounded-lg border transition-all font-medium flex-1 ${pumpPrice === p ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-card border-border text-muted-foreground hover:border-emerald-500/50'}`}>
@@ -187,86 +147,86 @@ export default function FuelCostClient() {
             </div>
 
             <button onClick={reset} className="flex items-center justify-center gap-2 w-full h-10 rounded-xl text-xs font-medium border border-border text-muted-foreground hover:text-foreground transition-all">
-              <RotateCcw className="h-3.5 w-3.5" /> Reset
+              <RotateCcw className="h-3.5 w-3.5" /> Reiniciar
             </button>
           </div>
 
-          {/* ── Results ── */}
+          {/* ── Resultados ── */}
           <div className="lg:col-span-3 space-y-3">
             {isEV ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-3">
                   <Zap className="h-6 w-6 text-blue-400" />
                 </div>
-                <p className="text-sm font-bold text-foreground mb-1">Electric Vehicle</p>
-                <p className="text-xs text-muted-foreground">No fuel cost to calculate for this model.</p>
+                <p className="text-sm font-bold text-foreground mb-1">Vehículo eléctrico</p>
+                <p className="text-xs text-muted-foreground">No hay costo de combustible que calcular para este modelo.</p>
               </div>
             ) : !calc ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-3">
                   <Fuel className="h-6 w-6 text-emerald-500/50" />
                 </div>
-                <p className="text-xs text-muted-foreground">Select a car and route — results update live.</p>
+                <p className="text-xs text-muted-foreground">Selecciona un auto y una ruta — los resultados se actualizan al instante.</p>
               </div>
             ) : (
               <>
-                {/* Hero */}
+                {/* Resultado principal */}
                 <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25">
                   <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-1">
-                    Fuel Cost — {selectedRoute !== 'Custom distance' ? selectedRoute : `${distance}km`}
+                    Costo de combustible — {selectedRoute !== 'Distancia personalizada' ? selectedRoute : `${distance}km`}
                   </p>
                   <p className="text-4xl font-black text-emerald-600 dark:text-emerald-400 leading-none"
                     style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
                     {fmt(calc.cost, symbol)}
                   </p>
                   <p className="text-xs text-emerald-700/60 dark:text-emerald-400/60 mt-1.5">
-                    {calc.litres.toFixed(1)}L × {symbol}{pumpPrice.toLocaleString()}/L · {driveMode === 'city' ? 'City' : driveMode === 'highway' ? 'Highway' : 'Mixed'} · {calc.rate.toFixed(1)}L/100km
+                    {calc.litres.toFixed(1)}L × {symbol}{pumpPrice.toLocaleString('es-ES')}/L · {driveMode === 'city' ? 'Ciudad' : driveMode === 'highway' ? 'Carretera' : 'Mixto'} · {calc.rate.toFixed(1)}L/100km
                   </p>
                 </div>
 
-                {/* Stats */}
+                {/* Estadísticas */}
                 <div className="grid grid-cols-3 gap-2">
                   <div className="p-3 rounded-xl bg-card border border-border text-center">
-                    <p className="text-xs text-muted-foreground mb-1">Litres</p>
+                    <p className="text-xs text-muted-foreground mb-1">Litros</p>
                     <p className="text-xl font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{calc.litres.toFixed(1)}L</p>
                   </div>
                   <div className="p-3 rounded-xl bg-card border border-border text-center">
-                    <p className="text-xs text-muted-foreground mb-1">Per km</p>
-                    <p className="text-xl font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{symbol}{(calc.cost / distance).toFixed(0)}</p>
+                    <p className="text-xs text-muted-foreground mb-1">Por km</p>
+                    <p className="text-xl font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>{symbol}{(calc.cost / distance).toFixed(2)}</p>
                   </div>
                   <div className="p-3 rounded-xl bg-card border border-border text-center">
-                    <p className="text-xs text-muted-foreground mb-1">Tank fill</p>
+                    <p className="text-xs text-muted-foreground mb-1">Tanques</p>
                     <p className="text-xl font-black text-foreground" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
                       {calc.tank > 0 ? `${Math.ceil(calc.litres / calc.tank)}x` : '—'}
                     </p>
                   </div>
                 </div>
 
-                {/* Tank bar */}
+                {/* Barra de tanque */}
                 {calc.tank > 0 && (
                   <div className="rounded-xl border border-border bg-card p-3">
                     <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
-                      <span>Tank usage</span>
-                      <span>{((calc.litres / calc.tank) * 100).toFixed(0)}% of {calc.tank}L</span>
+                      <span>Uso del tanque</span>
+                      <span>{((calc.litres / calc.tank) * 100).toFixed(0)}% de {calc.tank}L</span>
                     </div>
                     <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                       <div className={`h-full rounded-full transition-all duration-500 ${calc.litres / calc.tank > 0.9 ? 'bg-red-500' : calc.litres / calc.tank > 0.6 ? 'bg-amber-500' : 'bg-emerald-500'}`}
                         style={{ width: `${Math.min((calc.litres / calc.tank) * 100, 100)}%` }} />
                     </div>
                     {calc.litres > calc.tank && (
-                      <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">Needs {Math.ceil(calc.litres / calc.tank)} fill-ups for this route</p>
+                      <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">Necesita {Math.ceil(calc.litres / calc.tank)} recargas para esta ruta</p>
                     )}
                   </div>
                 )}
 
-                {/* City vs Highway comparison */}
+                {/* Comparación Ciudad vs Carretera */}
                 <div className="rounded-xl border border-border bg-card p-3">
-                  <p className="text-xs font-bold text-foreground uppercase tracking-wide mb-2.5">City vs Highway</p>
+                  <p className="text-xs font-bold text-foreground uppercase tracking-wide mb-2.5">Ciudad vs Carretera</p>
                   <div className="space-y-2">
                     {[
-                      { label: '🏙 City', rate: calc.cityL },
-                      { label: '⚡ Mixed', rate: (calc.cityL + calc.hwyL) / 2 },
-                      { label: '🛣 Highway', rate: calc.hwyL },
+                      { label: '🏙 Ciudad', rate: calc.cityL },
+                      { label: '⚡ Mixto', rate: (calc.cityL + calc.hwyL) / 2 },
+                      { label: '🛣 Carretera', rate: calc.hwyL },
                     ].map(({ label, rate }) => {
                       const cost = (rate / 100) * distance * pumpPrice;
                       return (
@@ -287,12 +247,12 @@ export default function FuelCostClient() {
 
                 {/* CTAs */}
                 <div className="grid grid-cols-2 gap-2">
-                  <Link href="/tools/auto-loan-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group">
-                    <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400">Loan calculator</p>
+                  <Link href="/tools/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group">
+                    <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400">Calculadora de kilometraje</p>
                     <ChevronRight className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" />
                   </Link>
-                  <Link href="/tools/best-car-for" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
-                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400">Find a fuel-efficient car</p>
+                  <Link href="/tools/decodificador-de-vin" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400">Decodificador de VIN</p>
                     <ChevronRight className="h-3.5 w-3.5 text-blue-600 dark:text-blue-500" />
                   </Link>
                 </div>
