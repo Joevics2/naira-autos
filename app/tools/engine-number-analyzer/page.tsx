@@ -92,7 +92,15 @@ export default function EngineNumberAnalyzerPage() {
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>What Is an Engine Number Used For?</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                   <p>An <strong className="text-foreground">engine number</strong> is stamped directly onto the engine block at the factory, and it does two jobs at once. The first part — the <strong className="text-foreground">family code</strong>, something like <span className="font-mono">2JZ-GTE</span>, <span className="font-mono">K20A</span>, or <span className="font-mono">B58</span> — identifies the engine&apos;s design, displacement, and configuration. The digits that follow are a unique serial specific to that one physical unit, similar in spirit to a chassis number but for the engine alone.</p>
-                  <p>People check engine numbers for a few practical reasons: confirming an engine matches what&apos;s written on a vehicle&apos;s registration papers, ordering the correct replacement parts, and understanding what they&apos;re actually looking at when buying a used engine, an import, or a rebuild project.</p>
+                  <p>People run a <strong className="text-foreground">vehicle engine number check</strong> for a few practical reasons: confirming an engine matches what&apos;s written on a car&apos;s registration papers, ordering the correct replacement parts, and understanding what they&apos;re actually looking at when buying a used engine, an import, or a rebuild project. That&apos;s exactly what this <strong className="text-foreground">engine number checker</strong> is built for — a fast, free way to run an <strong className="text-foreground">engine number verification</strong> against a known reference database before you hand over any money.</p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>How to Check Engine Number Online for Free</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>Checking your engine number online used to mean digging through forum threads or paying for a report you probably didn&apos;t need. This tool works as a straightforward <strong className="text-foreground">engine number decoder</strong> for the family-code layer: type in what&apos;s stamped on the block, and you get an instant read on the brand, family, displacement, and configuration — no account, no card details, no waiting around.</p>
+                  <p>If you&apos;ve been searching for <strong className="text-foreground">how to check engine number online</strong>, or looking for a way to <strong className="text-foreground">check engine number online</strong> without downloading an app, the process here is the same three steps every time: find the stamp, type it in, read the result. It works as an <strong className="text-foreground">engine number check free</strong> of charge, for any brand in the database, whether you&apos;re verifying a car you&apos;re about to buy in Lagos, an import clearing customs in Mombasa, or a rebuild project sitting in your own garage. A <strong className="text-foreground">vehicle engine number check online</strong> like this one is meant to be the first thing you do, not the last — a quick sanity check before you commit to a purchase, not a substitute for a proper pre-purchase inspection.</p>
                 </div>
               </div>
 
@@ -100,21 +108,36 @@ export default function EngineNumberAnalyzerPage() {
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Engine Number vs Chassis Number — Can They Be Different?</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                   <p>Yes, and this trips people up constantly. The <strong className="text-foreground">chassis number (VIN)</strong> identifies the whole vehicle as it left the factory. The <strong className="text-foreground">engine number</strong> identifies only the engine block, stamped separately. A car that has had a genuine engine replacement — after a major failure, for example — can legitimately show an engine number that no longer matches what the original paperwork recorded, even though nothing improper happened.</p>
-                  <p>That said, an engine number that looks tampered with, ground down, or re-stamped is a real red flag worth walking away from, especially on a used import.</p>
+                  <p>That said, an engine number that looks tampered with, ground down, or re-stamped is a real red flag worth walking away from, especially on a used import. If an <strong className="text-foreground">engine number lookup</strong> comes back not matching the number on the title at all, that mismatch is exactly what a genuine, documented engine swap looks like — it isn&apos;t automatically fraud, but it&apos;s always worth asking for paperwork.</p>
                 </div>
               </div>
 
               <div>
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Where to Find Your Engine Number</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>The engine number is stamped directly onto the engine block itself — commonly near where the block meets the transmission bell housing, or on a machined, raised pad on the side of the block. Exact location varies significantly by manufacturer and even by model generation, so a workshop manual or a quick search for your specific make and model is the most reliable way to find it if it isn&apos;t obvious.</p>
+                  <p>The engine number is stamped directly onto the engine block itself — commonly near where the block meets the transmission bell housing, or on a machined, raised pad on the side of the block. Exact location varies significantly by manufacturer and even by model generation, so a workshop manual, a dealer, or a quick <strong className="text-foreground">engine code lookup</strong> for your specific make and model is the most reliable way to find it if it isn&apos;t obvious at first glance.</p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>What Does an Engine Number Tell You? Engine Code Meaning Explained</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>So <strong className="text-foreground">what does engine number tell you</strong>, exactly? The family-code portion is a direct read on <strong className="text-foreground">engine code meaning</strong>: brand, generation, displacement, and configuration, all packed into a handful of characters. A Nissan code like <span className="font-mono">RB26DETT</span> tells you 2.6 litres, inline-six, twin-turbo, in about three seconds — no manual required. A Toyota code like <span className="font-mono">2JZ-GTE</span> tells a similar story: 3.0 litres, inline-six, twin-turbo, and a reputation that precedes it.</p>
+                  <p>What it can&apos;t tell you is anything about the individual unit — no odometer reading, no service history, no confirmation that the block hasn&apos;t been swapped, and nothing that counts as legal <strong className="text-foreground">engine number verification</strong> for insurance or customs purposes. Think of this analyzer as an <strong className="text-foreground">engine number decoder</strong> for the family-code layer only. Trying to <strong className="text-foreground">decode engine number</strong> data all the way down to the individual serial isn&apos;t something any public database — this one included — can do, because that information was never published anywhere outside the manufacturer&apos;s own records.</p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Popular Engine Codes People Search</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>Three codes account for a disproportionate share of the searches this tool sees. A <strong className="text-foreground">2JZ engine number</strong> almost always means someone is checking a Toyota Supra, an Aristo, or a Lexus fitted with the legendary 3.0-litre twin-turbo six. A <strong className="text-foreground">K20A engine code</strong> points to Honda&apos;s high-revving i-VTEC four, found in the Integra Type R, the Civic Type R (EP3), and the Accord Euro R. And a <strong className="text-foreground">B58 engine number</strong> identifies BMW&apos;s modern modular turbo six, used across the 340i, 440i, 540i, and X3/X4/X5 M40i — and, notably, the current Toyota Supra (A90), where Toyota borrowed BMW&apos;s engine rather than reviving the 2JZ. Type any of the three into the box above and you&apos;ll get the full breakdown instantly.</p>
                 </div>
               </div>
 
               <div>
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>How This Analyzer Works</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>Type in the engine number or code you have — the full stamp or just the family-code portion both work. This tool checks it against a reference database of known engine family codes and returns the closest matches with a confidence level, along with brand, displacement, configuration, and the vehicles that commonly use that engine.</p>
+                  <p>Type in the engine number or code you have — the full stamp or just the <strong className="text-foreground">engine family code</strong> portion both work. This <strong className="text-foreground">engine number analyzer</strong> checks it against a reference database of known engine family codes and returns the closest matches with a confidence level, along with brand, displacement, configuration, and the vehicles that commonly use that engine — a proper <strong className="text-foreground">engine code lookup</strong> without the wait.</p>
                   <p><strong className="text-foreground">Important:</strong> this is a family-code match only. The unique serial number after the family code is specific to one physical engine and is never published anywhere — no public tool, this one included, can decode it, confirm an engine&apos;s originality, check its theft status, or validate registration. Always verify those details with the manufacturer or your vehicle&apos;s official documents.</p>
                 </div>
               </div>

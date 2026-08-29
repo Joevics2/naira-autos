@@ -23,8 +23,14 @@ function MatchCard({ match, rank }: { match: EngineMatch; rank: number }) {
   return (
     <div className={`rounded-2xl border bg-card p-4 sm:p-5 ${rank === 0 ? 'border-sky-500/40 ring-1 ring-sky-500/20' : 'border-border'}`}>
       <div className="flex items-start justify-between gap-3 mb-3">
-        <div>
-          <p className="text-[11px] font-bold tracking-widest uppercase text-muted-foreground mb-0.5">{match.brand}{match.family ? ` · ${match.family}` : ''}</p>
+        <div className="flex-1 min-w-0">
+          <div className="inline-flex items-center gap-2 mb-2.5 pl-2.5 pr-3 py-1.5 rounded-lg bg-sky-500/10 border border-sky-500/30">
+            <Car className="h-4 w-4 text-sky-600 dark:text-sky-400 flex-shrink-0" />
+            <span className="text-base sm:text-lg font-black uppercase tracking-wide text-sky-700 dark:text-sky-400 leading-none">{match.brand}</span>
+            {match.family && (
+              <span className="text-[10px] font-bold uppercase tracking-wide text-sky-600/70 dark:text-sky-400/60 border-l border-sky-500/30 pl-2 leading-none">{match.family}</span>
+            )}
+          </div>
           <p className="text-xl font-black text-foreground font-mono tracking-tight">{match.code}</p>
         </div>
         {rank === 0 && <span className="flex-shrink-0 text-[10px] font-bold tracking-widest uppercase bg-sky-500 text-white px-2.5 py-1 rounded-full">Best Match</span>}
