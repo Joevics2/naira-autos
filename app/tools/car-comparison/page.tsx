@@ -4,22 +4,24 @@ import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import CarComparisonClient from './client';
 
 export const metadata: Metadata = {
-  title: 'Car Comparison Tool Nigeria 2025 — Compare Specs, Price & Fuel Economy',
-  description: 'Compare any two cars side by side in Nigeria. See price ranges, fuel consumption, maintenance cost, ground clearance, spare parts availability, and common issues. Toyota Camry vs Honda Accord and 28 more models.',
+  title: 'Car Comparison Tool 2026 — Compare Specs, Price & Fuel Economy in 50 Countries',
+  description: 'Compare any two cars side by side with pricing in your local currency across 50 countries — USA, UK, UAE, India, Nigeria, and more. See price ranges, fuel consumption, maintenance cost, ground clearance, spare parts availability, and common issues across 50 popular models, from the Toyota Corolla to the Bugatti Chiron.',
   alternates: { canonical: 'https://www.naira.autos/tools/car-comparison' },
   openGraph: {
-    title: 'Car Comparison Tool Nigeria 2025 | Naira Autos',
-    description: 'Side-by-side car comparison for the Nigerian market. Price range, fuel economy, maintenance cost, ground clearance, spare parts availability. 30 popular models including Camry, Accord, Corolla, Prado, Hilux.',
+    title: 'Car Comparison Tool 2026 | Naira Autos',
+    description: 'Side-by-side car comparison with local pricing for 50 countries. Price range, fuel economy, maintenance cost, ground clearance, spare parts availability. 50 models covered, from the Corolla to the Range Rover to the Ferrari 296 GTB.',
     url: 'https://www.naira.autos/tools/car-comparison',
   },
   keywords: [
-    'car comparison nigeria','compare cars nigeria','toyota camry vs honda accord nigeria',
-    'best car to buy nigeria 2025','camry vs accord','corolla vs civic nigeria',
-    'prado vs highlander nigeria','which car is better nigeria','car specs nigeria',
-    'fuel consumption cars nigeria','cheapest car to maintain nigeria',
-    'toyota vs honda nigeria','suv comparison nigeria','car price comparison nigeria',
-    'best family car nigeria','best suv nigeria 2025','ground clearance nigeria roads',
-    'spare parts availability nigeria','car maintenance cost nigeria',
+    'car comparison tool','compare cars online','toyota camry vs honda accord',
+    'best car to buy 2026','camry vs accord','corolla vs civic','car comparison nigeria',
+    'compare cars nigeria','best car to buy nigeria 2025','prado vs highlander nigeria',
+    'which car is better nigeria','car specs nigeria','fuel consumption cars nigeria',
+    'cheapest car to maintain nigeria','toyota vs honda nigeria','suv comparison nigeria',
+    'car price comparison usa','car comparison uk','car comparison uae','car comparison india',
+    'car comparison south africa','car comparison kenya','car comparison ghana',
+    'best family car','best suv 2026','ground clearance comparison','spare parts availability',
+    'car maintenance cost comparison','electric car comparison','tesla model 3 vs model y',
   ],
 };
 
@@ -30,7 +32,7 @@ const SCHEMA = {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/car-comparison',
       name: 'Car Comparison Tool Nigeria 2025 — Compare Specs, Price & Fuel Economy',
-      description: 'Side-by-side comparison of 30 popular cars in Nigeria. Price range, fuel consumption, maintenance cost, ground clearance, spare parts availability, and known issues.',
+      description: 'Side-by-side comparison of 50 popular cars with local pricing across 50 countries, including Nigeria. Price range, fuel consumption, maintenance cost, ground clearance, spare parts availability, and known issues.',
       url: 'https://www.naira.autos/tools/car-comparison',
       breadcrumb: {
         '@type': 'BreadcrumbList',
@@ -121,14 +123,14 @@ export default function CarComparisonPage() {
               Car Comparison Tool
             </h1>
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
-              Pick any two cars and compare them side by side — Nigerian market price range, fuel economy, maintenance cost, ground clearance, spare parts availability, and known issues. 30 popular models covered.
+              Pick any two cars and compare them side by side — price range in your local currency across 50 countries, fuel economy, maintenance cost, ground clearance, spare parts availability, and known issues. 50 models covered, from the Toyota Corolla to the Bugatti Chiron — Nigerian market pricing built in as one of the 50.
             </p>
           </div>
-
-          {/* Interactive client component */}
-          <CarComparisonClient />
         </div>
       </div>
+
+      {/* ── INTERACTIVE TOOL ── light, theme-aware widget */}
+      <CarComparisonClient />
 
       {/* ── WHITE CONTENT SECTIONS ── */}
       <div className="bg-white">
@@ -140,12 +142,15 @@ export default function CarComparisonPage() {
               className="text-2xl font-black uppercase text-gray-900 mb-5"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
             >
-              How to Compare Cars for the Nigerian Market
+              How to Compare Cars, Anywhere in the World
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
                 <p>
-                  Comparing cars for the Nigerian market is different from using a global spec sheet. Three factors matter far more here than anywhere else: <strong className="text-gray-900">spare parts availability</strong>, <strong className="text-gray-900">mechanic familiarity</strong>, and <strong className="text-gray-900">ground clearance</strong>. A car with impressive specifications on paper can become a liability if its parts require a two-week order from Lagos or if no mechanic within 100km knows how to service it.
+                  This tool covers 50 popular cars — from everyday economy sedans to electric crossovers to seven-figure hypercars — with pricing that adjusts to your country's currency and typical import duty/tax level across 50 countries, including the United States, United Kingdom, UAE, India, South Africa, Kenya, and Nigeria. Pick your country from the selector above before comparing to see realistic local pricing rather than a raw dollar conversion.
+                </p>
+                <p>
+                  For buyers in Nigeria specifically, three factors matter far more here than in most markets: <strong className="text-gray-900">spare parts availability</strong>, <strong className="text-gray-900">mechanic familiarity</strong>, and <strong className="text-gray-900">ground clearance</strong>. A car with impressive specifications on paper can become a liability if its parts require a two-week order from Lagos or if no mechanic within 100km knows how to service it.
                 </p>
                 <p>
                   Spare parts for Toyota and Honda models are stocked at virtually every Ladipo Market-style auto parts hub across Nigeria. This means competitive prices, same-day availability, and mechanics who have serviced hundreds of the same model. Korean brands (Hyundai, Kia) have improved significantly but parts are still Moderate in most states outside Lagos. European brands — Volkswagen, Peugeot, Mercedes-Benz, BMW — carry a Hard rating in most of Nigeria, meaning repairs take longer and cost significantly more than equivalent Japanese cars.
@@ -178,7 +183,7 @@ export default function CarComparisonPage() {
               className="text-2xl font-black uppercase text-gray-900 mb-5"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
             >
-              Popular Car Comparisons in Nigeria
+              Popular Car Comparisons
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -221,10 +226,14 @@ export default function CarComparisonPage() {
               className="text-xl font-black uppercase text-gray-900 mb-4"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
             >
-              Car Comparison FAQ — Nigeria
+              Car Comparison FAQ
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {[
+                {
+                  q: 'Does this tool show real prices for my country?',
+                  a: 'It shows an estimate, not a live quote. Each car has a base USD price, adjusted by your selected country\'s typical import duty/tax level and current exchange rate. It\'s a solid starting point for comparison, but always confirm with a local dealer or listing before budgeting exactly — exchange rates move daily, and taxes vary by trim and engine size.',
+                },
                 {
                   q: 'Which is better in Nigeria — Toyota Camry or Honda Accord?',
                   a: "Both are excellent choices. The Toyota Camry offers slightly lower maintenance costs and better parts availability outside major cities, making it the more practical daily driver. The Honda Accord delivers a sportier feel and is often priced lower at entry level. For first-time buyers, the Camry is generally recommended. Both have Easy spare parts availability.",

@@ -5,12 +5,16 @@ import { ChevronRight, Star, AlertTriangle, Fuel, Wrench, Package, ArrowUpDown }
 import {
   CARS,
   USE_CASE_META,
-  formatNaira,
   maintenanceScore,
   sparePartsScore,
   type CarData,
   type UseCaseTag,
 } from '../cars-data';
+import { getCarCountry, localPriceRange, formatCarPrice } from '@/lib/car-country-pricing';
+
+// NOTE: this recommender is still Nigeria-priced by default (country selector
+// coming next) — car-comparison already has the full 50-country selector.
+const DEFAULT_COUNTRY = getCarCountry('ng');
 
 // ─── Scoring ──────────────────────────────────────────────────────────────────
 
@@ -25,7 +29,7 @@ function scoreCarForUseCase(car: CarData, tag: UseCaseTag): number {
   const parts  = sparePartsScore(car.spareParts);          // 1–3
   const fuel   = Math.max(0, 20 - car.fuelConsumption);   // lower consumption = higher score, max ~12.5
   const ground = Math.min(car.groundClearance / 300, 1);  // normalised 0–1
-  const price  = Math.max(0, 1 - car.priceRangeMin / 50_000_000); // lower min price = slightly better raw
+  const price  = Math.max(0, 1 - car.basePriceUSD.min / 200_000); // lower min price = slightly better raw
 
   let score = 0;
 
@@ -189,8 +193,10 @@ function CarResultCard({ car, score, rank }: { car: CarData; score: number; rank
 
           {/* Price */}
           <p className="text-xs text-white/40 mt-2">
-            <span className="text-white/60 font-semibold">{formatNaira(car.priceRangeMin)} – {formatNaira(car.priceRangeMax)}</span>
-            {' '}<span className="text-white/25">Nigerian market</span>
+            <span className="text-white/60 font-semibold">
+              {formatCarPrice(localPriceRange(car.basePriceUSD, DEFAULT_COUNTRY).min, DEFAULT_COUNTRY)} – {formatCarPrice(localPriceRange(car.basePriceUSD, DEFAULT_COUNTRY).max, DEFAULT_COUNTRY)}
+            </span>
+            {' '}<span className="text-white/25">Nigerian market est.</span>
           </p>
         </div>
       </div>
