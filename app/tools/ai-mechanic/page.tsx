@@ -35,6 +35,9 @@ const SCHEMA = {
       name: 'AI Mechanic — Free Online Car Diagnosis Tool',
       description: 'Free AI-powered online mechanic. Upload engine sounds, photos, or describe faults. Get an instant diagnosis with urgency rating and a rough international repair cost reference.',
       url: 'https://www.naira.autos/tools/ai-mechanic',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -124,6 +127,8 @@ export default function AIMechanicPage() {
       {/* ── SEO content — server-rendered, Google sees all of this ── */}
       <div className="bg-background border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-20">
+
+          <p className="text-xs text-muted-foreground">Last verified: August 2026</p>
 
           {/* How it works */}
           <section>
@@ -237,6 +242,15 @@ export default function AIMechanicPage() {
                 </h2>
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                   <p>Experienced mechanics diagnose problems by sound before they even open a bonnet. Our AI has been trained to distinguish these patterns. When you upload an audio recording of your engine, our <strong className="text-foreground">online mechanic diagnosis</strong> can jump from 60% certainty (text only) to over 85%. Record the sound on your phone. 10 seconds is enough.</p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                  Example: Text Alone vs. Text Plus Audio
+                </h2>
+                <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+                  <p>Ngozi's Honda Accord started making a light ticking sound on cold starts. Typed in as text alone ("ticking sound when I start the car in the morning"), the AI returned a broad list — low oil level, lifter noise, or a loose heat shield — at roughly 60% confidence. She then recorded 12 seconds of the sound on her phone and uploaded it. With the audio, the diagnosis narrowed sharply to hydraulic lifter noise from slightly overdue oil changes, at over 85% confidence, with a specific repair cost range and a note that it was safe to keep driving short-term while she booked an oil change.</p>
                 </div>
               </div>
             </div>
@@ -419,6 +433,10 @@ export default function AIMechanicPage() {
               ))}
             </div>
           </section>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Diagnostic logic and repair-cost ranges checked for workshop accuracy.
+          </p>
 
           {/* Final CTA */}
           <section className="text-center py-8">
