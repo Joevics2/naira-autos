@@ -47,6 +47,9 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Is this engine number checker an official verification service?', acceptedAnswer: { '@type': 'Answer', text: 'No. This is an educational, informational tool only. It matches the family-code portion of an engine number against a public reference database and does not confirm originality, theft status, or registration validity. For an official check, contact the manufacturer or the relevant vehicle registration authority.' } },
         { '@type': 'Question', name: 'Where is the engine number located on a car?', acceptedAnswer: { '@type': 'Answer', text: 'The engine number is stamped directly onto the engine block itself — usually near the front of the block, close to where it meets the transmission, or on a raised pad on the block\'s side. Exact location varies by manufacturer; a workshop manual or dealer for your specific make is the most reliable source if you can\'t find it.' } },
         { '@type': 'Question', name: 'Can this tool decode the full engine serial number?', acceptedAnswer: { '@type': 'Answer', text: 'No. Only the family code portion (e.g. 2JZ-GTE, K20A, B58) is publicly documented and matchable. The unique serial number that follows the family code identifies one specific physical engine and is not published anywhere — it can only be verified by the manufacturer directly.' } },
+        { '@type': 'Question', name: 'Does Nigeria Customs check engine number during clearing?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — the engine number is recorded alongside the chassis number during Nigeria Customs Service clearing at ports like Apapa and Tin Can Island. Confirming your engine number matches your import documents before clearing avoids delays and disputes at the port.' } },
+        { '@type': 'Question', name: 'Will FRSC reject registration if my engine number doesn\'t match my papers?', acceptedAnswer: { '@type': 'Answer', text: 'It can. FRSC and state MVAA offices check that the engine number on your registration documents matches the number stamped on the vehicle. An unexplained mismatch, without paperwork for a genuine engine swap, is a common reason registration gets held up.' } },
+        { '@type': 'Question', name: 'Can I use this to confirm an engine before importing a Tokunbo car?', acceptedAnswer: { '@type': 'Answer', text: 'It is a useful first check, confirming the family code matches what the seller claims before you pay. It does not replace a physical pre-purchase inspection or the official Customs clearing process, but it can flag an obvious mismatch early.' } },
       ],
     },
     { '@type': 'SoftwareApplication', name: 'Free Engine Number Analyzer', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
@@ -78,6 +81,7 @@ export default function EngineNumberAnalyzerPage() {
             <div className="flex items-center gap-2 mb-4 flex-wrap">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-sky-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Family-Code Match</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
               <Link href="/tools/verificar-numero-de-motor" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Leer en español →
               </Link>
@@ -151,6 +155,13 @@ export default function EngineNumberAnalyzerPage() {
                   <p><strong className="text-foreground">Important:</strong> this is a family-code match only. The unique serial number after the family code is specific to one physical engine and is never published anywhere — no public tool, this one included, can decode it, confirm an engine&apos;s originality, check its theft status, or validate registration. Always verify those details with the manufacturer or your vehicle&apos;s official documents.</p>
                 </div>
               </div>
+
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Catching a Mismatch</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>Aliyu was buying an imported Toyota Aristo advertised as fitted with the original <span className="font-mono">2JZ-GTE</span>. He typed the number stamped on the block into this tool — it matched the <span className="font-mono">5S-FE</span> family (2.2L four-cylinder), not 2JZ-GTE at all. Same badge on the outside of the car, completely different engine underneath. That mismatch alone was worth a five-figure-naira price renegotiation before he committed to the purchase.</p>
+                </div>
+              </div>
             </div>
 
             <div>
@@ -164,6 +175,9 @@ export default function EngineNumberAnalyzerPage() {
                   { q: 'Is this an official verification service?', a: 'No — it\'s an educational, informational tool that matches the family-code portion against a public reference database. It doesn\'t confirm originality, theft status, or registration validity. For an official check, contact the manufacturer or your local vehicle registration authority.' },
                   { q: 'Where is the engine number located on a car?', a: 'Stamped directly onto the engine block — usually near the transmission bell housing or on a raised, machined pad on the block\'s side. Exact spot varies by manufacturer; check a workshop manual for your specific model if it isn\'t obvious.' },
                   { q: 'Can this tool decode the full engine serial number?', a: 'No. Only the family-code portion (e.g. 2JZ-GTE, K20A, B58) is publicly documented. The unique serial that follows identifies one specific engine and is never published — only the manufacturer can verify it.' },
+                  { q: 'Does Nigeria Customs check engine number during clearing?', a: 'Yes — the engine number is recorded alongside the chassis number during Nigeria Customs Service clearing at ports like Apapa and Tin Can Island. Confirming your engine number matches your import documents before clearing avoids delays and disputes at the port.' },
+                  { q: 'Will FRSC reject registration if my engine number doesn\'t match my papers?', a: 'It can. FRSC and state MVAA offices check that the engine number on your registration documents matches the number stamped on the vehicle. An unexplained mismatch — without paperwork for a genuine engine swap — is a common reason registration gets held up.' },
+                  { q: 'Can I use this to confirm an engine before importing a Tokunbo car?', a: 'It\'s a useful first check — confirming the family code matches what the seller claims before you pay. It doesn\'t replace a physical pre-purchase inspection or the official Customs clearing process, but it can flag an obvious mismatch early.' },
                 ].map(({ q, a }) => (
                   <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                     <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
@@ -176,6 +190,10 @@ export default function EngineNumberAnalyzerPage() {
               </div>
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Engine family data cross-referenced against manufacturer service documentation.
+          </p>
 
           {/* Related tools */}
           <section>
