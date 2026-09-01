@@ -91,6 +91,31 @@ export default function AboutPage() {
             </div>
 
           </div>
+
+          {/* Meet the Team */}
+          <div className="mt-16">
+            <h2 className="text-xl font-black uppercase text-foreground mb-8" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Meet the Team
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="p-5 border border-border bg-card rounded-2xl">
+                <h3 className="font-bold text-sm text-foreground mb-1">Joshua Victor</h3>
+                <p className="text-xs text-emerald-500 font-semibold mb-2">Founder</p>
+                <p className="text-xs text-muted-foreground">Car dealer with over 5 years of hands-on experience sourcing, inspecting, and clearing vehicles across Nigeria.</p>
+              </div>
+              <div className="p-5 border border-border bg-card rounded-2xl">
+                <h3 className="font-bold text-sm text-foreground mb-1">Evelyn John</h3>
+                <p className="text-xs text-emerald-500 font-semibold mb-2">Auto Sales Expert</p>
+                <p className="text-xs text-muted-foreground">Reviews our valuation, loan, and insurance tools to keep them grounded in real Nigerian dealership pricing and sales practice.</p>
+              </div>
+              <div className="p-5 border border-border bg-card rounded-2xl">
+                <h3 className="font-bold text-sm text-foreground mb-1">Emmanuel Erere</h3>
+                <p className="text-xs text-emerald-500 font-semibold mb-2">Auto Mechanic</p>
+                <p className="text-xs text-muted-foreground">Reviews our diagnostic and mechanical tools — engine and chassis checkers, the AI mechanic — for technical accuracy.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </>
