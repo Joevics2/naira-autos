@@ -111,7 +111,7 @@ export default function AboutPage() {
               <div className="p-5 border border-border bg-card rounded-2xl">
                 <h3 className="font-bold text-sm text-foreground mb-1">Emmanuel Erere</h3>
                 <p className="text-xs text-emerald-500 font-semibold mb-2">Auto Mechanic</p>
-                <p className="text-xs text-muted-foreground">Reviews our diagnostic and mechanical tools — engine and chassis checkers, the AI mechanic — for technical accuracy.</p>
+                <p className="text-xs text-muted-foreground">Auto mechanic with hands-on workshop experience diagnosing and repairing engine, transmission, and electrical faults on the used imports and locally-used cars common in the Nigerian market. Reviews our diagnostic and mechanical tools — engine and chassis checkers, the AI mechanic — for technical accuracy.</p>
               </div>
             </div>
           </div>

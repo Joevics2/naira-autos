@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     title: 'Free Engine Number Analyzer | Naira Autos',
     description: 'Enter any engine number or engine code and get the family, brand, displacement, and common applications — free, instant, worldwide.',
     url: 'https://www.naira.autos/tools/engine-number-analyzer',
+    images: ['https://www.naira.autos/tools/engine-number-analyzer-og.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['https://www.naira.autos/tools/engine-number-analyzer-og.png'],
   },
 };
 
@@ -31,6 +36,10 @@ const SCHEMA = {
       name: 'Engine Number Analyzer — Free Engine Code Checker & Decoder',
       description: 'Free engine number analyzer, worldwide. Enter any engine number or engine code and get the family, brand, displacement, and common applications instantly.',
       url: 'https://www.naira.autos/tools/engine-number-analyzer',
+      image: 'https://www.naira.autos/tools/engine-number-analyzer-og.png',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
@@ -97,6 +106,18 @@ export default function EngineNumberAnalyzerPage() {
       </div>
 
       <EngineNumberAnalyzerClient />
+
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/tools/engine-number-analyzer-og.png"
+          alt="Diagram of an engine block with the stamped engine number highlighted"
+          width={1200}
+          height={630}
+          className="w-full rounded-2xl border border-border"
+          loading="lazy"
+        />
+      </div>
 
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-12">
@@ -175,8 +196,8 @@ export default function EngineNumberAnalyzerPage() {
                   { q: 'Is this an official verification service?', a: 'No — it\'s an educational, informational tool that matches the family-code portion against a public reference database. It doesn\'t confirm originality, theft status, or registration validity. For an official check, contact the manufacturer or your local vehicle registration authority.' },
                   { q: 'Where is the engine number located on a car?', a: 'Stamped directly onto the engine block — usually near the transmission bell housing or on a raised, machined pad on the block\'s side. Exact spot varies by manufacturer; check a workshop manual for your specific model if it isn\'t obvious.' },
                   { q: 'Can this tool decode the full engine serial number?', a: 'No. Only the family-code portion (e.g. 2JZ-GTE, K20A, B58) is publicly documented. The unique serial that follows identifies one specific engine and is never published — only the manufacturer can verify it.' },
-                  { q: 'Does Nigeria Customs check engine number during clearing?', a: 'Yes — the engine number is recorded alongside the chassis number during Nigeria Customs Service clearing at ports like Apapa and Tin Can Island. Confirming your engine number matches your import documents before clearing avoids delays and disputes at the port.' },
-                  { q: 'Will FRSC reject registration if my engine number doesn\'t match my papers?', a: 'It can. FRSC and state MVAA offices check that the engine number on your registration documents matches the number stamped on the vehicle. An unexplained mismatch — without paperwork for a genuine engine swap — is a common reason registration gets held up.' },
+                  { q: 'Does Nigeria Customs check engine number during clearing?', a: <>Yes — the engine number is recorded alongside the chassis number during <a href="https://customs.gov.ng" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">Nigeria Customs Service</a> clearing at ports like Apapa and Tin Can Island. Confirming your engine number matches your import documents before clearing avoids delays and disputes at the port.</> },
+                  { q: 'Will FRSC reject registration if my engine number doesn\'t match my papers?', a: <>It can. <a href="https://frsc.gov.ng" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">FRSC</a> and state MVAA offices check that the engine number on your registration documents matches the number stamped on the vehicle. An unexplained mismatch — without paperwork for a genuine engine swap — is a common reason registration gets held up.</> },
                   { q: 'Can I use this to confirm an engine before importing a Tokunbo car?', a: 'It\'s a useful first check — confirming the family code matches what the seller claims before you pay. It doesn\'t replace a physical pre-purchase inspection or the official Customs clearing process, but it can flag an obvious mismatch early.' },
                 ].map(({ q, a }) => (
                   <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
