@@ -42,6 +42,9 @@ const SCHEMA = {
       description: 'Calculadora gratuita de kilometraje que pone cualquier lectura del odómetro en contexto real — distancia entre ciudades, vueltas a la Tierra, viajes a la Luna.',
       url: 'https://www.naira.autos/tools/calculadora-de-kilometraje',
       inLanguage: 'es',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
     },
     {
       '@type': 'FAQPage',
@@ -88,6 +91,7 @@ export default function CalculadoraDeKilometrajePage() {
                 <Globe2 className="h-3 w-3" />
                 Herramienta Gratuita
               </span>
+              <span className="text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Última verificación: agosto de 2026</span>
               <Link href="/tools/mileage-explainer" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Read this in English →
               </Link>
@@ -185,6 +189,13 @@ export default function CalculadoraDeKilometrajePage() {
             </div>
           </div>
 
+          <div className="max-w-3xl">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Ejemplo: Leer un Kilometraje en Contexto
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Priya estaba viendo un sedán de 6 años con 145.000 km. Solo, el número se sentía alto. Pasado por esta herramienta, 145.000 km equivalen a unas 3,6 vueltas al ecuador — una forma clara de imaginar la distancia, pero lo que realmente importaba era la tasa: 145.000 ÷ 6 ≈ 24.000 km al año, muy por encima del rango típico de 15.000–20.000 km. Eso no descartaba el auto, pero le dijo exactamente qué revisar antes de hacer una oferta — historial de mantenimiento y evidencia de que fue principalmente uso en carretera y no trayectos cortos de ciudad.</p>
+          </div>
+
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
               Calculadora de Kilometraje — Preguntas Frecuentes
@@ -206,6 +217,10 @@ export default function CalculadoraDeKilometrajePage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Revisado por <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Especialista en Ventas de Autos. Marco de kilometraje vs. edad verificado contra patrones reales del mercado de autos usados.
+          </p>
 
           <section>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>

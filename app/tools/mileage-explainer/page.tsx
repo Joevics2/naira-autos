@@ -42,6 +42,9 @@ const SCHEMA = {
       name: 'Mileage Explainer — What Does Your Odometer Reading Actually Mean?',
       description: 'Free mileage calculator that puts any odometer reading in real-world context — distance between cities, laps around the Earth, trips to the Moon.',
       url: 'https://www.naira.autos/tools/mileage-explainer',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
     },
     {
       '@type': 'FAQPage',
@@ -90,6 +93,7 @@ export default function MileageExplainerPage() {
                 <Globe2 className="h-3 w-3" />
                 Free Tool · Global
               </span>
+              <span className="text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
               <Link href="/tools/calculadora-de-kilometraje" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Leer en Español →
               </Link>
@@ -170,6 +174,27 @@ export default function MileageExplainerPage() {
 
           <div className="max-w-3xl">
             <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Mileage and Resale Value
+            </h2>
+            <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                Mileage is one of the factors that weighs most heavily when negotiating a used car&apos;s price, alongside year, trim, and general condition. A car with clearly documented and credible mileage typically commands a better price than one with a reading that&apos;s hard to verify or looks suspicious, even if the actual mechanical condition is similar.
+              </p>
+              <p>
+                If you&apos;re selling, being transparent about how the mileage was accumulated — for example, whether it was mostly highway driving or short city trips — can help the sale move faster with fewer buyer objections.
+              </p>
+            </div>
+          </div>
+
+          <div className="max-w-3xl">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Example: Reading a Mileage Number in Context
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Priya was looking at a 6-year-old sedan listed at 145,000km. On its own, that number felt high. Run through this tool, 145,000km came out to roughly 3.6 laps of the equator — a vivid way to picture the distance, but the number that actually mattered was the rate: 145,000 ÷ 6 ≈ 24,000km a year, well above the 10,000–20,000km typical range for most drivers. That didn't rule the car out, but it told her exactly what to check next — service history and evidence it was mostly steady highway driving rather than harder stop-start use — before making an offer.</p>
+          </div>
+
+          <div className="max-w-3xl">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
               How Average Annual Mileage Varies by Country
             </h2>
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
@@ -203,6 +228,10 @@ export default function MileageExplainerPage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Mileage-vs-age framing checked against real used-car market patterns.
+          </p>
 
           <section>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
