@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     title: 'Verificar Número de Motor Gratis | Naira Autos',
     description: 'Ingresa cualquier número o código de motor y obtén marca, cilindrada, configuración y aplicaciones comunes — gratis, instantáneo.',
     url: 'https://www.naira.autos/tools/verificar-numero-de-motor',
+    images: ['https://www.naira.autos/tools/verificar-numero-de-motor-og.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['https://www.naira.autos/tools/verificar-numero-de-motor-og.png'],
   },
   keywords: [
     'verificador de número de motor',
@@ -54,6 +59,10 @@ const SCHEMA = {
       description: 'Verifica el número de motor de cualquier vehículo gratis. Ingresa el número o código de motor y obtén marca, cilindrada, configuración y aplicaciones comunes al instante.',
       url: 'https://www.naira.autos/tools/verificar-numero-de-motor',
       inLanguage: 'es',
+      image: 'https://www.naira.autos/tools/verificar-numero-de-motor-og.png',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
     },
     {
       '@type': 'FAQPage',
@@ -65,6 +74,9 @@ const SCHEMA = {
         { '@type': 'Question', name: '¿Es este un servicio de verificación oficial?', acceptedAnswer: { '@type': 'Answer', text: 'No — es una herramienta educativa e informativa que compara la parte del código de familia contra una base de datos pública de referencia. No confirma originalidad, estatus de robo ni validez de registro. Para una verificación oficial, contacta al fabricante o a la autoridad de tránsito correspondiente.' } },
         { '@type': 'Question', name: '¿Dónde está el número de motor en un auto?', acceptedAnswer: { '@type': 'Answer', text: 'Grabado directamente en el bloque del motor — usualmente cerca de donde se une con la caja de transmisión, o en una superficie plana y elevada al costado del bloque. La ubicación exacta varía según el fabricante; revisa un manual de taller para tu modelo específico si no es obvio.' } },
         { '@type': 'Question', name: '¿Puede esta herramienta decodificar el número de serie completo?', acceptedAnswer: { '@type': 'Answer', text: 'No. Solo la parte del código de familia (ej. 2JZ-GTE, K20A, B58) está documentada públicamente. El número de serie único que sigue identifica a un motor específico y nunca se publica en ningún lado — solo el fabricante puede verificarlo.' } },
+        { '@type': 'Question', name: '¿Las autoridades aduaneras verifican el número de motor al importar un auto?', acceptedAnswer: { '@type': 'Answer', text: 'En muchos países, sí — las autoridades aduaneras registran el número de motor junto con el VIN/número de chasis durante el despacho de importación, para confirmar que el vehículo coincide con lo declarado. El procedimiento exacto varía según el país; consulta con tu autoridad aduanera local antes de importar o despachar un vehículo.' } },
+        { '@type': 'Question', name: '¿Pueden rechazar el registro del vehículo por una discrepancia en el número de motor?', acceptedAnswer: { '@type': 'Answer', text: 'Sí, en la mayoría de las jurisdicciones. Las autoridades de tránsito suelen verificar que el número de motor en tus documentos coincida con el grabado en el vehículo. Una discrepancia sin explicación — sin papeles que respalden un cambio de motor legítimo — es una causa común de retraso o rechazo del registro en cualquier país.' } },
+        { '@type': 'Question', name: '¿Puedo usar esto para confirmar un motor antes de importar un auto usado?', acceptedAnswer: { '@type': 'Answer', text: 'Es una buena primera verificación — confirmar que el código de familia coincide con lo que dice el vendedor antes de pagar. No reemplaza una inspección física previa a la compra ni el proceso oficial de aduana/registro de tu país, pero puede detectar una discrepancia obvia desde el principio.' } },
       ],
     },
     { '@type': 'SoftwareApplication', name: 'Verificación Gratuita de Número de Motor', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
@@ -96,6 +108,7 @@ export default function VerificarNumeroDeMotorPage() {
             <div className="flex items-center gap-2 mb-4 flex-wrap">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-sky-500 px-3 py-1 rounded-full">100% Gratis</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Coincidencia de Código de Familia</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Última verificación: agosto de 2026</span>
               <Link href="/tools/engine-number-analyzer" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Read in English →
               </Link>
@@ -111,6 +124,18 @@ export default function VerificarNumeroDeMotorPage() {
       </div>
 
       <VerificarNumeroDeMotorClient />
+
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/tools/verificar-numero-de-motor-og.png"
+          alt="Diagrama de un bloque de motor con el número de motor grabado resaltado"
+          width={1200}
+          height={630}
+          className="w-full rounded-2xl border border-border"
+          loading="lazy"
+        />
+      </div>
 
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-12">
@@ -135,7 +160,7 @@ export default function VerificarNumeroDeMotorPage() {
               <div>
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Número de Motor vs Número de Chasis — ¿Pueden Ser Diferentes?</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>Sí, y esto confunde constantemente a la gente. El <strong className="text-foreground">número de chasis (VIN)</strong> identifica al vehículo completo tal como salió de fábrica. El <strong className="text-foreground">número de motor</strong> identifica solo el bloque del motor, grabado por separado. Un auto que tuvo un cambio de motor legítimo — después de una falla grave, por ejemplo — puede mostrar legítimamente un <strong className="text-foreground">número de motor vs número de chasis</strong> que ya no coincide con lo que registraron los papeles originales, aunque no haya pasado nada indebido.</p>
+                  <p>Sí, y esto confunde constantemente a la gente. El <strong className="text-foreground">número de chasis (VIN)</strong> identifica al vehículo completo tal como salió de fábrica, y su formato está estandarizado mundialmente bajo la norma <a href="https://www.iso.org/standard/52200.html" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">ISO 3779</a>. El <strong className="text-foreground">número de motor</strong> identifica solo el bloque del motor, grabado por separado, y — a diferencia del VIN — no tiene un estándar internacional equivalente; el formato y la ubicación los define cada fabricante. Un auto que tuvo un cambio de motor legítimo — después de una falla grave, por ejemplo — puede mostrar legítimamente un <strong className="text-foreground">número de motor vs número de chasis</strong> que ya no coincide con lo que registraron los papeles originales, aunque no haya pasado nada indebido.</p>
                   <p>Dicho esto, un número de motor que se ve alterado, lijado o regrabado sí es una alerta real, especialmente en una importación usada. Si una <strong className="text-foreground">búsqueda de número de motor</strong> no coincide en absoluto con el número en la tarjeta de circulación, eso es exactamente lo que parece un cambio de motor genuino y documentado — no es automáticamente fraude, pero siempre vale la pena pedir los papeles.</p>
                 </div>
               </div>
@@ -171,6 +196,13 @@ export default function VerificarNumeroDeMotorPage() {
                   <p><strong className="text-foreground">Importante:</strong> esto es solo una coincidencia de código de familia. El número de serie único después del código de familia es específico de un motor físico y nunca se publica en ningún lado — ninguna herramienta pública, esta incluida, puede decodificarlo, confirmar la originalidad de un motor, revisar su estatus de robo, o validar el registro. Verifica siempre esos detalles con el fabricante o con los documentos oficiales de tu vehículo.</p>
                 </div>
               </div>
+
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Ejemplo: Detectando una Discrepancia</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>Aliyu estaba comprando un Toyota Aristo importado, anunciado con el motor original <span className="font-mono">2JZ-GTE</span>. Ingresó el número grabado en el bloque en esta herramienta — y coincidió con la familia <span className="font-mono">5S-FE</span> (2.2L de cuatro cilindros), no con el 2JZ-GTE. La misma insignia por fuera, un motor completamente distinto por dentro. Esa discrepancia por sí sola valió una renegociación de precio de cinco cifras antes de cerrar la compra.</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -185,6 +217,9 @@ export default function VerificarNumeroDeMotorPage() {
                 { q: '¿Es este un servicio de verificación oficial?', a: 'No — es una herramienta educativa e informativa que compara la parte del código de familia contra una base de datos pública de referencia. No confirma originalidad, estatus de robo ni validez de registro. Para una verificación oficial, contacta al fabricante o a la autoridad de tránsito correspondiente.' },
                 { q: '¿Dónde está el número de motor en un auto?', a: 'Grabado directamente en el bloque del motor — usualmente cerca de la caja de transmisión o en una superficie plana y elevada al costado del bloque. La ubicación exacta varía según el fabricante; revisa un manual de taller para tu modelo específico si no es obvio.' },
                 { q: '¿Puede esta herramienta decodificar el número de serie completo?', a: 'No. Solo la parte del código de familia (ej. 2JZ-GTE, K20A, B58) está documentada públicamente. El número de serie único que sigue identifica a un motor específico y nunca se publica — solo el fabricante puede verificarlo.' },
+                { q: '¿Las autoridades aduaneras verifican el número de motor al importar un auto?', a: 'En muchos países, sí — las autoridades aduaneras registran el número de motor junto con el VIN/número de chasis durante el despacho de importación. El procedimiento exacto varía según el país; consulta con tu autoridad aduanera local antes de importar o despachar un vehículo.' },
+                { q: '¿Pueden rechazar el registro del vehículo por una discrepancia en el número de motor?', a: 'Sí, en la mayoría de las jurisdicciones. Las autoridades de tránsito suelen verificar que el número de motor en tus documentos coincida con el grabado en el vehículo. Una discrepancia sin explicación es una causa común de retraso o rechazo del registro.' },
+                { q: '¿Puedo usar esto para confirmar un motor antes de importar un auto usado?', a: 'Es una buena primera verificación — confirmar que el código de familia coincide con lo que dice el vendedor antes de pagar. No reemplaza una inspección física ni el proceso oficial de tu país, pero puede detectar una discrepancia obvia desde el principio.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
@@ -196,6 +231,10 @@ export default function VerificarNumeroDeMotorPage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Revisado por <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Mecánico Automotriz. Datos de familias de motor verificados contra documentación técnica del fabricante.
+          </p>
 
           <section>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
