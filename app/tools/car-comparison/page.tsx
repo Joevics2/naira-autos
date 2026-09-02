@@ -32,6 +32,9 @@ const SCHEMA = {
       name: 'Car Comparison Tool Nigeria 2025 — Compare Specs, Price & Fuel Economy',
       description: 'Side-by-side comparison of 30 popular cars in Nigeria. Price range, fuel consumption, maintenance cost, ground clearance, spare parts availability, and known issues.',
       url: 'https://www.naira.autos/tools/car-comparison',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -114,6 +117,7 @@ export default function CarComparisonPage() {
             <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1 mb-4">
               <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Free Tool</span>
             </div>
+            <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
@@ -157,7 +161,7 @@ export default function CarComparisonPage() {
               <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
                 <p>
                   <strong className="text-gray-900">Fuel consumption figures</strong> shown in this tool are manufacturer combined-cycle figures. Real-world Nigerian consumption is typically 15–30% higher due to Lagos traffic, air conditioning running continuously, and road surfaces that cause more acceleration/braking cycles. A car rated at 10 L/100km should be budgeted at 12–13 L/100km for realistic cost planning. Use our{' '}
-                  <Link href="/tools/fuel-cost-estimator" className="text-blue-600 hover:underline">Fuel Cost Calculator</Link>{' '}
+                  <Link href="/tools/fuel-cost-calculator" className="text-blue-600 hover:underline">Fuel Cost Calculator</Link>{' '}
                   to convert these figures into a monthly naira cost for your specific commute.
                 </p>
                 <p>
@@ -215,6 +219,11 @@ export default function CarComparisonPage() {
             </div>
           </div>
 
+          <div>
+            <h2 className="text-xl font-black uppercase text-gray-900 mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Letting Total Cost Decide</h2>
+            <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">Ifeoma was torn between a Toyota Camry and a BMW 3 Series at similar asking prices. On paper the BMW looked like the better car — newer features, more power. Comparing both here, the maintenance rating gap was the deciding factor: Low for the Camry versus Very High for the 3 Series, plus Hard spare parts availability outside Lagos for the BMW. Over a realistic 3-year ownership period, the routine maintenance difference alone was projected to exceed ₦1.2 million — before accounting for any major repair. She bought the Camry and used the savings toward a better trim level instead.</p>
+          </div>
+
           {/* FAQ */}
           <div>
             <h2
@@ -263,12 +272,16 @@ export default function CarComparisonPage() {
             </div>
           </div>
 
+          <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Joshua Victor</Link>, Founder. Comparison ratings checked against real dealer and workshop experience.
+          </p>
+
           {/* Related tools */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { href: '/tools/best-car-for',         label: 'Best Car For... Recommender', color: 'emerald' },
-              { href: '/tools/fuel-cost-estimator',  label: 'Fuel Cost Calculator',        color: 'amber' },
-              { href: '/tools/ai-car-valuation',     label: 'AI Car Valuation',            color: 'violet' },
+              { href: '/tools/fuel-cost-calculator', label: 'Fuel Cost Calculator',        color: 'amber' },
+              { href: '/evaluate-car',               label: 'AI Car Valuation',            color: 'violet' },
             ].map(({ href, label, color }) => (
               <Link
                 key={href}

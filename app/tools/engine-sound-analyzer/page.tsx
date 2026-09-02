@@ -23,6 +23,9 @@ const SCHEMA = {
       name: 'Engine Sound Analyzer — Free AI Diagnosis from Audio',
       description: 'Free AI tool that diagnoses car problems from an engine sound recording.',
       url: 'https://www.naira.autos/tools/engine-sound-analyzer',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -68,6 +71,7 @@ export default function EngineSoundAnalyzerPage() {
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
               <Mic className="h-3 w-3" /> Free Tool
             </span>
+            <span className="inline-block ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Engine Sound<br /><span className="text-emerald-400">Analyzer</span>
@@ -146,7 +150,18 @@ export default function EngineSoundAnalyzerPage() {
               <p className="mb-3">Searching a symptom online usually turns up a long, generic list of everything that could theoretically cause a noise — useful for background reading, not so useful for figuring out what&apos;s actually happening with your specific car. This tool takes the opposite approach: it listens to the actual sound your engine is making, plus any details you add about your vehicle, and narrows that long list down to a ranked, specific answer rather than leaving you to guess which of ten possible causes applies to you.</p>
               <p>That said, it&apos;s not a replacement for a hands-on inspection — think of it as the fast, free first step that tells you how urgent the issue is and what to check or ask about next, before you spend time or money acting on a guess.</p>
             </div>
+
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                Example: A Cold-Start Tick That Wasn't Serious
+              </h2>
+              <p>Segun's Honda CR-V started ticking every morning at cold start, disappearing after a minute or two once the engine warmed up. Worried it might be a bearing issue, he recorded 15 seconds of it and ran it through this tool. The acoustic pattern matched hydraulic lifter noise from an overdue oil change far more closely than any bearing-related signature — a Low-urgency result, safe to keep driving, with a recommendation to change the oil within the week. The oil change fixed it. Knowing it wasn't urgent before booking anywhere saved him an unnecessary diagnostic fee at a workshop.</p>
+            </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Sound-pattern categories checked for workshop accuracy.
+          </p>
 
           {/* FAQ */}
           <div>

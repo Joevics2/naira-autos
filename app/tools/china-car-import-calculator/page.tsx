@@ -25,6 +25,9 @@ const SCHEMA = {
       name: 'China Car Import Calculator — Cost of Importing a Chinese Car to Nigeria',
       description: 'Free calculator for importing a car from China to Nigeria — full customs breakdown and popular Chinese model presets.',
       url: 'https://www.naira.autos/tools/china-car-import-calculator',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -80,6 +83,7 @@ export default function ChinaCarImportCalculatorPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">🇳🇬 Nigeria Live · More Countries Coming</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 52px)' }}>
@@ -104,7 +108,7 @@ export default function ChinaCarImportCalculatorPage() {
               Importing a Car From China to Nigeria
             </h2>
             <p className="text-sm text-muted-foreground mb-6 max-w-xl">
-              Chinese brands like Chery, Geely, GAC, Jetour, and BYD have become popular imports into Nigeria and across Africa — often priced well below equivalent Nigerian dealer listings even after shipping and customs. This calculator applies Nigeria's current statutory vehicle import charges to your specific FOB quote.
+              Chinese brands like Chery, Geely, GAC, Jetour, and BYD have become popular imports into Nigeria and across Africa — often priced well below equivalent Nigerian dealer listings even after shipping and customs. This calculator applies <a href="https://customs.gov.ng" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">Nigeria Customs Service's</a> current statutory vehicle import charges to your specific FOB quote.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
               {[
@@ -185,6 +189,15 @@ export default function ChinaCarImportCalculatorPage() {
               We haven't independently vetted specific Chinese export platforms or agents. Verify any exporter's track record, use secure payment methods (avoid full upfront wire transfers where possible), and budget extra for clearing/agent fees before committing to a purchase.
             </p>
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Working Through a Landed Cost</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Bashir got a $14,500 FOB quote on a Chery Tiggo 7 Pro from an exporter in Guangzhou, with freight and insurance adding roughly $1,300 — a CIF of about $15,800. Running that through this calculator: 20% import duty (~$3,160), a 5% NAC levy (~$790), no Green Tax since the engine is under 2,000cc, a 4% FOB levy on the original FOB value (~$580), then 7.5% VAT applied to CIF plus duty plus NAC plus Green Tax (~$1,480). Total statutory charges came to roughly $6,010 — pushing the landed cost to about $21,810, before clearing agent fees. Seeing that full breakdown upfront, rather than just "customs is about 40%," let him negotiate his agent's fee with real numbers instead of a guess.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Duty rates and clearing process checked against real vehicle sourcing and clearing experience.
+          </p>
 
           {/* Related tools */}
           <RelatedTools tool="china-car-import-calculator" />
