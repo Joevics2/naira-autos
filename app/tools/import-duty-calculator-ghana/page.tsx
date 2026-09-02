@@ -35,6 +35,9 @@ const SCHEMA = {
       name: 'Ghana Car Import Duty Calculator — Free GRA Customs Estimator',
       description: 'Calculate car import duty in Ghana free. Get a full breakdown of import duty, NHIL, GETFund, VAT, and overage penalty for any used or new car.',
       url: 'https://www.naira.autos/tools/import-duty-calculator-ghana',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -94,6 +97,7 @@ export default function ImportDutyCalculatorGhanaPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Rates: 2026 (post-VAT reform)</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -130,7 +134,7 @@ export default function ImportDutyCalculatorGhanaPage() {
               Current Ghana Car Import Duty Rates (2026)
             </h2>
             <p className="text-sm text-muted-foreground mb-6 max-w-xl">
-              Ghana Revenue Authority (GRA) charges import duty under the ECOWAS Common External Tariff, plus several flat-rate levies on every vehicle cleared through Tema or Takoradi port.
+              Ghana Revenue Authority (<a href="https://gra.gov.gh" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">GRA</a>) charges import duty under the ECOWAS Common External Tariff, plus several flat-rate levies on every vehicle cleared through Tema or Takoradi port.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
@@ -230,6 +234,15 @@ export default function ImportDutyCalculatorGhanaPage() {
               </div>
             </div>
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: A 9-Year-Old Petrol Sedan</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Kwame got an $8,000 FOB quote on a 9-year-old 1.8L petrol sedan, with freight and insurance adding about $1,000 — a CIF of $9,000. At 1.8L (in the 1,001–3,000cc bracket), duty is 10% (~$900). NHIL + GETFund at 5% of CIF + duty adds ~$495. VAT at 15% of that combined base adds ~$1,559. The smaller flat levies — AU, ECOWAS, EXIM, Special Import Levy, and the examination fee — add roughly $401 more. No overage penalty applies since the car is under 10 years old. Total: about $3,355, or 37% of CIF, before port handling and clearing agent fees. Knowing the age cutoff mattered here — one year older and the overage penalty would have added another 5% on top.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Duty structure and clearing steps checked against real vehicle sourcing and clearing experience.
+          </p>
 
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>

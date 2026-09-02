@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ChevronRight, Calculator } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ChevronDown, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Car Import Duty Calculator — Choose Your Country | Naira Autos',
@@ -44,9 +44,34 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
 
 const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
 
+const SCHEMA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://www.naira.autos/tools/import-duty-calculator-countries',
+      name: 'Car Import Duty Calculator — Choose Your Country',
+      description: 'Free car import duty calculator by country — customs duty, levies, and total landed cost for any imported vehicle.',
+      url: 'https://www.naira.autos/tools/import-duty-calculator-countries',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'How is car import duty usually calculated?', acceptedAnswer: { '@type': 'Answer', text: 'Most countries base import duty on CIF value — Cost, Insurance, and Freight — rather than just the purchase price. A percentage duty rate applies to that CIF value, often with additional levies (environmental, industry development, or value-added tax) stacked on top. The exact rates, levies, and how they compound differ significantly by country.' } },
+        { '@type': 'Question', name: 'Why do rates vary so much between countries?', acceptedAnswer: { '@type': 'Answer', text: 'Each country sets its own tariff schedule, automotive industry protection levies, and environmental surcharges independently, based on its own trade policy and local auto industry goals. A vehicle that costs 40% of its price in duty in one country might cost 15% or 70% in another.' } },
+        { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built with the actual current customs tariff schedule researched directly, rather than a generic estimate — that takes time to verify properly. More countries are added as that research is completed.' } },
+      ],
+    },
+  ],
+};
+
 export default function ImportDutyCountryPickerPage() {
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <div className="bg-[#080C10] pt-10 pb-12 px-4">
         <div className="max-w-screen-lg mx-auto">
           <div className="flex items-center gap-3 mb-8">
@@ -66,6 +91,7 @@ export default function ImportDutyCountryPickerPage() {
               <Calculator className="h-3 w-3" />
               Free Tool
             </span>
+            <span className="inline-flex ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Car Import<br /><span className="text-emerald-400">Duty Calculator</span>
@@ -90,6 +116,33 @@ export default function ImportDutyCountryPickerPage() {
               <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400">Open Calculator →</span>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-14 max-w-screen-lg space-y-10">
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>How Import Duty Generally Works</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Most countries base car import duty on CIF value — Cost, Insurance, and Freight — rather than the sticker price alone, with a percentage tariff plus additional levies (environmental, industry development, or VAT) often stacked on top and compounding on each other. The rate, the levies, and how they compound differ significantly by country, which is why each page here is built with the actual current tariff schedule researched directly rather than a generic estimate applied everywhere.</p>
+          </div>
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>FAQ</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { q: 'How is car import duty usually calculated?', a: 'Most countries base it on CIF value — Cost, Insurance, and Freight. A percentage duty rate applies, often with extra levies stacked on top. Exact rates and how they compound differ significantly by country.' },
+                { q: 'Why do rates vary so much between countries?', a: 'Each country sets its own tariff schedule and automotive-industry protection levies based on its own trade policy. A car that costs 40% of its price in duty in one country might cost 15% or 70% in another.' },
+              ].map(({ q, a }) => (
+                <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
+                    <span className="text-sm font-semibold text-foreground">{q}</span>
+                    <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-4 pb-4"><p className="text-sm text-muted-foreground leading-relaxed">{a}</p></div>
+                </details>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder.
+          </p>
         </div>
       </div>
     </div>

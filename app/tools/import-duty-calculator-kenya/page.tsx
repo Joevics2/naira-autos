@@ -33,6 +33,9 @@ const SCHEMA = {
       name: 'Kenya Car Import Duty Calculator — Free KRA CRSP Estimator',
       description: 'Calculate car import duty in Kenya free. Get a full breakdown of import duty, excise, VAT, IDF, and RDL for any used or new car, plus the 8-year import age rule.',
       url: 'https://www.naira.autos/tools/import-duty-calculator-kenya',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -90,6 +93,7 @@ export default function ImportDutyCalculatorKenyaPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Rates: 2026</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -126,7 +130,7 @@ export default function ImportDutyCalculatorKenyaPage() {
               Current Kenya Car Import Duty Rates (2026)
             </h2>
             <p className="text-sm text-muted-foreground mb-6 max-w-xl">
-              Kenya Revenue Authority (KRA) taxes are layered — each one compounds on the running total, not on the base value alone. This is why total tax burden often reaches 60–90%+ of customs value.
+              Kenya Revenue Authority (<a href="https://kra.go.ke" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">KRA</a>) taxes are layered — each one compounds on the running total, not on the base value alone. This is why total tax burden often reaches 60–90%+ of customs value.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
@@ -196,6 +200,15 @@ export default function ImportDutyCalculatorKenyaPage() {
               </div>
             </div>
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Why the Rate Uncertainty Matters</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Amina was importing a 2,000cc petrol car with a KRA CRSP-based customs value of around $12,000. At the 25% duty band, layering excise, VAT, and IDF+RDL on top brought her total tax bill to roughly $10,350 — about 86% of customs value. At the 35% band, the same car came out closer to $12,090 — nearly 101%, effectively doubling the car's assessed value in tax alone. That's an almost $1,750 swing from one disputed rate figure. She confirmed her vehicle's exact HS code and rate directly with KRA before shipping rather than budgeting off either number blind.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Duty structure and clearing steps checked against real vehicle sourcing and clearing experience.
+          </p>
 
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
