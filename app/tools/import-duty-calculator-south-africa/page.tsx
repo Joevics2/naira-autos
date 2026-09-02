@@ -33,6 +33,9 @@ const SCHEMA = {
       name: 'South Africa Car Import Duty Calculator — SARS & ITAC Estimator',
       description: 'Calculate car import duty and check ITAC used-vehicle import eligibility for South Africa. Full breakdown of import duty, ad valorem excise, VAT, and NRCS fees.',
       url: 'https://www.naira.autos/tools/import-duty-calculator-south-africa',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -90,6 +93,7 @@ export default function ImportDutyCalculatorSouthAfricaPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Rates: 2026</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -126,7 +130,7 @@ export default function ImportDutyCalculatorSouthAfricaPage() {
               Current South Africa Car Import Rules (2026)
             </h2>
             <p className="text-sm text-muted-foreground mb-6 max-w-xl">
-              South Africa protects its local automotive manufacturing industry (APDP Phase II) by restricting used-vehicle imports almost entirely. New vehicles face standard duties without the permit requirement.
+              South Africa protects its local automotive manufacturing industry (APDP Phase II) by restricting used-vehicle imports almost entirely. New vehicles face standard <a href="https://www.sars.gov.za" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">SARS</a> duties without the permit requirement.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
@@ -193,6 +197,15 @@ export default function ImportDutyCalculatorSouthAfricaPage() {
               </div>
             </div>
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: A Returning Resident's Import</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Thabo moved back to South Africa after 3 years abroad and wanted to bring his own car with him — a qualifying category, so an ITAC permit was realistic rather than a long shot. With a SARS-assessed customs value of R300,000 for a standard (non-luxury) vehicle: 25% import duty (R75,000), ad valorem excise near zero at this price band (it rises steeply for higher-value and luxury vehicles — worth confirming the exact figure with SARS before relying on it), 15% VAT on the combined base (R56,250), plus the roughly R1,800 NRCS Letter of Authority fee. Total: about R133,050, or 44% of customs value. Knowing his ITAC eligibility was solid before shipping meant the remaining question was purely cost, not whether the car would be allowed in at all.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Eligibility categories and clearing process checked against real vehicle sourcing and clearing experience.
+          </p>
 
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>

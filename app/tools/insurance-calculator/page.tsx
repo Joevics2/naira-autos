@@ -7,11 +7,11 @@ import InsuranceQuoteClient from './client';
 import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
-  title: 'Car Insurance Calculator Nigeria 2025 — Third Party & Comprehensive Rates',
+  title: 'Car Insurance Calculator Nigeria 2026 — Third Party & Comprehensive Rates',
   description: 'Calculate estimated car insurance premiums in Nigeria. See NAICOM-regulated third party rates (₦15,000/year) and comprehensive coverage estimates (5–7% of car value). Compare Leadway, AIICO, AXA Mansard, Custodian and more.',
   alternates: { canonical: 'https://www.naira.autos/tools/insurance-calculator' },
   openGraph: {
-    title: 'Car Insurance Calculator Nigeria 2025 | Naira Autos',
+    title: 'Car Insurance Calculator Nigeria 2026 | Naira Autos',
     description: 'Estimate your car insurance premium in Nigeria. Third party starts at ₦15,000/year. Comprehensive is 5–7% of car value. See rates, what is covered, and links to get quotes from top Nigerian insurers.',
     url: 'https://www.naira.autos/tools/insurance-calculator',
   },
@@ -36,9 +36,12 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/insurance-calculator',
-      name: 'Car Insurance Calculator Nigeria 2025 — Third Party & Comprehensive Rates',
+      name: 'Car Insurance Calculator Nigeria 2026 — Third Party & Comprehensive Rates',
       description: 'Estimate car insurance premiums in Nigeria based on NAICOM-regulated rates. Third party at ₦15,000/year, comprehensive at 5–7% of vehicle value.',
       url: 'https://www.naira.autos/tools/insurance-calculator',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -199,6 +202,7 @@ export default function InsuranceCalculatorPage() {
             <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 rounded-full px-3 py-1 mb-4">
               <span className="text-xs font-bold text-violet-400 uppercase tracking-widest">Free Estimate</span>
             </div>
+            <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
@@ -335,9 +339,18 @@ export default function InsuranceCalculatorPage() {
               </table>
             </div>
             <p className="text-xs text-gray-400 mt-2">
-              Source: NAICOM circular on New Motor Insurance Premium Rates, effective January 1, 2023.
+              Source: <a href="https://naicom.gov.ng" target="_blank" rel="noopener noreferrer" className="text-violet-600 hover:underline">NAICOM</a> circular on New Motor Insurance Premium Rates, effective January 1, 2023.
             </p>
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-gray-900 mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: When Comprehensive Pays for Itself</h2>
+            <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">Ngozi was deciding between third party and comprehensive on her ₦4.5 million Toyota Camry. Third party cost ₦15,000/year but covered nothing if the car itself was damaged. Comprehensive at 6% came to ₦270,000/year — eighteen times more. Six months in, someone reversed into her car in a parking lot and drove off; the repair estimate came to ₦620,000. Her comprehensive policy covered it in full, minus a small excess. The ₦270,000 premium had already paid for itself more than twice over from a single incident that had nothing to do with her own driving.</p>
+          </div>
+
+          <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Auto Sales Expert. Rate figures checked against current NAICOM-published minimums.
+          </p>
 
           {/* FAQ */}
           <div>

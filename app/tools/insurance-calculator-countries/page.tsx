@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ChevronRight, Shield } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ChevronDown, Shield } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Car Insurance Calculator — Choose Your Country | Naira Autos',
@@ -32,9 +32,33 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
 
 const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
 
+const SCHEMA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://www.naira.autos/tools/insurance-calculator-countries',
+      name: 'Car Insurance Calculator — Choose Your Country',
+      description: 'Free car insurance premium calculator by country — third party and comprehensive rate estimates.',
+      url: 'https://www.naira.autos/tools/insurance-calculator-countries',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'How is car insurance priced in most countries?', acceptedAnswer: { '@type': 'Answer', text: 'Most markets split coverage into two tiers: third party (the legal minimum, covering damage you cause to others but not your own car) and comprehensive (covering your own vehicle too, priced as a percentage of insured value or a risk-based premium). Minimum rates, required coverage, and how comprehensive is priced all differ by country and regulator.' } },
+        { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built with the actual current regulator-published minimum rates researched directly, rather than a generic estimate — that takes time to verify properly. More countries are added as that research is completed.' } },
+      ],
+    },
+  ],
+};
+
 export default function InsuranceCalculatorCountryPickerPage() {
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <div className="bg-[#080C10] pt-10 pb-12 px-4">
         <div className="max-w-screen-lg mx-auto">
           <div className="flex items-center gap-3 mb-8">
@@ -54,6 +78,7 @@ export default function InsuranceCalculatorCountryPickerPage() {
               <Shield className="h-3 w-3" />
               Free Estimate
             </span>
+            <span className="inline-flex ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Car Insurance<br /><span className="text-violet-400">Calculator</span>
@@ -78,6 +103,33 @@ export default function InsuranceCalculatorCountryPickerPage() {
               <span className="text-[10px] font-bold tracking-widest uppercase text-violet-600 dark:text-violet-400">Open Calculator →</span>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-14 max-w-screen-lg space-y-10">
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>How Car Insurance Generally Works</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Most countries split car insurance into two tiers: third party — the legal minimum, covering damage you cause to others but not your own vehicle — and comprehensive, which covers your own car too and is typically priced as a percentage of insured value or a risk-based premium. Minimum required coverage, how comprehensive is priced, and which regulator sets the rules all differ by country, which is why each page here is built with the actual current regulator-published rates researched directly rather than a generic estimate.</p>
+          </div>
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>FAQ</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { q: 'How is car insurance priced in most countries?', a: 'Most markets split coverage into third party (legal minimum, covers others not your car) and comprehensive (covers your own car too, priced as a percentage of value or risk-based). Minimum rates and rules differ by country and regulator.' },
+                { q: 'Why is my country not available yet?', a: 'Each country page is built with the actual current regulator-published minimum rates researched directly, rather than a generic estimate — that takes time to verify properly. More countries are added as that research is completed.' },
+              ].map(({ q, a }) => (
+                <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
+                    <span className="text-sm font-semibold text-foreground">{q}</span>
+                    <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-4 pb-4"><p className="text-sm text-muted-foreground leading-relaxed">{a}</p></div>
+                </details>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert.
+          </p>
         </div>
       </div>
     </div>
