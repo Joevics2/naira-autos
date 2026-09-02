@@ -36,6 +36,9 @@ const SCHEMA = {
       name: 'Nigeria Car Mileage Explainer',
       description: 'Free mileage calculator for Nigerian car buyers — see any odometer reading as real distance between Nigerian cities, checked against typical local usage.',
       url: 'https://www.naira.autos/tools/mileage-explainer-nigeria',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -92,6 +95,7 @@ export default function MileageExplainerNigeriaPage() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -182,6 +186,17 @@ export default function MileageExplainerNigeriaPage() {
               </p>
             </div>
           </div>
+
+          <div className="max-w-3xl">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Example: Reading a Listing's Mileage in Context
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Uche was looking at a 7-year-old Nigerian-used Toyota Camry listed with 168,000 km. Run through this tool, that came out to roughly Lagos to Abuja and back over 100 times — a lot in the abstract, but 168,000 ÷ 7 ≈ 24,000 km a year, only somewhat above the 15,000–20,000 km/year typical range. Combined with visible pedal and seat wear that matched the reading, the mileage told him the car had simply been driven hard and consistently — not that anything was suspicious. He used that context to negotiate on condition rather than walking away over the number alone.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Mileage benchmarks checked against real Nigerian used-car market patterns.
+          </p>
 
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>

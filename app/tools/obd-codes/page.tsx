@@ -24,7 +24,9 @@ export const metadata: Metadata = {
 // ── Schema ────────────────────────────────────────────────────────
 
 function ObdCodesSchema({ codes }: { codes: ObdCodeSummary[] }) {
-  const now = new Date().toISOString();
+  // Static last-content-audit date, not a live timestamp — new Date() here
+  // would silently claim the page was "modified" on every single page load.
+  const lastAudited = '2026-08-01';
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -34,7 +36,9 @@ function ObdCodesSchema({ codes }: { codes: ObdCodeSummary[] }) {
         name: 'OBD-II Code Lookup',
         description: `Free lookup for ${codes.length} common OBD-II diagnostic trouble codes.`,
         url: 'https://www.naira.autos/tools/obd-codes',
-        dateModified: now,
+        dateModified: lastAudited,
+        author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+        reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
         breadcrumb: {
           '@type': 'BreadcrumbList',
           itemListElement: [
@@ -50,7 +54,7 @@ function ObdCodesSchema({ codes }: { codes: ObdCodeSummary[] }) {
         name: 'OBD-II Diagnostic Trouble Codes',
         description: `${codes.length} OBD-II diagnostic trouble codes explained.`,
         url: 'https://www.naira.autos/tools/obd-codes',
-        dateModified: now,
+        dateModified: lastAudited,
         hasDefinedTerm: codes.map(c => ({
           '@type': 'DefinedTerm',
           name: c.code,
@@ -131,6 +135,7 @@ export default async function ObdCodesPage() {
                 </Link>
                 , and every common diagnostic trouble code — causes, symptoms, and what to check first. Works with any car, anywhere. {codes.length} codes and growing.
               </p>
+              <p className="text-white/40 text-xs mt-3">Last verified: August 2026 · Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-white/70">Emmanuel Erere</Link>, Auto Mechanic</p>
             </div>
           </div>
         </div>
