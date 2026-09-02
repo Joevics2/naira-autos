@@ -25,6 +25,9 @@ const SCHEMA = {
       name: 'Nigeria Car Import Duty Calculator — Free Vehicle Import Tax Estimator',
       description: 'Calculate car import duty in Nigeria free. Get a full breakdown of customs duty, NAC levy, FOB levy, and VAT for any Tokunbo or new car.',
       url: 'https://www.naira.autos/tools/import-duty-calculator',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -150,7 +153,7 @@ export default function ImportDutyCalculatorPage() {
                   How to Calculate Car Import Duty in Nigeria
                 </h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>Nigeria's car import duty calculator follows a formula based on CIF (Cost, Insurance, Freight) value. The Nigeria Customs Service (NCS) charges a <strong className="text-foreground">20% import duty</strong> on the CIF value, plus a <strong className="text-foreground">National Automotive Council (NAC) levy</strong> of 5% for used Tokunbo vehicles or 10% for new (halved from 15%/20% under the 2026 Fiscal Policy Measures effective 1 July 2026), a <strong className="text-foreground">4% FOB levy</strong>, a new <strong className="text-foreground">Green Tax Surcharge</strong> of 0–4% based on engine size, and <strong className="text-foreground">7.5% VAT</strong> on the combined base — an effective customs charge of roughly 35–45% of CIF value for most vehicles, higher for large-engine cars subject to the top Green Tax bracket.</p>
+                  <p>Nigeria's car import duty calculator follows a formula based on CIF (Cost, Insurance, Freight) value. The <a href="https://customs.gov.ng" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">Nigeria Customs Service (NCS)</a> charges a <strong className="text-foreground">20% import duty</strong> on the CIF value, plus a <strong className="text-foreground">National Automotive Council (NAC) levy</strong> of 5% for used Tokunbo vehicles or 10% for new (halved from 15%/20% under the 2026 Fiscal Policy Measures effective 1 July 2026), a <strong className="text-foreground">4% FOB levy</strong>, a new <strong className="text-foreground">Green Tax Surcharge</strong> of 0–4% based on engine size, and <strong className="text-foreground">7.5% VAT</strong> on the combined base — an effective customs charge of roughly 35–45% of CIF value for most vehicles, higher for large-engine cars subject to the top Green Tax bracket.</p>
                   <p>Electric vehicles and mass transit buses are fully exempt from both the Green Tax and standard import duties under the same policy — a meaningful consideration if you're importing an EV.</p>
                   <p>For popular Tokunbo models like Toyota Camry, Honda CR-V, or Lexus RX350, total import charges including clearing typically add 45–60% to the vehicle's overseas purchase price by the time it is on Nigerian soil.</p>
                 </div>
@@ -198,6 +201,15 @@ export default function ImportDutyCalculatorPage() {
               </div>
             </div>
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: A Toyota Camry Landed Cost</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Adaeze got a $9,500 FOB quote on a 2018 Toyota Camry, with freight and insurance adding about $1,200 — a CIF of roughly $10,700. At July 2026 rates: 20% import duty (~$2,140), 5% NAC levy (~$535), the Camry's 2.5L engine falls in the 2,000–3,999cc bracket so 2% Green Tax applies (~$214), a 4% FOB levy on the FOB value (~$380), then 7.5% VAT on CIF + duty + NAC + Green Tax (~$1,019). Total statutory charges came to roughly $4,288 — about 40% of CIF — before clearing agent and terminal fees. Having that full breakdown, rather than a rough "40% of the car price" estimate, let her budget accurately before committing to the purchase.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Duty rates and clearing process checked against real vehicle sourcing and clearing experience.
+          </p>
 
           {/* Related tools */}
           <RelatedTools tool="import-duty-calculator" />

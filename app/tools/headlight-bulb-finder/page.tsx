@@ -23,6 +23,9 @@ const SCHEMA = {
       name: 'Headlight Bulb Type Finder — Find Your Car\'s Bulb Type by Make, Model & Year',
       description: 'Find the exact headlight and fog light bulb type for your car in seconds. Low beam, high beam, and fog light codes for 100+ models, worldwide.',
       url: 'https://www.naira.autos/tools/headlight-bulb-finder',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
@@ -68,6 +71,7 @@ export default function HeadlightBulbFinderPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-amber-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">100+ car models</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -197,6 +201,13 @@ export default function HeadlightBulbFinderPage() {
             </div>
           </div>
 
+
+          {/* Worked example */}
+          <div className="max-w-3xl">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Avoiding a Wrong-Bulb Return Trip</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Daniel's low beam went out on his 2019 Honda CR-V and he grabbed an H11 bulb at the parts counter, assuming all Hondas use the same fitting. It didn't fit — his particular CR-V trim actually used a 9012 (HIR2) bulb, a similar-looking but electrically different halogen type with a different base. Looking it up by exact make, model, and year first would have caught the difference before the trip to the store, since the two bulb codes aren't interchangeable even though they look nearly identical.</p>
+          </div>
+
           {/* FAQ */}
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Headlight Bulb FAQ</h2>
@@ -217,6 +228,10 @@ export default function HeadlightBulbFinderPage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Bulb codes and replacement steps checked for workshop accuracy.
+          </p>
 
           {/* Related tools */}
           <section>
