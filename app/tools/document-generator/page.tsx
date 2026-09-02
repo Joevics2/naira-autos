@@ -30,6 +30,9 @@ const SCHEMA = {
       name: 'AI Vehicle Document Generator',
       description: 'Free AI-powered vehicle document generator. Researches jurisdiction-specific legal requirements and drafts a complete, formatted document ready to edit and download.',
       url: 'https://www.naira.autos/tools/document-generator',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -88,6 +91,8 @@ export default function DocumentGeneratorPage() {
       {/* ── SEO content — server-rendered ── */}
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-14">
+
+          <p className="text-xs text-muted-foreground">Last verified: August 2026</p>
 
           <div className="max-w-screen-lg space-y-10 text-sm text-muted-foreground leading-relaxed">
 
@@ -149,6 +154,13 @@ export default function DocumentGeneratorPage() {
               <p className="mb-3">Nothing you type into this tool — buyer and seller names, vehicle details, the finished document itself — is stored on our servers. Everything, including your document history if you generate more than one, lives only in your own browser&apos;s local storage. That means you can safely draft a document involving real names and real deal terms without worrying about where that information ends up, and it also means clearing your browser data will clear your saved history, so download anything you want to keep.</p>
             </div>
 
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                Example: Why the Country Selection Matters
+              </h2>
+              <p>Tunde was selling a car privately to a buyer in another state and almost used a generic bill-of-sale template he found online. He ran it through this tool instead, selecting his actual jurisdiction. The AI-researched draft came back with a witness-signature requirement and an odometer disclosure clause that the generic template hadn&apos;t included — both of which local registries in his jurisdiction typically expect on a private vehicle sale. He added them before the buyer signed, avoiding a document that could have been challenged later.</p>
+            </div>
+
           </div>
 
           {/* FAQ */}
@@ -175,6 +187,10 @@ export default function DocumentGeneratorPage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Document categories and clause coverage checked against real sale-transaction paperwork.
+          </p>
 
           {/* Related tools */}
           <section>

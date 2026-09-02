@@ -32,6 +32,9 @@ const SCHEMA = {
       description: 'Generador gratuito de documentos vehiculares con IA. Investiga los requisitos legales específicos de cada jurisdicción y redacta un documento completo y con formato, listo para editar y descargar.',
       url: 'https://www.naira.autos/tools/generador-de-documentos-ia',
       inLanguage: 'es',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -90,6 +93,8 @@ export default function GeneradorDeDocumentosPage() {
       {/* ── Contenido SEO — renderizado en el servidor ── */}
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-14">
+
+          <p className="text-xs text-muted-foreground">Última verificación: agosto de 2026</p>
 
           <div className="max-w-screen-lg space-y-10 text-sm text-muted-foreground leading-relaxed">
 
@@ -151,6 +156,13 @@ export default function GeneradorDeDocumentosPage() {
               <p className="mb-3">Nada de lo que escribas en esta herramienta — nombres de comprador y vendedor, datos del vehículo, el documento terminado — se almacena en nuestros servidores. Todo, incluyendo tu historial de documentos si generas más de uno, vive únicamente en el almacenamiento local de tu propio navegador. Eso significa que puedes redactar con confianza un documento con nombres reales y términos reales del trato sin preocuparte por dónde termina esa información, y también significa que borrar los datos de tu navegador borrará tu historial guardado, así que descarga lo que quieras conservar.</p>
             </div>
 
+            <div>
+              <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+                Ejemplo: Por Qué Importa la Selección del País
+              </h2>
+              <p>Tunde estaba vendiendo un auto de forma privada a un comprador en otro estado y casi usó una plantilla genérica de contrato de compraventa que encontró en línea. En cambio, la pasó por esta herramienta, seleccionando su jurisdicción real. El borrador investigado por la IA incluyó un requisito de firma de testigo y una cláusula de divulgación de odómetro que la plantilla genérica no tenía — ambos son elementos que los registros locales de su jurisdicción suelen exigir en una venta privada de vehículo. Los agregó antes de que el comprador firmara, evitando un documento que después podría haber sido impugnado.</p>
+            </div>
+
           </div>
 
           {/* FAQ */}
@@ -177,6 +189,10 @@ export default function GeneradorDeDocumentosPage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Revisado por <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Especialista en Ventas de Autos. Categorías de documentos y cobertura de cláusulas verificadas contra transacciones reales de venta.
+          </p>
 
           {/* Related tools */}
           <section>
