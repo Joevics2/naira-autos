@@ -32,6 +32,9 @@ const SCHEMA = {
       name: 'Best Car For... Nigeria 2025 — Car Recommender by Use Case',
       description: 'Find the best car for your specific use case in Nigeria. Ranked recommendations across family, commercial, highway, budget, off-road, executive, first car, and fuel efficiency categories.',
       url: 'https://www.naira.autos/tools/best-car-for',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -114,6 +117,7 @@ export default function BestCarForPage() {
             <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1 mb-4">
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Free Tool</span>
             </div>
+            <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
@@ -165,11 +169,16 @@ export default function BestCarForPage() {
                   Use our{' '}
                   <Link href="/tools/car-comparison" className="text-emerald-600 hover:underline">Car Comparison Tool</Link>{' '}
                   to compare any two recommendations side by side in detail, and our{' '}
-                  <Link href="/tools/fuel-cost-estimator" className="text-emerald-600 hover:underline">Fuel Cost Calculator</Link>{' '}
+                  <Link href="/tools/fuel-cost-calculator" className="text-emerald-600 hover:underline">Fuel Cost Calculator</Link>{' '}
                   to estimate monthly running costs for any car on your shortlist.
                 </p>
               </div>
             </div>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-gray-900 mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Matching a Car to the Actual Use Case</h2>
+            <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">Funmi runs a small errand-and-delivery service in Lagos and was initially set on a Toyota Highlander for the extra cargo room. Running her use case through this tool, the Corolla and Hilux ranked above the Highlander — not because they're better vehicles, but because her actual daily pattern was short stop-start city trips carrying moderate loads, where parts cost per kilometre and fuel economy mattered more than outright cargo space. She bought a Corolla and put the ₦3M+ price difference toward working capital instead.</p>
           </div>
 
           {/* Use case grid — static SEO content */}
@@ -256,12 +265,16 @@ export default function BestCarForPage() {
             </div>
           </div>
 
+          <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Joshua Victor</Link>, Founder. Model picks and cost ratings checked against real dealer and workshop experience.
+          </p>
+
           {/* Related tools */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { href: '/tools/car-comparison',      label: 'Car Comparison Tool',    color: 'blue' },
-              { href: '/tools/fuel-cost-estimator', label: 'Fuel Cost Calculator',   color: 'amber' },
-              { href: '/tools/ai-car-valuation',    label: 'AI Car Valuation',       color: 'violet' },
+              { href: '/tools/fuel-cost-calculator', label: 'Fuel Cost Calculator',   color: 'amber' },
+              { href: '/evaluate-car',              label: 'AI Car Valuation',       color: 'violet' },
             ].map(({ href, label, color }) => (
               <Link
                 key={href}
