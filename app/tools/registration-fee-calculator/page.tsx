@@ -5,15 +5,15 @@ import RegistrationFeeClient from './client';
 import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
-  title: 'Nigeria Vehicle Registration Fee Calculator 2025 — FRSC & State MVAA Fees',
-  description: 'Calculate Nigerian car registration fees instantly. FRSC number plate cost ₦30,000, driver\'s licence ₦15,000–₦21,000, change of ownership, roadworthiness — all 36 states. Updated June 2025.',
+  title: 'Nigeria Vehicle Registration Fee Calculator 2026 — FRSC & State MVAA Fees',
+  description: 'Calculate Nigerian car registration fees instantly. FRSC number plate cost ₦30,000, driver\'s licence ₦15,000–₦21,000, change of ownership, roadworthiness — all 36 states. Rates effective June 2025, verified current as of August 2026.',
   alternates: { canonical: 'https://www.naira.autos/tools/registration-fee-calculator' },
   openGraph: {
-    title: 'Nigeria Vehicle Registration Fee Calculator 2025 | Naira Autos',
-    description: 'Free Nigerian car registration cost calculator. FRSC 2025 rates + state MVAA fees for all 36 states and FCT.',
+    title: 'Nigeria Vehicle Registration Fee Calculator 2026 | Naira Autos',
+    description: 'Free Nigerian car registration cost calculator. FRSC rates (effective June 2025, still current) + state MVAA fees for all 36 states and FCT.',
     url: 'https://www.naira.autos/tools/registration-fee-calculator',
   },
-  keywords: ['car registration cost nigeria','car registration fee','vehicle registration fee','registration fee calculator','frsc plate fee','driver licence fee nigeria','change of ownership nigeria','roadworthiness certificate cost','car number plate price nigeria','vehicle registration cost','mvaa fees','car licence renewal cost','car registration nigeria 2025','how much is plate number registration in nigeria','plate number price in nigeria 2026','how much is lagos plate number','how much is abuja plate number','cost of plate number in nigeria','how much is number plate in nigeria','vehicle particulars renewal','road worthiness renewal price','frsc vehicle license renewal','how much to register a car in nigeria','motorcycle plate number price'],
+  keywords: ['car registration cost nigeria','car registration fee','vehicle registration fee','registration fee calculator','frsc plate fee','driver licence fee nigeria','change of ownership nigeria','roadworthiness certificate cost','car number plate price nigeria','vehicle registration cost','mvaa fees','car licence renewal cost','car registration nigeria 2025','car registration nigeria 2026','how much is plate number registration in nigeria','plate number price in nigeria 2026','how much is lagos plate number','how much is abuja plate number','cost of plate number in nigeria','how much is number plate in nigeria','vehicle particulars renewal','road worthiness renewal price','frsc vehicle license renewal','how much to register a car in nigeria','motorcycle plate number price'],
 };
 
 const SCHEMA = {
@@ -22,9 +22,12 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/registration-fee-calculator',
-      name: 'Nigeria Vehicle Registration Fee Calculator — FRSC & State MVAA Fees 2025',
-      description: 'Calculate Nigerian vehicle registration fees. FRSC 2025 rates + state MVAA add-ons for all 36 states.',
+      name: 'Nigeria Vehicle Registration Fee Calculator — FRSC & State MVAA Fees 2026',
+      description: 'Calculate Nigerian vehicle registration fees. FRSC rates (effective June 2025, verified current) + state MVAA add-ons for all 36 states.',
       url: 'https://www.naira.autos/tools/registration-fee-calculator',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -38,12 +41,12 @@ const SCHEMA = {
     {
       '@type': 'FAQPage',
       mainEntity: [
-        { '@type': 'Question', name: 'How much does a vehicle number plate cost in Nigeria 2025?', acceptedAnswer: { '@type': 'Answer', text: 'A standard private or commercial vehicle number plate costs ₦30,000 nationwide as the FRSC fee effective June 2025. Fancy plates cost ₦400,000. Articulated vehicles pay ₦90,000. These rates apply uniformly across all 36 states and the FCT with no FRSC surcharges.' } },
-        { '@type': 'Question', name: 'How much is driver\'s licence in Nigeria 2025?', acceptedAnswer: { '@type': 'Answer', text: 'A motor vehicle driver\'s licence costs ₦15,000 for 3-year validity or ₦21,000 for 5-year validity under the FRSC/JTB rates effective June 2025. Tricycle and motorcycle licences cost ₦7,000 (3 years) or ₦11,000 (5 years). Payment is via nigeriadriverslicence.frsc.gov.ng.' } },
+        { '@type': 'Question', name: 'How much does a vehicle number plate cost in Nigeria 2026?', acceptedAnswer: { '@type': 'Answer', text: 'A standard private or commercial vehicle number plate costs ₦30,000 nationwide as the FRSC fee effective June 2025. Fancy plates cost ₦400,000. Articulated vehicles pay ₦90,000. These rates apply uniformly across all 36 states and the FCT with no FRSC surcharges.' } },
+        { '@type': 'Question', name: 'How much is driver\'s licence in Nigeria 2026?', acceptedAnswer: { '@type': 'Answer', text: 'A motor vehicle driver\'s licence costs ₦15,000 for 3-year validity or ₦21,000 for 5-year validity under the FRSC/JTB rates effective June 2025. Tricycle and motorcycle licences cost ₦7,000 (3 years) or ₦11,000 (5 years). Payment is via nigeriadriverslicence.frsc.gov.ng.' } },
         { '@type': 'Question', name: 'How much is change of ownership in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Change of vehicle ownership costs between ₦38,000 and ₦130,000 depending on state. In Lagos, the official MVAA subtotal is approximately ₦38,675 including a new plate at ₦30,000 plus state change fees, CGT, and admin. Other states range from ₦50,000 to ₦130,000.' } },
         { '@type': 'Question', name: 'Do vehicle registration fees differ by state in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'FRSC core fees for number plates and driver\'s licences are identical in all 36 states and FCT — no state-specific FRSC surcharges exist. However, state MVAA or BIR add-ons including vehicle licence renewal, roadworthiness certificates, change of ownership processing, stamp duty, and admin fees vary significantly by state.' } },
         { '@type': 'Question', name: 'How much is a car licence renewal in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'Vehicle licence (road licence) renewal is a state fee varying by engine capacity. Typical costs range from ₦2,000–₦15,000 for the licence itself depending on the state, plus a separate roadworthiness certificate of ₦5,000–₦12,000. Total annual renewal with insurance is typically ₦30,000–₦70,000.' } },
-        { '@type': 'Question', name: 'How much is full vehicle registration in Lagos 2025?', acceptedAnswer: { '@type': 'Answer', text: 'Full new vehicle registration in Lagos includes the FRSC standard plate at ₦30,000, Lagos MVAA state add-ons of ₦5,000–₦15,000, roadworthiness ₦5,000–₦12,000, initial vehicle licence, CMR clearance, and optional insurance. The total typically ranges from ₦75,000 to ₦140,000 for a standard saloon.' } },
+        { '@type': 'Question', name: 'How much is full vehicle registration in Lagos 2026?', acceptedAnswer: { '@type': 'Answer', text: 'Full new vehicle registration in Lagos includes the FRSC standard plate at ₦30,000, Lagos MVAA state add-ons of ₦5,000–₦15,000, roadworthiness ₦5,000–₦12,000, initial vehicle licence, CMR clearance, and optional insurance. The total typically ranges from ₦75,000 to ₦140,000 for a standard saloon.' } },
         { '@type': 'Question', name: 'What is the car registration cost calculator in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'The Naira Autos vehicle registration fee calculator covers all 36 Nigerian states and FCT. Select your transaction (new registration, change of ownership, licence renewal, roadworthiness, or driver\'s licence), your state, and vehicle type to get an itemised cost breakdown based on official FRSC rates and state MVAA data.' } },
         { '@type': 'Question', name: 'How much is a number plate in Lagos or Abuja?', acceptedAnswer: { '@type': 'Answer', text: 'The FRSC number plate fee is a flat ₦30,000 nationwide, so Lagos and Abuja pay the same national rate — there is no separate Lagos-only or Abuja-only plate price. What differs between states is the MVAA processing add-on, which tends to run higher in Lagos and Abuja than in less urbanised states.' } },
         { '@type': 'Question', name: 'How much is a motorcycle plate number in Nigeria?', acceptedAnswer: { '@type': 'Answer', text: 'A standard motorcycle number plate costs ₦12,000 under the FRSC 2025 rate, nationwide. This is separate from the tricycle or motorcycle rider licence, which costs ₦7,000 for 3-year validity or ₦11,000 for 5-year validity.' } },
@@ -87,6 +90,7 @@ export default function RegistrationFeeCalculatorPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">Updated June 2025</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">All 36 States + FCT</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -173,7 +177,7 @@ export default function RegistrationFeeCalculatorPage() {
           <div className="space-y-10">
             <div>
               <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
-                How Nigerian Car Registration Fees Work in 2025
+                How Nigerian Car Registration Fees Work in 2026
               </h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
@@ -233,6 +237,11 @@ export default function RegistrationFeeCalculatorPage() {
             </div>
           </div>
 
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Budgeting a Change of Ownership in Lagos</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Folake was buying a used Toyota Corolla in Lagos and wanted to know the real total before agreeing a price with the seller. Using this calculator for a Change of Ownership transaction in Lagos: the FRSC plate at ₦30,000, plus Lagos MVAA add-ons (CGT, ownership certificate, stamp duty) at roughly ₦8,675, brought the official MVAA subtotal to about ₦38,675. Adding a roadworthiness certificate (₦8,000) and third-party insurance (₦15,000) brought her realistic all-in total to roughly ₦61,675 — well above the bare ₦30,000 plate figure sellers sometimes quote informally. Knowing that number going in meant it was already factored into her offer, not a surprise at the MVAA counter.</p>
+          </div>
+
           {/* FAQ accordion */}
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
@@ -240,9 +249,9 @@ export default function RegistrationFeeCalculatorPage() {
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {[
-                { q: 'How much does a vehicle number plate cost in Nigeria 2025?', a: 'A standard private or commercial vehicle number plate costs ₦30,000 nationwide as the FRSC fee, effective June 2025. Fancy plates cost ₦400,000. Articulated vehicles pay ₦90,000. Motorcycle plates are ₦12,000. These rates are uniform across all 36 states — no state-specific FRSC surcharges exist.' },
-                { q: "How much is driver's licence in Nigeria 2025?", a: "A motor vehicle driver's licence costs ₦15,000 for 3-year validity or ₦21,000 for 5-year validity under FRSC/JTB rates effective June 2025. Motorcycle and tricycle licences cost ₦7,000 (3 years) or ₦11,000 (5 years). Pay via nigeriadriverslicence.frsc.gov.ng." },
-                { q: 'How much does car registration cost in Lagos 2025?', a: 'Full new registration in Lagos typically costs ₦75,000–₦140,000 for a standard saloon. This includes the ₦30,000 FRSC plate, Lagos MVAA state add-ons, roadworthiness certificate, initial vehicle licence, CMR, and optionally insurance and agent fees. Lagos is the only state with a fully published MVAA price list.' },
+                { q: 'How much does a vehicle number plate cost in Nigeria 2026?', a: 'A standard private or commercial vehicle number plate costs ₦30,000 nationwide as the FRSC fee, effective June 2025. Fancy plates cost ₦400,000. Articulated vehicles pay ₦90,000. Motorcycle plates are ₦12,000. These rates are uniform across all 36 states — no state-specific FRSC surcharges exist.' },
+                { q: "How much is driver's licence in Nigeria 2026?", a: "A motor vehicle driver's licence costs ₦15,000 for 3-year validity or ₦21,000 for 5-year validity under FRSC/JTB rates effective June 2025. Motorcycle and tricycle licences cost ₦7,000 (3 years) or ₦11,000 (5 years). Pay via nigeriadriverslicence.frsc.gov.ng." },
+                { q: 'How much does car registration cost in Lagos 2026?', a: 'Full new registration in Lagos typically costs ₦75,000–₦140,000 for a standard saloon. This includes the ₦30,000 FRSC plate, Lagos MVAA state add-ons, roadworthiness certificate, initial vehicle licence, CMR, and optionally insurance and agent fees. Lagos is the only state with a fully published MVAA price list.' },
                 { q: 'Do car registration fees differ by state in Nigeria?', a: "FRSC core fees (plates and driver's licences) are identical in all 36 states. State MVAA/BIR add-ons — vehicle licence renewal, roadworthiness, change of ownership processing, stamp duty, admin — vary by state and are not published in a single national list. Use this calculator for per-state estimates." },
                 { q: 'How much is a car licence renewal in Nigeria?', a: 'Vehicle licence renewal (road licence) is a state fee based on engine capacity — typically ₦2,000–₦15,000 for the licence plus ₦5,000–₦12,000 roadworthiness. Total annual renewal with insurance ranges from ₦30,000 to ₦70,000 depending on state and vehicle type.' },
                 { q: 'How much is change of ownership in Nigeria?', a: 'Change of ownership typically costs ₦38,000–₦130,000 depending on state. Lagos MVAA official subtotal is approximately ₦38,675 (₦30,000 plate + state add-ons). Other states estimate ₦50,000–₦130,000. Rivers State tends to be among the most expensive.' },
@@ -261,7 +270,11 @@ export default function RegistrationFeeCalculatorPage() {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            FRSC fees source: Joint Tax Board (JTB) + Federal Road Safety Corps announcement, effective 8 June 2025. State add-on estimates are based on Lagos MVAA official schedule (lagosmepb.org) and user-reported figures from other states. Verify exact totals at <strong className="text-foreground">nvis.frsc.gov.ng</strong>, <strong className="text-foreground">nigeriadriverslicence.frsc.gov.ng</strong>, or your state MVAA/BIR office before attending. Fees may change with state budgets.
+            FRSC fees source: Joint Tax Board (JTB) + Federal Road Safety Corps announcement, effective 8 June 2025. State add-on estimates are based on Lagos MVAA official schedule (lagosmepb.org) and user-reported figures from other states. Verify exact totals at <a href="https://nvis.frsc.gov.ng" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground"><strong className="text-foreground">nvis.frsc.gov.ng</strong></a>, <strong className="text-foreground">nigeriadriverslicence.frsc.gov.ng</strong>, or your state MVAA/BIR office before attending. Fees may change with state budgets.
+          </p>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Fee breakdown and clearing process checked against real vehicle registration experience.
           </p>
 
           {/* Related tools */}

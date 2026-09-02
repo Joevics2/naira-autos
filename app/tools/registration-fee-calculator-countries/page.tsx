@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ChevronRight, FileText } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ChevronDown, FileText } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Vehicle Registration Fee Calculator — Choose Your Country | Naira Autos',
@@ -32,9 +32,33 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
 
 const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
 
+const SCHEMA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://www.naira.autos/tools/registration-fee-calculator-countries',
+      name: 'Vehicle Registration Fee Calculator — Choose Your Country',
+      description: 'Free vehicle registration fee calculator by country — number plate, driver\u2019s licence, change of ownership, and roadworthiness costs.',
+      url: 'https://www.naira.autos/tools/registration-fee-calculator-countries',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'What does vehicle registration usually include?', acceptedAnswer: { '@type': 'Answer', text: 'Most countries split it into a national or federal fee (a plate and/or licence issued by a central road authority) plus regional or local add-ons (roadworthiness inspection, ownership transfer processing, local taxes). Which layer costs more, and how the two combine, varies significantly by country.' } },
+        { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built with the actual current fee schedule researched directly from the relevant road authority, rather than a generic estimate — that takes time to verify properly. More countries are added as that research is completed.' } },
+      ],
+    },
+  ],
+};
+
 export default function RegistrationFeeCalculatorCountryPickerPage() {
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <div className="bg-[#080C10] pt-10 pb-12 px-4">
         <div className="max-w-screen-lg mx-auto">
           <div className="flex items-center gap-3 mb-8">
@@ -54,6 +78,7 @@ export default function RegistrationFeeCalculatorCountryPickerPage() {
               <FileText className="h-3 w-3" />
               Free Tool
             </span>
+            <span className="inline-flex ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Vehicle Registration<br /><span className="text-blue-400">Fee Calculator</span>
@@ -78,6 +103,33 @@ export default function RegistrationFeeCalculatorCountryPickerPage() {
               <span className="text-[10px] font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400">Open Calculator →</span>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-14 space-y-10">
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>What Vehicle Registration Usually Includes</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Most countries split vehicle registration costs into a national or federal fee — a plate and/or licence issued by a central road authority — plus regional or local add-ons like roadworthiness inspection, ownership transfer processing, and local taxes. Which layer costs more, and how the two combine, varies significantly by country, which is why each page here is built with the actual current fee schedule researched directly from the relevant road authority rather than a generic estimate.</p>
+          </div>
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>FAQ</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { q: 'What does vehicle registration usually include?', a: 'Most countries split it into a national fee (plate and/or licence) plus regional add-ons (inspection, ownership transfer, local taxes). Which layer costs more, and how they combine, varies significantly by country.' },
+                { q: 'Why is my country not available yet?', a: 'Each country page is built with the actual current fee schedule researched directly from the relevant road authority, rather than a generic estimate — that takes time to verify properly. More countries are added as that research is completed.' },
+              ].map(({ q, a }) => (
+                <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
+                    <span className="text-sm font-semibold text-foreground">{q}</span>
+                    <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-4 pb-4"><p className="text-sm text-muted-foreground leading-relaxed">{a}</p></div>
+                </details>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder.
+          </p>
         </div>
       </div>
     </div>
