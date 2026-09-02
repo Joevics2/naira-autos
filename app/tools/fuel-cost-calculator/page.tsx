@@ -292,6 +292,11 @@ export default function FuelCostCalculatorPage() {
           </div>
 
           <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Budgeting a Weekend Trip</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Tobi was planning a weekend trip from Lagos to Ibadan and back — about 260km round trip — in his Toyota Corolla 1.8. Using the highway rate of 6.5L/100km from the table above: 260 × (6.5 ÷ 100) ≈ 16.9 litres. At ₦1,000/litre, that's roughly ₦16,900 in fuel for the round trip — enough to set aside cash for tolls and food without guessing. Knowing the number before leaving also told him one 50-litre fill-up would comfortably cover the whole weekend with fuel to spare.</p>
+          </div>
+
+          <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Fuel Cost FAQ</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {[

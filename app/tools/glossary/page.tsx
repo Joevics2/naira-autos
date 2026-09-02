@@ -42,8 +42,10 @@ export const metadata: Metadata = {
 // ── Schema ────────────────────────────────────────────────────────
 
 function GlossarySchema({ terms }: { terms: GlossaryTerm[] }) {
-  // FIX 2: Add dateModified for freshness signal
-  const now = new Date().toISOString();
+  // Static last-content-audit date, not a live timestamp — using new Date() here
+  // would silently claim the page was "modified" on every single page load,
+  // which is a fake freshness signal rather than a real one.
+  const lastAudited = '2026-08-01';
 
   const schema = {
     '@context': 'https://schema.org',
@@ -55,8 +57,9 @@ function GlossarySchema({ terms }: { terms: GlossaryTerm[] }) {
         description:
           `Comprehensive glossary of ${terms.length} terms used in the car market.`,
         url: 'https://www.naira.autos/tools/glossary',
-        // FIX 2: dateModified for freshness signals
-        dateModified: now,
+        dateModified: lastAudited,
+        author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+        reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
         breadcrumb: {
           '@type': 'BreadcrumbList',
           itemListElement: [
@@ -72,7 +75,7 @@ function GlossarySchema({ terms }: { terms: GlossaryTerm[] }) {
         name: 'Car Market Glossary',
         description: `${terms.length} terms used in the car market.`,
         url: 'https://www.naira.autos/tools/glossary',
-        dateModified: now,
+        dateModified: lastAudited,
         hasDefinedTerm: terms.map(t => ({
           '@type': 'DefinedTerm',
           name: t.term,
@@ -162,6 +165,7 @@ export default async function GlossaryPage() {
                 </Link>
                 , and pre-purchase inspections. {terms.length} terms and growing.
               </p>
+              <p className="text-white/40 text-xs mt-3">Last verified: August 2026 · Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-white/70">Joshua Victor</Link>, Founder</p>
             </div>
           </div>
 

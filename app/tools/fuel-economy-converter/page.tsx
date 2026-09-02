@@ -23,6 +23,9 @@ const SCHEMA = {
       name: 'Fuel Economy Unit Converter — MPG to L/100km to km/L',
       description: 'Convert fuel economy instantly between MPG (US), MPG (UK/Imperial), L/100km, and km/L. Free, accurate, and works for any car, anywhere in the world.',
       url: 'https://www.naira.autos/tools/fuel-economy-converter',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
@@ -70,6 +73,7 @@ export default function FuelEconomyConverterPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-orange-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Works worldwide</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -200,6 +204,14 @@ export default function FuelEconomyConverterPage() {
             </div>
           </div>
 
+          {/* Worked example */}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Example: Comparing Two Listings in Different Units
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Amara was choosing between two used import listings for the same model year: one from a US export site quoting 32 MPG (US), the other a Japanese auction sheet quoting 13.5 km/L. Converted through this tool, 32 MPG (US) works out to about 7.35 L/100km, while 13.5 km/L works out to about 7.41 L/100km — nearly identical real-world fuel consumption, even though 32 and 13.5 look like completely unrelated numbers side by side. Without converting both to the same unit first, the US listing's "32" would have looked like the clearly better number, when the two cars were actually within a rounding error of each other.</p>
+          </div>
+
           {/* FAQ */}
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Fuel Economy Conversion FAQ</h2>
@@ -222,6 +234,10 @@ export default function FuelEconomyConverterPage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Conversion formulas checked for mathematical accuracy.
+          </p>
 
           {/* Related tools */}
           <section>
