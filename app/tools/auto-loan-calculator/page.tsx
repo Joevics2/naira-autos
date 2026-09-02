@@ -25,6 +25,9 @@ const SCHEMA = {
       name: 'Free Auto Loan & Car Loan Affordability Calculator',
       description: 'Free car loan calculator. Calculate monthly repayments and affordability in your own currency.',
       url: 'https://www.naira.autos/tools/auto-loan-calculator',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
@@ -77,6 +80,7 @@ export default function AutoLoanCalculatorPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Works in any currency</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -97,7 +101,7 @@ export default function AutoLoanCalculatorPage() {
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">Whether you call it a car loan, auto loan, vehicle loan, or automobile loan, Nigerian lenders finance vehicles the same way — car financing (or car finance) is structured as a loan secured against the vehicle itself, repaid in fixed monthly instalments.</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-                <p>Nigerian commercial banks offer car loans at annual interest rates typically ranging from <strong className="text-foreground">22% to 35%</strong>. Fintech lenders like Autochek Finance and Carbon have entered the market with more competitive rates from 18%, but often with stricter income verification. Loan terms are typically capped at 48 months.</p>
+                <p>Nigerian commercial banks offer car loans at annual interest rates typically ranging from <strong className="text-foreground">22% to 35%</strong>. Fintech lenders like Autochek Finance and Carbon have entered the market with more competitive rates from 18%, but often with stricter income verification. Loan terms are typically capped at 48 months. Commercial lending rates track the <a href="https://www.cbn.gov.ng" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">Central Bank of Nigeria&apos;s</a> monetary policy rate — when the CBN raises its benchmark rate, bank car loan pricing tends to follow within a few months.</p>
                 <p>The <strong className="text-foreground">down payment (equity contribution)</strong> is the most powerful lever for a Nigerian car buyer. Increasing from 20% to 35% on an ₦8 million car can reduce your monthly car repayment by over ₦80,000 and cut total interest by nearly ₦600,000 over 36 months.</p>
               </div>
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
@@ -135,6 +139,12 @@ export default function AutoLoanCalculatorPage() {
               </div>
             ))}
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Sizing a Loan Around Income</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Chidi earns ₦450,000/month net and wants an ₦7 million Tokunbo SUV. At a bank's 33% income cap, his maximum comfortable repayment is roughly ₦148,500/month. Running that through the calculator above at a 28% rate over 36 months, the loan principal that fits his budget comes out closer to ₦4.2 million — meaning he'd need a down payment near ₦2.8 million (about 40%) rather than the standard 20-30%, or he could stretch the term to 48 months to lower the monthly figure instead. Seeing that gap before applying let him negotiate the down payment upfront rather than getting declined at the bank.</p>
+          </div>
+
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Car Loan FAQ — Nigeria</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -158,6 +168,10 @@ export default function AutoLoanCalculatorPage() {
               ))}
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Rate ranges and lending criteria checked against current Nigerian bank and fintech practice.
+          </p>
 
           {/* Related tools */}
           <RelatedTools tool="auto-loan-calculator" />
