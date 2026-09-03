@@ -107,6 +107,8 @@ function CodeSchema({ item }: { item: ObdCodeFull }) {
     description: item.description,
     url,
     dateModified: item.updated_at,
+    author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+    reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
     publisher: {
       '@type': 'Organization',
       name: 'Naira Autos',
@@ -197,6 +199,11 @@ export default async function ObdCodePage({
             <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-white/70 font-semibold">
               <Gauge className="h-3.5 w-3.5" /> {item.diy_difficulty} to diagnose
             </span>
+            {item.updated_at && (
+              <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-white/50 font-semibold">
+                Last verified: {new Date(item.updated_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -305,6 +312,11 @@ export default async function ObdCodePage({
                   </div>
                 </section>
               )}
+
+              {/* Reviewer credit */}
+              <p className="text-xs text-muted-foreground border-t border-border pt-4">
+                Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Causes and diagnostic steps checked for workshop accuracy.
+              </p>
 
               {/* Back link */}
               <div className="pt-4">

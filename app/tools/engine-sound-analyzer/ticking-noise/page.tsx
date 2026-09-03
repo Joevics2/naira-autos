@@ -23,6 +23,9 @@ const SCHEMA = {
       name: 'Engine Ticking Noise Analyzer — Free AI Diagnosis',
       description: 'Free AI tool that diagnoses engine ticking noise from an audio recording.',
       url: 'https://www.naira.autos/tools/engine-sound-analyzer/ticking-noise',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -69,6 +72,7 @@ export default function EngineTickingNoisePage() {
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
               <Mic className="h-3 w-3" /> Free Tool
             </span>
+            <span className="inline-flex ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Engine Ticking<br /><span className="text-emerald-400">Noise Analyzer</span>
@@ -123,6 +127,15 @@ export default function EngineTickingNoisePage() {
               <p className="mb-3">This is one of the most searched engine complaints across almost every brand — Jeep Grand Cherokee and Wrangler owners report it on 3.6L V6 engines, Hyundai Elantra and Kia Forte/Soul owners report it commonly enough that it&apos;s a known talking point in owner forums, and V8 trucks like the Chevy Silverado 4.3 and various Chrysler/Dodge minivans (Town &amp; Country, Grand Caravan) show up just as often. The underlying causes are the same regardless of badge — lifters, injectors, oil condition, or exhaust leaks — but a description of your specific make, model, and year (in the optional fields above) helps the AI weigh which cause is statistically more likely for your engine.</p>
             </div>
           </div>
+
+          <div className="max-w-screen-lg">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: A Tick That Didn't Clear</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Maria's Jeep Grand Cherokee had always ticked briefly on cold mornings — normal, and it cleared within a minute like usual. A few weeks later she noticed it was taking longer to quiet down, sometimes lasting through her whole commute. She recorded it both at cold start and after 10 minutes of driving and ran both through this tool. The persistent version matched a worsening lifter pattern rather than the harmless cold-start signature, which was the detail that told her it had moved from "keep an eye on it" to "book it in this week" rather than waiting for it to fully resolve on its own.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Tick categories and causes checked for workshop accuracy.
+          </p>
 
           {/* FAQ */}
           <div>

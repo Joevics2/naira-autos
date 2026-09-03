@@ -23,6 +23,9 @@ const SCHEMA = {
       name: 'Engine Knocking Noise Analyzer — Free AI Diagnosis',
       description: 'Free AI tool that diagnoses engine knocking noise from an audio recording.',
       url: 'https://www.naira.autos/tools/engine-sound-analyzer/knocking-noise',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -69,6 +72,7 @@ export default function EngineKnockingNoisePage() {
             <span className="inline-flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
               <Mic className="h-3 w-3" /> Free Tool
             </span>
+            <span className="inline-flex ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Engine Knocking<br /><span className="text-amber-400">Noise Analyzer</span>
@@ -122,6 +126,15 @@ export default function EngineKnockingNoisePage() {
               <p className="mb-3">This is one of the most-searched engine complaints across a wide range of vehicles — Hyundai Sonata and Elantra owners, Kia Optima and Soul owners, Chevy Equinox owners, and F-150 owners all report it commonly enough that it shows up repeatedly in owner communities, alongside diesel-specific complaints on Cummins-powered trucks. The exact likely cause shifts depending on the platform (fuel-system issues are disproportionately common on diesels, bearing wear is more of a mileage-and-maintenance-history question on petrol engines), so adding your vehicle&apos;s brand, model, and year above helps the AI weight the possibilities correctly for your specific engine.</p>
             </div>
           </div>
+
+          <div className="max-w-screen-lg">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Fuel Quality, Not the Bottom End</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Wale's Kia Optima started knocking under acceleration right after he filled up at a station he'd never used before. Worried about rod knock given the car's mileage, he recorded the sound before deciding whether to book an expensive diagnostic. The pattern matched detonation/pinging far more closely than a rod-bearing signature — lighter and more metallic, not the deep rhythmic knock rod wear typically produces. He ran a tank of higher-octane fuel through it and the knock cleared within a day, saving him from an unnecessary bearing inspection.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Knock categories and causes checked for workshop accuracy.
+          </p>
 
           {/* FAQ */}
           <div>

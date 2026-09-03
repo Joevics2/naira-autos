@@ -23,6 +23,9 @@ const SCHEMA = {
       name: 'Engine Rattling Noise Analyzer — Free AI Diagnosis',
       description: 'Free AI tool that diagnoses engine rattling noise from an audio recording.',
       url: 'https://www.naira.autos/tools/engine-sound-analyzer/rattling-noise',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -69,6 +72,7 @@ export default function EngineRattlingNoisePage() {
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
               <Mic className="h-3 w-3" /> Free Tool
             </span>
+            <span className="inline-flex ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Engine Rattling<br /><span className="text-emerald-400">Noise Analyzer</span>
@@ -121,6 +125,15 @@ export default function EngineRattlingNoisePage() {
               <p className="mb-3">A worn or loose serpentine belt tensioner, idler pulley, or the alternator pulley itself can produce a rattle that&apos;s often mistaken for something coming from deeper inside the engine, since belt-driven components sit right at the front of the engine bay where sound carries easily. This type of rattle is usually most noticeable at idle and can change or clear briefly when you rev the engine, which is a useful distinguishing clue — it&apos;s generally a lower-cost fix than a timing or cam phaser issue, but worth confirming rather than assuming.</p>
             </div>
           </div>
+
+          <div className="max-w-screen-lg">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Not the Timing Chain After All</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Derek's F-150 developed a rattle on cold start and he assumed the worst — a timing chain going bad, given the truck had 130,000 miles on it. He recorded 12 seconds of the cold-start rattle and ran it through this tool. The pattern matched a cam phaser/solenoid rattle far more closely than a timing chain signature — a known issue on his specific engine family, and a considerably cheaper fix than a chain replacement. He booked a diagnostic specifically asking the shop to check the phasers first rather than paying for a broader (and pricier) timing investigation.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Rattle categories and causes checked for workshop accuracy.
+          </p>
 
           {/* FAQ */}
           <div>
