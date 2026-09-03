@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ChevronDown, ArrowLeftRight, CheckCircle2, XCircle, Minus, Globe2, Zap } from 'lucide-react';
-import { CARS, maintenanceScore, sparePartsScore, type CarData } from '../cars-data';
+import { CARS, maintenanceScore, sparePartsScore, isAvailableInCountry, AFRICA_CODES as AFRICA_ONLY_CODES, type CarData } from '../cars-data';
 import { CAR_COUNTRIES, getCarCountry, localPriceRange, formatCarPrice, FX_SNAPSHOT_DATE, type CarCountry } from '@/lib/car-country-pricing';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -117,13 +117,15 @@ function CarSelector({
   onChange,
   exclude,
   side,
+  cars,
 }: {
   value: string;
   onChange: (id: string) => void;
   exclude: string;
   side: 'left' | 'right';
+  cars: CarData[];
 }) {
-  const filtered = CARS.filter((c) => c.id !== exclude);
+  const filtered = cars.filter((c) => c.id !== exclude);
 
   return (
     <div className="relative">
@@ -217,8 +219,20 @@ export default function CarComparisonClient() {
   const [rightId, setRightId] = useState<string>('honda-crv');
 
   const country = useMemo(() => getCarCountry(countryCode), [countryCode]);
-  const leftCar = useMemo(() => CARS.find((c) => c.id === leftId) ?? null, [leftId]);
-  const rightCar = useMemo(() => CARS.find((c) => c.id === rightId) ?? null, [rightId]);
+  const availableCars = useMemo(() => CARS.filter((c) => isAvailableInCountry(c, countryCode)), [countryCode]);
+
+  // If switching country hides the currently selected car (e.g. an
+  // Africa-only used import while a non-African country is now selected),
+  // fall back to the first two available cars so the tool never shows a
+  // car that isn't valid for the selected market.
+  useEffect(() => {
+    const ids = availableCars.map((c) => c.id);
+    if (!ids.includes(leftId)) setLeftId(ids[0] ?? '');
+    if (!ids.includes(rightId)) setRightId(ids.find((id) => id !== leftId) ?? ids[1] ?? '');
+  }, [availableCars]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const leftCar = useMemo(() => availableCars.find((c) => c.id === leftId) ?? null, [availableCars, leftId]);
+  const rightCar = useMemo(() => availableCars.find((c) => c.id === rightId) ?? null, [availableCars, rightId]);
 
   const rows = useMemo(
     () => (leftCar && rightCar ? buildRows(leftCar, rightCar, country) : []),
@@ -240,11 +254,16 @@ export default function CarComparisonClient() {
         {/* Country selector */}
         <div className="max-w-sm">
           <CountrySelector value={countryCode} onChange={setCountryCode} />
+          {AFRICA_ONLY_CODES.includes(countryCode) && (
+            <p className="text-[11px] text-muted-foreground mt-1.5">
+              Includes older, secondhand import-market models specific to this region, alongside the 50 global models.
+            </p>
+          )}
         </div>
 
         {/* Car selectors */}
         <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-          <CarSelector value={leftId} onChange={setLeftId} exclude={rightId} side="left" />
+          <CarSelector value={leftId} onChange={setLeftId} exclude={rightId} side="left" cars={availableCars} />
           <button
             onClick={swap}
             className="flex items-center justify-center w-9 h-9 rounded-full bg-card border border-border hover:border-foreground/30 text-muted-foreground hover:text-foreground transition-all"
@@ -253,7 +272,7 @@ export default function CarComparisonClient() {
           >
             <ArrowLeftRight className="h-4 w-4" />
           </button>
-          <CarSelector value={rightId} onChange={setRightId} exclude={leftId} side="right" />
+          <CarSelector value={rightId} onChange={setRightId} exclude={leftId} side="right" cars={availableCars} />
         </div>
 
         {/* Car cards */}

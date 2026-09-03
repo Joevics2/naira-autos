@@ -7,6 +7,8 @@ import {
   USE_CASE_META,
   maintenanceScore,
   sparePartsScore,
+  isAvailableInCountry,
+  AFRICA_CODES,
   type CarData,
   type UseCaseTag,
 } from '../cars-data';
@@ -242,11 +244,12 @@ export default function BestCarForClient() {
   const results = useMemo(() => {
     if (!selected) return [];
     return CARS
+      .filter((car) => isAvailableInCountry(car, countryCode))
       .map((car) => ({ car, score: scoreCarForUseCase(car, selected) }))
       .filter((r) => r.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, 5);
-  }, [selected]);
+  }, [selected, countryCode]);
 
   const meta = selected ? USE_CASE_META[selected] : null;
 
@@ -255,7 +258,14 @@ export default function BestCarForClient() {
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-8 space-y-6">
 
         {/* Country selector */}
-        <CountrySelector value={countryCode} onChange={setCountryCode} />
+        <div>
+          <CountrySelector value={countryCode} onChange={setCountryCode} />
+          {AFRICA_CODES.includes(countryCode) && (
+            <p className="text-[11px] text-muted-foreground mt-1.5 max-w-sm">
+              Includes older, secondhand import-market models specific to this region, alongside the 50 global models.
+            </p>
+          )}
+        </div>
 
         {/* Use case selector */}
         <div>

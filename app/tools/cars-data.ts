@@ -12,6 +12,20 @@
 // isElectric: true and fuelConsumption: 0 — tools should display "Electric"
 // rather than a L/100km figure for these. Ground clearance in mm, boot
 // space in litres (0 for pickup beds or where not meaningfully comparable).
+//
+// availableCountries: if omitted, a car is shown for all 50 countries (this
+// is the default for the 50 global models above). Some cars only make sense
+// in one region's market — most notably the older, secondhand/"tokunbo"-style
+// import models below, which are specific to Nigeria's used-import market and
+// don't circulate the same way in the US, Europe, or Asia. Those are scoped
+// to availableCountries: AFRICA_CODES so they only appear when an African
+// country is selected in either tool, rather than showing a 2005 Toyota
+// Camry as an option next to the Bugatti Chiron for a US or German buyer.
+
+import { CAR_COUNTRIES } from '@/lib/car-country-pricing';
+
+/** ISO codes for the 8 African countries in the shared 50-country list. */
+export const AFRICA_CODES = CAR_COUNTRIES.filter((c) => c.region === 'Africa').map((c) => c.code);
 
 export type MaintenanceCost = 'Low' | 'Medium' | 'High' | 'Very High';
 export type SparePartsAvail = 'Easy' | 'Moderate' | 'Hard';
@@ -47,6 +61,8 @@ export interface CarData {
   bestFor: UseCaseTag[];
   watchOut: string;
   imageUrl: string;
+  /** Country codes this car should appear for. Omit for all 50 countries. */
+  availableCountries?: string[];
 }
 
 export const CARS: CarData[] = [
@@ -550,9 +566,360 @@ export const CARS: CarData[] = [
     watchOut: 'Charming to drive, but running costs (parts, insurance) are noticeably higher than mainstream small hatchbacks like the Corolla or Civic.',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/2021_MINI_Cooper_S_IMG_0921.jpg/320px-2021_MINI_Cooper_S_IMG_0921.jpg',
   },
+
+  // ─── AFRICA-ONLY: USED/"TOKUNBO"-STYLE IMPORT MARKET ────────────────────────
+  // These 30 cars only appear when an African country (Nigeria, South Africa,
+  // Egypt, Morocco, Kenya, Ghana, Algeria, Ethiopia) is selected — see
+  // availableCountries: AFRICA_CODES on each entry. They represent older,
+  // secondhand import-market models (originally researched and priced for
+  // Nigeria) rather than new 2025/2026 models, so they're a different
+  // category from the 50 global cars above and would be out of place for a
+  // US, European, or Asian buyer who is shopping new.
+  //
+  // basePriceUSD here is reverse-derived from the original Nigeria naira
+  // price range (min/max ÷ (1.80 × 1339.958526), Nigeria's own multiplier ×
+  // FX rate) so the same country-pricing engine works for all 8 African
+  // countries in the list. Selecting Nigeria reproduces the original
+  // researched price exactly; other African countries get a proportional
+  // estimate based on their own duty/tax multiplier.
+  {
+    id: 'toyota-camry-02-06', brand: 'Toyota', model: 'Camry (2002–2006)', yearRange: '2002–2006',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 2400, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 11.2, groundClearance: 155, bootSpace: 445,
+    basePriceUSD: { min: 1580, max: 2700 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'Transmission jerking at high mileage, AC compressor wear.',
+    bestFor: ['family', 'highway', 'executive', 'firstcar'],
+    watchOut: 'High-mileage units often have worn auto gearboxes — test drive at speed before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/2003_Toyota_Camry_%28ACV36R%29_Altise_sedan_%282010-11-16%29.jpg/320px-2003_Toyota_Camry_%28ACV36R%29_Altise_sedan_%282010-11-16%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-camry-07-11', brand: 'Toyota', model: 'Camry (2007–2011)', yearRange: '2007–2011',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 2500, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 10.8, groundClearance: 155, bootSpace: 445,
+    basePriceUSD: { min: 2700, max: 4350 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'Oil consumption on the 2.5L engine, dashboard cracking in heat.',
+    bestFor: ['family', 'highway', 'executive'],
+    watchOut: 'Check for oil leaks from the valve cover — common on high-mileage 2.5L units.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/2010_Toyota_Camry_%28ACV40R_MY10%29_Altise_sedan_%282011-04-22%29.jpg/320px-2010_Toyota_Camry_%28ACV40R_MY10%29_Altise_sedan_%282011-04-22%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'honda-accord-03-07', brand: 'Honda', model: 'Accord (2003–2007)', yearRange: '2003–2007',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 2400, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 11.8, groundClearance: 145, bootSpace: 408,
+    basePriceUSD: { min: 1450, max: 2490 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'VTEC solenoid failure, power steering rack leaks.',
+    bestFor: ['family', 'highway', 'executive', 'firstcar'],
+    watchOut: 'Budget for a VTEC solenoid replacement if the engine hesitates around 3,500rpm.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Honda_Accord_2004_%28gray%29.jpg/320px-Honda_Accord_2004_%28gray%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'honda-accord-08-12', brand: 'Honda', model: 'Accord (2008–2012)', yearRange: '2008–2012',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 2400, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 11.0, groundClearance: 145, bootSpace: 415,
+    basePriceUSD: { min: 2900, max: 4980 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'AC evaporator failure in hot climates, transmission shudder on the 2.4L.',
+    bestFor: ['highway', 'executive', 'family'],
+    watchOut: 'AC evaporator replacement is a real cost — check cooling performance before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Honda_Accord_8th_gen.jpg/320px-Honda_Accord_8th_gen.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-corolla-03-07', brand: 'Toyota', model: 'Corolla (2003–2007)', yearRange: '2003–2007',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 1800, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 9.4, groundClearance: 150, bootSpace: 370,
+    basePriceUSD: { min: 1160, max: 1990 }, maintenanceCost: 'Low', spareParts: 'Easy',
+    commonIssues: 'Minimal — one of the most reliable used imports on the market.',
+    bestFor: ['budget', 'firstcar', 'commercial', 'fuelefficient'],
+    watchOut: 'Almost nothing goes wrong — just check for accident-repair history with a magnet test on body panels.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/2003-2004_Toyota_Corolla_--_10-18-2011.jpg/320px-2003-2004_Toyota_Corolla_--_10-18-2011.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'honda-civic-06-11', brand: 'Honda', model: 'Civic (2006–2011)', yearRange: '2006–2011',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 1800, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 9.8, groundClearance: 145, bootSpace: 354,
+    basePriceUSD: { min: 1040, max: 2070 }, maintenanceCost: 'Low', spareParts: 'Easy',
+    commonIssues: 'AC compressor is a common failure point; rear suspension bushings wear quickly on rough roads.',
+    bestFor: ['budget', 'firstcar', 'fuelefficient'],
+    watchOut: 'Low ground clearance (145mm) — avoid if you drive on unpaved roads regularly.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2009_Honda_Civic_Sedan_%28FA1%29_%28facelift%2C_blue%29%2C_front_8.18.19.jpg/320px-2009_Honda_Civic_Sedan_%28FA1%29_%28facelift%2C_blue%29%2C_front_8.18.19.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'hyundai-elantra-11-16', brand: 'Hyundai', model: 'Elantra (2011–2016)', yearRange: '2011–2016',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 1800, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 9.2, groundClearance: 148, bootSpace: 415,
+    basePriceUSD: { min: 1240, max: 2490 }, maintenanceCost: 'Low', spareParts: 'Moderate',
+    commonIssues: 'Theta II engine oil-consumption issue on some units, infotainment glitches.',
+    bestFor: ['budget', 'firstcar', 'fuelefficient'],
+    watchOut: 'Check for oil consumption — some 1.8L units burn 1L per 3,000km. Do an oil check before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/2014_Hyundai_Elantra_%28MD3%29_Active_sedan_%282015-11-12%29_01.jpg/320px-2014_Hyundai_Elantra_%28MD3%29_Active_sedan_%282015-11-12%29_01.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'hyundai-sonata-11-14', brand: 'Hyundai', model: 'Sonata (2011–2014)', yearRange: '2011–2014',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 2000, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 10.5, groundClearance: 148, bootSpace: 462,
+    basePriceUSD: { min: 1870, max: 3320 }, maintenanceCost: 'Medium', spareParts: 'Moderate',
+    commonIssues: 'Theta II engine bearing failure risk, timing chain stretch at high mileage.',
+    bestFor: ['family', 'highway', 'executive'],
+    watchOut: 'Theta II engine recall history — verify the recall was completed before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Hyundai_Sonata_YF_2012.jpg/320px-Hyundai_Sonata_YF_2012.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'kia-cerato-10-13', brand: 'Kia', model: 'Cerato (2010–2013)', yearRange: '2010–2013',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 1600, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 8.8, groundClearance: 143, bootSpace: 402,
+    basePriceUSD: { min: 910, max: 1740 }, maintenanceCost: 'Low', spareParts: 'Moderate',
+    commonIssues: 'Knock sensor issues, front strut mounts wear fast on rough roads.',
+    bestFor: ['budget', 'firstcar', 'fuelefficient'],
+    watchOut: 'Spare parts are less common than Toyota/Honda — confirm availability in your city before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Kia_Cerato_2010.jpg/320px-Kia_Cerato_2010.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'peugeot-406-02-04', brand: 'Peugeot', model: '406 (2002–2004)', yearRange: '2002–2004',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 2000, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 12.0, groundClearance: 135, bootSpace: 432,
+    basePriceUSD: { min: 620, max: 1240 }, maintenanceCost: 'High', spareParts: 'Moderate',
+    commonIssues: 'Suspension arms wear quickly, BSI unit failures, costly electrical faults.',
+    bestFor: ['budget'],
+    watchOut: 'Electrical gremlins are common and expensive. Avoid if you need a reliable daily driver.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Peugeot_406_estate_-_Flickr_-_robad0b.jpg/320px-Peugeot_406_estate_-_Flickr_-_robad0b.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'peugeot-508-14-16', brand: 'Peugeot', model: '508 (2014–2016)', yearRange: '2014–2016',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 1600, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 10.2, groundClearance: 130, bootSpace: 473,
+    basePriceUSD: { min: 2070, max: 3730 }, maintenanceCost: 'High', spareParts: 'Hard',
+    commonIssues: 'Turbo failures, complex electronics, expensive dealer-only parts.',
+    bestFor: ['executive'],
+    watchOut: 'Parts are hard to find outside major cities. Budget a contingency fund for electrical repairs.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Peugeot_508_I_Restyle_–_front_%28black%29.jpg/320px-Peugeot_508_I_Restyle_–_front_%28black%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-rav4-06-12', brand: 'Toyota', model: 'RAV4 (2006–2012)', yearRange: '2006–2012',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 5, engineCC: 2400, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 12.5, groundClearance: 185, bootSpace: 540,
+    basePriceUSD: { min: 2280, max: 3940 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'AC condenser rust, front differential noise on AWD units.',
+    bestFor: ['family', 'offroad', 'firstcar'],
+    watchOut: 'Check the spare tyre carrier on the tailgate — hinge corrosion is common on older units.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2009_Toyota_RAV4_%28ACA33R%29_wagon_%282010-07-13%29.jpg/320px-2009_Toyota_RAV4_%28ACA33R%29_wagon_%282010-07-13%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'honda-crv-07-11', brand: 'Honda', model: 'CR-V (2007–2011)', yearRange: '2007–2011',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 5, engineCC: 2400, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 12.0, groundClearance: 170, bootSpace: 589,
+    basePriceUSD: { min: 2070, max: 3730 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'Oil dilution with fuel on early units, rear differential bearing noise.',
+    bestFor: ['family', 'offroad', 'highway'],
+    watchOut: 'Known oil-dilution issue on 2007–2009 CR-Vs — check for milky oil on the dipstick.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/2010_Honda_CR-V_%28RE4%29_%28facelift%2C_VTi%29%2C_front_8.18.19.jpg/320px-2010_Honda_CR-V_%28RE4%29_%28facelift%2C_VTi%29%2C_front_8.18.19.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-highlander-08-13', brand: 'Toyota', model: 'Highlander (2008–2013)', yearRange: '2008–2013',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 7, engineCC: 3500, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 14.5, groundClearance: 188, bootSpace: 680,
+    basePriceUSD: { min: 3730, max: 6630 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'Fuel consumption on the V6 is high; AC blend door actuator failure.',
+    bestFor: ['family', 'highway', 'offroad'],
+    watchOut: 'Budget realistically for fuel if driving daily — the V6 is thirsty in traffic.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/2008_Toyota_Highlander_%28GSU40R%29_Sport_wagon_%282011-07-17%29.jpg/320px-2008_Toyota_Highlander_%28GSU40R%29_Sport_wagon_%282011-07-17%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-prado-03-09', brand: 'Toyota', model: 'Land Cruiser Prado (2003–2009)', yearRange: '2003–2009',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 7, engineCC: 4000, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 16.0, groundClearance: 218, bootSpace: 620,
+    basePriceUSD: { min: 4980, max: 9120 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'Very reliable — suspension arms wear at high mileage, fuel consumption is high.',
+    bestFor: ['offroad', 'family', 'executive', 'highway'],
+    watchOut: 'Fuel cost is significant — budget realistically for a 4.0L V6 if driving long distances.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Toyota_Land_Cruiser_Prado_120.jpg/320px-Toyota_Land_Cruiser_Prado_120.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-landcruiser-05-10', brand: 'Toyota', model: 'Land Cruiser (2005–2010)', yearRange: '2005–2010',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 8, engineCC: 4700, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 18.5, groundClearance: 225, bootSpace: 780,
+    basePriceUSD: { min: 9120, max: 16590 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'Extremely reliable — fuel consumption is the primary ongoing cost.',
+    bestFor: ['offroad', 'executive', 'family'],
+    watchOut: 'Fuel cost can be significant for heavy use. Confirm your fuel budget before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Toyota_LandCruiser_200_2015.jpg/320px-Toyota_LandCruiser_200_2015.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'honda-pilot-09-15', brand: 'Honda', model: 'Pilot (2009–2015)', yearRange: '2009–2015',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 8, engineCC: 3500, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 14.8, groundClearance: 196, bootSpace: 730,
+    basePriceUSD: { min: 3320, max: 6220 }, maintenanceCost: 'Medium', spareParts: 'Moderate',
+    commonIssues: 'VTM-4 rear differential issues, 3rd row seating is difficult to access.',
+    bestFor: ['family', 'highway'],
+    watchOut: 'VTM-4 fluid changes are often skipped — request service records for this specifically.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/2012_Honda_Pilot.jpg/320px-2012_Honda_Pilot.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'kia-sorento-11-15', brand: 'Kia', model: 'Sorento (2011–2015)', yearRange: '2011–2015',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 7, engineCC: 2400, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 13.2, groundClearance: 185, bootSpace: 605,
+    basePriceUSD: { min: 2490, max: 4560 }, maintenanceCost: 'Medium', spareParts: 'Moderate',
+    commonIssues: 'Theta II engine risk on GDI variants, sunroof drain blockage causes water leaks.',
+    bestFor: ['family', 'offroad', 'highway'],
+    watchOut: 'GDI Theta II engine has a known failure risk — verify recall history before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Kia_Sorento_2012_%28cropped%29.jpg/320px-Kia_Sorento_2012_%28cropped%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'hyundai-santafe-07-12', brand: 'Hyundai', model: 'Santa Fe (2007–2012)', yearRange: '2007–2012',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 7, engineCC: 2700, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 13.8, groundClearance: 178, bootSpace: 618,
+    basePriceUSD: { min: 2280, max: 4150 }, maintenanceCost: 'Medium', spareParts: 'Moderate',
+    commonIssues: 'Crankshaft position sensor failures, front subframe corrosion on older units.',
+    bestFor: ['family', 'highway', 'offroad'],
+    watchOut: 'Less common than Toyota/Honda SUVs — confirm mechanic familiarity in your area.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/2010_Hyundai_Santa_Fe_%28CM%29_SLX_wagon_%282011-03-24%29.jpg/320px-2010_Hyundai_Santa_Fe_%28CM%29_SLX_wagon_%282011-03-24%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'ford-escape-08-12', brand: 'Ford', model: 'Escape (2008–2012)', yearRange: '2008–2012',
+    segment: 'Used Import SUV', bodyType: 'SUV', seats: 5, engineCC: 2500, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 12.8, groundClearance: 185, bootSpace: 830,
+    basePriceUSD: { min: 1450, max: 2900 }, maintenanceCost: 'High', spareParts: 'Hard',
+    commonIssues: 'Coolant leaks, throttle body failure; Ford parts are scarce in this market.',
+    bestFor: ['budget', 'offroad'],
+    watchOut: 'Ford spare parts are difficult to source outside major cities. High breakdown risk if parts are unavailable.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2009_Ford_Escape_%28ZD%2C_MY09%29_XLT_wagon_%282012-08-07%29.jpg/320px-2009_Ford_Escape_%28ZD%2C_MY09%29_XLT_wagon_%282012-08-07%29.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-sienna-04-10', brand: 'Toyota', model: 'Sienna (2004–2010)', yearRange: '2004–2010',
+    segment: 'Used Import Minivan', bodyType: 'Minivan', seats: 8, engineCC: 3300, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 15.0, groundClearance: 152, bootSpace: 1020,
+    basePriceUSD: { min: 2280, max: 4150 }, maintenanceCost: 'Medium', spareParts: 'Easy',
+    commonIssues: 'Sliding door motor failure, power door track corrosion.',
+    bestFor: ['family', 'commercial'],
+    watchOut: 'Power sliding doors fail frequently — budget for replacement if both need it.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/2010_Toyota_Sienna.jpg/320px-2010_Toyota_Sienna.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'honda-odyssey-05-10', brand: 'Honda', model: 'Odyssey (2005–2010)', yearRange: '2005–2010',
+    segment: 'Used Import Minivan', bodyType: 'Minivan', seats: 8, engineCC: 3500, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 14.5, groundClearance: 152, bootSpace: 995,
+    basePriceUSD: { min: 2070, max: 3940 }, maintenanceCost: 'Medium', spareParts: 'Moderate',
+    commonIssues: 'Transmission failure on earlier units, sliding door electrical faults.',
+    bestFor: ['family', 'commercial'],
+    watchOut: '2005–2007 Odyssey had automatic transmission issues — prioritise 2008+ if possible.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/2007_Honda_Odyssey_EX-L.jpg/320px-2007_Honda_Odyssey_EX-L.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-hilux-05-15', brand: 'Toyota', model: 'Hilux (2005–2015)', yearRange: '2005–2015',
+    segment: 'Used Import Pickup', bodyType: 'Pickup', seats: 5, engineCC: 2700, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Manual', fuelConsumption: 13.5, groundClearance: 270, bootSpace: 0,
+    basePriceUSD: { min: 3320, max: 7460 }, maintenanceCost: 'Low', spareParts: 'Easy',
+    commonIssues: 'Virtually indestructible — leaf spring creaking at very high mileage.',
+    bestFor: ['commercial', 'offroad', 'family'],
+    watchOut: 'The benchmark for road toughness in this class. Primary concern is buying an accident-repaired unit.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Toyota_Hilux_AN20_26_front_20080119.jpg/320px-Toyota_Hilux_AN20_26_front_20080119.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-hiace-05-15', brand: 'Toyota', model: 'Hiace Bus (2005–2015)', yearRange: '2005–2015',
+    segment: 'Used Import Bus', bodyType: 'Bus', seats: 14, engineCC: 2700, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Manual', fuelConsumption: 14.0, groundClearance: 165, bootSpace: 0,
+    basePriceUSD: { min: 3730, max: 8290 }, maintenanceCost: 'Low', spareParts: 'Easy',
+    commonIssues: 'Steering box wear at high mileage, front wheel bearing replacement frequent under heavy load.',
+    bestFor: ['commercial'],
+    watchOut: 'Check the chassis carefully for rust — particularly under the front and rear load points.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Toyota_Hiace_H200.jpg/320px-Toyota_Hiace_H200.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'toyota-yaris-12-17', brand: 'Toyota', model: 'Yaris (2012–2017)', yearRange: '2012–2017',
+    segment: 'Used Import Hatchback', bodyType: 'Hatchback', seats: 5, engineCC: 1300, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 7.5, groundClearance: 130, bootSpace: 286,
+    basePriceUSD: { min: 1160, max: 2280 }, maintenanceCost: 'Low', spareParts: 'Moderate',
+    commonIssues: 'Very reliable — minor CVT issues on automatic variants at very high mileage.',
+    bestFor: ['budget', 'firstcar', 'fuelefficient'],
+    watchOut: 'Low ground clearance (130mm) — not suitable for rough roads or flooding-prone areas.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/2014_Toyota_Yaris_%28NCP130R%29_%28facelift%29_YR_5-door_hatchback_%282015-09-25%29_01.jpg/320px-2014_Toyota_Yaris_%28NCP130R%29_%28facelift%29_YR_5-door_hatchback_%282015-09-25%29_01.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'honda-fit-09-13', brand: 'Honda', model: 'Fit / Jazz (2009–2013)', yearRange: '2009–2013',
+    segment: 'Used Import Hatchback', bodyType: 'Hatchback', seats: 5, engineCC: 1500, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 7.8, groundClearance: 135, bootSpace: 399,
+    basePriceUSD: { min: 1040, max: 1990 }, maintenanceCost: 'Low', spareParts: 'Moderate',
+    commonIssues: 'CVT transmission sensitive to fluid changes, AC condenser rust.',
+    bestFor: ['budget', 'firstcar', 'fuelefficient'],
+    watchOut: 'CVT fluid needs changing every 40,000km — skipped services cause early failure.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Honda_Fit_GE_2011.jpg/320px-Honda_Fit_GE_2011.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'volkswagen-golf-05-09', brand: 'Volkswagen', model: 'Golf (2005–2009)', yearRange: '2005–2009',
+    segment: 'Used Import Hatchback', bodyType: 'Hatchback', seats: 5, engineCC: 2000, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 10.8, groundClearance: 148, bootSpace: 350,
+    basePriceUSD: { min: 1240, max: 2490 }, maintenanceCost: 'High', spareParts: 'Hard',
+    commonIssues: 'Timing chain issues on FSI engines, expensive dealer-only electrical faults.',
+    bestFor: ['executive', 'highway'],
+    watchOut: 'VW parts and qualified mechanics are scarce outside major cities. Budget for expensive repairs.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/VW_Golf_V_front_20071112.jpg/320px-VW_Golf_V_front_20071112.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'nissan-sentra-13-17', brand: 'Nissan', model: 'Sentra (2013–2017)', yearRange: '2013–2017',
+    segment: 'Used Import Sedan', bodyType: 'Sedan', seats: 5, engineCC: 1800, isElectric: false,
+    fuelType: 'Petrol', transmission: 'CVT', fuelConsumption: 9.0, groundClearance: 148, bootSpace: 428,
+    basePriceUSD: { min: 1450, max: 2700 }, maintenanceCost: 'Medium', spareParts: 'Moderate',
+    commonIssues: 'CVT transmission failure at high mileage if servicing is skipped.',
+    bestFor: ['budget', 'firstcar', 'fuelefficient'],
+    watchOut: "Nissan's CVT is sensitive — insist on service history showing CVT fluid changes.",
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/2016_Nissan_Sentra_SV_--_2015_DC.jpg/320px-2016_Nissan_Sentra_SV_--_2015_DC.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'mercedes-eclass-06-09', brand: 'Mercedes-Benz', model: 'E-Class (2006–2009)', yearRange: '2006–2009',
+    segment: 'Used Import Luxury Sedan', bodyType: 'Sedan', seats: 5, engineCC: 3500, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 13.5, groundClearance: 118, bootSpace: 540,
+    basePriceUSD: { min: 2490, max: 4980 }, maintenanceCost: 'Very High', spareParts: 'Hard',
+    commonIssues: 'Airmatic suspension failure, SBC brake system failures, expensive electrics.',
+    bestFor: ['executive', 'highway'],
+    watchOut: 'Airmatic suspension failure is near-certain at high mileage and expensive to fix. Check carefully before buying.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Mercedes-Benz_W211_front_20080318.jpg/320px-Mercedes-Benz_W211_front_20080318.jpg',
+    availableCountries: AFRICA_CODES,
+  },
+  {
+    id: 'bmw-3series-05-10', brand: 'BMW', model: '3 Series (2005–2010)', yearRange: '2005–2010',
+    segment: 'Used Import Luxury Sedan', bodyType: 'Sedan', seats: 5, engineCC: 3000, isElectric: false,
+    fuelType: 'Petrol', transmission: 'Automatic', fuelConsumption: 13.0, groundClearance: 130, bootSpace: 460,
+    basePriceUSD: { min: 2280, max: 4560 }, maintenanceCost: 'Very High', spareParts: 'Hard',
+    commonIssues: 'VANOS failure, coolant system leaks, expensive SMG/DCT transmission repairs.',
+    bestFor: ['executive', 'highway'],
+    watchOut: 'Ownership cost is high — parts are expensive and require a specialised BMW mechanic. Maintenance often costs 2–3× Japanese equivalents.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/BMW_E90_front_20080331.jpg/320px-BMW_E90_front_20080331.jpg',
+    availableCountries: AFRICA_CODES,
+  },
 ];
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
+
+/** True if a car should be shown for the given country code (undefined availableCountries = shown everywhere). */
+export function isAvailableInCountry(car: CarData, countryCode: string): boolean {
+  return car.availableCountries === undefined || car.availableCountries.includes(countryCode);
+}
 
 export function maintenanceScore(cost: MaintenanceCost): number {
   return { Low: 4, Medium: 3, High: 2, 'Very High': 1 }[cost];
