@@ -1,11 +1,34 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ChevronRight, IdCard } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ChevronDown, IdCard } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Vehicle License Renewal Guide — Choose Your Country | Naira Autos',
   description: 'Free vehicle license renewal guides by country — requirements, step-by-step process, official portals, and costs. Start with Nigeria; more countries added regularly.',
   alternates: { canonical: 'https://www.naira.autos/tools/vehicle-license' },
+};
+
+const SCHEMA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://www.naira.autos/tools/vehicle-license',
+      name: 'Vehicle License Renewal Guide — Choose Your Country',
+      description: 'Free vehicle license renewal guides by country — requirements, step-by-step process, official portals, and costs.',
+      url: 'https://www.naira.autos/tools/vehicle-license',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'What do I usually need to renew a vehicle license?', acceptedAnswer: { '@type': 'Answer', text: 'Most countries require proof of a current roadworthiness or safety inspection, valid insurance, the previous license or registration document, and payment of the renewal fee. Some also require an emissions test or updated ownership documents. Exact requirements and where to renew — online portal versus in-person office — vary by country.' } },
+        { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built by researching that country\u2019s actual renewal process and official portal directly, rather than assuming a generic process — that takes time to verify properly. More countries are added as that research is completed.' } },
+      ],
+    },
+  ],
 };
 
 /**
@@ -30,6 +53,7 @@ const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
 export default function VehicleLicenseCountryPickerPage() {
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <div className="bg-[#080C10] pt-10 pb-12 px-4">
         <div className="max-w-screen-lg mx-auto">
           <div className="flex items-center gap-3 mb-8">
@@ -49,6 +73,7 @@ export default function VehicleLicenseCountryPickerPage() {
               <IdCard className="h-3 w-3" />
               Free Tool
             </span>
+            <span className="inline-flex ml-2 text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-5">Last verified: August 2026</span>
             <h1 className="font-black uppercase text-white leading-[0.95] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(32px, 5vw, 56px)' }}>
               Vehicle License<br /><span className="text-emerald-400">Renewal Guide</span>
@@ -73,6 +98,33 @@ export default function VehicleLicenseCountryPickerPage() {
               <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400">Open Guide →</span>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-14 space-y-10">
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>What Vehicle License Renewal Usually Requires</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Most countries require proof of a current roadworthiness or safety inspection, valid insurance, the previous license or registration document, and payment of the renewal fee — some also require an emissions test or updated ownership documents. Exact requirements, and whether renewal happens through an online portal or an in-person office, vary by country, which is why each page here is built by researching that country's actual process directly.</p>
+          </div>
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>FAQ</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { q: 'What do I usually need to renew a vehicle license?', a: 'Most countries require a current roadworthiness/safety inspection, valid insurance, your previous license document, and the renewal fee. Some also require an emissions test. Exact requirements and where to renew vary by country.' },
+                { q: 'Why is my country not available yet?', a: 'Each country page is built by researching that country\u2019s actual renewal process and official portal directly, rather than assuming a generic process — that takes time to verify properly. More countries are added as that research is completed.' },
+              ].map(({ q, a }) => (
+                <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
+                    <span className="text-sm font-semibold text-foreground">{q}</span>
+                    <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-4 pb-4"><p className="text-sm text-muted-foreground leading-relaxed">{a}</p></div>
+                </details>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder.
+          </p>
         </div>
       </div>
     </div>

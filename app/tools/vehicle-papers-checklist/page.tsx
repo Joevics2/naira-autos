@@ -5,11 +5,11 @@ import VehiclePapersClient from './client';
 import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
-  title: 'Nigeria Vehicle Papers Checklist 2025 — Documents to Buy, Sell or Import a Car',
+  title: 'Nigeria Vehicle Papers Checklist 2026 — Documents to Buy, Sell or Import a Car',
   description: 'Complete checklist of car documents required to buy, sell, or import a vehicle in Nigeria. FRSC and NCS requirements. Bill of sale template, proof of ownership, registration — all explained.',
   alternates: { canonical: 'https://www.naira.autos/tools/vehicle-papers-checklist' },
   openGraph: {
-    title: 'Nigeria Vehicle Papers Checklist 2025 | Naira Autos',
+    title: 'Nigeria Vehicle Papers Checklist 2026 | Naira Autos',
     description: 'Documents needed to buy, sell, or import a car in Nigeria. FRSC + NCS requirements, bill of sale template, change of ownership guide. Free interactive checklist.',
     url: 'https://www.naira.autos/tools/vehicle-papers-checklist',
   },
@@ -22,9 +22,12 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/vehicle-papers-checklist',
-      name: 'Nigeria Vehicle Papers Checklist — Documents to Buy, Sell or Import a Car 2025',
+      name: 'Nigeria Vehicle Papers Checklist — Documents to Buy, Sell or Import a Car 2026',
       description: 'Complete checklist of documents required to buy, sell, or import a car in Nigeria. FRSC and NCS requirements.',
       url: 'https://www.naira.autos/tools/vehicle-papers-checklist',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -73,7 +76,7 @@ export default function VehiclePapersChecklistPage() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-violet-500 px-3 py-1 rounded-full">FRSC + NCS</span>
-              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Updated 2025</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -99,7 +102,7 @@ export default function VehiclePapersChecklistPage() {
               <div className="space-y-5 text-sm text-muted-foreground leading-relaxed">
                 <div>
                   <p className="font-bold text-foreground mb-1">Proof of Ownership (Customs Paper)</p>
-                  <p>The most critical document for Tokunbo cars. Issued by Nigeria Customs Service after the vehicle is successfully cleared at Apapa or Tin Can Island port. Without it, the car cannot be legally transferred to a new owner at the state MVAA. The Customs paper confirms the vehicle was imported with all duties paid — its absence often signals an illegally cleared or stolen car. Always request the original, not a photocopy.</p>
+                  <p>The most critical document for Tokunbo cars. Issued by <a href="https://customs.gov.ng" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">Nigeria Customs Service</a> after the vehicle is successfully cleared at Apapa or Tin Can Island port. Without it, the car cannot be legally transferred to a new owner at the state MVAA. The Customs paper confirms the vehicle was imported with all duties paid — its absence often signals an illegally cleared or stolen car. Always request the original, not a photocopy.</p>
                 </div>
                 <div>
                   <p className="font-bold text-foreground mb-1">Vehicle Registration Certificate</p>
@@ -139,7 +142,7 @@ export default function VehiclePapersChecklistPage() {
                 <p>Another common issue is <strong className="text-foreground">incomplete paper chains</strong> — a car that has been sold three times with each seller keeping the original documents and only providing the buyer with photocopies. Photocopies have no legal validity for change of ownership. The buyer must receive original documents.</p>
               </div>
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-                <p>For Tokunbo buyers specifically, an additional layer of verification is the <strong className="text-foreground">NHTSA VIN check</strong> (free, at vpic.nhtsa.dot.gov). This tells you the vehicle's original manufacture specifications — make, model, year, trim, country of assembly — and can reveal if the car has been significantly modified from its original configuration or if the VIN has been cloned from a different vehicle. Our free <Link href="/tools/vin-decoder" className="text-violet-500 hover:underline">VIN Decoder</Link> runs this check instantly.</p>
+                <p>For Tokunbo buyers specifically, an additional layer of verification is the <strong className="text-foreground">VIN check</strong> (free). This tells you the vehicle's original manufacture specifications — make, model, year, trim, country of assembly — and can reveal if the car has been significantly modified from its original configuration or if the VIN has been cloned from a different vehicle. Our free <Link href="/tools/vin-checker-global" className="text-violet-500 hover:underline">VIN Checker</Link> runs this check instantly.</p>
                 <p>The <strong className="text-foreground">pre-purchase mechanic inspection</strong> is the most consistently skipped step in Nigerian car buying, and the most consistently regretted. An independent inspection (not from the seller's recommended mechanic) at a reputable workshop costs ₦5,000–₦20,000 and can identify engine faults, flood damage, accident repair, suspension issues, and brake wear that would cost hundreds of thousands to repair. For any car over ₦3 million, this is non-negotiable.</p>
                 <p>After purchase, change of ownership must be processed at the state MVAA to register the car in the buyer's name. Without this, the vehicle legally remains in the seller's name — meaning the seller is still liable for any traffic offences the car incurs and can theoretically dispute ownership. Change of ownership should be done within 30 days of purchase.</p>
               </div>
@@ -158,6 +161,15 @@ export default function VehiclePapersChecklistPage() {
               <p>Use our <Link href="/tools/import-duty-calculator" className="text-violet-500 hover:underline">Import Duty Calculator</Link> to estimate the total duty and levies payable before you commit to a purchase price overseas.</p>
             </div>
           </div>
+
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Catching a "Clean Papers, Bad Car" Sale</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Ifeanyi was buying a locally-used Toyota Camry and the seller had what looked like a complete document set — registration certificate, roadworthiness, insurance. He still ran a CMR check and physically compared the chassis number on the windscreen against the registration certificate before paying. The numbers matched, but the seller could only produce a photocopy of the original purchase agreement from when they'd bought the car, not the original. That was enough to pause the deal — a photocopy has no legal validity for change of ownership at the MVAA — and he asked the seller to track down the original before proceeding. It surfaced that the car had actually changed hands one more time than the seller had disclosed.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Document requirements and clearing sequence checked against real vehicle sourcing and clearing experience.
+          </p>
 
           {/* FAQ */}
           <div>

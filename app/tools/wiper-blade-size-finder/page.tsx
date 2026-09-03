@@ -23,6 +23,9 @@ const SCHEMA = {
       name: 'Wiper Blade Size Finder — Find Your Car\'s Wiper Sizes by Make, Model & Year',
       description: 'Find the exact windshield wiper blade sizes for your car in seconds. Driver, passenger, and rear sizes for 100+ models, plus the connector type you need.',
       url: 'https://www.naira.autos/tools/wiper-blade-size-finder',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Emmanuel Erere', jobTitle: 'Auto Mechanic', url: 'https://www.naira.autos/about' },
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
@@ -68,6 +71,7 @@ export default function WiperBladeSizeFinderPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">100+ car models</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -196,6 +200,16 @@ export default function WiperBladeSizeFinderPage() {
             </div>
           </div>
 
+
+          {/* Worked example */}
+          <div className="max-w-3xl">
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Right Length, Wrong Connector</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">Priya bought a pair of 26-inch and 20-inch blades for her Honda Civic based on a general size chart she found online — the lengths matched her car's spec exactly. They still wouldn't clip onto her wiper arms. Her Civic uses a Side Pin connector, common on Honda and Subaru, but the blades she'd bought were a universal Hook-style fitting sold with the correct length as the only listed spec. Looking up the connector type specifically, not just the length, would have caught the mismatch before she made the trip to return them.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Sizes and connector types checked for workshop accuracy.
+          </p>
 
           {/* FAQ */}
           <div>

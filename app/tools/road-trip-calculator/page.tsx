@@ -24,6 +24,9 @@ const SCHEMA = {
       name: 'Nigeria Road Trip Calculator — Distance, Travel Time & Fuel Cost',
       description: 'Get the distance, drive time, and fuel cost for any Nigerian road trip. 35+ routes, 100+ car models.',
       url: 'https://www.naira.autos/tools/road-trip-calculator',
+      dateModified: '2026-08-01',
+      author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+      reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -44,7 +47,7 @@ const SCHEMA = {
         { '@type': 'Question', name: 'What is the distance from Lagos to Port Harcourt by road?', acceptedAnswer: { '@type': 'Answer', text: 'Lagos to Port Harcourt is approximately 669km by road via the East–West Road, passing through Ore, Benin City, and Warri. The journey typically takes 9–12 hours depending on traffic and road conditions.' } },
         { '@type': 'Question', name: 'How much fuel does a Toyota Highlander use Lagos to Abuja?', acceptedAnswer: { '@type': 'Answer', text: 'A Toyota Highlander 3.5 (2014–2019) uses approximately 9.8L/100km on the highway. Lagos to Abuja (791km) requires about 77 litres. At ₦1,000/litre, expect to spend roughly ₦77,000 in fuel. Its 72-litre tank means one refill en route (Ore or Lokoja) is needed.' } },
         { '@type': 'Question', name: 'How many litres of fuel does Lagos to Ibadan require?', acceptedAnswer: { '@type': 'Answer', text: 'Lagos to Ibadan via Sagamu is approximately 128km. A Toyota Camry 2.5 at mixed driving (9L/100km) uses about 11.5 litres. At ₦1,000/litre, the fuel cost is approximately ₦11,500 one way.' } },
-        { '@type': 'Question', name: 'What is the current petrol price in Nigeria 2025?', acceptedAnswer: { '@type': 'Answer', text: 'As of early 2026, Nigerian pump prices range from approximately ₦850 to ₦1,150 per litre at most filling stations, with NNPC stations typically at the lower end. Prices are deregulated and track the exchange rate. Use the pump price slider in this calculator to set your exact current station price.' } },
+        { '@type': 'Question', name: 'What is the current petrol price in Nigeria 2026?', acceptedAnswer: { '@type': 'Answer', text: 'As of August 2026, Nigerian pump prices range from approximately ₦850 to ₦1,150 per litre at most filling stations, with NNPC stations typically at the lower end. Prices are deregulated and track the exchange rate. Use the pump price slider in this calculator to set your exact current station price.' } },
       ],
     },
     {
@@ -94,6 +97,7 @@ export default function RoadTripCalculatorPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-amber-500 px-3 py-1 rounded-full">Free Tool</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">35+ Nigerian routes</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -216,6 +220,15 @@ export default function RoadTripCalculatorPage() {
             </div>
           </div>
 
+          <div>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Deciding Whether to Drive or Fly</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Chinedu was weighing a solo trip from Lagos to Abuja — fly for convenience, or drive to save money? A Lagos–Abuja flight was quoting around ₦85,000 one-way. Running his Toyota Camry through this calculator for the 791km route at mixed driving: about 71 litres, roughly ₦71,000 in fuel at ₦1,000/litre. On paper, driving looked ₦14,000 cheaper — but factoring in the 10-13 hour drive time against a 1-hour flight, plus a full day effectively lost to travel, he flew instead and used the saved time to close a deal that was worth far more than the fare difference.</p>
+          </div>
+
+          <p className="text-xs text-muted-foreground border-t border-border pt-4">
+            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Route distances and fuel figures checked against real driving experience.
+          </p>
+
           {/* FAQ */}
           <div>
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
@@ -229,7 +242,7 @@ export default function RoadTripCalculatorPage() {
                 { q: 'How do I calculate fuel cost for a trip in Nigeria?', a: 'Multiply the distance (km) by your car\'s fuel consumption rate (L/100km) divided by 100, then multiply by the pump price per litre. Example: 791km × 9L/100km ÷ 100 × ₦1,000 = ₦71,190. This calculator does it automatically for 100+ Nigerian car models.' },
                 { q: 'What is the cheapest car to drive Lagos to Abuja?', a: 'The most fuel-efficient cars on Nigerian roads include the Honda Civic 1.5T (6–8.5L/100km), Toyota Corolla 2.0 (6.2–8.8L/100km), and Hyundai Elantra (6.2–9.0L/100km). At ₦1,000/litre over 791km, a Civic 1.5T costs approximately ₦57,000 versus ₦127,000 for a Land Cruiser.' },
                 { q: 'Should I use city or highway figures for a Nigerian road trip?', a: 'For interstate routes, use Mixed mode — which averages city and highway figures. Lagos exits and Abuja approaches involve heavy traffic (city conditions), while the main highway stretch is more open. Mixed is the most realistic for most Nigerian long-distance trips. Highway-only is suitable if you leave Lagos before 5am.' },
-                { q: 'How many kilometers is Lagos to Ibadan?', a: 'Lagos to Ibadan is approximately 130km via the Lagos–Ibadan Expressway, typically taking 2–2.5 hours depending on traffic at the Lagos toll gates and expressway construction sections. Select the route above for an exact fuel cost for your car.' },
+                { q: 'How many kilometers is Lagos to Ibadan?', a: 'Lagos to Ibadan is approximately 128km via the Lagos–Ibadan Expressway, typically taking 1.5–2 hours depending on traffic at the Lagos toll gates and expressway construction sections. Select the route above for an exact fuel cost for your car.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">
