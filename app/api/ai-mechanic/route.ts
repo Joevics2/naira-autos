@@ -3,39 +3,25 @@
 // Accepts text + optional image / audio / video, sends to Gemini,
 // returns structured diagnostic JSON.
 //
-// Model waterfall — tries each in order until one succeeds:
-//   gemini-3.5-flash-lite   (primary — fast & cheap, GA)
-//   gemini-3.6-flash        (latest, most capable Flash-tier, GA Jul 2026)
-//   gemini-3.5-flash        (GA May 2026)
-//   gemini-2.5-flash-lite   (previous-gen fallback, still live)
-//   gemini-2.5-flash        (previous-gen fallback, still live)
-//   gemini-2.5-pro          (previous-gen fallback, most capable, still live)
+// Model waterfall + API key rotation now live in lib/gemini-keys.ts,
+// shared across every AI route on the site: gemini-3.1-flash-lite
+// (primary) -> gemini-3.5-flash (fallback), each tried against every
+// configured GEMINI_API_KEY / _2 / _3 / _4 in turn.
 //
-// Last updated Aug 2026 — the previous list (gemini-2.5-flash-preview-
-// 09-2025, gemini-2.5-flash-lite-preview-09-2025, gemini-3-flash-preview)
-// was stale: the two dated preview snapshots had cycled out after their
-// GA versions shipped, and gemini-3-flash-preview is officially
-// superseded per Google's own deprecations page (recommended replacement:
-// gemini-3.5-flash) — meaning every model in the old waterfall could fail,
-// exhausting it and returning "AI service is temporarily unavailable" for
-// every request. If this list starts failing again, check
-// https://ai.google.dev/gemini-api/docs/deprecations for current model
-// names before assuming it's a code bug.
+// Past incident: an earlier version of this list included dated preview
+// snapshots and gemini-3-flash-preview, which Google had already marked
+// superseded — every model in the waterfall could fail at once, returning
+// "AI service is temporarily unavailable" for every request. If this
+// starts failing again, check
+// https://ai.google.dev/gemini-api/docs/deprecations before assuming
+// it's a code bug.
 //
-// Required env var:
-//   GEMINI_API_KEY
+// Required env vars (at least one):
+//   GEMINI_API_KEY, GEMINI_API_KEY_2, GEMINI_API_KEY_3, GEMINI_API_KEY_4
 
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-
-const GEMINI_MODELS = [
-  'gemini-3.5-flash-lite',
-  'gemini-3.6-flash',
-  'gemini-3.5-flash',
-  'gemini-2.5-flash-lite',
-  'gemini-2.5-flash',
-  'gemini-2.5-pro',
-];
+import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;   // 10 MB inline
 const MAX_AUDIO_BYTES = 20 * 1024 * 1024;   // 20 MB
@@ -114,9 +100,8 @@ Respond ONLY with valid JSON — no markdown, no preamble, no trailing text:
   "model_used": ""
 }`;
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
-async function tryModel(modelName: string, parts: any[]): Promise<{ text: string; model: string }> {
+async function tryModel(modelName: string, apiKey: string, parts: any[]): Promise<{ text: string; model: string }> {
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({
     model: modelName,
     systemInstruction: SYSTEM_PROMPT,
@@ -241,26 +226,37 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ── Model waterfall ───────────────────────────────────────────────────────
+    // ── Model waterfall × key rotation ────────────────────────────────────────
+    const apiKeys = getGeminiKeys();
+    if (apiKeys.length === 0) {
+      console.error('[ai-mechanic] No GEMINI_API_KEY* env vars configured.');
+      return NextResponse.json(
+        { error: 'AI service is temporarily unavailable. Please try again in a moment.' },
+        { status: 503 }
+      );
+    }
+
     let rawText = '';
     let modelUsed = '';
     let lastError: any = null;
 
-    for (const modelName of GEMINI_MODELS) {
-      try {
-        const result = await tryModel(modelName, parts);
-        rawText = result.text;
-        modelUsed = result.model;
-        break;
-      } catch (err: any) {
-        lastError = err;
-        console.warn(`[ai-mechanic] Model ${modelName} failed:`, err?.message || err);
-        continue;
+    outer: for (const modelName of GEMINI_MODELS) {
+      for (const apiKey of apiKeys) {
+        try {
+          const result = await tryModel(modelName, apiKey, parts);
+          rawText = result.text;
+          modelUsed = result.model;
+          break outer;
+        } catch (err: any) {
+          lastError = err;
+          console.warn(`[ai-mechanic] Model ${modelName} failed with a key:`, err?.message || err);
+          continue;
+        }
       }
     }
 
     if (!rawText) {
-      console.error('[ai-mechanic] All models failed. Last error:', lastError);
+      console.error('[ai-mechanic] All models/keys failed. Last error:', lastError);
       return NextResponse.json(
         { error: 'AI service is temporarily unavailable. Please try again in a moment.' },
         { status: 503 }

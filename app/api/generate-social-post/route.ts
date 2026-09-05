@@ -12,15 +12,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-
-const GEMINI_MODELS = [
-  "gemini-2.5-flash-lite",
-  "gemini-2.5-flash",
-  "gemini-2.5-flash-preview-09-2025",
-  "gemini-2.5-flash-lite-preview-09-2025",
-  "gemini-2.5-pro",
-  "gemini-3-flash-preview",
-];
+import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
 const buildSocialPostPrompt = () => `You write WhatsApp/social media posts to sell cars in Nigeria.
 Return ONLY a raw JSON object with one field: social_post.
@@ -68,65 +60,67 @@ Rules:
 - Return plain JSON string`;
 
 async function generateWithGemini(listingText: string): Promise<string | null> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  console.log('[generateWithGemini] API key present:', !!apiKey);
-  if (!apiKey) return null;
+  const apiKeys = getGeminiKeys();
+  console.log('[generateWithGemini] Gemini keys configured:', apiKeys.length);
+  if (apiKeys.length === 0) return null;
 
   for (const model of GEMINI_MODELS) {
-    console.log('[generateWithGemini] Trying model:', model);
-    try {
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-      console.log('[generateWithGemini] Calling API:', apiUrl.slice(0, 80));
-      
-      const res = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: buildSocialPostPrompt() }] },
-            contents: [{ parts: [{ text: listingText }] }],
-            generationConfig: { temperature: 0.8, maxOutputTokens: 512 },
-          }),
-        }
-      );
-
-      console.log('[generateWithGemini] Response status:', res.status);
-      if (!res.ok) {
-        console.log('[generateWithGemini] Response not ok, trying next model');
-        continue;
-      }
-
-      const data = await res.json();
-      const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      console.log('[generateWithGemini] Raw response:', raw.slice(0, 200));
-      
-      let cleaned = raw.replace(/^```(?:json)?\n?/i, '').replace(/\n?```$/i, '').trim();
-      // Remove any control characters that could break JSON parsing
-      cleaned = cleaned.replace(/[\x00-\x1F\x7F]/g, '');
-      
-      let parsed;
+    for (const apiKey of apiKeys) {
+      console.log('[generateWithGemini] Trying model:', model);
       try {
-        parsed = JSON.parse(cleaned);
-      } catch (parseErr: any) {
-        console.log('[generateWithGemini] JSON parse failed, trying to extract:', parseErr?.message);
-        // Try to extract social_post from the text manually
-        const match = cleaned.match(/"social_post"\s*:\s*"([^"]*)"/);
-        if (match) {
-          console.log('[generateWithGemini] Extracted manually:', match[1].slice(0, 100));
-          return match[1];
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        console.log('[generateWithGemini] Calling API:', apiUrl.slice(0, 80));
+
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              system_instruction: { parts: [{ text: buildSocialPostPrompt() }] },
+              contents: [{ parts: [{ text: listingText }] }],
+              generationConfig: { temperature: 0.8, maxOutputTokens: 512 },
+            }),
+          }
+        );
+
+        console.log('[generateWithGemini] Response status:', res.status);
+        if (!res.ok) {
+          console.log('[generateWithGemini] Response not ok, trying next key/model');
+          continue;
         }
-        continue;
+
+        const data = await res.json();
+        const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        console.log('[generateWithGemini] Raw response:', raw.slice(0, 200));
+
+        let cleaned = raw.replace(/^```(?:json)?\n?/i, '').replace(/\n?```$/i, '').trim();
+        // Remove any control characters that could break JSON parsing
+        cleaned = cleaned.replace(/[\x00-\x1F\x7F]/g, '');
+
+        let parsed;
+        try {
+          parsed = JSON.parse(cleaned);
+        } catch (parseErr: any) {
+          console.log('[generateWithGemini] JSON parse failed, trying to extract:', parseErr?.message);
+          // Try to extract social_post from the text manually
+          const match = cleaned.match(/"social_post"\s*:\s*"([^"]*)"/);
+          if (match) {
+            console.log('[generateWithGemini] Extracted manually:', match[1].slice(0, 100));
+            return match[1];
+          }
+          continue;
+        }
+
+        console.log('[generateWithGemini] Parsed JSON:', parsed);
+        if (parsed?.social_post) {
+          console.log('[generateWithGemini] Found social_post!');
+          return parsed.social_post;
+        }
+      } catch (err: any) {
+        console.log('[generateWithGemini] Error:', err.message, err.cause);
       }
-      
-      console.log('[generateWithGemini] Parsed JSON:', parsed);
-      if (parsed?.social_post) {
-        console.log('[generateWithGemini] Found social_post!');
-        return parsed.social_post;
-      }
-    } catch (err: any) {
-      console.log('[generateWithGemini] Error:', err.message, err.cause);
     }
   }
-  console.log('[generateWithGemini] All models failed');
+  console.log('[generateWithGemini] All models/keys failed');
   return null;
 }
 

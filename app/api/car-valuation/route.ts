@@ -1,12 +1,7 @@
 // app/api/car-valuation/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getValuationCountry, type ValuationCountry } from '@/lib/currencies';
-
-const GEMINI_MODELS = [
-  'gemini-2.5-flash',
-  'gemini-2.5-flash-lite',
-  'gemini-2.5-pro',
-];
+import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
 // ─── Range widening ───────────────────────────────────────────────────────────
 // Rounding + spread scale to the target currency's typical magnitude —
@@ -417,13 +412,13 @@ export async function POST(req: NextRequest) {
 
     const vc = getValuationCountry(skipSerp ? (country || 'ng') : country);
 
-    const geminiKey = process.env.GEMINI_API_KEY;
-    if (!geminiKey) return NextResponse.json({ error: 'GEMINI_API_KEY not configured' }, { status: 500 });
+    const geminiKeys = getGeminiKeys();
+    if (geminiKeys.length === 0) return NextResponse.json({ error: 'GEMINI_API_KEY not configured' }, { status: 500 });
 
     const loc  = location || (vc.code === 'ng' ? 'Lagos' : vc.name);
     const mime = mimeType || 'image/jpeg';
 
-    console.log('[car-valuation] ENV CHECK — GEMINI_API_KEY:', !!geminiKey, '| IMGBB_API_KEY:', !!process.env.IMGBB_API_KEY, '| SERP_API_KEY_1:', !!process.env.SERP_API_KEY_1, '| country:', vc.code);
+    console.log('[car-valuation] ENV CHECK — Gemini keys configured:', geminiKeys.length, '| IMGBB_API_KEY:', !!process.env.IMGBB_API_KEY, '| SERP_API_KEY_1:', !!process.env.SERP_API_KEY_1, '| country:', vc.code);
 
     // Step 1: SerpAPI Google Lens (skipped when skipSerp=true, e.g. add-listing mode)
     console.log('[car-valuation] Step 1:', skipSerp ? 'SerpAPI skipped (Gemini-only mode)' : 'SerpAPI Google Lens...');
@@ -434,22 +429,24 @@ export async function POST(req: NextRequest) {
     let result: Record<string, any> | null = null;
     let lastError = '';
 
-    for (const model of GEMINI_MODELS) {
-      try {
-        result = await analyzeAndPriceWithGemini(
-          model, imageBase64, mime,
-          serpDump, condition, loc, vc, geminiKey, lang,
-        );
-        console.log(`[car-valuation] Gemini [${model}] succeeded: ${result.brand} ${result.model} ${result.yearMid} @ ${vc.currency} ${result.suggestedPrice?.toLocaleString()}`);
-        break;
-      } catch (err: any) {
-        lastError = err.message;
-        console.warn(`[car-valuation] Gemini [${model}] failed:`, err.message);
+    outer: for (const model of GEMINI_MODELS) {
+      for (const geminiKey of geminiKeys) {
+        try {
+          result = await analyzeAndPriceWithGemini(
+            model, imageBase64, mime,
+            serpDump, condition, loc, vc, geminiKey, lang,
+          );
+          console.log(`[car-valuation] Gemini [${model}] succeeded: ${result.brand} ${result.model} ${result.yearMid} @ ${vc.currency} ${result.suggestedPrice?.toLocaleString()}`);
+          break outer;
+        } catch (err: any) {
+          lastError = err.message;
+          console.warn(`[car-valuation] Gemini [${model}] failed with a key:`, err.message);
+        }
       }
     }
 
     if (!result) {
-      console.error('[car-valuation] All Gemini models failed:', lastError);
+      console.error('[car-valuation] All Gemini models/keys failed:', lastError);
       return NextResponse.json({ error: 'Could not analyze this image. Please try a clearer photo.' }, { status: 502 });
     }
 
