@@ -6,26 +6,18 @@
 // but this route is single-purpose (audio-first) and free-standing so
 // it can be iterated on independently of the full AI Mechanic chat tool.
 //
-// Model list kept in sync with app/api/ai-mechanic/route.ts — see that
-// file's header comment for why (stale preview snapshots can silently
-// exhaust the whole waterfall). Check
-// https://ai.google.dev/gemini-api/docs/deprecations before assuming
-// a failure here is a code bug.
+// Model + key list now shared via lib/gemini-keys.ts, kept in sync with
+// app/api/ai-mechanic/route.ts — see that file's header comment for why
+// (stale preview snapshots can silently exhaust the whole waterfall).
+// Check https://ai.google.dev/gemini-api/docs/deprecations before
+// assuming a failure here is a code bug.
 //
-// Required env var:
-//   GEMINI_API_KEY
+// Required env vars (at least one):
+//   GEMINI_API_KEY, GEMINI_API_KEY_2, GEMINI_API_KEY_3, GEMINI_API_KEY_4
 
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-
-const GEMINI_MODELS = [
-  'gemini-3.5-flash-lite',
-  'gemini-3.6-flash',
-  'gemini-3.5-flash',
-  'gemini-2.5-flash-lite',
-  'gemini-2.5-flash',
-  'gemini-2.5-pro',
-];
+import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
 // Free tier caps audio analysis at the first 30s of any clip — enforced
 // client-side (trimmed to a mono 16kHz WAV before upload, ~1MB for 30s)
@@ -106,9 +98,8 @@ Respond ONLY with valid JSON — no markdown, no preamble, no trailing text:
   "model_used": ""
 }`;
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
-async function tryModel(modelName: string, parts: any[]): Promise<{ text: string; model: string }> {
+async function tryModel(modelName: string, apiKey: string, parts: any[]): Promise<{ text: string; model: string }> {
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({
     model: modelName,
     systemInstruction: SYSTEM_PROMPT,
@@ -164,25 +155,33 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    const apiKeys = getGeminiKeys();
+    if (apiKeys.length === 0) {
+      console.error('[engine-sound-analyzer] No GEMINI_API_KEY* env vars configured.');
+      return NextResponse.json({ error: 'AI service is temporarily unavailable. Please try again in a moment.' }, { status: 503 });
+    }
+
     let rawText = '';
     let modelUsed = '';
     let lastError: any = null;
 
-    for (const modelName of GEMINI_MODELS) {
-      try {
-        const result = await tryModel(modelName, parts);
-        rawText = result.text;
-        modelUsed = result.model;
-        break;
-      } catch (err: any) {
-        lastError = err;
-        console.warn(`[engine-sound-analyzer] Model ${modelName} failed:`, err?.message || err);
-        continue;
+    outer: for (const modelName of GEMINI_MODELS) {
+      for (const apiKey of apiKeys) {
+        try {
+          const result = await tryModel(modelName, apiKey, parts);
+          rawText = result.text;
+          modelUsed = result.model;
+          break outer;
+        } catch (err: any) {
+          lastError = err;
+          console.warn(`[engine-sound-analyzer] Model ${modelName} failed with a key:`, err?.message || err);
+          continue;
+        }
       }
     }
 
     if (!rawText) {
-      console.error('[engine-sound-analyzer] All models failed. Last error:', lastError);
+      console.error('[engine-sound-analyzer] All models/keys failed. Last error:', lastError);
       return NextResponse.json({ error: 'AI service is temporarily unavailable. Please try again in a moment.' }, { status: 503 });
     }
 

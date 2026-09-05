@@ -1,13 +1,6 @@
 // app/api/ai-autofill/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-
-const GEMINI_MODELS = [
-  'gemini-2.5-flash-lite',
-  'gemini-2.5-flash',
-  'gemini-2.5-flash-preview-09-2025',
-  'gemini-2.5-flash-lite-preview-09-2025',
-  'gemini-2.5-pro',
-];
+import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
 const SYSTEM_PROMPT = `You are an AI that extracts structured car listing data from free-form text by Nigerian car sellers.
 Return ONLY a raw JSON object — no markdown, no explanation, no code fences.
@@ -149,31 +142,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No text provided' }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    const apiKeys = getGeminiKeys();
+    if (apiKeys.length === 0) {
       return NextResponse.json({ error: 'GEMINI_API_KEY not configured' }, { status: 500 });
     }
 
     let lastError = '';
     for (let i = 0; i < GEMINI_MODELS.length; i++) {
       const model = GEMINI_MODELS[i];
-      console.log(`[ai-autofill] Attempt ${i + 1}/${GEMINI_MODELS.length}: ${model}`);
-      try {
-        const parsed = await tryModel(model, text, apiKey);
-        const { social_post, ...listingData } = parsed;
+      for (let k = 0; k < apiKeys.length; k++) {
+        console.log(`[ai-autofill] Attempt model ${i + 1}/${GEMINI_MODELS.length} (${model}), key ${k + 1}/${apiKeys.length}`);
+        try {
+          const parsed = await tryModel(model, text, apiKeys[k]);
+          const { social_post, ...listingData } = parsed;
 
-        console.log('[ai-autofill] Keys:', Object.keys(parsed).join(', '));
-        console.log('[ai-autofill] social_post present:', !!social_post);
-        if (social_post) console.log('[ai-autofill] social_post preview:', String(social_post).slice(0, 120));
+          console.log('[ai-autofill] Keys:', Object.keys(parsed).join(', '));
+          console.log('[ai-autofill] social_post present:', !!social_post);
+          if (social_post) console.log('[ai-autofill] social_post preview:', String(social_post).slice(0, 120));
 
-        return NextResponse.json({ data: listingData, social_post: social_post || null, model });
-      } catch (err: any) {
-        lastError = err.message;
-        console.log(`[ai-autofill] ${model} failed:`, err.message);
+          return NextResponse.json({ data: listingData, social_post: social_post || null, model });
+        } catch (err: any) {
+          lastError = err.message;
+          console.log(`[ai-autofill] ${model} failed with a key:`, err.message);
+        }
       }
     }
 
-    return NextResponse.json({ error: `All models failed. Last error: ${lastError}` }, { status: 502 });
+    return NextResponse.json({ error: `All models/keys failed. Last error: ${lastError}` }, { status: 502 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Failed to parse listing' }, { status: 500 });
   }

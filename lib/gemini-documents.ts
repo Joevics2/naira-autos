@@ -7,21 +7,12 @@
 // which the SDK version pinned in this repo (0.24.1) doesn't expose —
 // it only knows the older `googleSearchRetrieval` tool built for 1.5.
 //
-// Model waterfall: gemini-2.5-flash-lite (primary) -> gemini-2.5-flash (backup)
-// Key rotation: GEMINI_API_KEY -> GEMINI_API_KEY_2 -> GEMINI_API_KEY_3 -> GEMINI_API_KEY_4
+// Model waterfall + key rotation now live in lib/gemini-keys.ts, shared
+// across every AI route on the site — see that file for details.
 // Every (model, key) pair is tried in order until one succeeds — this
 // covers both "model unavailable" and "this key is rate-limited" failures.
 
-const MODELS = ['gemini-2.5-flash-lite', 'gemini-2.5-flash'];
-
-function getApiKeys(): string[] {
-  return [
-    process.env.GEMINI_API_KEY,
-    process.env.GEMINI_API_KEY_2,
-    process.env.GEMINI_API_KEY_3,
-    process.env.GEMINI_API_KEY_4,
-  ].filter((k): k is string => !!k);
-}
+import { GEMINI_MODELS as MODELS, getGeminiKeys as getApiKeys } from './gemini-keys';
 
 export interface GeminiCallOptions {
   systemPrompt: string;
