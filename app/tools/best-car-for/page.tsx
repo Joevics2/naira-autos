@@ -4,22 +4,22 @@ import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import BestCarForClient from './client';
 
 export const metadata: Metadata = {
-  title: 'Best Car For... Nigeria 2025 — Car Recommender by Use Case',
-  description: 'Find the best car for your needs in Nigeria. Select your use case — family car, commercial taxi, highway driving, budget buy, off-road, executive, or first car — and get ranked recommendations with Nigerian market prices, maintenance cost, and spare parts rating.',
+  title: 'Best Car For... 2026 — Car Recommender by Use Case, 50 Countries',
+  description: 'Find the best car for your needs, with pricing in your local currency across 50 countries. Select your use case — family car, commercial use, highway driving, budget buy, off-road, executive, or first car — and get ranked recommendations across 50 models, from the Toyota Corolla to the Bugatti Chiron, with maintenance cost and spare parts rating.',
   alternates: { canonical: 'https://www.naira.autos/tools/best-car-for' },
   openGraph: {
-    title: 'Best Car For... Nigeria 2025 — Car Recommender | Naira Autos',
-    description: 'Car recommender for the Nigerian market. Pick your use case and get the top 5 cars ranked by price, maintenance cost, fuel economy, and spare parts availability.',
+    title: 'Best Car For... 2026 — Car Recommender | Naira Autos',
+    description: 'Global car recommender with local pricing for 50 countries. Pick your use case and get the top 5 cars ranked by price, maintenance cost, fuel economy, and spare parts availability.',
     url: 'https://www.naira.autos/tools/best-car-for',
   },
   keywords: [
-    'best car to buy nigeria 2025','best family car nigeria','best car for commercial use nigeria',
-    'best car for lagos traffic','best suv nigeria','cheapest car to maintain nigeria',
-    'best first car to buy nigeria','best car for highway nigeria','best tokunbo car nigeria',
-    'best car for business nigeria','best fuel efficient car nigeria',
-    'what car should i buy nigeria','car recommendation nigeria','toyota or honda nigeria',
-    'best budget car nigeria','best off road car nigeria','best car under 5 million nigeria',
-    'car recommender nigeria','naira autos','best car for taxi nigeria',
+    'best car to buy 2026','best family car','best car for commercial use','best car recommender',
+    'what car should i buy','best suv 2026','cheapest car to maintain','best first car to buy',
+    'best car for highway driving','best executive car','best fuel efficient car',
+    'car recommendation','best budget car','best off road car','best car to buy nigeria 2025',
+    'best family car nigeria','best car for lagos traffic','best tokunbo car nigeria',
+    'best car for taxi nigeria','naira autos','best car for commercial use nigeria',
+    'best car usa','best car uk','best car uae','best car india','best car south africa',
   ],
 };
 
@@ -29,8 +29,8 @@ const SCHEMA = {
     {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/best-car-for',
-      name: 'Best Car For... Nigeria 2025 — Car Recommender by Use Case',
-      description: 'Find the best car for your specific use case in Nigeria. Ranked recommendations across family, commercial, highway, budget, off-road, executive, first car, and fuel efficiency categories.',
+      name: 'Best Car For... 2026 — Car Recommender by Use Case, 50 Countries',
+      description: 'Find the best car for your specific use case with local pricing across 50 countries. Ranked recommendations across family, commercial, highway, budget, off-road, executive, first car, and fuel efficiency categories from 50 models.',
       url: 'https://www.naira.autos/tools/best-car-for',
       dateModified: '2026-08-01',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -49,33 +49,33 @@ const SCHEMA = {
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'What is the best family car to buy in Nigeria?',
-          acceptedAnswer: { '@type': 'Answer', text: 'The best family cars in Nigeria are the Toyota Camry, Toyota Highlander, and Honda Accord. The Camry offers the best combination of space, reliability, and low maintenance cost for a family sedan. The Highlander is the top family SUV choice — it seats 7, has strong ground clearance for Nigerian roads, and Toyota spare parts are available nationwide. For larger families, the Toyota Sienna minivan seats 8 and has Easy spare parts availability.' }
+          name: 'Does this tool show real prices for my country?',
+          acceptedAnswer: { '@type': 'Answer', text: "It shows an estimate, not a live quote. Each of the 50 cars has a base USD price; selecting your country applies that country's typical import duty/tax multiplier and current exchange rate to estimate a local price. It's a solid starting point for comparison, but confirm with a local dealer or listing before budgeting exactly, since exchange rates move daily and taxes vary by trim." }
         },
         {
           '@type': 'Question',
-          name: 'What is the best car for commercial use or taxi in Nigeria?',
-          acceptedAnswer: { '@type': 'Answer', text: 'The Toyota Corolla (2003–2007) is the most popular commercial taxi car in Nigeria for good reason — it is extremely reliable at high mileage, has Low maintenance cost, and spare parts are available at any market in Nigeria. For airport transfers and executive hire, the Toyota Camry is preferred. For inter-city transport, the Toyota Hiace bus is the dominant choice. The Toyota Hilux is widely used for commercial purposes requiring a pickup bed.' }
+          name: 'What is the best family car to buy?',
+          acceptedAnswer: { '@type': 'Answer', text: 'The Toyota Camry (hybrid) offers the best combination of space, reliability, and low maintenance cost for a family sedan. The Toyota RAV4 and Honda CR-V are the top family SUV choices — both seat 5, have strong ground clearance, and their parts networks are among the best-stocked anywhere, including Nigeria. For larger families, the Toyota Sienna hybrid minivan seats 8.' }
         },
         {
           '@type': 'Question',
-          name: 'What is the best car for Nigerian roads?',
-          acceptedAnswer: { '@type': 'Answer', text: 'For Nigerian roads, ground clearance and reliability are the two most critical factors. The Toyota Hilux (270mm ground clearance) is the top-rated vehicle for rough Nigerian roads. Among SUVs, the Toyota Land Cruiser (225mm), Toyota Prado (218mm), and Honda Pilot (196mm) are well-suited. For buyers who primarily drive in cities, a Toyota Camry or Corolla with regular road use is manageable, though speed bumps and flooding require careful driving.' }
+          name: 'What is the best car for commercial use?',
+          acceptedAnswer: { '@type': 'Answer', text: 'The Toyota Corolla is the most popular commercial-use car worldwide for good reason — it is extremely reliable at high mileage, has Low maintenance cost, and spare parts are available almost everywhere, including at any market in Nigeria. For higher-capacity commercial needs, the Toyota Land Cruiser and Ford F-150 are widely used workhorses.' }
         },
         {
           '@type': 'Question',
-          name: 'What is the best first car to buy in Nigeria?',
-          acceptedAnswer: { '@type': 'Answer', text: "The best first cars in Nigeria are the Toyota Corolla (2003–2007), Honda Civic (2006–2011), and Toyota Yaris (2012–2017). All three have Low maintenance cost, Easy or Moderate spare parts availability, simple mechanics that any mechanic can service, and good resale value. The Corolla is the most recommended overall. Avoid European cars (BMW, Mercedes, Peugeot) as a first car — parts are expensive, mechanics specialised, and repair costs can quickly exceed the car's value." }
+          name: 'What is the best car for rough or unpaved roads?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Ground clearance and reliability are the two most critical factors. The Toyota Land Cruiser (225mm) and Jeep Wrangler (252mm) lead the rankings, followed by the Land Rover Range Rover (218mm) and Ford Bronco (216mm). For buyers who primarily drive in cities — including most of Lagos or Nairobi — a Toyota Camry or Corolla with careful driving is manageable, though speed bumps and flooding require attention.' }
         },
         {
           '@type': 'Question',
-          name: 'Which car is best for highway driving in Nigeria?',
-          acceptedAnswer: { '@type': 'Answer', text: 'For highway driving in Nigeria, the Toyota Camry (2007–2011) and Honda Accord (2008–2012) are top choices — both are stable at speed, comfortable over long distances, and have good fuel range. Among SUVs, the Toyota Prado and Highlander offer highway comfort with added ground clearance for when road conditions deteriorate. Key factors for highway driving are: fuel consumption (lower is better for long trips), suspension comfort, and AC effectiveness.' }
+          name: 'What is the best first car to buy?',
+          acceptedAnswer: { '@type': 'Answer', text: "The Toyota Corolla and Honda Civic are the top recommendations for a first car — both have Low maintenance cost, Easy spare parts availability, simple mechanics any mechanic can service, and strong resale value. The Toyota GR86/Subaru BRZ and MINI Cooper are engaging first-car options for buyers who want a sportier feel, though both cost more to maintain. Avoid European luxury and exotic brands as a first car — parts are expensive and specialist mechanics are required." }
         },
         {
           '@type': 'Question',
-          name: 'What is the best budget car to buy in Nigeria under ₦5 million?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Under ₦5 million, the best options in Nigeria are the Toyota Corolla (2003–2007) at ₦2.8M–₦4.8M, Honda Civic (2006–2011) at ₦2.5M–₦5M, and Hyundai Elantra (2011–2016) at ₦3M–₦5M. The Corolla is the top recommendation — its reliability, cheap parts, and high resale value make it the best value-for-money car in the Nigerian market. Avoid Peugeot and Ford in this price range — maintenance costs will quickly exceed savings on purchase price.' }
+          name: 'Which car is best for highway driving?',
+          acceptedAnswer: { '@type': 'Answer', text: 'The Toyota Camry and BMW 3 Series are top choices for stable, comfortable highway driving. Electric options like the Tesla Model 3 and Hyundai Ioniq 5 offer strong highway comfort and low running cost, provided charging infrastructure exists along your route. Key factors for highway driving are fuel or energy consumption, suspension comfort, and cabin refinement.' }
         },
       ],
     },
@@ -125,14 +125,14 @@ export default function BestCarForPage() {
               Best Car For...
             </h1>
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
-              Select your use case and get ranked car recommendations for the Nigerian market — scored by maintenance cost, spare parts availability, fuel economy, and ground clearance.
+              Select your use case and pick your country, and get ranked car recommendations with pricing in your local currency across 50 countries — scored by maintenance cost, spare parts availability, fuel economy, and ground clearance. 50 models covered, from the Toyota Corolla to the Bugatti Chiron.
             </p>
           </div>
-
-          {/* Interactive client component */}
-          <BestCarForClient />
         </div>
       </div>
+
+      {/* ── INTERACTIVE TOOL ── light, theme-aware widget */}
+      <BestCarForClient />
 
       {/* ── WHITE CONTENT SECTIONS ── */}
       <div className="bg-white">
@@ -144,26 +144,26 @@ export default function BestCarForPage() {
               className="text-2xl font-black uppercase text-gray-900 mb-5"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
             >
-              Choosing the Right Car for Your Needs in Nigeria
+              Choosing the Right Car for Your Needs
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
                 <p>
-                  The best car for you in Nigeria depends less on specifications and more on your <strong className="text-gray-900">actual daily use pattern</strong>. A car that excels on paper can be a poor choice if the nearest mechanic familiar with it is two states away, or if its ground clearance makes your daily commute a daily obstacle course.
+                  This tool now covers 50 popular cars — from everyday economy sedans to electric crossovers to seven-figure hypercars — with pricing that adjusts to your country's currency and typical import duty/tax level across 50 countries. Pick your country in the selector above before choosing a use case, so the prices you see reflect your market rather than a raw dollar conversion.
                 </p>
                 <p>
-                  For <strong className="text-gray-900">commercial or taxi use</strong>, the overriding factors are reliability at high mileage and low parts cost per kilometre. The Toyota Corolla and Toyota Camry dominate Nigerian commercial fleets for this reason — both have simple, over-engineered engines that last 400,000km+ with basic maintenance. Fuel economy matters less than parts cost at high mileage: a car that consumes 1L/100km more but has ₦20,000 cheaper brake pads is better for commercial use.
+                  The best car for you depends less on specifications and more on your <strong className="text-gray-900">actual daily use pattern</strong>. A car that excels on paper can be a poor choice if the nearest mechanic familiar with it is far away, or if its ground clearance makes your daily commute a daily obstacle course — this is especially true in markets like Nigeria, where road conditions and parts availability vary widely by region.
                 </p>
                 <p>
-                  For <strong className="text-gray-900">family use</strong>, seating and boot space matter, but so does the total cost of ownership. A Toyota Highlander may cost twice as much to buy as a Toyota Camry, but the difference in fuel cost alone on a family's monthly driving can make the Camry the better financial decision. Factor in insurance, which scales with car value, and the real cost gap between a ₦10M SUV and a ₦6M sedan becomes significant.
+                  For <strong className="text-gray-900">commercial use</strong>, the overriding factors are reliability at high mileage and low parts cost per kilometre. The Toyota Corolla and Toyota Camry dominate commercial fleets worldwide, including Nigeria's, for this reason — both have simple, over-engineered engines that last well past 400,000km with basic maintenance.
                 </p>
               </div>
               <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
                 <p>
-                  For <strong className="text-gray-900">executive use</strong>, the brand perception consideration is real but should not override financial realities. A Mercedes-Benz E-Class carries a Very High maintenance rating in Nigeria — a single Airmatic suspension failure costs ₦400,000–₦800,000. The Toyota Camry 2007–2011 or Honda Accord 2008–2012 offer executive presence at a fraction of the maintenance cost. Many Nigerian professionals choose to drive a clean, well-kept Camry rather than a high-mileage European executive car with mounting repair bills.
+                  For <strong className="text-gray-900">executive use</strong>, brand perception is real but shouldn't override financial realities. A Mercedes-Benz S-Class carries a Very High maintenance rating — air suspension and electronics repairs run into the thousands. The Toyota Camry or BMW 3 Series offer strong executive presence at a fraction of the maintenance cost, which is why many professionals choose a well-kept mainstream sedan over a high-mileage luxury car with mounting repair bills.
                 </p>
                 <p>
-                  For <strong className="text-gray-900">first-time buyers</strong>, the single most important factor is mechanic familiarity. Buying a car whose faults require specialised diagnosis means every repair takes longer and costs more. Stick to Toyota and Honda models with engines below 2.5L for your first car — the ecosystem of parts, mechanics, and online advice is the largest, and you will make mistakes in early ownership that cost far less on these cars than on anything European.
+                  For <strong className="text-gray-900">first-time buyers</strong>, the single most important factor is mechanic familiarity. Buying a car whose faults require specialised diagnosis means every repair takes longer and costs more. Stick to Toyota and Honda models with engines below 2.5L for your first car — the ecosystem of parts, mechanics, and online advice is the largest, wherever you're buying.
                 </p>
                 <p>
                   Use our{' '}
@@ -187,18 +187,18 @@ export default function BestCarForPage() {
               className="text-2xl font-black uppercase text-gray-900 mb-5"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
             >
-              Best Cars by Use Case — Nigeria 2025
+              Best Cars by Use Case — 2026
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: '👨‍👩‍👧‍👦', title: 'Best Family Car',          picks: ['Toyota Camry', 'Toyota Highlander', 'Honda Accord', 'Toyota Sienna'] },
-                { icon: '🚖', title: 'Best Commercial / Taxi',  picks: ['Toyota Corolla', 'Toyota Camry', 'Toyota Hiace', 'Toyota Hilux'] },
-                { icon: '🛣️',  title: 'Best for Highway',        picks: ['Toyota Camry 07–11', 'Honda Accord 08–12', 'Toyota Prado', 'Toyota Highlander'] },
-                { icon: '💰', title: 'Best Budget Buy',          picks: ['Toyota Corolla', 'Honda Civic', 'Kia Cerato', 'Hyundai Elantra'] },
-                { icon: '🪨', title: 'Best Off-Road / Bad Roads',picks: ['Toyota Hilux', 'Toyota Land Cruiser', 'Toyota Prado', 'Honda Pilot'] },
-                { icon: '💼', title: 'Best Executive Car',       picks: ['Toyota Camry 07–11', 'Honda Accord 08–12', 'Toyota Prado', 'Mercedes E-Class*'] },
-                { icon: '🎓', title: 'Best First Car',           picks: ['Toyota Corolla', 'Honda Civic', 'Toyota Yaris', 'Honda Fit'] },
-                { icon: '⛽', title: 'Most Fuel Efficient',      picks: ['Toyota Yaris', 'Honda Fit/Jazz', 'Kia Cerato', 'Hyundai Elantra'] },
+                { icon: '👨‍👩‍👧‍👦', title: 'Best Family Car',          picks: ['Toyota Camry', 'Toyota RAV4', 'Honda CR-V', 'Toyota Sienna'] },
+                { icon: '🚖', title: 'Best Commercial Use',    picks: ['Toyota Corolla', 'Toyota RAV4', 'Toyota Land Cruiser', 'Ford F-150'] },
+                { icon: '🛣️',  title: 'Best for Highway',        picks: ['Toyota Camry', 'BMW 3 Series', 'Tesla Model 3', 'Hyundai Ioniq 5'] },
+                { icon: '💰', title: 'Best Budget Buy',          picks: ['Toyota Corolla', 'Honda Civic'] },
+                { icon: '🪨', title: 'Best Off-Road / Bad Roads',picks: ['Toyota Land Cruiser', 'Jeep Wrangler', 'Range Rover', 'Ford Bronco'] },
+                { icon: '💼', title: 'Best Executive Car',       picks: ['Mercedes-Benz S-Class', 'BMW 3 Series', 'Genesis G90', 'Range Rover'] },
+                { icon: '🎓', title: 'Best First Car',           picks: ['Toyota Corolla', 'Honda Civic', 'Toyota GR86 / Subaru BRZ', 'MINI Cooper'] },
+                { icon: '⛽', title: 'Most Fuel Efficient',      picks: ['Toyota Camry (Hybrid)', 'Tesla Model 3', 'Toyota Corolla', 'Hyundai Ioniq 5'] },
               ].map(({ icon, title, picks }) => (
                 <div key={title} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
                   <p className="text-lg mb-1">{icon}</p>
@@ -214,7 +214,7 @@ export default function BestCarForPage() {
                 </div>
               ))}
             </div>
-            <p className="text-xs text-gray-400 mt-3">* Mercedes E-Class recommended only for buyers with a dedicated maintenance budget. See comparison tool for full cost breakdown.</p>
+            <p className="text-xs text-gray-400 mt-3">Prices and exact rankings adjust to your selected country in the tool above. Exotic and luxury picks (Ferrari, Lamborghini, Rolls-Royce) show up under Executive for buyers at that budget level — see the comparison tool for a full cost breakdown.</p>
           </div>
 
           {/* FAQ */}
@@ -223,33 +223,33 @@ export default function BestCarForPage() {
               className="text-xl font-black uppercase text-gray-900 mb-4"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
             >
-              Best Car FAQ — Nigeria
+              Best Car FAQ
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {[
                 {
-                  q: 'What is the best family car to buy in Nigeria?',
-                  a: 'The Toyota Camry is the best family sedan — space, reliability, and low maintenance cost. For 7 seats and SUV ground clearance, the Toyota Highlander is the top family choice. For larger families, the Toyota Sienna (8 seats) with Easy parts availability is hard to beat.',
+                  q: 'Does this tool show real prices for my country?',
+                  a: "It's an estimate, not a live quote — each car has a base USD price, adjusted by your selected country's typical import duty/tax level and current exchange rate. Confirm with a local dealer or listing before budgeting exactly.",
                 },
                 {
-                  q: 'What is the best car for commercial use or taxi in Nigeria?',
-                  a: 'The Toyota Corolla (2003–2007) — extremely reliable at high mileage, Low maintenance cost, parts available everywhere. For inter-city transport, the Toyota Hiace bus. For executive hire, the Toyota Camry. For pickups, the Toyota Hilux.',
+                  q: 'What is the best family car to buy?',
+                  a: 'The Toyota Camry is the best family sedan — space, reliability, and low maintenance cost. The Toyota RAV4 and Honda CR-V are the top family SUV picks. For larger families, the Toyota Sienna (8 seats, hybrid) is hard to beat.',
                 },
                 {
-                  q: 'What is the best car for Nigerian roads?',
-                  a: 'The Toyota Hilux leads at 270mm ground clearance. Among SUVs: Toyota Land Cruiser (225mm), Prado (218mm), Pilot (196mm), Highlander (188mm). For city use only, a Toyota Camry or Corolla is manageable with careful driving.',
+                  q: 'What is the best car for commercial use?',
+                  a: 'The Toyota Corolla — extremely reliable at high mileage, Low maintenance cost, parts available almost everywhere including Nigeria. For heavier commercial use, the Toyota Land Cruiser and Ford F-150 are proven workhorses.',
                 },
                 {
-                  q: 'What is the best first car to buy in Nigeria?',
-                  a: 'Toyota Corolla (2003–2007) is the top recommendation. Also strong: Honda Civic (2006–2011) and Toyota Yaris (2012–2017). All have Low maintenance, Easy/Moderate parts, and mechanics available everywhere. Avoid European cars as a first car.',
+                  q: 'What is the best car for rough or unpaved roads?',
+                  a: 'The Jeep Wrangler (252mm) and Toyota Land Cruiser (225mm) lead on ground clearance. The Land Rover Range Rover and Ford Bronco also perform well. For city use only, a Toyota Camry or Corolla is manageable with careful driving.',
                 },
                 {
-                  q: 'Which car is best for highway driving in Nigeria?',
-                  a: 'Toyota Camry (2007–2011) and Honda Accord (2008–2012) for sedans. Toyota Prado and Highlander for SUVs with added ground clearance for when road conditions deteriorate outside cities.',
+                  q: 'What is the best first car to buy?',
+                  a: 'Toyota Corolla and Honda Civic are the top recommendations — Low maintenance, Easy parts, mechanics available everywhere. The Toyota GR86/Subaru BRZ and MINI Cooper suit buyers who want more driving engagement. Avoid exotic and ultra-luxury brands as a first car.',
                 },
                 {
-                  q: 'What is the best budget car to buy in Nigeria under ₦5 million?',
-                  a: 'Toyota Corolla (₦2.8M–₦4.8M) is the top pick. Also consider Honda Civic (₦2.5M–₦5M) and Hyundai Elantra (₦3M–₦5M). Avoid Peugeot and Ford in this range — high maintenance costs will quickly erode the purchase price savings.',
+                  q: 'Which car is best for highway driving?',
+                  a: 'Toyota Camry and BMW 3 Series for comfortable, stable highway driving. Tesla Model 3 and Hyundai Ioniq 5 are strong electric options where charging infrastructure supports your route.',
                 },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
