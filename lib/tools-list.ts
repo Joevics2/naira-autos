@@ -1,6 +1,6 @@
 import {
   Wrench, Calculator, CarFront, GitCompare, Fuel, BookOpen,
-  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History, Mic, Gauge, Globe2,
+  Ship, Shield, FileText, Map, ClipboardCheck, Search, Camera, Newspaper, ArrowRight, Sparkles, Car, Truck, Bike, ScanLine, Droplets, Lightbulb, ArrowLeftRight, Percent, IdCard, History, Mic, Gauge, Globe2, Ruler,
 } from 'lucide-react';
 
 // Single source of truth for the full tools list — imported by both the
@@ -164,6 +164,15 @@ export const TOOLS: Tool[] = [
     icon: Map,
     label: 'Road Trip Calculator',
     description: 'Plan any road trip — total fuel cost, stops, and estimated travel time.',
+    category: 'Running Costs',
+  },
+  {
+    href: '/tools/distance-calculator-countries',
+    icon: Ruler,
+    label: 'Distance Calculator',
+    description: 'Road distance and drive time between any two towns — verified state-capital distances plus fuel cost, by country.',
+    badge: 'NEW',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Running Costs',
   },
   {

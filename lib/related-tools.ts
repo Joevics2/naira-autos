@@ -16,6 +16,11 @@ export interface RelatedToolLink {
 }
 
 export const RELATED_TOOLS: Record<string, RelatedToolLink[]> = {
+  'distance-calculator': [
+    { href: '/tools/road-trip-calculator', label: 'Road Trip Calculator', color: 'amber' },
+    { href: '/tools/fuel-cost-calculator', label: 'Fuel Cost Calculator', color: 'emerald' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator — Global', color: 'sky' },
+  ],
   'import-duty-calculator': [
     { href: '/tools/china-car-import-calculator', label: 'China Car Import Calculator', color: 'sky' },
     { href: '/tools/registration-fee-calculator', label: 'Registration Fee Calculator', color: 'blue' },
