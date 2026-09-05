@@ -4,7 +4,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import DistanceCalculatorClient from './client';
+import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { RelatedTools } from '@/components/RelatedTools';
+import { NG_TOWNS, findTown } from '@/lib/distance-towns-ng';
+import { NG_CAPITAL_DISTANCE_KM } from '@/lib/ng-distance-matrix';
+
+const lagos = findTown('Lagos')!;
 
 export const metadata: Metadata = {
   title: 'Distance Calculator Nigeria 2026 — Road Distance Between Any Two Towns',
@@ -144,9 +149,11 @@ export default function DistanceCalculatorPage() {
               Where These Numbers Come From
             </h2>
             <div className="text-sm text-gray-600 leading-relaxed max-w-3xl space-y-3">
-              <p>There is no single Nigerian law or government agency that publishes an official inter-town road distance chart. Distances used for travel claims, logistics, and trip planning are practical approximations — road infrastructure falls under the Federal Ministry of Works, but distance figures themselves are operational data, not a legal instrument.</p>
+              <p>There is no single Nigerian law or government agency that publishes an official inter-town road distance chart. Distances used for travel claims, logistics, and trip planning are practical approximations — road infrastructure itself falls under the Federal Ministry of Works and the Federal Road Maintenance Agency (FERMA), but neither office maintains a published town-to-town mileage chart; distance figures are treated as operational data, not a legal instrument. The closest thing to an official reference predates both agencies&rsquo; current mandates: older National Bureau of Statistics and Federal Ministry of Transportation publications listing distances from each state capital to Abuja, compiled for internal planning rather than public use.</p>
               <p>The most widely cited reference is a road distance matrix between all 37 state capitals (36 states plus FCT), originating from UNDP Nigeria travel-allowance guidance and packaged in the open-source <code className="text-xs bg-gray-100 px-1.5 py-0.5 rounded">naijR</code> R package. Every route between two state capitals in this tool uses that exact matrix — marked <span className="font-semibold text-emerald-700">✓ Verified route</span>.</p>
               <p>For routes involving a commercial hub outside the 37 capitals (Onitsha, Aba, Zaria, Warri, and 44 others), there is no equivalent official figure. This tool estimates road distance from GPS coordinates, corrected using a multiplier calibrated against the verified matrix itself — real road distance runs roughly 25–45% longer than straight-line distance depending on the route. These are marked <span className="font-semibold text-amber-700">≈ Estimated</span>, never presented as exact.</p>
+              <p>The 85-town list itself was built deliberately, not just pulled from a population ranking. It starts with all 37 state capitals — the full set the verified matrix covers — then adds 48 further commercial and industrial centres that a general audience actually searches for: Onitsha and Nnewi in the South-East&rsquo;s commercial belt, Aba&rsquo;s manufacturing cluster, Zaria and Funtua in Kaduna&rsquo;s textile and grain corridor, Warri and Sapele in the Niger Delta&rsquo;s oil-service towns, and northern trading hubs like Hadejia, Gashua, and Kaura Namoda. Lagos itself is treated as a single hub rather than split between &ldquo;Lagos&rdquo; and &ldquo;Ikeja&rdquo; (the state capital used in the official matrix) — the two sit about 15km apart, which barely moves any country-scale distance figure, so the matrix&rsquo;s Ikeja row is reused directly under the Lagos name people actually type into a search bar.</p>
+              <p>This kind of figure is used for more than idle curiosity. Transport unions and interstate fare associations informally peg fares to distance, so knowing the real road figure for a route helps a traveller sanity-check whether a quoted fare is fair. Haulage and logistics firms moving goods between Lagos&rsquo;s ports and inland markets in Kano, Kaduna, or Onitsha budget fuel and driver time off exactly this kind of number. Government and NGO field staff calculating per-diem or mileage claims often reference the same UNDP-style figures this tool pulls from directly. And for anyone simply planning a trip — say, a family drive from Enugu to Abuja for a wedding, or a supply run from Ibadan to Ilorin — a road-distance-plus-realistic-drive-time figure is far more useful than the shorter, misleading straight-line number a basic map search sometimes surfaces first.</p>
             </div>
           </div>
 
@@ -154,15 +161,25 @@ export default function DistanceCalculatorPage() {
             <h2 className="text-xl font-black uppercase text-gray-900 mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
               The Gap Between Reference Numbers and the Road
             </h2>
-            <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">
-              Published road distances are optimistic averages. Lagos–Abuja is commonly quoted at ~760km but routinely takes 12–16+ hours — sometimes overnight — because of traffic, multiple checkpoints, and sections in poor condition, especially around Lokoja and Okene. Many federal highways remain only partially dualised or suffer severe potholes; a journey that &ldquo;should&rdquo; take 7–8 hours can stretch to 24–36 hours on deteriorated stretches. Security concerns, fuel queues, and seasonal flooding can inflate real travel time and cost far beyond any calculator&rsquo;s output. Treat every figure here as a planning baseline, and cross-check with a live navigation app for current conditions before a long trip.
-            </p>
+            <div className="text-sm text-gray-600 leading-relaxed max-w-3xl space-y-3">
+              <p>Published road distances are optimistic averages. Lagos–Abuja is commonly quoted at ~760km but routinely takes 12–16+ hours — sometimes overnight — because of traffic, multiple checkpoints, and sections in poor condition, especially around Lokoja and Okene. Many federal highways remain only partially dualised or suffer severe potholes; a journey that &ldquo;should&rdquo; take 7–8 hours can stretch to 24–36 hours on deteriorated stretches. Security concerns, fuel queues, and seasonal flooding can inflate real travel time and cost far beyond any calculator&rsquo;s output.</p>
+              <p>A handful of practical exceptions are worth knowing before a long trip. Some corridors in the North-East and parts of the North-West see periodic security restrictions that a distance figure alone won&rsquo;t warn you about. Seasonal flooding — particularly along the Niger and Benue river routes around Lokoja, and low-lying stretches near Yenagoa and Warri — can close or badly slow a route for weeks during the rainy season. A small number of connections between river towns still rely on ferry crossings rather than a continuous road, which this tool doesn&rsquo;t attempt to model separately. And for anyone using this for an official travel claim rather than personal trip planning, government and NGO staff typically still reference the underlying UNDP-style mileage rate directly rather than a road-trip app&rsquo;s figure, since that&rsquo;s the number their expense system is built around. Treat every figure here as a planning baseline, and cross-check with a live navigation app for current conditions before a long trip.</p>
+            </div>
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
             Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Auto Sales Expert. State-capital distances sourced from the UNDP-derived matrix in the open-source{' '}
             <a href="https://github.com/ropensci/naijR" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-gray-900">naijR</a> package. All other routes are Haversine-based estimates — see FAQ below.
           </p>
+
+          {/* Full ranked distance table from Lagos */}
+          <div>
+            <h2 className="text-xl font-black uppercase text-gray-900 mb-1" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
+              Distance From Lagos to Every Town, Ranked
+            </h2>
+            <p className="text-sm text-gray-500 mb-4">All 84 other towns in this tool, closest to farthest from Lagos.</p>
+            <DistanceTable hub={lagos} towns={NG_TOWNS} verifiedMatrix={NG_CAPITAL_DISTANCE_KM} />
+          </div>
 
           {/* FAQ */}
           <div>

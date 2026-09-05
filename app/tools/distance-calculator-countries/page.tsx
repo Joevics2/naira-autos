@@ -21,7 +21,7 @@ export const metadata: Metadata = {
  */
 const COUNTRIES: { code: string; name: string; flag: string; href?: string; live: boolean }[] = [
   { code: 'ng', name: 'Nigeria',        flag: '🇳🇬', href: '/tools/distance-calculator', live: true },
-  { code: 'gh', name: 'Ghana',          flag: '🇬🇭', live: false },
+  { code: 'gh', name: 'Ghana',          flag: '🇬🇭', href: '/tools/distance-calculator-ghana', live: true },
   { code: 'ke', name: 'Kenya',          flag: '🇰🇪', live: false },
   { code: 'za', name: 'South Africa',   flag: '🇿🇦', live: false },
   { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', live: false },
