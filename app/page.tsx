@@ -28,6 +28,7 @@ export const metadata: Metadata = {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
       ar: 'https://www.naira.autos/home-arabic',
+      fr: 'https://www.naira.autos/accueil',
       'x-default': 'https://www.naira.autos/',
     },
   },

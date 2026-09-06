@@ -584,9 +584,17 @@ export default function AIMechanicClientAR() {
             <ChevronLeft className="h-3 w-3" />
             <span className="text-white/50">ميكانيكي الذكاء الاصطناعي</span>
           </nav>
-          <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mr-auto">
-            اقرأ بالإنجليزية ←
-          </Link>
+          <div className="flex items-center gap-3 mr-auto">
+            <Link href="/tools/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Español
+            </Link>
+            <Link href="/tools/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Français
+            </Link>
+            <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              اقرأ بالإنجليزية ←
+            </Link>
+          </div>
         </div>
 
         {/* Two-column layout */}

@@ -566,6 +566,9 @@ export default function AIMechanicClient() {
             <Link href="/tools/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Leer en Español →
             </Link>
+            <Link href="/tools/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Lire en Français →
+            </Link>
             <Link href="/tools/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               بالعربية ←
             </Link>
