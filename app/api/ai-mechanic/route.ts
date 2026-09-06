@@ -119,6 +119,7 @@ async function tryModel(modelName: string, apiKey: string, parts: any[]): Promis
 const LANGUAGE_NAMES: Record<string, string> = {
   en: 'English',
   es: 'Spanish',
+  ar: 'Arabic',
 };
 
 export async function POST(req: NextRequest) {
@@ -179,6 +180,10 @@ export async function POST(req: NextRequest) {
     if (language !== 'en') {
       const langName = LANGUAGE_NAMES[language] || language;
       textPrompt += `\n\nIMPORTANT: Respond entirely in ${langName}. Every free-text string value in the JSON response (summary, likely_causes explanations, recommended_actions text, next_steps_to_confirm, parts_to_check, certainty_note, the cost note, disclaimer) must be written in ${langName} — natural, conversational ${langName} as a native ${langName}-speaking mechanic would write it, not a literal translation. Exception: urgency, urgency_color, probability, priority, and diy must stay EXACTLY as their specified English enum values (e.g. "urgent", "high", "immediate", true) regardless of response language — the interface maps these to localized labels itself. Keep all JSON keys in English exactly as specified below.`;
+
+      if (language === 'ar') {
+        textPrompt += `\n\nWrite in Modern Standard Arabic (الفصحى) — the neutral, professional register used in real Arabic automotive writing across Egypt and the Gulf, not a regional dialect (no Egyptian ammiya, no Gulf/Khaliji slang) and not a word-for-word machine translation. Use the actual terms a real Arabic-speaking mechanic or automotive writer uses (e.g. صيانة, عطل, تشخيص, ميكانيكي, ضاغط المكيف, حساس الأكسجين), not invented or overly literal renderings of the English terms. Keep car brand and model names in Latin script as they are (e.g. Toyota Corolla), since that is how they are written in real Arabic automotive content. Use standard Western Arabic numerals (0–9) for all figures, mileage, and prices — this is the convention in professional/technical Arabic writing, not Eastern Arabic-Indic numerals. If the vehicle details or description signal a specific country — Egypt, Saudi Arabia, the UAE, or Qatar — weight the diagnosis with that market's known conditions where relevant (extreme heat and sand/dust ingestion stressing air filters and AC systems in the Gulf, high ambient temperatures accelerating rubber seal and battery wear, coastal humidity in the UAE and Qatar affecting electrical connectors) — but never assume a default country when nothing indicates one.`;
+      }
     }
 
     // ── Build Gemini parts array ──────────────────────────────────────────────
