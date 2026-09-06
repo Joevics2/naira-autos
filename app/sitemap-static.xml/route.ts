@@ -25,6 +25,12 @@ const staticPages = [
   { url: '/herramientas',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
+  // /home-arabic and /adawat intentionally NOT added yet — only 1
+  // live Arabic tool (ai-mechanic-arabic) exists so far, well under the
+  // ~5-tool threshold used for /herramientas above. Add both once a
+  // handful more Arabic tool pages ship. /blog-arabic held back for the
+  // same reason as /blog-de-autos — zero Arabic posts published yet.
   // /herramientas (Spanish tools index) added below — now at 5 live tools
   // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
   // decodificador-de-vin, verificar-numero-de-chasis), past the ~5

@@ -574,13 +574,13 @@ export default function AIMechanicClientAR() {
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-3 mb-8">
-          <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="العودة إلى الأدوات">
+          <Link href="/adawat" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="العودة إلى الأدوات">
             <ArrowRight className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/" className="hover:text-white/60 transition-colors">الرئيسية</Link>
+            <Link href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
             <ChevronLeft className="h-3 w-3" />
-            <Link href="/tools" className="hover:text-white/60 transition-colors">الأدوات</Link>
+            <Link href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
             <ChevronLeft className="h-3 w-3" />
             <span className="text-white/50">ميكانيكي الذكاء الاصطناعي</span>
           </nav>
