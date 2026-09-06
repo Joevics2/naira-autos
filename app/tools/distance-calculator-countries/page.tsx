@@ -25,7 +25,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'ke', name: 'Kenya',          flag: '🇰🇪', href: '/tools/distance-calculator-kenya', live: true },
   { code: 'za', name: 'South Africa',   flag: '🇿🇦', href: '/tools/distance-calculator-south-africa', live: true },
   { code: 'eg', name: 'Egypt',          flag: '🇪🇬', href: '/tools/distance-calculator-egypt', live: true },
-  { code: 'qa', name: 'Qatar',          flag: '🇶🇦', live: false },
+  { code: 'qa', name: 'Qatar',          flag: '🇶🇦', href: '/tools/distance-calculator-qatar', live: true },
   { code: 'sa', name: 'Saudi Arabia',   flag: '🇸🇦', href: '/tools/distance-calculator-saudi-arabia', live: true },
   { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', live: false },
   { code: 'us', name: 'United States',  flag: '🇺🇸', live: false },
