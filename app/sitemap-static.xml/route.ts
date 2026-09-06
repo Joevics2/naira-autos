@@ -13,6 +13,7 @@ const staticPages = [
   { url: '/sell-for-me',                        priority: 0.9, changefreq: 'weekly'  },
   { url: '/evaluate-used-car',                  priority: 0.9, changefreq: 'weekly'  },
   { url: '/cuanto-vale-mi-auto',                priority: 0.9, changefreq: 'weekly'  },
+  { url: '/kam-qeemat-sayarati',                priority: 0.9, changefreq: 'weekly'  },
   { url: '/evaluate-car',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/blog',                               priority: 0.8, changefreq: 'daily'   },
   // NOTE: /blog-de-autos (Spanish blog index) intentionally not added yet —
@@ -26,11 +27,12 @@ const staticPages = [
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
-  // /home-arabic and /adawat intentionally NOT added yet — only 1
-  // live Arabic tool (ai-mechanic-arabic) exists so far, well under the
-  // ~5-tool threshold used for /herramientas above. Add both once a
-  // handful more Arabic tool pages ship. /blog-arabic held back for the
-  // same reason as /blog-de-autos — zero Arabic posts published yet.
+  // /home-arabic and /adawat intentionally NOT added yet — now at 2
+  // live Arabic tools (ai-mechanic-arabic, kam-qeemat-sayarati), still
+  // under the ~5-tool threshold used for /herramientas above. Add both
+  // once a handful more Arabic tool pages ship. /blog-arabic held back
+  // for the same reason as /blog-de-autos — zero Arabic posts published
+  // yet.
   // /herramientas (Spanish tools index) added below — now at 5 live tools
   // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
   // decodificador-de-vin, verificar-numero-de-chasis), past the ~5

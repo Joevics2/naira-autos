@@ -1,4 +1,4 @@
-import { Wrench } from 'lucide-react';
+import { Wrench, Camera } from 'lucide-react';
 
 // Single source of truth for the Arabic tools index (/adawat).
 // Add an entry here ONLY when that tool's Arabic page is actually live —
@@ -17,6 +17,15 @@ export type ToolAr = {
 };
 
 export const TOOLS_AR: ToolAr[] = [
+  {
+    href: '/kam-qeemat-sayarati',
+    icon: Camera,
+    label: 'كم قيمة سيارتي؟',
+    description: 'ارفع صورة واحصل على تقييم سوقي فوري بالذكاء الاصطناعي، بعملتك المحلية — مصر، السعودية، الإمارات، العراق والمزيد.',
+    badge: 'مجاني',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'الذكاء الاصطناعي والأدوات الذكية',
+  },
   {
     href: '/tools/ai-mechanic-arabic',
     icon: Wrench,

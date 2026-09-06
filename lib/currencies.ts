@@ -6,7 +6,10 @@ export type CurrencyCode =
   | 'CHF' | 'SEK' | 'NOK' | 'DKK' | 'PLN' | 'KES' | 'GHS' | 'EGP' | 'MAD'
   | 'UGX' | 'TZS' | 'PKR' | 'BDT' | 'SAR' | 'QAR' | 'KWD' | 'ILS' | 'TRY'
   | 'NZD' | 'JPY' | 'KRW' | 'CNY' | 'SGD' | 'MYR' | 'IDR' | 'PHP' | 'VND'
-  | 'THB' | 'BRL' | 'MXN' | 'ARS' | 'COP' | 'CLP';
+  | 'THB' | 'BRL' | 'MXN' | 'ARS' | 'COP' | 'CLP'
+  // Arabic-speaking (Arab League) countries not already covered above
+  | 'DZD' | 'BHD' | 'KMF' | 'DJF' | 'IQD' | 'JOD' | 'LBP' | 'LYD'
+  | 'MRU' | 'OMR' | 'SOS' | 'SDG' | 'SYP' | 'TND' | 'YER';
 
 export const CURRENCIES: { code: CurrencyCode; symbol: string; label: string }[] = [
   { code: 'NGN', symbol: '₦', label: 'Nigerian Naira' },
@@ -51,6 +54,21 @@ export const CURRENCIES: { code: CurrencyCode; symbol: string; label: string }[]
   { code: 'ARS', symbol: 'AR$', label: 'Argentine Peso' },
   { code: 'COP', symbol: 'COL$', label: 'Colombian Peso' },
   { code: 'CLP', symbol: 'CH$', label: 'Chilean Peso' },
+  { code: 'DZD', symbol: 'DA', label: 'Algerian Dinar' },
+  { code: 'BHD', symbol: 'BD', label: 'Bahraini Dinar' },
+  { code: 'KMF', symbol: 'CF', label: 'Comorian Franc' },
+  { code: 'DJF', symbol: 'Fdj', label: 'Djiboutian Franc' },
+  { code: 'IQD', symbol: 'ID', label: 'Iraqi Dinar' },
+  { code: 'JOD', symbol: 'JD', label: 'Jordanian Dinar' },
+  { code: 'LBP', symbol: 'LL', label: 'Lebanese Pound' },
+  { code: 'LYD', symbol: 'LD', label: 'Libyan Dinar' },
+  { code: 'MRU', symbol: 'UM', label: 'Mauritanian Ouguiya' },
+  { code: 'OMR', symbol: 'OMR', label: 'Omani Rial' },
+  { code: 'SOS', symbol: 'Sh', label: 'Somali Shilling' },
+  { code: 'SDG', symbol: 'SDG', label: 'Sudanese Pound' },
+  { code: 'SYP', symbol: 'SP', label: 'Syrian Pound' },
+  { code: 'TND', symbol: 'DT', label: 'Tunisian Dinar' },
+  { code: 'YER', symbol: 'YR', label: 'Yemeni Rial' },
 ];
 
 export function symbolFor(code: CurrencyCode): string {
@@ -90,6 +108,15 @@ export const VALUATION_COUNTRIES: ValuationCountry[] = [
   { code: 'ma', name: 'Morocco',        flag: '🇲🇦', currency: 'MAD', roundTo: 500,       lowThreshold: 30_000,      midThreshold: 100_000,      minSpreadLow: 6_000,      minSpreadMid: 12_000,     minSpreadHigh: 20_000 },
   { code: 'ug', name: 'Uganda',         flag: '🇺🇬', currency: 'UGX', roundTo: 500_000,   lowThreshold: 11_000_000,  midThreshold: 37_000_000,   minSpreadLow: 2_000_000,  minSpreadMid: 4_500_000,  minSpreadHigh: 7_500_000 },
   { code: 'tz', name: 'Tanzania',       flag: '🇹🇿', currency: 'TZS', roundTo: 300_000,   lowThreshold: 7_500_000,   midThreshold: 25_000_000,   minSpreadLow: 1_500_000,  minSpreadMid: 3_000_000,  minSpreadHigh: 5_000_000 },
+  // ── Arabic-speaking (Arab League) — Africa ──
+  { code: 'dz', name: 'Algeria',        flag: '🇩🇿', currency: 'DZD', roundTo: 10_000,    lowThreshold: 400_000,     midThreshold: 1_350_000,    minSpreadLow: 80_000,     minSpreadMid: 160_000,    minSpreadHigh: 270_000 },
+  { code: 'tn', name: 'Tunisia',        flag: '🇹🇳', currency: 'TND', roundTo: 200,       lowThreshold: 9_300,       midThreshold: 31_000,       minSpreadLow: 1_850,      minSpreadMid: 3_700,      minSpreadHigh: 6_200 },
+  { code: 'ly', name: 'Libya',          flag: '🇱🇾', currency: 'LYD', roundTo: 250,       lowThreshold: 14_500,      midThreshold: 48_500,       minSpreadLow: 2_900,      minSpreadMid: 5_800,      minSpreadHigh: 9_700 },
+  { code: 'sd', name: 'Sudan',          flag: '🇸🇩', currency: 'SDG', roundTo: 50_000,    lowThreshold: 1_800_000,   midThreshold: 6_000_000,    minSpreadLow: 360_000,    minSpreadMid: 720_000,    minSpreadHigh: 1_200_000 },
+  { code: 'so', name: 'Somalia',        flag: '🇸🇴', currency: 'SOS', roundTo: 50_000,    lowThreshold: 1_710_000,   midThreshold: 5_700_000,    minSpreadLow: 340_000,    minSpreadMid: 680_000,    minSpreadHigh: 1_140_000 },
+  { code: 'dj', name: 'Djibouti',       flag: '🇩🇯', currency: 'DJF', roundTo: 10_000,    lowThreshold: 530_000,     midThreshold: 1_780_000,    minSpreadLow: 105_000,    minSpreadMid: 210_000,    minSpreadHigh: 355_000 },
+  { code: 'km', name: 'Comoros',        flag: '🇰🇲', currency: 'KMF', roundTo: 50_000,    lowThreshold: 1_350_000,   midThreshold: 4_500_000,    minSpreadLow: 270_000,    minSpreadMid: 540_000,    minSpreadHigh: 900_000 },
+  { code: 'mr', name: 'Mauritania',     flag: '🇲🇷', currency: 'MRU', roundTo: 2_000,     lowThreshold: 120_000,     midThreshold: 400_000,      minSpreadLow: 24_000,     minSpreadMid: 48_000,     minSpreadHigh: 80_000 },
   // ── North America ──
   { code: 'us', name: 'United States',  flag: '🇺🇸', currency: 'USD', roundTo: 100,       lowThreshold: 3_000,       midThreshold: 10_000,       minSpreadLow: 600,        minSpreadMid: 1_200,      minSpreadHigh: 2_000 },
   { code: 'ca', name: 'Canada',         flag: '🇨🇦', currency: 'CAD', roundTo: 100,       lowThreshold: 3_500,       midThreshold: 12_000,       minSpreadLow: 700,        minSpreadMid: 1_400,      minSpreadHigh: 2_200 },
@@ -117,6 +144,15 @@ export const VALUATION_COUNTRIES: ValuationCountry[] = [
   { code: 'kw', name: 'Kuwait',         flag: '🇰🇼', currency: 'KWD', roundTo: 50,        lowThreshold: 900,         midThreshold: 3_000,        minSpreadLow: 180,        minSpreadMid: 360,        minSpreadHigh: 600 },
   { code: 'il', name: 'Israel',         flag: '🇮🇱', currency: 'ILS', roundTo: 100,       lowThreshold: 11_000,      midThreshold: 37_000,       minSpreadLow: 2_200,      minSpreadMid: 4_400,      minSpreadHigh: 7_300 },
   { code: 'tr', name: 'Turkey',         flag: '🇹🇷', currency: 'TRY', roundTo: 5_000,     lowThreshold: 100_000,     midThreshold: 350_000,      minSpreadLow: 20_000,     minSpreadMid: 40_000,     minSpreadHigh: 70_000 },
+  // ── Arabic-speaking (Arab League) — Middle East ──
+  { code: 'iq', name: 'Iraq',           flag: '🇮🇶', currency: 'IQD', roundTo: 100_000,   lowThreshold: 3_900_000,   midThreshold: 13_100_000,   minSpreadLow: 780_000,    minSpreadMid: 1_550_000,  minSpreadHigh: 2_600_000 },
+  { code: 'jo', name: 'Jordan',         flag: '🇯🇴', currency: 'JOD', roundTo: 50,        lowThreshold: 2_100,       midThreshold: 7_000,        minSpreadLow: 420,        minSpreadMid: 850,        minSpreadHigh: 1_400 },
+  { code: 'lb', name: 'Lebanon',        flag: '🇱🇧', currency: 'LBP', roundTo: 1_000_000, lowThreshold: 267_000_000, midThreshold: 890_000_000,  minSpreadLow: 53_000_000, minSpreadMid: 106_000_000, minSpreadHigh: 178_000_000 },
+  { code: 'sy', name: 'Syria',          flag: '🇸🇾', currency: 'SYP', roundTo: 1_000_000, lowThreshold: 39_000_000,  midThreshold: 130_000_000,  minSpreadLow: 7_800_000,  minSpreadMid: 15_600_000, minSpreadHigh: 26_000_000 },
+  { code: 'ye', name: 'Yemen',          flag: '🇾🇪', currency: 'YER', roundTo: 100_000,   lowThreshold: 5_100_000,   midThreshold: 17_000_000,   minSpreadLow: 1_000_000,  minSpreadMid: 2_000_000,  minSpreadHigh: 3_400_000 },
+  { code: 'om', name: 'Oman',           flag: '🇴🇲', currency: 'OMR', roundTo: 50,        lowThreshold: 1_150,       midThreshold: 3_850,        minSpreadLow: 230,        minSpreadMid: 460,        minSpreadHigh: 770 },
+  { code: 'bh', name: 'Bahrain',        flag: '🇧🇭', currency: 'BHD', roundTo: 50,        lowThreshold: 1_100,       midThreshold: 3_800,        minSpreadLow: 220,        minSpreadMid: 450,        minSpreadHigh: 750 },
+  { code: 'ps', name: 'Palestine',      flag: '🇵🇸', currency: 'ILS', roundTo: 100,       lowThreshold: 11_000,      midThreshold: 37_000,       minSpreadLow: 2_200,      minSpreadMid: 4_400,      minSpreadHigh: 7_300 },
   // ── Asia-Pacific ──
   { code: 'in', name: 'India',          flag: '🇮🇳', currency: 'INR', roundTo: 10_000,    lowThreshold: 300_000,     midThreshold: 800_000,      minSpreadLow: 60_000,     minSpreadMid: 130_000,    minSpreadHigh: 200_000 },
   { code: 'pk', name: 'Pakistan',       flag: '🇵🇰', currency: 'PKR', roundTo: 20_000,    lowThreshold: 840_000,     midThreshold: 2_800_000,    minSpreadLow: 170_000,    minSpreadMid: 340_000,    minSpreadHigh: 560_000 },

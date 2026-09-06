@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     languages: {
       en: 'https://www.naira.autos/evaluate-used-car',
       es: 'https://www.naira.autos/cuanto-vale-mi-auto',
+      ar: 'https://www.naira.autos/kam-qeemat-sayarati',
       'x-default': 'https://www.naira.autos/evaluate-used-car',
     },
   },
