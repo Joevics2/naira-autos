@@ -62,6 +62,15 @@ export const TOOLS_AR: ToolAr[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'التكاليف والصيانة',
   },
+  {
+    href: '/tools/distance-calculator-egypt-arabic',
+    icon: Ruler,
+    label: 'حاسبة المسافات — مصر',
+    description: 'احسب مسافة الطريق ومدة القيادة بين 41 مدينة مصرية، مع حاسبة تكلفة الوقود.',
+    badge: 'جديد',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'التكاليف والصيانة',
+  },
 ];
 
 export const CATEGORIES_AR = ['الذكاء الاصطناعي والأدوات الذكية', 'المالية', 'التكاليف والصيانة', 'الفحص والتحقق', 'موارد'];
