@@ -6,7 +6,14 @@ import CarComparisonClient from './client';
 export const metadata: Metadata = {
   title: 'Car Comparison Tool 2026 — Compare Specs, Price & Fuel Economy in 50 Countries',
   description: 'Compare any two cars side by side with pricing in your local currency across 50 countries — USA, UK, UAE, India, Nigeria, and more. See price ranges, fuel consumption, maintenance cost, ground clearance, spare parts availability, and common issues across 50 popular models, from the Toyota Corolla to the Bugatti Chiron.',
-  alternates: { canonical: 'https://www.naira.autos/tools/car-comparison' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/car-comparison',
+    languages: {
+      en: 'https://www.naira.autos/tools/car-comparison',
+      es: 'https://www.naira.autos/tools/comparador-de-autos',
+      'x-default': 'https://www.naira.autos/tools/car-comparison',
+    },
+  },
   openGraph: {
     title: 'Car Comparison Tool 2026 | Naira Autos',
     description: 'Side-by-side car comparison with local pricing for 50 countries. Price range, fuel economy, maintenance cost, ground clearance, spare parts availability. 50 models covered, from the Corolla to the Range Rover to the Ferrari 296 GTB.',
@@ -120,6 +127,9 @@ export default function CarComparisonPage() {
               <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Free Tool</span>
             </div>
             <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
+            <Link href="/tools/comparador-de-autos" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
+              Leer en Español →
+            </Link>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}

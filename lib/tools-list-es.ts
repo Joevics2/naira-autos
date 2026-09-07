@@ -1,4 +1,4 @@
-import { Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog } from 'lucide-react';
+import { Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog, GitCompare, Car } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -48,6 +48,24 @@ export const TOOLS_ES: ToolEs[] = [
     icon: Gauge,
     label: 'Calculadora de Costo de Combustible',
     description: 'Calcula el gasto de gasolina o diésel de cualquier auto en tu propia moneda — España, México, Argentina, Colombia, Chile y otros 48 países más.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Costos y Mantenimiento',
+  },
+  {
+    href: '/tools/comparador-de-autos',
+    icon: GitCompare,
+    label: 'Comparador de Autos',
+    description: 'Compara dos autos lado a lado con precio en tu propia moneda en 50 países, consumo, mantenimiento y disponibilidad de repuestos. 50 modelos, del Corolla al Bugatti.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Costos y Mantenimiento',
+  },
+  {
+    href: '/tools/mejor-auto-para-ti',
+    icon: Car,
+    label: 'Mejor Auto Para Ti',
+    description: 'Elige tu caso de uso — familiar, comercial, carretera, presupuesto, todoterreno o ejecutivo — y recibe recomendaciones con precio local en 50 países.',
     badge: 'NUEVO',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Costos y Mantenimiento',
