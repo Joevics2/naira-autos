@@ -40,7 +40,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'br', name: 'Brazil',         flag: '🇧🇷', live: false },
   { code: 'mx', name: 'Mexico',         flag: '🇲🇽', live: false },
   { code: 'in', name: 'India',          flag: '🇮🇳', live: false },
-  { code: 'ae', name: 'UAE',            flag: '🇦🇪', live: false },
+  { code: 'ae', name: 'UAE',            flag: '🇦🇪', href: '/tools/distance-calculator-uae', live: true },
 ];
 
 const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
