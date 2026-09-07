@@ -6,7 +6,14 @@ import BestCarForClient from './client';
 export const metadata: Metadata = {
   title: 'Best Car For... 2026 — Car Recommender by Use Case, 50 Countries',
   description: 'Find the best car for your needs, with pricing in your local currency across 50 countries. Select your use case — family car, commercial use, highway driving, budget buy, off-road, executive, or first car — and get ranked recommendations across 50 models, from the Toyota Corolla to the Bugatti Chiron, with maintenance cost and spare parts rating.',
-  alternates: { canonical: 'https://www.naira.autos/tools/best-car-for' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/best-car-for',
+    languages: {
+      en: 'https://www.naira.autos/tools/best-car-for',
+      es: 'https://www.naira.autos/tools/mejor-auto-para-ti',
+      'x-default': 'https://www.naira.autos/tools/best-car-for',
+    },
+  },
   openGraph: {
     title: 'Best Car For... 2026 — Car Recommender | Naira Autos',
     description: 'Global car recommender with local pricing for 50 countries. Pick your use case and get the top 5 cars ranked by price, maintenance cost, fuel economy, and spare parts availability.',
@@ -118,6 +125,9 @@ export default function BestCarForPage() {
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Free Tool</span>
             </div>
             <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
+            <Link href="/tools/mejor-auto-para-ti" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
+              Leer en Español →
+            </Link>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}
