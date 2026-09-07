@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield } from 'lucide-react';
+import Link from 'next/link';
+import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ArrowLeft } from 'lucide-react';
 import { EvaluateCarClient } from './client';
 
 export const metadata: Metadata = {
@@ -171,10 +172,15 @@ export default function EvaluateCarPage() {
         {/* ── Dark hero ── */}
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
-              <Sparkles className="h-3 w-3" />
-              AI-Powered · Free
-            </span>
+            <div className="flex items-center justify-center gap-2 mb-5">
+              <Link href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Back to tools">
+                <ArrowLeft className="h-3.5 w-3.5" />
+              </Link>
+              <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
+                <Sparkles className="h-3 w-3" />
+                AI-Powered · Free
+              </span>
+            </div>
             <h1
               className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(32px, 5vw, 64px)' }}

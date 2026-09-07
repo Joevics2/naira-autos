@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ChevronRight } from 'lucide-react';
+import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ChevronRight, ArrowLeft } from 'lucide-react';
 import { EvaluateCarClient } from './client';
 
 export const metadata: Metadata = {
@@ -181,6 +181,9 @@ export default function EvaluateUsedCarPage() {
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <div className="flex items-center justify-center gap-2 mb-5">
+              <Link href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Back to tools">
+                <ArrowLeft className="h-3.5 w-3.5" />
+              </Link>
               <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
                 <Sparkles className="h-3 w-3" />
                 AI-Powered · Free
@@ -257,7 +260,7 @@ export default function EvaluateUsedCarPage() {
             </h2>
 
             <p>
-              Knowing your car&apos;s true market value is the single most important step before you list it for sale, trade it in, or negotiate a purchase — anywhere in the world. Price too high and your listing sits unsold. Price too low and you leave real money on the table. The challenge is that <strong className="text-foreground">"market value" is not one number</strong> — it shifts by country, by currency, by local demand for a specific brand, and by the individual car&apos;s history and condition.
+              Knowing your car&apos;s true market value is the single most important step before you list it for sale, trade it in, or negotiate a purchase — anywhere in the world. Price too high and your listing sits unsold. Price too low and you leave real money on the table. The challenge is that <strong className="text-foreground">&ldquo;market value&rdquo; is not one number</strong> — it shifts by country, by currency, by local demand for a specific brand, and by the individual car&apos;s history and condition.
             </p>
 
             <h3 className="text-foreground font-bold text-base mt-6 mb-2">Why the Same Car Is Worth Different Amounts in Different Countries</h3>

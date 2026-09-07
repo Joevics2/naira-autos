@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ChevronRight } from 'lucide-react';
+import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ChevronRight, ArrowLeft } from 'lucide-react';
 import { EvaluarMiAutoClient } from './client';
 
 export const metadata: Metadata = {
@@ -101,6 +101,9 @@ export default function CuantoValeMiAutoPage() {
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <div className="flex items-center justify-center gap-2 mb-5">
+              <Link href="/herramientas" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Volver">
+                <ArrowLeft className="h-3.5 w-3.5" />
+              </Link>
               <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
                 <Sparkles className="h-3 w-3" />
                 Con IA · Gratis
@@ -161,7 +164,7 @@ export default function CuantoValeMiAutoPage() {
               TASACIÓN DE AUTOS USADOS: LA GUÍA COMPLETA
             </h2>
 
-            <p>Saber el valor de mercado real de tu auto es el paso más importante antes de publicarlo en venta, entregarlo a cuenta de otro o negociar una compra — en cualquier parte del mundo. Cotizar muy alto deja tu anuncio sin vender. Cotizar muy bajo deja dinero real sobre la mesa. El reto es que el <strong className="text-foreground">"valor de mercado" no es un solo número</strong> — cambia por país, por moneda, por la demanda local de una marca específica, y por el historial y condición del auto en particular.</p>
+            <p>Saber el valor de mercado real de tu auto es el paso más importante antes de publicarlo en venta, entregarlo a cuenta de otro o negociar una compra — en cualquier parte del mundo. Cotizar muy alto deja tu anuncio sin vender. Cotizar muy bajo deja dinero real sobre la mesa. El reto es que el <strong className="text-foreground">&ldquo;valor de mercado&rdquo; no es un solo número</strong> — cambia por país, por moneda, por la demanda local de una marca específica, y por el historial y condición del auto en particular.</p>
 
             <h3 className="text-foreground font-bold text-base mt-6 mb-2">Por Qué el Mismo Auto Vale Distinto en Cada País</h3>
             <p>Un Toyota Corolla de cinco años en buena condición puede valer una cantidad muy distinta en España, México, Argentina y Colombia — incluso antes de convertir monedas. Los aranceles de importación y los impuestos locales sobre vehículos usados varían enormemente entre países. Algunos mercados tienen fuerte demanda doméstica por ciertas marcas (las marcas japonesas en gran parte de Latinoamérica, por ejemplo), lo que sostiene precios de reventa más altos. Otros tienen mercados de autos nuevos más grandes que alejan compradores de los usados, suavizando su valor de reventa. Por eso una sola guía de precios global no funciona — la tasación tiene que calibrarse por país.</p>
