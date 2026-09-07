@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ArrowRight } from 'lucide-react';
+import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ArrowRight, ChevronLeft } from 'lucide-react';
 import { TaqyimSayaratiClient } from './client';
 
 export const metadata: Metadata = {
@@ -88,10 +88,19 @@ export default function KamQeematSayaratiPage() {
         {/* ── الواجهة الداكنة ── */}
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-2 mb-5">
-              <Link href="/adawat" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all" aria-label="رجوع">
+            <div className="flex items-center gap-3 mb-6 text-right">
+              <Link href="/adawat" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="رجوع">
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
+              <nav aria-label="مسار التنقل" className="flex items-center gap-1.5 text-xs text-white/30">
+                <Link href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
+                <ChevronLeft className="h-3 w-3" />
+                <Link href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
+                <ChevronLeft className="h-3 w-3" />
+                <span className="text-white/50">تقييم السيارة بالذكاء الاصطناعي</span>
+              </nav>
+            </div>
+            <div className="flex items-center justify-center gap-2 mb-5">
               <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
                 <Sparkles className="h-3 w-3" />
                 بالذكاء الاصطناعي · مجاني

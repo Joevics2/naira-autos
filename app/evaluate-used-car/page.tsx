@@ -180,10 +180,19 @@ export default function EvaluateUsedCarPage() {
         {/* ── Dark hero ── */}
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-2 mb-5">
-              <Link href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Back to tools">
+            <div className="flex items-center gap-3 mb-6 text-left">
+              <Link href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="Back to tools">
                 <ArrowLeft className="h-3.5 w-3.5" />
               </Link>
+              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
+                <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+                <ChevronRight className="h-3 w-3" />
+                <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+                <ChevronRight className="h-3 w-3" />
+                <span className="text-white/50">AI Car Valuation</span>
+              </nav>
+            </div>
+            <div className="flex items-center justify-center gap-2 mb-5">
               <span className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
                 <Sparkles className="h-3 w-3" />
                 AI-Powered · Free
