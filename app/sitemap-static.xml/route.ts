@@ -27,12 +27,14 @@ const staticPages = [
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
-  // /home-arabic and /adawat intentionally NOT added yet — now at 2
-  // live Arabic tools (ai-mechanic-arabic, kam-qeemat-sayarati), still
-  // under the ~5-tool threshold used for /herramientas above. Add both
-  // once a handful more Arabic tool pages ship. /blog-arabic held back
-  // for the same reason as /blog-de-autos — zero Arabic posts published
-  // yet.
+  { url: '/tools/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
+  // /home-arabic, /adawat, /accueil, /outils intentionally NOT added yet —
+  // Arabic now has 2 live tools (ai-mechanic-arabic, kam-qeemat-sayarati)
+  // and French has 1 (mecanicien-virtuel), both still under the ~5-tool
+  // threshold used for /herramientas above. Add each language's home +
+  // tools index once a handful more tool pages ship in that language.
+  // /blog-arabic and /blog-auto held back for the same reason as
+  // /blog-de-autos — zero posts published yet in either language.
   // /herramientas (Spanish tools index) added below — now at 5 live tools
   // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
   // decodificador-de-vin, verificar-numero-de-chasis), past the ~5

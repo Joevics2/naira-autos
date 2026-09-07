@@ -12,7 +12,10 @@ import { EG_CAPITAL_DISTANCE_KM } from '@/lib/eg-distance-matrix';
 export const metadata: Metadata = {
   title: 'Distance Calculator Egypt 2026 — Road Distance Between Any Two Towns',
   description: 'Calculate road distance and drive time between 41 Egyptian towns — Cairo, Alexandria, Luxor, Aswan and more. Verified UN logistics distances, drive time, and fuel cost.',
-  alternates: { canonical: 'https://www.naira.autos/tools/distance-calculator-egypt' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/distance-calculator-egypt',
+    languages: { ar: 'https://www.naira.autos/tools/distance-calculator-egypt-arabic' },
+  },
   openGraph: {
     title: 'Distance Calculator Egypt 2026 | Naira Autos',
     description: 'Road distance and drive time between 41 Egyptian towns, with a fuel cost estimator.',
@@ -104,6 +107,9 @@ export default function DistanceCalculatorEgyptPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 41 Egyptian towns — Cairo, Alexandria, Luxor, Aswan, the Red Sea and Sinai resort towns, and major governorate capitals.
             </p>
+            <Link href="/tools/distance-calculator-egypt-arabic" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+              العربية (Arabic version) →
+            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

@@ -120,6 +120,7 @@ const LANGUAGE_NAMES: Record<string, string> = {
   en: 'English',
   es: 'Spanish',
   ar: 'Arabic',
+  fr: 'French',
 };
 
 export async function POST(req: NextRequest) {
@@ -183,6 +184,10 @@ export async function POST(req: NextRequest) {
 
       if (language === 'ar') {
         textPrompt += `\n\nWrite in Modern Standard Arabic (الفصحى) — the neutral, professional register used in real Arabic automotive writing across Egypt and the Gulf, not a regional dialect (no Egyptian ammiya, no Gulf/Khaliji slang) and not a word-for-word machine translation. Use the actual terms a real Arabic-speaking mechanic or automotive writer uses (e.g. صيانة, عطل, تشخيص, ميكانيكي, ضاغط المكيف, حساس الأكسجين), not invented or overly literal renderings of the English terms. Keep car brand and model names in Latin script as they are (e.g. Toyota Corolla), since that is how they are written in real Arabic automotive content. Use standard Western Arabic numerals (0–9) for all figures, mileage, and prices — this is the convention in professional/technical Arabic writing, not Eastern Arabic-Indic numerals. If the vehicle details or description signal a specific country — Egypt, Saudi Arabia, the UAE, or Qatar — weight the diagnosis with that market's known conditions where relevant (extreme heat and sand/dust ingestion stressing air filters and AC systems in the Gulf, high ambient temperatures accelerating rubber seal and battery wear, coastal humidity in the UAE and Qatar affecting electrical connectors) — but never assume a default country when nothing indicates one.`;
+      }
+
+      if (language === 'fr') {
+        textPrompt += `\n\nWrite in standard, neutral French that reads naturally to both a French reader in France and a French-speaking reader in Quebec/Canada — not a word-for-word machine translation. Use the real terms a French-speaking mechanic actually uses (e.g. panne, voyant, calculateur, plaquettes de frein, courroie, embrayage), not invented or overly literal renderings of the English terms. Avoid English loanwords used informally (e.g. don't write "break" for brakes), and avoid heavy regional slang from either France or Quebec (e.g. no "char" for car, no French verlan) — stay in the professional/technical register used in real automotive writing on both sides of the Atlantic. Keep car brand and model names as they are (e.g. Toyota Corolla). If the vehicle details or description signal a specific country — France or Canada — weight the diagnosis with that market's known conditions where relevant (road salt accelerating rust and brake-line corrosion in Canadian winters, extreme cold affecting battery and diesel performance in Quebec, French inspection/"contrôle technique" requirements) — but never assume a default country when nothing indicates one.`;
       }
     }
 

@@ -104,6 +104,10 @@ export const CAR_COUNTRIES: CarCountry[] = [
   { code: 'tr', name: 'Turkey',         flag: '🇹🇷', currency: 'TRY', symbol: '₺',    fxRate: 48.162464,   multiplier: 1.90, region: 'Asia-Pacific' },
 ];
 
+// Spanish-speaking markets shown first in the Spanish-language tools
+// (comparador-de-autos, mejor-auto-para-ti) — mirrors FUEL_CURRENCIES_ES_PRIORITY.
+export const CAR_COUNTRIES_ES_PRIORITY: string[] = ['es', 'mx', 'ar', 'co', 'cl', 'pe'];
+
 export function getCarCountry(code: string | undefined): CarCountry {
   return CAR_COUNTRIES.find((c) => c.code === code) ?? CAR_COUNTRIES[0];
 }

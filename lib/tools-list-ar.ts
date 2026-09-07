@@ -1,4 +1,4 @@
-import { Wrench, Camera } from 'lucide-react';
+import { Wrench, Camera, Ruler } from 'lucide-react';
 
 // Single source of truth for the Arabic tools index (/adawat).
 // Add an entry here ONLY when that tool's Arabic page is actually live —
@@ -34,6 +34,42 @@ export const TOOLS_AR: ToolAr[] = [
     badge: 'مجاني',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'الذكاء الاصطناعي والأدوات الذكية',
+  },
+  {
+    href: '/tools/distance-calculator-saudi-arabia-arabic',
+    icon: Ruler,
+    label: 'حاسبة المسافات — السعودية',
+    description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
+    badge: 'جديد',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'التكاليف والصيانة',
+  },
+  {
+    href: '/tools/distance-calculator-qatar-arabic',
+    icon: Ruler,
+    label: 'حاسبة المسافات — قطر',
+    description: 'احسب مسافة الطريق ومدة القيادة بين 10 مدن قطرية، مع حاسبة تكلفة الوقود.',
+    badge: 'جديد',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'التكاليف والصيانة',
+  },
+  {
+    href: '/tools/distance-calculator-uae-arabic',
+    icon: Ruler,
+    label: 'حاسبة المسافات — الإمارات',
+    description: 'احسب مسافة الطريق ومدة القيادة بين 14 مدينة إماراتية، مع حاسبة تكلفة الوقود.',
+    badge: 'جديد',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'التكاليف والصيانة',
+  },
+  {
+    href: '/tools/distance-calculator-egypt-arabic',
+    icon: Ruler,
+    label: 'حاسبة المسافات — مصر',
+    description: 'احسب مسافة الطريق ومدة القيادة بين 41 مدينة مصرية، مع حاسبة تكلفة الوقود.',
+    badge: 'جديد',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'التكاليف والصيانة',
   },
 ];
 

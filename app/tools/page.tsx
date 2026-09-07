@@ -12,6 +12,7 @@ export const metadata: Metadata = {
       en: 'https://www.naira.autos/tools',
       es: 'https://www.naira.autos/herramientas',
       ar: 'https://www.naira.autos/adawat',
+      fr: 'https://www.naira.autos/outils',
       'x-default': 'https://www.naira.autos/tools',
     },
   },
@@ -60,6 +61,9 @@ export default function ToolsPage() {
           </Link>
           <Link href="/adawat" className="ml-2 text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-5 inline-block">
             → بالعربية
+          </Link>
+          <Link href="/outils" className="ml-2 text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-5 inline-block">
+            Lire en Français →
           </Link>
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
