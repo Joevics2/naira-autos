@@ -28,7 +28,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'qa', name: 'Qatar',          flag: '🇶🇦', href: '/tools/distance-calculator-qatar', live: true },
   { code: 'sa', name: 'Saudi Arabia',   flag: '🇸🇦', href: '/tools/distance-calculator-saudi-arabia', live: true },
   { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', href: '/tools/distance-calculator-uk', live: true },
-  { code: 'us', name: 'United States',  flag: '🇺🇸', live: false },
+  { code: 'us', name: 'United States',  flag: '🇺🇸', href: '/tools/distance-calculator-usa', live: true },
   { code: 'ca', name: 'Canada',         flag: '🇨🇦', live: false },
   { code: 'de', name: 'Germany',        flag: '🇩🇪', live: false },
   { code: 'fr', name: 'France',         flag: '🇫🇷', live: false },
