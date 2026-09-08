@@ -4,10 +4,10 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   Wrench, Mic, Video, Camera, AlertTriangle, CheckCircle2,
-  AlertCircle, XCircle, ChevronRight, ArrowLeft,
+  AlertCircle, XCircle, ChevronRight,
   Loader2, X, Zap, Car, Gauge,
   Plus, Trash2, MessageSquare, Send, History,
-  Check
+  Check, ArrowLeft
 } from 'lucide-react';
 
 // ── Types ─────────────────────────────────────────────────────────
@@ -57,9 +57,9 @@ interface VehicleProfile {
 // ── Constants ─────────────────────────────────────────────────────
 
 const STORAGE_KEYS = {
-  SESSIONS: 'ai_mechanic_sessions_pt',
-  ACTIVE: 'ai_mechanic_active_pt',
-  VEHICLE: 'ai_mechanic_vehicle_pt',
+  SESSIONS: 'ai_mechanic_sessions_es',
+  ACTIVE: 'ai_mechanic_active_es',
+  VEHICLE: 'ai_mechanic_vehicle_es',
 };
 
 const NIGERIAN_BRANDS = [
@@ -67,16 +67,16 @@ const NIGERIAN_BRANDS = [
   'Hyundai', 'Kia', 'Volkswagen', 'Audi', 'Land Rover', 'Mazda', 'Peugeot',
   'Mitsubishi', 'Chevrolet', 'Subaru', 'Jeep', 'Volvo', 'Infiniti',
   'Acura', 'Porsche', 'Jaguar', 'Suzuki', 'Fiat', 'Renault', 'Opel',
-  'MG', 'Chery', 'BYD', 'Haval', 'Innoson', 'Outra',
+  'MG', 'Chery', 'BYD', 'Haval', 'Innoson', 'Other',
 ];
 
 const URGENCY_CONFIG: Record<UrgencyLevel, {
   bg: string; border: string; text: string; badgeBg: string; icon: React.ReactNode; label: string;
 }> = {
-  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'Seguro para dirigir' },
-  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'Fique de olho' },
-  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'Procure um mecânico logo' },
-  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'Pare de dirigir imediatamente' },
+  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'Seguro para Conducir' },
+  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'Vigilar de Cerca' },
+  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'Ver a un Mecánico Pronto' },
+  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'Detén el Vehículo Ahora' },
 };
 
 const PROB_COLORS = {
@@ -85,16 +85,10 @@ const PROB_COLORS = {
   low:    'bg-blue-900/50 text-blue-300',
 };
 
-const PROB_LABELS: Record<'high' | 'medium' | 'low', string> = {
-  high: 'Probabilidade alta',
-  medium: 'Probabilidade média',
-  low: 'Probabilidade baixa',
-};
-
 const PRIORITY_CONFIG = {
-  immediate:       { label: 'Agora',      cls: 'bg-red-500 text-white' },
-  soon:            { label: 'Em breve',   cls: 'bg-orange-500 text-white' },
-  when_convenient: { label: 'Sem pressa', cls: 'bg-emerald-500 text-white' },
+  immediate:       { label: 'Ahora',     cls: 'bg-red-500 text-white' },
+  soon:            { label: 'Pronto',    cls: 'bg-orange-500 text-white' },
+  when_convenient: { label: 'Sin prisa',  cls: 'bg-emerald-500 text-white' },
 };
 
 // ── Helpers ───────────────────────────────────────────────────────
@@ -103,14 +97,14 @@ function uid() { return Math.random().toString(36).slice(2) + Date.now().toStrin
 
 function timeAgo(ts: number) {
   const d = Date.now() - ts;
-  if (d < 60000) return 'Agora mesmo';
-  if (d < 3600000) return 'Há ' + Math.floor(d / 60000) + 'min';
-  if (d < 86400000) return 'Há ' + Math.floor(d / 3600000) + 'h';
-  return 'Há ' + Math.floor(d / 86400000) + 'd';
+  if (d < 60000) return 'Justo ahora';
+  if (d < 3600000) return 'hace ' + Math.floor(d / 60000) + 'm';
+  if (d < 86400000) return 'hace ' + Math.floor(d / 3600000) + 'h';
+  return 'hace ' + Math.floor(d / 86400000) + 'd';
 }
 
 function blankSession(v: VehicleProfile): ChatSession {
-  return { id: uid(), title: 'Nova conversa', messages: [], vehicle: v, createdAt: Date.now(), updatedAt: Date.now() };
+  return { id: uid(), title: 'Nueva conversación', messages: [], vehicle: v, createdAt: Date.now(), updatedAt: Date.now() };
 }
 
 // ── Sub-components ────────────────────────────────────────────────
@@ -120,7 +114,7 @@ function CertaintyBar({ value, note }: { value: number; note: string }) {
   return (
     <div className="space-y-1">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-slate-400">Nível de confiança do Axion</span>
+        <span className="text-xs font-medium text-slate-400">Confianza de Axion</span>
         <span className="text-sm font-bold text-slate-100">{value}%</span>
       </div>
       <div className="h-1.5 bg-slate-600 rounded-full overflow-hidden">
@@ -162,7 +156,7 @@ function MediaPill({ icon, label, accept, file, onFile, onClear, maxMB }: {
 }
 
 function AxionLoadingSteps() {
-  const steps = ['Lendo a descrição...', 'Analisando padrões de falha...', 'Estimando o custo do reparo...', 'Preparando o diagnóstico...'];
+  const steps = ['Leyendo tu descripción...', 'Revisando patrones de fallas...', 'Estimando costos de reparación...', 'Preparando tu diagnóstico...'];
   const [active, setActive] = useState(0);
   useEffect(() => {
     const timings = [900, 1800, 2900];
@@ -197,8 +191,8 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
     ? (diagnosis.estimated_repair_cost_usd.min && diagnosis.estimated_repair_cost_usd.max
         ? '$' + diagnosis.estimated_repair_cost_usd.min.toLocaleString() + ' – $' + diagnosis.estimated_repair_cost_usd.max.toLocaleString()
         : diagnosis.estimated_repair_cost_usd.min
-        ? 'A partir de $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
-        : 'Até $' + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
+        ? 'Desde $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
+        : 'Hasta $' + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
     : null;
   const diyActions = (diagnosis.recommended_actions ?? []).filter(a => a.diy);
   const mechanicActions = (diagnosis.recommended_actions ?? []).filter(a => !a.diy);
@@ -225,13 +219,13 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {diagnosis.likely_causes?.length > 0 && (
           <div className="px-4 py-3.5">
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">
-              {diagnosis.likely_causes.length > 1 ? 'Causas prováveis' : 'Causa mais provável'}
+              {diagnosis.likely_causes.length > 1 ? 'Posibles causas' : 'Causa más probable'}
             </p>
             <div className="space-y-3">
               {diagnosis.likely_causes.map((c, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 whitespace-nowrap ${PROB_COLORS[c.probability]}`}>
-                    {PROB_LABELS[c.probability] ?? c.probability}
+                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${PROB_COLORS[c.probability]}`}>
+                    {c.probability.charAt(0).toUpperCase() + c.probability.slice(1)}
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-slate-100 leading-snug">{c.cause}</p>
@@ -246,14 +240,14 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* What to do */}
         {allActions.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">O que fazer</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Qué hacer</p>
             <div className="space-y-2.5">
               {allActions.map((a, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 whitespace-nowrap ${
+                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${
                     a.diy ? 'bg-emerald-500/20 text-emerald-400' : PRIORITY_CONFIG[a.priority].cls
                   }`}>
-                    {a.diy ? 'Você mesmo pode fazer' : PRIORITY_CONFIG[a.priority].label}
+                    {a.diy ? 'Hazlo tú mismo' : PRIORITY_CONFIG[a.priority].label}
                   </span>
                   <p className="text-sm text-slate-200 leading-relaxed">{a.action}</p>
                 </div>
@@ -265,7 +259,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Next steps to confirm */}
         {diagnosis.next_steps_to_confirm?.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-amber-400/70 uppercase tracking-wide mb-3">Para um diagnóstico mais preciso, tente também</p>
+            <p className="text-xs font-bold text-amber-400/70 uppercase tracking-wide mb-3">Para un mejor diagnóstico, también prueba</p>
             <div className="space-y-2">
               {diagnosis.next_steps_to_confirm.map((s, i) => (
                 <div key={i} className="flex items-start gap-2 text-sm text-slate-300 leading-relaxed">
@@ -279,7 +273,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Parts to inspect */}
         {diagnosis.parts_to_check?.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">Peças para verificar</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">Piezas a revisar</p>
             <div className="flex flex-wrap gap-1.5">
               {diagnosis.parts_to_check.map((p, i) => (
                 <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-600/60 text-slate-200 border border-slate-500">{p}</span>
@@ -291,7 +285,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Repair cost */}
         {hasCost && costStr && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Custo estimado do reparo</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Costo estimado de reparación</p>
             <p className="text-lg font-black text-slate-100">{costStr}</p>
             <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_usd.note}</p>
           </div>
@@ -304,7 +298,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
 
         {/* Disclaimer */}
         <div className="px-4 py-3 bg-slate-700/40">
-          <p className="text-xs text-slate-500 leading-relaxed">Este é um diagnóstico assistido por IA. Use como ponto de partida, e sempre confirme com um profissional qualificado antes de fazer qualquer reparo, principalmente em freios, direção ou combustível.</p>
+          <p className="text-xs text-slate-500 leading-relaxed">Este es un diagnóstico asistido por IA. Úsalo como punto de partida. Confirma siempre con un técnico calificado antes de hacer reparaciones.</p>
         </div>
 
       </div>
@@ -352,7 +346,7 @@ function ChatBubble({ msg }: { msg: ChatMessage }) {
 
 // ── Main Client Component ─────────────────────────────────────────
 
-export default function AIMechanicClientPT() {
+export default function AIMechanicClientES() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [vehicle, setVehicle] = useState<VehicleProfile>({ brand: '', model: '', year: '' });
@@ -470,7 +464,7 @@ export default function AIMechanicClientPT() {
       setRecordingSeconds(0);
       recordingTimerRef.current = setInterval(() => setRecordingSeconds(s => s + 1), 1000);
     } catch {
-      alert('Acesso ao microfone negado. Permita o acesso e tente novamente.');
+      alert('Acceso al micrófono denegado. Permite el acceso e intenta de nuevo.');
     }
   };
 
@@ -495,7 +489,7 @@ export default function AIMechanicClientPT() {
     };
 
     const isFirst = activeSession.messages.length === 0;
-    const title = isFirst ? (trimmed.slice(0, 52) || 'Diagnóstico multimídia') : activeSession.title;
+    const title = isFirst ? (trimmed.slice(0, 52) || 'Diagnóstico multimedia') : activeSession.title;
     const withUser: ChatSession = { ...activeSession, title, messages: [...activeSession.messages, userMsg], updatedAt: Date.now() };
     persist(sessions.map(s => s.id === activeId ? withUser : s));
 
@@ -508,7 +502,7 @@ export default function AIMechanicClientPT() {
       if (vehicle.brand) fd.append('brand', vehicle.brand);
       if (vehicle.model) fd.append('model', vehicle.model);
       if (vehicle.year) fd.append('year', vehicle.year);
-      fd.append('language', 'pt');
+      fd.append('language', 'es');
       if (imageFile) fd.append('image', imageFile);
       if (audioFile) fd.append('audio', audioFile);
       if (videoFile) fd.append('video', videoFile);
@@ -518,14 +512,14 @@ export default function AIMechanicClientPT() {
 
       const res = await fetch('/api/ai-mechanic', { method: 'POST', body: fd });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Algo deu errado');
+      if (!res.ok) throw new Error(data.error || 'Algo salió mal');
 
       const diag: DiagnosisResult = data.diagnosis;
       const aiMsg: ChatMessage = { id: uid(), role: 'assistant', text: diag.summary, diagnosis: diag, timestamp: Date.now() };
       const withAI: ChatSession = { ...withUser, messages: [...withUser.messages, aiMsg], updatedAt: Date.now() };
       persist(sessions.map(s => s.id === activeId ? withAI : s));
     } catch (err: any) {
-      setError(err.message || 'Não foi possível analisar. Tente novamente.');
+      setError(err.message || 'No se pudo analizar. Intenta de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -539,6 +533,7 @@ export default function AIMechanicClientPT() {
   const vehicleSummary = [vehicle.year, vehicle.brand, vehicle.model].filter(Boolean).join(' ');
   const hasMessages = !!(activeSession?.messages.length);
 
+  // Hide other upload buttons when one media type is already uploaded
   const showImageUpload = !audioFile && !videoFile;
   const showAudioUpload = !imageFile && !videoFile;
   const showVideoUpload = !imageFile && !audioFile;
@@ -558,28 +553,28 @@ export default function AIMechanicClientPT() {
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-3 mb-8">
-          <Link href="/ferramentas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Voltar para Ferramentas">
+          <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Volver a Herramientas">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/pagina-inicial" className="hover:text-white/60 transition-colors">Início</Link>
+            <Link href="/" className="hover:text-white/60 transition-colors">Inicio</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/ferramentas" className="hover:text-white/60 transition-colors">Ferramentas</Link>
+            <Link href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
             <ChevronRight className="h-3 w-3" />
-            <span className="text-white/50">Mecânico IA</span>
+            <span className="text-white/50">Mecánico IA</span>
           </nav>
           <div className="flex items-center gap-3 ml-auto">
             <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              English
+              Read in English →
             </Link>
-            <Link href="/tools/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Español
+            <Link href="/outils/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Lire en Français →
             </Link>
-            <Link href="/tools/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Français
+            <Link href="/adawat/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              بالعربية ←
             </Link>
-            <Link href="/tools/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              العربية
+            <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Ler em Português →
             </Link>
           </div>
         </div>
@@ -606,7 +601,7 @@ export default function AIMechanicClientPT() {
                 <div className="w-7 h-7 bg-emerald-500/20 border border-emerald-500/30 rounded-lg flex items-center justify-center">
                   <Wrench className="h-3.5 w-3.5 text-emerald-400" />
                 </div>
-                <span className="text-sm font-bold text-white">Axion — Conversas</span>
+                <span className="text-sm font-bold text-white">Axion — Chats</span>
               </div>
               <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-white/30 hover:text-white">
                 <X className="h-4 w-4" />
@@ -616,20 +611,20 @@ export default function AIMechanicClientPT() {
             <div className="p-2.5 border-b border-white/10">
               <button onClick={startNewChat}
                 className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/25 transition-colors">
-                <Plus className="h-3.5 w-3.5" /> Nova conversa
+                <Plus className="h-3.5 w-3.5" /> Nueva conversación
               </button>
             </div>
 
             <div className="flex-1 overflow-y-auto py-2 px-2">
               {sessions.filter(s => s.messages.length > 0).length === 0 ? (
-                <p className="text-xs text-white/20 text-center py-8 px-3">Nenhuma conversa ainda</p>
+                <p className="text-xs text-white/20 text-center py-8 px-3">Aún no hay conversaciones</p>
               ) : sessions.filter(s => s.messages.length > 0).map((s, idx) => {
                 const prevDate = idx > 0 ? new Date(sessions[idx - 1].updatedAt).toDateString() : null;
                 const thisDate = new Date(s.updatedAt).toDateString();
                 const showLabel = thisDate !== prevDate;
                 const today = new Date().toDateString();
-                const label = thisDate === today ? 'Hoje'
-                  : new Date(s.updatedAt) > new Date(Date.now() - 86400000 * 2) ? 'Ontem'
+                const label = thisDate === today ? 'Hoy'
+                  : new Date(s.updatedAt) > new Date(Date.now() - 86400000 * 2) ? 'Ayer'
                   : new Date(s.updatedAt).toLocaleDateString();
                 return (
                   <div key={s.id}>
@@ -641,7 +636,7 @@ export default function AIMechanicClientPT() {
                       <MessageSquare className={`h-3.5 w-3.5 flex-shrink-0 mt-0.5 ${s.id === activeId ? 'text-emerald-400' : 'text-white/20'}`} />
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-medium text-white/80 truncate">{s.title}</p>
-                        <p className="text-xs text-white/25 mt-0.5">{s.messages.length} msgs · {timeAgo(s.updatedAt)}</p>
+                        <p className="text-xs text-white/25 mt-0.5">{s.messages.length} msjs · {timeAgo(s.updatedAt)}</p>
                       </div>
                       <button onClick={e => { e.stopPropagation(); deleteSession(s.id); }}
                         className="opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-400 transition-all">
@@ -654,14 +649,14 @@ export default function AIMechanicClientPT() {
             </div>
 
             <div className="px-4 py-3 border-t border-white/10">
-              <p className="text-xs text-white/20">Salvo neste dispositivo.</p>
+              <p className="text-xs text-white/20">Guardado en este dispositivo.</p>
               <button onClick={() => {
-                if (confirm('Apagar todo o histórico de conversas?')) {
+                if (confirm('¿Borrar todo el historial de conversaciones?')) {
                   const s = blankSession(vehicle);
                   persist([s]); setActive(s.id);
                 }
               }} className="text-xs text-red-400/40 hover:text-red-400 mt-1 transition-colors">
-                Apagar histórico
+                Borrar historial
               </button>
             </div>
           </aside>
@@ -673,23 +668,23 @@ export default function AIMechanicClientPT() {
             <div>
               <h1 className="font-black leading-tight tracking-tight text-white mb-2"
                 style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(26px, 4vw, 50px)' }}>
-                Oi, eu sou o Axion 👋 seu mecânico com IA.
+                Hola, soy Axion 👋 tu mecánico con IA.
               </h1>
               <p className="text-white/70 text-xl sm:text-2xl font-semibold leading-snug mb-4 max-w-xl">
-                O que está acontecendo com seu carro?
+                ¿Qué le pasa a tu auto?
               </p>
 
               {!hasMessages && (
                 <details className="mt-3 mb-5 group">
                   <summary className="flex items-center gap-2 cursor-pointer list-none text-xs text-white/40 hover:text-white/60 transition-colors w-fit">
                     <ChevronRight className="h-3.5 w-3.5 group-open:rotate-90 transition-transform" />
-                    <span className="font-semibold uppercase tracking-wide">Como funciona</span>
+                    <span className="font-semibold uppercase tracking-wide">Cómo funciona</span>
                   </summary>
                   <div className="flex flex-col sm:flex-row gap-3 mt-3">
                     {[
-                      { num: '1', text: 'Descreva, grave ou filme o problema do seu carro — todo detalhe ajuda.' },
-                      { num: '2', text: 'Envie ou descreva o problema no campo abaixo.' },
-                      { num: '3', text: 'Receba um diagnóstico instantâneo, custo estimado e os próximos passos.' },
+                      { num: '1', text: 'Describe, graba o filma el problema de tu auto — cualquier detalle ayuda.' },
+                      { num: '2', text: 'Sube o narra el problema usando el cuadro de texto de abajo.' },
+                      { num: '3', text: 'Obtén un diagnóstico instantáneo, costo estimado y próximos pasos.' },
                     ].map(({ num, text: t }) => (
                       <div key={num} className="flex items-start gap-2.5 flex-1">
                         <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 text-white text-xs font-black flex items-center justify-center mt-0.5">{num}</span>
@@ -705,7 +700,7 @@ export default function AIMechanicClientPT() {
                 <button onClick={() => setSidebarOpen(true)}
                   className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white text-xs font-medium transition-all">
                   <History className="h-3.5 w-3.5" />
-                  Conversas anteriores
+                  Conversaciones anteriores
                   {sessions.filter(s => s.messages.length > 0).length > 0 && (
                     <span className="bg-emerald-500/30 text-emerald-400 text-xs px-1.5 py-0.5 rounded-full font-bold">
                       {sessions.filter(s => s.messages.length > 0).length}
@@ -714,7 +709,7 @@ export default function AIMechanicClientPT() {
                 </button>
                 <button onClick={startNewChat}
                   className="flex items-center gap-1 px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/25 transition-colors">
-                  <Plus className="h-3.5 w-3.5" /> Nova conversa
+                  <Plus className="h-3.5 w-3.5" /> Nuevo chat
                 </button>
               </div>
             </div>
@@ -740,34 +735,34 @@ export default function AIMechanicClientPT() {
                   <input type="text" placeholder="Modelo (opcional)" value={vehicle.model}
                     onChange={e => persistVehicle({ ...vehicle, model: e.target.value })}
                     className={`flex-1 min-w-0 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.model ? 'border-emerald-500/40' : 'border-white/20'}`} />
-                  <input type="number" placeholder="Ano" value={vehicle.year}
+                  <input type="number" placeholder="Año (opcional)" value={vehicle.year}
                     onChange={e => persistVehicle({ ...vehicle, year: e.target.value })}
                     min="1980" max={new Date().getFullYear() + 1}
                     className={`w-28 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.year ? 'border-emerald-500/40' : 'border-white/20'}`} />
                 </div>
-                <p className="text-xs text-white/30 mb-2">Opcional, mas quanto mais o Axion souber sobre seu carro, mais preciso será o diagnóstico.</p>
+                <p className="text-xs text-white/30 mb-2">Opcional, pero mientras más sepa Axion de tu auto, más precisa será la diagnosis.</p>
 
                 <div className="border border-white/20 rounded-xl bg-white/10 overflow-hidden focus-within:border-emerald-500/50 transition-all">
                   <textarea value={text} onChange={e => setText(e.target.value)} onKeyDown={handleKey}
-                    placeholder="Descreva o problema do seu carro... ex. barulho de batida na partida a frio, luz de injeção acesa, freio mole"
+                    placeholder="Describe el problema de tu auto... ej. golpeteo en arranque frío, luz de check engine encendida, frenos blandos"
                     rows={3}
                     className="w-full px-4 pt-3 pb-2 text-sm bg-transparent text-white placeholder:text-white/40 focus:outline-none resize-none leading-relaxed" />
                   <div className="flex items-center gap-2 px-3 pb-2 pt-1.5 border-t border-white/20 flex-wrap">
                     {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Foto" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Áudio" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
-                    {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Vídeo" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sonido" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                    {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                     {/* Record button */}
                     {showAudioUpload && !audioFile && (
                       isRecording ? (
                         <button type="button" onClick={stopRecording}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
                           <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                          {recordingSeconds}s — Parar
+                          {recordingSeconds}s — Detener
                         </button>
                       ) : (
                         <button type="button" onClick={startRecording}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
-                          <Mic className="h-3 w-3" /> Gravar
+                          <Mic className="h-3 w-3" /> Grabar
                         </button>
                       )
                     )}
@@ -777,14 +772,14 @@ export default function AIMechanicClientPT() {
                       className={`w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                         hasInput && !loading ? 'bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-500/25' : 'bg-white/10 text-white/25 cursor-not-allowed'
                       }`}>
-                      {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analisando...</> : <><Wrench className="h-4 w-4" /> Diagnosticar</>}
+                      {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analizando...</> : <><Wrench className="h-4 w-4" /> Diagnosticar</>}
                     </button>
                   </div>
                 </div>
 
                 {vehicleSummary && (
                   <p className="text-xs text-white/25 mt-2 flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-emerald-500" /> Veículo salvo neste dispositivo
+                    <Check className="h-3 w-3 text-emerald-500" /> Vehículo guardado en este dispositivo
                   </p>
                 )}
               </div>
@@ -818,7 +813,7 @@ export default function AIMechanicClientPT() {
                 <div className="border-t border-white/10 bg-[#080C10]/80 px-3 py-2.5">
                   <div className="flex gap-2 items-center">
                     <textarea value={text} onChange={e => setText(e.target.value)} onKeyDown={handleKey}
-                      placeholder="Faça uma pergunta de acompanhamento... (Enter para enviar)" rows={1}
+                      placeholder="Haz una pregunta de seguimiento... (Enter para enviar)" rows={1}
                       className="flex-1 resize-none px-3 py-2 text-sm border border-white/10 rounded-xl bg-white/5 text-white placeholder:text-white/25 focus:outline-none focus:border-emerald-500/40 transition-all leading-relaxed" />
                     <button onClick={handleSubmit} disabled={!hasInput || loading}
                       className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all ${
@@ -829,26 +824,26 @@ export default function AIMechanicClientPT() {
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex gap-2 flex-wrap">
-                      {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Foto" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Áudio" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
-                      {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Vídeo" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                      {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
+                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Sound" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                      {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                       {showAudioUpload && !audioFile && (
                         isRecording ? (
                           <button type="button" onClick={stopRecording}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
                             <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                            {recordingSeconds}s — Parar
+                            {recordingSeconds}s — Stop
                           </button>
                         ) : (
                           <button type="button" onClick={startRecording}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
-                            <Mic className="h-3 w-3" /> Gravar
+                            <Mic className="h-3 w-3" /> Record
                           </button>
                         )
                       )}
                     </div>
                     <button onClick={startNewChat} className="flex items-center gap-1 text-xs text-white/25 hover:text-emerald-400 transition-colors">
-                      <Plus className="h-3 w-3" /> Nova conversa
+                      <Plus className="h-3 w-3" /> Nuevo chat
                     </button>
                   </div>
                 </div>
@@ -858,7 +853,7 @@ export default function AIMechanicClientPT() {
             {!hasMessages && (
               <div className="hidden lg:flex items-center justify-end">
                 <button onClick={startNewChat} className="flex items-center gap-1.5 text-xs text-white/25 hover:text-emerald-400 transition-colors">
-                  <Plus className="h-3 w-3" /> Iniciar nova conversa
+                  <Plus className="h-3 w-3" /> Iniciar una nueva conversación
                 </button>
               </div>
             )}

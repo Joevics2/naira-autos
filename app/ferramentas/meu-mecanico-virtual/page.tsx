@@ -7,20 +7,20 @@ export const metadata: Metadata = {
   title: 'Meu Mecânico Virtual com IA — Diagnóstico de Carro Grátis | Naira Autos',
   description: 'Mecânico virtual grátis com inteligência artificial. Descreva o problema do seu carro, ou envie uma foto, som do motor ou vídeo, e receba um diagnóstico instantâneo com estimativa de custo do reparo. Sem cadastro, feito para o Brasil.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/meu-mecanico-virtual',
+    canonical: 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
     languages: {
       'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/tools/mecanico-virtual',
-      'ar': 'https://www.naira.autos/tools/ai-mechanic-arabic',
-      'fr': 'https://www.naira.autos/tools/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/tools/meu-mecanico-virtual',
+      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
+      'ar': 'https://www.naira.autos/adawat/ai-mechanic-arabic',
+      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
+      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },
   openGraph: {
     title: 'Axion — Mecânico Virtual Grátis com IA | Naira Autos',
     description: 'Diagnóstico instantâneo do seu carro online, onde você estiver. Envie o som do motor, uma foto, ou descreva o problema. Receba o nível de urgência, causas prováveis, o que fazer você mesmo, e uma estimativa de custo do reparo. 100% grátis, sem cadastro.',
-    url: 'https://www.naira.autos/tools/meu-mecanico-virtual',
+    url: 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
   },
   keywords: ['mecânico virtual', 'diagnóstico de carro online', 'diagnóstico automotivo IA', 'defeito no carro', 'mecânico online grátis', 'custo de reparo do carro', 'diagnóstico automotivo grátis', 'mecânico virtual Brasil'],
 };
@@ -30,10 +30,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/meu-mecanico-virtual',
+      '@id': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       name: 'Meu Mecânico Virtual com IA — Diagnóstico de Carro Grátis',
       description: 'Mecânico virtual grátis com inteligência artificial. Envie o som do motor, uma foto, ou descreva o problema. Receba um diagnóstico instantâneo com nível de urgência e estimativa de custo do reparo.',
-      url: 'https://www.naira.autos/tools/meu-mecanico-virtual',
+      url: 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       inLanguage: 'pt-BR',
       dateModified: '2026-09-07',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -41,9 +41,9 @@ const SCHEMA = {
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.naira.autos' },
-          { '@type': 'ListItem', position: 2, name: 'Ferramentas', item: 'https://www.naira.autos/tools' },
-          { '@type': 'ListItem', position: 3, name: 'Mecânico IA', item: 'https://www.naira.autos/tools/meu-mecanico-virtual' },
+          { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.naira.autos/pagina-inicial' },
+          { '@type': 'ListItem', position: 2, name: 'Ferramentas', item: 'https://www.naira.autos/ferramentas' },
+          { '@type': 'ListItem', position: 3, name: 'Mecânico IA', item: 'https://www.naira.autos/ferramentas/meu-mecanico-virtual' },
         ],
       },
     },
@@ -98,7 +98,7 @@ const SCHEMA = {
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
       description: 'Mecânico virtual grátis com inteligência artificial. Descreva o problema, envie o som do motor ou uma foto, e receba um diagnóstico instantâneo com estimativa de custo de reparo.',
-      url: 'https://www.naira.autos/tools/meu-mecanico-virtual',
+      url: 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       inLanguage: 'pt-BR',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     },

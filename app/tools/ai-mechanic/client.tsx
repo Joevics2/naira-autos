@@ -563,16 +563,16 @@ export default function AIMechanicClient() {
             <span className="text-white/50">AI Mechanic</span>
           </nav>
           <div className="flex items-center gap-3 ml-auto">
-            <Link href="/tools/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/herramientas/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Leer en Español →
             </Link>
-            <Link href="/tools/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/outils/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Lire en Français →
             </Link>
-            <Link href="/tools/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/adawat/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               بالعربية ←
             </Link>
-            <Link href="/tools/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Ler em Português →
             </Link>
           </div>

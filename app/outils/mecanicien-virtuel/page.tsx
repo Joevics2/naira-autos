@@ -7,20 +7,20 @@ export const metadata: Metadata = {
   title: 'Mécanicien Virtuel IA — Diagnostic Auto Gratuit en Ligne | Naira Autos',
   description: 'Mécanicien virtuel gratuit alimenté par IA. Décrivez la panne de votre voiture, ou téléchargez une photo, un son du moteur ou une vidéo, et obtenez un diagnostic instantané avec estimation du coût de réparation. Sans inscription, pour la France et le Canada.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/mecanicien-virtuel',
+    canonical: 'https://www.naira.autos/outils/mecanicien-virtuel',
     languages: {
       'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/tools/mecanico-virtual',
-      'ar': 'https://www.naira.autos/tools/ai-mechanic-arabic',
-      'fr': 'https://www.naira.autos/tools/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/tools/meu-mecanico-virtual',
+      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
+      'ar': 'https://www.naira.autos/adawat/ai-mechanic-arabic',
+      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
+      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },
   openGraph: {
     title: 'Axion — Mécanicien Virtuel Gratuit avec IA | Naira Autos',
     description: 'Diagnostic instantané de votre voiture en ligne, où que vous soyez. Téléchargez un son du moteur, une photo, ou décrivez la panne. Obtenez un niveau d\'urgence, les causes probables, des étapes à faire vous-même, et une estimation du coût de réparation. 100% gratuit, sans inscription.',
-    url: 'https://www.naira.autos/tools/mecanicien-virtuel',
+    url: 'https://www.naira.autos/outils/mecanicien-virtuel',
   },
   keywords: ['mécanicien virtuel', 'diagnostic auto en ligne', 'diagnostic voiture IA', 'panne voiture', 'mécanicien en ligne gratuit', 'coût de réparation voiture', 'diagnostic auto gratuit', 'mécanicien virtuel Canada', 'mécanicien virtuel Québec', 'mécanicien virtuel France'],
 };
@@ -30,10 +30,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/mecanicien-virtuel',
+      '@id': 'https://www.naira.autos/outils/mecanicien-virtuel',
       name: 'Mécanicien Virtuel IA — Diagnostic Auto Gratuit en Ligne',
       description: "Mécanicien virtuel gratuit alimenté par IA. Téléchargez un son du moteur, une photo, ou décrivez la panne. Obtenez un diagnostic instantané avec niveau d'urgence et estimation du coût de réparation.",
-      url: 'https://www.naira.autos/tools/mecanicien-virtuel',
+      url: 'https://www.naira.autos/outils/mecanicien-virtuel',
       inLanguage: 'fr',
       dateModified: '2026-09-06',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -41,9 +41,9 @@ const SCHEMA = {
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://www.naira.autos' },
-          { '@type': 'ListItem', position: 2, name: 'Outils', item: 'https://www.naira.autos/tools' },
-          { '@type': 'ListItem', position: 3, name: 'Mécanicien IA', item: 'https://www.naira.autos/tools/mecanicien-virtuel' },
+          { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://www.naira.autos/accueil' },
+          { '@type': 'ListItem', position: 2, name: 'Outils', item: 'https://www.naira.autos/outils' },
+          { '@type': 'ListItem', position: 3, name: 'Mécanicien IA', item: 'https://www.naira.autos/outils/mecanicien-virtuel' },
         ],
       },
     },
@@ -98,7 +98,7 @@ const SCHEMA = {
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
       description: "Mécanicien virtuel gratuit alimenté par IA. Décrivez la panne, téléchargez un son du moteur ou une photo, et obtenez un diagnostic instantané avec estimation du coût de réparation — adapté aussi aux conditions de conduite en France et au Canada.",
-      url: 'https://www.naira.autos/tools/mecanicien-virtuel',
+      url: 'https://www.naira.autos/outils/mecanicien-virtuel',
       inLanguage: 'fr',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     },

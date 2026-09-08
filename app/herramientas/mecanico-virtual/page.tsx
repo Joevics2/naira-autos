@@ -9,20 +9,20 @@ export const metadata: Metadata = {
   title: 'Mecánico Virtual con IA — Diagnóstico de Auto Online Gratis | Naira Autos',
   description: 'Mecánico virtual gratis con inteligencia artificial. Describe la falla, sube fotos, audio o video del problema y recibe un diagnóstico al instante con presupuesto de reparación. Sin registro.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/mecanico-virtual',
+    canonical: 'https://www.naira.autos/herramientas/mecanico-virtual',
     languages: {
       'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/tools/mecanico-virtual',
-      'ar': 'https://www.naira.autos/tools/ai-mechanic-arabic',
-      'fr': 'https://www.naira.autos/tools/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/tools/meu-mecanico-virtual',
+      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
+      'ar': 'https://www.naira.autos/adawat/ai-mechanic-arabic',
+      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
+      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },
   openGraph: {
     title: 'Axion — Mecánico Virtual con IA Gratis | Naira Autos',
     description: 'Diagnóstico de auto online al instante, en cualquier lugar. Sube audio del motor, fotos o describe la falla. Recibe nivel de urgencia, causas probables, pasos a seguir y presupuesto de reparación. Gratis, sin registro.',
-    url: 'https://www.naira.autos/tools/mecanico-virtual',
+    url: 'https://www.naira.autos/herramientas/mecanico-virtual',
   },
   keywords: ['mecánico virtual','mecánico online gratis','diagnóstico de auto online','diagnóstico de coche gratis','qué le pasa a mi carro','taller mecánico online','preguntar a un mecánico online','cotización de reparación de auto','mecánico con inteligencia artificial','revisar mi auto online','diagnóstico por sonido del motor','presupuesto de reparación de auto'],
 };
@@ -34,10 +34,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/mecanico-virtual',
+      '@id': 'https://www.naira.autos/herramientas/mecanico-virtual',
       name: 'Mecánico Virtual con IA — Diagnóstico de Auto Online Gratis',
       description: 'Mecánico virtual gratuito con inteligencia artificial. Sube audio del motor, fotos, o describe la falla. Recibe un diagnóstico al instante con nivel de urgencia y presupuesto de reparación.',
-      url: 'https://www.naira.autos/tools/mecanico-virtual',
+      url: 'https://www.naira.autos/herramientas/mecanico-virtual',
       inLanguage: 'es',
       dateModified: '2026-08-01',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -45,9 +45,9 @@ const SCHEMA = {
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
-          { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/tools' },
-          { '@type': 'ListItem', position: 3, name: 'Mecánico IA', item: 'https://www.naira.autos/tools/mecanico-virtual' },
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos/inicio' },
+          { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
+          { '@type': 'ListItem', position: 3, name: 'Mecánico IA', item: 'https://www.naira.autos/herramientas/mecanico-virtual' },
         ],
       },
     },
@@ -107,7 +107,7 @@ const SCHEMA = {
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
       description: 'Mecánico virtual gratuito con inteligencia artificial. Describe fallas, sube audio del motor o fotos, recibe un diagnóstico instantáneo con presupuesto de reparación calibrado a precios del mercado nigeriano.',
-      url: 'https://www.naira.autos/tools/mecanico-virtual',
+      url: 'https://www.naira.autos/herramientas/mecanico-virtual',
       inLanguage: 'es',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'NGN' },
     },

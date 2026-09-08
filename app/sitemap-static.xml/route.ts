@@ -25,10 +25,10 @@ const staticPages = [
   { url: '/tools',                              priority: 0.9, changefreq: 'weekly'  },
   { url: '/herramientas',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
-  { url: '/tools/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
-  { url: '/tools/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
-  { url: '/tools/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
-  { url: '/tools/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
+  { url: '/herramientas/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
+  { url: '/adawat/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/outils/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial, /ferramentas
   // intentionally NOT added yet — Arabic has 2 live tools
   // (ai-mechanic-arabic, kam-qeemat-sayarati), French and Portuguese have

@@ -17,7 +17,7 @@ export type ToolPt = {
 
 export const TOOLS_PT: ToolPt[] = [
   {
-    href: '/tools/meu-mecanico-virtual',
+    href: '/ferramentas/meu-mecanico-virtual',
     icon: Wrench,
     label: 'Meu Mecânico Virtual com IA',
     description: 'Descreva o problema ou envie uma foto ou som, e receba um diagnóstico instantâneo com estimativa de custo do reparo.',

@@ -4,10 +4,10 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   Wrench, Mic, Video, Camera, AlertTriangle, CheckCircle2,
-  AlertCircle, XCircle, ChevronLeft,
+  AlertCircle, XCircle, ChevronRight, ArrowLeft,
   Loader2, X, Zap, Car, Gauge,
   Plus, Trash2, MessageSquare, Send, History,
-  Check, ArrowRight
+  Check
 } from 'lucide-react';
 
 // ── Types ─────────────────────────────────────────────────────────
@@ -57,9 +57,9 @@ interface VehicleProfile {
 // ── Constants ─────────────────────────────────────────────────────
 
 const STORAGE_KEYS = {
-  SESSIONS: 'ai_mechanic_sessions_ar',
-  ACTIVE: 'ai_mechanic_active_ar',
-  VEHICLE: 'ai_mechanic_vehicle_ar',
+  SESSIONS: 'ai_mechanic_sessions_fr',
+  ACTIVE: 'ai_mechanic_active_fr',
+  VEHICLE: 'ai_mechanic_vehicle_fr',
 };
 
 const NIGERIAN_BRANDS = [
@@ -67,16 +67,16 @@ const NIGERIAN_BRANDS = [
   'Hyundai', 'Kia', 'Volkswagen', 'Audi', 'Land Rover', 'Mazda', 'Peugeot',
   'Mitsubishi', 'Chevrolet', 'Subaru', 'Jeep', 'Volvo', 'Infiniti',
   'Acura', 'Porsche', 'Jaguar', 'Suzuki', 'Fiat', 'Renault', 'Opel',
-  'MG', 'Chery', 'BYD', 'Haval', 'Innoson', 'Other',
+  'MG', 'Chery', 'BYD', 'Haval', 'Innoson', 'Autre',
 ];
 
 const URGENCY_CONFIG: Record<UrgencyLevel, {
   bg: string; border: string; text: string; badgeBg: string; icon: React.ReactNode; label: string;
 }> = {
-  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'آمن للقيادة' },
-  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'راقب الوضع عن كثب' },
-  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'راجع ميكانيكيًا قريبًا' },
-  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'توقف عن القيادة فورًا' },
+  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'Sûr de conduire' },
+  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'À surveiller de près' },
+  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'Voir un mécanicien bientôt' },
+  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'Arrêtez de conduire immédiatement' },
 };
 
 const PROB_COLORS = {
@@ -86,15 +86,15 @@ const PROB_COLORS = {
 };
 
 const PROB_LABELS: Record<'high' | 'medium' | 'low', string> = {
-  high: 'احتمال مرتفع',
-  medium: 'احتمال متوسط',
-  low: 'احتمال منخفض',
+  high: 'Probabilité élevée',
+  medium: 'Probabilité moyenne',
+  low: 'Probabilité faible',
 };
 
 const PRIORITY_CONFIG = {
-  immediate:       { label: 'الآن',     cls: 'bg-red-500 text-white' },
-  soon:            { label: 'قريبًا',   cls: 'bg-orange-500 text-white' },
-  when_convenient: { label: 'غير عاجل', cls: 'bg-emerald-500 text-white' },
+  immediate:       { label: 'Maintenant',  cls: 'bg-red-500 text-white' },
+  soon:            { label: 'Bientôt',     cls: 'bg-orange-500 text-white' },
+  when_convenient: { label: 'Sans urgence', cls: 'bg-emerald-500 text-white' },
 };
 
 // ── Helpers ───────────────────────────────────────────────────────
@@ -103,14 +103,14 @@ function uid() { return Math.random().toString(36).slice(2) + Date.now().toStrin
 
 function timeAgo(ts: number) {
   const d = Date.now() - ts;
-  if (d < 60000) return 'الآن';
-  if (d < 3600000) return 'منذ ' + Math.floor(d / 60000) + 'د';
-  if (d < 86400000) return 'منذ ' + Math.floor(d / 3600000) + 'س';
-  return 'منذ ' + Math.floor(d / 86400000) + 'ي';
+  if (d < 60000) return "À l'instant";
+  if (d < 3600000) return 'Il y a ' + Math.floor(d / 60000) + 'min';
+  if (d < 86400000) return 'Il y a ' + Math.floor(d / 3600000) + 'h';
+  return 'Il y a ' + Math.floor(d / 86400000) + 'j';
 }
 
 function blankSession(v: VehicleProfile): ChatSession {
-  return { id: uid(), title: 'محادثة جديدة', messages: [], vehicle: v, createdAt: Date.now(), updatedAt: Date.now() };
+  return { id: uid(), title: 'Nouvelle conversation', messages: [], vehicle: v, createdAt: Date.now(), updatedAt: Date.now() };
 }
 
 // ── Sub-components ────────────────────────────────────────────────
@@ -120,7 +120,7 @@ function CertaintyBar({ value, note }: { value: number; note: string }) {
   return (
     <div className="space-y-1">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-slate-400">درجة ثقة Axion</span>
+        <span className="text-xs font-medium text-slate-400">Indice de confiance d'Axion</span>
         <span className="text-sm font-bold text-slate-100">{value}%</span>
       </div>
       <div className="h-1.5 bg-slate-600 rounded-full overflow-hidden">
@@ -142,7 +142,7 @@ function MediaPill({ icon, label, accept, file, onFile, onClear, maxMB }: {
         onChange={e => {
           const f = e.target.files?.[0];
           if (!f) return;
-          if (f.size > maxMB * 1024 * 1024) { alert('الحد الأقصى ' + maxMB + ' ميجابايت'); return; }
+          if (f.size > maxMB * 1024 * 1024) { alert('Max ' + maxMB + 'Mo'); return; }
           onFile(f); e.target.value = '';
         }} />
       {file ? (
@@ -162,7 +162,7 @@ function MediaPill({ icon, label, accept, file, onFile, onClear, maxMB }: {
 }
 
 function AxionLoadingSteps() {
-  const steps = ['جارٍ قراءة الوصف...', 'جارٍ مراجعة أنماط الأعطال...', 'جارٍ تقدير تكلفة الإصلاح...', 'جارٍ إعداد التشخيص...'];
+  const steps = ['Lecture de la description...', 'Analyse des schémas de pannes...', 'Estimation du coût de réparation...', 'Préparation du diagnostic...'];
   const [active, setActive] = useState(0);
   useEffect(() => {
     const timings = [900, 1800, 2900];
@@ -197,8 +197,8 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
     ? (diagnosis.estimated_repair_cost_usd.min && diagnosis.estimated_repair_cost_usd.max
         ? '$' + diagnosis.estimated_repair_cost_usd.min.toLocaleString() + ' – $' + diagnosis.estimated_repair_cost_usd.max.toLocaleString()
         : diagnosis.estimated_repair_cost_usd.min
-        ? 'ابتداءً من $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
-        : 'حتى $' + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
+        ? 'À partir de $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
+        : "Jusqu'à $" + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
     : null;
   const diyActions = (diagnosis.recommended_actions ?? []).filter(a => a.diy);
   const mechanicActions = (diagnosis.recommended_actions ?? []).filter(a => !a.diy);
@@ -208,7 +208,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
     <div className="mt-1 max-w-2xl rounded-2xl border border-slate-200/20 bg-slate-800 overflow-hidden">
 
       {/* Urgency header */}
-      <div className={`px-4 py-3 border-b ${urg.bg} ${urg.border} border-b-0`} style={{ borderRightWidth: 3 }}>
+      <div className={`px-4 py-3 border-b ${urg.bg} ${urg.border} border-b-0`} style={{ borderLeftWidth: 3 }}>
         <div className="flex items-center gap-2 mb-1.5">
           {urg.icon}
           <span className={`text-xs font-black uppercase tracking-widest ${urg.text}`}>{urg.label}</span>
@@ -225,7 +225,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {diagnosis.likely_causes?.length > 0 && (
           <div className="px-4 py-3.5">
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">
-              {diagnosis.likely_causes.length > 1 ? 'الأسباب المحتملة' : 'السبب الأكثر احتمالًا'}
+              {diagnosis.likely_causes.length > 1 ? 'Causes probables' : 'Cause la plus probable'}
             </p>
             <div className="space-y-3">
               {diagnosis.likely_causes.map((c, i) => (
@@ -246,14 +246,14 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* What to do */}
         {allActions.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">ما يجب فعله</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Que faire</p>
             <div className="space-y-2.5">
               {allActions.map((a, i) => (
                 <div key={i} className="flex items-start gap-2.5">
                   <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 whitespace-nowrap ${
                     a.diy ? 'bg-emerald-500/20 text-emerald-400' : PRIORITY_CONFIG[a.priority].cls
                   }`}>
-                    {a.diy ? 'يمكنك فعلها بنفسك' : PRIORITY_CONFIG[a.priority].label}
+                    {a.diy ? 'Vous pouvez le faire vous-même' : PRIORITY_CONFIG[a.priority].label}
                   </span>
                   <p className="text-sm text-slate-200 leading-relaxed">{a.action}</p>
                 </div>
@@ -265,7 +265,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Next steps to confirm */}
         {diagnosis.next_steps_to_confirm?.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-amber-400/70 uppercase tracking-wide mb-3">للحصول على تشخيص أدق، جرّب أيضًا</p>
+            <p className="text-xs font-bold text-amber-400/70 uppercase tracking-wide mb-3">Pour un diagnostic plus précis, essayez aussi</p>
             <div className="space-y-2">
               {diagnosis.next_steps_to_confirm.map((s, i) => (
                 <div key={i} className="flex items-start gap-2 text-sm text-slate-300 leading-relaxed">
@@ -279,7 +279,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Parts to inspect */}
         {diagnosis.parts_to_check?.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">الأجزاء التي يجب فحصها</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">Pièces à vérifier</p>
             <div className="flex flex-wrap gap-1.5">
               {diagnosis.parts_to_check.map((p, i) => (
                 <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-600/60 text-slate-200 border border-slate-500">{p}</span>
@@ -291,7 +291,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Repair cost */}
         {hasCost && costStr && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">التكلفة التقديرية للإصلاح</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Coût de réparation estimé</p>
             <p className="text-lg font-black text-slate-100">{costStr}</p>
             <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_usd.note}</p>
           </div>
@@ -304,7 +304,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
 
         {/* Disclaimer */}
         <div className="px-4 py-3 bg-slate-700/40">
-          <p className="text-xs text-slate-500 leading-relaxed">هذا تشخيص بمساعدة الذكاء الاصطناعي. استخدمه كنقطة انطلاق فقط، وتأكد دائمًا من رأي فنّي مؤهّل شخصيًا قبل إجراء أي إصلاح، خصوصًا في أعطال الفرامل أو التوجيه أو الوقود.</p>
+          <p className="text-xs text-slate-500 leading-relaxed">Ceci est un diagnostic assisté par IA. Utilisez-le comme point de départ, et confirmez toujours avec un professionnel qualifié avant toute réparation, surtout pour les freins, la direction ou le carburant.</p>
         </div>
 
       </div>
@@ -323,7 +323,7 @@ function ChatBubble({ msg }: { msg: ChatMessage }) {
       )}
       <div className={`${isUser ? 'max-w-xs' : 'flex-1 max-w-2xl'} flex flex-col ${isUser ? 'items-end' : 'items-start'} gap-1`}>
         {isUser ? (
-          <div className="bg-emerald-500/20 border border-emerald-500/25 text-white rounded-2xl rounded-tl-sm px-3.5 py-2.5">
+          <div className="bg-emerald-500/20 border border-emerald-500/25 text-white rounded-2xl rounded-tr-sm px-3.5 py-2.5">
             <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
             {msg.media && (
               <div className="flex items-center gap-1.5 mt-1.5 text-xs text-emerald-400/70">
@@ -352,7 +352,7 @@ function ChatBubble({ msg }: { msg: ChatMessage }) {
 
 // ── Main Client Component ─────────────────────────────────────────
 
-export default function AIMechanicClientAR() {
+export default function AIMechanicClientFR() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [vehicle, setVehicle] = useState<VehicleProfile>({ brand: '', model: '', year: '' });
@@ -392,19 +392,6 @@ export default function AIMechanicClientAR() {
       setSessions([s]);
       setActiveId(s.id);
     }
-  }, []);
-
-  // This page is Arabic and right-to-left. The site's root layout is
-  // hardcoded to lang="en" (no locale routing exists yet), so we set
-  // lang/dir on <html> ourselves while this page is mounted and restore
-  // the previous values on unmount.
-  useEffect(() => {
-    const html = document.documentElement;
-    const prevLang = html.lang;
-    const prevDir = html.dir;
-    html.lang = 'ar';
-    html.dir = 'rtl';
-    return () => { html.lang = prevLang; html.dir = prevDir; };
   }, []);
 
   // Hide bottom nav
@@ -483,7 +470,7 @@ export default function AIMechanicClientAR() {
       setRecordingSeconds(0);
       recordingTimerRef.current = setInterval(() => setRecordingSeconds(s => s + 1), 1000);
     } catch {
-      alert('تم رفض الوصول إلى الميكروفون. يرجى السماح بالوصول والمحاولة مرة أخرى.');
+      alert("Accès au microphone refusé. Autorisez l'accès et réessayez.");
     }
   };
 
@@ -508,7 +495,7 @@ export default function AIMechanicClientAR() {
     };
 
     const isFirst = activeSession.messages.length === 0;
-    const title = isFirst ? (trimmed.slice(0, 52) || 'تشخيص بالوسائط') : activeSession.title;
+    const title = isFirst ? (trimmed.slice(0, 52) || 'Diagnostic multimédia') : activeSession.title;
     const withUser: ChatSession = { ...activeSession, title, messages: [...activeSession.messages, userMsg], updatedAt: Date.now() };
     persist(sessions.map(s => s.id === activeId ? withUser : s));
 
@@ -521,7 +508,7 @@ export default function AIMechanicClientAR() {
       if (vehicle.brand) fd.append('brand', vehicle.brand);
       if (vehicle.model) fd.append('model', vehicle.model);
       if (vehicle.year) fd.append('year', vehicle.year);
-      fd.append('language', 'ar');
+      fd.append('language', 'fr');
       if (imageFile) fd.append('image', imageFile);
       if (audioFile) fd.append('audio', audioFile);
       if (videoFile) fd.append('video', videoFile);
@@ -531,14 +518,14 @@ export default function AIMechanicClientAR() {
 
       const res = await fetch('/api/ai-mechanic', { method: 'POST', body: fd });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'حدث خطأ ما');
+      if (!res.ok) throw new Error(data.error || "Une erreur s'est produite");
 
       const diag: DiagnosisResult = data.diagnosis;
       const aiMsg: ChatMessage = { id: uid(), role: 'assistant', text: diag.summary, diagnosis: diag, timestamp: Date.now() };
       const withAI: ChatSession = { ...withUser, messages: [...withUser.messages, aiMsg], updatedAt: Date.now() };
       persist(sessions.map(s => s.id === activeId ? withAI : s));
     } catch (err: any) {
-      setError(err.message || 'تعذّر التحليل. حاول مرة أخرى.');
+      setError(err.message || "Impossible d'analyser. Réessayez.");
     } finally {
       setLoading(false);
     }
@@ -552,7 +539,6 @@ export default function AIMechanicClientAR() {
   const vehicleSummary = [vehicle.year, vehicle.brand, vehicle.model].filter(Boolean).join(' ');
   const hasMessages = !!(activeSession?.messages.length);
 
-  // Hide other upload buttons when one media type is already uploaded
   const showImageUpload = !audioFile && !videoFile;
   const showAudioUpload = !imageFile && !videoFile;
   const showVideoUpload = !imageFile && !audioFile;
@@ -562,40 +548,38 @@ export default function AIMechanicClientAR() {
   return (
     <div
       id="axion-chat"
-      dir="rtl"
-      lang="ar"
       className="relative bg-[#080C10] overflow-hidden"
-      style={{ backgroundImage: "url('/ai-mechanic-hero.jpg')", backgroundSize: 'cover', backgroundPosition: 'center left', backgroundRepeat: 'no-repeat' }}
+      style={{ backgroundImage: "url('/ai-mechanic-hero.jpg')", backgroundSize: 'cover', backgroundPosition: 'center right', backgroundRepeat: 'no-repeat' }}
     >
-      <div className="absolute inset-0 bg-gradient-to-l from-[#080C10] via-[#080C10]/90 to-[#080C10]/60 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#080C10] via-[#080C10]/90 to-[#080C10]/60 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-16">
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-3 mb-8">
-          <Link href="/adawat" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="العودة إلى الأدوات">
-            <ArrowRight className="h-4 w-4" />
+          <Link href="/outils" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Retour aux outils">
+            <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
-            <ChevronLeft className="h-3 w-3" />
-            <Link href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
-            <ChevronLeft className="h-3 w-3" />
-            <span className="text-white/50">ميكانيكي الذكاء الاصطناعي</span>
+            <Link href="/accueil" className="hover:text-white/60 transition-colors">Accueil</Link>
+            <ChevronRight className="h-3 w-3" />
+            <Link href="/outils" className="hover:text-white/60 transition-colors">Outils</Link>
+            <ChevronRight className="h-3 w-3" />
+            <span className="text-white/50">Mécanicien IA</span>
           </nav>
-          <div className="flex items-center gap-3 mr-auto">
-            <Link href="/tools/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Español
-            </Link>
-            <Link href="/tools/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Français
-            </Link>
-            <Link href="/tools/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Português
-            </Link>
+          <div className="flex items-center gap-3 ml-auto">
             <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              اقرأ بالإنجليزية ←
+              Read in English →
+            </Link>
+            <Link href="/herramientas/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Leer en Español →
+            </Link>
+            <Link href="/adawat/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              → بالعربية
+            </Link>
+            <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Ler em Português →
             </Link>
           </div>
         </div>
@@ -610,11 +594,11 @@ export default function AIMechanicClientAR() {
 
           {/* Sidebar */}
           <aside className={[
-            'fixed lg:static inset-y-0 right-0 z-50 lg:z-auto w-64 flex-shrink-0',
+            'fixed lg:static inset-y-0 left-0 z-50 lg:z-auto w-64 flex-shrink-0',
             'flex flex-col bg-[#0D1117] border border-white/10 rounded-2xl',
             'shadow-2xl lg:shadow-none',
             'transition-transform duration-300 lg:translate-x-0 lg:self-start lg:sticky lg:top-6',
-            sidebarOpen ? 'translate-x-0' : 'translate-x-full',
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full',
           ].join(' ')} style={{ minHeight: '520px' }}>
 
             <div className="flex items-center justify-between px-4 py-3.5 border-b border-white/10">
@@ -622,7 +606,7 @@ export default function AIMechanicClientAR() {
                 <div className="w-7 h-7 bg-emerald-500/20 border border-emerald-500/30 rounded-lg flex items-center justify-center">
                   <Wrench className="h-3.5 w-3.5 text-emerald-400" />
                 </div>
-                <span className="text-sm font-bold text-white">Axion — المحادثات</span>
+                <span className="text-sm font-bold text-white">Axion — Conversations</span>
               </div>
               <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-white/30 hover:text-white">
                 <X className="h-4 w-4" />
@@ -632,20 +616,20 @@ export default function AIMechanicClientAR() {
             <div className="p-2.5 border-b border-white/10">
               <button onClick={startNewChat}
                 className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/25 transition-colors">
-                <Plus className="h-3.5 w-3.5" /> محادثة جديدة
+                <Plus className="h-3.5 w-3.5" /> Nouvelle conversation
               </button>
             </div>
 
             <div className="flex-1 overflow-y-auto py-2 px-2">
               {sessions.filter(s => s.messages.length > 0).length === 0 ? (
-                <p className="text-xs text-white/20 text-center py-8 px-3">لا توجد محادثات بعد</p>
+                <p className="text-xs text-white/20 text-center py-8 px-3">Aucune conversation pour le moment</p>
               ) : sessions.filter(s => s.messages.length > 0).map((s, idx) => {
                 const prevDate = idx > 0 ? new Date(sessions[idx - 1].updatedAt).toDateString() : null;
                 const thisDate = new Date(s.updatedAt).toDateString();
                 const showLabel = thisDate !== prevDate;
                 const today = new Date().toDateString();
-                const label = thisDate === today ? 'اليوم'
-                  : new Date(s.updatedAt) > new Date(Date.now() - 86400000 * 2) ? 'أمس'
+                const label = thisDate === today ? "Aujourd'hui"
+                  : new Date(s.updatedAt) > new Date(Date.now() - 86400000 * 2) ? 'Hier'
                   : new Date(s.updatedAt).toLocaleDateString();
                 return (
                   <div key={s.id}>
@@ -657,7 +641,7 @@ export default function AIMechanicClientAR() {
                       <MessageSquare className={`h-3.5 w-3.5 flex-shrink-0 mt-0.5 ${s.id === activeId ? 'text-emerald-400' : 'text-white/20'}`} />
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-medium text-white/80 truncate">{s.title}</p>
-                        <p className="text-xs text-white/25 mt-0.5">{s.messages.length} رسائل · {timeAgo(s.updatedAt)}</p>
+                        <p className="text-xs text-white/25 mt-0.5">{s.messages.length} msgs · {timeAgo(s.updatedAt)}</p>
                       </div>
                       <button onClick={e => { e.stopPropagation(); deleteSession(s.id); }}
                         className="opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-400 transition-all">
@@ -670,14 +654,14 @@ export default function AIMechanicClientAR() {
             </div>
 
             <div className="px-4 py-3 border-t border-white/10">
-              <p className="text-xs text-white/20">محفوظ على هذا الجهاز.</p>
+              <p className="text-xs text-white/20">Enregistré sur cet appareil.</p>
               <button onClick={() => {
-                if (confirm('هل تريد حذف كل سجل المحادثات؟')) {
+                if (confirm("Supprimer tout l'historique des conversations ?")) {
                   const s = blankSession(vehicle);
                   persist([s]); setActive(s.id);
                 }
               }} className="text-xs text-red-400/40 hover:text-red-400 mt-1 transition-colors">
-                حذف السجل
+                Effacer l'historique
               </button>
             </div>
           </aside>
@@ -689,23 +673,23 @@ export default function AIMechanicClientAR() {
             <div>
               <h1 className="font-black leading-tight tracking-tight text-white mb-2"
                 style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(26px, 4vw, 50px)' }}>
-                مرحبًا، أنا Axion 👋 ميكانيكيّك بالذكاء الاصطناعي.
+                Bonjour, je suis Axion 👋 votre mécanicien IA.
               </h1>
               <p className="text-white/70 text-xl sm:text-2xl font-semibold leading-snug mb-4 max-w-xl">
-                ما هي مشكلة سيارتك؟
+                Qu'est-ce qui ne va pas avec votre voiture ?
               </p>
 
               {!hasMessages && (
                 <details className="mt-3 mb-5 group">
                   <summary className="flex items-center gap-2 cursor-pointer list-none text-xs text-white/40 hover:text-white/60 transition-colors w-fit">
-                    <ChevronLeft className="h-3.5 w-3.5 group-open:-rotate-90 transition-transform" />
-                    <span className="font-semibold uppercase tracking-wide">كيف تعمل الأداة</span>
+                    <ChevronRight className="h-3.5 w-3.5 group-open:rotate-90 transition-transform" />
+                    <span className="font-semibold uppercase tracking-wide">Comment ça marche</span>
                   </summary>
                   <div className="flex flex-col sm:flex-row gap-3 mt-3">
                     {[
-                      { num: '1', text: 'اكتب وصف المشكلة، أو سجّل صوت العطل، أو صوّر فيديو — أي تفصيل يساعد.' },
-                      { num: '2', text: 'ارفع الملف أو اشرح المشكلة في مربع النص أدناه.' },
-                      { num: '3', text: 'احصل على تشخيص فوري، وتكلفة تقديرية، والخطوات التالية.' },
+                      { num: '1', text: 'Décrivez, enregistrez ou filmez le problème de votre voiture — chaque détail aide.' },
+                      { num: '2', text: 'Téléchargez ou décrivez le problème dans le champ ci-dessous.' },
+                      { num: '3', text: 'Obtenez un diagnostic instantané, un coût estimé et les prochaines étapes.' },
                     ].map(({ num, text: t }) => (
                       <div key={num} className="flex items-start gap-2.5 flex-1">
                         <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 text-white text-xs font-black flex items-center justify-center mt-0.5">{num}</span>
@@ -721,7 +705,7 @@ export default function AIMechanicClientAR() {
                 <button onClick={() => setSidebarOpen(true)}
                   className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white text-xs font-medium transition-all">
                   <History className="h-3.5 w-3.5" />
-                  المحادثات السابقة
+                  Conversations précédentes
                   {sessions.filter(s => s.messages.length > 0).length > 0 && (
                     <span className="bg-emerald-500/30 text-emerald-400 text-xs px-1.5 py-0.5 rounded-full font-bold">
                       {sessions.filter(s => s.messages.length > 0).length}
@@ -730,7 +714,7 @@ export default function AIMechanicClientAR() {
                 </button>
                 <button onClick={startNewChat}
                   className="flex items-center gap-1 px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/25 transition-colors">
-                  <Plus className="h-3.5 w-3.5" /> محادثة جديدة
+                  <Plus className="h-3.5 w-3.5" /> Nouvelle conversation
                 </button>
               </div>
             </div>
@@ -748,42 +732,42 @@ export default function AIMechanicClientAR() {
                   <div className="relative flex-1 min-w-0">
                     <select value={vehicle.brand} onChange={e => persistVehicle({ ...vehicle, brand: e.target.value })}
                       className={`w-full h-12 pl-3 pr-8 text-sm border rounded-xl bg-white/10 text-white/90 focus:outline-none focus:border-emerald-500/50 transition-all appearance-none cursor-pointer ${!vehicle.brand ? 'border-white/20' : 'border-emerald-500/40'}`}
-                      style={{ backgroundImage: dropdownArrowSvg, backgroundRepeat: 'no-repeat', backgroundPosition: 'left 12px center' }}>
-                      <option value="" style={{ background: '#080C10' }}>الماركة (اختياري)</option>
+                      style={{ backgroundImage: dropdownArrowSvg, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}>
+                      <option value="" style={{ background: '#080C10' }}>Marque (facultatif)</option>
                       {NIGERIAN_BRANDS.map(b => <option key={b} value={b} style={{ background: '#080C10' }}>{b}</option>)}
                     </select>
                   </div>
-                  <input type="text" placeholder="الموديل (اختياري)" value={vehicle.model}
+                  <input type="text" placeholder="Modèle (facultatif)" value={vehicle.model}
                     onChange={e => persistVehicle({ ...vehicle, model: e.target.value })}
                     className={`flex-1 min-w-0 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.model ? 'border-emerald-500/40' : 'border-white/20'}`} />
-                  <input type="number" placeholder="سنة الصنع" value={vehicle.year}
+                  <input type="number" placeholder="Année" value={vehicle.year}
                     onChange={e => persistVehicle({ ...vehicle, year: e.target.value })}
                     min="1980" max={new Date().getFullYear() + 1}
                     className={`w-28 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.year ? 'border-emerald-500/40' : 'border-white/20'}`} />
                 </div>
-                <p className="text-xs text-white/30 mb-2">اختياري، لكن كلما عرف Axion تفاصيل أكثر عن سيارتك، كان التشخيص أدق.</p>
+                <p className="text-xs text-white/30 mb-2">Facultatif, mais plus Axion en sait sur votre voiture, plus le diagnostic sera précis.</p>
 
                 <div className="border border-white/20 rounded-xl bg-white/10 overflow-hidden focus-within:border-emerald-500/50 transition-all">
                   <textarea value={text} onChange={e => setText(e.target.value)} onKeyDown={handleKey}
-                    placeholder="صف مشكلة سيارتك... مثال: صوت طرق عند التشغيل البارد، إضاءة لمبة فحص المحرك، أو دواسة فرامل طرية"
+                    placeholder="Décrivez le problème de votre voiture... ex. cliquetis au démarrage à froid, voyant moteur allumé, freins mous"
                     rows={3}
                     className="w-full px-4 pt-3 pb-2 text-sm bg-transparent text-white placeholder:text-white/40 focus:outline-none resize-none leading-relaxed" />
                   <div className="flex items-center gap-2 px-3 pb-2 pt-1.5 border-t border-white/20 flex-wrap">
-                    {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="صورة" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="صوت" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
-                    {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="فيديو" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                    {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
+                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Son" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                    {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Vidéo" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                     {/* Record button */}
                     {showAudioUpload && !audioFile && (
                       isRecording ? (
                         <button type="button" onClick={stopRecording}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
                           <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                          {recordingSeconds}ث — إيقاف
+                          {recordingSeconds}s — Arrêter
                         </button>
                       ) : (
                         <button type="button" onClick={startRecording}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
-                          <Mic className="h-3 w-3" /> تسجيل
+                          <Mic className="h-3 w-3" /> Enregistrer
                         </button>
                       )
                     )}
@@ -793,14 +777,14 @@ export default function AIMechanicClientAR() {
                       className={`w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                         hasInput && !loading ? 'bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-500/25' : 'bg-white/10 text-white/25 cursor-not-allowed'
                       }`}>
-                      {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> جارٍ التحليل...</> : <><Wrench className="h-4 w-4" /> شخّص المشكلة</>}
+                      {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analyse en cours...</> : <><Wrench className="h-4 w-4" /> Diagnostiquer</>}
                     </button>
                   </div>
                 </div>
 
                 {vehicleSummary && (
                   <p className="text-xs text-white/25 mt-2 flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-emerald-500" /> تم حفظ بيانات السيارة على هذا الجهاز
+                    <Check className="h-3 w-3 text-emerald-500" /> Véhicule enregistré sur cet appareil
                   </p>
                 )}
               </div>
@@ -834,37 +818,37 @@ export default function AIMechanicClientAR() {
                 <div className="border-t border-white/10 bg-[#080C10]/80 px-3 py-2.5">
                   <div className="flex gap-2 items-center">
                     <textarea value={text} onChange={e => setText(e.target.value)} onKeyDown={handleKey}
-                      placeholder="اطرح سؤال متابعة... (اضغط Enter للإرسال)" rows={1}
+                      placeholder="Posez une question de suivi... (Entrée pour envoyer)" rows={1}
                       className="flex-1 resize-none px-3 py-2 text-sm border border-white/10 rounded-xl bg-white/5 text-white placeholder:text-white/25 focus:outline-none focus:border-emerald-500/40 transition-all leading-relaxed" />
                     <button onClick={handleSubmit} disabled={!hasInput || loading}
                       className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all ${
                         hasInput && !loading ? 'bg-emerald-500 hover:bg-emerald-400 text-white shadow-md shadow-emerald-500/20' : 'bg-white/5 text-white/20 cursor-not-allowed'
                       }`}>
-                      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4 -scale-x-100" />}
+                      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                     </button>
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex gap-2 flex-wrap">
-                      {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="صورة" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="صوت" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
-                      {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="فيديو" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                      {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Photo" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
+                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Son" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                      {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Vidéo" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                       {showAudioUpload && !audioFile && (
                         isRecording ? (
                           <button type="button" onClick={stopRecording}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
                             <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                            {recordingSeconds}ث — إيقاف
+                            {recordingSeconds}s — Arrêter
                           </button>
                         ) : (
                           <button type="button" onClick={startRecording}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
-                            <Mic className="h-3 w-3" /> تسجيل
+                            <Mic className="h-3 w-3" /> Enregistrer
                           </button>
                         )
                       )}
                     </div>
                     <button onClick={startNewChat} className="flex items-center gap-1 text-xs text-white/25 hover:text-emerald-400 transition-colors">
-                      <Plus className="h-3 w-3" /> محادثة جديدة
+                      <Plus className="h-3 w-3" /> Nouvelle conversation
                     </button>
                   </div>
                 </div>
@@ -874,7 +858,7 @@ export default function AIMechanicClientAR() {
             {!hasMessages && (
               <div className="hidden lg:flex items-center justify-end">
                 <button onClick={startNewChat} className="flex items-center gap-1.5 text-xs text-white/25 hover:text-emerald-400 transition-colors">
-                  <Plus className="h-3 w-3" /> ابدأ محادثة جديدة
+                  <Plus className="h-3 w-3" /> Démarrer une nouvelle conversation
                 </button>
               </div>
             )}
