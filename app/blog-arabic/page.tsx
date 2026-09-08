@@ -1,7 +1,31 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { BookText } from 'lucide-react';
 import BlogIndexClientAr from '@/components/blog/BlogIndexClientAr';
+
+export const metadata: Metadata = {
+  title: 'مدونة السيارات — أدلة الشراء والصيانة ونصائح الملكية | Naira Autos',
+  description: 'أدلة خبيرة لشراء السيارات، نصائح الصيانة، وكل ما يخص ملكية السيارة. مقالات عملية لشراء سيارتك والحفاظ عليها وبيعها بثقة.',
+  alternates: {
+    canonical: 'https://www.naira.autos/blog-arabic',
+    languages: {
+      en: 'https://www.naira.autos/blog',
+      es: 'https://www.naira.autos/blog-de-autos',
+      ar: 'https://www.naira.autos/blog-arabic',
+      fr: 'https://www.naira.autos/blog-auto',
+      'x-default': 'https://www.naira.autos/blog',
+    },
+  },
+  openGraph: {
+    title: 'مدونة السيارات — أدلة الشراء والصيانة ونصائح الملكية',
+    description: 'أدلة عملية لشراء السيارات وصيانتها وبيعها بثقة.',
+    url: 'https://www.naira.autos/blog-arabic',
+    siteName: 'Naira Autos',
+    locale: 'ar',
+    type: 'website',
+  },
+};
 
 // ISR: fetch once, cache for 24h — same pattern as blog/page.tsx and
 // blog-de-autos/page.tsx.

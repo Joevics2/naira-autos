@@ -1,7 +1,31 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { BookText } from 'lucide-react';
 import BlogIndexClient from '@/components/blog/BlogIndexClient';
+
+export const metadata: Metadata = {
+  title: 'Car Blog — Buying Guides, Maintenance Tips & Ownership Advice | Naira Autos',
+  description: 'Expert car buying guides, maintenance tips, and ownership advice. Practical, no-nonsense articles to help you buy, maintain, and sell cars with confidence.',
+  alternates: {
+    canonical: 'https://www.naira.autos/blog',
+    languages: {
+      en: 'https://www.naira.autos/blog',
+      es: 'https://www.naira.autos/blog-de-autos',
+      ar: 'https://www.naira.autos/blog-arabic',
+      fr: 'https://www.naira.autos/blog-auto',
+      'x-default': 'https://www.naira.autos/blog',
+    },
+  },
+  openGraph: {
+    title: 'Car Blog — Buying Guides, Maintenance Tips & Ownership Advice | Naira Autos',
+    description: 'Expert car buying guides, maintenance tips, and ownership advice for buying, maintaining, and selling cars with confidence.',
+    url: 'https://www.naira.autos/blog',
+    siteName: 'Naira Autos',
+    locale: 'en',
+    type: 'website',
+  },
+};
 
 // ISR: fetch once, cache for 24h, instead of the previous 'use client' +
 // useEffect version which re-fetched from Supabase in the browser on every

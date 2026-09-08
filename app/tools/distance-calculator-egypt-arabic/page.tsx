@@ -52,6 +52,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'كم المسافة بين الأقصر وأسوان؟', acceptedAnswer: { '@type': 'Answer', text: 'حوالي 229 كم، موثّقة — حوالي 3 ساعات، وهي أكثر رحلة طرق شائعة في صعيد مصر.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
+        { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
+        { '@type': 'ListItem', position: 3, name: 'مصر', item: 'https://www.naira.autos/tools/distance-calculator-egypt-arabic' },
+      ],
+    },
   ],
 };
 

@@ -1,7 +1,31 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { BookText } from 'lucide-react';
 import BlogIndexClientFr from '@/components/blog/BlogIndexClientFr';
+
+export const metadata: Metadata = {
+  title: 'Blog Automobile — Guides d\'Achat, Entretien et Conseils | Naira Autos',
+  description: 'Guides d\'experts pour acheter une voiture, conseils d\'entretien, et tout sur la possession d\'un véhicule. Des articles pratiques pour acheter, entretenir et vendre votre voiture en toute confiance.',
+  alternates: {
+    canonical: 'https://www.naira.autos/blog-auto',
+    languages: {
+      en: 'https://www.naira.autos/blog',
+      es: 'https://www.naira.autos/blog-de-autos',
+      ar: 'https://www.naira.autos/blog-arabic',
+      fr: 'https://www.naira.autos/blog-auto',
+      'x-default': 'https://www.naira.autos/blog',
+    },
+  },
+  openGraph: {
+    title: 'Blog Automobile — Guides d\'Achat, Entretien et Conseils | Naira Autos',
+    description: 'Des articles pratiques pour acheter, entretenir et vendre votre voiture en toute confiance.',
+    url: 'https://www.naira.autos/blog-auto',
+    siteName: 'Naira Autos',
+    locale: 'fr',
+    type: 'website',
+  },
+};
 
 export const revalidate = 86400;
 

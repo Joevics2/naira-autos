@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import {
-  MessageCircle, Phone, Check, ChevronDown, ArrowRight,
+  MessageCircle, Phone, Check, ChevronDown, ChevronRight, ArrowRight, ArrowLeft,
   Shield, Zap, Users, Search, X,
 } from 'lucide-react';
 
@@ -115,6 +116,20 @@ export function SellForMeClient() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
+
+      {/* Breadcrumb */}
+      <div className="relative z-10 max-w-screen-lg mx-auto w-full px-5 pt-5">
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-muted/70 border border-border text-muted-foreground hover:text-foreground transition-all flex-shrink-0" aria-label="Back">
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground">Home</Link>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="text-foreground font-medium">Sell For Me</span>
+          </nav>
+        </div>
+      </div>
 
       {/* ── Hero ── */}
       <section className="relative min-h-[88vh] flex flex-col justify-center px-5 pt-16 pb-12 overflow-hidden">

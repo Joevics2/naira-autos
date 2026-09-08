@@ -52,6 +52,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'هل يوجد جدول مسافات رسمي من الحكومة السعودية؟', acceptedAnswer: { '@type': 'Answer', text: 'لا تنشر وزارة النقل جدول مسافات كاملاً بين كل المدن، لكنها توثّق أطوال 8 طرق رئيسية مسمّاة في المملكة، وهذه الأداة تستخدمها مباشرة لثمانية مسارات موثّقة.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
+        { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
+        { '@type': 'ListItem', position: 3, name: 'السعودية', item: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic' },
+      ],
+    },
   ],
 };
 

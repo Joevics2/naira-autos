@@ -65,6 +65,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built with real town lists, coordinates, and a verified distance reference researched directly, rather than a generic placeholder — that takes time to do properly. More countries are added as that research is completed.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Distance Calculator', item: 'https://www.naira.autos/tools/distance-calculator-countries' },
+      ],
+    },
   ],
 };
 

@@ -52,6 +52,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built with the actual current fee schedule researched directly from the relevant road authority, rather than a generic estimate — that takes time to verify properly. More countries are added as that research is completed.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Registration Fee Calculator', item: 'https://www.naira.autos/tools/registration-fee-calculator-countries' },
+      ],
+    },
   ],
 };
 

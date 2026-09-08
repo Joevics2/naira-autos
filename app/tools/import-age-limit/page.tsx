@@ -48,6 +48,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built with the actual current statute or customs regulation researched directly, rather than a generic assumption — that takes time to verify properly. More countries are added as that research is completed.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Import Age Limit', item: 'https://www.naira.autos/tools/import-age-limit' },
+      ],
+    },
   ],
 };
 

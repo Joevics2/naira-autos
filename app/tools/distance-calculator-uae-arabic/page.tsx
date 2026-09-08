@@ -47,6 +47,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'هل يوجد جدول مسافات رسمي من حكومة الإمارات؟', acceptedAnswer: { '@type': 'Answer', text: 'البوابة الرسمية u.ae تسمّي الطرق السريعة الرئيسية لكنها لا تنشر جدول مسافات بين المدن. المسارات الموثّقة في هذه الأداة مصدرها مصادر مستقلة متقاطعة بدلاً من ذلك.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
+        { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
+        { '@type': 'ListItem', position: 3, name: 'الإمارات', item: 'https://www.naira.autos/tools/distance-calculator-uae-arabic' },
+      ],
+    },
   ],
 };
 

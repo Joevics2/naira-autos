@@ -28,6 +28,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Each country page is built by researching that country\u2019s actual renewal process and official portal directly, rather than assuming a generic process — that takes time to verify properly. More countries are added as that research is completed.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Vehicle License', item: 'https://www.naira.autos/tools/vehicle-license' },
+      ],
+    },
   ],
 };
 

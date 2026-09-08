@@ -46,6 +46,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'هل يوجد جدول مسافات رسمي من الحكومة القطرية؟', acceptedAnswer: { '@type': 'Answer', text: 'لا يوجد جدول عام بين كل المدن، لكن أشغال توثّق أطوال مشاريع الطرق الكبرى مثل طريق الخور الساحلي، وتُستخدم هنا مباشرة.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
+        { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
+        { '@type': 'ListItem', position: 3, name: 'قطر', item: 'https://www.naira.autos/tools/distance-calculator-qatar-arabic' },
+      ],
+    },
   ],
 };
 

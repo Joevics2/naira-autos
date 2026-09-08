@@ -14,6 +14,13 @@ const jsonLd = {
       isPartOf: { '@id': 'https://www.naira.autos' },
     },
     {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Sell For Me', item: 'https://www.naira.autos/sell-for-me' },
+      ],
+    },
+    {
       '@type': 'Service',
       '@id': 'https://www.naira.autos/sell-for-me#sell-service',
       name: 'Sell For Me',

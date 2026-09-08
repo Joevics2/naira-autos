@@ -55,6 +55,14 @@ const SCHEMA = {
       ],
     },
     { '@type': 'SoftwareApplication', name: 'Verificación Gratuita de Número de Chasis', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0' } },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
+        { '@type': 'ListItem', position: 3, name: 'Verificar Número de Chasis', item: 'https://www.naira.autos/tools/verificar-numero-de-chasis' },
+      ],
+    },
   ],
 };
 

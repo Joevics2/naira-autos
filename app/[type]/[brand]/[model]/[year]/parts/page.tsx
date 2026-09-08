@@ -103,10 +103,25 @@ export default async function PartsPage({ params }: { params: Params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',
-          '@type': 'Article',
-          headline: `${carLabel} Spare Parts & Pricing Guide`,
-          description: `Spare parts prices and availability for the ${carLabel}.`,
-          publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+          '@graph': [
+            {
+              '@type': 'Article',
+              headline: `${carLabel} Spare Parts & Pricing Guide`,
+              description: `Spare parts prices and availability for the ${carLabel}.`,
+              publisher: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+            },
+            {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+                { '@type': 'ListItem', position: 2, name: typeInfo.plural, item: 'https://www.naira.autos/vehicles' },
+                { '@type': 'ListItem', position: 3, name: record.brand_name },
+                { '@type': 'ListItem', position: 4, name: record.model_name, item: `https://www.naira.autos/${params.type}/${params.brand}/${params.model}` },
+                { '@type': 'ListItem', position: 5, name: params.year },
+                { '@type': 'ListItem', position: 6, name: 'Parts', item: `https://www.naira.autos/${params.type}/${params.brand}/${params.model}/${params.year}/parts` },
+              ],
+            },
+          ],
         })}}
       />
 

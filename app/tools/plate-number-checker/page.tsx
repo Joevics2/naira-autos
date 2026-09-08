@@ -47,6 +47,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Why is my country not available yet?', acceptedAnswer: { '@type': 'Answer', text: 'Every country\u2019s plate format and regional coding system is different, so each country page here is built by researching that specific system directly rather than guessing at a pattern. More countries are added as that research is completed.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Plate Number Checker', item: 'https://www.naira.autos/tools/plate-number-checker' },
+      ],
+    },
   ],
 };
 

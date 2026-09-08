@@ -53,6 +53,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I use the Nigeria calculator for a rough estimate in another country?', acceptedAnswer: { '@type': 'Answer', text: 'The underlying math works for any currency, but the country-specific pages add locally accurate context — typical interest rates, down payment requirements, and lender practices — that a generic calculation won\u2019t capture. Use a live country page for the most accurate picture of your own market.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Auto Loan Calculator', item: 'https://www.naira.autos/tools/auto-loan-calculator-countries' },
+      ],
+    },
   ],
 };
 

@@ -55,6 +55,14 @@ const SCHEMA = {
         { '@type': 'Question', name: '¿Cuál es el kilometraje promedio por año?', acceptedAnswer: { '@type': 'Answer', text: 'A nivel general, entre 15.000 y 20.000 kilómetros al año se considera un uso típico, aunque varía bastante según el país — el tráfico, la disponibilidad de transporte público y la distancia de los trayectos diarios influyen mucho en esta cifra.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
+        { '@type': 'ListItem', position: 3, name: 'Calculadora de Kilometraje', item: 'https://www.naira.autos/tools/calculadora-de-kilometraje' },
+      ],
+    },
   ],
 };
 

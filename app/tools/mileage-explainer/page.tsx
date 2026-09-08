@@ -54,6 +54,14 @@ const SCHEMA = {
         { '@type': 'Question', name: 'How do I know if a car\'s mileage is genuine?', acceptedAnswer: { '@type': 'Answer', text: 'Compare the odometer reading against the car\'s service history, MOT/inspection records, and a VIN or chassis number check, which often logs recorded mileage at past inspections. A reading that\'s implausibly low for the car\'s age is a common sign of odometer rollback.' } },
       ],
     },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.naira.autos' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.naira.autos/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Mileage Explainer', item: 'https://www.naira.autos/tools/mileage-explainer' },
+      ],
+    },
   ],
 };
 
