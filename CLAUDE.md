@@ -46,7 +46,7 @@ LTR shape:
   visually left, so "back" points right. (Confirmed by existing convention:
   `ArrowLeft` is used for "forward/view all" actions in `app/home-arabic/page.tsx`.)
 - Breadcrumb separator is `ChevronLeft`, not `ChevronRight` — matches the
-  existing convention in `app/tools/ai-mechanic-arabic/page.tsx`.
+  existing convention in `app/adawat/ai-mechanic-arabic/page.tsx`.
 - Breadcrumb items read in natural Arabic order: الرئيسية → الأدوات → current
   page.
 
@@ -100,6 +100,16 @@ new page:
 - If a visible cross-language link makes sense on the page (e.g. "Read in
   English →"), add it — but this doesn't replace `alternates.languages`,
   it's in addition to it.
+
+### Path convention: non-English tool pages live under their own language's index, not `/tools`
+
+Tool pages moved away from `/tools/<name>` for non-English languages: a
+Spanish tool lives at `/herramientas/<name>`, Arabic at `/adawat/<name>`,
+French at `/outils/<name>`, Portuguese at `/ferramentas/<name>`. Only
+English tool pages stay under `/tools/`. If you move an existing page to
+follow this, add a permanent redirect in `next.config.js` from the old
+path (see the `movedToolPageRedirects` block there for the pattern) — the
+old URL may already be indexed/linked externally.
 
 ## Quick pre-commit checklist for any new/edited page
 
