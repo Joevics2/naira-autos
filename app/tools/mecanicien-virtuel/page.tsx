@@ -13,6 +13,7 @@ export const metadata: Metadata = {
       'es': 'https://www.naira.autos/tools/mecanico-virtual',
       'ar': 'https://www.naira.autos/tools/ai-mechanic-arabic',
       'fr': 'https://www.naira.autos/tools/mecanicien-virtuel',
+      'pt': 'https://www.naira.autos/tools/meu-mecanico-virtual',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },

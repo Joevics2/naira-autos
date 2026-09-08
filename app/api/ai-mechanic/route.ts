@@ -121,6 +121,7 @@ const LANGUAGE_NAMES: Record<string, string> = {
   es: 'Spanish',
   ar: 'Arabic',
   fr: 'French',
+  pt: 'Portuguese',
 };
 
 export async function POST(req: NextRequest) {
@@ -188,6 +189,10 @@ export async function POST(req: NextRequest) {
 
       if (language === 'fr') {
         textPrompt += `\n\nWrite in standard, neutral French that reads naturally to both a French reader in France and a French-speaking reader in Quebec/Canada — not a word-for-word machine translation. Use the real terms a French-speaking mechanic actually uses (e.g. panne, voyant, calculateur, plaquettes de frein, courroie, embrayage), not invented or overly literal renderings of the English terms. Avoid English loanwords used informally (e.g. don't write "break" for brakes), and avoid heavy regional slang from either France or Quebec (e.g. no "char" for car, no French verlan) — stay in the professional/technical register used in real automotive writing on both sides of the Atlantic. Keep car brand and model names as they are (e.g. Toyota Corolla). If the vehicle details or description signal a specific country — France or Canada — weight the diagnosis with that market's known conditions where relevant (road salt accelerating rust and brake-line corrosion in Canadian winters, extreme cold affecting battery and diesel performance in Quebec, French inspection/"contrôle technique" requirements) — but never assume a default country when nothing indicates one.`;
+      }
+
+      if (language === 'pt') {
+        textPrompt += `\n\nWrite in Brazilian Portuguese (não Português europeu) — this is by far the largest Portuguese-speaking automotive market, and European Portuguese vocabulary/verb conjugation reads as noticeably foreign to a Brazilian reader. Use the real terms a Brazilian mechanic actually uses (e.g. pane, painel, câmbio, pastilha de freio, correia, embreagem, chiado, batida), not invented or overly literal renderings of the English terms, and not European Portuguese equivalents (e.g. write "câmbio" not "caixa de velocidades", "pneu" as normal, don't use European constructions like "está a fazer"). Keep car brand and model names as they are (e.g. Toyota Corolla). Write in the natural, direct register of real Brazilian automotive content — not stiff or overly formal.`;
       }
     }
 

@@ -578,6 +578,9 @@ export default function AIMechanicClientFR() {
             <Link href="/tools/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               → بالعربية
             </Link>
+            <Link href="/tools/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Ler em Português →
+            </Link>
           </div>
         </div>
 
