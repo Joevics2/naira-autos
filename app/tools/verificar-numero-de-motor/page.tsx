@@ -257,7 +257,7 @@ export default function VerificarNumeroDeMotorPage() {
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Decodificador de VIN</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>
-              <Link href="/tools/mecanico-virtual" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link href="/herramientas/mecanico-virtual" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mecánico Virtual con IA</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>

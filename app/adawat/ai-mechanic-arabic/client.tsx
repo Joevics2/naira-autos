@@ -585,11 +585,14 @@ export default function AIMechanicClientAR() {
             <span className="text-white/50">ميكانيكي الذكاء الاصطناعي</span>
           </nav>
           <div className="flex items-center gap-3 mr-auto">
-            <Link href="/tools/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/herramientas/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Español
             </Link>
-            <Link href="/tools/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/outils/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Français
+            </Link>
+            <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Português
             </Link>
             <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               اقرأ بالإنجليزية ←

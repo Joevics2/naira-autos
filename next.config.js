@@ -33,9 +33,23 @@ const nextConfig = {
       { source: `/${type}/:brand`, destination: '/vehicles', permanent: true },
     ]);
 
+    // AI Mechanic tool pages moved out from under the English /tools/
+    // prefix into their own native-language tools folder, so each
+    // language's tool lives under that language's own index
+    // (/herramientas, /adawat, /outils, /ferramentas) instead of the
+    // English word. All four were live under the old path before this
+    // change, so redirect permanently rather than 404.
+    const movedToolPageRedirects = [
+      { source: '/tools/mecanico-virtual', destination: '/herramientas/mecanico-virtual', permanent: true },
+      { source: '/tools/ai-mechanic-arabic', destination: '/adawat/ai-mechanic-arabic', permanent: true },
+      { source: '/tools/mecanicien-virtuel', destination: '/outils/mecanicien-virtuel', permanent: true },
+      { source: '/tools/meu-mecanico-virtual', destination: '/ferramentas/meu-mecanico-virtual', permanent: true },
+    ];
+
     return [
       ...mergedDocumentTemplateRedirects,
       ...disabledVehicleListingRedirects,
+      ...movedToolPageRedirects,
     ];
   },
 };

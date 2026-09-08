@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { TOOLS_ES } from '@/lib/tools-list-es';
+import { TOOLS_PT } from '@/lib/tools-list-pt';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
@@ -13,29 +13,22 @@ type LatestPost = {
   featured_image: string | null;
 };
 
-// ISR: revalidate once every 24h so newly-published blog posts show up in
-// the "latest posts" section within a day, instead of hitting Supabase on
-// every single request. (Note: unlike app/page.tsx, this page actually
-// queries Supabase directly, so it belongs in the same caching fix as the
-// blog/documents/vehicle pages — the English homepage's force-dynamic is
-// for an unrelated PWA-manifest-staleness reason and doesn't touch Supabase
-// at all, so it was left alone.)
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Naira Autos en Español — Herramientas Gratis para tu Auto',
-  description: 'Herramientas automotrices gratuitas en español — mecánico virtual con IA, calculadora de kilometraje, verificación de número de chasis, y más. Sin registro, sin costo.',
-  keywords: 'herramientas para autos gratis, mecánico virtual, calculadora de kilometraje, número de chasis, naira autos español',
+  title: 'Naira Autos em Português — Ferramentas Grátis para Carros',
+  description: 'Ferramentas grátis para carros em português — mecânico virtual com IA, e outras ferramentas em breve. Sem cadastro, sem nenhum custo.',
+  keywords: 'ferramentas grátis para carros, mecânico virtual, mecânico IA, Naira Autos em português',
   openGraph: {
-    title: 'Naira Autos en Español',
-    description: 'Herramientas gratuitas para comprar, vender y mantener tu auto — en español, sin registro.',
-    url: 'https://www.naira.autos/inicio',
+    title: 'Naira Autos em Português',
+    description: 'Ferramentas grátis para comprar, vender e cuidar do seu carro — em português, sem cadastro.',
+    url: 'https://www.naira.autos/pagina-inicial',
     siteName: 'Naira Autos',
-    locale: 'es',
+    locale: 'pt_BR',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.naira.autos/inicio',
+    canonical: 'https://www.naira.autos/pagina-inicial',
     languages: {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
@@ -50,10 +43,10 @@ export const metadata: Metadata = {
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Naira Autos en Español',
-  description: 'Herramientas automotrices gratuitas en español — mecánico virtual con IA, calculadora de kilometraje, verificación de número de chasis, y más.',
-  url: 'https://www.naira.autos/inicio',
-  inLanguage: 'es',
+  name: 'Naira Autos em Português',
+  description: 'Ferramentas grátis para carros em português — mecânico virtual com IA, e outras ferramentas em breve.',
+  url: 'https://www.naira.autos/pagina-inicial',
+  inLanguage: 'pt-BR',
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
@@ -61,16 +54,12 @@ const SCHEMA = {
   },
 };
 
-export default async function InicioPage() {
-  // Latest Spanish blog posts — hidden entirely when none exist yet,
-  // same "never show it half-empty" rule as everything else on the site.
-  // Appears automatically the moment the first Spanish post is published,
-  // no code change needed.
+export default async function HomePortuguesePage() {
   const { data: latestPosts } = await supabase
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image')
     .eq('published', true)
-    .eq('language', 'es')
+    .eq('language', 'pt')
     .order('created_at', { ascending: false })
     .limit(3);
 
@@ -79,7 +68,7 @@ export default async function InicioPage() {
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <h1 className="sr-only">Naira Autos en Español — Herramientas Gratis para tu Auto</h1>
+      <h1 className="sr-only">Naira Autos em Português — Ferramentas Grátis para Carros</h1>
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -87,52 +76,43 @@ export default async function InicioPage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Sitio en Español
+              Site em Português
             </span>
             <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Read in English →
-            </Link>
-            <Link href="/home-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              → بالعربية
-            </Link>
-            <Link href="/accueil" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Lire en Français →
-            </Link>
-            <Link href="/pagina-inicial" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Ler em Português →
+              English
             </Link>
           </div>
           <p
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
-            HERRAMIENTAS<br /><span className="text-emerald-400">PARA TU AUTO</span>
+            Ferramentas<br /><span className="text-emerald-400">para o seu carro</span>
           </p>
           <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl leading-relaxed mb-3">
-            Naira Autos ofrece herramientas gratuitas para quienes compran, venden o le dan mantenimiento a un auto — un mecánico virtual con inteligencia artificial, calculadoras y verificadores de datos del vehículo, sin registro y sin costo.
+            A Naira Autos oferece ferramentas grátis para quem compra, vende ou cuida do próprio carro — um mecânico virtual com IA, calculadoras e verificadores de dados do veículo, sem cadastro e sem nenhum custo.
           </p>
           <p className="text-white/50 text-sm max-w-2xl leading-relaxed">
-            Empezamos atendiendo el mercado nigeriano, y ahora estamos llevando las mismas herramientas a más países e idiomas. Esta sección en español está creciendo — seguiremos agregando herramientas, guías y artículos con el tiempo.
+            Começamos atendendo o mercado nigeriano, e agora estamos levando as mesmas ferramentas para mais países e idiomas — incluindo o Brasil. Essa seção em português está no começo, e vamos continuar adicionando ferramentas e artigos com o tempo.
           </p>
         </div>
       </div>
 
-      {/* ── Featured Spanish tools ── */}
+      {/* ── Featured Portuguese tools ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="font-black uppercase text-foreground leading-none"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
           >
-            Herramientas Disponibles
+            Ferramentas disponíveis
           </h2>
-          <Link href="/herramientas" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link href="/ferramentas" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             Ver todas <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {TOOLS_ES.map((tool) => {
+          {TOOLS_PT.map((tool) => {
             const Icon = tool.icon;
             return (
               <Link
@@ -160,7 +140,7 @@ export default async function InicioPage() {
         </div>
       </div>
 
-      {/* ── Últimos Artículos (solo si hay contenido publicado) ── */}
+      {/* ── Latest posts (only if Portuguese content exists) ── */}
       {posts.length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
           <div className="flex items-center justify-between mb-6">
@@ -168,9 +148,9 @@ export default async function InicioPage() {
               className="font-black uppercase text-foreground leading-none"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Últimos Artículos
+              Últimos artigos
             </h2>
-            <Link href="/blog-de-autos" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link href="/blog-de-carros" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               Ver todos <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -178,7 +158,7 @@ export default async function InicioPage() {
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/blog-de-autos/${post.slug}`}
+                href={`/blog-de-carros/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
               >
                 <div className="aspect-video overflow-hidden">
@@ -199,7 +179,7 @@ export default async function InicioPage() {
         </div>
       )}
 
-      {/* ── Qué es Naira Autos ── */}
+      {/* ── About Naira Autos ── */}
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-14">
           <div className="max-w-2xl">
@@ -207,13 +187,13 @@ export default async function InicioPage() {
               className="font-black uppercase text-foreground leading-none mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              ¿Qué es Naira Autos?
+              O que é a Naira Autos?
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Naira Autos es una plataforma de herramientas automotrices gratuitas pensada para resolver problemas reales al comprar, vender o mantener un auto — sin necesidad de crear una cuenta ni pagar nada.
+              A Naira Autos é uma plataforma de ferramentas grátis para resolver problemas reais na hora de comprar, vender ou cuidar de um carro — sem precisar criar conta ou pagar nada.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Esta versión en español está en sus primeras etapas. Por ahora incluye {TOOLS_ES.length} herramientas gratuitas — un mecánico virtual con inteligencia artificial, tasación de autos por foto, calculadora de kilometraje y verificación de VIN/chasis entre ellas — e iremos sumando más herramientas, artículos y contenido con el tiempo.
+              Essa seção em português está no começo. Atualmente tem {TOOLS_PT.length} ferramenta grátis — um mecânico virtual com IA, feito em português brasileiro de verdade — e vamos adicionar mais ferramentas e artigos com o tempo.
             </p>
           </div>
         </div>

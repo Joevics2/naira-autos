@@ -59,6 +59,9 @@ export default async function BlogPage() {
             <Link href="/blog-auto" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
               Lire en Français →
             </Link>
+            <Link href="/blog-de-carros" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              Ler em Português →
+            </Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Naira Autos Blog</h1>
           <p className="text-white/80 max-w-2xl">

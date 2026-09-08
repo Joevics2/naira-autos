@@ -27,7 +27,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'الذكاء الاصطناعي والأدوات الذكية',
   },
   {
-    href: '/tools/ai-mechanic-arabic',
+    href: '/adawat/ai-mechanic-arabic',
     icon: Wrench,
     label: 'ميكانيكي افتراضي بالذكاء الاصطناعي',
     description: 'صف عطل سيارتك أو ارفع صورة أو صوتًا واحصل على تشخيص فوري مع تقدير تكلفة الإصلاح.',

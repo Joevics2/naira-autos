@@ -9,19 +9,20 @@ export const metadata: Metadata = {
   title: 'ميكانيكي افتراضي بالذكاء الاصطناعي — تشخيص أعطال السيارة مجانًا | Naira Autos',
   description: 'ميكانيكي افتراضي مجاني بالذكاء الاصطناعي. صف عطل سيارتك، أو ارفع صورة أو صوت المحرك أو فيديو، واحصل على تشخيص فوري مع تقدير تكلفة الإصلاح. بدون تسجيل، ويعمل في مصر والسعودية والإمارات وقطر وأي مكان آخر.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/ai-mechanic-arabic',
+    canonical: 'https://www.naira.autos/adawat/ai-mechanic-arabic',
     languages: {
       'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/tools/mecanico-virtual',
-      'ar': 'https://www.naira.autos/tools/ai-mechanic-arabic',
-      'fr': 'https://www.naira.autos/tools/mecanicien-virtuel',
+      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
+      'ar': 'https://www.naira.autos/adawat/ai-mechanic-arabic',
+      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
+      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },
   openGraph: {
     title: 'Axion — ميكانيكي افتراضي مجاني بالذكاء الاصطناعي | Naira Autos',
     description: 'تشخيص فوري لسيارتك أونلاين، أينما كنت. ارفع صوت المحرك أو صورة أو صف العطل. احصل على درجة الخطورة، الأسباب المحتملة، خطوات يمكنك تنفيذها بنفسك، وتقدير تكلفة الإصلاح. مجاني تمامًا، بدون تسجيل.',
-    url: 'https://www.naira.autos/tools/ai-mechanic-arabic',
+    url: 'https://www.naira.autos/adawat/ai-mechanic-arabic',
   },
   keywords: ['ميكانيكي اونلاين','ميكانيكي افتراضي','تشخيص أعطال السيارة','تشخيص السيارة بالذكاء الاصطناعي','اسأل ميكانيكي اونلاين','عطل السيارة','تكلفة إصلاح السيارة','ميكانيكي سيارات مجاني','ميكانيكي اونلاين مصر','ميكانيكي اونلاين السعودية','ميكانيكي اونلاين الإمارات','ميكانيكي اونلاين قطر','تشخيص عطل السيارة بالصوت','فحص السيارة اونلاين'],
 };
@@ -33,10 +34,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/ai-mechanic-arabic',
+      '@id': 'https://www.naira.autos/adawat/ai-mechanic-arabic',
       name: 'ميكانيكي افتراضي بالذكاء الاصطناعي — تشخيص أعطال السيارة مجانًا',
       description: 'ميكانيكي افتراضي مجاني بالذكاء الاصطناعي. ارفع صوت المحرك، صورة، أو صف العطل. احصل على تشخيص فوري مع درجة خطورة وتقدير تكلفة الإصلاح.',
-      url: 'https://www.naira.autos/tools/ai-mechanic-arabic',
+      url: 'https://www.naira.autos/adawat/ai-mechanic-arabic',
       inLanguage: 'ar',
       dateModified: '2026-09-06',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -44,9 +45,9 @@ const SCHEMA = {
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos' },
-          { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/tools' },
-          { '@type': 'ListItem', position: 3, name: 'ميكانيكي الذكاء الاصطناعي', item: 'https://www.naira.autos/tools/ai-mechanic-arabic' },
+          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
+          { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
+          { '@type': 'ListItem', position: 3, name: 'ميكانيكي الذكاء الاصطناعي', item: 'https://www.naira.autos/adawat/ai-mechanic-arabic' },
         ],
       },
     },
@@ -101,7 +102,7 @@ const SCHEMA = {
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
       description: 'ميكانيكي افتراضي مجاني بالذكاء الاصطناعي. صف العطل، ارفع صوت المحرك أو صورة، واحصل على تشخيص فوري مع تقدير تكلفة إصلاح — يأخذ في الاعتبار ظروف القيادة في مصر ودول الخليج.',
-      url: 'https://www.naira.autos/tools/ai-mechanic-arabic',
+      url: 'https://www.naira.autos/adawat/ai-mechanic-arabic',
       inLanguage: 'ar',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     },

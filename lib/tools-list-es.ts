@@ -35,7 +35,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'IA y Herramientas Inteligentes',
   },
   {
-    href: '/tools/mecanico-virtual',
+    href: '/herramientas/mecanico-virtual',
     icon: Wrench,
     label: 'Mecánico Virtual con IA',
     description: 'Describe el problema o sube una foto y recibe un diagnóstico instantáneo con estimado de costo de reparación.',

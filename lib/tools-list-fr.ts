@@ -17,7 +17,7 @@ export type ToolFr = {
 
 export const TOOLS_FR: ToolFr[] = [
   {
-    href: '/tools/mecanicien-virtuel',
+    href: '/outils/mecanicien-virtuel',
     icon: Wrench,
     label: 'Mécanicien Virtuel IA',
     description: 'Décrivez la panne ou téléchargez une photo ou un son, et obtenez un diagnostic instantané avec estimation du coût de réparation.',
