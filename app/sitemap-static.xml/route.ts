@@ -28,13 +28,15 @@ const staticPages = [
   { url: '/herramientas/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
   { url: '/adawat/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/outils/combien-vaut-ma-voiture',       priority: 0.9, changefreq: 'weekly'  },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge intentionally NOT added yet —
   // Arabic has 2 live tools (ai-mechanic-arabic, kam-qeemat-sayarati),
-  // French, Portuguese, and German have 1 each (mecanicien-virtuel,
-  // meu-mecanico-virtual, virtueller-mechaniker), all still under
+  // French now has 2 (mecanicien-virtuel, combien-vaut-ma-voiture),
+  // Portuguese and German have 1 each (meu-mecanico-virtual,
+  // virtueller-mechaniker), all still under
   // the ~5-tool threshold used for /herramientas above. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros, and

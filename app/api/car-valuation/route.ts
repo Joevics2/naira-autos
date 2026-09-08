@@ -281,17 +281,18 @@ async function analyzeAndPriceWithGemini(
 
   const currentYear = new Date().getFullYear();
   const isNigeria = vc.code === 'ng';
-  const isSpanish = lang === 'es';
-  const isArabic = lang === 'ar';
 
   // Only the free-text fields get translated. Enum-like fields (bodyType,
   // vehicleType, fuelType, transmission, confidence, estimatedCarType) must
   // stay in English regardless of lang — the frontend matches on their
   // exact English values (e.g. result.confidence === 'High').
-  const languageInstruction = isSpanish
-    ? `\nLANGUAGE: Write "description", "bodyGradeReason", "disclaimer", and every string inside "valuationFactors" in natural, fluent Spanish. Keep every other field — bodyType, vehicleType, fuelType, transmission, confidence, estimatedCarType, and all JSON keys — in English exactly as specified below; do not translate those.\n`
-    : isArabic
-    ? `\nLANGUAGE: Write "description", "bodyGradeReason", "disclaimer", and every string inside "valuationFactors" in natural, fluent Modern Standard Arabic, easily understood by speakers across the Arab world (avoid narrow regional dialect). Keep every other field — bodyType, vehicleType, fuelType, transmission, confidence, estimatedCarType, and all JSON keys — in English exactly as specified below; do not translate those.\n`
+  const LANGUAGE_NAMES: Record<string, string> = {
+    es: 'natural, fluent Spanish',
+    ar: 'natural, fluent Modern Standard Arabic, easily understood by speakers across the Arab world (avoid narrow regional dialect)',
+    fr: 'natural, fluent French',
+  };
+  const languageInstruction = lang && LANGUAGE_NAMES[lang]
+    ? `\nLANGUAGE: Write "description", "bodyGradeReason", "disclaimer", and every string inside "valuationFactors" in ${LANGUAGE_NAMES[lang]}. Keep every other field — bodyType, vehicleType, fuelType, transmission, confidence, estimatedCarType, and all JSON keys — in English exactly as specified below; do not translate those.\n`
     : '';
 
   const serpSection = serpDump
