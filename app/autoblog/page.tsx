@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { BookText } from 'lucide-react';
-import BlogIndexClientPt from '@/components/blog/BlogIndexClientPt';
+import BlogIndexClientDe from '@/components/blog/BlogIndexClientDe';
 
 export const revalidate = 86400;
 
@@ -10,12 +10,12 @@ async function getPosts() {
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image, created_at')
     .eq('published', true)
-    .eq('language', 'pt')
+    .eq('language', 'de')
     .order('created_at', { ascending: false });
   return data ?? [];
 }
 
-export default async function BlogPortuguesePage() {
+export default async function BlogGermanPage() {
   const posts = await getPosts();
 
   return (
@@ -26,26 +26,23 @@ export default async function BlogPortuguesePage() {
             <Link href="/blog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
               English
             </Link>
-            <Link href="/autoblog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Deutsch
-            </Link>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Blog da Naira Autos em Português</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Naira Autos Blog auf Deutsch</h1>
           <p className="text-white/80 max-w-2xl">
-            Dicas e guias úteis para comprar e vender carros
+            Nützliche Tipps und Ratgeber zum Kaufen und Verkaufen von Autos
           </p>
           <Link
             href="/tools/glossary"
             className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white text-sm font-semibold rounded-lg px-4 py-2 mt-4 transition-colors"
           >
             <BookText className="h-4 w-4" />
-            Ver glossário automotivo
+            Auto-Glossar ansehen
           </Link>
         </div>
       </div>
 
       <div className="max-w-screen-xl mx-auto px-4 py-8">
-        <BlogIndexClientPt posts={posts} />
+        <BlogIndexClientDe posts={posts} />
       </div>
     </div>
   );

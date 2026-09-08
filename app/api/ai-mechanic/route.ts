@@ -122,6 +122,7 @@ const LANGUAGE_NAMES: Record<string, string> = {
   ar: 'Arabic',
   fr: 'French',
   pt: 'Portuguese',
+  de: 'German',
 };
 
 export async function POST(req: NextRequest) {
@@ -193,6 +194,10 @@ export async function POST(req: NextRequest) {
 
       if (language === 'pt') {
         textPrompt += `\n\nWrite in Brazilian Portuguese (não Português europeu) — this is by far the largest Portuguese-speaking automotive market, and European Portuguese vocabulary/verb conjugation reads as noticeably foreign to a Brazilian reader. Use the real terms a Brazilian mechanic actually uses (e.g. pane, painel, câmbio, pastilha de freio, correia, embreagem, chiado, batida), not invented or overly literal renderings of the English terms, and not European Portuguese equivalents (e.g. write "câmbio" not "caixa de velocidades", "pneu" as normal, don't use European constructions like "está a fazer"). Keep car brand and model names as they are (e.g. Toyota Corolla). Write in the natural, direct register of real Brazilian automotive content — not stiff or overly formal.`;
+      }
+
+      if (language === 'de') {
+        textPrompt += `\n\nWrite in standard German for a German (Germany) reader — not a word-for-word machine translation, and not stiff or overly bureaucratic. Use the real terms a German mechanic actually uses (e.g. Bremsbeläge, Zahnriemen, Kupplung, Motorkontrollleuchte, Zündkerzen, Lichtmaschine, Auspuff, Ölwechsel), not invented compounds or overly literal renderings of the English terms, and avoid unnecessary Denglisch (English loanwords used where a real German term exists) — but keep genuinely standard technical abbreviations as they are (e.g. "TÜV", "OBD"). Keep car brand and model names as they are (e.g. VW Golf). Use the formal "Sie" register throughout, consistent with real German automotive advice content.`;
       }
     }
 

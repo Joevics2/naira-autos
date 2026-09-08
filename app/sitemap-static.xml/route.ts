@@ -29,15 +29,17 @@ const staticPages = [
   { url: '/adawat/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
-  // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial, /ferramentas
-  // intentionally NOT added yet — Arabic has 2 live tools
-  // (ai-mechanic-arabic, kam-qeemat-sayarati), French and Portuguese have
-  // 1 each (mecanicien-virtuel, meu-mecanico-virtual), all still under
+  { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
+  // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
+  // /ferramentas, /startseite, /werkzeuge intentionally NOT added yet —
+  // Arabic has 2 live tools (ai-mechanic-arabic, kam-qeemat-sayarati),
+  // French, Portuguese, and German have 1 each (mecanicien-virtuel,
+  // meu-mecanico-virtual, virtueller-mechaniker), all still under
   // the ~5-tool threshold used for /herramientas above. Add each
   // language's home + tools index once a handful more tool pages ship
-  // in that language. /blog-arabic, /blog-auto, and /blog-de-carros held
-  // back for the same reason as /blog-de-autos — zero posts published
-  // yet in any of the three.
+  // in that language. /blog-arabic, /blog-auto, /blog-de-carros, and
+  // /autoblog held back for the same reason as /blog-de-autos — zero posts published
+  // yet in any of the four.
   // /herramientas (Spanish tools index) added below — now at 5 live tools
   // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
   // decodificador-de-vin, verificar-numero-de-chasis), past the ~5

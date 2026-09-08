@@ -30,6 +30,7 @@ export const metadata: Metadata = {
       ar: 'https://www.naira.autos/home-arabic',
       fr: 'https://www.naira.autos/accueil',
       pt: 'https://www.naira.autos/pagina-inicial',
+      de: 'https://www.naira.autos/startseite',
       'x-default': 'https://www.naira.autos/',
     },
   },

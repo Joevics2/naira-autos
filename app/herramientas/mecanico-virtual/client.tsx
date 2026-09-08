@@ -576,6 +576,9 @@ export default function AIMechanicClientES() {
             <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Ler em Português →
             </Link>
+            <Link href="/werkzeuge/virtueller-mechaniker" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Auf Deutsch lesen →
+            </Link>
           </div>
         </div>
 
