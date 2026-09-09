@@ -1,4 +1,4 @@
-import { Wrench } from 'lucide-react';
+import { Wrench, Camera } from 'lucide-react';
 
 // Single source of truth for the Portuguese tools index (/ferramentas).
 // Add an entry here ONLY when that tool's Portuguese page is actually
@@ -16,6 +16,15 @@ export type ToolPt = {
 };
 
 export const TOOLS_PT: ToolPt[] = [
+  {
+    href: '/ferramentas/quanto-vale-meu-carro',
+    icon: Camera,
+    label: 'Quanto Vale Meu Carro?',
+    description: 'Envie uma foto e receba uma avaliação instantânea com IA, na sua moeda local — Brasil, Portugal, Angola, Moçambique e mais.',
+    badge: 'Grátis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'IA e Ferramentas Inteligentes',
+  },
   {
     href: '/ferramentas/meu-mecanico-virtual',
     icon: Wrench,

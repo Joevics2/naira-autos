@@ -11,7 +11,9 @@ export type CurrencyCode =
   | 'DZD' | 'BHD' | 'KMF' | 'DJF' | 'IQD' | 'JOD' | 'LBP' | 'LYD'
   | 'MRU' | 'OMR' | 'SOS' | 'SDG' | 'SYP' | 'TND' | 'YER'
   // Francophone African countries not already covered above
-  | 'XOF' | 'XAF' | 'CDF' | 'MGA';
+  | 'XOF' | 'XAF' | 'CDF' | 'MGA'
+  // Lusophone African countries not already covered above
+  | 'AOA' | 'MZN' | 'CVE';
 
 export const CURRENCIES: { code: CurrencyCode; symbol: string; label: string }[] = [
   { code: 'NGN', symbol: '₦', label: 'Nigerian Naira' },
@@ -75,6 +77,9 @@ export const CURRENCIES: { code: CurrencyCode; symbol: string; label: string }[]
   { code: 'XAF', symbol: 'FCFA', label: 'Central African CFA Franc' },
   { code: 'CDF', symbol: 'FC', label: 'Congolese Franc' },
   { code: 'MGA', symbol: 'Ar', label: 'Malagasy Ariary' },
+  { code: 'AOA', symbol: 'Kz', label: 'Angolan Kwanza' },
+  { code: 'MZN', symbol: 'MT', label: 'Mozambican Metical' },
+  { code: 'CVE', symbol: 'Esc', label: 'Cape Verdean Escudo' },
 ];
 
 export function symbolFor(code: CurrencyCode): string {
@@ -130,6 +135,11 @@ export const VALUATION_COUNTRIES: ValuationCountry[] = [
   { code: 'cm', name: 'Cameroon',       flag: '🇨🇲', currency: 'XAF', roundTo: 50_000,    lowThreshold: 1_800_000,   midThreshold: 6_000_000,    minSpreadLow: 360_000,    minSpreadMid: 720_000,    minSpreadHigh: 1_200_000 },
   { code: 'cd', name: 'DR Congo',       flag: '🇨🇩', currency: 'CDF', roundTo: 200_000,   lowThreshold: 8_400_000,   midThreshold: 28_000_000,   minSpreadLow: 1_700_000,  minSpreadMid: 3_350_000,  minSpreadHigh: 5_600_000 },
   { code: 'mg', name: 'Madagascar',     flag: '🇲🇬', currency: 'MGA', roundTo: 500_000,   lowThreshold: 13_500_000,  midThreshold: 45_000_000,   minSpreadLow: 2_700_000,  minSpreadMid: 5_400_000,  minSpreadHigh: 9_000_000 },
+  // ── Lusophone Africa ──
+  { code: 'ao', name: 'Angola',         flag: '🇦🇴', currency: 'AOA', roundTo: 50_000,    lowThreshold: 2_850_000,   midThreshold: 9_500_000,    minSpreadLow: 570_000,    minSpreadMid: 1_140_000,  minSpreadHigh: 1_900_000 },
+  { code: 'mz', name: 'Mozambique',     flag: '🇲🇿', currency: 'MZN', roundTo: 5_000,     lowThreshold: 192_000,     midThreshold: 640_000,      minSpreadLow: 38_000,     minSpreadMid: 77_000,     minSpreadHigh: 128_000 },
+  { code: 'cv', name: 'Cape Verde',     flag: '🇨🇻', currency: 'CVE', roundTo: 10_000,    lowThreshold: 300_000,     midThreshold: 1_000_000,    minSpreadLow: 60_000,     minSpreadMid: 120_000,    minSpreadHigh: 200_000 },
+  { code: 'gw', name: 'Guinea-Bissau',  flag: '🇬🇼', currency: 'XOF', roundTo: 50_000,    lowThreshold: 1_800_000,   midThreshold: 6_000_000,    minSpreadLow: 360_000,    minSpreadMid: 720_000,    minSpreadHigh: 1_200_000 },
   // ── North America ──
   { code: 'us', name: 'United States',  flag: '🇺🇸', currency: 'USD', roundTo: 100,       lowThreshold: 3_000,       midThreshold: 10_000,       minSpreadLow: 600,        minSpreadMid: 1_200,      minSpreadHigh: 2_000 },
   { code: 'ca', name: 'Canada',         flag: '🇨🇦', currency: 'CAD', roundTo: 100,       lowThreshold: 3_500,       midThreshold: 12_000,       minSpreadLow: 700,        minSpreadMid: 1_400,      minSpreadHigh: 2_200 },
