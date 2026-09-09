@@ -291,6 +291,7 @@ async function analyzeAndPriceWithGemini(
     ar: 'natural, fluent Modern Standard Arabic, easily understood by speakers across the Arab world (avoid narrow regional dialect)',
     fr: 'natural, fluent French',
     pt: 'natural, fluent Portuguese (neutral enough to read naturally to both Brazilian and European Portuguese speakers)',
+    de: 'natural, fluent German, using the formal "Sie" register',
   };
   const languageInstruction = lang && LANGUAGE_NAMES[lang]
     ? `\nLANGUAGE: Write "description", "bodyGradeReason", "disclaimer", and every string inside "valuationFactors" in ${LANGUAGE_NAMES[lang]}. Keep every other field — bodyType, vehicleType, fuelType, transmission, confidence, estimatedCarType, and all JSON keys — in English exactly as specified below; do not translate those.\n`

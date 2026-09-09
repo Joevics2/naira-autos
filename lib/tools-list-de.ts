@@ -1,4 +1,4 @@
-import { Wrench } from 'lucide-react';
+import { Wrench, Camera } from 'lucide-react';
 
 // Single source of truth for the German tools index (/werkzeuge).
 // Add an entry here ONLY when that tool's German page is actually
@@ -16,6 +16,15 @@ export type ToolDe = {
 };
 
 export const TOOLS_DE: ToolDe[] = [
+  {
+    href: '/werkzeuge/was-ist-mein-auto-wert',
+    icon: Camera,
+    label: 'Was ist mein Auto wert?',
+    description: 'Laden Sie ein Foto hoch und erhalten Sie sofort eine KI-Bewertung in Ihrer lokalen Währung — Deutschland, Österreich und die Schweiz.',
+    badge: 'Kostenlos',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'KI und intelligente Werkzeuge',
+  },
   {
     href: '/werkzeuge/virtueller-mechaniker',
     icon: Wrench,
