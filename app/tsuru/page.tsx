@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
-import { TOOLS_PT, CATEGORIES_PT } from '@/lib/tools-list-pt';
+import { TOOLS_JA, CATEGORIES_JA } from '@/lib/tools-list-ja';
 
 export const metadata: Metadata = {
-  title: 'Ferramentas Grátis para Carros | Naira Autos',
-  description: 'Ferramentas grátis para carros em português — mecânico virtual com IA, e outras ferramentas em breve. Tudo grátis e sem cadastro.',
+  title: '無料の車向けツール | Naira Autos',
+  description: '日本語で使える無料の車向けツール。AIメカニックをはじめ、今後さらにツールを追加予定です。すべて無料・登録不要です。',
   alternates: {
-    canonical: 'https://www.naira.autos/ferramentas',
+    canonical: 'https://www.naira.autos/tsuru',
     languages: {
       en: 'https://www.naira.autos/tools',
       es: 'https://www.naira.autos/herramientas',
@@ -19,35 +19,35 @@ export const metadata: Metadata = {
       'x-default': 'https://www.naira.autos/tools',
     },
   },
-  keywords: ['ferramentas grátis para carros', 'mecânico virtual grátis', 'ferramentas de veículos em português', 'mecânico IA'],
+  keywords: ['無料 車ツール', 'AIメカニック 無料', '車 診断 日本語', 'AI診断'],
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  'IA e Ferramentas Inteligentes': 'text-emerald-600 dark:text-emerald-400',
-  'Financeiro': 'text-sky-600 dark:text-sky-400',
-  'Custos e Manutenção': 'text-yellow-600 dark:text-yellow-400',
-  'Verificação': 'text-rose-600 dark:text-rose-400',
-  'Recursos': 'text-violet-600 dark:text-violet-400',
+  'AIと便利ツール': 'text-emerald-600 dark:text-emerald-400',
+  '費用計算': 'text-sky-600 dark:text-sky-400',
+  'メンテナンス': 'text-yellow-600 dark:text-yellow-400',
+  '確認・検証': 'text-rose-600 dark:text-rose-400',
+  'その他のリソース': 'text-violet-600 dark:text-violet-400',
 };
 
 const CATEGORY_BORDER: Record<string, string> = {
-  'IA e Ferramentas Inteligentes': 'hover:border-emerald-500/40 hover:shadow-emerald-500/5',
-  'Financeiro': 'hover:border-sky-500/40 hover:shadow-sky-500/5',
-  'Custos e Manutenção': 'hover:border-yellow-500/40 hover:shadow-yellow-500/5',
-  'Verificação': 'hover:border-rose-500/40 hover:shadow-rose-500/5',
-  'Recursos': 'hover:border-violet-500/40 hover:shadow-violet-500/5',
+  'AIと便利ツール': 'hover:border-emerald-500/40 hover:shadow-emerald-500/5',
+  '費用計算': 'hover:border-sky-500/40 hover:shadow-sky-500/5',
+  'メンテナンス': 'hover:border-yellow-500/40 hover:shadow-yellow-500/5',
+  '確認・検証': 'hover:border-rose-500/40 hover:shadow-rose-500/5',
+  'その他のリソース': 'hover:border-violet-500/40 hover:shadow-violet-500/5',
 };
 
 const ICON_BG: Record<string, string> = {
-  'IA e Ferramentas Inteligentes': 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
-  'Financeiro': 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
-  'Custos e Manutenção': 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
-  'Verificação': 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
-  'Recursos': 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
+  'AIと便利ツール': 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  '費用計算': 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
+  'メンテナンス': 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
+  '確認・検証': 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+  'その他のリソース': 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
 };
 
-export default function ToolsPortuguesePage() {
-  const liveCategories = CATEGORIES_PT.filter((c) => TOOLS_PT.some((t) => t.category === c));
+export default function ToolsJapanesePage() {
+  const liveCategories = CATEGORIES_JA.filter((c) => TOOLS_JA.some((t) => t.category === c));
 
   return (
     <div className="min-h-screen bg-background">
@@ -58,34 +58,28 @@ export default function ToolsPortuguesePage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Ferramentas grátis
+              無料ツール
             </span>
-            <Link href="/pagina-inicial" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Início
+            <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              ホーム
             </Link>
             <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
-            </Link>
-            <Link href="/werkzeuge" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Deutsch
-            </Link>
-            <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
             </Link>
           </div>
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}
           >
-            Central de<br />
-            <span className="text-emerald-400">Ferramentas</span>
+            ツール<br />
+            <span className="text-emerald-400">センター</span>
           </h1>
           <p className="text-white/50 text-base md:text-lg font-light max-w-lg leading-relaxed">
-            Tudo que você precisa para comprar, vender e cuidar do seu carro — de graça, sem cadastro.
+            車の購入・売却・メンテナンスに必要なものが、無料・登録不要で揃っています。
           </p>
           <p className="text-white/30 text-xs mt-3 flex items-center gap-1.5">
             <Globe2 className="h-3 w-3" />
-            Estamos traduzindo mais ferramentas toda semana.
+            毎週、新しいツールを翻訳して追加しています。
           </p>
         </div>
       </div>
@@ -93,7 +87,7 @@ export default function ToolsPortuguesePage() {
       {/* ── Tool categories ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12 space-y-14">
         {liveCategories.map((category) => {
-          const categoryTools = TOOLS_PT.filter(t => t.category === category);
+          const categoryTools = TOOLS_JA.filter(t => t.category === category);
           return (
             <div key={category}>
               <div className="flex items-center gap-3 mb-6">

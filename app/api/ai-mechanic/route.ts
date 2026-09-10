@@ -123,6 +123,7 @@ const LANGUAGE_NAMES: Record<string, string> = {
   fr: 'French',
   pt: 'Portuguese',
   de: 'German',
+  ja: 'Japanese',
 };
 
 export async function POST(req: NextRequest) {
@@ -198,6 +199,10 @@ export async function POST(req: NextRequest) {
 
       if (language === 'de') {
         textPrompt += `\n\nWrite in standard German for a German (Germany) reader — not a word-for-word machine translation, and not stiff or overly bureaucratic. Use the real terms a German mechanic actually uses (e.g. Bremsbeläge, Zahnriemen, Kupplung, Motorkontrollleuchte, Zündkerzen, Lichtmaschine, Auspuff, Ölwechsel), not invented compounds or overly literal renderings of the English terms, and avoid unnecessary Denglisch (English loanwords used where a real German term exists) — but keep genuinely standard technical abbreviations as they are (e.g. "TÜV", "OBD"). Keep car brand and model names as they are (e.g. VW Golf). Use the formal "Sie" register throughout, consistent with real German automotive advice content.`;
+      }
+
+      if (language === 'ja') {
+        textPrompt += `\n\nWrite in natural Japanese for a Japan-based reader — not a word-for-word machine translation. Use the real terms Japanese automotive/repair services actually use (e.g. 故障診断 for fault diagnosis, 修理費用 for repair cost, 見積もり for estimate, 異音 for abnormal noise, ブレーキパッド for brake pads, タイミングベルト for timing belt) — these are common, natural Japanese terms, not invented compounds. "AI" and "AI診断" (AI diagnosis) are themselves standard, widely-used loanword terms in real Japanese automotive-AI products, so keep them as "AI" rather than translating to 人工知能 in casual usage. Use polite, natural desu/masu-style Japanese consistent with real consumer-facing service writing, not overly formal keigo and not casual/rough speech. Keep car brand and model names in Latin script as they normally appear (e.g. Toyota Corolla).`;
       }
     }
 

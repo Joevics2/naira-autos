@@ -15,6 +15,7 @@ export const metadata: Metadata = {
       fr: 'https://www.naira.autos/outils',
       pt: 'https://www.naira.autos/ferramentas',
       de: 'https://www.naira.autos/werkzeuge',
+      ja: 'https://www.naira.autos/tsuru',
       'x-default': 'https://www.naira.autos/tools',
     },
   },
@@ -72,6 +73,9 @@ export default function ToolsPage() {
           </Link>
           <Link href="/werkzeuge" className="ml-2 text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-5 inline-block">
             Auf Deutsch lesen →
+          </Link>
+          <Link href="/tsuru" className="ml-2 text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-5 inline-block">
+            日本語で読む →
           </Link>
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { TOOLS_FR } from '@/lib/tools-list-fr';
+import { TOOLS_JA } from '@/lib/tools-list-ja';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
@@ -16,19 +16,19 @@ type LatestPost = {
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Naira Autos en Français — Outils Auto Gratuits',
-  description: "Outils auto gratuits en français — mécanicien virtuel avec IA, et d'autres outils à venir bientôt. Sans inscription, sans aucun coût.",
-  keywords: 'outils auto gratuits, mécanicien virtuel, mécanicien IA, Naira Autos en français',
+  title: 'Naira Autos 日本語版 — 無料の車向けツール',
+  description: '日本語で使える無料の車向けツール。AIメカニックをはじめ、今後さらにツールを追加予定です。登録不要、費用もかかりません。',
+  keywords: '無料 車ツール, AIメカニック, AI診断, Naira Autos 日本語',
   openGraph: {
-    title: 'Naira Autos en Français',
-    description: 'Outils gratuits pour acheter, vendre et entretenir votre voiture — en français, sans inscription.',
-    url: 'https://www.naira.autos/accueil',
+    title: 'Naira Autos 日本語版',
+    description: '車の購入・売却・メンテナンスに役立つ無料ツール。日本語対応、登録不要。',
+    url: 'https://www.naira.autos/homu',
     siteName: 'Naira Autos',
-    locale: 'fr',
+    locale: 'ja_JP',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.naira.autos/accueil',
+    canonical: 'https://www.naira.autos/homu',
     languages: {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
@@ -45,10 +45,10 @@ export const metadata: Metadata = {
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Naira Autos en Français',
-  description: "Outils auto gratuits en français — mécanicien virtuel avec IA, et d'autres outils à venir bientôt.",
-  url: 'https://www.naira.autos/accueil',
-  inLanguage: 'fr',
+  name: 'Naira Autos 日本語版',
+  description: '日本語で使える無料の車向けツール。AIメカニックをはじめ、今後さらにツールを追加予定です。',
+  url: 'https://www.naira.autos/homu',
+  inLanguage: 'ja',
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
@@ -56,12 +56,12 @@ const SCHEMA = {
   },
 };
 
-export default async function HomeFrenchPage() {
+export default async function HomeJapanesePage() {
   const { data: latestPosts } = await supabase
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image')
     .eq('published', true)
-    .eq('language', 'fr')
+    .eq('language', 'ja')
     .order('created_at', { ascending: false })
     .limit(3);
 
@@ -70,7 +70,7 @@ export default async function HomeFrenchPage() {
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <h1 className="sr-only">Naira Autos en Français — Outils Auto Gratuits</h1>
+      <h1 className="sr-only">Naira Autos 日本語版 — 無料の車向けツール</h1>
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -78,52 +78,43 @@ export default async function HomeFrenchPage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Site en Français
+              日本語対応
             </span>
             <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Read in English →
-            </Link>
-            <Link href="/pagina-inicial" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Português
-            </Link>
-            <Link href="/startseite" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Deutsch
-            </Link>
-            <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
+              English
             </Link>
           </div>
           <p
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
-            Des outils<br /><span className="text-emerald-400">pour votre voiture</span>
+            あなたの車の<br /><span className="text-emerald-400">ためのツール</span>
           </p>
           <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl leading-relaxed mb-3">
-            Naira Autos propose des outils gratuits pour ceux qui achètent, vendent ou entretiennent leur voiture — un mécanicien virtuel avec IA, des calculateurs et vérificateurs de données véhicule, sans inscription et sans aucun coût.
+            Naira Autosは、車を買う・売る・メンテナンスするすべての人のために無料ツールを提供しています。AIメカニック、車両データの計算・確認ツールなど、登録不要・費用ゼロでご利用いただけます。
           </p>
           <p className="text-white/50 text-sm max-w-2xl leading-relaxed">
-            Nous avons commencé au service du marché nigérian, et nous étendons maintenant les mêmes outils à d'autres pays et langues — dont la France et le Canada. Cette section en français en est à ses débuts, et nous continuerons d'ajouter des outils et des articles au fil du temps.
+            もともとナイジェリア市場向けに始まったサービスですが、現在は同じツールを日本を含む他の国・言語にも展開しています。この日本語版はまだ始まったばかりで、今後もツールや記事を追加していきます。
           </p>
         </div>
       </div>
 
-      {/* ── Featured French tools ── */}
+      {/* ── Featured Japanese tools ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="font-black uppercase text-foreground leading-none"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
           >
-            Outils disponibles
+            利用可能なツール
           </h2>
-          <Link href="/outils" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Voir tout <ArrowRight className="h-4 w-4" />
+          <Link href="/tsuru" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            すべて見る <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {TOOLS_FR.map((tool) => {
+          {TOOLS_JA.map((tool) => {
             const Icon = tool.icon;
             return (
               <Link
@@ -151,7 +142,7 @@ export default async function HomeFrenchPage() {
         </div>
       </div>
 
-      {/* ── Latest posts (only if French content exists) ── */}
+      {/* ── Latest posts (only if Japanese content exists) ── */}
       {posts.length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
           <div className="flex items-center justify-between mb-6">
@@ -159,17 +150,17 @@ export default async function HomeFrenchPage() {
               className="font-black uppercase text-foreground leading-none"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Derniers articles
+              最新の記事
             </h2>
-            <Link href="/blog-auto" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-              Voir tout <ArrowRight className="h-4 w-4" />
+            <Link href="/kuruma-burogu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              すべて見る <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/blog-auto/${post.slug}`}
+                href={`/kuruma-burogu/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
               >
                 <div className="aspect-video overflow-hidden">
@@ -198,13 +189,13 @@ export default async function HomeFrenchPage() {
               className="font-black uppercase text-foreground leading-none mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Qu'est-ce que Naira Autos ?
+              Naira Autosとは
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Naira Autos est une plateforme d'outils gratuits pour résoudre de vrais problèmes lors de l'achat, la vente ou l'entretien d'une voiture — sans avoir besoin de créer un compte ou de payer quoi que ce soit.
+              Naira Autosは、車の購入・売却・メンテナンスにおける本当の課題を解決するための無料ツールを提供するプラットフォームです。アカウント登録も、費用も一切かかりません。
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Cette section en français en est à ses débuts. Elle compte actuellement {TOOLS_FR.length} outil gratuit — un mécanicien virtuel avec IA, conçu aussi pour prendre en compte les conditions de conduite en France et au Canada — et nous ajouterons d'autres outils et articles au fil du temps.
+              この日本語版はまだ始まったばかりで、現在{TOOLS_JA.length}つの無料ツール（自然な日本語で書かれたAIメカニック）を提供しています。今後もツールや記事を追加していく予定です。
             </p>
           </div>
         </div>

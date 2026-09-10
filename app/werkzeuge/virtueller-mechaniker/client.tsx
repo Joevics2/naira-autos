@@ -584,6 +584,9 @@ export default function AIMechanicClientDE() {
             <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Português
             </Link>
+            <Link href="/tsuru/ai-shindan" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              日本語
+            </Link>
           </div>
         </div>
 
