@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/chassis-number-check',
     languages: {
       en: 'https://www.naira.autos/tools/chassis-number-check',
-      es: 'https://www.naira.autos/tools/verificar-numero-de-chasis',
+      es: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis',
       'x-default': 'https://www.naira.autos/tools/chassis-number-check',
     },
   },
@@ -83,7 +83,7 @@ export default function ChassisNumberCheckPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Powered by NHTSA</span>
-              <Link href="/tools/verificar-numero-de-chasis" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              <Link href="/herramientas/verificar-numero-de-chasis" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Leer en Español →
               </Link>
             </div>

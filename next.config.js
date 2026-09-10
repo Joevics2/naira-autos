@@ -44,6 +44,8 @@ const nextConfig = {
       { source: '/tools/ai-mechanic-arabic', destination: '/adawat/ai-mechanic-arabic', permanent: true },
       { source: '/tools/mecanicien-virtuel', destination: '/outils/mecanicien-virtuel', permanent: true },
       { source: '/tools/meu-mecanico-virtual', destination: '/ferramentas/meu-mecanico-virtual', permanent: true },
+      { source: '/tools/decodificador-de-vin', destination: '/herramientas/decodificador-de-vin', permanent: true },
+      { source: '/tools/verificar-numero-de-chasis', destination: '/herramientas/verificar-numero-de-chasis', permanent: true },
     ];
 
     return [
