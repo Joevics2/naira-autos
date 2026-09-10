@@ -34,13 +34,15 @@ const staticPages = [
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/was-ist-mein-auto-wert',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/tsuru/ai-shindan',                          priority: 0.8, changefreq: 'monthly' },
+  { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru intentionally
   // NOT added yet — Arabic has 2 live tools (ai-mechanic-arabic,
   // kam-qeemat-sayarati), French has 2 (mecanicien-virtuel,
   // combien-vaut-ma-voiture), Portuguese has 2 (meu-mecanico-virtual,
   // quanto-vale-meu-carro), German has 2 (virtueller-mechaniker,
-  // was-ist-mein-auto-wert), and Japanese has 1 (ai-shindan), all still
+  // was-ist-mein-auto-wert), and Japanese now has 2 (ai-shindan,
+  // kuruma-satei), all still
   // under
   // the ~5-tool threshold used for /herramientas above. Add each
   // language's home + tools index once a handful more tool pages ship

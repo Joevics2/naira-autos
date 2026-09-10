@@ -1,4 +1,4 @@
-import { Wrench } from 'lucide-react';
+import { Wrench, Camera } from 'lucide-react';
 
 // Single source of truth for the Japanese tools index (/tsuru).
 // Add an entry here ONLY when that tool's Japanese page is actually
@@ -16,6 +16,15 @@ export type ToolJa = {
 };
 
 export const TOOLS_JA: ToolJa[] = [
+  {
+    href: '/tsuru/kuruma-satei',
+    icon: Camera,
+    label: '愛車の価値は？',
+    description: '写真をアップロードするだけで、AIが自国通貨で市場価格を即座に査定します。',
+    badge: '無料',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AIと便利ツール',
+  },
   {
     href: '/tsuru/ai-shindan',
     icon: Wrench,
