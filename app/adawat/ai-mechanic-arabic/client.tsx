@@ -597,6 +597,9 @@ export default function AIMechanicClientAR() {
             <Link href="/werkzeuge/virtueller-mechaniker" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Deutsch
             </Link>
+            <Link href="/tsuru/ai-shindan" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              日本語
+            </Link>
             <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               اقرأ بالإنجليزية ←
             </Link>

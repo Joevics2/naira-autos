@@ -36,6 +36,7 @@ export const metadata: Metadata = {
       fr: 'https://www.naira.autos/accueil',
       pt: 'https://www.naira.autos/pagina-inicial',
       de: 'https://www.naira.autos/startseite',
+      ja: 'https://www.naira.autos/homu',
       'x-default': 'https://www.naira.autos/',
     },
   },
@@ -84,6 +85,9 @@ export default async function HomePortuguesePage() {
             </Link>
             <Link href="/startseite" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Deutsch
+            </Link>
+            <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              日本語
             </Link>
           </div>
           <p
