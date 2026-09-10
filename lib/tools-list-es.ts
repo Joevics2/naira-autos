@@ -80,7 +80,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Costos y Mantenimiento',
   },
   {
-    href: '/tools/decodificador-de-vin',
+    href: '/herramientas/decodificador-de-vin',
     icon: ScanLine,
     label: 'Decodificador de VIN',
     description: 'Consulta gratis el VIN, NIV o número de chasis de cualquier auto — marca, modelo, año, motor y país de origen.',
@@ -89,7 +89,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Debida Diligencia',
   },
   {
-    href: '/tools/verificar-numero-de-chasis',
+    href: '/herramientas/verificar-numero-de-chasis',
     icon: Search,
     label: 'Verificar Número de Chasis',
     description: 'Consulta gratis el número de chasis o bastidor de cualquier auto — marca, modelo, año, motor y origen al instante.',

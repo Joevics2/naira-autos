@@ -7,17 +7,17 @@ export const metadata: Metadata = {
   title: 'Verificar Número de Chasis Gratis — Consulta VIN Online | Naira Autos',
   description: 'Verifica el número de chasis (o bastidor) de cualquier auto gratis. Obtén marca, modelo, año, motor y país de origen al instante — sin registro ni pago. Funciona para Toyota, Honda, Ford y más.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/verificar-numero-de-chasis',
+    canonical: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis',
     languages: {
       en: 'https://www.naira.autos/tools/chassis-number-check',
-      es: 'https://www.naira.autos/tools/verificar-numero-de-chasis',
+      es: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis',
       'x-default': 'https://www.naira.autos/tools/chassis-number-check',
     },
   },
   openGraph: {
     title: 'Verificar Número de Chasis Gratis | Naira Autos',
     description: 'Consulta gratis el número de chasis o bastidor de cualquier auto — marca, modelo, año, motor y origen al instante.',
-    url: 'https://www.naira.autos/tools/verificar-numero-de-chasis',
+    url: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis',
   },
   keywords: [
     'verificar número de chasis',
@@ -37,10 +37,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/verificar-numero-de-chasis',
+      '@id': 'https://www.naira.autos/herramientas/verificar-numero-de-chasis',
       name: 'Verificar Número de Chasis Gratis — Consulta VIN Online',
       description: 'Verifica el número de chasis (o bastidor) de cualquier auto gratis. Obtén marca, modelo, año, motor y país de origen al instante.',
-      url: 'https://www.naira.autos/tools/verificar-numero-de-chasis',
+      url: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis',
       inLanguage: 'es',
     },
     {
@@ -60,7 +60,7 @@ const SCHEMA = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
-        { '@type': 'ListItem', position: 3, name: 'Verificar Número de Chasis', item: 'https://www.naira.autos/tools/verificar-numero-de-chasis' },
+        { '@type': 'ListItem', position: 3, name: 'Verificar Número de Chasis', item: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis' },
       ],
     },
   ],
@@ -198,7 +198,7 @@ export default function VerificarNumeroDeChasisPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <Link href="/tools/decodificador-de-vin" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link href="/herramientas/decodificador-de-vin" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Decodificador de VIN</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>
