@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Calculate road distance and drive time between 10 Qatari towns — Doha, Al Khor, Al Wakrah, Al Ruwais and more. Verified road lengths, drive time, and fuel cost.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/distance-calculator-qatar',
-    languages: { ar: 'https://www.naira.autos/tools/distance-calculator-qatar-arabic' },
+    languages: { ar: 'https://www.naira.autos/adawat/distance-calculator-qatar-arabic' },
   },
   openGraph: {
     title: 'Distance Calculator Qatar 2026 | Naira Autos',
@@ -104,7 +104,7 @@ export default function DistanceCalculatorQatarPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 10 Qatari towns — Doha, Al Khor, Al Wakrah, Al Ruwais, and more.
             </p>
-            <Link href="/tools/distance-calculator-qatar-arabic" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link href="/adawat/distance-calculator-qatar-arabic" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               العربية (Arabic version) →
             </Link>
           </div>

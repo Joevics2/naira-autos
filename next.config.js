@@ -33,9 +33,34 @@ const nextConfig = {
       { source: `/${type}/:brand`, destination: '/vehicles', permanent: true },
     ]);
 
+    // Localized tool pages moved out of the English /tools/ namespace into
+    // their own language-prefixed path, matching the site's hub pages
+    // (/herramientas, /outils, /adawat). 301s preserve rankings/backlinks
+    // on these already-indexed URLs.
+    const localizedToolRedirects = [
+      ...[
+        'calculadora-de-costo-de-combustible-global',
+        'decodificador-de-vin',
+        'verificar-numero-de-chasis',
+        'verificar-numero-de-motor',
+        'calculadora-de-kilometraje',
+        'generador-de-documentos-ia',
+        'mecanico-virtual',
+        'comparador-de-autos',
+        'mejor-auto-para-ti',
+      ].map(slug => ({ source: `/tools/${slug}`, destination: `/herramientas/${slug}`, permanent: true })),
+      { source: '/tools/mecanicien-virtuel', destination: '/outils/mecanicien-virtuel', permanent: true },
+      ...[
+        'ai-mechanic-arabic',
+        'distance-calculator-saudi-arabia-arabic',
+        'distance-calculator-qatar-arabic',
+      ].map(slug => ({ source: `/tools/${slug}`, destination: `/adawat/${slug}`, permanent: true })),
+    ];
+
     return [
       ...mergedDocumentTemplateRedirects,
       ...disabledVehicleListingRedirects,
+      ...localizedToolRedirects,
     ];
   },
 };

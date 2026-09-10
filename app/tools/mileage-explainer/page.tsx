@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/mileage-explainer',
     languages: {
       en: 'https://www.naira.autos/tools/mileage-explainer',
-      es: 'https://www.naira.autos/tools/calculadora-de-kilometraje',
+      es: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
       'x-default': 'https://www.naira.autos/tools/mileage-explainer',
     },
   },
@@ -94,7 +94,7 @@ export default function MileageExplainerPage() {
                 Free Tool · Global
               </span>
               <span className="text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
-              <Link href="/tools/calculadora-de-kilometraje" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              <Link href="/herramientas/calculadora-de-kilometraje" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Leer en Español →
               </Link>
             </div>
