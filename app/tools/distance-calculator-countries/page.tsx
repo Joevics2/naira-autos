@@ -73,6 +73,16 @@ const SCHEMA = {
         { '@type': 'ListItem', position: 3, name: 'Distance Calculator', item: 'https://www.naira.autos/tools/distance-calculator-countries' },
       ],
     },
+    {
+      '@type': 'ItemList',
+      name: 'Distance Calculator — Available Countries',
+      itemListElement: LIVE_COUNTRIES.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        url: `https://www.naira.autos${c.href}`,
+      })),
+    },
   ],
 };
 
