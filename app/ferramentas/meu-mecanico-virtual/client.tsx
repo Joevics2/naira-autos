@@ -578,7 +578,7 @@ export default function AIMechanicClientPT() {
             <Link href="/outils/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Français
             </Link>
-            <Link href="/adawat/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/adawat/mikaniki-iftiradi" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               العربية
             </Link>
             <Link href="/werkzeuge/virtueller-mechaniker" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">

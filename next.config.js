@@ -51,7 +51,7 @@ const nextConfig = {
       ].map(slug => ({ source: `/tools/${slug}`, destination: `/herramientas/${slug}`, permanent: true })),
       { source: '/tools/mecanicien-virtuel', destination: '/outils/mecanicien-virtuel', permanent: true },
       { source: '/tools/meu-mecanico-virtual', destination: '/ferramentas/meu-mecanico-virtual', permanent: true },
-      { source: '/tools/ai-mechanic-arabic', destination: '/adawat/ai-mechanic-arabic', permanent: true },
+      { source: '/tools/ai-mechanic-arabic', destination: '/adawat/mikaniki-iftiradi', permanent: true },
       // Distance calculator native-language pages: same issue caught after
       // shipping - built under /tools/ with an English "-arabic" suffix
       // instead of a native slug under the language's own index. These 4

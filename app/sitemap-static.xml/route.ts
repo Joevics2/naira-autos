@@ -26,7 +26,7 @@ const staticPages = [
   { url: '/herramientas',                       priority: 0.9, changefreq: 'weekly'  },
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
-  { url: '/adawat/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/adawat/mikaniki-iftiradi',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/combien-vaut-ma-voiture',       priority: 0.9, changefreq: 'weekly'  },
   { url: '/outils/decodeur-vin',                  priority: 0.8, changefreq: 'monthly' },
@@ -38,7 +38,7 @@ const staticPages = [
   { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru intentionally
-  // NOT added yet — Arabic has 2 live tools (ai-mechanic-arabic,
+  // NOT added yet — Arabic has 2 live tools (mikaniki-iftiradi,
   // kam-qeemat-sayarati), French has 3 (mecanicien-virtuel,
   // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 2 (meu-mecanico-virtual,
   // quanto-vale-meu-carro), German has 2 (virtueller-mechaniker,
