@@ -6,7 +6,7 @@ import { AE_CAPITAL_DISTANCE_KM } from '@/lib/ae-distance-matrix';
 import { AR_STRINGS } from '@/lib/distance-strings-ar';
 
 const CONFIG: DistanceCalcConfig = {
-  basePath: '/tools/distance-calculator-uae-arabic',
+  basePath: '/adawat/hasbat-al-masafa-alemarat',
   towns: AE_TOWNS,
   verifiedMatrix: AE_CAPITAL_DISTANCE_KM,
   popularRoutes: [

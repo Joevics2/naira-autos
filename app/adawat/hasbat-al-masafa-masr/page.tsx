@@ -1,4 +1,4 @@
-// app/tools/distance-calculator-egypt-arabic/page.tsx
+// app/adawat/hasbat-al-masafa-masr/page.tsx
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   title: 'حاسبة المسافات مصر 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 41 مدينة مصرية — القاهرة، الإسكندرية، الأقصر، أسوان والمزيد. مسافات موثّقة من الأمم المتحدة، مدة القيادة، وتكلفة الوقود.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/distance-calculator-egypt-arabic',
-    languages: { en: 'https://www.naira.autos/tools/distance-calculator-egypt' },
+    canonical: 'https://www.naira.autos/adawat/hasbat-al-masafa-masr',
+    languages: { en: 'https://www.naira.autos/tools/distance-calculator-egypt' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-egypt' },
   },
   openGraph: {
     title: 'حاسبة المسافات مصر 2026',
     description: 'مسافة الطريق ومدة القيادة بين 41 مدينة مصرية، مع حاسبة تكلفة الوقود.',
-    url: 'https://www.naira.autos/tools/distance-calculator-egypt-arabic',
+    url: 'https://www.naira.autos/adawat/hasbat-al-masafa-masr',
     locale: 'ar',
   },
   keywords: [
@@ -35,10 +35,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/distance-calculator-egypt-arabic',
+      '@id': 'https://www.naira.autos/adawat/hasbat-al-masafa-masr',
       name: 'حاسبة المسافات مصر 2026 — المسافة بين المدن بالطريق',
       description: 'احسب مسافة الطريق ومدة القيادة بين 41 مدينة مصرية، مع حاسبة تكلفة الوقود.',
-      url: 'https://www.naira.autos/tools/distance-calculator-egypt-arabic',
+      url: 'https://www.naira.autos/adawat/hasbat-al-masafa-masr',
       dateModified: '2026-09-07',
       inLanguage: 'ar',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -57,8 +57,15 @@ const SCHEMA = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
         { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
-        { '@type': 'ListItem', position: 3, name: 'مصر', item: 'https://www.naira.autos/tools/distance-calculator-egypt-arabic' },
+        { '@type': 'ListItem', position: 3, name: 'مصر', item: 'https://www.naira.autos/adawat/hasbat-al-masafa-masr' },
       ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'حاسبة المسافات مصر',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
     },
   ],
 };

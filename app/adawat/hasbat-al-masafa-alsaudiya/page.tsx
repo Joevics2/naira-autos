@@ -1,4 +1,4 @@
-// app/tools/distance-calculator-saudi-arabia-arabic/page.tsx
+// app/adawat/hasbat-al-masafa-alsaudiya/page.tsx
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   title: 'حاسبة المسافات السعودية 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية — الرياض، جدة، مكة، المدينة، الدمام والمزيد. مسافات رسمية موثّقة، مدة القيادة، وتكلفة الوقود.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
-    languages: { en: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia' },
+    canonical: 'https://www.naira.autos/adawat/hasbat-al-masafa-alsaudiya',
+    languages: { en: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-saudi-arabia' },
   },
   openGraph: {
     title: 'حاسبة المسافات السعودية 2026',
     description: 'مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
-    url: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
+    url: 'https://www.naira.autos/adawat/hasbat-al-masafa-alsaudiya',
     locale: 'ar',
   },
   keywords: [
@@ -35,10 +35,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
+      '@id': 'https://www.naira.autos/adawat/hasbat-al-masafa-alsaudiya',
       name: 'حاسبة المسافات السعودية 2026 — المسافة بين المدن بالطريق',
       description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
-      url: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
+      url: 'https://www.naira.autos/adawat/hasbat-al-masafa-alsaudiya',
       dateModified: '2026-09-06',
       inLanguage: 'ar',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -57,8 +57,15 @@ const SCHEMA = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
         { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
-        { '@type': 'ListItem', position: 3, name: 'السعودية', item: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic' },
+        { '@type': 'ListItem', position: 3, name: 'السعودية', item: 'https://www.naira.autos/adawat/hasbat-al-masafa-alsaudiya' },
       ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'حاسبة المسافات السعودية',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
     },
   ],
 };

@@ -73,6 +73,37 @@ const staticPages = [
   { url: '/tools/insurance-calculator-countries', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/fuel-cost-calculator',         priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/road-trip-calculator',         priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-countries', priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator',          priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-ghana',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-kenya',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-south-africa', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-egypt',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-qatar',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-saudi-arabia', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-uae',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-uk',       priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-usa',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-germany',  priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-france',   priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-italy',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-spain',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-netherlands', priority: 0.7, changefreq: 'monthly' },
+  // Native-language distance calculator pages, under each language's own
+  // index per the path convention above (not /tools/).
+  { url: '/adawat/hasbat-al-masafa-masr',        priority: 0.7, changefreq: 'monthly' },
+  { url: '/adawat/hasbat-al-masafa-qatar',       priority: 0.7, changefreq: 'monthly' },
+  { url: '/adawat/hasbat-al-masafa-alsaudiya',   priority: 0.7, changefreq: 'monthly' },
+  { url: '/adawat/hasbat-al-masafa-alemarat',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/herramientas/calculadora-de-distancia-espana', priority: 0.7, changefreq: 'monthly' },
+  { url: '/outils/calculateur-de-distance-france', priority: 0.7, changefreq: 'monthly' },
+  // /entfernungsrechner-deutschland and /calcolatore-di-distanza-italia are
+  // root-level (no German/Italian tools index exists yet - held back until
+  // each language reaches the ~5-tool threshold, same logic as /herramientas
+  // above).
+  { url: '/entfernungsrechner-deutschland',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/calcolatore-di-distanza-italia',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/afstandscalculator-nederland',        priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
