@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Calculate road distance and drive time between 35 Saudi cities — Riyadh, Jeddah, Makkah, Madinah, Dammam and more. Official highway lengths, drive time, and fuel cost.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia',
-    languages: { ar: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic' },
+    languages: { ar: 'https://www.naira.autos/adawat/distance-calculator-saudi-arabia-arabic' },
   },
   openGraph: {
     title: 'Distance Calculator Saudi Arabia 2026 | Naira Autos',
@@ -106,7 +106,7 @@ export default function DistanceCalculatorSaudiArabiaPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 35 Saudi cities — Riyadh, Jeddah, Makkah, Madinah, Dammam, and major provincial centres.
             </p>
-            <Link href="/tools/distance-calculator-saudi-arabia-arabic" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link href="/adawat/distance-calculator-saudi-arabia-arabic" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               العربية (Arabic version) →
             </Link>
           </div>

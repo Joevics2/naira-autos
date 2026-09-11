@@ -6,7 +6,7 @@ import { SA_CAPITAL_DISTANCE_KM } from '@/lib/sa-distance-matrix';
 import { AR_STRINGS } from '@/lib/distance-strings-ar';
 
 const CONFIG: DistanceCalcConfig = {
-  basePath: '/tools/distance-calculator-saudi-arabia-arabic',
+  basePath: '/adawat/distance-calculator-saudi-arabia-arabic',
   towns: SA_TOWNS,
   verifiedMatrix: SA_CAPITAL_DISTANCE_KM,
   popularRoutes: [

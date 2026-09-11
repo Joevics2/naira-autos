@@ -7,17 +7,17 @@ export const metadata: Metadata = {
   title: 'Mejor Auto Para Ti 2026 — Recomendador por Caso de Uso, 50 Países',
   description: 'Encuentra el mejor auto para tus necesidades, con precios en tu propia moneda en 50 países. Elige tu caso de uso — auto familiar, uso comercial, carretera, presupuesto ajustado, todoterreno, ejecutivo o primer auto — y recibe recomendaciones ordenadas entre 50 modelos, desde el Toyota Corolla hasta el Bugatti Chiron, con costo de mantenimiento y disponibilidad de repuestos.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/mejor-auto-para-ti',
+    canonical: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
     languages: {
       en: 'https://www.naira.autos/tools/best-car-for',
-      es: 'https://www.naira.autos/tools/mejor-auto-para-ti',
+      es: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
       'x-default': 'https://www.naira.autos/tools/best-car-for',
     },
   },
   openGraph: {
     title: 'Mejor Auto Para Ti 2026 — Recomendador de Autos | Naira Autos',
     description: 'Recomendador de autos global con precios locales en 50 países. Elige tu caso de uso y recibe el top 5 ordenado por precio, mantenimiento, consumo y disponibilidad de repuestos.',
-    url: 'https://www.naira.autos/tools/mejor-auto-para-ti',
+    url: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
   },
   keywords: [
     'mejor auto para comprar 2026', 'mejor auto familiar', 'mejor auto para uso comercial',
@@ -37,10 +37,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/mejor-auto-para-ti',
+      '@id': 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
       name: 'Mejor Auto Para Ti 2026 — Recomendador por Caso de Uso, 50 Países',
       description: 'Recomendaciones de autos ordenadas por caso de uso, con precios en tu propia moneda en 50 países.',
-      url: 'https://www.naira.autos/tools/mejor-auto-para-ti',
+      url: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
       datePublished: '2026-09-06',
       dateModified: LAST_UPDATED,
       inLanguage: 'es',
@@ -49,7 +49,7 @@ const SCHEMA = {
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
-        { '@type': 'ListItem', position: 3, name: 'Mejor Auto Para Ti', item: 'https://www.naira.autos/tools/mejor-auto-para-ti' },
+        { '@type': 'ListItem', position: 3, name: 'Mejor Auto Para Ti', item: 'https://www.naira.autos/herramientas/mejor-auto-para-ti' },
       ]},
     },
     {
@@ -239,11 +239,11 @@ export default function MejorAutoParaTiPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link href="/tools/comparador-de-autos" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
+              <Link href="/herramientas/comparador-de-autos" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
                 <p className="text-sm font-bold text-blue-700 dark:text-blue-400">Comparador de Autos</p>
                 <ChevronRight className="h-4 w-4 text-blue-500" />
               </Link>
-              <Link href="/tools/calculadora-de-costo-de-combustible-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link href="/herramientas/calculadora-de-costo-de-combustible-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Calculadora de Costo de Combustible</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>

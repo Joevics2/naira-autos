@@ -7,17 +7,17 @@ export const metadata: Metadata = {
   title: 'Calculadora de Costo de Combustible — Gratis, en Tu Propia Moneda',
   description: 'Calcula el costo de combustible de cualquier auto en euros, pesos mexicanos, pesos argentinos, pesos colombianos, pesos chilenos y más. Rutas reales en España, México, Argentina, Colombia y Chile.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/calculadora-de-costo-de-combustible-global',
+    canonical: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
     languages: {
       en: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
-      es: 'https://www.naira.autos/tools/calculadora-de-costo-de-combustible-global',
+      es: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
       'x-default': 'https://www.naira.autos/tools/fuel-cost-calculator-global',
     },
   },
   openGraph: {
     title: 'Calculadora de Costo de Combustible | Naira Autos',
     description: 'Calcula el gasto de gasolina o diésel de cualquier auto, en tu propia moneda, con rutas reales entre ciudades hispanohablantes.',
-    url: 'https://www.naira.autos/tools/calculadora-de-costo-de-combustible-global',
+    url: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
   },
   keywords: [
     'calculadora de costo de combustible', 'calculadora de gasolina', 'cuánto gasto en gasolina',
@@ -36,10 +36,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/calculadora-de-costo-de-combustible-global',
+      '@id': 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
       name: 'Calculadora de Costo de Combustible — Gratis, en Tu Propia Moneda',
       description: 'Calcula el costo de combustible de cualquier auto en tu propia moneda, con rutas reales en países hispanohablantes.',
-      url: 'https://www.naira.autos/tools/calculadora-de-costo-de-combustible-global',
+      url: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
       datePublished: '2026-08-28',
       dateModified: LAST_UPDATED,
       inLanguage: 'es',
@@ -48,7 +48,7 @@ const SCHEMA = {
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
-        { '@type': 'ListItem', position: 3, name: 'Calculadora de Costo de Combustible', item: 'https://www.naira.autos/tools/calculadora-de-costo-de-combustible-global' },
+        { '@type': 'ListItem', position: 3, name: 'Calculadora de Costo de Combustible', item: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global' },
       ]},
     },
     {
@@ -234,11 +234,11 @@ export default function CalculadoraDeCostoDeCombustibleGlobalPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link href="/tools/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link href="/herramientas/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Calculadora de Kilometraje</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/decodificador-de-vin" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link href="/herramientas/decodificador-de-vin" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">Decodificador de VIN</p>
                 <ChevronRight className="h-4 w-4 text-amber-500" />
               </Link>

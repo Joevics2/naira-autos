@@ -7,17 +7,17 @@ export const metadata: Metadata = {
   title: 'Verificar Número de Motor Gratis — Analizador de Código de Motor | Naira Autos',
   description: 'Verifica el número de motor de cualquier vehículo gratis. Ingresa el número o código de motor y obtén marca, cilindrada, configuración y aplicaciones comunes al instante — sin registro ni pago. Funciona para Toyota, Honda, BMW, Nissan y más.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/verificar-numero-de-motor',
+    canonical: 'https://www.naira.autos/herramientas/verificar-numero-de-motor',
     languages: {
       en: 'https://www.naira.autos/tools/engine-number-analyzer',
-      es: 'https://www.naira.autos/tools/verificar-numero-de-motor',
+      es: 'https://www.naira.autos/herramientas/verificar-numero-de-motor',
       'x-default': 'https://www.naira.autos/tools/engine-number-analyzer',
     },
   },
   openGraph: {
     title: 'Verificar Número de Motor Gratis | Naira Autos',
     description: 'Ingresa cualquier número o código de motor y obtén marca, cilindrada, configuración y aplicaciones comunes — gratis, instantáneo.',
-    url: 'https://www.naira.autos/tools/verificar-numero-de-motor',
+    url: 'https://www.naira.autos/herramientas/verificar-numero-de-motor',
     images: ['https://www.naira.autos/tools/verificar-numero-de-motor-og.png'],
   },
   twitter: {
@@ -54,10 +54,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/verificar-numero-de-motor',
+      '@id': 'https://www.naira.autos/herramientas/verificar-numero-de-motor',
       name: 'Verificar Número de Motor Gratis — Analizador de Código de Motor',
       description: 'Verifica el número de motor de cualquier vehículo gratis. Ingresa el número o código de motor y obtén marca, cilindrada, configuración y aplicaciones comunes al instante.',
-      url: 'https://www.naira.autos/tools/verificar-numero-de-motor',
+      url: 'https://www.naira.autos/herramientas/verificar-numero-de-motor',
       inLanguage: 'es',
       image: 'https://www.naira.autos/tools/verificar-numero-de-motor-og.png',
       dateModified: '2026-08-01',
@@ -249,11 +249,11 @@ export default function VerificarNumeroDeMotorPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <Link href="/tools/verificar-numero-de-chasis" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
+              <Link href="/herramientas/verificar-numero-de-chasis" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
                 <p className="text-sm font-bold text-blue-700 dark:text-blue-400">Verificar Número de Chasis</p>
                 <ChevronRight className="h-4 w-4 text-blue-500" />
               </Link>
-              <Link href="/tools/decodificador-de-vin" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link href="/herramientas/decodificador-de-vin" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Decodificador de VIN</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>

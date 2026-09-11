@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { ChevronDown, ArrowLeftRight, CheckCircle2, XCircle, Minus, Globe2, Zap } from 'lucide-react';
-import { CARS, maintenanceScore, sparePartsScore, isAvailableInCountry, AFRICA_CODES, type CarData } from '../cars-data';
+import { CARS, maintenanceScore, sparePartsScore, isAvailableInCountry, AFRICA_CODES, type CarData } from '@/app/tools/cars-data';
 import { CAR_COUNTRIES, CAR_COUNTRIES_ES_PRIORITY, getCarCountry, localPriceRange, FX_SNAPSHOT_DATE, type CarCountry } from '@/lib/car-country-pricing';
 import { CAR_TEXT_ES, esBodyType, esFuelType, esTransmission, esMaintenance, esSpareParts, formatCarPriceEs } from '@/lib/cars-data-es';
 

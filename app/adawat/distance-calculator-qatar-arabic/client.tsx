@@ -6,7 +6,7 @@ import { QA_CAPITAL_DISTANCE_KM } from '@/lib/qa-distance-matrix';
 import { AR_STRINGS } from '@/lib/distance-strings-ar';
 
 const CONFIG: DistanceCalcConfig = {
-  basePath: '/tools/distance-calculator-qatar-arabic',
+  basePath: '/adawat/distance-calculator-qatar-arabic',
   towns: QA_TOWNS,
   verifiedMatrix: QA_CAPITAL_DISTANCE_KM,
   popularRoutes: [

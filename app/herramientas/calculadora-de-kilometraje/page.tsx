@@ -8,17 +8,17 @@ export const metadata: Metadata = {
   title: 'Calculadora de Kilometraje — ¿Es Mucho para un Auto? | Naira Autos',
   description: 'Calculadora gratuita de kilometraje que pone cualquier lectura del odómetro en contexto real — distancia entre ciudades, vueltas a la Tierra, viajes a la Luna. Descubre si el kilometraje de un auto es normal para su edad.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/calculadora-de-kilometraje',
+    canonical: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
     languages: {
       en: 'https://www.naira.autos/tools/mileage-explainer',
-      es: 'https://www.naira.autos/tools/calculadora-de-kilometraje',
+      es: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
       'x-default': 'https://www.naira.autos/tools/mileage-explainer',
     },
   },
   openGraph: {
     title: 'Calculadora de Kilometraje | Naira Autos',
     description: '¿Qué significa realmente 160,000 km? Una herramienta gratuita que convierte cualquier lectura del odómetro en comparaciones de distancia reales.',
-    url: 'https://www.naira.autos/tools/calculadora-de-kilometraje',
+    url: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
   },
   keywords: [
     'cuánto kilometraje es mucho para un auto',
@@ -37,10 +37,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/calculadora-de-kilometraje',
+      '@id': 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
       name: 'Calculadora de Kilometraje — ¿Es Mucho para un Auto?',
       description: 'Calculadora gratuita de kilometraje que pone cualquier lectura del odómetro en contexto real — distancia entre ciudades, vueltas a la Tierra, viajes a la Luna.',
-      url: 'https://www.naira.autos/tools/calculadora-de-kilometraje',
+      url: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
       inLanguage: 'es',
       dateModified: '2026-08-01',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },

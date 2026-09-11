@@ -17,7 +17,7 @@ export type ToolEs = {
 
 export const TOOLS_ES: ToolEs[] = [
   {
-    href: '/tools/generador-de-documentos-ia',
+    href: '/herramientas/generador-de-documentos-ia',
     icon: FileText,
     label: 'Generador de Documentos con IA',
     description: 'Genera un contrato de compraventa u otro documento vehicular — con los requisitos legales de tu país investigados por IA.',
@@ -44,7 +44,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'IA y Herramientas Inteligentes',
   },
   {
-    href: '/tools/calculadora-de-costo-de-combustible-global',
+    href: '/herramientas/calculadora-de-costo-de-combustible-global',
     icon: Gauge,
     label: 'Calculadora de Costo de Combustible',
     description: 'Calcula el gasto de gasolina o diésel de cualquier auto en tu propia moneda — España, México, Argentina, Colombia, Chile y otros 48 países más.',
@@ -53,7 +53,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Costos y Mantenimiento',
   },
   {
-    href: '/tools/comparador-de-autos',
+    href: '/herramientas/comparador-de-autos',
     icon: GitCompare,
     label: 'Comparador de Autos',
     description: 'Compara dos autos lado a lado con precio en tu propia moneda en 50 países, consumo, mantenimiento y disponibilidad de repuestos. 50 modelos, del Corolla al Bugatti.',
@@ -62,7 +62,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Costos y Mantenimiento',
   },
   {
-    href: '/tools/mejor-auto-para-ti',
+    href: '/herramientas/mejor-auto-para-ti',
     icon: Car,
     label: 'Mejor Auto Para Ti',
     description: 'Elige tu caso de uso — familiar, comercial, carretera, presupuesto, todoterreno o ejecutivo — y recibe recomendaciones con precio local en 50 países.',
@@ -71,7 +71,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Costos y Mantenimiento',
   },
   {
-    href: '/tools/calculadora-de-kilometraje',
+    href: '/herramientas/calculadora-de-kilometraje',
     icon: Gauge,
     label: 'Calculadora de Kilometraje',
     description: 'Convierte cualquier lectura del odómetro en comparaciones reales — distancia entre ciudades, vueltas a la Tierra, y más.',
@@ -80,7 +80,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Costos y Mantenimiento',
   },
   {
-    href: '/tools/decodificador-de-vin',
+    href: '/herramientas/decodificador-de-vin',
     icon: ScanLine,
     label: 'Decodificador de VIN',
     description: 'Consulta gratis el VIN, NIV o número de chasis de cualquier auto — marca, modelo, año, motor y país de origen.',
@@ -89,7 +89,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Debida Diligencia',
   },
   {
-    href: '/tools/verificar-numero-de-chasis',
+    href: '/herramientas/verificar-numero-de-chasis',
     icon: Search,
     label: 'Verificar Número de Chasis',
     description: 'Consulta gratis el número de chasis o bastidor de cualquier auto — marca, modelo, año, motor y origen al instante.',
@@ -98,7 +98,7 @@ export const TOOLS_ES: ToolEs[] = [
     category: 'Debida Diligencia',
   },
   {
-    href: '/tools/verificar-numero-de-motor',
+    href: '/herramientas/verificar-numero-de-motor',
     icon: Cog,
     label: 'Verificar Número de Motor',
     description: 'Analiza gratis el número o código de motor de cualquier vehículo — marca, cilindrada, configuración y aplicaciones comunes al instante.',

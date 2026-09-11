@@ -10,7 +10,7 @@ import {
   AFRICA_CODES,
   type CarData,
   type UseCaseTag,
-} from '../cars-data';
+} from '@/app/tools/cars-data';
 import { CAR_COUNTRIES, CAR_COUNTRIES_ES_PRIORITY, getCarCountry, localPriceRange, type CarCountry } from '@/lib/car-country-pricing';
 import { CAR_TEXT_ES, USE_CASE_META_ES, esBodyType, esFuelType, esTransmission, esMaintenance, esSpareParts, formatCarPriceEs } from '@/lib/cars-data-es';
 

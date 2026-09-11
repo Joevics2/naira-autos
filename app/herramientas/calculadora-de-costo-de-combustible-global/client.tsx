@@ -264,11 +264,11 @@ export default function GlobalFuelCostClientEs() {
 
                 {/* CTAs */}
                 <div className="grid grid-cols-2 gap-2">
-                  <Link href="/tools/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group">
+                  <Link href="/herramientas/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group">
                     <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400">Calculadora de kilometraje</p>
                     <ChevronRight className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" />
                   </Link>
-                  <Link href="/tools/decodificador-de-vin" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
+                  <Link href="/herramientas/decodificador-de-vin" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
                     <p className="text-xs font-bold text-blue-700 dark:text-blue-400">Decodificador de VIN</p>
                     <ChevronRight className="h-3.5 w-3.5 text-blue-600 dark:text-blue-500" />
                   </Link>

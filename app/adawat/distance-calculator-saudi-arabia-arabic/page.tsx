@@ -1,4 +1,4 @@
-// app/tools/distance-calculator-saudi-arabia-arabic/page.tsx
+// app/adawat/distance-calculator-saudi-arabia-arabic/page.tsx
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   title: 'حاسبة المسافات السعودية 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية — الرياض، جدة، مكة، المدينة، الدمام والمزيد. مسافات رسمية موثّقة، مدة القيادة، وتكلفة الوقود.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
+    canonical: 'https://www.naira.autos/adawat/distance-calculator-saudi-arabia-arabic',
     languages: { en: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia' },
   },
   openGraph: {
     title: 'حاسبة المسافات السعودية 2026',
     description: 'مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
-    url: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
+    url: 'https://www.naira.autos/adawat/distance-calculator-saudi-arabia-arabic',
     locale: 'ar',
   },
   keywords: [
@@ -35,10 +35,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
+      '@id': 'https://www.naira.autos/adawat/distance-calculator-saudi-arabia-arabic',
       name: 'حاسبة المسافات السعودية 2026 — المسافة بين المدن بالطريق',
       description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
-      url: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia-arabic',
+      url: 'https://www.naira.autos/adawat/distance-calculator-saudi-arabia-arabic',
       dateModified: '2026-09-06',
       inLanguage: 'ar',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },

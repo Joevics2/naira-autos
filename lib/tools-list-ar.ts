@@ -36,7 +36,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'الذكاء الاصطناعي والأدوات الذكية',
   },
   {
-    href: '/tools/distance-calculator-saudi-arabia-arabic',
+    href: '/adawat/distance-calculator-saudi-arabia-arabic',
     icon: Ruler,
     label: 'حاسبة المسافات — السعودية',
     description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
@@ -45,7 +45,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'التكاليف والصيانة',
   },
   {
-    href: '/tools/distance-calculator-qatar-arabic',
+    href: '/adawat/distance-calculator-qatar-arabic',
     icon: Ruler,
     label: 'حاسبة المسافات — قطر',
     description: 'احسب مسافة الطريق ومدة القيادة بين 10 مدن قطرية، مع حاسبة تكلفة الوقود.',

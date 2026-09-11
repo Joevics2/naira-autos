@@ -1,4 +1,4 @@
-// app/tools/distance-calculator-qatar-arabic/page.tsx
+// app/adawat/distance-calculator-qatar-arabic/page.tsx
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   title: 'حاسبة المسافات قطر 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 10 مدن قطرية — الدوحة، الخور، الوكرة، الرويس والمزيد. مسافات موثّقة، مدة القيادة، وتكلفة الوقود.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/distance-calculator-qatar-arabic',
+    canonical: 'https://www.naira.autos/adawat/distance-calculator-qatar-arabic',
     languages: { en: 'https://www.naira.autos/tools/distance-calculator-qatar' },
   },
   openGraph: {
     title: 'حاسبة المسافات قطر 2026',
     description: 'مسافة الطريق ومدة القيادة بين 10 مدن قطرية، مع حاسبة تكلفة الوقود.',
-    url: 'https://www.naira.autos/tools/distance-calculator-qatar-arabic',
+    url: 'https://www.naira.autos/adawat/distance-calculator-qatar-arabic',
     locale: 'ar',
   },
   keywords: ['حاسبة المسافات قطر', 'المسافة بين الدوحة والخور', 'المسافة بين الدوحة والوكرة', 'حاسبة مسافات الطرق القطرية'],
@@ -31,10 +31,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/distance-calculator-qatar-arabic',
+      '@id': 'https://www.naira.autos/adawat/distance-calculator-qatar-arabic',
       name: 'حاسبة المسافات قطر 2026 — المسافة بين المدن بالطريق',
       description: 'احسب مسافة الطريق ومدة القيادة بين 10 مدن قطرية، مع حاسبة تكلفة الوقود.',
-      url: 'https://www.naira.autos/tools/distance-calculator-qatar-arabic',
+      url: 'https://www.naira.autos/adawat/distance-calculator-qatar-arabic',
       dateModified: '2026-09-06',
       inLanguage: 'ar',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },

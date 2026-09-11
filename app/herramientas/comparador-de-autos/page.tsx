@@ -7,17 +7,17 @@ export const metadata: Metadata = {
   title: 'Comparador de Autos 2026 — Compara Precio, Consumo y Mantenimiento en 50 Países',
   description: 'Compara dos autos lado a lado con precios en tu propia moneda en 50 países — España, México, Argentina, Colombia, Chile y más. Precio, consumo de combustible, costo de mantenimiento, altura al piso, disponibilidad de repuestos y problemas comunes en 50 modelos, desde el Toyota Corolla hasta el Bugatti Chiron.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/comparador-de-autos',
+    canonical: 'https://www.naira.autos/herramientas/comparador-de-autos',
     languages: {
       en: 'https://www.naira.autos/tools/car-comparison',
-      es: 'https://www.naira.autos/tools/comparador-de-autos',
+      es: 'https://www.naira.autos/herramientas/comparador-de-autos',
       'x-default': 'https://www.naira.autos/tools/car-comparison',
     },
   },
   openGraph: {
     title: 'Comparador de Autos 2026 | Naira Autos',
     description: 'Comparación lado a lado con precios locales en 50 países. Precio, consumo, mantenimiento, altura al piso, disponibilidad de repuestos. 50 modelos, desde el Corolla hasta el Ferrari 296 GTB.',
-    url: 'https://www.naira.autos/tools/comparador-de-autos',
+    url: 'https://www.naira.autos/herramientas/comparador-de-autos',
   },
   keywords: [
     'comparador de autos', 'comparar autos online', 'toyota corolla vs honda civic',
@@ -37,10 +37,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/comparador-de-autos',
+      '@id': 'https://www.naira.autos/herramientas/comparador-de-autos',
       name: 'Comparador de Autos 2026 — Compara Precio, Consumo y Mantenimiento en 50 Países',
       description: 'Compara dos autos lado a lado con precios en tu propia moneda en 50 países, consumo, mantenimiento, altura al piso y disponibilidad de repuestos.',
-      url: 'https://www.naira.autos/tools/comparador-de-autos',
+      url: 'https://www.naira.autos/herramientas/comparador-de-autos',
       datePublished: '2026-09-06',
       dateModified: LAST_UPDATED,
       inLanguage: 'es',
@@ -49,7 +49,7 @@ const SCHEMA = {
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
-        { '@type': 'ListItem', position: 3, name: 'Comparador de Autos', item: 'https://www.naira.autos/tools/comparador-de-autos' },
+        { '@type': 'ListItem', position: 3, name: 'Comparador de Autos', item: 'https://www.naira.autos/herramientas/comparador-de-autos' },
       ]},
     },
     {
@@ -218,11 +218,11 @@ export default function ComparadorDeAutosPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link href="/tools/mejor-auto-para-ti" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link href="/herramientas/mejor-auto-para-ti" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mejor Auto Para Ti</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/calculadora-de-costo-de-combustible-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link href="/herramientas/calculadora-de-costo-de-combustible-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Calculadora de Costo de Combustible</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>

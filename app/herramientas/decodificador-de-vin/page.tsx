@@ -8,17 +8,17 @@ export const metadata: Metadata = {
   description: 'Decodificador de VIN gratis para cualquier auto. Consulta el VIN, NIV o número de chasis — marca, modelo, año, motor y país de origen. Ideal para autos importados de EE.UU. a México y Latinoamérica.',
   keywords: ['decodificador de vin gratis', 'consulta de vin', 'consultar vin gratis', 'verificar vin', 'qué es el niv de un auto', 'consulta niv', 'número de chasis', 'número de serie del auto', 'historial del vehículo por vin', 'vin decoder gratis', 'decodificador vin méxico'],
   alternates: {
-    canonical: 'https://www.naira.autos/tools/decodificador-de-vin',
+    canonical: 'https://www.naira.autos/herramientas/decodificador-de-vin',
     languages: {
       en: 'https://www.naira.autos/tools/vin-checker-global',
-      es: 'https://www.naira.autos/tools/decodificador-de-vin',
+      es: 'https://www.naira.autos/herramientas/decodificador-de-vin',
       'x-default': 'https://www.naira.autos/tools/vin-checker-global',
     },
   },
   openGraph: {
     title: 'Decodificador de VIN Gratis | Naira Autos',
     description: 'Consulta gratis el VIN, NIV o número de chasis de cualquier auto — marca, modelo, año, motor y origen, al instante.',
-    url: 'https://www.naira.autos/tools/decodificador-de-vin',
+    url: 'https://www.naira.autos/herramientas/decodificador-de-vin',
   },
 };
 
@@ -27,15 +27,15 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/decodificador-de-vin',
+      '@id': 'https://www.naira.autos/herramientas/decodificador-de-vin',
       name: 'Decodificador de VIN Gratis — Consulta VIN y Número de Chasis',
       description: 'Decodificador de VIN gratis para cualquier auto — marca, modelo, año, motor y país de origen.',
-      url: 'https://www.naira.autos/tools/decodificador-de-vin',
+      url: 'https://www.naira.autos/herramientas/decodificador-de-vin',
       inLanguage: 'es',
       breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
-        { '@type': 'ListItem', position: 3, name: 'Decodificador de VIN', item: 'https://www.naira.autos/tools/decodificador-de-vin' },
+        { '@type': 'ListItem', position: 3, name: 'Decodificador de VIN', item: 'https://www.naira.autos/herramientas/decodificador-de-vin' },
       ]},
     },
     {
@@ -196,7 +196,7 @@ export default function DecodificadorDeVinPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <Link href="/tools/verificar-numero-de-chasis" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link href="/herramientas/verificar-numero-de-chasis" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Verificar Número de Chasis</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>
@@ -204,7 +204,7 @@ export default function DecodificadorDeVinPage() {
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mecánico Virtual con IA</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link href="/herramientas/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">Calculadora de Kilometraje</p>
                 <ChevronRight className="h-4 w-4 text-amber-500" />
               </Link>

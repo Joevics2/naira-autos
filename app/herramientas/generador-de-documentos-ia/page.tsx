@@ -8,17 +8,17 @@ export const metadata: Metadata = {
   description: 'Genera un contrato de compraventa de vehículo, contrato de arrendamiento, carta poder y más — gratis, redactado con IA, con los requisitos legales de tu país investigados. Edita y descarga en PDF o Word.',
   keywords: 'generador de contratos con ia, generador de documentos vehiculares, contrato de compraventa de auto gratis, generador de contrato de compraventa, redactor de contratos con inteligencia artificial, crear contrato de auto en línea, generador de carta poder vehículo',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/generador-de-documentos-ia',
+    canonical: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
     languages: {
       en: 'https://www.naira.autos/tools/document-generator',
-      es: 'https://www.naira.autos/tools/generador-de-documentos-ia',
+      es: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
       'x-default': 'https://www.naira.autos/tools/document-generator',
     },
   },
   openGraph: {
     title: 'Generador de Documentos con IA | Naira Autos',
     description: 'Elige un tipo de documento y un país. Nuestra IA investiga los requisitos legales reales de tu jurisdicción y redacta un documento completo — gratis, sin registro.',
-    url: 'https://www.naira.autos/tools/generador-de-documentos-ia',
+    url: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
   },
 };
 
@@ -27,10 +27,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/generador-de-documentos-ia',
+      '@id': 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
       name: 'Generador de Documentos con IA',
       description: 'Generador gratuito de documentos vehiculares con IA. Investiga los requisitos legales específicos de cada jurisdicción y redacta un documento completo y con formato, listo para editar y descargar.',
-      url: 'https://www.naira.autos/tools/generador-de-documentos-ia',
+      url: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
       inLanguage: 'es',
       dateModified: '2026-08-01',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -40,7 +40,7 @@ const SCHEMA = {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
           { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
-          { '@type': 'ListItem', position: 3, name: 'Generador de Documentos', item: 'https://www.naira.autos/tools/generador-de-documentos-ia' },
+          { '@type': 'ListItem', position: 3, name: 'Generador de Documentos', item: 'https://www.naira.autos/herramientas/generador-de-documentos-ia' },
         ],
       },
     },
@@ -75,7 +75,7 @@ const SCHEMA = {
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
       description: 'Generador gratuito de documentos vehiculares con IA, con investigación legal específica por jurisdicción.',
-      url: 'https://www.naira.autos/tools/generador-de-documentos-ia',
+      url: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
       offers: { '@type': 'Offer', price: '0' },
     },
   ],
