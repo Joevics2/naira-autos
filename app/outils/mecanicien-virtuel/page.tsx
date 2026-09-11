@@ -407,7 +407,7 @@ export default function AIMechanicPageFR() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'Vérificateur de VIN',            color: 'blue' },
+                { href: '/outils/decodeur-vin',            label: 'Vérificateur de VIN',            color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Liste de documents véhicule',    color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: "Calculateur de droits d'importation", color: 'emerald' },
               ].map(({ href, label, color }) => (

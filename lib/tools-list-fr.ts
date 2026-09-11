@@ -1,4 +1,4 @@
-import { Wrench, Camera } from 'lucide-react';
+import { Wrench, Camera, ScanLine, Ruler } from 'lucide-react';
 
 // Single source of truth for the French tools index (/outils).
 // Add an entry here ONLY when that tool's French page is actually live —
@@ -33,6 +33,24 @@ export const TOOLS_FR: ToolFr[] = [
     badge: 'Gratuit',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'IA et Outils Intelligents',
+  },
+  {
+    href: '/outils/decodeur-vin',
+    icon: ScanLine,
+    label: 'Décodeur VIN',
+    description: "Vérifiez gratuitement le VIN, NIV ou numéro de châssis de toute voiture — marque, modèle, année, moteur et pays d'origine.",
+    badge: 'Gratuit',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Vérification',
+  },
+  {
+    href: '/outils/calculateur-de-distance-france',
+    icon: Ruler,
+    label: 'Calculateur de Distance — France',
+    description: 'Calculez la distance routière et le temps de trajet entre 34 villes françaises, avec estimateur de coût de carburant.',
+    badge: 'Nouveau',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Coûts et Entretien',
   },
 ];
 

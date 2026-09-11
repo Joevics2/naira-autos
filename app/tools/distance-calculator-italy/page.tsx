@@ -12,7 +12,10 @@ import { IT_CAPITAL_DISTANCE_KM } from '@/lib/it-distance-matrix';
 export const metadata: Metadata = {
   title: 'Distance Calculator Italy 2026 — Road Distance Between Any Two Cities',
   description: 'Calculate road distance and drive time between 40 Italian cities — Rome, Milan, Naples, Turin, Florence and more. Cross-checked autostrada distances, drive time, and fuel cost.',
-  alternates: { canonical: 'https://www.naira.autos/tools/distance-calculator-italy' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/distance-calculator-italy',
+    languages: { it: 'https://www.naira.autos/calcolatore-di-distanza-italia' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-italy' },
+  },
   openGraph: {
     title: 'Distance Calculator Italy 2026 | Naira Autos',
     description: 'Road distance and drive time between 40 Italian cities, with a fuel cost estimator.',
@@ -58,6 +61,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I calculate fuel cost for my trip?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — pick a vehicle type and current pump price (€/litre) in the calculator above; it converts road distance directly into estimated litres and cost (autostrada tolls are separate).' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator Italy',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 
@@ -102,6 +112,9 @@ export default function DistanceCalculatorItalyPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 40 Italian cities — Rome, Milan, Naples, Turin, Florence, and major regional centres.
             </p>
+            <Link href="/calcolatore-di-distanza-italia" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+              Italiano (Italian version) →
+            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

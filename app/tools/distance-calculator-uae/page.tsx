@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Calculate road distance and drive time between 14 UAE towns — Dubai, Abu Dhabi, Sharjah, Al Ain and more. Verified routes, drive time, and fuel cost.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/distance-calculator-uae',
-    languages: { ar: 'https://www.naira.autos/tools/distance-calculator-uae-arabic' },
+    languages: { ar: 'https://www.naira.autos/adawat/hasbat-al-masafa-alemarat' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-uae' },
   },
   openGraph: {
     title: 'Distance Calculator UAE 2026 | Naira Autos',
@@ -62,6 +62,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I calculate fuel cost for my trip?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — pick a vehicle type and current pump price (AED/litre) in the calculator above; it converts road distance directly into estimated litres and cost.' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator UAE',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 
@@ -106,7 +113,7 @@ export default function DistanceCalculatorUaePage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 14 UAE towns — all 7 emirate capitals plus Al Ain, Khor Fakkan, and other major towns.
             </p>
-            <Link href="/tools/distance-calculator-uae-arabic" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link href="/adawat/hasbat-al-masafa-alemarat" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               العربية (Arabic version) →
             </Link>
           </div>

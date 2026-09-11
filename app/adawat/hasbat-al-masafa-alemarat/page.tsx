@@ -1,4 +1,4 @@
-// app/tools/distance-calculator-uae-arabic/page.tsx
+// app/adawat/hasbat-al-masafa-alemarat/page.tsx
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   title: 'حاسبة المسافات الإمارات 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 14 مدينة إماراتية — دبي، أبوظبي، الشارقة، العين والمزيد. مسافات موثّقة، مدة القيادة، وتكلفة الوقود.',
   alternates: {
-    canonical: 'https://www.naira.autos/tools/distance-calculator-uae-arabic',
-    languages: { en: 'https://www.naira.autos/tools/distance-calculator-uae' },
+    canonical: 'https://www.naira.autos/adawat/hasbat-al-masafa-alemarat',
+    languages: { en: 'https://www.naira.autos/tools/distance-calculator-uae' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-uae' },
   },
   openGraph: {
     title: 'حاسبة المسافات الإمارات 2026',
     description: 'مسافة الطريق ومدة القيادة بين 14 مدينة إماراتية، مع حاسبة تكلفة الوقود.',
-    url: 'https://www.naira.autos/tools/distance-calculator-uae-arabic',
+    url: 'https://www.naira.autos/adawat/hasbat-al-masafa-alemarat',
     locale: 'ar',
   },
   keywords: ['حاسبة المسافات الإمارات', 'المسافة بين أبوظبي ودبي', 'المسافة بين دبي والشارقة', 'المسافة بين دبي والعين'],
@@ -31,10 +31,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/tools/distance-calculator-uae-arabic',
+      '@id': 'https://www.naira.autos/adawat/hasbat-al-masafa-alemarat',
       name: 'حاسبة المسافات الإمارات 2026 — المسافة بين المدن بالطريق',
       description: 'احسب مسافة الطريق ومدة القيادة بين 14 مدينة إماراتية، مع حاسبة تكلفة الوقود.',
-      url: 'https://www.naira.autos/tools/distance-calculator-uae-arabic',
+      url: 'https://www.naira.autos/adawat/hasbat-al-masafa-alemarat',
       dateModified: '2026-09-06',
       inLanguage: 'ar',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -52,8 +52,15 @@ const SCHEMA = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://www.naira.autos/home-arabic' },
         { '@type': 'ListItem', position: 2, name: 'الأدوات', item: 'https://www.naira.autos/adawat' },
-        { '@type': 'ListItem', position: 3, name: 'الإمارات', item: 'https://www.naira.autos/tools/distance-calculator-uae-arabic' },
+        { '@type': 'ListItem', position: 3, name: 'الإمارات', item: 'https://www.naira.autos/adawat/hasbat-al-masafa-alemarat' },
       ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'حاسبة المسافات الإمارات',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
     },
   ],
 };

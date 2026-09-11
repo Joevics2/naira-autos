@@ -6,7 +6,7 @@ import { EG_CAPITAL_DISTANCE_KM } from '@/lib/eg-distance-matrix';
 import { AR_STRINGS } from '@/lib/distance-strings-ar';
 
 const CONFIG: DistanceCalcConfig = {
-  basePath: '/tools/distance-calculator-egypt-arabic',
+  basePath: '/adawat/hasbat-al-masafa-masr',
   towns: EG_TOWNS,
   verifiedMatrix: EG_CAPITAL_DISTANCE_KM,
   popularRoutes: [

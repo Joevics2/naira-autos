@@ -1,4 +1,4 @@
-import { Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog, GitCompare, Car } from 'lucide-react';
+import { Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog, GitCompare, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -48,6 +48,15 @@ export const TOOLS_ES: ToolEs[] = [
     icon: Gauge,
     label: 'Calculadora de Costo de Combustible',
     description: 'Calcula el gasto de gasolina o diésel de cualquier auto en tu propia moneda — España, México, Argentina, Colombia, Chile y otros 48 países más.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Costos y Mantenimiento',
+  },
+  {
+    href: '/herramientas/calculadora-de-distancia-espana',
+    icon: Ruler,
+    label: 'Calculadora de Distancia — España',
+    description: 'Calcula la distancia por carretera y el tiempo de conducción entre 40 ciudades españolas, con calculadora de costo de combustible.',
     badge: 'NUEVO',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Costos y Mantenimiento',

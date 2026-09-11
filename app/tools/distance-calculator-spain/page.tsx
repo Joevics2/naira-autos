@@ -12,7 +12,10 @@ import { ES_CAPITAL_DISTANCE_KM } from '@/lib/es-distance-matrix';
 export const metadata: Metadata = {
   title: 'Distance Calculator Spain 2026 — Road Distance Between Any Two Cities',
   description: 'Calculate road distance and drive time between 40 Spanish cities — Madrid, Barcelona, Valencia, Seville and more. Official autovía distances, drive time, and fuel cost.',
-  alternates: { canonical: 'https://www.naira.autos/tools/distance-calculator-spain' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/distance-calculator-spain',
+    languages: { es: 'https://www.naira.autos/herramientas/calculadora-de-distancia-espana' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-spain' },
+  },
   openGraph: {
     title: 'Distance Calculator Spain 2026 | Naira Autos',
     description: 'Road distance and drive time between 40 Spanish cities, with a fuel cost estimator.',
@@ -58,6 +61,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I calculate fuel cost for my trip?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — pick a vehicle type and current pump price (€/litre) in the calculator above; it converts road distance directly into estimated litres and cost.' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator Spain',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 
@@ -102,6 +112,9 @@ export default function DistanceCalculatorSpainPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 40 Spanish cities — Madrid, Barcelona, Valencia, Seville, and major regional centres.
             </p>
+            <Link href="/herramientas/calculadora-de-distancia-espana" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+              Español (Spanish version) →
+            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

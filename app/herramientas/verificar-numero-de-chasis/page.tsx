@@ -60,7 +60,7 @@ const SCHEMA = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.naira.autos' },
         { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.naira.autos/herramientas' },
-        { '@type': 'ListItem', position: 3, name: 'Verificar Número de Chasis', item: 'https://www.naira.autos/tools/verificar-numero-de-chasis' },
+        { '@type': 'ListItem', position: 3, name: 'Verificar Número de Chasis', item: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis' },
       ],
     },
   ],

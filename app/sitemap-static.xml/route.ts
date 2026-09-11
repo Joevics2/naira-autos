@@ -29,18 +29,21 @@ const staticPages = [
   { url: '/adawat/ai-mechanic-arabic',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/combien-vaut-ma-voiture',       priority: 0.9, changefreq: 'weekly'  },
+  { url: '/outils/decodeur-vin',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/quanto-vale-meu-carro',    priority: 0.9, changefreq: 'weekly'  },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/was-ist-mein-auto-wert',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/tsuru/ai-shindan',                          priority: 0.8, changefreq: 'monthly' },
+  { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru intentionally
   // NOT added yet — Arabic has 2 live tools (ai-mechanic-arabic,
-  // kam-qeemat-sayarati), French has 2 (mecanicien-virtuel,
-  // combien-vaut-ma-voiture), Portuguese has 2 (meu-mecanico-virtual,
+  // kam-qeemat-sayarati), French has 3 (mecanicien-virtuel,
+  // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 2 (meu-mecanico-virtual,
   // quanto-vale-meu-carro), German has 2 (virtueller-mechaniker,
-  // was-ist-mein-auto-wert), and Japanese has 1 (ai-shindan), all still
+  // was-ist-mein-auto-wert), and Japanese now has 2 (ai-shindan,
+  // kuruma-satei), all still
   // under
   // the ~5-tool threshold used for /herramientas above. Add each
   // language's home + tools index once a handful more tool pages ship
@@ -70,6 +73,37 @@ const staticPages = [
   { url: '/tools/insurance-calculator-countries', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/fuel-cost-calculator',         priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/road-trip-calculator',         priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-countries', priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator',          priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-ghana',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-kenya',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-south-africa', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-egypt',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-qatar',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-saudi-arabia', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-uae',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-uk',       priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-usa',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-germany',  priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-france',   priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-italy',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-spain',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-netherlands', priority: 0.7, changefreq: 'monthly' },
+  // Native-language distance calculator pages, under each language's own
+  // index per the path convention above (not /tools/).
+  { url: '/adawat/hasbat-al-masafa-masr',        priority: 0.7, changefreq: 'monthly' },
+  { url: '/adawat/hasbat-al-masafa-qatar',       priority: 0.7, changefreq: 'monthly' },
+  { url: '/adawat/hasbat-al-masafa-alsaudiya',   priority: 0.7, changefreq: 'monthly' },
+  { url: '/adawat/hasbat-al-masafa-alemarat',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/herramientas/calculadora-de-distancia-espana', priority: 0.7, changefreq: 'monthly' },
+  { url: '/outils/calculateur-de-distance-france', priority: 0.7, changefreq: 'monthly' },
+  // /entfernungsrechner-deutschland and /calcolatore-di-distanza-italia are
+  // root-level (no German/Italian tools index exists yet - held back until
+  // each language reaches the ~5-tool threshold, same logic as /herramientas
+  // above).
+  { url: '/entfernungsrechner-deutschland',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/calcolatore-di-distanza-italia',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/afstandscalculator-nederland',        priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
