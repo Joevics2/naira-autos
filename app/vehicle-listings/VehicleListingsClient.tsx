@@ -14,9 +14,21 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
+} from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Gauge, MapPin, Phone, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowLeft, Gauge, MapPin, MessageCircle, Phone, Search, SlidersHorizontal, X } from 'lucide-react';
 import { formatVehiclePrice, VehicleListing } from '@/lib/vehicle-listings';
+
+const WHATSAPP_NUMBER = '2349032047288';
+
+// Shared dark-theme overrides — the shadcn Input/Select defaults are
+// light-mode (white bg, dark text), which read as washed-out boxes on
+// this page's dark background. These match the rest of the page's
+// bg-white/5 + border-white/10 styling instead.
+const darkFieldClass =
+  'bg-white/5 border-white/15 text-white placeholder:text-white/40 focus-visible:ring-amber-400/50';
 
 interface Filters {
   q?: string;
@@ -99,7 +111,7 @@ export function VehicleListingsClient({ initialListings, total, page, pageSize, 
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
             <Input
               placeholder="Search by make, model..."
-              className="pl-9"
+              className={`pl-9 ${darkFieldClass}`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && runSearch()}
@@ -197,7 +209,7 @@ function FilterBar({
 
         <div className="grid sm:grid-cols-2 md:grid-cols-5 gap-3">
           <Select value={filters.brand || 'all'} onValueChange={(v) => onChange({ brand: v === 'all' ? undefined : v })}>
-            <SelectTrigger><SelectValue placeholder="Brand" /></SelectTrigger>
+            <SelectTrigger className={darkFieldClass}><SelectValue placeholder="Brand" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Brands</SelectItem>
               {brands.map((b) => (
@@ -210,7 +222,7 @@ function FilterBar({
             value={filters.condition || 'all'}
             onValueChange={(v) => onChange({ condition: v === 'all' ? undefined : v })}
           >
-            <SelectTrigger><SelectValue placeholder="Condition" /></SelectTrigger>
+            <SelectTrigger className={darkFieldClass}><SelectValue placeholder="Condition" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Any Condition</SelectItem>
               {Object.entries(CONDITION_LABELS).map(([value, label]) => (
@@ -222,6 +234,7 @@ function FilterBar({
           <Input
             type="number"
             placeholder="Min price (₦)"
+            className={darkFieldClass}
             defaultValue={filters.priceMin || ''}
             onBlur={(e) => onChange({ priceMin: e.target.value ? Number(e.target.value) : undefined })}
           />
@@ -229,12 +242,13 @@ function FilterBar({
           <Input
             type="number"
             placeholder="Max price (₦)"
+            className={darkFieldClass}
             defaultValue={filters.priceMax || ''}
             onBlur={(e) => onChange({ priceMax: e.target.value ? Number(e.target.value) : undefined })}
           />
 
           <Select value={filters.sort || 'newest'} onValueChange={(v) => onChange({ sort: v })}>
-            <SelectTrigger><SelectValue placeholder="Sort" /></SelectTrigger>
+            <SelectTrigger className={darkFieldClass}><SelectValue placeholder="Sort" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="newest">Newest First</SelectItem>
               <SelectItem value="price_asc">Price: Low to High</SelectItem>
@@ -351,8 +365,14 @@ function ListingCard({ listing }: { listing: VehicleListing }) {
 
 function RequestCarCard() {
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ name: '', whatsapp: '', brand: '', model: '', budget_max: '', notes: '' });
+
+  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    "Hi, I'm looking for a car and couldn't find what I want on Naira Autos. Can you help me find one?"
+  )}`;
 
   async function submit() {
     if (!form.name || !form.whatsapp) {
@@ -369,6 +389,7 @@ function RequestCarCard() {
       if (!res.ok) throw new Error();
       toast({ title: 'Request sent', description: "We'll reach out on WhatsApp when we find a match." });
       setForm({ name: '', whatsapp: '', brand: '', model: '', budget_max: '', notes: '' });
+      setOpen(false);
     } catch {
       toast({ title: 'Something went wrong', description: 'Please try again.', variant: 'destructive' });
     } finally {
@@ -377,25 +398,66 @@ function RequestCarCard() {
   }
 
   return (
-    <Card className="bg-white/5 border-white/10">
-      <CardContent className="p-5">
-        <h3 className="font-semibold text-white mb-1">Request a Car</h3>
-        <p className="text-xs text-white/40 mb-4">Can't find what you want? Tell us and we'll look for it.</p>
-        <div className="space-y-2">
-          <Input placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <Input placeholder="WhatsApp number" value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })} />
-          <div className="grid grid-cols-2 gap-2">
-            <Input placeholder="Brand" value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} />
-            <Input placeholder="Model" value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} />
+    <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) setShowForm(false); }}>
+      <Card className="bg-white/5 border-white/10 flex flex-col">
+        <CardContent className="p-5 flex flex-col flex-1">
+          <h3 className="font-semibold text-white mb-1">Buy For Me</h3>
+          <p className="text-xs text-white/40 mb-4 flex-1">
+            Can't find what you want? Tell us and we'll source it for you.
+          </p>
+          <DialogTrigger asChild>
+            <Button variant="outline" className="w-full border-amber-400/40 text-amber-400 hover:bg-amber-400/10">
+              Buy For Me
+            </Button>
+          </DialogTrigger>
+        </CardContent>
+      </Card>
+
+      <DialogContent className="bg-[#0f0f16] border-white/10 text-white max-w-sm">
+        <DialogHeader>
+          <DialogTitle>Buy For Me</DialogTitle>
+        </DialogHeader>
+
+        {!showForm ? (
+          <div className="space-y-3">
+            <p className="text-sm text-white/60">
+              Tell us what car you're after and we'll help you find it. Fastest way is WhatsApp.
+            </p>
+            <a href={waLink} target="_blank" rel="noopener noreferrer">
+              <Button className="w-full bg-green-600 hover:bg-green-700 text-white gap-2">
+                <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
+              </Button>
+            </a>
+            <button
+              onClick={() => setShowForm(true)}
+              className="w-full text-center text-xs text-white/40 hover:text-white/70 py-1"
+            >
+              Or fill a quick form instead
+            </button>
           </div>
-          <Input placeholder="Max budget (₦)" type="number" value={form.budget_max} onChange={(e) => setForm({ ...form, budget_max: e.target.value })} />
-          <Textarea placeholder="Anything else we should know?" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows={2} />
-          <Button onClick={submit} disabled={submitting} className="w-full">
-            {submitting ? 'Sending...' : 'Send Request'}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+        ) : (
+          <div className="space-y-2">
+            <Input placeholder="Your name" className={darkFieldClass} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            <Input placeholder="WhatsApp number" className={darkFieldClass} value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })} />
+            <div className="grid grid-cols-2 gap-2">
+              <Input placeholder="Brand" className={darkFieldClass} value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} />
+              <Input placeholder="Model" className={darkFieldClass} value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} />
+            </div>
+            <Input placeholder="Max budget (₦)" type="number" className={darkFieldClass} value={form.budget_max} onChange={(e) => setForm({ ...form, budget_max: e.target.value })} />
+            <Textarea placeholder="Anything else we should know?" className={darkFieldClass} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows={2} />
+            <Button onClick={submit} disabled={submitting} className="w-full">
+              {submitting ? 'Sending...' : 'Send Request'}
+            </Button>
+            <button
+              onClick={() => setShowForm(false)}
+              className="w-full text-center text-xs text-white/40 hover:text-white/70 py-1"
+            >
+              Back to WhatsApp option
+            </button>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
 
