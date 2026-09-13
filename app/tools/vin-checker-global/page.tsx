@@ -13,6 +13,7 @@ export const metadata: Metadata = {
       en: 'https://www.naira.autos/tools/vin-checker-global',
       es: 'https://www.naira.autos/herramientas/decodificador-de-vin',
       fr: 'https://www.naira.autos/outils/decodeur-vin',
+      ar: 'https://www.naira.autos/adawat/vin-checker-arabic',
       'x-default': 'https://www.naira.autos/tools/vin-checker-global',
     },
   },
