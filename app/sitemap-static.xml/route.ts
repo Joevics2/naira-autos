@@ -107,6 +107,8 @@ const staticPages = [
   { url: '/werkzeuge/entfernungsrechner-deutschland', priority: 0.7, changefreq: 'monthly' },
   { url: '/calcolatore-di-distanza-italia',      priority: 0.7, changefreq: 'monthly' },
   { url: '/afstandscalculator-nederland',        priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-canada',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-australia', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
