@@ -582,6 +582,9 @@ export default function AIMechanicClientES() {
             <Link href="/tsuru/ai-shindan" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               日本語で読む →
             </Link>
+            <Link href="/strumenti/meccanico-virtuale" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Leggi in Italiano →
+            </Link>
           </div>
         </div>
 

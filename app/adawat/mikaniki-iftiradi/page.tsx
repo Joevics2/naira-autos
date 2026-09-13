@@ -18,6 +18,7 @@ export const metadata: Metadata = {
       'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
       'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
       'ja': 'https://www.naira.autos/tsuru/ai-shindan',
+      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
       'x-default': 'https://www.naira.autos/tools/ai-mechanic',
     },
   },

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Sparkles, ArrowLeft, Globe2 } from 'lucide-react';
-import { TOOLS_AR, CATEGORIES_AR } from '@/lib/tools-list-ar';
+import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
+import { TOOLS_IT, CATEGORIES_IT } from '@/lib/tools-list-it';
 
 export const metadata: Metadata = {
-  title: 'أدوات سيارات مجانية | Naira Autos',
-  description: 'أدوات سيارات مجانية باللغة العربية — ميكانيكي افتراضي بالذكاء الاصطناعي، وأدوات أخرى قادمة قريبًا. كل شيء مجاني وبدون تسجيل.',
+  title: 'Strumenti Auto Gratuiti | Naira Autos',
+  description: 'Strumenti gratuiti per la tua auto in italiano — meccanico virtuale con IA, e altri strumenti in arrivo. Tutto gratuito e senza registrazione.',
   alternates: {
-    canonical: 'https://www.naira.autos/adawat',
+    canonical: 'https://www.naira.autos/strumenti',
     languages: {
       en: 'https://www.naira.autos/tools',
       es: 'https://www.naira.autos/herramientas',
@@ -20,38 +20,38 @@ export const metadata: Metadata = {
       'x-default': 'https://www.naira.autos/tools',
     },
   },
-  keywords: ['أدوات سيارات مجانية', 'ميكانيكي افتراضي مجاني', 'أدوات مركبات بالعربية', 'ميكانيكي بالذكاء الاصطناعي'],
+  keywords: ['strumenti auto gratuiti', 'meccanico virtuale gratis', 'strumenti veicolo in italiano', 'meccanico IA'],
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  'الذكاء الاصطناعي والأدوات الذكية': 'text-emerald-600 dark:text-emerald-400',
-  'المالية': 'text-sky-600 dark:text-sky-400',
-  'التكاليف والصيانة': 'text-yellow-600 dark:text-yellow-400',
-  'الفحص والتحقق': 'text-rose-600 dark:text-rose-400',
-  'موارد': 'text-violet-600 dark:text-violet-400',
+  'IA e Strumenti Intelligenti': 'text-emerald-600 dark:text-emerald-400',
+  'Finanza': 'text-sky-600 dark:text-sky-400',
+  'Costi e Manutenzione': 'text-yellow-600 dark:text-yellow-400',
+  'Verifica': 'text-rose-600 dark:text-rose-400',
+  'Risorse': 'text-violet-600 dark:text-violet-400',
 };
 
 const CATEGORY_BORDER: Record<string, string> = {
-  'الذكاء الاصطناعي والأدوات الذكية': 'hover:border-emerald-500/40 hover:shadow-emerald-500/5',
-  'المالية': 'hover:border-sky-500/40 hover:shadow-sky-500/5',
-  'التكاليف والصيانة': 'hover:border-yellow-500/40 hover:shadow-yellow-500/5',
-  'الفحص والتحقق': 'hover:border-rose-500/40 hover:shadow-rose-500/5',
-  'موارد': 'hover:border-violet-500/40 hover:shadow-violet-500/5',
+  'IA e Strumenti Intelligenti': 'hover:border-emerald-500/40 hover:shadow-emerald-500/5',
+  'Finanza': 'hover:border-sky-500/40 hover:shadow-sky-500/5',
+  'Costi e Manutenzione': 'hover:border-yellow-500/40 hover:shadow-yellow-500/5',
+  'Verifica': 'hover:border-rose-500/40 hover:shadow-rose-500/5',
+  'Risorse': 'hover:border-violet-500/40 hover:shadow-violet-500/5',
 };
 
 const ICON_BG: Record<string, string> = {
-  'الذكاء الاصطناعي والأدوات الذكية': 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
-  'المالية': 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
-  'التكاليف والصيانة': 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
-  'الفحص والتحقق': 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
-  'موارد': 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
+  'IA e Strumenti Intelligenti': 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  'Finanza': 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
+  'Costi e Manutenzione': 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
+  'Verifica': 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+  'Risorse': 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
 };
 
-export default function ToolsArabicPage() {
-  const liveCategories = CATEGORIES_AR.filter((c) => TOOLS_AR.some((t) => t.category === c));
+export default function ToolsItalianPage() {
+  const liveCategories = CATEGORIES_IT.filter((c) => TOOLS_IT.some((t) => t.category === c));
 
   return (
-    <div dir="rtl" lang="ar" className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -59,43 +59,28 @@ export default function ToolsArabicPage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              أدوات مجانية
+              Strumenti gratuiti
             </span>
-            <Link href="/home-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              الرئيسية
+            <Link href="/inizio" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Home
             </Link>
             <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              اقرأ بالإنجليزية ←
-            </Link>
-            <Link href="/outils" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Français
-            </Link>
-            <Link href="/ferramentas" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Português
-            </Link>
-            <Link href="/werkzeuge" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Deutsch
-            </Link>
-            <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
-            </Link>
-            <Link href="/strumenti" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Italiano
+              English
             </Link>
           </div>
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}
           >
-            مركز<br />
-            <span className="text-emerald-400">الأدوات</span>
+            Centro<br />
+            <span className="text-emerald-400">Strumenti</span>
           </h1>
           <p className="text-white/50 text-base md:text-lg font-light max-w-lg leading-relaxed">
-            كل ما تحتاجه لشراء وبيع وصيانة سيارتك — مجانًا، بدون تسجيل.
+            Tutto ciò che ti serve per comprare, vendere e curare la tua auto — gratis, senza registrazione.
           </p>
           <p className="text-white/30 text-xs mt-3 flex items-center gap-1.5">
             <Globe2 className="h-3 w-3" />
-            نعمل على ترجمة المزيد من الأدوات كل أسبوع.
+            Traduciamo altri strumenti ogni settimana.
           </p>
         </div>
       </div>
@@ -103,7 +88,7 @@ export default function ToolsArabicPage() {
       {/* ── Tool categories ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12 space-y-14">
         {liveCategories.map((category) => {
-          const categoryTools = TOOLS_AR.filter(t => t.category === category);
+          const categoryTools = TOOLS_IT.filter(t => t.category === category);
           return (
             <div key={category}>
               <div className="flex items-center gap-3 mb-6">
@@ -141,7 +126,7 @@ export default function ToolsArabicPage() {
                         <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{tool.description}</p>
                       </div>
 
-                      <ArrowLeft className="flex-shrink-0 h-4 w-4 text-muted-foreground/40 group-hover:text-foreground group-hover:-translate-x-0.5 transition-all mt-0.5" />
+                      <ArrowRight className="flex-shrink-0 h-4 w-4 text-muted-foreground/40 group-hover:text-foreground group-hover:translate-x-0.5 transition-all mt-0.5" />
                     </Link>
                   );
                 })}

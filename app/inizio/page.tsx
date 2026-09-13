@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { TOOLS_DE } from '@/lib/tools-list-de';
+import { TOOLS_IT } from '@/lib/tools-list-it';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
@@ -16,19 +16,19 @@ type LatestPost = {
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Naira Autos auf Deutsch — Kostenlose Werkzeuge für Ihr Auto',
-  description: 'Kostenlose Werkzeuge für Ihr Auto auf Deutsch — virtueller KI-Mechaniker, und weitere Werkzeuge folgen bald. Ohne Registrierung, ohne Kosten.',
-  keywords: 'kostenlose Auto-Werkzeuge, virtueller Mechaniker, KI-Mechaniker, Naira Autos auf Deutsch',
+  title: 'Naira Autos in Italiano — Strumenti Gratuiti per la Tua Auto',
+  description: 'Strumenti gratuiti per la tua auto in italiano — meccanico virtuale con IA, e altri strumenti in arrivo. Senza registrazione, senza alcun costo.',
+  keywords: 'strumenti auto gratuiti, meccanico virtuale, meccanico IA, Naira Autos in italiano',
   openGraph: {
-    title: 'Naira Autos auf Deutsch',
-    description: 'Kostenlose Werkzeuge zum Kaufen, Verkaufen und Pflegen Ihres Autos — auf Deutsch, ohne Registrierung.',
-    url: 'https://www.naira.autos/startseite',
+    title: 'Naira Autos in Italiano',
+    description: 'Strumenti gratuiti per comprare, vendere e curare la tua auto — in italiano, senza registrazione.',
+    url: 'https://www.naira.autos/inizio',
     siteName: 'Naira Autos',
-    locale: 'de_DE',
+    locale: 'it_IT',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.naira.autos/startseite',
+    canonical: 'https://www.naira.autos/inizio',
     languages: {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
@@ -46,10 +46,10 @@ export const metadata: Metadata = {
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Naira Autos auf Deutsch',
-  description: 'Kostenlose Werkzeuge für Ihr Auto auf Deutsch — virtueller KI-Mechaniker, und weitere Werkzeuge folgen bald.',
-  url: 'https://www.naira.autos/startseite',
-  inLanguage: 'de',
+  name: 'Naira Autos in Italiano',
+  description: 'Strumenti gratuiti per la tua auto in italiano — meccanico virtuale con IA, e altri strumenti in arrivo.',
+  url: 'https://www.naira.autos/inizio',
+  inLanguage: 'it',
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
@@ -57,12 +57,12 @@ const SCHEMA = {
   },
 };
 
-export default async function HomeGermanPage() {
+export default async function HomeItalianPage() {
   const { data: latestPosts } = await supabase
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image')
     .eq('published', true)
-    .eq('language', 'de')
+    .eq('language', 'it')
     .order('created_at', { ascending: false })
     .limit(3);
 
@@ -71,7 +71,7 @@ export default async function HomeGermanPage() {
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <h1 className="sr-only">Naira Autos auf Deutsch — Kostenlose Werkzeuge für Ihr Auto</h1>
+      <h1 className="sr-only">Naira Autos in Italiano — Strumenti Gratuiti per la Tua Auto</h1>
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -79,49 +79,43 @@ export default async function HomeGermanPage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Deutsche Seite
+              Sito in Italiano
             </span>
             <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
-            </Link>
-            <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
-            </Link>
-            <Link href="/inizio" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Italiano
             </Link>
           </div>
           <p
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
-            Werkzeuge<br /><span className="text-emerald-400">für Ihr Auto</span>
+            Strumenti<br /><span className="text-emerald-400">per la tua auto</span>
           </p>
           <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl leading-relaxed mb-3">
-            Naira Autos bietet kostenlose Werkzeuge für alle, die ein Auto kaufen, verkaufen oder pflegen — ein virtueller KI-Mechaniker, Rechner und Prüfwerkzeuge für Fahrzeugdaten, ohne Registrierung und ohne Kosten.
+            Naira Autos offre strumenti gratuiti per chi compra, vende o si prende cura della propria auto — un meccanico virtuale con IA, calcolatori e verificatori di dati del veicolo, senza registrazione e senza alcun costo.
           </p>
           <p className="text-white/50 text-sm max-w-2xl leading-relaxed">
-            Wir haben mit dem nigerianischen Markt begonnen, und bringen jetzt dieselben Werkzeuge in weitere Länder und Sprachen — darunter Deutschland. Dieser deutsche Bereich steht noch am Anfang, und wir werden mit der Zeit weitere Werkzeuge und Artikel hinzufügen.
+            Abbiamo iniziato al servizio del mercato nigeriano, e ora stiamo portando gli stessi strumenti in altri paesi e lingue — tra cui l'Italia. Questa sezione in italiano è agli inizi, e continueremo ad aggiungere strumenti e articoli nel tempo.
           </p>
         </div>
       </div>
 
-      {/* ── Featured German tools ── */}
+      {/* ── Featured Italian tools ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="font-black uppercase text-foreground leading-none"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
           >
-            Verfügbare Werkzeuge
+            Strumenti disponibili
           </h2>
-          <Link href="/werkzeuge" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Alle ansehen <ArrowRight className="h-4 w-4" />
+          <Link href="/strumenti" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            Vedi tutti <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {TOOLS_DE.map((tool) => {
+          {TOOLS_IT.map((tool) => {
             const Icon = tool.icon;
             return (
               <Link
@@ -149,7 +143,7 @@ export default async function HomeGermanPage() {
         </div>
       </div>
 
-      {/* ── Latest posts (only if German content exists) ── */}
+      {/* ── Latest posts (only if Italian content exists) ── */}
       {posts.length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
           <div className="flex items-center justify-between mb-6">
@@ -157,17 +151,17 @@ export default async function HomeGermanPage() {
               className="font-black uppercase text-foreground leading-none"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Neueste Artikel
+              Ultimi articoli
             </h2>
-            <Link href="/autoblog" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-              Alle ansehen <ArrowRight className="h-4 w-4" />
+            <Link href="/blog-motori" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Vedi tutti <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/autoblog/${post.slug}`}
+                href={`/blog-motori/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
               >
                 <div className="aspect-video overflow-hidden">
@@ -196,13 +190,13 @@ export default async function HomeGermanPage() {
               className="font-black uppercase text-foreground leading-none mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Was ist Naira Autos?
+              Cos'è Naira Autos?
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Naira Autos ist eine Plattform mit kostenlosen Werkzeugen, um echte Probleme beim Kauf, Verkauf oder der Pflege eines Autos zu lösen — ohne ein Konto erstellen oder etwas bezahlen zu müssen.
+              Naira Autos è una piattaforma di strumenti gratuiti per risolvere problemi reali quando si compra, si vende o ci si prende cura di un'auto — senza dover creare un account o pagare nulla.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Dieser deutsche Bereich steht noch am Anfang. Aktuell umfasst er {TOOLS_DE.length} kostenloses Werkzeug — einen virtuellen KI-Mechaniker, geschrieben in echtem Deutsch — und wir werden mit der Zeit weitere Werkzeuge und Artikel hinzufügen.
+              Questa sezione in italiano è agli inizi. Attualmente include {TOOLS_IT.length} strumento gratuito — un meccanico virtuale con IA, scritto in un italiano naturale e reale — e aggiungeremo altri strumenti e articoli nel tempo.
             </p>
           </div>
         </div>
