@@ -46,7 +46,7 @@ export default async function PlantillasIndexPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Plantillas de Documentos Vehiculares</h1>
           <p className="text-muted-foreground leading-relaxed">
             Plantillas listas y específicas por país — contrato de compraventa, carta de donación, reporte de inspección y más. Llena tus datos y descarga en PDF o Word, al instante, sin esperar a la IA. ¿Necesitas un documento que no está en esta lista?{' '}
-            <Link href="/tools/generador-de-documentos-ia" className="text-sky-500 hover:underline">Prueba el Redactor de Documentos con IA</Link> en su lugar.
+            <Link href="/herramientas/generador-de-documentos-ia" className="text-sky-500 hover:underline">Prueba el Redactor de Documentos con IA</Link> en su lugar.
           </p>
         </div>
 

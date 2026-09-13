@@ -61,6 +61,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'How far is Johannesburg from Pretoria?', acceptedAnswer: { '@type': 'Answer', text: 'About 58km — the two cities are part of the same greater Gauteng conurbation, and the drive is typically 45 minutes to just over an hour depending on traffic.' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator South Africa',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 

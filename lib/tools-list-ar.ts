@@ -27,7 +27,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'الذكاء الاصطناعي والأدوات الذكية',
   },
   {
-    href: '/adawat/ai-mechanic-arabic',
+    href: '/adawat/mikaniki-iftiradi',
     icon: Wrench,
     label: 'ميكانيكي افتراضي بالذكاء الاصطناعي',
     description: 'صف عطل سيارتك أو ارفع صورة أو صوتًا واحصل على تشخيص فوري مع تقدير تكلفة الإصلاح.',
@@ -36,7 +36,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'الذكاء الاصطناعي والأدوات الذكية',
   },
   {
-    href: '/tools/distance-calculator-saudi-arabia-arabic',
+    href: '/adawat/hasbat-al-masafa-alsaudiya',
     icon: Ruler,
     label: 'حاسبة المسافات — السعودية',
     description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
@@ -45,7 +45,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'التكاليف والصيانة',
   },
   {
-    href: '/tools/distance-calculator-qatar-arabic',
+    href: '/adawat/hasbat-al-masafa-qatar',
     icon: Ruler,
     label: 'حاسبة المسافات — قطر',
     description: 'احسب مسافة الطريق ومدة القيادة بين 10 مدن قطرية، مع حاسبة تكلفة الوقود.',
@@ -54,7 +54,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'التكاليف والصيانة',
   },
   {
-    href: '/tools/distance-calculator-uae-arabic',
+    href: '/adawat/hasbat-al-masafa-alemarat',
     icon: Ruler,
     label: 'حاسبة المسافات — الإمارات',
     description: 'احسب مسافة الطريق ومدة القيادة بين 14 مدينة إماراتية، مع حاسبة تكلفة الوقود.',
@@ -63,7 +63,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'التكاليف والصيانة',
   },
   {
-    href: '/tools/distance-calculator-egypt-arabic',
+    href: '/adawat/hasbat-al-masafa-masr',
     icon: Ruler,
     label: 'حاسبة المسافات — مصر',
     description: 'احسب مسافة الطريق ومدة القيادة بين 41 مدينة مصرية، مع حاسبة تكلفة الوقود.',
@@ -72,7 +72,7 @@ export const TOOLS_AR: ToolAr[] = [
     category: 'التكاليف والصيانة',
   },
   {
-    href: '/adawat/vin-checker-arabic',
+    href: '/adawat/fahs-raqm-alhaykal',
     icon: ScanLine,
     label: 'فحص رقم الهيكل (VIN)',
     description: 'فحص مجاني لرقم الهيكل أو الشاصي لأي سيارة — الماركة والموديل وسنة الصنع ومواصفات المحرك ودولة المنشأ فورًا.',

@@ -575,7 +575,7 @@ export default function AIMechanicClientFR() {
             <Link href="/herramientas/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Leer en Español →
             </Link>
-            <Link href="/adawat/ai-mechanic-arabic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+            <Link href="/adawat/mikaniki-iftiradi" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               → بالعربية
             </Link>
             <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
@@ -586,6 +586,9 @@ export default function AIMechanicClientFR() {
             </Link>
             <Link href="/tsuru/ai-shindan" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               日本語で読む →
+            </Link>
+            <Link href="/strumenti/meccanico-virtuale" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Leggi in Italiano →
             </Link>
           </div>
         </div>

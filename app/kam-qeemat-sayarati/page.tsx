@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       fr: 'https://www.naira.autos/outils/combien-vaut-ma-voiture',
       pt: 'https://www.naira.autos/ferramentas/quanto-vale-meu-carro',
       de: 'https://www.naira.autos/werkzeuge/was-ist-mein-auto-wert',
+      ja: 'https://www.naira.autos/tsuru/kuruma-satei',
       'x-default': 'https://www.naira.autos/evaluate-used-car',
     },
   },
@@ -208,7 +209,7 @@ export default function KamQeematSayaratiPage() {
               المزيد من الأدوات المجانية
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <Link href="/adawat/ai-mechanic-arabic" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link href="/adawat/mikaniki-iftiradi" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">ميكانيكي افتراضي بالذكاء الاصطناعي</p>
                 <ArrowRight className="h-4 w-4 text-emerald-500 rotate-180" />
               </Link>

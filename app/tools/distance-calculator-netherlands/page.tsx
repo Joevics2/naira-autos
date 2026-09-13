@@ -12,7 +12,13 @@ import { NL_CAPITAL_DISTANCE_KM } from '@/lib/nl-distance-matrix';
 export const metadata: Metadata = {
   title: 'Distance Calculator Netherlands 2026 — Road Distance Between Any Two Cities',
   description: 'Calculate road distance and drive time between 32 Dutch cities — Amsterdam, Rotterdam, The Hague, Utrecht and more. Cross-checked motorway distances, drive time, and fuel cost.',
-  alternates: { canonical: 'https://www.naira.autos/tools/distance-calculator-netherlands' },
+  alternates: {
+    canonical: 'https://www.naira.autos/tools/distance-calculator-netherlands',
+    languages: {
+      nl: 'https://www.naira.autos/afstandscalculator-nederland',
+      'x-default': 'https://www.naira.autos/tools/distance-calculator-netherlands',
+    },
+  },
   openGraph: {
     title: 'Distance Calculator Netherlands 2026 | Naira Autos',
     description: 'Road distance and drive time between 32 Dutch cities, with a fuel cost estimator.',
@@ -58,6 +64,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I calculate fuel cost for my trip?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — pick a vehicle type and current pump price (€/litre) in the calculator above; it converts road distance directly into estimated litres and cost.' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator Netherlands',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 
@@ -102,6 +115,9 @@ export default function DistanceCalculatorNetherlandsPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 32 Dutch cities — Amsterdam, Rotterdam, The Hague, Utrecht, and major regional centres.
             </p>
+            <Link href="/afstandscalculator-nederland" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+              Nederlands (Dutch version) →
+            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

@@ -60,6 +60,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'How far is Accra from Takoradi?', acceptedAnswer: { '@type': 'Answer', text: 'About 185km, based on the Ghana Highway Authority\'s Accra-Takoradi Road Dualisation Project documentation — a real, official road length rather than a routing estimate.' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator Ghana',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 

@@ -59,6 +59,9 @@ export default async function BlogFrenchPage() {
             <Link href="/kuruma-burogu" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
               日本語
             </Link>
+            <Link href="/blog-motori" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              Italiano
+            </Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Blog Naira Autos en Français</h1>
           <p className="text-white/80 max-w-2xl">

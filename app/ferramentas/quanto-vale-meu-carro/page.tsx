@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       fr: 'https://www.naira.autos/outils/combien-vaut-ma-voiture',
       pt: 'https://www.naira.autos/ferramentas/quanto-vale-meu-carro',
       de: 'https://www.naira.autos/werkzeuge/was-ist-mein-auto-wert',
+      ja: 'https://www.naira.autos/tsuru/kuruma-satei',
       'x-default': 'https://www.naira.autos/evaluate-used-car',
     },
   },

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
     languages: {
       en: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
-      es: 'https://www.naira.autos/tools/calculadora-de-costo-de-combustible-global',
+      es: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
       'x-default': 'https://www.naira.autos/tools/fuel-cost-calculator-global',
     },
   },
@@ -101,7 +101,7 @@ export default function GlobalFuelCostCalculatorPage() {
               <span className="inline-flex items-center gap-1.5 text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
                 <Globe2 className="h-3 w-3" /> {FUEL_CURRENCIES.length} currencies
               </span>
-              <Link href="/tools/calculadora-de-costo-de-combustible-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              <Link href="/herramientas/calculadora-de-costo-de-combustible-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Leer en Español →
               </Link>
             </div>

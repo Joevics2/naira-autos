@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/car-comparison',
     languages: {
       en: 'https://www.naira.autos/tools/car-comparison',
-      es: 'https://www.naira.autos/tools/comparador-de-autos',
+      es: 'https://www.naira.autos/herramientas/comparador-de-autos',
       'x-default': 'https://www.naira.autos/tools/car-comparison',
     },
   },
@@ -127,7 +127,7 @@ export default function CarComparisonPage() {
               <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Free Tool</span>
             </div>
             <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
-            <Link href="/tools/comparador-de-autos" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
+            <Link href="/herramientas/comparador-de-autos" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
               Leer en Español →
             </Link>
             <h1

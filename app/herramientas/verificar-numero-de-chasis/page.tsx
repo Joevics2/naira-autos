@@ -162,7 +162,7 @@ export default function VerificarNumeroDeChasisPage() {
               <div>
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Antes de Comprar: Revisa También el Kilometraje</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>Verificar el chasis confirma qué auto es realmente — pero no confirma qué tanto se usó. Una vez que confirmes la identidad del vehículo, vale la pena poner el kilometraje del odómetro en contexto con nuestra <Link href="/tools/calculadora-de-kilometraje" className="text-foreground underline underline-offset-2">calculadora de kilometraje</Link>, que te dice si la lectura es razonable para la edad del auto.</p>
+                  <p>Verificar el chasis confirma qué auto es realmente — pero no confirma qué tanto se usó. Una vez que confirmes la identidad del vehículo, vale la pena poner el kilometraje del odómetro en contexto con nuestra <Link href="/herramientas/calculadora-de-kilometraje" className="text-foreground underline underline-offset-2">calculadora de kilometraje</Link>, que te dice si la lectura es razonable para la edad del auto.</p>
                 </div>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function VerificarNumeroDeChasisPage() {
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mecánico Virtual con IA</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
+              <Link href="/herramientas/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
                 <p className="text-sm font-bold text-blue-700 dark:text-blue-400">Calculadora de Kilometraje</p>
                 <ChevronRight className="h-4 w-4 text-blue-500" />
               </Link>

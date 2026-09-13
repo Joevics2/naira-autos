@@ -139,7 +139,7 @@ export default function DocumentGeneratorClient() {
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="h-4 w-4 text-emerald-500" />
             <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">AI-Powered · Free</span>
-            <Link href="/tools/generador-de-documentos-ia" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
+            <Link href="/herramientas/generador-de-documentos-ia" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
               Leer en Español →
             </Link>
           </div>
