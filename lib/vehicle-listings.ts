@@ -61,6 +61,7 @@ export type VehicleRequestInput = Omit<VehicleRequest, 'id' | 'status' | 'create
 export type VehicleSort = 'newest' | 'price_asc' | 'price_desc';
 
 export interface VehicleListingFilters {
+  q?: string;
   brand?: string;
   condition?: VehicleCondition;
   bodyType?: string;
@@ -84,6 +85,10 @@ export async function getVehicleListings(filters: VehicleListingFilters) {
     .select('*', { count: 'exact' })
     .eq('status', 'active');
 
+  if (filters.q) {
+    const term = filters.q.replace(/[%,]/g, ' ').trim();
+    query = query.or(`title.ilike.%${term}%,brand.ilike.%${term}%,model.ilike.%${term}%`);
+  }
   if (filters.brand) query = query.ilike('brand', filters.brand);
   if (filters.condition) query = query.eq('condition', filters.condition);
   if (filters.bodyType) query = query.ilike('body_type', filters.bodyType);

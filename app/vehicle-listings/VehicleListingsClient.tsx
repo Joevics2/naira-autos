@@ -15,10 +15,11 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Gauge, MapPin, Phone } from 'lucide-react';
+import { ArrowLeft, Gauge, MapPin, Phone, Search, SlidersHorizontal, X } from 'lucide-react';
 import { formatVehiclePrice, VehicleListing } from '@/lib/vehicle-listings';
 
 interface Filters {
+  q?: string;
   brand?: string;
   condition?: string;
   bodyType?: string;
@@ -46,11 +47,18 @@ export function VehicleListingsClient({ initialListings, total, page, pageSize, 
   const router = useRouter();
   const pathname = usePathname();
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const [showFilters, setShowFilters] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(filters.q || '');
+
+  const activeFilterCount = [filters.brand, filters.condition, filters.priceMin, filters.priceMax].filter(
+    Boolean
+  ).length;
 
   function updateQuery(next: Partial<Filters & { page: number }>) {
     const params = new URLSearchParams();
     const merged = { ...filters, page: 1, ...next };
 
+    if (merged.q) params.set('q', merged.q);
     if (merged.brand) params.set('brand', merged.brand);
     if (merged.condition) params.set('condition', merged.condition);
     if (merged.bodyType) params.set('body_type', merged.bodyType);
@@ -60,6 +68,10 @@ export function VehicleListingsClient({ initialListings, total, page, pageSize, 
     if (merged.page && merged.page > 1) params.set('page', String(merged.page));
 
     router.push(`${pathname}?${params.toString()}`);
+  }
+
+  function runSearch() {
+    updateQuery({ q: searchTerm.trim() || undefined });
   }
 
   return (
@@ -77,11 +89,37 @@ export function VehicleListingsClient({ initialListings, total, page, pageSize, 
         </div>
 
         <h1 className="text-2xl md:text-3xl font-bold mb-2">Vehicle Listings</h1>
-        <p className="text-white/50 text-sm mb-8">
+        <p className="text-white/50 text-sm mb-6">
           Vehicles curated and verified by the Naira Autos team.
         </p>
 
-        <FilterBar brands={brands} filters={filters} onChange={updateQuery} />
+        {/* Search + Filter toggle + Sort — compact row, filters stay hidden until asked for */}
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+            <Input
+              placeholder="Search by make, model..."
+              className="pl-9"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && runSearch()}
+              onBlur={runSearch}
+            />
+          </div>
+          <Button
+            variant="outline"
+            className={`flex-shrink-0 gap-2 ${activeFilterCount > 0 ? 'border-amber-400/50 text-amber-400' : ''}`}
+            onClick={() => setShowFilters((v) => !v)}
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            <span className="hidden sm:inline">Filter</span>
+            {activeFilterCount > 0 && <span className="text-xs">({activeFilterCount})</span>}
+          </Button>
+        </div>
+
+        {showFilters && (
+          <FilterBar brands={brands} filters={filters} onChange={updateQuery} onClose={() => setShowFilters(false)} />
+        )}
 
         <div className="grid md:grid-cols-2 gap-4 mt-6 mb-8">
           <RequestCarCard />
@@ -132,59 +170,80 @@ function FilterBar({
   brands,
   filters,
   onChange,
+  onClose,
 }: {
   brands: string[];
   filters: Filters;
   onChange: (next: Partial<Filters & { page: number }>) => void;
+  onClose: () => void;
 }) {
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-5 gap-3">
-      <Select value={filters.brand || 'all'} onValueChange={(v) => onChange({ brand: v === 'all' ? undefined : v })}>
-        <SelectTrigger><SelectValue placeholder="Brand" /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Brands</SelectItem>
-          {brands.map((b) => (
-            <SelectItem key={b} value={b}>{b}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <Card className="bg-white/5 border-white/10 mt-3">
+      <CardContent className="p-4">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium text-white/70">Filters</span>
+          <div className="flex items-center gap-3">
+            <button
+              className="text-xs text-white/40 hover:text-white/70"
+              onClick={() => onChange({ brand: undefined, condition: undefined, priceMin: undefined, priceMax: undefined })}
+            >
+              Clear all
+            </button>
+            <button onClick={onClose} className="text-white/40 hover:text-white/70">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
 
-      <Select
-        value={filters.condition || 'all'}
-        onValueChange={(v) => onChange({ condition: v === 'all' ? undefined : v })}
-      >
-        <SelectTrigger><SelectValue placeholder="Condition" /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Any Condition</SelectItem>
-          {Object.entries(CONDITION_LABELS).map(([value, label]) => (
-            <SelectItem key={value} value={value}>{label}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+        <div className="grid sm:grid-cols-2 md:grid-cols-5 gap-3">
+          <Select value={filters.brand || 'all'} onValueChange={(v) => onChange({ brand: v === 'all' ? undefined : v })}>
+            <SelectTrigger><SelectValue placeholder="Brand" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Brands</SelectItem>
+              {brands.map((b) => (
+                <SelectItem key={b} value={b}>{b}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-      <Input
-        type="number"
-        placeholder="Min price (₦)"
-        defaultValue={filters.priceMin || ''}
-        onBlur={(e) => onChange({ priceMin: e.target.value ? Number(e.target.value) : undefined })}
-      />
+          <Select
+            value={filters.condition || 'all'}
+            onValueChange={(v) => onChange({ condition: v === 'all' ? undefined : v })}
+          >
+            <SelectTrigger><SelectValue placeholder="Condition" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Any Condition</SelectItem>
+              {Object.entries(CONDITION_LABELS).map(([value, label]) => (
+                <SelectItem key={value} value={value}>{label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-      <Input
-        type="number"
-        placeholder="Max price (₦)"
-        defaultValue={filters.priceMax || ''}
-        onBlur={(e) => onChange({ priceMax: e.target.value ? Number(e.target.value) : undefined })}
-      />
+          <Input
+            type="number"
+            placeholder="Min price (₦)"
+            defaultValue={filters.priceMin || ''}
+            onBlur={(e) => onChange({ priceMin: e.target.value ? Number(e.target.value) : undefined })}
+          />
 
-      <Select value={filters.sort || 'newest'} onValueChange={(v) => onChange({ sort: v })}>
-        <SelectTrigger><SelectValue placeholder="Sort" /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value="newest">Newest First</SelectItem>
-          <SelectItem value="price_asc">Price: Low to High</SelectItem>
-          <SelectItem value="price_desc">Price: High to Low</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
+          <Input
+            type="number"
+            placeholder="Max price (₦)"
+            defaultValue={filters.priceMax || ''}
+            onBlur={(e) => onChange({ priceMax: e.target.value ? Number(e.target.value) : undefined })}
+          />
+
+          <Select value={filters.sort || 'newest'} onValueChange={(v) => onChange({ sort: v })}>
+            <SelectTrigger><SelectValue placeholder="Sort" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="newest">Newest First</SelectItem>
+              <SelectItem value="price_asc">Price: Low to High</SelectItem>
+              <SelectItem value="price_desc">Price: High to Low</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 

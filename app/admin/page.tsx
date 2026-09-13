@@ -11,9 +11,10 @@ import { useToast } from '@/hooks/use-toast';
 import { Check, X, Eye, EyeOff, Users, AlertCircle, Car } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { VehicleListingsAdmin } from './VehicleListingsAdmin';
+import { AdminLogin } from './AdminLogin';
 
 export default function AdminPage() {
-  const { profile, loading: authLoading } = useAuth();
+  const { user, profile, loading: authLoading } = useAuth();
   const [users, setUsers] = useState<Profile[]>([]);
   const [verificationRequests, setVerificationRequests] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,10 +79,14 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    loadAdminData();
-  }, []);
+    if (profile?.role === 'admin') {
+      loadAdminData();
+    } else {
+      setLoading(false);
+    }
+  }, [profile?.role]);
 
-  if (authLoading || loading) {
+  if (authLoading) {
     return (
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
@@ -92,12 +97,27 @@ export default function AdminPage() {
     );
   }
 
+  if (!user) {
+    return <AdminLogin />;
+  }
+
   if (profile?.role !== 'admin') {
     return (
       <div className="max-w-screen-xl mx-auto px-4 py-8 text-center">
         <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
         <h1 className="text-2xl font-bold text-gray-900">Access Denied</h1>
         <p className="text-gray-600 mt-2">You don't have permission to access this page</p>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="max-w-screen-xl mx-auto px-4 py-8">
+        <div className="animate-pulse space-y-4">
+          <div className="h-48 bg-gray-200 rounded-lg"></div>
+          <div className="h-96 bg-gray-200 rounded-lg"></div>
+        </div>
       </div>
     );
   }

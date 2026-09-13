@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 
 interface PageProps {
   searchParams: {
+    q?: string;
     brand?: string;
     condition?: string;
     body_type?: string;
@@ -39,6 +40,7 @@ const ALLOWED_CONDITIONS: VehicleCondition[] = ['foreign_used', 'nigerian_used',
 
 export default async function VehicleListingsPage({ searchParams }: PageProps) {
   const filters = {
+    q: searchParams.q || undefined,
     brand: searchParams.brand || undefined,
     condition: ALLOWED_CONDITIONS.includes(searchParams.condition as VehicleCondition)
       ? (searchParams.condition as VehicleCondition)
@@ -65,6 +67,7 @@ export default async function VehicleListingsPage({ searchParams }: PageProps) {
       pageSize={pageSize}
       brands={brands}
       filters={{
+        q: filters.q,
         brand: filters.brand,
         condition: filters.condition,
         bodyType: filters.bodyType,
