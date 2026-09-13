@@ -101,7 +101,7 @@ const staticPages = [
   // root-level (no German/Italian tools index exists yet - held back until
   // each language reaches the ~5-tool threshold, same logic as /herramientas
   // above).
-  { url: '/entfernungsrechner-deutschland',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/werkzeuge/entfernungsrechner-deutschland', priority: 0.7, changefreq: 'monthly' },
   { url: '/calcolatore-di-distanza-italia',      priority: 0.7, changefreq: 'monthly' },
   { url: '/afstandscalculator-nederland',        priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },

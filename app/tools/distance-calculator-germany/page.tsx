@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Calculate road distance and drive time between 40 German cities — Berlin, Munich, Hamburg, Frankfurt, Cologne and more. Cross-checked Autobahn distances, drive time, and fuel cost.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/distance-calculator-germany',
-    languages: { de: 'https://www.naira.autos/entfernungsrechner-deutschland' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-germany' },
+    languages: { de: 'https://www.naira.autos/werkzeuge/entfernungsrechner-deutschland' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-germany' },
   },
   openGraph: {
     title: 'Distance Calculator Germany 2026 | Naira Autos',
@@ -112,7 +112,7 @@ export default function DistanceCalculatorGermanyPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 40 German cities — Berlin, Munich, Hamburg, Frankfurt, Cologne, and major regional centres.
             </p>
-            <Link href="/entfernungsrechner-deutschland" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link href="/werkzeuge/entfernungsrechner-deutschland" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               Deutsch (German version) →
             </Link>
           </div>

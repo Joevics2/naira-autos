@@ -1,4 +1,4 @@
-// app/entfernungsrechner-deutschland/page.tsx
+// app/werkzeuge/entfernungsrechner-deutschland/page.tsx
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   title: 'Entfernungsrechner Deutschland 2026 — Straßenentfernung zwischen zwei Städten',
   description: 'Berechnen Sie die Straßenentfernung und Fahrzeit zwischen 40 deutschen Städten — Berlin, München, Hamburg, Frankfurt, Köln und mehr. Geprüfte Autobahnentfernungen, Fahrzeit und Kraftstoffkosten.',
   alternates: {
-    canonical: 'https://www.naira.autos/entfernungsrechner-deutschland',
+    canonical: 'https://www.naira.autos/werkzeuge/entfernungsrechner-deutschland',
     languages: { en: 'https://www.naira.autos/tools/distance-calculator-germany' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-germany' },
   },
   openGraph: {
     title: 'Entfernungsrechner Deutschland 2026',
     description: 'Straßenentfernung und Fahrzeit zwischen 40 deutschen Städten, mit Kraftstoffkosten-Rechner.',
-    url: 'https://www.naira.autos/entfernungsrechner-deutschland',
+    url: 'https://www.naira.autos/werkzeuge/entfernungsrechner-deutschland',
     locale: 'de',
   },
   keywords: [
@@ -34,10 +34,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/entfernungsrechner-deutschland',
+      '@id': 'https://www.naira.autos/werkzeuge/entfernungsrechner-deutschland',
       name: 'Entfernungsrechner Deutschland 2026 — Straßenentfernung zwischen zwei Städten',
       description: 'Berechnen Sie die Straßenentfernung und Fahrzeit zwischen 40 deutschen Städten, mit Kraftstoffkosten-Rechner.',
-      url: 'https://www.naira.autos/entfernungsrechner-deutschland',
+      url: 'https://www.naira.autos/werkzeuge/entfernungsrechner-deutschland',
       dateModified: '2026-09-09',
       inLanguage: 'de',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -82,7 +82,7 @@ export default function DistanceCalculatorGermanyGermanPage() {
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
               <Link href="/" className="hover:text-white/60 transition-colors">Startseite</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Werkzeuge</Link>
+              <Link href="/werkzeuge" className="hover:text-white/60 transition-colors">Werkzeuge</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇩🇪 Deutschland</span>
             </nav>

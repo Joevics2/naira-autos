@@ -6,7 +6,7 @@ import { DE_CAPITAL_DISTANCE_KM } from '@/lib/de-distance-matrix';
 import { DE_STRINGS } from '@/lib/distance-strings-de';
 
 const CONFIG: DistanceCalcConfig = {
-  basePath: '/entfernungsrechner-deutschland',
+  basePath: '/werkzeuge/entfernungsrechner-deutschland',
   towns: DE_TOWNS,
   verifiedMatrix: DE_CAPITAL_DISTANCE_KM,
   popularRoutes: [

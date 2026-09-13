@@ -60,6 +60,10 @@ const nextConfig = {
       { source: '/tools/distance-calculator-qatar-arabic', destination: '/adawat/hasbat-al-masafa-qatar', permanent: true },
       { source: '/tools/distance-calculator-saudi-arabia-arabic', destination: '/adawat/hasbat-al-masafa-alsaudiya', permanent: true },
       { source: '/tools/distance-calculator-uae-arabic', destination: '/adawat/hasbat-al-masafa-alemarat', permanent: true },
+      // German tools index (/werkzeuge) didn't exist yet when this page
+      // shipped, so it launched root-level; move it in now that the hub
+      // has enough pages to exist.
+      { source: '/entfernungsrechner-deutschland', destination: '/werkzeuge/entfernungsrechner-deutschland', permanent: true },
     ];
 
     return [
