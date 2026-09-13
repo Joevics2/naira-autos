@@ -59,6 +59,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I calculate fuel cost for my trip?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — pick a vehicle type and current pump price in the calculator above; it converts road distance directly into estimated fuel needed and cost.' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator USA',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 

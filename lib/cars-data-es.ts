@@ -9,7 +9,7 @@
 // (cars-data.ts + car-country-pricing.ts) instead of duplicating 80 cars'
 // worth of specs into a second data file.
 //
-// Used by: app/tools/comparador-de-autos and app/tools/mejor-auto-para-ti.
+// Used by: app/herramientas/comparador-de-autos and app/herramientas/mejor-auto-para-ti.
 
 import type { UseCaseTag } from '@/app/tools/cars-data';
 import type { CarCountry } from '@/lib/car-country-pricing';

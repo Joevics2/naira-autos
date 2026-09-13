@@ -205,7 +205,7 @@ export default function DecodificadorDeVinPage() {
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mecánico Virtual con IA</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link href="/herramientas/calculadora-de-kilometraje" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">Calculadora de Kilometraje</p>
                 <ChevronRight className="h-4 w-4 text-amber-500" />
               </Link>

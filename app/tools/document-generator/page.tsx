@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/document-generator',
     languages: {
       en: 'https://www.naira.autos/tools/document-generator',
-      es: 'https://www.naira.autos/tools/generador-de-documentos-ia',
+      es: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
       'x-default': 'https://www.naira.autos/tools/document-generator',
     },
   },

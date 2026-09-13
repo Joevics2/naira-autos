@@ -32,6 +32,7 @@ export const metadata: Metadata = {
       pt: 'https://www.naira.autos/pagina-inicial',
       de: 'https://www.naira.autos/startseite',
       ja: 'https://www.naira.autos/homu',
+      it: 'https://www.naira.autos/inizio',
       'x-default': 'https://www.naira.autos/',
     },
   },

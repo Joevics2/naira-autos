@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/engine-number-analyzer',
     languages: {
       en: 'https://www.naira.autos/tools/engine-number-analyzer',
-      es: 'https://www.naira.autos/tools/verificar-numero-de-motor',
+      es: 'https://www.naira.autos/herramientas/verificar-numero-de-motor',
       'x-default': 'https://www.naira.autos/tools/engine-number-analyzer',
     },
   },
@@ -91,7 +91,7 @@ export default function EngineNumberAnalyzerPage() {
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-sky-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Family-Code Match</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
-              <Link href="/tools/verificar-numero-de-motor" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              <Link href="/herramientas/verificar-numero-de-motor" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Leer en español →
               </Link>
             </div>

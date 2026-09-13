@@ -1,4 +1,4 @@
-import { Wrench, Camera } from 'lucide-react';
+import { Wrench, Camera, Ruler } from 'lucide-react';
 
 // Single source of truth for the German tools index (/werkzeuge).
 // Add an entry here ONLY when that tool's German page is actually
@@ -33,6 +33,15 @@ export const TOOLS_DE: ToolDe[] = [
     badge: 'Kostenlos',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'KI und intelligente Werkzeuge',
+  },
+  {
+    href: '/werkzeuge/entfernungsrechner-deutschland',
+    icon: Ruler,
+    label: 'Entfernungsrechner — Deutschland',
+    description: 'Berechnen Sie die Straßenentfernung und Fahrzeit zwischen 40 deutschen Städten, mit Kraftstoffkosten-Rechner.',
+    badge: 'Neu',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Kosten und Wartung',
   },
 ];
 

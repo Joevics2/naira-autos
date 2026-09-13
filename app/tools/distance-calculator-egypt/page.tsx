@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Calculate road distance and drive time between 41 Egyptian towns — Cairo, Alexandria, Luxor, Aswan and more. Verified UN logistics distances, drive time, and fuel cost.',
   alternates: {
     canonical: 'https://www.naira.autos/tools/distance-calculator-egypt',
-    languages: { ar: 'https://www.naira.autos/tools/distance-calculator-egypt-arabic' },
+    languages: { ar: 'https://www.naira.autos/adawat/hasbat-al-masafa-masr' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-egypt' },
   },
   openGraph: {
     title: 'Distance Calculator Egypt 2026 | Naira Autos',
@@ -63,6 +63,13 @@ const SCHEMA = {
         { '@type': 'Question', name: 'Can I calculate fuel cost for my trip?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — pick a vehicle type and current pump price (E£/litre) in the calculator above; it converts road distance directly into estimated litres and cost.' } },
       ],
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Distance Calculator Egypt',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0' },
+    },
   ],
 };
 
@@ -107,7 +114,7 @@ export default function DistanceCalculatorEgyptPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 41 Egyptian towns — Cairo, Alexandria, Luxor, Aswan, the Red Sea and Sinai resort towns, and major governorate capitals.
             </p>
-            <Link href="/tools/distance-calculator-egypt-arabic" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link href="/adawat/hasbat-al-masafa-masr" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               العربية (Arabic version) →
             </Link>
           </div>

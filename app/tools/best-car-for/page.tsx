@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.naira.autos/tools/best-car-for',
     languages: {
       en: 'https://www.naira.autos/tools/best-car-for',
-      es: 'https://www.naira.autos/tools/mejor-auto-para-ti',
+      es: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
       'x-default': 'https://www.naira.autos/tools/best-car-for',
     },
   },
@@ -125,7 +125,7 @@ export default function BestCarForPage() {
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Free Tool</span>
             </div>
             <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
-            <Link href="/tools/mejor-auto-para-ti" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
+            <Link href="/herramientas/mejor-auto-para-ti" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
               Leer en Español →
             </Link>
             <h1
