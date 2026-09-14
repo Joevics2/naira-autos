@@ -412,7 +412,7 @@ export default function AIMechanicPageAR() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'فحص رقم الهيكل (VIN)',    color: 'blue' },
+                { href: '/adawat/fahs-raqm-alhaykal',       label: 'فحص رقم الهيكل (VIN)',    color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'قائمة أوراق المركبة',      color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'حاسبة رسوم الاستيراد',     color: 'emerald' },
               ].map(({ href, label, color }) => (

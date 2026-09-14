@@ -27,11 +27,13 @@ const staticPages = [
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
   { url: '/adawat/mikaniki-iftiradi',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/adawat/fahs-raqm-alhaykal',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/combien-vaut-ma-voiture',       priority: 0.9, changefreq: 'weekly'  },
   { url: '/outils/decodeur-vin',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/quanto-vale-meu-carro',    priority: 0.9, changefreq: 'weekly'  },
+  { url: '/ferramentas/decodificador-de-chassi',  priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/was-ist-mein-auto-wert',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/tsuru/ai-shindan',                          priority: 0.8, changefreq: 'monthly' },
@@ -40,22 +42,25 @@ const staticPages = [
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
-  // /strumenti, /ana-sayfa, /araclar intentionally NOT added yet —
-  // Arabic has 2 live tools
-  // (mikaniki-iftiradi, kam-qeemat-sayarati) plus 4 distance
-  // calculators, French has 3 (mecanicien-virtuel,
+  // /strumenti, /ana-sayfa, /araclar, /na-lak, /beranda, /trang-chu,
+  // /startpagina intentionally NOT added yet — Arabic has 3 live tools
+  // (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal) plus 4
+  // distance calculators, French has 3 (mecanicien-virtuel,
   // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 2
-  // (meu-mecanico-virtual, quanto-vale-meu-carro), German has 2
+  // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi), German has 2
   // (virtueller-mechaniker, was-ist-mein-auto-wert), Japanese has 2
   // (ai-shindan, kuruma-satei), Italian has 1 (meccanico-virtuale),
   // and Turkish has 1 (arabam-ne-kadar-eder), all still
   // under
-  // the ~5-tool threshold used for /herramientas above. Add each
+  // the ~5-tool threshold used for /herramientas above. Thai,
+  // Indonesian, Vietnamese, and Dutch have 0 tool pages yet — home +
+  // tools index built, first tool still to come. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
-  // /autoblog, /kuruma-burogu, /blog-motori, and /oto-blog held back
-  // for the same reason as /blog-de-autos — zero posts published yet
-  // in any of the seven.
+  // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the Thai/
+  // Indonesian/Vietnamese/Dutch blog indexes held back for the same
+  // reason as /blog-de-autos — zero posts published yet in any of
+  // them.
   // /herramientas (Spanish tools index) added below — now at 5 live tools
   // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
   // decodificador-de-vin, verificar-numero-de-chasis), past the ~5
@@ -109,7 +114,7 @@ const staticPages = [
   // above).
   { url: '/werkzeuge/entfernungsrechner-deutschland', priority: 0.7, changefreq: 'monthly' },
   { url: '/calcolatore-di-distanza-italia',      priority: 0.7, changefreq: 'monthly' },
-  { url: '/afstandscalculator-nederland',        priority: 0.7, changefreq: 'monthly' },
+  { url: '/gereedschappen/afstandscalculator-nederland', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/distance-calculator-canada',    priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/distance-calculator-australia', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },

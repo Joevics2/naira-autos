@@ -1,4 +1,4 @@
-// app/afstandscalculator-nederland/page.tsx
+// app/gereedschappen/afstandscalculator-nederland/page.tsx
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Afstandscalculator Nederland 2026 — Reisafstand Tussen Twee Steden',
   description: 'Bereken de reisafstand en rijtijd tussen 32 Nederlandse steden — Amsterdam, Rotterdam, Den Haag, Utrecht en meer. Geverifieerde wegafstanden, rijtijd en brandstofkosten.',
   alternates: {
-    canonical: 'https://www.naira.autos/afstandscalculator-nederland',
+    canonical: 'https://www.naira.autos/gereedschappen/afstandscalculator-nederland',
     languages: {
       en: 'https://www.naira.autos/tools/distance-calculator-netherlands',
       'x-default': 'https://www.naira.autos/tools/distance-calculator-netherlands',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Afstandscalculator Nederland 2026',
     description: 'Reisafstand en rijtijd tussen 32 Nederlandse steden, met brandstofkosten-calculator.',
-    url: 'https://www.naira.autos/afstandscalculator-nederland',
+    url: 'https://www.naira.autos/gereedschappen/afstandscalculator-nederland',
     locale: 'nl',
   },
   keywords: [
@@ -37,10 +37,10 @@ const SCHEMA = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://www.naira.autos/afstandscalculator-nederland',
+      '@id': 'https://www.naira.autos/gereedschappen/afstandscalculator-nederland',
       name: 'Afstandscalculator Nederland 2026 — Reisafstand Tussen Twee Steden',
       description: 'Bereken de reisafstand en rijtijd tussen 32 Nederlandse steden, met brandstofkosten-calculator.',
-      url: 'https://www.naira.autos/afstandscalculator-nederland',
+      url: 'https://www.naira.autos/gereedschappen/afstandscalculator-nederland',
       dateModified: '2026-09-09',
       inLanguage: 'nl',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -76,16 +76,16 @@ export default function DistanceCalculatorNetherlandsDutchPage() {
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex items-center gap-3">
             <Link
-              href="/tools/distance-calculator-countries"
+              href="/gereedschappen"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="Terug"
             >
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link href="/startpagina" className="hover:text-white/60 transition-colors">Startpagina</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link href="/gereedschappen" className="hover:text-white/60 transition-colors">Gereedschappen</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇳🇱 Nederland</span>
             </nav>

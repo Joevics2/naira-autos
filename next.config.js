@@ -64,6 +64,9 @@ const nextConfig = {
       // shipped, so it launched root-level; move it in now that the hub
       // has enough pages to exist.
       { source: '/entfernungsrechner-deutschland', destination: '/werkzeuge/entfernungsrechner-deutschland', permanent: true },
+      // Same situation for Dutch: the distance calculator launched
+      // root-level before /gereedschappen existed.
+      { source: '/afstandscalculator-nederland', destination: '/gereedschappen/afstandscalculator-nederland', permanent: true },
     ];
 
     return [
