@@ -1,4 +1,4 @@
-import { Wrench, Camera, Ruler } from 'lucide-react';
+import { Wrench, Camera, Ruler, ScanLine } from 'lucide-react';
 
 // Single source of truth for the German tools index (/werkzeuge).
 // Add an entry here ONLY when that tool's German page is actually
@@ -42,6 +42,15 @@ export const TOOLS_DE: ToolDe[] = [
     badge: 'Neu',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Kosten und Wartung',
+  },
+  {
+    href: '/werkzeuge/fahrgestellnummer-pruefen',
+    icon: ScanLine,
+    label: 'Fahrgestellnummer prüfen',
+    description: 'Fahrgestellnummer (VIN/FIN) kostenlos prüfen — Marke, Modell, Baujahr, Motor und Herstellungsland sofort.',
+    badge: 'Kostenlos',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Überprüfung',
   },
 ];
 

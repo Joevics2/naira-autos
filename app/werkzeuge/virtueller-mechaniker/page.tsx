@@ -374,7 +374,7 @@ export default function AIMechanicPageDE() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'Fahrgestellnummer-Prüfer (VIN)', color: 'blue' },
+                { href: '/werkzeuge/fahrgestellnummer-pruefen', label: 'Fahrgestellnummer-Prüfer (VIN)', color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Fahrzeugpapiere-Checkliste',     color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'Einfuhrzoll-Rechner',            color: 'emerald' },
               ].map(({ href, label, color }) => (

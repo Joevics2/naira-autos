@@ -36,8 +36,10 @@ const staticPages = [
   { url: '/ferramentas/decodificador-de-chassi',  priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/was-ist-mein-auto-wert',     priority: 0.9, changefreq: 'weekly'  },
+  { url: '/werkzeuge/fahrgestellnummer-pruefen',  priority: 0.8, changefreq: 'monthly' },
   { url: '/tsuru/ai-shindan',                          priority: 0.8, changefreq: 'monthly' },
   { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
+  { url: '/tsuru/vin-code-shirabe',               priority: 0.8, changefreq: 'monthly' },
   { url: '/strumenti/meccanico-virtuale',               priority: 0.8, changefreq: 'monthly' },
   { url: '/strumenti/quanto-vale-la-mia-auto',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
@@ -47,12 +49,13 @@ const staticPages = [
   // /startpagina intentionally NOT added yet — Arabic has 3 live tools
   // (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal) plus 4
   // distance calculators, French has 3 (mecanicien-virtuel,
-  // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 2
-  // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi), German has 2
-  // (virtueller-mechaniker, was-ist-mein-auto-wert), Japanese has 2
-  // (ai-shindan, kuruma-satei), Italian now has 2 (meccanico-virtuale,
-  // quanto-vale-la-mia-auto),
-  // and Turkish has 1 (arabam-ne-kadar-eder), all still
+  // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 3
+  // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi),
+  // German has 3 (virtueller-mechaniker, was-ist-mein-auto-wert,
+  // fahrgestellnummer-pruefen), Japanese has 3 (ai-shindan, kuruma-satei,
+  // vin-code-shirabe), Italian now has 2 (meccanico-virtuale,
+  // quanto-vale-la-mia-auto), and Turkish has 1 (arabam-ne-kadar-eder),
+  // all still
   // under
   // the ~5-tool threshold used for /herramientas above. Thai,
   // Indonesian, Vietnamese, and Dutch have 0 tool pages yet — home +
