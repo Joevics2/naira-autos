@@ -374,7 +374,7 @@ export default function AIMechanicPagePT() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'Verificador de chassi (VIN)',      color: 'blue' },
+                { href: '/ferramentas/decodificador-de-chassi',      label: 'Verificador de chassi (VIN)',      color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Lista de documentos do veículo',   color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'Calculadora de imposto de importação', color: 'emerald' },
               ].map(({ href, label, color }) => (
