@@ -41,6 +41,7 @@ export const metadata: Metadata = {
       pt: 'https://www.naira.autos/ferramentas/quanto-vale-meu-carro',
       de: 'https://www.naira.autos/werkzeuge/was-ist-mein-auto-wert',
       ja: 'https://www.naira.autos/tsuru/kuruma-satei',
+      tr: 'https://www.naira.autos/araclar/arabam-ne-kadar-eder',
       'x-default': 'https://www.naira.autos/evaluate-used-car',
     },
   },

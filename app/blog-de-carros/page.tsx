@@ -1,7 +1,36 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { BookText } from 'lucide-react';
 import BlogIndexClientPt from '@/components/blog/BlogIndexClientPt';
+
+export const metadata: Metadata = {
+  title: 'Blog de Carros — Guias de Compra, Manutenção e Dicas | Naira Autos',
+  description: 'Guias especializados para comprar carros, dicas de manutenção e tudo sobre ser dono de um veículo. Artigos práticos para comprar, manter e vender seu carro com confiança.',
+  alternates: {
+    canonical: 'https://www.naira.autos/blog-de-carros',
+    languages: {
+      en: 'https://www.naira.autos/blog',
+      es: 'https://www.naira.autos/blog-de-autos',
+      ar: 'https://www.naira.autos/blog-arabic',
+      fr: 'https://www.naira.autos/blog-auto',
+      pt: 'https://www.naira.autos/blog-de-carros',
+      de: 'https://www.naira.autos/autoblog',
+      ja: 'https://www.naira.autos/kuruma-burogu',
+      it: 'https://www.naira.autos/blog-motori',
+      tr: 'https://www.naira.autos/oto-blog',
+      'x-default': 'https://www.naira.autos/blog',
+    },
+  },
+  openGraph: {
+    title: 'Blog de Carros — Guias de Compra, Manutenção e Dicas | Naira Autos',
+    description: 'Artigos práticos para comprar, manter e vender seu carro com confiança.',
+    url: 'https://www.naira.autos/blog-de-carros',
+    siteName: 'Naira Autos',
+    locale: 'pt',
+    type: 'website',
+  },
+};
 
 export const revalidate = 86400;
 
@@ -22,18 +51,30 @@ export default async function BlogPortuguesePage() {
     <div className="min-h-screen bg-background">
       <div className="bg-primary py-12">
         <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
             <Link href="/blog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              English
+              Read in English →
+            </Link>
+            <Link href="/blog-de-autos" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              Leer en Español →
+            </Link>
+            <Link href="/blog-arabic" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              → بالعربية
+            </Link>
+            <Link href="/blog-auto" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              Lire en Français →
             </Link>
             <Link href="/autoblog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Deutsch
+              Auf Deutsch lesen →
             </Link>
             <Link href="/kuruma-burogu" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              日本語
+              日本語で読む →
             </Link>
             <Link href="/blog-motori" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Italiano
+              Leggi in Italiano →
+            </Link>
+            <Link href="/oto-blog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              Türkçe oku →
             </Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Blog da Naira Autos em Português</h1>

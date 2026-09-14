@@ -6,7 +6,7 @@ import { NL_CAPITAL_DISTANCE_KM } from '@/lib/nl-distance-matrix';
 import { NL_STRINGS } from '@/lib/distance-strings-nl';
 
 const CONFIG: DistanceCalcConfig = {
-  basePath: '/afstandscalculator-nederland',
+  basePath: '/gereedschappen/afstandscalculator-nederland',
   towns: NL_TOWNS,
   verifiedMatrix: NL_CAPITAL_DISTANCE_KM,
   popularRoutes: [
