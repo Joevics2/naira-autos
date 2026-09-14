@@ -16,6 +16,7 @@ export const metadata: Metadata = {
       pt: 'https://www.naira.autos/ferramentas',
       de: 'https://www.naira.autos/werkzeuge',
       ja: 'https://www.naira.autos/tsuru',
+      it: 'https://www.naira.autos/strumenti',
       tr: 'https://www.naira.autos/araclar',
       'x-default': 'https://www.naira.autos/tools',
     },
@@ -81,6 +82,9 @@ export default function AraclarPage() {
             </Link>
             <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               日本語で読む →
+            </Link>
+            <Link href="/strumenti" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Leggi in Italiano →
             </Link>
           </div>
           <h1

@@ -39,6 +39,7 @@ export const metadata: Metadata = {
       pt: 'https://www.naira.autos/pagina-inicial',
       de: 'https://www.naira.autos/startseite',
       ja: 'https://www.naira.autos/homu',
+      it: 'https://www.naira.autos/inizio',
       tr: 'https://www.naira.autos/ana-sayfa',
       'x-default': 'https://www.naira.autos/',
     },
@@ -105,6 +106,9 @@ export default async function AnaSayfaPage() {
             </Link>
             <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               日本語で読む →
+            </Link>
+            <Link href="/inizio" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Leggi in Italiano →
             </Link>
           </div>
           <p

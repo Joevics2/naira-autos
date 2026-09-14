@@ -41,6 +41,7 @@ export const metadata: Metadata = {
       de: 'https://www.naira.autos/startseite',
       ja: 'https://www.naira.autos/homu',
       it: 'https://www.naira.autos/inizio',
+      tr: 'https://www.naira.autos/ana-sayfa',
       'x-default': 'https://www.naira.autos/',
     },
   },

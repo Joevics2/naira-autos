@@ -17,6 +17,7 @@ export const metadata: Metadata = {
       pt: 'https://www.naira.autos/blog-de-carros',
       de: 'https://www.naira.autos/autoblog',
       ja: 'https://www.naira.autos/kuruma-burogu',
+      it: 'https://www.naira.autos/blog-motori',
       tr: 'https://www.naira.autos/oto-blog',
       'x-default': 'https://www.naira.autos/blog',
     },
@@ -72,6 +73,9 @@ export default async function OtoBlogPage() {
             </Link>
             <Link href="/kuruma-burogu" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
               日本語で読む →
+            </Link>
+            <Link href="/blog-motori" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
+              Leggi in Italiano →
             </Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Naira Autos Oto Blog</h1>

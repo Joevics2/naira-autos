@@ -17,6 +17,7 @@ export const metadata: Metadata = {
       de: 'https://www.naira.autos/werkzeuge',
       ja: 'https://www.naira.autos/tsuru',
       it: 'https://www.naira.autos/strumenti',
+      tr: 'https://www.naira.autos/araclar',
       'x-default': 'https://www.naira.autos/tools',
     },
   },
