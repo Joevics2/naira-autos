@@ -375,7 +375,7 @@ export default function AIMechanicPageJA() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 { href: '/tsuru/kuruma-satei',             label: '愛車の価値は？',             color: 'amber' },
-                { href: '/tools/vin-checker',              label: '車体番号（VIN）チェッカー', color: 'blue' },
+                { href: '/tsuru/vin-code-shirabe',         label: '車体番号（VIN）チェッカー', color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: '車両書類チェックリスト',     color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: '輸入関税計算ツール',         color: 'emerald' },
               ].map(({ href, label, color }) => (

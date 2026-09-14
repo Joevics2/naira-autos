@@ -1,4 +1,4 @@
-import { Wrench, Camera } from 'lucide-react';
+import { Wrench, Camera, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Japanese tools index (/tsuru).
 // Add an entry here ONLY when that tool's Japanese page is actually
@@ -33,6 +33,15 @@ export const TOOLS_JA: ToolJa[] = [
     badge: '無料',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AIと便利ツール',
+  },
+  {
+    href: '/tsuru/vin-code-shirabe',
+    icon: ScanLine,
+    label: 'VINコード（車台番号）照会',
+    description: 'VINコード（車台番号）を無料で照会 — メーカー、モデル、年式、エンジン、生産国が即座にわかります。',
+    badge: '無料',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: '確認・検証',
   },
 ];
 

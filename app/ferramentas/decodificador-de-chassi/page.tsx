@@ -16,6 +16,7 @@ export const metadata: Metadata = {
       ar: 'https://www.naira.autos/adawat/fahs-raqm-alhaykal',
       pt: 'https://www.naira.autos/ferramentas/decodificador-de-chassi',
       de: 'https://www.naira.autos/werkzeuge/fahrgestellnummer-pruefen',
+      ja: 'https://www.naira.autos/tsuru/vin-code-shirabe',
       'x-default': 'https://www.naira.autos/tools/vin-checker-global',
     },
   },
