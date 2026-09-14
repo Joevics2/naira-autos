@@ -27,11 +27,13 @@ const staticPages = [
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
   { url: '/adawat/mikaniki-iftiradi',            priority: 0.8, changefreq: 'monthly' },
+  { url: '/adawat/fahs-raqm-alhaykal',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/mecanicien-virtuel',            priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/combien-vaut-ma-voiture',       priority: 0.9, changefreq: 'weekly'  },
   { url: '/outils/decodeur-vin',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/quanto-vale-meu-carro',    priority: 0.9, changefreq: 'weekly'  },
+  { url: '/ferramentas/decodificador-de-chassi',  priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/was-ist-mein-auto-wert',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/tsuru/ai-shindan',                          priority: 0.8, changefreq: 'monthly' },
@@ -39,11 +41,11 @@ const staticPages = [
   { url: '/strumenti/meccanico-virtuale',               priority: 0.8, changefreq: 'monthly' },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
-  // /strumenti intentionally NOT added yet — Arabic has 2 live tools
-  // (mikaniki-iftiradi, kam-qeemat-sayarati) plus 4 distance
-  // calculators, French has 3 (mecanicien-virtuel,
+  // /strumenti intentionally NOT added yet — Arabic has 3 live tools
+  // (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal) plus 4
+  // distance calculators, French has 3 (mecanicien-virtuel,
   // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 2
-  // (meu-mecanico-virtual, quanto-vale-meu-carro), German has 2
+  // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi), German has 2
   // (virtueller-mechaniker, was-ist-mein-auto-wert), Japanese has 2
   // (ai-shindan, kuruma-satei), and Italian has 1 (meccanico-virtuale),
   // all still

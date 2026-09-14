@@ -1,4 +1,4 @@
-import { Wrench, Camera } from 'lucide-react';
+import { Wrench, Camera, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Portuguese tools index (/ferramentas).
 // Add an entry here ONLY when that tool's Portuguese page is actually
@@ -33,6 +33,15 @@ export const TOOLS_PT: ToolPt[] = [
     badge: 'Grátis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'IA e Ferramentas Inteligentes',
+  },
+  {
+    href: '/ferramentas/decodificador-de-chassi',
+    icon: ScanLine,
+    label: 'Decodificador de Chassi',
+    description: 'Consulte grátis o chassi (VIN) de qualquer carro — marca, modelo, ano, motor e país de origem na hora.',
+    badge: 'Grátis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Verificação',
   },
 ];
 

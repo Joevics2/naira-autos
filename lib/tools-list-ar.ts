@@ -1,4 +1,4 @@
-import { Wrench, Camera, Ruler } from 'lucide-react';
+import { Wrench, Camera, Ruler, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Arabic tools index (/adawat).
 // Add an entry here ONLY when that tool's Arabic page is actually live —
@@ -70,6 +70,15 @@ export const TOOLS_AR: ToolAr[] = [
     badge: 'جديد',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'التكاليف والصيانة',
+  },
+  {
+    href: '/adawat/fahs-raqm-alhaykal',
+    icon: ScanLine,
+    label: 'فحص رقم الهيكل (VIN)',
+    description: 'فحص مجاني لرقم الهيكل أو الشاصي لأي سيارة — الماركة والموديل وسنة الصنع ومواصفات المحرك ودولة المنشأ فورًا.',
+    badge: 'مجاني',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'الفحص والتحقق',
   },
 ];
 
