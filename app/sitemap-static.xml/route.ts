@@ -36,6 +36,7 @@ const staticPages = [
   { url: '/ferramentas/decodificador-de-chassi',  priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/was-ist-mein-auto-wert',     priority: 0.9, changefreq: 'weekly'  },
+  { url: '/werkzeuge/fahrgestellnummer-pruefen',  priority: 0.8, changefreq: 'monthly' },
   { url: '/tsuru/ai-shindan',                          priority: 0.8, changefreq: 'monthly' },
   { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
   { url: '/strumenti/meccanico-virtuale',               priority: 0.8, changefreq: 'monthly' },
@@ -44,11 +45,12 @@ const staticPages = [
   // /strumenti intentionally NOT added yet — Arabic has 3 live tools
   // (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal) plus 4
   // distance calculators, French has 3 (mecanicien-virtuel,
-  // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 2
-  // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi), German has 2
-  // (virtueller-mechaniker, was-ist-mein-auto-wert), Japanese has 2
-  // (ai-shindan, kuruma-satei), and Italian has 1 (meccanico-virtuale),
-  // all still
+  // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 3
+  // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi),
+  // German has 3 (virtueller-mechaniker, was-ist-mein-auto-wert,
+  // fahrgestellnummer-pruefen) plus entfernungsrechner-deutschland,
+  // Japanese has 2 (ai-shindan, kuruma-satei), and Italian has 1
+  // (meccanico-virtuale), all still
   // under
   // the ~5-tool threshold used for /herramientas above. Add each
   // language's home + tools index once a handful more tool pages ship
