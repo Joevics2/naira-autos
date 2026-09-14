@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.naira.autos/tools/distance-calculator-netherlands',
     languages: {
-      nl: 'https://www.naira.autos/afstandscalculator-nederland',
+      nl: 'https://www.naira.autos/gereedschappen/afstandscalculator-nederland',
       'x-default': 'https://www.naira.autos/tools/distance-calculator-netherlands',
     },
   },
@@ -115,7 +115,7 @@ export default function DistanceCalculatorNetherlandsPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 32 Dutch cities — Amsterdam, Rotterdam, The Hague, Utrecht, and major regional centres.
             </p>
-            <Link href="/afstandscalculator-nederland" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link href="/gereedschappen/afstandscalculator-nederland" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               Nederlands (Dutch version) →
             </Link>
           </div>

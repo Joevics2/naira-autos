@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { TOOLS_PT } from '@/lib/tools-list-pt';
+import { TOOLS_NL } from '@/lib/tools-list-nl';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
@@ -16,19 +16,19 @@ type LatestPost = {
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Naira Autos em Português — Ferramentas Grátis para Carros',
-  description: 'Ferramentas grátis para carros em português — mecânico virtual com IA, e outras ferramentas em breve. Sem cadastro, sem nenhum custo.',
-  keywords: 'ferramentas grátis para carros, mecânico virtual, mecânico IA, Naira Autos em português',
+  title: 'Naira Autos in het Nederlands — Gratis Tools voor Uw Auto',
+  description: 'Gratis tools voor uw auto in het Nederlands — we zijn net begonnen met de Nederlandse markt en voegen binnenkort meer tools toe. Geen registratie, geen kosten.',
+  keywords: 'gratis auto tools, Naira Autos Nederlands, AI monteur, afstandscalculator Nederland',
   openGraph: {
-    title: 'Naira Autos em Português',
-    description: 'Ferramentas grátis para comprar, vender e cuidar do seu carro — em português, sem cadastro.',
-    url: 'https://www.naira.autos/pagina-inicial',
+    title: 'Naira Autos in het Nederlands',
+    description: 'Gratis tools om een auto te kopen, verkopen of te onderhouden — in het Nederlands, zonder registratie.',
+    url: 'https://www.naira.autos/startpagina',
     siteName: 'Naira Autos',
-    locale: 'pt_BR',
+    locale: 'nl_NL',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.naira.autos/pagina-inicial',
+    canonical: 'https://www.naira.autos/startpagina',
     languages: {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
@@ -38,9 +38,6 @@ export const metadata: Metadata = {
       de: 'https://www.naira.autos/startseite',
       ja: 'https://www.naira.autos/homu',
       it: 'https://www.naira.autos/inizio',
-      th: 'https://www.naira.autos/na-lak',
-      id: 'https://www.naira.autos/beranda',
-      vi: 'https://www.naira.autos/trang-chu',
       nl: 'https://www.naira.autos/startpagina',
       'x-default': 'https://www.naira.autos/',
     },
@@ -50,10 +47,10 @@ export const metadata: Metadata = {
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Naira Autos em Português',
-  description: 'Ferramentas grátis para carros em português — mecânico virtual com IA, e outras ferramentas em breve.',
-  url: 'https://www.naira.autos/pagina-inicial',
-  inLanguage: 'pt-BR',
+  name: 'Naira Autos in het Nederlands',
+  description: 'Gratis tools voor uw auto in het Nederlands.',
+  url: 'https://www.naira.autos/startpagina',
+  inLanguage: 'nl',
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
@@ -61,12 +58,12 @@ const SCHEMA = {
   },
 };
 
-export default async function HomePortuguesePage() {
+export default async function HomeDutchPage() {
   const { data: latestPosts } = await supabase
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image')
     .eq('published', true)
-    .eq('language', 'pt')
+    .eq('language', 'nl')
     .order('created_at', { ascending: false })
     .limit(3);
 
@@ -75,7 +72,7 @@ export default async function HomePortuguesePage() {
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <h1 className="sr-only">Naira Autos em Português — Ferramentas Grátis para Carros</h1>
+      <h1 className="sr-only">Naira Autos in het Nederlands — Gratis Tools voor Uw Auto</h1>
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -83,7 +80,7 @@ export default async function HomePortuguesePage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Site em Português
+              Nederlands
             </span>
             <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
@@ -91,72 +88,75 @@ export default async function HomePortuguesePage() {
             <Link href="/startseite" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Deutsch
             </Link>
-            <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
-            </Link>
-            <Link href="/inizio" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Italiano
-            </Link>
           </div>
           <p
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
-            Ferramentas<br /><span className="text-emerald-400">para o seu carro</span>
+            Gereedschappen<br /><span className="text-emerald-400">voor uw auto</span>
           </p>
           <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl leading-relaxed mb-3">
-            A Naira Autos oferece ferramentas grátis para quem compra, vende ou cuida do próprio carro — um mecânico virtual com IA, calculadoras e verificadores de dados do veículo, sem cadastro e sem nenhum custo.
+            Naira Autos biedt gratis tools voor iedereen die een auto koopt, verkoopt of onderhoudt — een AI-monteur, rekentools en tools om voertuiggegevens te controleren, zonder registratie en volledig gratis.
           </p>
           <p className="text-white/50 text-sm max-w-2xl leading-relaxed">
-            Começamos atendendo o mercado nigeriano, e agora estamos levando as mesmas ferramentas para mais países e idiomas — incluindo o Brasil. Essa seção em português está no começo, e vamos continuar adicionando ferramentas e artigos com o tempo.
+            We zijn begonnen in Nigeria en brengen dezelfde tools nu naar meer landen en talen — waaronder Nederland. Dit Nederlandse gedeelte is net van start gegaan, en we blijven doorlopend meer tools en artikelen toevoegen.
           </p>
         </div>
       </div>
 
-      {/* ── Featured Portuguese tools ── */}
+      {/* ── Available tools ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="font-black uppercase text-foreground leading-none"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
           >
-            Ferramentas disponíveis
+            Beschikbare Tools
           </h2>
-          <Link href="/ferramentas" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Ver todas <ArrowRight className="h-4 w-4" />
+          <Link href="/gereedschappen" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            Bekijk Alles <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {TOOLS_PT.map((tool) => {
-            const Icon = tool.icon;
-            return (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
-              >
-                <div className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <p className="font-bold text-sm text-foreground leading-tight">{tool.label}</p>
-                    {tool.badge && (
-                      <span className={`flex-shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wider ${tool.badgeColor}`}>
-                        {tool.badge}
-                      </span>
-                    )}
+        {TOOLS_NL.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
+            <p className="text-sm text-muted-foreground">
+              We voegen binnenkort meer Nederlandstalige tools toe. Kom snel terug — of probeer intussen{' '}
+              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">onze Engelstalige tools</Link>.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {TOOLS_NL.map((tool) => {
+              const Icon = tool.icon;
+              return (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
+                >
+                  <div className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{tool.description}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <p className="font-bold text-sm text-foreground leading-tight">{tool.label}</p>
+                      {tool.badge && (
+                        <span className={`flex-shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wider ${tool.badgeColor}`}>
+                          {tool.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{tool.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      {/* ── Latest posts (only if Portuguese content exists) ── */}
+      {/* ── Latest posts (only if Dutch content exists) ── */}
       {posts.length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
           <div className="flex items-center justify-between mb-6">
@@ -164,17 +164,17 @@ export default async function HomePortuguesePage() {
               className="font-black uppercase text-foreground leading-none"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Últimos artigos
+              Nieuwste Artikelen
             </h2>
-            <Link href="/blog-de-carros" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-              Ver todos <ArrowRight className="h-4 w-4" />
+            <Link href="/auto-blog" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Bekijk Alles <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/blog-de-carros/${post.slug}`}
+                href={`/auto-blog/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
               >
                 <div className="aspect-video overflow-hidden">
@@ -203,13 +203,13 @@ export default async function HomePortuguesePage() {
               className="font-black uppercase text-foreground leading-none mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              O que é a Naira Autos?
+              Wat is Naira Autos?
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              A Naira Autos é uma plataforma de ferramentas grátis para resolver problemas reais na hora de comprar, vender ou cuidar de um carro — sem precisar criar conta ou pagar nada.
+              Naira Autos is een platform met gratis tools om echte problemen op te lossen bij het kopen, verkopen of onderhouden van een auto — zonder een account aan te maken of ergens voor te betalen.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Essa seção em português está no começo. Atualmente tem {TOOLS_PT.length} ferramenta grátis — um mecânico virtual com IA, feito em português brasileiro de verdade — e vamos adicionar mais ferramentas e artigos com o tempo.
+              Dit Nederlandse gedeelte is net van start gegaan. We beginnen met een afstandscalculator voor Nederland en breiden dit gestaag uit met meer tools, zoals een AI-monteur.
             </p>
           </div>
         </div>
