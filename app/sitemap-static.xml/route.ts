@@ -39,6 +39,7 @@ const staticPages = [
   { url: '/tsuru/ai-shindan',                          priority: 0.8, changefreq: 'monthly' },
   { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
   { url: '/strumenti/meccanico-virtuale',               priority: 0.8, changefreq: 'monthly' },
+  { url: '/strumenti/quanto-vale-la-mia-auto',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
@@ -49,7 +50,8 @@ const staticPages = [
   // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 2
   // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi), German has 2
   // (virtueller-mechaniker, was-ist-mein-auto-wert), Japanese has 2
-  // (ai-shindan, kuruma-satei), Italian has 1 (meccanico-virtuale),
+  // (ai-shindan, kuruma-satei), Italian now has 2 (meccanico-virtuale,
+  // quanto-vale-la-mia-auto),
   // and Turkish has 1 (arabam-ne-kadar-eder), all still
   // under
   // the ~5-tool threshold used for /herramientas above. Thai,
