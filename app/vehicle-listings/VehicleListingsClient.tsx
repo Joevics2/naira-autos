@@ -18,7 +18,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Gauge, MapPin, MessageCircle, Phone, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowLeft, Gauge, MapPin, MessageCircle, Phone, Search, ShoppingBag, SlidersHorizontal, Tag, X } from 'lucide-react';
 import { formatVehiclePrice, VehicleListing } from '@/lib/vehicle-listings';
 
 const WHATSAPP_NUMBER = '2349032047288';
@@ -133,7 +133,7 @@ export function VehicleListingsClient({ initialListings, total, page, pageSize, 
           <FilterBar brands={brands} filters={filters} onChange={updateQuery} onClose={() => setShowFilters(false)} />
         )}
 
-        <div className="grid md:grid-cols-2 gap-4 mt-6 mb-8">
+        <div className="grid sm:grid-cols-2 gap-3 mt-4 mb-6">
           <RequestCarCard />
           <SellYourCarCard />
         </div>
@@ -290,8 +290,8 @@ function ListingCard({ listing }: { listing: VehicleListing }) {
           {listing.mileage != null && (
             <span className="flex items-center gap-1"><Gauge className="h-3 w-3" />{listing.mileage.toLocaleString()} km</span>
           )}
-          {listing.location && (
-            <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{listing.location}</span>
+          {(listing.lga || listing.state) && (
+            <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{[listing.lga, listing.state].filter(Boolean).join(', ')}</span>
           )}
         </div>
 
@@ -399,15 +399,18 @@ function RequestCarCard() {
 
   return (
     <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) setShowForm(false); }}>
-      <Card className="bg-white/5 border-white/10 flex flex-col">
-        <CardContent className="p-5 flex flex-col flex-1">
-          <h3 className="font-semibold text-white mb-1">Buy For Me</h3>
-          <p className="text-xs text-white/40 mb-4 flex-1">
-            Can't find what you want? Tell us and we'll source it for you.
-          </p>
+      <Card className="bg-white/5 border-white/10">
+        <CardContent className="p-3 flex items-center gap-3">
+          <div className="h-9 w-9 rounded-full bg-amber-400/10 flex items-center justify-center flex-shrink-0">
+            <ShoppingBag className="h-4 w-4 text-amber-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-white leading-tight">Buy For Me</p>
+            <p className="text-xs text-white/40 truncate">Can't find your car? We'll source it.</p>
+          </div>
           <DialogTrigger asChild>
-            <Button variant="outline" className="w-full border-amber-400/40 text-amber-400 hover:bg-amber-400/10">
-              Buy For Me
+            <Button size="sm" variant="outline" className="flex-shrink-0 border-amber-400/40 text-amber-400 hover:bg-amber-400/10">
+              Ask
             </Button>
           </DialogTrigger>
         </CardContent>
@@ -463,16 +466,18 @@ function RequestCarCard() {
 
 function SellYourCarCard() {
   return (
-    <Card className="bg-white/5 border-white/10 flex flex-col">
-      <CardContent className="p-5 flex flex-col flex-1">
-        <h3 className="font-semibold text-white mb-1">Sell Your Car</h3>
-        <p className="text-xs text-white/40 mb-4 flex-1">
-          Want to reach buyers in Nigeria and abroad? Send us your car and we'll market it,
-          screen buyers, and handle the sale for you — you pay nothing until it sells.
-        </p>
-        <Link href="/sell-for-me">
-          <Button variant="outline" className="w-full border-amber-400/40 text-amber-400 hover:bg-amber-400/10">
-            Sell Your Car With Us
+    <Card className="bg-white/5 border-white/10">
+      <CardContent className="p-3 flex items-center gap-3">
+        <div className="h-9 w-9 rounded-full bg-amber-400/10 flex items-center justify-center flex-shrink-0">
+          <Tag className="h-4 w-4 text-amber-400" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-white leading-tight">Sell Your Car</p>
+          <p className="text-xs text-white/40 truncate">We market it and handle buyers for you.</p>
+        </div>
+        <Link href="/sell-for-me" className="flex-shrink-0">
+          <Button size="sm" variant="outline" className="border-amber-400/40 text-amber-400 hover:bg-amber-400/10">
+            Sell
           </Button>
         </Link>
       </CardContent>
