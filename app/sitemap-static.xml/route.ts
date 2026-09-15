@@ -122,6 +122,8 @@ const staticPages = [
   { url: '/gereedschappen/afstandscalculator-nederland', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/distance-calculator-canada',    priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/distance-calculator-australia', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-india',     priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-philippines', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
