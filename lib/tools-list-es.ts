@@ -115,6 +115,33 @@ export const TOOLS_ES: ToolEs[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Debida Diligencia',
   },
+  {
+    href: '/herramientas/calculadora-de-distancia-espana',
+    icon: Ruler,
+    label: 'Calculadora de Distancia — España',
+    description: 'Calcula la distancia por carretera y el tiempo de conducción entre 40 ciudades españolas, con calculadora de costo de combustible.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Costos y Mantenimiento',
+  },
+  {
+    href: '/herramientas/calculadora-de-distancia-mexico',
+    icon: Ruler,
+    label: 'Calculadora de Distancia — México',
+    description: 'Calcula la distancia por carretera y el tiempo de viaje entre 29 ciudades mexicanas, con calculadora de costo de combustible.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Costos y Mantenimiento',
+  },
+  {
+    href: '/herramientas/calculadora-de-distancia-argentina',
+    icon: Ruler,
+    label: 'Calculadora de Distancia — Argentina',
+    description: 'Calcula la distancia por ruta y el tiempo de viaje entre 26 ciudades argentinas, con calculadora de costo de combustible.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Costos y Mantenimiento',
+  },
 ];
 
 export const CATEGORIES_ES = ['IA y Herramientas Inteligentes', 'Finanzas', 'Costos y Mantenimiento', 'Debida Diligencia', 'Recursos'];
