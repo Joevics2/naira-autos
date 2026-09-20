@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Sparkles, Globe2 } from 'lucide-react';
-import { TOOLS_VI } from '@/lib/tools-list-vi';
+import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
+import { TOOLS_VI, CATEGORIES_VI } from '@/lib/tools-list-vi';
 
 export const metadata: Metadata = {
   title: 'Công Cụ Ô Tô Miễn Phí | Naira Autos',
-  description: 'Công cụ miễn phí cho ô tô của bạn bằng tiếng Việt — sắp ra mắt. Tất cả đều miễn phí và không cần đăng ký.',
+  description: 'Công cụ miễn phí cho ô tô của bạn bằng tiếng Việt — định giá xe bằng AI và nhiều công cụ khác sắp ra mắt. Tất cả đều miễn phí và không cần đăng ký.',
   alternates: {
     canonical: 'https://www.naira.autos/cong-cu',
     languages: {
@@ -17,21 +17,48 @@ export const metadata: Metadata = {
       de: 'https://www.naira.autos/werkzeuge',
       ja: 'https://www.naira.autos/tsuru',
       it: 'https://www.naira.autos/strumenti',
+      tr: 'https://www.naira.autos/araclar',
       vi: 'https://www.naira.autos/cong-cu',
       'x-default': 'https://www.naira.autos/tools',
     },
   },
-  keywords: ['công cụ ô tô miễn phí', 'thợ máy AI miễn phí', 'công cụ ô tô tiếng Việt'],
+  keywords: ['công cụ ô tô miễn phí', 'định giá xe bằng ai', 'công cụ ô tô tiếng Việt'],
+};
+
+const CATEGORY_COLORS: Record<string, string> = {
+  'AI và Công Cụ Thông Minh': 'text-emerald-600 dark:text-emerald-400',
+  'Tài Chính': 'text-yellow-600 dark:text-yellow-400',
+  'Chi Phí và Bảo Dưỡng': 'text-sky-600 dark:text-sky-400',
+  'Xác Minh': 'text-rose-600 dark:text-rose-400',
+  'Tài Nguyên': 'text-violet-600 dark:text-violet-400',
+};
+
+const CATEGORY_BORDER: Record<string, string> = {
+  'AI và Công Cụ Thông Minh': 'hover:border-emerald-500/40 hover:shadow-emerald-500/5',
+  'Tài Chính': 'hover:border-yellow-500/40 hover:shadow-yellow-500/5',
+  'Chi Phí và Bảo Dưỡng': 'hover:border-sky-500/40 hover:shadow-sky-500/5',
+  'Xác Minh': 'hover:border-rose-500/40 hover:shadow-rose-500/5',
+  'Tài Nguyên': 'hover:border-violet-500/40 hover:shadow-violet-500/5',
+};
+
+const ICON_BG: Record<string, string> = {
+  'AI và Công Cụ Thông Minh': 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  'Tài Chính': 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
+  'Chi Phí và Bảo Dưỡng': 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
+  'Xác Minh': 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+  'Tài Nguyên': 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
 };
 
 export default function ToolsVietnamesePage() {
+  const liveCategories = CATEGORIES_VI.filter((c) => TOOLS_VI.some((t) => t.category === c));
+
   return (
     <div className="min-h-screen bg-background">
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
         <div className="max-w-screen-xl mx-auto">
-          <div className="flex items-center gap-2 mb-5">
+          <div className="flex items-center gap-2 mb-5 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
               Công Cụ Miễn Phí
@@ -63,20 +90,63 @@ export default function ToolsVietnamesePage() {
         </div>
       </div>
 
-      {/* ── Coming soon (no Vietnamese tools live yet) ── */}
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16">
-        <div className="rounded-2xl border border-dashed border-border bg-card/50 p-10 text-center max-w-2xl mx-auto">
-          <p className="text-base font-bold text-foreground mb-2">Hiện chưa có công cụ tiếng Việt nào</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Chúng tôi đang chuyển ngữ thợ máy ảo AI và các công cụ khác sang tiếng Việt trong thời gian sớm nhất. Trong lúc chờ đợi, bạn có thể thử{' '}
-            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 font-semibold">các công cụ tiếng Anh của chúng tôi</Link>.
-          </p>
-        </div>
+      {/* ── Tool categories ── */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12 space-y-14">
+        {liveCategories.map((category) => {
+          const categoryTools = TOOLS_VI.filter(t => t.category === category);
+          return (
+            <div key={category}>
+              <div className="flex items-center gap-3 mb-6">
+                <h2
+                  className={`font-black uppercase leading-none ${CATEGORY_COLORS[category]}`}
+                  style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
+                >
+                  {category}
+                </h2>
+                <div className="flex-1 h-px bg-border" />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {categoryTools.map((tool) => {
+                  const Icon = tool.icon;
+                  return (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      className={`group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-lg transition-all duration-200 ${CATEGORY_BORDER[tool.category]}`}
+                    >
+                      <div className={`flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center ${ICON_BG[tool.category]}`}>
+                        <Icon className="h-5 w-5" />
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <p className="font-bold text-sm text-foreground leading-tight">{tool.label}</p>
+                          {tool.badge && (
+                            <span className={`flex-shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wider ${tool.badgeColor}`}>
+                              {tool.badge}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{tool.description}</p>
+                      </div>
+
+                      <ArrowRight className="flex-shrink-0 h-4 w-4 text-muted-foreground/40 group-hover:text-foreground group-hover:translate-x-0.5 transition-all mt-0.5" />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      {TOOLS_VI.length > 0 && (
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pb-12" />
-      )}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pb-12">
+        <p className="text-sm text-muted-foreground text-center">
+          Chúng tôi đang chuyển ngữ thêm công cụ sang tiếng Việt. Trong lúc chờ đợi, bạn có thể thử{' '}
+          <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 font-semibold">các công cụ tiếng Anh của chúng tôi</Link>.
+        </p>
+      </div>
     </div>
   );
 }
