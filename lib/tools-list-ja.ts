@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine } from 'lucide-react';
+import { Wrench, Camera, ScanLine, Ruler } from 'lucide-react';
 
 // Single source of truth for the Japanese tools index (/tsuru).
 // Add an entry here ONLY when that tool's Japanese page is actually
@@ -42,6 +42,15 @@ export const TOOLS_JA: ToolJa[] = [
     badge: '無料',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: '確認・検証',
+  },
+  {
+    href: '/tsuru/kyori-keisan',
+    icon: Ruler,
+    label: '距離計算機 — 日本',
+    description: '日本の43都市間の道路距離と運転時間を計算、燃料費計算機付き。',
+    badge: '新着',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: '費用計算',
   },
 ];
 

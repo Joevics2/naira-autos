@@ -43,7 +43,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'ae', name: 'UAE',            flag: '🇦🇪', href: '/tools/distance-calculator-uae', live: true },
   { code: 'ph', name: 'Philippines',    flag: '🇵🇭', href: '/tools/distance-calculator-philippines', live: true },
   { code: 'cn', name: 'China',          flag: '🇨🇳', live: false },
-  { code: 'jp', name: 'Japan',          flag: '🇯🇵', live: false },
+  { code: 'jp', name: 'Japan',          flag: '🇯🇵', href: '/tsuru/kyori-keisan', live: true },
   { code: 'kr', name: 'South Korea',    flag: '🇰🇷', live: false },
   { code: 'id', name: 'Indonesia',      flag: '🇮🇩', live: false },
   { code: 'th', name: 'Thailand',       flag: '🇹🇭', live: false },
