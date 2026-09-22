@@ -4,6 +4,7 @@ import {
   Clock, ChevronDown, Settings, AlertTriangle, PackageSearch, FileCheck2,
 } from 'lucide-react';
 import { HomeFreshness } from './HomeFreshness';
+import { AdUnit } from '@/components/ads/AdUnit';
 
 // ─── Vehicle guides — real, published brand/model/year content ─────────────
 // Curated set covering all three guide types (maintenance, parts, problems)
@@ -408,6 +409,13 @@ export function HomePage() {
             </Link>
           ))}
         </div>
+      </section>
+
+      <Divider />
+
+      {/* ── Ad ── */}
+      <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
+        <AdUnit slot="1702529630" />
       </section>
 
       <Divider />

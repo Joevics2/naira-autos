@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { TOOLS } from '@/lib/tools-list';
+import { AdUnit } from '@/components/ads/AdUnit';
 
 export const metadata: Metadata = {
   title: 'Free Calculators & Diagnostic Resources | Naira Autos',
@@ -97,6 +98,11 @@ export default function ToolsPage() {
             Every tool you need to buy, sell, and own a car — all free, all in one place.
           </p>
         </div>
+      </div>
+
+      {/* ── Ad ── */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
+        <AdUnit slot="8256418986" />
       </div>
 
       {/* ── Tool categories ── */}

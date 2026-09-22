@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, Globe2 } from 'lucide-react';
 import { TOOLS_NL, CATEGORIES_NL } from '@/lib/tools-list-nl';
+import { AdUnit } from '@/components/ads/AdUnit';
 
 export const metadata: Metadata = {
   title: 'Gratis Tools voor Uw Auto | Naira Autos',
@@ -61,6 +62,11 @@ export default function ToolsDutchPage() {
             We voegen elke week meer Nederlandstalige tools toe.
           </p>
         </div>
+      </div>
+
+      {/* ── Ad ── */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
+        <AdUnit slot="8256418986" />
       </div>
 
       {/* ── Tools by category ── */}

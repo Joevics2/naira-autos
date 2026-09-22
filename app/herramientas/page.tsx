@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
 import { TOOLS_ES, CATEGORIES_ES } from '@/lib/tools-list-es';
+import { AdUnit } from '@/components/ads/AdUnit';
 
 export const metadata: Metadata = {
   title: 'Herramientas Automotrices Gratis | Naira Autos',
@@ -106,6 +107,11 @@ export default function HerramientasPage() {
             Estamos traduciendo más herramientas cada semana.
           </p>
         </div>
+      </div>
+
+      {/* ── Ad ── */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
+        <AdUnit slot="8256418986" />
       </div>
 
       {/* ── Tool categories ── */}
