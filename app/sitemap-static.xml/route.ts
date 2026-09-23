@@ -41,6 +41,7 @@ const staticPages = [
   { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
   { url: '/tsuru/vin-code-shirabe',               priority: 0.8, changefreq: 'monthly' },
   { url: '/strumenti/meccanico-virtuale',               priority: 0.8, changefreq: 'monthly' },
+  { url: '/strumenti/verifica-numero-di-telaio',  priority: 0.8, changefreq: 'monthly' },
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
@@ -52,8 +53,9 @@ const staticPages = [
   // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi),
   // German has 3 (virtueller-mechaniker, was-ist-mein-auto-wert,
   // fahrgestellnummer-pruefen) plus entfernungsrechner-deutschland,
-  // Japanese has 3 (ai-shindan, kuruma-satei, vin-code-shirabe), Italian has 1
-  // (meccanico-virtuale), and Turkish has 1 (arabam-ne-kadar-eder), all still
+  // Japanese has 3 (ai-shindan, kuruma-satei, vin-code-shirabe), Italian has 2
+  // (meccanico-virtuale, verifica-numero-di-telaio), and Turkish has 1
+  // (arabam-ne-kadar-eder), all still
   // under
   // the ~5-tool threshold used for /herramientas above. Thai,
   // Indonesian, Vietnamese, and Dutch have 0 tool pages yet — home +

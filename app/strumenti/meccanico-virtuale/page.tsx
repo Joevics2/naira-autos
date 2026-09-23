@@ -374,7 +374,7 @@ export default function AIMechanicPageIT() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'Verifica numero di telaio (VIN)', color: 'blue' },
+                { href: '/strumenti/verifica-numero-di-telaio', label: 'Verifica numero di telaio (VIN)', color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Checklist documenti veicolo',      color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'Calcolatore dazi doganali',         color: 'emerald' },
               ].map(({ href, label, color }) => (
