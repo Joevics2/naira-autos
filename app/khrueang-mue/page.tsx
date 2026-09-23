@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
 import { TOOLS_TH, CATEGORIES_TH } from '@/lib/tools-list-th';
+import { AdUnit } from '@/components/ads/AdUnit';
 
 export const metadata: Metadata = {
   title: 'เครื่องมือรถยนต์ฟรี | Naira Autos',
@@ -89,6 +90,11 @@ export default function ToolsThaiPage() {
             เราแปลเครื่องมือเพิ่มเติมทุกสัปดาห์
           </p>
         </div>
+      </div>
+
+      {/* ── Ad ── */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
+        <AdUnit slot="8256418986" />
       </div>
 
       {/* ── Tool categories ── */}

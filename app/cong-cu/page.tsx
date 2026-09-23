@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
 import { TOOLS_VI, CATEGORIES_VI } from '@/lib/tools-list-vi';
+import { AdUnit } from '@/components/ads/AdUnit';
 
 export const metadata: Metadata = {
   title: 'Công Cụ Ô Tô Miễn Phí | Naira Autos',
@@ -88,6 +89,11 @@ export default function ToolsVietnamesePage() {
             Chúng tôi chuyển ngữ thêm công cụ mỗi tuần.
           </p>
         </div>
+      </div>
+
+      {/* ── Ad ── */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
+        <AdUnit slot="8256418986" />
       </div>
 
       {/* ── Tool categories ── */}
