@@ -24,6 +24,9 @@ export interface VehicleListing {
   color: string | null;
   mileage: number | null;
   location: string | null;
+  state: string | null;
+  lga: string | null;
+  town: string | null;
   description: string | null;
   features: string[];
   images: string[];
@@ -65,6 +68,7 @@ export interface VehicleListingFilters {
   brand?: string;
   condition?: VehicleCondition;
   bodyType?: string;
+  state?: string;
   priceMin?: number;
   priceMax?: number;
   sort?: VehicleSort;
@@ -91,6 +95,7 @@ export async function getVehicleListings(filters: VehicleListingFilters) {
   }
   if (filters.brand) query = query.ilike('brand', filters.brand);
   if (filters.condition) query = query.eq('condition', filters.condition);
+  if (filters.state) query = query.eq('state', filters.state);
   if (filters.bodyType) query = query.ilike('body_type', filters.bodyType);
   if (typeof filters.priceMin === 'number') query = query.gte('price', filters.priceMin);
   if (typeof filters.priceMax === 'number') query = query.lte('price', filters.priceMax);

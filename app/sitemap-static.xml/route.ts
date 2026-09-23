@@ -41,24 +41,27 @@ const staticPages = [
   { url: '/tsuru/kuruma-satei',                   priority: 0.9, changefreq: 'weekly'  },
   { url: '/tsuru/vin-code-shirabe',               priority: 0.8, changefreq: 'monthly' },
   { url: '/strumenti/meccanico-virtuale',               priority: 0.8, changefreq: 'monthly' },
+  { url: '/strumenti/quanto-vale-la-mia-auto',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/strumenti/verifica-numero-di-telaio',  priority: 0.8, changefreq: 'monthly' },
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
+  { url: '/cong-cu/xe-cua-toi-dang-gia-bao-nhieu', priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
   // /strumenti, /ana-sayfa, /araclar, /na-lak, /beranda, /trang-chu,
-  // /startpagina intentionally NOT added yet — Arabic has 3 live tools
-  // (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal) plus 4
-  // distance calculators, French has 3 (mecanicien-virtuel,
+  // /cong-cu, /startpagina intentionally NOT added yet — Arabic has 3
+  // live tools (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal)
+  // plus 4 distance calculators, French has 3 (mecanicien-virtuel,
   // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 3
   // (meu-mecanico-virtual, quanto-vale-meu-carro, decodificador-de-chassi),
   // German has 3 (virtueller-mechaniker, was-ist-mein-auto-wert,
   // fahrgestellnummer-pruefen) plus entfernungsrechner-deutschland,
-  // Japanese has 3 (ai-shindan, kuruma-satei, vin-code-shirabe), Italian has 2
-  // (meccanico-virtuale, verifica-numero-di-telaio), and Turkish has 1
-  // (arabam-ne-kadar-eder), all still
+  // Japanese has 3 (ai-shindan, kuruma-satei, vin-code-shirabe), Italian
+  // now has 3 (meccanico-virtuale, quanto-vale-la-mia-auto,
+  // verifica-numero-di-telaio), Turkish has 1 (arabam-ne-kadar-eder),
+  // and Vietnamese now has 1 (xe-cua-toi-dang-gia-bao-nhieu), all still
   // under
   // the ~5-tool threshold used for /herramientas above. Thai,
-  // Indonesian, Vietnamese, and Dutch have 0 tool pages yet — home +
+  // Indonesian, and Dutch still have 0 tool pages yet — home +
   // tools index built, first tool still to come. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
@@ -122,6 +125,11 @@ const staticPages = [
   { url: '/gereedschappen/afstandscalculator-nederland', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/distance-calculator-canada',    priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/distance-calculator-australia', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-india',     priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/distance-calculator-philippines', priority: 0.7, changefreq: 'monthly' },
+  { url: '/herramientas/calculadora-de-distancia-mexico', priority: 0.7, changefreq: 'monthly' },
+  { url: '/herramientas/calculadora-de-distancia-argentina', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tsuru/kyori-keisan',                  priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },

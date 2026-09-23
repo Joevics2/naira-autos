@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, ArrowLeft, Globe2 } from 'lucide-react';
 import { TOOLS_AR, CATEGORIES_AR } from '@/lib/tools-list-ar';
+import { AdUnit } from '@/components/ads/AdUnit';
 
 export const metadata: Metadata = {
   title: 'أدوات سيارات مجانية | Naira Autos',
@@ -103,6 +104,11 @@ export default function ToolsArabicPage() {
             نعمل على ترجمة المزيد من الأدوات كل أسبوع.
           </p>
         </div>
+      </div>
+
+      {/* ── Ad ── */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
+        <AdUnit slot="8256418986" />
       </div>
 
       {/* ── Tool categories ── */}
