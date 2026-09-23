@@ -28,6 +28,7 @@ export const metadata: Metadata = {
       tr: 'https://www.naira.autos/araclar/arabam-ne-kadar-eder',
       it: 'https://www.naira.autos/strumenti/quanto-vale-la-mia-auto',
       vi: 'https://www.naira.autos/cong-cu/xe-cua-toi-dang-gia-bao-nhieu',
+      th: 'https://www.naira.autos/khrueang-mue/rot-khong-chan-rakha-thaorai',
       'x-default': 'https://www.naira.autos/evaluate-used-car',
     },
   },

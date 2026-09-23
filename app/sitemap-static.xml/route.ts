@@ -46,10 +46,12 @@ const staticPages = [
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
   { url: '/araclar/sasi-numarasi-sorgulama',       priority: 0.8, changefreq: 'monthly' },
   { url: '/cong-cu/xe-cua-toi-dang-gia-bao-nhieu', priority: 0.9, changefreq: 'weekly'  },
+  { url: '/khrueang-mue/rot-khong-chan-rakha-thaorai', priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
   // /strumenti, /ana-sayfa, /araclar, /na-lak, /beranda, /trang-chu,
-  // /cong-cu, /startpagina intentionally NOT added yet — Arabic has 3
+  // /cong-cu, /khrueang-mue, /startpagina intentionally NOT added yet —
+  // Arabic has 3
   // live tools (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal)
   // plus 4 distance calculators, French has 3 (mecanicien-virtuel,
   // combien-vaut-ma-voiture, decodeur-vin), Portuguese has 3
@@ -59,18 +61,18 @@ const staticPages = [
   // Japanese has 3 (ai-shindan, kuruma-satei, vin-code-shirabe), Italian
   // now has 3 (meccanico-virtuale, quanto-vale-la-mia-auto,
   // verifica-numero-di-telaio), Turkish has 2 (arabam-ne-kadar-eder,
-  // sasi-numarasi-sorgulama),
-  // and Vietnamese now has 1 (xe-cua-toi-dang-gia-bao-nhieu), all still
+  // sasi-numarasi-sorgulama), Vietnamese has 1 (xe-cua-toi-dang-gia-bao-nhieu),
+  // and Thai now has 1 (rot-khong-chan-rakha-thaorai), all still
   // under
-  // the ~5-tool threshold used for /herramientas above. Thai,
-  // Indonesian, and Dutch still have 0 tool pages yet — home +
-  // tools index built, first tool still to come. Add each
+  // the ~5-tool threshold used for /herramientas above. Indonesian and
+  // Dutch still have 0 tool pages yet — home + tools index built, first
+  // tool still to come. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
-  // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the Thai/
+  // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the
   // Indonesian/Vietnamese/Dutch blog indexes held back for the same
   // reason as /blog-de-autos — zero posts published yet in any of
-  // them.
+  // them. (Thai has no blog index scaffolded yet.)
   // /herramientas (Spanish tools index) added below — now at 5 live tools
   // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
   // decodificador-de-vin, verificar-numero-de-chasis), past the ~5
