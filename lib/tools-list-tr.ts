@@ -1,4 +1,4 @@
-import { Camera } from 'lucide-react';
+import { Camera, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Turkish tools index (/araclar).
 // Add an entry here ONLY when that tool's Turkish page is actually
@@ -24,6 +24,15 @@ export const TOOLS_TR: ToolTr[] = [
     badge: 'Ücretsiz',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Yapay Zeka ve Akıllı Araçlar',
+  },
+  {
+    href: '/araclar/sasi-numarasi-sorgulama',
+    icon: ScanLine,
+    label: 'Şasi Numarası (VIN) Sorgulama',
+    description: 'Şasi numarasını (VIN) ücretsiz sorgulayın — marka, model, üretim yılı, motor ve üretici ülke anında.',
+    badge: 'Ücretsiz',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Doğrulama',
   },
 ];
 

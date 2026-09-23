@@ -44,6 +44,7 @@ const staticPages = [
   { url: '/strumenti/quanto-vale-la-mia-auto',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/strumenti/verifica-numero-di-telaio',  priority: 0.8, changefreq: 'monthly' },
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
+  { url: '/araclar/sasi-numarasi-sorgulama',       priority: 0.8, changefreq: 'monthly' },
   { url: '/cong-cu/xe-cua-toi-dang-gia-bao-nhieu', priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
@@ -57,7 +58,8 @@ const staticPages = [
   // fahrgestellnummer-pruefen) plus entfernungsrechner-deutschland,
   // Japanese has 3 (ai-shindan, kuruma-satei, vin-code-shirabe), Italian
   // now has 3 (meccanico-virtuale, quanto-vale-la-mia-auto,
-  // verifica-numero-di-telaio), Turkish has 1 (arabam-ne-kadar-eder),
+  // verifica-numero-di-telaio), Turkish has 2 (arabam-ne-kadar-eder,
+  // sasi-numarasi-sorgulama),
   // and Vietnamese now has 1 (xe-cua-toi-dang-gia-bao-nhieu), all still
   // under
   // the ~5-tool threshold used for /herramientas above. Thai,

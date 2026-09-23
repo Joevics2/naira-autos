@@ -18,6 +18,7 @@ export const metadata: Metadata = {
       de: 'https://www.naira.autos/werkzeuge/fahrgestellnummer-pruefen',
       ja: 'https://www.naira.autos/tsuru/vin-code-shirabe',
       it: 'https://www.naira.autos/strumenti/verifica-numero-di-telaio',
+      tr: 'https://www.naira.autos/araclar/sasi-numarasi-sorgulama',
       'x-default': 'https://www.naira.autos/tools/vin-checker-global',
     },
   },
