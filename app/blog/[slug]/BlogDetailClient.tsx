@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import BlogMarkdownRenderer from '@/components/BlogMarkdownRenderer';
+import { WhatsAppCTA } from '@/components/WhatsAppCTA';
 import { Button } from '@/components/ui/button';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getBlogFallbackImage } from '@/lib/blogImages';
@@ -202,9 +203,28 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
             )}
 
             {/* ── ARTICLE BODY ── */}
-            {post.content && (
-              <BlogMarkdownRenderer content={post.content} />
-            )}
+            {post.content && (() => {
+              // Opt-in mechanism: a post only gets the WhatsApp CTAs if its
+              // content contains the <!--CTA--> marker (inserted manually
+              // for now — this is the pilot for one article before rolling
+              // out to others). No marker = renders exactly as before.
+              const segments = post.content.split('<!--CTA-->');
+              if (segments.length === 1) {
+                return <BlogMarkdownRenderer content={post.content} />;
+              }
+              return (
+                <>
+                  <WhatsAppCTA variant="top" />
+                  {segments.map((segment, i) => (
+                    <div key={i}>
+                      <BlogMarkdownRenderer content={segment} />
+                      {i < segments.length - 1 && <WhatsAppCTA variant="middle" />}
+                    </div>
+                  ))}
+                  <WhatsAppCTA variant="end" />
+                </>
+              );
+            })()}
 
             {/* ── Tags ── */}
             {post.tags && post.tags.length > 0 && (
