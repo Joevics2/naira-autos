@@ -298,6 +298,7 @@ async function analyzeAndPriceWithGemini(
     vi: 'natural, fluent Vietnamese',
     th: 'natural, fluent Thai',
     id: 'natural, fluent Indonesian',
+    nl: 'natural, fluent Dutch',
   };
   const languageInstruction = lang && LANGUAGE_NAMES[lang]
     ? `\nLANGUAGE: Write "description", "bodyGradeReason", "disclaimer", and every string inside "valuationFactors" in ${LANGUAGE_NAMES[lang]}. Keep every other field — bodyType, vehicleType, fuelType, transmission, confidence, estimatedCarType, and all JSON keys — in English exactly as specified below; do not translate those.\n`

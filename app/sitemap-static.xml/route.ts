@@ -48,6 +48,7 @@ const staticPages = [
   { url: '/cong-cu/xe-cua-toi-dang-gia-bao-nhieu', priority: 0.9, changefreq: 'weekly'  },
   { url: '/khrueang-mue/rot-khong-chan-rakha-thaorai', priority: 0.9, changefreq: 'weekly'  },
   { url: '/alat/berapa-harga-mobil-saya', priority: 0.9, changefreq: 'weekly'  },
+  { url: '/gereedschappen/wat-is-mijn-auto-waard', priority: 0.9, changefreq: 'weekly'  },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
   // /strumenti, /ana-sayfa, /araclar, /na-lak, /beranda, /trang-chu,
@@ -64,12 +65,11 @@ const staticPages = [
   // now has 3 (meccanico-virtuale, quanto-vale-la-mia-auto,
   // verifica-numero-di-telaio), Turkish has 2 (arabam-ne-kadar-eder,
   // sasi-numarasi-sorgulama), Vietnamese has 1 (xe-cua-toi-dang-gia-bao-nhieu),
-  // Thai has 1 (rot-khong-chan-rakha-thaorai), and Indonesian now has 1
-  // (berapa-harga-mobil-saya), all still
+  // Thai has 1 (rot-khong-chan-rakha-thaorai), Indonesian has 1
+  // (berapa-harga-mobil-saya), and Dutch now has 2
+  // (wat-is-mijn-auto-waard, afstandscalculator-nederland), all still
   // under
-  // the ~5-tool threshold used for /herramientas above. Dutch still has
-  // 0 tool pages yet — home + tools index built, first tool still to
-  // come. Add each
+  // the ~5-tool threshold used for /herramientas above. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
   // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the

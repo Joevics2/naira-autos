@@ -18,6 +18,10 @@ export const metadata: Metadata = {
       de: 'https://www.naira.autos/werkzeuge',
       ja: 'https://www.naira.autos/tsuru',
       it: 'https://www.naira.autos/strumenti',
+      tr: 'https://www.naira.autos/araclar',
+      vi: 'https://www.naira.autos/cong-cu',
+      th: 'https://www.naira.autos/khrueang-mue',
+      id: 'https://www.naira.autos/alat',
       nl: 'https://www.naira.autos/gereedschappen',
       'x-default': 'https://www.naira.autos/tools',
     },
@@ -111,7 +115,7 @@ export default function ToolsDutchPage() {
 
         <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
           <p className="text-sm text-muted-foreground">
-            Meer Nederlandstalige tools zijn onderweg — waaronder een AI-monteur. Kom snel terug, of probeer intussen{' '}
+            Meer Nederlandstalige tools zijn onderweg. Kom snel terug, of probeer intussen{' '}
             <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">onze Engelstalige tools</Link>.
           </p>
         </div>

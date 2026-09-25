@@ -1,4 +1,4 @@
-import { Route } from 'lucide-react';
+import { Route, Camera } from 'lucide-react';
 
 // Single source of truth for the Dutch tools index (/gereedschappen).
 // Add an entry here ONLY when that tool's Dutch page is actually
@@ -16,6 +16,15 @@ export type ToolNl = {
 };
 
 export const TOOLS_NL: ToolNl[] = [
+  {
+    href: '/gereedschappen/wat-is-mijn-auto-waard',
+    icon: Camera,
+    label: 'Wat Is Mijn Auto Waard?',
+    description: 'Upload één foto en laat AI binnen enkele seconden de marktwaarde berekenen in uw eigen valuta.',
+    badge: 'Gratis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AI en Slimme Tools',
+  },
   {
     href: '/gereedschappen/afstandscalculator-nederland',
     icon: Route,
