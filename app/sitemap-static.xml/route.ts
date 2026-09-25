@@ -45,7 +45,12 @@ const staticPages = [
   { url: '/strumenti/verifica-numero-di-telaio',  priority: 0.8, changefreq: 'monthly' },
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
   { url: '/araclar/sasi-numarasi-sorgulama',       priority: 0.8, changefreq: 'monthly' },
+  { url: '/araclar/sanal-usta',                    priority: 0.8, changefreq: 'monthly' },
   { url: '/cong-cu/xe-cua-toi-dang-gia-bao-nhieu', priority: 0.9, changefreq: 'weekly'  },
+  { url: '/cong-cu/tho-may-ao',                    priority: 0.8, changefreq: 'monthly' },
+  { url: '/gereedschappen/virtuele-monteur',       priority: 0.8, changefreq: 'monthly' },
+  { url: '/alat/montir-virtual',                   priority: 0.8, changefreq: 'monthly' },
+  { url: '/khrueang-mue/mo-rot-ai',                priority: 0.8, changefreq: 'monthly' },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
   // /strumenti, /ana-sayfa, /araclar, /na-lak, /beranda, /trang-chu,
@@ -58,13 +63,12 @@ const staticPages = [
   // fahrgestellnummer-pruefen) plus entfernungsrechner-deutschland,
   // Japanese has 3 (ai-shindan, kuruma-satei, vin-code-shirabe), Italian
   // now has 3 (meccanico-virtuale, quanto-vale-la-mia-auto,
-  // verifica-numero-di-telaio), Turkish has 2 (arabam-ne-kadar-eder,
-  // sasi-numarasi-sorgulama),
-  // and Vietnamese now has 1 (xe-cua-toi-dang-gia-bao-nhieu), all still
-  // under
-  // the ~5-tool threshold used for /herramientas above. Thai,
-  // Indonesian, and Dutch still have 0 tool pages yet — home +
-  // tools index built, first tool still to come. Add each
+  // verifica-numero-di-telaio), Turkish now has 3 (arabam-ne-kadar-eder,
+  // sasi-numarasi-sorgulama, sanal-usta), Vietnamese now has 2
+  // (xe-cua-toi-dang-gia-bao-nhieu, tho-may-ao), and Dutch, Indonesian,
+  // and Thai each now have their first tool page (virtuele-monteur,
+  // montir-virtual, mo-rot-ai respectively) — all still under the
+  // ~5-tool threshold used for /herramientas above. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
   // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the Thai/

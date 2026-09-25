@@ -1,4 +1,4 @@
-import { Camera, ScanLine } from 'lucide-react';
+import { Camera, ScanLine, Wrench } from 'lucide-react';
 
 // Single source of truth for the Turkish tools index (/araclar).
 // Add an entry here ONLY when that tool's Turkish page is actually
@@ -16,6 +16,15 @@ export type ToolTr = {
 };
 
 export const TOOLS_TR: ToolTr[] = [
+  {
+    href: '/araclar/sanal-usta',
+    icon: Wrench,
+    label: 'Yapay Zeka ile Sanal Usta',
+    description: 'Arızayı anlat, fotoğraf, ses ya da video yükle, saniyeler içinde teşhis ve tamir maliyeti al.',
+    badge: 'Ücretsiz',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Yapay Zeka ve Akıllı Araçlar',
+  },
   {
     href: '/araclar/arabam-ne-kadar-eder',
     icon: Camera,

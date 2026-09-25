@@ -4,10 +4,10 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   Wrench, Mic, Video, Camera, AlertTriangle, CheckCircle2,
-  AlertCircle, XCircle, ChevronRight, ArrowLeft,
+  AlertCircle, XCircle, ChevronRight,
   Loader2, X, Zap, Car, Gauge,
   Plus, Trash2, MessageSquare, Send, History,
-  Check
+  Check, ArrowLeft
 } from 'lucide-react';
 
 // ── Types ─────────────────────────────────────────────────────────
@@ -57,9 +57,9 @@ interface VehicleProfile {
 // ── Constants ─────────────────────────────────────────────────────
 
 const STORAGE_KEYS = {
-  SESSIONS: 'ai_mechanic_sessions_pt',
-  ACTIVE: 'ai_mechanic_active_pt',
-  VEHICLE: 'ai_mechanic_vehicle_pt',
+  SESSIONS: 'ai_mechanic_sessions_th',
+  ACTIVE: 'ai_mechanic_active_th',
+  VEHICLE: 'ai_mechanic_vehicle_th',
 };
 
 const NIGERIAN_BRANDS = [
@@ -67,16 +67,16 @@ const NIGERIAN_BRANDS = [
   'Hyundai', 'Kia', 'Volkswagen', 'Audi', 'Land Rover', 'Mazda', 'Peugeot',
   'Mitsubishi', 'Chevrolet', 'Subaru', 'Jeep', 'Volvo', 'Infiniti',
   'Acura', 'Porsche', 'Jaguar', 'Suzuki', 'Fiat', 'Renault', 'Opel',
-  'MG', 'Chery', 'BYD', 'Haval', 'Innoson', 'Outra',
+  'MG', 'Chery', 'BYD', 'Haval', 'Innoson', 'Other',
 ];
 
 const URGENCY_CONFIG: Record<UrgencyLevel, {
   bg: string; border: string; text: string; badgeBg: string; icon: React.ReactNode; label: string;
 }> = {
-  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'Seguro para dirigir' },
-  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'Fique de olho' },
-  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'Procure um mecânico logo' },
-  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'Pare de dirigir imediatamente' },
+  safe:         { bg: 'bg-emerald-950/40', border: 'border-emerald-700', text: 'text-emerald-300', badgeBg: 'bg-emerald-500', icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />, label: 'ขับได้อย่างปลอดภัย' },
+  monitor:      { bg: 'bg-amber-950/40',   border: 'border-amber-700',   text: 'text-amber-300',   badgeBg: 'bg-amber-500',   icon: <AlertCircle className="h-4 w-4 text-amber-400" />, label: 'เฝ้าระวังอย่างใกล้ชิด' },
+  urgent:       { bg: 'bg-orange-950/40',  border: 'border-orange-700',  text: 'text-orange-300',  badgeBg: 'bg-orange-500',  icon: <AlertTriangle className="h-4 w-4 text-orange-400" />, label: 'ควรพบช่างโดยเร็ว' },
+  stop_driving: { bg: 'bg-red-950/40',     border: 'border-red-700',     text: 'text-red-300',     badgeBg: 'bg-red-600',     icon: <XCircle className="h-4 w-4 text-red-400" />, label: 'หยุดขับทันที' },
 };
 
 const PROB_COLORS = {
@@ -85,16 +85,10 @@ const PROB_COLORS = {
   low:    'bg-blue-900/50 text-blue-300',
 };
 
-const PROB_LABELS: Record<'high' | 'medium' | 'low', string> = {
-  high: 'Probabilidade alta',
-  medium: 'Probabilidade média',
-  low: 'Probabilidade baixa',
-};
-
 const PRIORITY_CONFIG = {
-  immediate:       { label: 'Agora',      cls: 'bg-red-500 text-white' },
-  soon:            { label: 'Em breve',   cls: 'bg-orange-500 text-white' },
-  when_convenient: { label: 'Sem pressa', cls: 'bg-emerald-500 text-white' },
+  immediate:       { label: 'ตอนนี้',     cls: 'bg-red-500 text-white' },
+  soon:            { label: 'เร็ว ๆ นี้', cls: 'bg-orange-500 text-white' },
+  when_convenient: { label: 'ไม่เร่งด่วน', cls: 'bg-emerald-500 text-white' },
 };
 
 // ── Helpers ───────────────────────────────────────────────────────
@@ -103,14 +97,14 @@ function uid() { return Math.random().toString(36).slice(2) + Date.now().toStrin
 
 function timeAgo(ts: number) {
   const d = Date.now() - ts;
-  if (d < 60000) return 'Agora mesmo';
-  if (d < 3600000) return 'Há ' + Math.floor(d / 60000) + 'min';
-  if (d < 86400000) return 'Há ' + Math.floor(d / 3600000) + 'h';
-  return 'Há ' + Math.floor(d / 86400000) + 'd';
+  if (d < 60000) return 'เมื่อสักครู่';
+  if (d < 3600000) return Math.floor(d / 60000) + ' นาทีที่แล้ว';
+  if (d < 86400000) return Math.floor(d / 3600000) + ' ชม. ที่แล้ว';
+  return Math.floor(d / 86400000) + ' วันที่แล้ว';
 }
 
 function blankSession(v: VehicleProfile): ChatSession {
-  return { id: uid(), title: 'Nova conversa', messages: [], vehicle: v, createdAt: Date.now(), updatedAt: Date.now() };
+  return { id: uid(), title: 'การสนทนาใหม่', messages: [], vehicle: v, createdAt: Date.now(), updatedAt: Date.now() };
 }
 
 // ── Sub-components ────────────────────────────────────────────────
@@ -120,7 +114,7 @@ function CertaintyBar({ value, note }: { value: number; note: string }) {
   return (
     <div className="space-y-1">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-slate-400">Nível de confiança do Axion</span>
+        <span className="text-xs font-medium text-slate-400">ความมั่นใจของ Axion</span>
         <span className="text-sm font-bold text-slate-100">{value}%</span>
       </div>
       <div className="h-1.5 bg-slate-600 rounded-full overflow-hidden">
@@ -142,7 +136,7 @@ function MediaPill({ icon, label, accept, file, onFile, onClear, maxMB }: {
         onChange={e => {
           const f = e.target.files?.[0];
           if (!f) return;
-          if (f.size > maxMB * 1024 * 1024) { alert('Máx ' + maxMB + 'MB'); return; }
+          if (f.size > maxMB * 1024 * 1024) { alert('สูงสุด ' + maxMB + 'MB'); return; }
           onFile(f); e.target.value = '';
         }} />
       {file ? (
@@ -162,7 +156,7 @@ function MediaPill({ icon, label, accept, file, onFile, onClear, maxMB }: {
 }
 
 function AxionLoadingSteps() {
-  const steps = ['Lendo a descrição...', 'Analisando padrões de falha...', 'Estimando o custo do reparo...', 'Preparando o diagnóstico...'];
+  const steps = ['กำลังอ่านคำอธิบายของคุณ...', 'กำลังตรวจสอบรูปแบบความเสียหาย...', 'กำลังประเมินค่าซ่อม...', 'กำลังเตรียมผลวินิจฉัยของคุณ...'];
   const [active, setActive] = useState(0);
   useEffect(() => {
     const timings = [900, 1800, 2900];
@@ -197,8 +191,8 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
     ? (diagnosis.estimated_repair_cost_usd.min && diagnosis.estimated_repair_cost_usd.max
         ? '$' + diagnosis.estimated_repair_cost_usd.min.toLocaleString() + ' – $' + diagnosis.estimated_repair_cost_usd.max.toLocaleString()
         : diagnosis.estimated_repair_cost_usd.min
-        ? 'A partir de $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
-        : 'Até $' + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
+        ? 'เริ่มต้น $' + diagnosis.estimated_repair_cost_usd.min.toLocaleString()
+        : 'สูงสุด $' + (diagnosis.estimated_repair_cost_usd.max?.toLocaleString() ?? ''))
     : null;
   const diyActions = (diagnosis.recommended_actions ?? []).filter(a => a.diy);
   const mechanicActions = (diagnosis.recommended_actions ?? []).filter(a => !a.diy);
@@ -225,13 +219,13 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {diagnosis.likely_causes?.length > 0 && (
           <div className="px-4 py-3.5">
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">
-              {diagnosis.likely_causes.length > 1 ? 'Causas prováveis' : 'Causa mais provável'}
+              {diagnosis.likely_causes.length > 1 ? 'สาเหตุที่เป็นไปได้' : 'สาเหตุที่เป็นไปได้มากที่สุด'}
             </p>
             <div className="space-y-3">
               {diagnosis.likely_causes.map((c, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 whitespace-nowrap ${PROB_COLORS[c.probability]}`}>
-                    {PROB_LABELS[c.probability] ?? c.probability}
+                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${PROB_COLORS[c.probability]}`}>
+                    {c.probability.charAt(0).toUpperCase() + c.probability.slice(1)}
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-slate-100 leading-snug">{c.cause}</p>
@@ -246,14 +240,14 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* What to do */}
         {allActions.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">O que fazer</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">สิ่งที่ควรทำ</p>
             <div className="space-y-2.5">
               {allActions.map((a, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 whitespace-nowrap ${
+                  <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 mt-0.5 ${
                     a.diy ? 'bg-emerald-500/20 text-emerald-400' : PRIORITY_CONFIG[a.priority].cls
                   }`}>
-                    {a.diy ? 'Você mesmo pode fazer' : PRIORITY_CONFIG[a.priority].label}
+                    {a.diy ? 'ทำเองได้' : PRIORITY_CONFIG[a.priority].label}
                   </span>
                   <p className="text-sm text-slate-200 leading-relaxed">{a.action}</p>
                 </div>
@@ -265,7 +259,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Next steps to confirm */}
         {diagnosis.next_steps_to_confirm?.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-amber-400/70 uppercase tracking-wide mb-3">Para um diagnóstico mais preciso, tente também</p>
+            <p className="text-xs font-bold text-amber-400/70 uppercase tracking-wide mb-3">เพื่อผลวินิจฉัยที่ดีขึ้น ลองทำสิ่งนี้ด้วย</p>
             <div className="space-y-2">
               {diagnosis.next_steps_to_confirm.map((s, i) => (
                 <div key={i} className="flex items-start gap-2 text-sm text-slate-300 leading-relaxed">
@@ -279,7 +273,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Parts to inspect */}
         {diagnosis.parts_to_check?.length > 0 && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">Peças para verificar</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2.5">ชิ้นส่วนที่ควรตรวจสอบ</p>
             <div className="flex flex-wrap gap-1.5">
               {diagnosis.parts_to_check.map((p, i) => (
                 <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-600/60 text-slate-200 border border-slate-500">{p}</span>
@@ -291,7 +285,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
         {/* Repair cost */}
         {hasCost && costStr && (
           <div className="px-4 py-3.5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Custo estimado do reparo</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">ค่าซ่อมโดยประมาณ</p>
             <p className="text-lg font-black text-slate-100">{costStr}</p>
             <p className="text-xs text-slate-400 mt-1 leading-relaxed">{diagnosis.estimated_repair_cost_usd.note}</p>
           </div>
@@ -304,7 +298,7 @@ function DiagnosisCard({ diagnosis }: { diagnosis: DiagnosisResult }) {
 
         {/* Disclaimer */}
         <div className="px-4 py-3 bg-slate-700/40">
-          <p className="text-xs text-slate-500 leading-relaxed">Este é um diagnóstico assistido por IA. Use como ponto de partida, e sempre confirme com um profissional qualificado antes de fazer qualquer reparo, principalmente em freios, direção ou combustível.</p>
+          <p className="text-xs text-slate-500 leading-relaxed">นี่คือการวินิจฉัยด้วยความช่วยเหลือของ AI ใช้เป็นจุดเริ่มต้นเท่านั้น ควรตรวจสอบกับช่างที่มีความชำนาญเสมอก่อนทำการซ่อม</p>
         </div>
 
       </div>
@@ -352,7 +346,7 @@ function ChatBubble({ msg }: { msg: ChatMessage }) {
 
 // ── Main Client Component ─────────────────────────────────────────
 
-export default function AIMechanicClientPT() {
+export default function AIMechanicClientTH() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [vehicle, setVehicle] = useState<VehicleProfile>({ brand: '', model: '', year: '' });
@@ -470,7 +464,7 @@ export default function AIMechanicClientPT() {
       setRecordingSeconds(0);
       recordingTimerRef.current = setInterval(() => setRecordingSeconds(s => s + 1), 1000);
     } catch {
-      alert('Acesso ao microfone negado. Permita o acesso e tente novamente.');
+      alert('การเข้าถึงไมโครโฟนถูกปฏิเสธ กรุณาอนุญาตแล้วลองใหม่อีกครั้ง');
     }
   };
 
@@ -495,7 +489,7 @@ export default function AIMechanicClientPT() {
     };
 
     const isFirst = activeSession.messages.length === 0;
-    const title = isFirst ? (trimmed.slice(0, 52) || 'Diagnóstico multimídia') : activeSession.title;
+    const title = isFirst ? (trimmed.slice(0, 52) || 'การวินิจฉัยจากสื่อมัลติมีเดีย') : activeSession.title;
     const withUser: ChatSession = { ...activeSession, title, messages: [...activeSession.messages, userMsg], updatedAt: Date.now() };
     persist(sessions.map(s => s.id === activeId ? withUser : s));
 
@@ -508,7 +502,7 @@ export default function AIMechanicClientPT() {
       if (vehicle.brand) fd.append('brand', vehicle.brand);
       if (vehicle.model) fd.append('model', vehicle.model);
       if (vehicle.year) fd.append('year', vehicle.year);
-      fd.append('language', 'pt');
+      fd.append('language', 'th');
       if (imageFile) fd.append('image', imageFile);
       if (audioFile) fd.append('audio', audioFile);
       if (videoFile) fd.append('video', videoFile);
@@ -518,14 +512,14 @@ export default function AIMechanicClientPT() {
 
       const res = await fetch('/api/ai-mechanic', { method: 'POST', body: fd });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Algo deu errado');
+      if (!res.ok) throw new Error(data.error || 'เกิดข้อผิดพลาดบางอย่าง');
 
       const diag: DiagnosisResult = data.diagnosis;
       const aiMsg: ChatMessage = { id: uid(), role: 'assistant', text: diag.summary, diagnosis: diag, timestamp: Date.now() };
       const withAI: ChatSession = { ...withUser, messages: [...withUser.messages, aiMsg], updatedAt: Date.now() };
       persist(sessions.map(s => s.id === activeId ? withAI : s));
     } catch (err: any) {
-      setError(err.message || 'Não foi possível analisar. Tente novamente.');
+      setError(err.message || 'ไม่สามารถวิเคราะห์ได้ กรุณาลองใหม่');
     } finally {
       setLoading(false);
     }
@@ -539,6 +533,7 @@ export default function AIMechanicClientPT() {
   const vehicleSummary = [vehicle.year, vehicle.brand, vehicle.model].filter(Boolean).join(' ');
   const hasMessages = !!(activeSession?.messages.length);
 
+  // Hide other upload buttons when one media type is already uploaded
   const showImageUpload = !audioFile && !videoFile;
   const showAudioUpload = !imageFile && !videoFile;
   const showVideoUpload = !imageFile && !audioFile;
@@ -558,52 +553,52 @@ export default function AIMechanicClientPT() {
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-3 mb-8">
-          <Link href="/ferramentas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Voltar para Ferramentas">
+          <Link href="/khrueang-mue" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="กลับไปที่เครื่องมือ">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/pagina-inicial" className="hover:text-white/60 transition-colors">Início</Link>
+            <Link href="/na-lak" className="hover:text-white/60 transition-colors">หน้าหลัก</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/ferramentas" className="hover:text-white/60 transition-colors">Ferramentas</Link>
+            <Link href="/khrueang-mue" className="hover:text-white/60 transition-colors">เครื่องมือ</Link>
             <ChevronRight className="h-3 w-3" />
-            <span className="text-white/50">Mecânico IA</span>
+            <span className="text-white/50">หมอรถ AI</span>
           </nav>
           <div className="flex items-center gap-3 ml-auto">
             <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              English
+              Read in English →
             </Link>
             <Link href="/herramientas/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Español
+              Leer en Español →
             </Link>
             <Link href="/outils/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Français
+              Lire en Français →
             </Link>
             <Link href="/adawat/mikaniki-iftiradi" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              العربية
+              بالعربية ←
+            </Link>
+            <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Ler em Português →
             </Link>
             <Link href="/werkzeuge/virtueller-mechaniker" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Deutsch
+              Auf Deutsch lesen →
             </Link>
             <Link href="/tsuru/ai-shindan" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
+              日本語で読む →
             </Link>
             <Link href="/strumenti/meccanico-virtuale" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Italiano
+              Leggi in Italiano →
             </Link>
             <Link href="/gereedschappen/virtuele-monteur" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Nederlands
+              Lees in het Nederlands →
             </Link>
             <Link href="/araclar/sanal-usta" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Türkçe
+              Türkçe Oku →
             </Link>
             <Link href="/cong-cu/tho-may-ao" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Tiếng Việt
+              Đọc bằng Tiếng Việt →
             </Link>
             <Link href="/alat/montir-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Bahasa Indonesia
-            </Link>
-            <Link href="/khrueang-mue/mo-rot-ai" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              ไทย
+              Baca dalam Bahasa Indonesia →
             </Link>
           </div>
         </div>
@@ -630,7 +625,7 @@ export default function AIMechanicClientPT() {
                 <div className="w-7 h-7 bg-emerald-500/20 border border-emerald-500/30 rounded-lg flex items-center justify-center">
                   <Wrench className="h-3.5 w-3.5 text-emerald-400" />
                 </div>
-                <span className="text-sm font-bold text-white">Axion — Conversas</span>
+                <span className="text-sm font-bold text-white">Axion — แชท</span>
               </div>
               <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-white/30 hover:text-white">
                 <X className="h-4 w-4" />
@@ -640,20 +635,20 @@ export default function AIMechanicClientPT() {
             <div className="p-2.5 border-b border-white/10">
               <button onClick={startNewChat}
                 className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/25 transition-colors">
-                <Plus className="h-3.5 w-3.5" /> Nova conversa
+                <Plus className="h-3.5 w-3.5" /> การสนทนาใหม่
               </button>
             </div>
 
             <div className="flex-1 overflow-y-auto py-2 px-2">
               {sessions.filter(s => s.messages.length > 0).length === 0 ? (
-                <p className="text-xs text-white/20 text-center py-8 px-3">Nenhuma conversa ainda</p>
+                <p className="text-xs text-white/20 text-center py-8 px-3">ยังไม่มีการสนทนา</p>
               ) : sessions.filter(s => s.messages.length > 0).map((s, idx) => {
                 const prevDate = idx > 0 ? new Date(sessions[idx - 1].updatedAt).toDateString() : null;
                 const thisDate = new Date(s.updatedAt).toDateString();
                 const showLabel = thisDate !== prevDate;
                 const today = new Date().toDateString();
-                const label = thisDate === today ? 'Hoje'
-                  : new Date(s.updatedAt) > new Date(Date.now() - 86400000 * 2) ? 'Ontem'
+                const label = thisDate === today ? 'วันนี้'
+                  : new Date(s.updatedAt) > new Date(Date.now() - 86400000 * 2) ? 'เมื่อวาน'
                   : new Date(s.updatedAt).toLocaleDateString();
                 return (
                   <div key={s.id}>
@@ -665,7 +660,7 @@ export default function AIMechanicClientPT() {
                       <MessageSquare className={`h-3.5 w-3.5 flex-shrink-0 mt-0.5 ${s.id === activeId ? 'text-emerald-400' : 'text-white/20'}`} />
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-medium text-white/80 truncate">{s.title}</p>
-                        <p className="text-xs text-white/25 mt-0.5">{s.messages.length} msgs · {timeAgo(s.updatedAt)}</p>
+                        <p className="text-xs text-white/25 mt-0.5">{s.messages.length} ข้อความ · {timeAgo(s.updatedAt)}</p>
                       </div>
                       <button onClick={e => { e.stopPropagation(); deleteSession(s.id); }}
                         className="opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-400 transition-all">
@@ -678,14 +673,14 @@ export default function AIMechanicClientPT() {
             </div>
 
             <div className="px-4 py-3 border-t border-white/10">
-              <p className="text-xs text-white/20">Salvo neste dispositivo.</p>
+              <p className="text-xs text-white/20">บันทึกไว้ในอุปกรณ์นี้</p>
               <button onClick={() => {
-                if (confirm('Apagar todo o histórico de conversas?')) {
+                if (confirm('ลบประวัติการสนทนาทั้งหมดหรือไม่?')) {
                   const s = blankSession(vehicle);
                   persist([s]); setActive(s.id);
                 }
               }} className="text-xs text-red-400/40 hover:text-red-400 mt-1 transition-colors">
-                Apagar histórico
+                ลบประวัติ
               </button>
             </div>
           </aside>
@@ -697,23 +692,23 @@ export default function AIMechanicClientPT() {
             <div>
               <h1 className="font-black leading-tight tracking-tight text-white mb-2"
                 style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(26px, 4vw, 50px)' }}>
-                Oi, eu sou o Axion 👋 seu mecânico com IA.
+                สวัสดี ผมคือ Axion 👋 หมอรถ AI ของคุณ
               </h1>
               <p className="text-white/70 text-xl sm:text-2xl font-semibold leading-snug mb-4 max-w-xl">
-                O que está acontecendo com seu carro?
+                รถของคุณเป็นอะไร?
               </p>
 
               {!hasMessages && (
                 <details className="mt-3 mb-5 group">
                   <summary className="flex items-center gap-2 cursor-pointer list-none text-xs text-white/40 hover:text-white/60 transition-colors w-fit">
                     <ChevronRight className="h-3.5 w-3.5 group-open:rotate-90 transition-transform" />
-                    <span className="font-semibold uppercase tracking-wide">Como funciona</span>
+                    <span className="font-semibold uppercase tracking-wide">วิธีใช้งาน</span>
                   </summary>
                   <div className="flex flex-col sm:flex-row gap-3 mt-3">
                     {[
-                      { num: '1', text: 'Descreva, grave ou filme o problema do seu carro — todo detalhe ajuda.' },
-                      { num: '2', text: 'Envie ou descreva o problema no campo abaixo.' },
-                      { num: '3', text: 'Receba um diagnóstico instantâneo, custo estimado e os próximos passos.' },
+                      { num: '1', text: 'อธิบาย อัดเสียง หรือถ่ายวิดีโอปัญหาของรถคุณ — รายละเอียดทุกอย่างช่วยได้' },
+                      { num: '2', text: 'อัปโหลดหรือเล่าปัญหาโดยใช้ช่องข้อความด้านล่าง' },
+                      { num: '3', text: 'รับผลวินิจฉัยทันที ค่าใช้จ่ายโดยประมาณ และขั้นตอนถัดไป' },
                     ].map(({ num, text: t }) => (
                       <div key={num} className="flex items-start gap-2.5 flex-1">
                         <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 text-white text-xs font-black flex items-center justify-center mt-0.5">{num}</span>
@@ -729,7 +724,7 @@ export default function AIMechanicClientPT() {
                 <button onClick={() => setSidebarOpen(true)}
                   className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white text-xs font-medium transition-all">
                   <History className="h-3.5 w-3.5" />
-                  Conversas anteriores
+                  การสนทนาก่อนหน้า
                   {sessions.filter(s => s.messages.length > 0).length > 0 && (
                     <span className="bg-emerald-500/30 text-emerald-400 text-xs px-1.5 py-0.5 rounded-full font-bold">
                       {sessions.filter(s => s.messages.length > 0).length}
@@ -738,7 +733,7 @@ export default function AIMechanicClientPT() {
                 </button>
                 <button onClick={startNewChat}
                   className="flex items-center gap-1 px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/25 transition-colors">
-                  <Plus className="h-3.5 w-3.5" /> Nova conversa
+                  <Plus className="h-3.5 w-3.5" /> แชทใหม่
                 </button>
               </div>
             </div>
@@ -757,41 +752,41 @@ export default function AIMechanicClientPT() {
                     <select value={vehicle.brand} onChange={e => persistVehicle({ ...vehicle, brand: e.target.value })}
                       className={`w-full h-12 pl-3 pr-8 text-sm border rounded-xl bg-white/10 text-white/90 focus:outline-none focus:border-emerald-500/50 transition-all appearance-none cursor-pointer ${!vehicle.brand ? 'border-white/20' : 'border-emerald-500/40'}`}
                       style={{ backgroundImage: dropdownArrowSvg, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}>
-                      <option value="" style={{ background: '#080C10' }}>Marca (opcional)</option>
+                      <option value="" style={{ background: '#080C10' }}>ยี่ห้อ (ไม่บังคับ)</option>
                       {NIGERIAN_BRANDS.map(b => <option key={b} value={b} style={{ background: '#080C10' }}>{b}</option>)}
                     </select>
                   </div>
-                  <input type="text" placeholder="Modelo (opcional)" value={vehicle.model}
+                  <input type="text" placeholder="รุ่น (ไม่บังคับ)" value={vehicle.model}
                     onChange={e => persistVehicle({ ...vehicle, model: e.target.value })}
                     className={`flex-1 min-w-0 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.model ? 'border-emerald-500/40' : 'border-white/20'}`} />
-                  <input type="number" placeholder="Ano" value={vehicle.year}
+                  <input type="number" placeholder="ปีที่ผลิต (ไม่บังคับ)" value={vehicle.year}
                     onChange={e => persistVehicle({ ...vehicle, year: e.target.value })}
                     min="1980" max={new Date().getFullYear() + 1}
                     className={`w-28 h-12 px-3 text-sm border rounded-xl bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-500/50 transition-all ${vehicle.year ? 'border-emerald-500/40' : 'border-white/20'}`} />
                 </div>
-                <p className="text-xs text-white/30 mb-2">Opcional, mas quanto mais o Axion souber sobre seu carro, mais preciso será o diagnóstico.</p>
+                <p className="text-xs text-white/30 mb-2">ไม่บังคับ แต่ยิ่ง Axion รู้เกี่ยวกับรถของคุณมากเท่าไหร่ การวินิจฉัยก็จะยิ่งแม่นยำมากขึ้น</p>
 
                 <div className="border border-white/20 rounded-xl bg-white/10 overflow-hidden focus-within:border-emerald-500/50 transition-all">
                   <textarea value={text} onChange={e => setText(e.target.value)} onKeyDown={handleKey}
-                    placeholder="Descreva o problema do seu carro... ex. barulho de batida na partida a frio, luz de injeção acesa, freio mole"
+                    placeholder="อธิบายปัญหาของรถคุณ... เช่น เสียงเคาะตอนสตาร์ทเครื่องเย็น ไฟ check engine ติด เบรกนุ่มผิดปกติ"
                     rows={3}
                     className="w-full px-4 pt-3 pb-2 text-sm bg-transparent text-white placeholder:text-white/40 focus:outline-none resize-none leading-relaxed" />
                   <div className="flex items-center gap-2 px-3 pb-2 pt-1.5 border-t border-white/20 flex-wrap">
-                    {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Foto" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Áudio" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
-                    {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Vídeo" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                    {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="รูปภาพ" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
+                    {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="เสียง" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                    {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                     {/* Record button */}
                     {showAudioUpload && !audioFile && (
                       isRecording ? (
                         <button type="button" onClick={stopRecording}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
                           <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                          {recordingSeconds}s — Parar
+                          {recordingSeconds}วิ — หยุด
                         </button>
                       ) : (
                         <button type="button" onClick={startRecording}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
-                          <Mic className="h-3 w-3" /> Gravar
+                          <Mic className="h-3 w-3" /> อัดเสียง
                         </button>
                       )
                     )}
@@ -801,14 +796,14 @@ export default function AIMechanicClientPT() {
                       className={`w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                         hasInput && !loading ? 'bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-500/25' : 'bg-white/10 text-white/25 cursor-not-allowed'
                       }`}>
-                      {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analisando...</> : <><Wrench className="h-4 w-4" /> Diagnosticar</>}
+                      {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> กำลังวิเคราะห์...</> : <><Wrench className="h-4 w-4" /> วินิจฉัย</>}
                     </button>
                   </div>
                 </div>
 
                 {vehicleSummary && (
                   <p className="text-xs text-white/25 mt-2 flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-emerald-500" /> Veículo salvo neste dispositivo
+                    <Check className="h-3 w-3 text-emerald-500" /> บันทึกข้อมูลรถไว้ในอุปกรณ์นี้แล้ว
                   </p>
                 )}
               </div>
@@ -842,7 +837,7 @@ export default function AIMechanicClientPT() {
                 <div className="border-t border-white/10 bg-[#080C10]/80 px-3 py-2.5">
                   <div className="flex gap-2 items-center">
                     <textarea value={text} onChange={e => setText(e.target.value)} onKeyDown={handleKey}
-                      placeholder="Faça uma pergunta de acompanhamento... (Enter para enviar)" rows={1}
+                      placeholder="ถามคำถามเพิ่มเติม... (กด Enter เพื่อส่ง)" rows={1}
                       className="flex-1 resize-none px-3 py-2 text-sm border border-white/10 rounded-xl bg-white/5 text-white placeholder:text-white/25 focus:outline-none focus:border-emerald-500/40 transition-all leading-relaxed" />
                     <button onClick={handleSubmit} disabled={!hasInput || loading}
                       className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all ${
@@ -853,26 +848,26 @@ export default function AIMechanicClientPT() {
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex gap-2 flex-wrap">
-                      {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="Foto" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
-                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="Áudio" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
-                      {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Vídeo" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
+                      {showImageUpload && <MediaPill icon={<Camera className="h-3 w-3" />} label="รูปภาพ" accept="image/*" file={imageFile} onFile={setImageFile} onClear={() => setImageFile(null)} maxMB={10} />}
+                      {showAudioUpload && <MediaPill icon={<Mic className="h-3 w-3" />} label="เสียง" accept="audio/*" file={audioFile} onFile={setAudioFile} onClear={() => setAudioFile(null)} maxMB={20} />}
+                      {showVideoUpload && <MediaPill icon={<Video className="h-3 w-3" />} label="Video" accept="video/*" file={videoFile} onFile={setVideoFile} onClear={() => setVideoFile(null)} maxMB={50} />}
                       {showAudioUpload && !audioFile && (
                         isRecording ? (
                           <button type="button" onClick={stopRecording}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-red-500/60 bg-red-500/20 text-red-400 text-xs font-medium animate-pulse transition-all">
                             <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                            {recordingSeconds}s — Parar
+                            {recordingSeconds}วิ — หยุด
                           </button>
                         ) : (
                           <button type="button" onClick={startRecording}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 text-xs font-medium text-white/40 transition-all">
-                            <Mic className="h-3 w-3" /> Gravar
+                            <Mic className="h-3 w-3" /> อัดเสียง
                           </button>
                         )
                       )}
                     </div>
                     <button onClick={startNewChat} className="flex items-center gap-1 text-xs text-white/25 hover:text-emerald-400 transition-colors">
-                      <Plus className="h-3 w-3" /> Nova conversa
+                      <Plus className="h-3 w-3" /> แชทใหม่
                     </button>
                   </div>
                 </div>
@@ -882,7 +877,7 @@ export default function AIMechanicClientPT() {
             {!hasMessages && (
               <div className="hidden lg:flex items-center justify-end">
                 <button onClick={startNewChat} className="flex items-center gap-1.5 text-xs text-white/25 hover:text-emerald-400 transition-colors">
-                  <Plus className="h-3 w-3" /> Iniciar nova conversa
+                  <Plus className="h-3 w-3" /> เริ่มการสนทนาใหม่
                 </button>
               </div>
             )}

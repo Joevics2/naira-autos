@@ -125,6 +125,11 @@ const LANGUAGE_NAMES: Record<string, string> = {
   de: 'German',
   ja: 'Japanese',
   it: 'Italian',
+  nl: 'Dutch',
+  tr: 'Turkish',
+  vi: 'Vietnamese',
+  id: 'Indonesian',
+  th: 'Thai',
 };
 
 export async function POST(req: NextRequest) {
@@ -208,6 +213,26 @@ export async function POST(req: NextRequest) {
 
       if (language === 'it') {
         textPrompt += `\n\nWrite in natural Italian for an Italy-based reader — not a word-for-word machine translation. Use the real terms an Italian mechanic actually uses (e.g. guasto for fault, diagnosi for diagnosis, pastiglie dei freni for brake pads, cinghia di distribuzione for timing belt, spia motore for check engine light, frizione for clutch), not invented compounds or overly literal renderings of the English terms. "Meccanico virtuale" and "diagnosi" are themselves standard, real terms used by actual Italian automotive diagnostic products, so use them naturally. Keep car brand and model names as they are (e.g. Fiat Panda).`;
+      }
+
+      if (language === 'nl') {
+        textPrompt += `\n\nWrite in standard Dutch (Nederlands) for a Netherlands-based reader — not a word-for-word machine translation, and not Flemish/Belgian Dutch. Use the real terms a Dutch monteur actually uses (e.g. storing for fault, remblokken for brake pads, distributieriem for timing belt, motorstoringslampje for check engine light, koppeling for clutch, versnellingsbak for gearbox), not invented compounds or overly literal renderings of the English terms. Keep car brand and model names as they are (e.g. Volkswagen Golf). Use direct, plain Dutch consistent with real Dutch automotive advice content — not stiff or overly formal.`;
+      }
+
+      if (language === 'tr') {
+        textPrompt += `\n\nWrite in natural, standard Turkish for a Turkey-based reader — not a word-for-word machine translation. Use the real terms a Turkish usta (mechanic) actually uses (e.g. arıza for fault, fren balatası for brake pads, triger kayışı/eksantrik kayışı for timing belt, motor arıza lambası for check engine light, debriyaj for clutch, şanzıman for gearbox), not invented compounds or overly literal renderings of the English terms. Keep car brand and model names as they are (e.g. Renault Clio). Use the informal "sen" register consistent with real Turkish consumer automotive content, not overly formal "siz" bureaucratic language.`;
+      }
+
+      if (language === 'vi') {
+        textPrompt += `\n\nWrite in natural Vietnamese for a Vietnam-based reader — not a word-for-word machine translation. Use the real terms a Vietnamese thợ máy (mechanic) actually uses (e.g. hỏng hóc/sự cố for fault, má phanh for brake pads, dây curoa cam for timing belt, đèn check engine for check engine light, ly hợp/côn for clutch, hộp số for gearbox), not invented compounds or overly literal renderings of the English terms. Keep car brand and model names as they are (e.g. Toyota Vios). Use clear, direct Vietnamese consistent with real consumer-facing automotive content in Vietnam.`;
+      }
+
+      if (language === 'id') {
+        textPrompt += `\n\nWrite in standard Bahasa Indonesia for an Indonesia-based reader — not a word-for-word machine translation, and not mixed with Malaysian Bahasa Melayu terms. Use the real terms an Indonesian montir actually uses (e.g. kerusakan for fault, kampas rem for brake pads, timing belt/sabuk timing for timing belt, lampu check engine for check engine light, kopling for clutch, transmisi for gearbox), not invented compounds or overly literal renderings of the English terms. Keep car brand and model names as they are (e.g. Toyota Avanza). Use natural, everyday Bahasa Indonesia consistent with real Indonesian automotive advice content.`;
+      }
+
+      if (language === 'th') {
+        textPrompt += `\n\nWrite in natural, standard Thai for a Thailand-based reader — not a word-for-word machine translation. Use the real terms a Thai ช่าง (mechanic) actually uses (e.g. อาการเสีย for fault, ผ้าเบรก for brake pads, สายพานราวลิ้น for timing belt, ไฟ check engine for check engine light, คลัตช์ for clutch, เกียร์ for gearbox) — "check engine" itself is commonly used as-is in spoken Thai automotive contexts, so keep it in English where natural. Keep car brand and model names in Latin script as they normally appear (e.g. Toyota Vios). Use polite, natural Thai consistent with real consumer-facing automotive service content, not overly formal or academic register.`;
       }
     }
 

@@ -603,6 +603,21 @@ export default function AIMechanicClientAR() {
             <Link href="/strumenti/meccanico-virtuale" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Italiano
             </Link>
+            <Link href="/gereedschappen/virtuele-monteur" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Nederlands
+            </Link>
+            <Link href="/araclar/sanal-usta" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Türkçe
+            </Link>
+            <Link href="/cong-cu/tho-may-ao" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Tiếng Việt
+            </Link>
+            <Link href="/alat/montir-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Bahasa Indonesia
+            </Link>
+            <Link href="/khrueang-mue/mo-rot-ai" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              ไทย
+            </Link>
             <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               اقرأ بالإنجليزية ←
             </Link>

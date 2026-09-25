@@ -585,6 +585,21 @@ export default function AIMechanicClientES() {
             <Link href="/strumenti/meccanico-virtuale" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               Leggi in Italiano →
             </Link>
+            <Link href="/gereedschappen/virtuele-monteur" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Lees in het Nederlands →
+            </Link>
+            <Link href="/araclar/sanal-usta" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Türkçe Oku →
+            </Link>
+            <Link href="/cong-cu/tho-may-ao" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Đọc bằng Tiếng Việt →
+            </Link>
+            <Link href="/alat/montir-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Baca dalam Bahasa Indonesia →
+            </Link>
+            <Link href="/khrueang-mue/mo-rot-ai" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              อ่านภาษาไทย →
+            </Link>
           </div>
         </div>
 
