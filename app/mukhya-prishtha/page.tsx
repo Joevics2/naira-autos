@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { TOOLS_ID } from '@/lib/tools-list-id';
+import { TOOLS_HI } from '@/lib/tools-list-hi';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
@@ -16,19 +16,19 @@ type LatestPost = {
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Naira Autos Bahasa Indonesia — Alat Gratis untuk Mobil Anda',
-  description: 'Alat gratis untuk mobil Anda dalam Bahasa Indonesia — kami baru memulai di pasar Indonesia, dan akan segera menambahkan alat lainnya. Tanpa pendaftaran, tanpa biaya.',
-  keywords: 'alat mobil gratis, Naira Autos Indonesia, mekanik AI',
+  title: 'Naira Autos हिन्दी — आपकी कार के लिए मुफ़्त टूल्स',
+  description: 'आपकी कार के लिए हिन्दी में मुफ़्त टूल्स — हमने अभी भारतीय बाज़ार में शुरुआत की है और जल्द ही और टूल्स जोड़ेंगे। साइन अप की ज़रूरत नहीं, पूरी तरह मुफ़्त।',
+  keywords: 'मुफ़्त कार टूल्स, Naira Autos हिन्दी, AI मैकेनिक',
   openGraph: {
-    title: 'Naira Autos Bahasa Indonesia',
-    description: 'Alat gratis untuk membeli, menjual, dan merawat mobil — dalam Bahasa Indonesia, tanpa pendaftaran.',
-    url: 'https://www.naira.autos/beranda',
+    title: 'Naira Autos हिन्दी',
+    description: 'कार खरीदने, बेचने और रखरखाव के लिए मुफ़्त टूल्स — हिन्दी में, बिना साइन अप के।',
+    url: 'https://www.naira.autos/mukhya-prishtha',
     siteName: 'Naira Autos',
-    locale: 'id_ID',
+    locale: 'hi_IN',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.naira.autos/beranda',
+    canonical: 'https://www.naira.autos/mukhya-prishtha',
     languages: {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
@@ -39,13 +39,11 @@ export const metadata: Metadata = {
       ja: 'https://www.naira.autos/homu',
       it: 'https://www.naira.autos/inizio',
       tr: 'https://www.naira.autos/ana-sayfa',
+      vi: 'https://www.naira.autos/trang-chu',
       th: 'https://www.naira.autos/na-lak',
       id: 'https://www.naira.autos/beranda',
-      vi: 'https://www.naira.autos/trang-chu',
       nl: 'https://www.naira.autos/startpagina',
       hi: 'https://www.naira.autos/mukhya-prishtha',
-      ko: 'https://www.naira.autos/hom',
-      ru: 'https://www.naira.autos/glavnaya',
       'x-default': 'https://www.naira.autos/',
     },
   },
@@ -54,10 +52,10 @@ export const metadata: Metadata = {
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Naira Autos Bahasa Indonesia',
-  description: 'Alat gratis untuk mobil Anda dalam Bahasa Indonesia — akan segera hadir lebih banyak.',
-  url: 'https://www.naira.autos/beranda',
-  inLanguage: 'id',
+  name: 'Naira Autos हिन्दी',
+  description: 'आपकी कार के लिए हिन्दी में मुफ़्त टूल्स — जल्द ही और टूल्स आ रहे हैं।',
+  url: 'https://www.naira.autos/mukhya-prishtha',
+  inLanguage: 'hi',
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
@@ -65,12 +63,12 @@ const SCHEMA = {
   },
 };
 
-export default async function HomeIndonesianPage() {
+export default async function HomeHindiPage() {
   const { data: latestPosts } = await supabase
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image')
     .eq('published', true)
-    .eq('language', 'id')
+    .eq('language', 'hi')
     .order('created_at', { ascending: false })
     .limit(3);
 
@@ -79,7 +77,7 @@ export default async function HomeIndonesianPage() {
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <h1 className="sr-only">Naira Autos Bahasa Indonesia — Alat Gratis untuk Mobil Anda</h1>
+      <h1 className="sr-only">Naira Autos हिन्दी — आपकी कार के लिए मुफ़्त टूल्स</h1>
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -87,7 +85,7 @@ export default async function HomeIndonesianPage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Bahasa Indonesia
+              हिन्दी
             </span>
             <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
@@ -100,41 +98,41 @@ export default async function HomeIndonesianPage() {
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
-            Alat<br /><span className="text-emerald-400">untuk Mobil Anda</span>
+            आपकी कार के लिए<br /><span className="text-emerald-400">मुफ़्त टूल्स</span>
           </p>
           <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl leading-relaxed mb-3">
-            Naira Autos menyediakan alat gratis bagi siapa saja yang membeli, menjual, atau merawat mobil — mekanik virtual AI, kalkulator, dan alat pemeriksaan data kendaraan, tanpa perlu mendaftar dan tanpa biaya.
+            Naira Autos कार खरीदने, बेचने या उसका रखरखाव करने वाले किसी भी व्यक्ति के लिए मुफ़्त टूल्स प्रदान करता है — AI वर्चुअल मैकेनिक, कैलकुलेटर और व्हीकल डेटा चेकर, बिना साइन अप और पूरी तरह मुफ़्त।
           </p>
           <p className="text-white/50 text-sm max-w-2xl leading-relaxed">
-            Kami memulai dari pasar Nigeria, dan sekarang membawa alat yang sama ke lebih banyak negara dan bahasa — termasuk Indonesia. Bagian Bahasa Indonesia ini baru saja dimulai, dan kami akan terus menambahkan alat serta artikel baru seiring waktu.
+            हमने नाइजीरिया के बाज़ार से शुरुआत की, और अब वही टूल्स कई और देशों और भाषाओं में ला रहे हैं — जिसमें भारत भी शामिल है। यह हिन्दी संस्करण अभी-अभी लॉन्च हुआ है, और हम समय के साथ और टूल्स तथा लेख जोड़ते रहेंगे।
           </p>
         </div>
       </div>
 
-      {/* ── Coming soon (no Indonesian tools live yet) ── */}
+      {/* ── Coming soon (no Hindi tools live yet) ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="font-black uppercase text-foreground leading-none"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
           >
-            Alat yang Akan Datang
+            जल्द आने वाले टूल्स
           </h2>
-          <Link href="/alat" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Lihat Semua <ArrowRight className="h-4 w-4" />
+          <Link href="/upkaran" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            सभी देखें <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
-        {TOOLS_ID.length === 0 ? (
+        {TOOLS_HI.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted-foreground">
-              Kami sedang menerjemahkan alat pertama ke Bahasa Indonesia. Kunjungi lagi segera — atau coba{' '}
-              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">alat berbahasa Inggris kami</Link>{' '}sementara menunggu.
+              हम हिन्दी में अपना पहला टूल तैयार कर रहे हैं। जल्द ही वापस आएं — या तब तक{' '}
+              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">अंग्रेज़ी टूल्स</Link>{' '}आज़माएं।
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {TOOLS_ID.map((tool) => {
+            {TOOLS_HI.map((tool) => {
               const Icon = tool.icon;
               return (
                 <Link
@@ -163,7 +161,7 @@ export default async function HomeIndonesianPage() {
         )}
       </div>
 
-      {/* ── Latest posts (only if Indonesian content exists) ── */}
+      {/* ── Latest posts (only if Hindi content exists) ── */}
       {posts.length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
           <div className="flex items-center justify-between mb-6">
@@ -171,17 +169,17 @@ export default async function HomeIndonesianPage() {
               className="font-black uppercase text-foreground leading-none"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Artikel Terbaru
+              नवीनतम लेख
             </h2>
-            <Link href="/blog-mobil" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-              Lihat Semua <ArrowRight className="h-4 w-4" />
+            <Link href="/blog-hindi" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              सभी देखें <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/blog-mobil/${post.slug}`}
+                href={`/blog-hindi/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
               >
                 <div className="aspect-video overflow-hidden">
@@ -210,13 +208,13 @@ export default async function HomeIndonesianPage() {
               className="font-black uppercase text-foreground leading-none mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Apa itu Naira Autos?
+              Naira Autos क्या है?
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Naira Autos adalah platform berisi alat gratis untuk menyelesaikan masalah nyata seputar membeli, menjual, atau merawat mobil — tanpa perlu membuat akun atau membayar apa pun.
+              Naira Autos एक ऐसा प्लेटफ़ॉर्म है जो कार खरीदने, बेचने या उसका रखरखाव करते समय आने वाली वास्तविक समस्याओं को हल करने के लिए मुफ़्त टूल्स प्रदान करता है — बिना खाता बनाए या कोई शुल्क चुकाए।
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Bagian Bahasa Indonesia ini baru saja dimulai. Saat ini belum ada alat khusus Bahasa Indonesia, tetapi kami sedang menerjemahkan mekanik virtual AI dan alat lainnya ke Bahasa Indonesia secepatnya.
+              यह हिन्दी संस्करण अभी-अभी लॉन्च हुआ है। फ़िलहाल हिन्दी में कोई अलग टूल उपलब्ध नहीं है, लेकिन हम जल्द से जल्द AI वर्चुअल मैकेनिक और अन्य टूल्स का हिन्दी अनुवाद कर रहे हैं।
             </p>
           </div>
         </div>

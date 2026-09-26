@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, Globe2 } from 'lucide-react';
-import { TOOLS_NL, CATEGORIES_NL } from '@/lib/tools-list-nl';
-import { AdUnit } from '@/components/ads/AdUnit';
+import { TOOLS_KO, CATEGORIES_KO } from '@/lib/tools-list-ko';
 
 export const metadata: Metadata = {
-  title: 'Gratis Tools voor Uw Auto | Naira Autos',
-  description: 'Gratis tools voor uw auto in het Nederlands — waaronder een afstandscalculator voor Nederland. Alles gratis en zonder registratie.',
+  title: '무료 자동차 도구 | Naira Autos',
+  description: '한국어로 제공되는 무료 자동차 도구 — 곧 AI 정비사 등 더 많은 도구가 추가됩니다. 모두 무료이며 가입이 필요 없습니다.',
   alternates: {
-    canonical: 'https://www.naira.autos/gereedschappen',
+    canonical: 'https://www.naira.autos/dogu',
     languages: {
       en: 'https://www.naira.autos/tools',
       es: 'https://www.naira.autos/herramientas',
@@ -25,61 +24,55 @@ export const metadata: Metadata = {
       nl: 'https://www.naira.autos/gereedschappen',
       hi: 'https://www.naira.autos/upkaran',
       ko: 'https://www.naira.autos/dogu',
-      ru: 'https://www.naira.autos/instrumenty',
       'x-default': 'https://www.naira.autos/tools',
     },
   },
-  keywords: ['gratis auto tools', 'AI monteur gratis', 'afstandscalculator Nederland', 'auto tools Nederlands'],
+  keywords: ['무료 자동차 도구', 'AI 정비사 무료', '자동차 도구 한국어'],
 };
 
-export default function ToolsDutchPage() {
+export default function ToolsKoreanPage() {
   return (
     <div className="min-h-screen bg-background">
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
         <div className="max-w-screen-xl mx-auto">
-          <div className="flex items-center gap-2 mb-5">
+          <div className="flex items-center gap-2 mb-5 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Gratis Tools
+              무료 도구
             </span>
-            <Link href="/startpagina" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Startpagina
+            <Link href="/hom" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              홈
             </Link>
             <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
             </Link>
-            <Link href="/werkzeuge" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Deutsch
+            <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              日本語
             </Link>
           </div>
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}
           >
-            Alle<br />
-            <span className="text-emerald-400">Gereedschappen</span>
+            모든<br />
+            <span className="text-emerald-400">도구</span>
           </h1>
           <p className="text-white/50 text-base md:text-lg font-light max-w-lg leading-relaxed">
-            Alles wat u nodig heeft om een auto te kopen, verkopen en onderhouden — gratis, zonder registratie.
+            자동차 구매, 판매, 관리에 필요한 모든 것 — 무료, 가입 불필요.
           </p>
           <p className="text-white/30 text-xs mt-3 flex items-center gap-1.5">
             <Globe2 className="h-3 w-3" />
-            We voegen elke week meer Nederlandstalige tools toe.
+            매주 더 많은 한국어 도구를 추가하고 있습니다.
           </p>
         </div>
       </div>
 
-      {/* ── Ad ── */}
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
-        <AdUnit slot="8256418986" />
-      </div>
-
       {/* ── Tools by category ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
-        {CATEGORIES_NL.map((category) => {
-          const toolsInCategory = TOOLS_NL.filter((t) => t.category === category);
+        {CATEGORIES_KO.map((category) => {
+          const toolsInCategory = TOOLS_KO.filter((t) => t.category === category);
           if (toolsInCategory.length === 0) return null;
 
           return (
@@ -118,8 +111,8 @@ export default function ToolsDutchPage() {
 
         <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
           <p className="text-sm text-muted-foreground">
-            Meer Nederlandstalige tools zijn onderweg. Kom snel terug, of probeer intussen{' '}
-            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">onze Engelstalige tools</Link>.
+            한국어로 된 더 많은 도구가 곧 제공됩니다 — AI 정비사를 포함해서요. 나중에 다시 확인해 주세요, 그동안{' '}
+            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">영어 도구</Link>를 사용해 보세요.
           </p>
         </div>
       </div>

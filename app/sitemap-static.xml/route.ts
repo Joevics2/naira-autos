@@ -57,7 +57,8 @@ const staticPages = [
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
   // /strumenti, /ana-sayfa, /araclar, /na-lak, /beranda, /trang-chu,
-  // /cong-cu, /khrueang-mue, /alat, /startpagina intentionally NOT
+  // /cong-cu, /khrueang-mue, /alat, /startpagina, /mukhya-prishtha,
+  // /upkaran, /hom, /dogu, /glavnaya, /instrumenty intentionally NOT
   // added yet —
   // Arabic has 3
   // live tools (mikaniki-iftiradi, kam-qeemat-sayarati, fahs-raqm-alhaykal)
@@ -75,11 +76,17 @@ const staticPages = [
   // (montir-virtual, berapa-harga-mobil-saya), and Dutch now has 3
   // (virtuele-monteur, wat-is-mijn-auto-waard,
   // afstandscalculator-nederland), all still under
-  // the ~5-tool threshold used for /herramientas above. Add each
+  // the ~5-tool threshold used for /herramientas above. Hindi (mukhya-
+  // prishtha/upkaran/blog-hindi), Korean (hom/dogu/cha-beullogeu), and
+  // Russian (glavnaya/instrumenty/avto-blog) got their home + tools +
+  // blog scaffolding in this batch but have 0 live tool pages yet — same
+  // starting state Vietnamese/Thai/Indonesian/Dutch were in before their
+  // first tool shipped. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
   // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the
-  // Indonesian/Vietnamese/Dutch blog indexes held back for the same
+  // Indonesian/Vietnamese/Dutch/Hindi/Korean/Russian blog indexes held
+  // back for the same
   // reason as /blog-de-autos — zero posts published yet in any of
   // them. (Thai has no blog index scaffolded yet.)
   // /herramientas (Spanish tools index) added below — now at 5 live tools

@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, Globe2 } from 'lucide-react';
-import { TOOLS_NL, CATEGORIES_NL } from '@/lib/tools-list-nl';
-import { AdUnit } from '@/components/ads/AdUnit';
+import { TOOLS_RU, CATEGORIES_RU } from '@/lib/tools-list-ru';
 
 export const metadata: Metadata = {
-  title: 'Gratis Tools voor Uw Auto | Naira Autos',
-  description: 'Gratis tools voor uw auto in het Nederlands — waaronder een afstandscalculator voor Nederland. Alles gratis en zonder registratie.',
+  title: 'Бесплатные автомобильные инструменты | Naira Autos',
+  description: 'Бесплатные инструменты для вашего автомобиля на русском языке — скоро появится ИИ-механик и другие инструменты. Всё бесплатно, регистрация не нужна.',
   alternates: {
-    canonical: 'https://www.naira.autos/gereedschappen',
+    canonical: 'https://www.naira.autos/instrumenty',
     languages: {
       en: 'https://www.naira.autos/tools',
       es: 'https://www.naira.autos/herramientas',
@@ -29,57 +28,52 @@ export const metadata: Metadata = {
       'x-default': 'https://www.naira.autos/tools',
     },
   },
-  keywords: ['gratis auto tools', 'AI monteur gratis', 'afstandscalculator Nederland', 'auto tools Nederlands'],
+  keywords: ['бесплатные автомобильные инструменты', 'ИИ механик бесплатно', 'автомобильные инструменты на русском'],
 };
 
-export default function ToolsDutchPage() {
+export default function ToolsRussianPage() {
   return (
     <div className="min-h-screen bg-background">
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
         <div className="max-w-screen-xl mx-auto">
-          <div className="flex items-center gap-2 mb-5">
+          <div className="flex items-center gap-2 mb-5 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Gratis Tools
+              Бесплатные инструменты
             </span>
-            <Link href="/startpagina" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Startpagina
+            <Link href="/glavnaya" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Главная
             </Link>
             <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
             </Link>
-            <Link href="/werkzeuge" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Deutsch
+            <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              日本語
             </Link>
           </div>
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}
           >
-            Alle<br />
-            <span className="text-emerald-400">Gereedschappen</span>
+            Все<br />
+            <span className="text-emerald-400">инструменты</span>
           </h1>
           <p className="text-white/50 text-base md:text-lg font-light max-w-lg leading-relaxed">
-            Alles wat u nodig heeft om een auto te kopen, verkopen en onderhouden — gratis, zonder registratie.
+            Всё необходимое для покупки, продажи и обслуживания автомобиля — бесплатно, без регистрации.
           </p>
           <p className="text-white/30 text-xs mt-3 flex items-center gap-1.5">
             <Globe2 className="h-3 w-3" />
-            We voegen elke week meer Nederlandstalige tools toe.
+            Мы добавляем новые русскоязычные инструменты каждую неделю.
           </p>
         </div>
       </div>
 
-      {/* ── Ad ── */}
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
-        <AdUnit slot="8256418986" />
-      </div>
-
       {/* ── Tools by category ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
-        {CATEGORIES_NL.map((category) => {
-          const toolsInCategory = TOOLS_NL.filter((t) => t.category === category);
+        {CATEGORIES_RU.map((category) => {
+          const toolsInCategory = TOOLS_RU.filter((t) => t.category === category);
           if (toolsInCategory.length === 0) return null;
 
           return (
@@ -118,8 +112,8 @@ export default function ToolsDutchPage() {
 
         <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
           <p className="text-sm text-muted-foreground">
-            Meer Nederlandstalige tools zijn onderweg. Kom snel terug, of probeer intussen{' '}
-            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">onze Engelstalige tools</Link>.
+            Больше инструментов на русском скоро появятся — включая ИИ-механика. Загляните позже, а пока попробуйте{' '}
+            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">наши инструменты на английском</Link>.
           </p>
         </div>
       </div>

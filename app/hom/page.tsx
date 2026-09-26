@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { TOOLS_DE } from '@/lib/tools-list-de';
+import { TOOLS_KO } from '@/lib/tools-list-ko';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
@@ -16,19 +16,19 @@ type LatestPost = {
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Naira Autos auf Deutsch — Kostenlose Werkzeuge für Ihr Auto',
-  description: 'Kostenlose Werkzeuge für Ihr Auto auf Deutsch — virtueller KI-Mechaniker, und weitere Werkzeuge folgen bald. Ohne Registrierung, ohne Kosten.',
-  keywords: 'kostenlose Auto-Werkzeuge, virtueller Mechaniker, KI-Mechaniker, Naira Autos auf Deutsch',
+  title: 'Naira Autos 한국어 — 무료 자동차 도구',
+  description: '한국어로 제공되는 무료 자동차 도구 — 한국 시장에 막 진출했으며 곧 더 많은 도구를 추가할 예정입니다. 가입 없이 완전 무료입니다.',
+  keywords: '무료 자동차 도구, Naira Autos 한국어, AI 정비사',
   openGraph: {
-    title: 'Naira Autos auf Deutsch',
-    description: 'Kostenlose Werkzeuge zum Kaufen, Verkaufen und Pflegen Ihres Autos — auf Deutsch, ohne Registrierung.',
-    url: 'https://www.naira.autos/startseite',
+    title: 'Naira Autos 한국어',
+    description: '자동차 구매, 판매, 관리를 위한 무료 도구 — 한국어로, 가입 없이 이용 가능합니다.',
+    url: 'https://www.naira.autos/hom',
     siteName: 'Naira Autos',
-    locale: 'de_DE',
+    locale: 'ko_KR',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.naira.autos/startseite',
+    canonical: 'https://www.naira.autos/hom',
     languages: {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
@@ -39,13 +39,12 @@ export const metadata: Metadata = {
       ja: 'https://www.naira.autos/homu',
       it: 'https://www.naira.autos/inizio',
       tr: 'https://www.naira.autos/ana-sayfa',
+      vi: 'https://www.naira.autos/trang-chu',
       th: 'https://www.naira.autos/na-lak',
       id: 'https://www.naira.autos/beranda',
-      vi: 'https://www.naira.autos/trang-chu',
       nl: 'https://www.naira.autos/startpagina',
       hi: 'https://www.naira.autos/mukhya-prishtha',
       ko: 'https://www.naira.autos/hom',
-      ru: 'https://www.naira.autos/glavnaya',
       'x-default': 'https://www.naira.autos/',
     },
   },
@@ -54,10 +53,10 @@ export const metadata: Metadata = {
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Naira Autos auf Deutsch',
-  description: 'Kostenlose Werkzeuge für Ihr Auto auf Deutsch — virtueller KI-Mechaniker, und weitere Werkzeuge folgen bald.',
-  url: 'https://www.naira.autos/startseite',
-  inLanguage: 'de',
+  name: 'Naira Autos 한국어',
+  description: '한국어로 제공되는 무료 자동차 도구 — 곧 더 많은 도구가 추가됩니다.',
+  url: 'https://www.naira.autos/hom',
+  inLanguage: 'ko',
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
@@ -65,12 +64,12 @@ const SCHEMA = {
   },
 };
 
-export default async function HomeGermanPage() {
+export default async function HomeKoreanPage() {
   const { data: latestPosts } = await supabase
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image')
     .eq('published', true)
-    .eq('language', 'de')
+    .eq('language', 'ko')
     .order('created_at', { ascending: false })
     .limit(3);
 
@@ -79,7 +78,7 @@ export default async function HomeGermanPage() {
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <h1 className="sr-only">Naira Autos auf Deutsch — Kostenlose Werkzeuge für Ihr Auto</h1>
+      <h1 className="sr-only">Naira Autos 한국어 — 무료 자동차 도구</h1>
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -87,7 +86,7 @@ export default async function HomeGermanPage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Deutsche Seite
+              한국어
             </span>
             <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
@@ -95,69 +94,75 @@ export default async function HomeGermanPage() {
             <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               日本語
             </Link>
-            <Link href="/inizio" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Italiano
-            </Link>
           </div>
           <p
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
-            Werkzeuge<br /><span className="text-emerald-400">für Ihr Auto</span>
+            당신의 차를 위한<br /><span className="text-emerald-400">무료 도구</span>
           </p>
           <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl leading-relaxed mb-3">
-            Naira Autos bietet kostenlose Werkzeuge für alle, die ein Auto kaufen, verkaufen oder pflegen — ein virtueller KI-Mechaniker, Rechner und Prüfwerkzeuge für Fahrzeugdaten, ohne Registrierung und ohne Kosten.
+            Naira Autos는 자동차를 구매, 판매 또는 관리하는 모든 사람을 위한 무료 도구를 제공합니다 — AI 가상 정비사, 계산기, 차량 데이터 조회 도구까지, 가입도 비용도 필요 없습니다.
           </p>
           <p className="text-white/50 text-sm max-w-2xl leading-relaxed">
-            Wir haben mit dem nigerianischen Markt begonnen, und bringen jetzt dieselben Werkzeuge in weitere Länder und Sprachen — darunter Deutschland. Dieser deutsche Bereich steht noch am Anfang, und wir werden mit der Zeit weitere Werkzeuge und Artikel hinzufügen.
+            저희는 나이지리아 시장에서 시작했으며, 이제 더 많은 국가와 언어로 동일한 도구를 제공하고 있습니다 — 한국도 포함됩니다. 이 한국어 버전은 방금 출시되었으며, 시간이 지나면서 더 많은 도구와 글을 추가할 예정입니다.
           </p>
         </div>
       </div>
 
-      {/* ── Featured German tools ── */}
+      {/* ── Coming soon (no Korean tools live yet) ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="font-black uppercase text-foreground leading-none"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
           >
-            Verfügbare Werkzeuge
+            곧 출시될 도구
           </h2>
-          <Link href="/werkzeuge" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Alle ansehen <ArrowRight className="h-4 w-4" />
+          <Link href="/dogu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            모두 보기 <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {TOOLS_DE.map((tool) => {
-            const Icon = tool.icon;
-            return (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
-              >
-                <div className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <p className="font-bold text-sm text-foreground leading-tight">{tool.label}</p>
-                    {tool.badge && (
-                      <span className={`flex-shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wider ${tool.badgeColor}`}>
-                        {tool.badge}
-                      </span>
-                    )}
+        {TOOLS_KO.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
+            <p className="text-sm text-muted-foreground">
+              한국어로 된 첫 번째 도구를 준비 중입니다. 나중에 다시 확인해 주세요 — 그동안{' '}
+              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">영어 도구</Link>를 사용해 보실 수 있습니다.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {TOOLS_KO.map((tool) => {
+              const Icon = tool.icon;
+              return (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
+                >
+                  <div className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{tool.description}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <p className="font-bold text-sm text-foreground leading-tight">{tool.label}</p>
+                      {tool.badge && (
+                        <span className={`flex-shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wider ${tool.badgeColor}`}>
+                          {tool.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{tool.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      {/* ── Latest posts (only if German content exists) ── */}
+      {/* ── Latest posts (only if Korean content exists) ── */}
       {posts.length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
           <div className="flex items-center justify-between mb-6">
@@ -165,17 +170,17 @@ export default async function HomeGermanPage() {
               className="font-black uppercase text-foreground leading-none"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Neueste Artikel
+              최신 글
             </h2>
-            <Link href="/autoblog" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-              Alle ansehen <ArrowRight className="h-4 w-4" />
+            <Link href="/cha-beullogeu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              모두 보기 <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/autoblog/${post.slug}`}
+                href={`/cha-beullogeu/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
               >
                 <div className="aspect-video overflow-hidden">
@@ -204,13 +209,13 @@ export default async function HomeGermanPage() {
               className="font-black uppercase text-foreground leading-none mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Was ist Naira Autos?
+              Naira Autos란?
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Naira Autos ist eine Plattform mit kostenlosen Werkzeugen, um echte Probleme beim Kauf, Verkauf oder der Pflege eines Autos zu lösen — ohne ein Konto erstellen oder etwas bezahlen zu müssen.
+              Naira Autos는 자동차를 구매, 판매 또는 관리할 때 발생하는 실질적인 문제를 해결하기 위한 무료 도구를 제공하는 플랫폼입니다 — 계정을 만들거나 비용을 지불할 필요가 없습니다.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Dieser deutsche Bereich steht noch am Anfang. Aktuell umfasst er {TOOLS_DE.length} kostenloses Werkzeug — einen virtuellen KI-Mechaniker, geschrieben in echtem Deutsch — und wir werden mit der Zeit weitere Werkzeuge und Artikel hinzufügen.
+              이 한국어 버전은 방금 출시되었습니다. 현재 한국어 전용 도구는 아직 없지만, 저희는 AI 가상 정비사를 비롯한 다른 도구들을 최대한 빨리 한국어로 번역하고 있습니다.
             </p>
           </div>
         </div>

@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, Globe2 } from 'lucide-react';
-import { TOOLS_NL, CATEGORIES_NL } from '@/lib/tools-list-nl';
-import { AdUnit } from '@/components/ads/AdUnit';
+import { TOOLS_HI, CATEGORIES_HI } from '@/lib/tools-list-hi';
 
 export const metadata: Metadata = {
-  title: 'Gratis Tools voor Uw Auto | Naira Autos',
-  description: 'Gratis tools voor uw auto in het Nederlands — waaronder een afstandscalculator voor Nederland. Alles gratis en zonder registratie.',
+  title: 'मुफ़्त कार टूल्स | Naira Autos',
+  description: 'आपकी कार के लिए हिन्दी में मुफ़्त टूल्स — जल्द ही AI मैकेनिक और अन्य टूल्स जोड़े जाएंगे। सब कुछ मुफ़्त, बिना पंजीकरण।',
   alternates: {
-    canonical: 'https://www.naira.autos/gereedschappen',
+    canonical: 'https://www.naira.autos/upkaran',
     languages: {
       en: 'https://www.naira.autos/tools',
       es: 'https://www.naira.autos/herramientas',
@@ -24,62 +23,55 @@ export const metadata: Metadata = {
       id: 'https://www.naira.autos/alat',
       nl: 'https://www.naira.autos/gereedschappen',
       hi: 'https://www.naira.autos/upkaran',
-      ko: 'https://www.naira.autos/dogu',
-      ru: 'https://www.naira.autos/instrumenty',
       'x-default': 'https://www.naira.autos/tools',
     },
   },
-  keywords: ['gratis auto tools', 'AI monteur gratis', 'afstandscalculator Nederland', 'auto tools Nederlands'],
+  keywords: ['मुफ़्त कार टूल्स', 'AI मैकेनिक मुफ़्त', 'कार टूल्स हिन्दी'],
 };
 
-export default function ToolsDutchPage() {
+export default function ToolsHindiPage() {
   return (
     <div className="min-h-screen bg-background">
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
         <div className="max-w-screen-xl mx-auto">
-          <div className="flex items-center gap-2 mb-5">
+          <div className="flex items-center gap-2 mb-5 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Gratis Tools
+              मुफ़्त टूल्स
             </span>
-            <Link href="/startpagina" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Startpagina
+            <Link href="/mukhya-prishtha" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              मुखपृष्ठ
             </Link>
             <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
             </Link>
-            <Link href="/werkzeuge" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Deutsch
+            <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              日本語
             </Link>
           </div>
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}
           >
-            Alle<br />
-            <span className="text-emerald-400">Gereedschappen</span>
+            सभी<br />
+            <span className="text-emerald-400">टूल्स</span>
           </h1>
           <p className="text-white/50 text-base md:text-lg font-light max-w-lg leading-relaxed">
-            Alles wat u nodig heeft om een auto te kopen, verkopen en onderhouden — gratis, zonder registratie.
+            कार खरीदने, बेचने और उसका रखरखाव करने के लिए आपको जो कुछ भी चाहिए — मुफ़्त, बिना पंजीकरण।
           </p>
           <p className="text-white/30 text-xs mt-3 flex items-center gap-1.5">
             <Globe2 className="h-3 w-3" />
-            We voegen elke week meer Nederlandstalige tools toe.
+            हम हर हफ़्ते और हिन्दी टूल्स जोड़ रहे हैं।
           </p>
         </div>
       </div>
 
-      {/* ── Ad ── */}
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-8">
-        <AdUnit slot="8256418986" />
-      </div>
-
       {/* ── Tools by category ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
-        {CATEGORIES_NL.map((category) => {
-          const toolsInCategory = TOOLS_NL.filter((t) => t.category === category);
+        {CATEGORIES_HI.map((category) => {
+          const toolsInCategory = TOOLS_HI.filter((t) => t.category === category);
           if (toolsInCategory.length === 0) return null;
 
           return (
@@ -118,8 +110,8 @@ export default function ToolsDutchPage() {
 
         <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
           <p className="text-sm text-muted-foreground">
-            Meer Nederlandstalige tools zijn onderweg. Kom snel terug, of probeer intussen{' '}
-            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">onze Engelstalige tools</Link>.
+            हिन्दी में और टूल्स जल्द आ रहे हैं — जिसमें एक AI मैकेनिक भी शामिल है। जल्द वापस आएं, या तब तक{' '}
+            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">हमारे अंग्रेज़ी टूल्स</Link> आज़माएं।
           </p>
         </div>
       </div>

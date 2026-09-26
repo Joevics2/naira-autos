@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { TOOLS_ID } from '@/lib/tools-list-id';
+import { TOOLS_RU } from '@/lib/tools-list-ru';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
 
@@ -16,19 +16,19 @@ type LatestPost = {
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Naira Autos Bahasa Indonesia — Alat Gratis untuk Mobil Anda',
-  description: 'Alat gratis untuk mobil Anda dalam Bahasa Indonesia — kami baru memulai di pasar Indonesia, dan akan segera menambahkan alat lainnya. Tanpa pendaftaran, tanpa biaya.',
-  keywords: 'alat mobil gratis, Naira Autos Indonesia, mekanik AI',
+  title: 'Naira Autos на русском — бесплатные инструменты для вашего автомобиля',
+  description: 'Бесплатные инструменты для вашего автомобиля на русском языке — мы только что вышли на российский рынок и скоро добавим больше инструментов. Регистрация не требуется, полностью бесплатно.',
+  keywords: 'бесплатные автомобильные инструменты, Naira Autos на русском, ИИ механик',
   openGraph: {
-    title: 'Naira Autos Bahasa Indonesia',
-    description: 'Alat gratis untuk membeli, menjual, dan merawat mobil — dalam Bahasa Indonesia, tanpa pendaftaran.',
-    url: 'https://www.naira.autos/beranda',
+    title: 'Naira Autos на русском',
+    description: 'Бесплатные инструменты для покупки, продажи и обслуживания автомобиля — на русском языке, без регистрации.',
+    url: 'https://www.naira.autos/glavnaya',
     siteName: 'Naira Autos',
-    locale: 'id_ID',
+    locale: 'ru_RU',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.naira.autos/beranda',
+    canonical: 'https://www.naira.autos/glavnaya',
     languages: {
       en: 'https://www.naira.autos/',
       es: 'https://www.naira.autos/inicio',
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
       ja: 'https://www.naira.autos/homu',
       it: 'https://www.naira.autos/inizio',
       tr: 'https://www.naira.autos/ana-sayfa',
+      vi: 'https://www.naira.autos/trang-chu',
       th: 'https://www.naira.autos/na-lak',
       id: 'https://www.naira.autos/beranda',
-      vi: 'https://www.naira.autos/trang-chu',
       nl: 'https://www.naira.autos/startpagina',
       hi: 'https://www.naira.autos/mukhya-prishtha',
       ko: 'https://www.naira.autos/hom',
@@ -54,10 +54,10 @@ export const metadata: Metadata = {
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Naira Autos Bahasa Indonesia',
-  description: 'Alat gratis untuk mobil Anda dalam Bahasa Indonesia — akan segera hadir lebih banyak.',
-  url: 'https://www.naira.autos/beranda',
-  inLanguage: 'id',
+  name: 'Naira Autos на русском',
+  description: 'Бесплатные инструменты для вашего автомобиля на русском языке — скоро появится больше инструментов.',
+  url: 'https://www.naira.autos/glavnaya',
+  inLanguage: 'ru',
   publisher: {
     '@type': 'Organization',
     name: 'Naira Autos',
@@ -65,12 +65,12 @@ const SCHEMA = {
   },
 };
 
-export default async function HomeIndonesianPage() {
+export default async function HomeRussianPage() {
   const { data: latestPosts } = await supabase
     .from('blog_posts')
     .select('id, title, slug, excerpt, featured_image')
     .eq('published', true)
-    .eq('language', 'id')
+    .eq('language', 'ru')
     .order('created_at', { ascending: false })
     .limit(3);
 
@@ -79,7 +79,7 @@ export default async function HomeIndonesianPage() {
   return (
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-      <h1 className="sr-only">Naira Autos Bahasa Indonesia — Alat Gratis untuk Mobil Anda</h1>
+      <h1 className="sr-only">Naira Autos на русском — бесплатные инструменты для вашего автомобиля</h1>
 
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
@@ -87,7 +87,7 @@ export default async function HomeIndonesianPage() {
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
-              Bahasa Indonesia
+              Русский
             </span>
             <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               English
@@ -100,41 +100,41 @@ export default async function HomeIndonesianPage() {
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
-            Alat<br /><span className="text-emerald-400">untuk Mobil Anda</span>
+            Инструменты<br /><span className="text-emerald-400">для вашего авто</span>
           </p>
           <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl leading-relaxed mb-3">
-            Naira Autos menyediakan alat gratis bagi siapa saja yang membeli, menjual, atau merawat mobil — mekanik virtual AI, kalkulator, dan alat pemeriksaan data kendaraan, tanpa perlu mendaftar dan tanpa biaya.
+            Naira Autos предоставляет бесплатные инструменты для всех, кто покупает, продаёт или обслуживает автомобиль — виртуальный ИИ-механик, калькуляторы и инструменты проверки данных автомобиля, без регистрации и полностью бесплатно.
           </p>
           <p className="text-white/50 text-sm max-w-2xl leading-relaxed">
-            Kami memulai dari pasar Nigeria, dan sekarang membawa alat yang sama ke lebih banyak negara dan bahasa — termasuk Indonesia. Bagian Bahasa Indonesia ini baru saja dimulai, dan kami akan terus menambahkan alat serta artikel baru seiring waktu.
+            Мы начали с нигерийского рынка, а теперь предлагаем те же инструменты в большем числе стран и на большем числе языков — включая Россию. Эта русская версия только что запущена, и мы продолжим добавлять инструменты и статьи со временем.
           </p>
         </div>
       </div>
 
-      {/* ── Coming soon (no Indonesian tools live yet) ── */}
+      {/* ── Coming soon (no Russian tools live yet) ── */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="font-black uppercase text-foreground leading-none"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
           >
-            Alat yang Akan Datang
+            Скоро появятся инструменты
           </h2>
-          <Link href="/alat" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Lihat Semua <ArrowRight className="h-4 w-4" />
+          <Link href="/instrumenty" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            Смотреть все <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
-        {TOOLS_ID.length === 0 ? (
+        {TOOLS_RU.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted-foreground">
-              Kami sedang menerjemahkan alat pertama ke Bahasa Indonesia. Kunjungi lagi segera — atau coba{' '}
-              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">alat berbahasa Inggris kami</Link>{' '}sementara menunggu.
+              Мы готовим наш первый инструмент на русском языке. Загляните позже — а пока попробуйте{' '}
+              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">наши инструменты на английском</Link>.
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {TOOLS_ID.map((tool) => {
+            {TOOLS_RU.map((tool) => {
               const Icon = tool.icon;
               return (
                 <Link
@@ -163,7 +163,7 @@ export default async function HomeIndonesianPage() {
         )}
       </div>
 
-      {/* ── Latest posts (only if Indonesian content exists) ── */}
+      {/* ── Latest posts (only if Russian content exists) ── */}
       {posts.length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 pb-12">
           <div className="flex items-center justify-between mb-6">
@@ -171,17 +171,17 @@ export default async function HomeIndonesianPage() {
               className="font-black uppercase text-foreground leading-none"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Artikel Terbaru
+              Последние статьи
             </h2>
-            <Link href="/blog-mobil" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-              Lihat Semua <ArrowRight className="h-4 w-4" />
+            <Link href="/avto-blog" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Смотреть все <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/blog-mobil/${post.slug}`}
+                href={`/avto-blog/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
               >
                 <div className="aspect-video overflow-hidden">
@@ -210,13 +210,13 @@ export default async function HomeIndonesianPage() {
               className="font-black uppercase text-foreground leading-none mb-4"
               style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(20px, 2.5vw, 28px)' }}
             >
-              Apa itu Naira Autos?
+              Что такое Naira Autos?
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Naira Autos adalah platform berisi alat gratis untuk menyelesaikan masalah nyata seputar membeli, menjual, atau merawat mobil — tanpa perlu membuat akun atau membayar apa pun.
+              Naira Autos — это платформа, предоставляющая бесплатные инструменты для решения реальных проблем при покупке, продаже или обслуживании автомобиля — без создания аккаунта и без какой-либо платы.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Bagian Bahasa Indonesia ini baru saja dimulai. Saat ini belum ada alat khusus Bahasa Indonesia, tetapi kami sedang menerjemahkan mekanik virtual AI dan alat lainnya ke Bahasa Indonesia secepatnya.
+              Эта русская версия только что запущена. Пока отдельных инструментов на русском языке нет, но мы как можно скорее переводим виртуального ИИ-механика и другие инструменты на русский.
             </p>
           </div>
         </div>
