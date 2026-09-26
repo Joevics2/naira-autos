@@ -1,4 +1,4 @@
-import { Route, Wrench } from 'lucide-react';
+import { Route, Wrench, Camera } from 'lucide-react';
 
 // Single source of truth for the Dutch tools index (/gereedschappen).
 // Add an entry here ONLY when that tool's Dutch page is actually
@@ -21,6 +21,15 @@ export const TOOLS_NL: ToolNl[] = [
     icon: Wrench,
     label: 'Virtuele Monteur met AI',
     description: 'Beschrijf de storing, upload een foto, geluid of video en krijg direct een diagnose met reparatiekosten.',
+    badge: 'Gratis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AI en Slimme Tools',
+  },
+  {
+    href: '/gereedschappen/wat-is-mijn-auto-waard',
+    icon: Camera,
+    label: 'Wat Is Mijn Auto Waard?',
+    description: 'Upload één foto en laat AI binnen enkele seconden de marktwaarde berekenen in uw eigen valuta.',
     badge: 'Gratis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AI en Slimme Tools',
