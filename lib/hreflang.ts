@@ -46,7 +46,6 @@ const TOOL_GROUPS: LangPaths[] = [
   { en: '/tools/best-car-for', es: '/herramientas/mejor-auto-para-ti' },
   { en: '/tools/car-comparison', es: '/herramientas/comparador-de-autos' },
   { en: '/tools/chassis-number-check', es: '/herramientas/verificar-numero-de-chasis' },
-  { en: '/tools/distance-calculator-countries', ja: '/tsuru/kyori-keisan' },
   { en: '/tools/distance-calculator-egypt', ar: '/adawat/hasbat-al-masafa-masr' },
   { en: '/tools/distance-calculator-france', fr: '/outils/calculateur-de-distance-france' },
   { en: '/tools/distance-calculator-germany', de: '/werkzeuge/entfernungsrechner-deutschland' },

@@ -8,7 +8,6 @@ import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { JP_TOWNS, findTown } from '@/lib/distance-towns-jp';
 import { JP_CAPITAL_DISTANCE_KM } from '@/lib/jp-distance-matrix';
 import { alternatesFor } from '@/lib/hreflang';
-import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: '距離計算機 日本 2026 — 都市間の道路距離を計算',
@@ -80,7 +79,6 @@ export default function DistanceCalculatorJapanPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇯🇵 日本</span>
             </nav>
-            <LanguagePills path="/tsuru/kyori-keisan" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
