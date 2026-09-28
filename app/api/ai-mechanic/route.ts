@@ -130,6 +130,9 @@ const LANGUAGE_NAMES: Record<string, string> = {
   vi: 'Vietnamese',
   id: 'Indonesian',
   th: 'Thai',
+  hi: 'Hindi',
+  ko: 'Korean',
+  ru: 'Russian',
 };
 
 export async function POST(req: NextRequest) {
@@ -233,6 +236,18 @@ export async function POST(req: NextRequest) {
 
       if (language === 'th') {
         textPrompt += `\n\nWrite in natural, standard Thai for a Thailand-based reader — not a word-for-word machine translation. Use the real terms a Thai ช่าง (mechanic) actually uses (e.g. อาการเสีย for fault, ผ้าเบรก for brake pads, สายพานราวลิ้น for timing belt, ไฟ check engine for check engine light, คลัตช์ for clutch, เกียร์ for gearbox) — "check engine" itself is commonly used as-is in spoken Thai automotive contexts, so keep it in English where natural. Keep car brand and model names in Latin script as they normally appear (e.g. Toyota Vios). Use polite, natural Thai consistent with real consumer-facing automotive service content, not overly formal or academic register.`;
+      }
+
+      if (language === 'hi') {
+        textPrompt += `\n\nWrite in natural, standard Hindi (Devanagari script) for an India-based reader — not a word-for-word machine translation, and not overly Sanskritized "shuddh Hindi". Use the real terms an Indian mechanic actually uses, which often mix Hindi and common English loanwords (e.g. गाड़ी/कार for car, इंजन for engine, ब्रेक पैड for brake pads, टाइमिंग बेल्ट for timing belt, चेक इंजन लाइट for check engine light, क्लच for clutch, गियरबॉक्स for gearbox) rather than inventing purely Sanskrit compounds. Keep car brand and model names in Latin script as they normally appear (e.g. Maruti Suzuki Swift). Use the natural Hindi-English code-mixing register common in real Indian consumer automotive content, not stiff or overly formal Hindi.`;
+      }
+
+      if (language === 'ko') {
+        textPrompt += `\n\nWrite in natural, standard Korean for a South Korea-based reader — not a word-for-word machine translation. Use the real terms a Korean 정비사 (mechanic) actually uses (e.g. 고장 for fault, 브레이크 패드 for brake pads, 타이밍 벨트 for timing belt, 엔진 체크 표시등/체크 엔진 라이트 for check engine light, 클러치 for clutch, 변속기 for gearbox/transmission), not invented compounds or overly literal renderings of the English terms. Keep car brand and model names as they are (e.g. Hyundai Sonata), and use polite standard "해요/합니다" register consistent with real Korean consumer automotive service content.`;
+      }
+
+      if (language === 'ru') {
+        textPrompt += `\n\nWrite in natural, standard Russian for a Russia-based reader — not a word-for-word machine translation. Use the real terms a Russian механик (mechanic) actually uses (e.g. неисправность for fault, тормозные колодки for brake pads, ремень ГРМ for timing belt, лампа check engine/чек двигателя for check engine light, сцепление for clutch, коробка передач for gearbox), not invented compounds or overly literal renderings of the English terms. Keep car brand and model names as they are (e.g. Lada Vesta, Toyota Camry). Use natural, direct Russian consistent with real consumer-facing automotive service content, not overly formal or bureaucratic language.`;
       }
     }
 

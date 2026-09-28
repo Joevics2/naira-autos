@@ -600,6 +600,15 @@ export default function AIMechanicClientTR() {
             <Link href="/khrueang-mue/mo-rot-ai" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               อ่านภาษาไทย →
             </Link>
+            <Link href="/upkaran/aabhasi-mekanik" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              हिन्दी में पढ़ें →
+            </Link>
+            <Link href="/dogu/gasang-jeongbisa" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              한국어로 읽기 →
+            </Link>
+            <Link href="/instrumenty/virtualnyy-mekhanik" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Читать на русском →
+            </Link>
           </div>
         </div>
 

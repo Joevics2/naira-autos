@@ -618,6 +618,15 @@ export default function AIMechanicClientAR() {
             <Link href="/khrueang-mue/mo-rot-ai" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               ไทย
             </Link>
+            <Link href="/upkaran/aabhasi-mekanik" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              हिन्दी
+            </Link>
+            <Link href="/dogu/gasang-jeongbisa" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              한국어
+            </Link>
+            <Link href="/instrumenty/virtualnyy-mekhanik" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              Русский
+            </Link>
             <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
               اقرأ بالإنجليزية ←
             </Link>

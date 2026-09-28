@@ -54,6 +54,9 @@ const staticPages = [
   { url: '/khrueang-mue/rot-khong-chan-rakha-thaorai', priority: 0.9, changefreq: 'weekly'  },
   { url: '/alat/berapa-harga-mobil-saya', priority: 0.9, changefreq: 'weekly'  },
   { url: '/gereedschappen/wat-is-mijn-auto-waard', priority: 0.9, changefreq: 'weekly'  },
+  { url: '/upkaran/aabhasi-mekanik',                priority: 0.8, changefreq: 'monthly' },
+  { url: '/dogu/gasang-jeongbisa',                  priority: 0.8, changefreq: 'monthly' },
+  { url: '/instrumenty/virtualnyy-mekhanik',         priority: 0.8, changefreq: 'monthly' },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,
   // /strumenti, /ana-sayfa, /araclar, /na-lak, /beranda, /trang-chu,
@@ -76,12 +79,11 @@ const staticPages = [
   // (montir-virtual, berapa-harga-mobil-saya), and Dutch now has 3
   // (virtuele-monteur, wat-is-mijn-auto-waard,
   // afstandscalculator-nederland), all still under
-  // the ~5-tool threshold used for /herramientas above. Hindi (mukhya-
-  // prishtha/upkaran/blog-hindi), Korean (hom/dogu/cha-beullogeu), and
-  // Russian (glavnaya/instrumenty/avto-blog) got their home + tools +
-  // blog scaffolding in this batch but have 0 live tool pages yet — same
+  // the ~5-tool threshold used for /herramientas above. Hindi
+  // (aabhasi-mekanik), Korean (gasang-jeongbisa), and Russian
+  // (virtualnyy-mekhanik) each now have their first tool page — same
   // starting state Vietnamese/Thai/Indonesian/Dutch were in before their
-  // first tool shipped. Add each
+  // second tool shipped. Add each
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
   // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the

@@ -1,3 +1,5 @@
+import { Wrench } from 'lucide-react';
+
 // Single source of truth for the Russian tools index (/instrumenty).
 // Add an entry here ONLY when that tool's Russian page is actually
 // live — never list an untranslated tool (same rule as the other
@@ -13,6 +15,16 @@ export type ToolRu = {
   category: string;
 };
 
-export const TOOLS_RU: ToolRu[] = [];
+export const TOOLS_RU: ToolRu[] = [
+  {
+    href: '/instrumenty/virtualnyy-mekhanik',
+    icon: Wrench,
+    label: 'ИИ-механик',
+    description: 'Опишите неисправность, загрузите фото, звук или видео и получите диагноз и стоимость ремонта за секунды.',
+    badge: 'Бесплатно',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'ИИ и умные инструменты',
+  },
+];
 
 export const CATEGORIES_RU = ['ИИ и умные инструменты', 'Финансы', 'Расходы и обслуживание', 'Проверка', 'Ресурсы'];
