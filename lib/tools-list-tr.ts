@@ -1,4 +1,4 @@
-import { Camera, ScanLine, Wrench, Car } from 'lucide-react';
+import { Camera, ScanLine, Wrench, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Turkish tools index (/araclar).
 // Add an entry here ONLY when that tool's Turkish page is actually
@@ -51,6 +51,15 @@ export const TOOLS_TR: ToolTr[] = [
     badge: "Yeni",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Maliyet Hesaplama",
+  },
+  {
+    href: '/araclar/sehirler-arasi-mesafe',
+    icon: Ruler,
+    label: 'Şehirler Arası Mesafe Hesaplama',
+    description: '35 Türkiye şehri arasındaki karayolu mesafesi ve sürüş süresini hesaplayın, yakıt maliyeti hesaplayıcı ile.',
+    badge: 'Yeni',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Maliyet Hesaplama',
   },
 ];
 

@@ -49,7 +49,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'id', name: 'Indonesia',      flag: '🇮🇩', live: false },
   { code: 'th', name: 'Thailand',       flag: '🇹🇭', live: false },
   { code: 'ar', name: 'Argentina',      flag: '🇦🇷', href: '/herramientas/calculadora-de-distancia-argentina', live: true },
-  { code: 'tr', name: 'Turkey',         flag: '🇹🇷', live: false },
+  { code: 'tr', name: 'Turkey',         flag: '🇹🇷', href: '/araclar/sehirler-arasi-mesafe', live: true },
   { code: 'ru', name: 'Russia',         flag: '🇷🇺', live: false },
   { code: 'vn', name: 'Vietnam',        flag: '🇻🇳', live: false },
 ];

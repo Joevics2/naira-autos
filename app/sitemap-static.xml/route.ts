@@ -193,6 +193,7 @@ const staticPages = [
   { url: '/herramientas/calculadora-de-distancia-mexico', priority: 0.7, changefreq: 'monthly' },
   { url: '/herramientas/calculadora-de-distancia-argentina', priority: 0.7, changefreq: 'monthly' },
   { url: '/tsuru/kyori-keisan',                  priority: 0.7, changefreq: 'monthly' },
+  { url: '/araclar/sehirler-arasi-mesafe',       priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },
