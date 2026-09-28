@@ -2,32 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientIT from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 export const metadata: Metadata = {
   title: 'Meccanico Virtuale IA — Diagnosi Auto Gratis Online | Naira Autos',
   description: "Meccanico virtuale gratuito con intelligenza artificiale. Descrivi il guasto della tua auto, oppure carica una foto, il suono del motore o un video, e ricevi una diagnosi istantanea con stima del costo di riparazione. Senza registrazione, pensato per l'Italia.",
-  alternates: {
-    canonical: 'https://www.naira.autos/strumenti/meccanico-virtuale',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/strumenti/meccanico-virtuale'),
   openGraph: {
     title: 'Axion — Meccanico Virtuale Gratuito con IA | Naira Autos',
     description: "Diagnosi istantanea della tua auto online, ovunque tu sia. Carica il suono del motore, una foto, oppure descrivi il guasto. Ricevi il livello di urgenza, le cause probabili, cosa puoi fare da solo, e una stima del costo di riparazione. 100% gratuito, senza registrazione.",

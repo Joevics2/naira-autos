@@ -2,32 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
 import { TOOLS_JA, CATEGORIES_JA } from '@/lib/tools-list-ja';
+import { alternatesFor } from '@/lib/hreflang';
+import PageNav from '@/components/ui/PageNav';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: '無料の車向けツール | Naira Autos',
   description: '日本語で使える無料の車向けツール。AIメカニックをはじめ、今後さらにツールを追加予定です。すべて無料・登録不要です。',
-  alternates: {
-    canonical: 'https://www.naira.autos/tsuru',
-    languages: {
-      en: 'https://www.naira.autos/tools',
-      es: 'https://www.naira.autos/herramientas',
-      ar: 'https://www.naira.autos/adawat',
-      fr: 'https://www.naira.autos/outils',
-      pt: 'https://www.naira.autos/ferramentas',
-      de: 'https://www.naira.autos/werkzeuge',
-      ja: 'https://www.naira.autos/tsuru',
-      it: 'https://www.naira.autos/strumenti',
-      tr: 'https://www.naira.autos/araclar',
-      th: 'https://www.naira.autos/khrueang-mue',
-      id: 'https://www.naira.autos/alat',
-      vi: 'https://www.naira.autos/cong-cu',
-      nl: 'https://www.naira.autos/gereedschappen',
-      hi: 'https://www.naira.autos/upkaran',
-      ko: 'https://www.naira.autos/dogu',
-      ru: 'https://www.naira.autos/instrumenty',
-      'x-default': 'https://www.naira.autos/tools',
-    },
-  },
+  alternates: alternatesFor('/tsuru'),
   keywords: ['無料 車ツール', 'AIメカニック 無料', '車 診断 日本語', 'AI診断'],
 };
 
@@ -64,21 +46,14 @@ export default function ToolsJapanesePage() {
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
         <div className="max-w-screen-xl mx-auto">
+          <PageNav lang="ja" hub="tools" />
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
               無料ツール
             </span>
-            <Link href="/homu" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              ホーム
-            </Link>
-            <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              English
-            </Link>
-            <Link href="/strumenti" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Italiano
-            </Link>
           </div>
+          <LanguagePills path="/tsuru" className="mb-6" />
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}

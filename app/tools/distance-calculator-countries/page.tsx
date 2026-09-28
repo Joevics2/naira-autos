@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Ruler } from 'lucide-react';
+import { alternatesFor } from '@/lib/hreflang';
 
 export const metadata: Metadata = {
   title: 'Distance Calculator — Choose Your Country | Naira Autos',
   description: 'Free road distance calculator by country — verified state-capital distances, drive time, and fuel cost. Start with Nigeria; more countries added regularly.',
-  alternates: { canonical: 'https://www.naira.autos/tools/distance-calculator-countries' },
+  alternates: alternatesFor('/tools/distance-calculator-countries'),
   openGraph: {
     title: 'Distance Calculator — Choose Your Country | Naira Autos',
     description: 'Free road distance calculator by country — verified distances, drive time, and fuel cost estimates.',

@@ -7,14 +7,13 @@ import DistanceCalculatorQatarArabicClient from './client';
 import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { QA_TOWNS, findTown } from '@/lib/distance-towns-qa';
 import { QA_CAPITAL_DISTANCE_KM } from '@/lib/qa-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'حاسبة المسافات قطر 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 10 مدن قطرية — الدوحة، الخور، الوكرة، الرويس والمزيد. مسافات موثّقة، مدة القيادة، وتكلفة الوقود.',
-  alternates: {
-    canonical: 'https://www.naira.autos/adawat/hasbat-al-masafa-qatar',
-    languages: { en: 'https://www.naira.autos/tools/distance-calculator-qatar' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-qatar' },
-  },
+  alternates: alternatesFor('/adawat/hasbat-al-masafa-qatar'),
   openGraph: {
     title: 'حاسبة المسافات قطر 2026',
     description: 'مسافة الطريق ومدة القيادة بين 10 مدن قطرية، مع حاسبة تكلفة الوقود.',
@@ -75,7 +74,7 @@ export default function DistanceCalculatorQatarArabicPage() {
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -90,6 +89,7 @@ export default function DistanceCalculatorQatarArabicPage() {
               <span>/</span>
               <span className="text-white/60">🇶🇦 قطر</span>
             </nav>
+            <LanguagePills path="/adawat/hasbat-al-masafa-qatar" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -103,9 +103,6 @@ export default function DistanceCalculatorQatarArabicPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               مسافة الطريق ومدة القيادة بين أي مدينتين من 10 مدن قطرية — الدوحة، الخور، الوكرة، الرويس والمزيد.
             </p>
-            <Link href="/tools/distance-calculator-qatar" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              English version →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

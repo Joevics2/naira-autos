@@ -13,6 +13,7 @@ import { GeneratedDocument, sanitizeDocument } from '@/lib/document-format';
 import { saveToHistory } from '@/lib/document-history';
 import DocumentEditorEs from '@/components/documents/DocumentEditorEs';
 import TemplateAvailableLinkEs from '@/components/documents/TemplateAvailableLinkEs';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 interface LegalRequirements {
   summary: string;
@@ -138,9 +139,7 @@ export default function GeneradorDeDocumentosClienteEs() {
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="h-4 w-4 text-emerald-500" />
             <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Con IA · Gratis</span>
-            <Link href="/tools/document-generator" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
-              Read in English →
-            </Link>
+            <LanguagePills path="/herramientas/generador-de-documentos-ia" className="ml-1" tone="auto" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Generador de Documentos con IA</h1>
           <p className="text-muted-foreground leading-relaxed">

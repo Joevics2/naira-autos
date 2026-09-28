@@ -7,14 +7,13 @@ import DistanceCalculatorEgyptArabicClient from './client';
 import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { EG_TOWNS, findTown } from '@/lib/distance-towns-eg';
 import { EG_CAPITAL_DISTANCE_KM } from '@/lib/eg-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'حاسبة المسافات مصر 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 41 مدينة مصرية — القاهرة، الإسكندرية، الأقصر، أسوان والمزيد. مسافات موثّقة من الأمم المتحدة، مدة القيادة، وتكلفة الوقود.',
-  alternates: {
-    canonical: 'https://www.naira.autos/adawat/hasbat-al-masafa-masr',
-    languages: { en: 'https://www.naira.autos/tools/distance-calculator-egypt' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-egypt' },
-  },
+  alternates: alternatesFor('/adawat/hasbat-al-masafa-masr'),
   openGraph: {
     title: 'حاسبة المسافات مصر 2026',
     description: 'مسافة الطريق ومدة القيادة بين 41 مدينة مصرية، مع حاسبة تكلفة الوقود.',
@@ -81,7 +80,7 @@ export default function DistanceCalculatorEgyptArabicPage() {
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -96,6 +95,7 @@ export default function DistanceCalculatorEgyptArabicPage() {
               <span>/</span>
               <span className="text-white/60">🇪🇬 مصر</span>
             </nav>
+            <LanguagePills path="/adawat/hasbat-al-masafa-masr" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -109,9 +109,6 @@ export default function DistanceCalculatorEgyptArabicPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               مسافة الطريق ومدة القيادة بين أي مدينتين من 41 مدينة مصرية — القاهرة، الإسكندرية، الأقصر، أسوان، مدن سيناء والبحر الأحمر، وعواصم المحافظات الرئيسية.
             </p>
-            <Link href="/tools/distance-calculator-egypt" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              English version →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

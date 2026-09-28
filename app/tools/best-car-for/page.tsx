@@ -2,18 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import BestCarForClient from './client';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Best Car For... 2026 — Car Recommender by Use Case, 50 Countries',
   description: 'Find the best car for your needs, with pricing in your local currency across 50 countries. Select your use case — family car, commercial use, highway driving, budget buy, off-road, executive, or first car — and get ranked recommendations across 50 models, from the Toyota Corolla to the Bugatti Chiron, with maintenance cost and spare parts rating.',
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/best-car-for',
-    languages: {
-      en: 'https://www.naira.autos/tools/best-car-for',
-      es: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
-      'x-default': 'https://www.naira.autos/tools/best-car-for',
-    },
-  },
+  alternates: alternatesFor('/tools/best-car-for'),
   openGraph: {
     title: 'Best Car For... 2026 — Car Recommender | Naira Autos',
     description: 'Global car recommender with local pricing for 50 countries. Pick your use case and get the top 5 cars ranked by price, maintenance cost, fuel economy, and spare parts availability.',
@@ -102,7 +97,7 @@ export default function BestCarForPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           {/* Breadcrumb + back */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all"
@@ -117,6 +112,7 @@ export default function BestCarForPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">Best Car For...</span>
             </nav>
+            <LanguagePills path="/tools/best-car-for" className="ms-auto" />
           </div>
 
           {/* Hero */}
@@ -125,9 +121,6 @@ export default function BestCarForPage() {
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Free Tool</span>
             </div>
             <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
-            <Link href="/herramientas/mejor-auto-para-ti" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
-              Leer en Español →
-            </Link>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}

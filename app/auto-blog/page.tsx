@@ -1,6 +1,24 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import BlogIndexClientNl from '@/components/blog/BlogIndexClientNl';
+import PageNav from '@/components/ui/PageNav';
+import LanguagePills from '@/components/ui/LanguagePills';
+import { alternatesFor } from '@/lib/hreflang';
+
+export const metadata: Metadata = {
+  title: 'Autoblog — Koopgidsen, Onderhoudstips & Advies voor Autobezitters | Naira Autos',
+  description: "Koopgidsen voor auto's, onderhoudstips en advies voor autobezitters. Praktische artikelen om met vertrouwen een auto te kopen, te onderhouden en te verkopen.",
+  alternates: alternatesFor('/auto-blog'),
+  openGraph: {
+    title: 'Autoblog — Koopgidsen, Onderhoudstips & Advies voor Autobezitters',
+    description: "Koopgidsen voor auto's, onderhoudstips en advies voor autobezitters. Praktische artikelen om met vertrouwen een auto te kopen, te onderhouden en te verkopen.",
+    url: 'https://www.naira.autos/auto-blog',
+    siteName: 'Naira Autos',
+    locale: 'nl',
+    type: 'website',
+  },
+};
 
 export const revalidate = 86400;
 
@@ -21,14 +39,8 @@ export default async function BlogDutchPage() {
     <div className="min-h-screen bg-background">
       <div className="bg-primary py-12">
         <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Link href="/blog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              English
-            </Link>
-            <Link href="/autoblog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Deutsch
-            </Link>
-          </div>
+          <PageNav lang="nl" hub="blog" />
+          <LanguagePills path="/auto-blog" className="mb-6" />
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Naira Autos Blog Nederlands</h1>
           <p className="text-white/80 max-w-2xl">
             Handige tips en gidsen voor het kopen en verkopen van auto's

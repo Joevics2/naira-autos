@@ -2,26 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import VINCheckerClientEs from '@/components/VINCheckerClientEs';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Decodificador de VIN Gratis — Consulta VIN y Número de Chasis',
   description: 'Decodificador de VIN gratis para cualquier auto. Consulta el VIN, NIV o número de chasis — marca, modelo, año, motor y país de origen. Ideal para autos importados de EE.UU. a México y Latinoamérica.',
   keywords: ['decodificador de vin gratis', 'consulta de vin', 'consultar vin gratis', 'verificar vin', 'qué es el niv de un auto', 'consulta niv', 'número de chasis', 'número de serie del auto', 'historial del vehículo por vin', 'vin decoder gratis', 'decodificador vin méxico'],
-  alternates: {
-    canonical: 'https://www.naira.autos/herramientas/decodificador-de-vin',
-    languages: {
-      en: 'https://www.naira.autos/tools/vin-checker-global',
-      es: 'https://www.naira.autos/herramientas/decodificador-de-vin',
-      fr: 'https://www.naira.autos/outils/decodeur-vin',
-      ar: 'https://www.naira.autos/adawat/fahs-raqm-alhaykal',
-      pt: 'https://www.naira.autos/ferramentas/decodificador-de-chassi',
-      de: 'https://www.naira.autos/werkzeuge/fahrgestellnummer-pruefen',
-      ja: 'https://www.naira.autos/tsuru/vin-code-shirabe',
-      it: 'https://www.naira.autos/strumenti/verifica-numero-di-telaio',
-      tr: 'https://www.naira.autos/araclar/sasi-numarasi-sorgulama',
-      'x-default': 'https://www.naira.autos/tools/vin-checker-global',
-    },
-  },
+  alternates: alternatesFor('/herramientas/decodificador-de-vin'),
   openGraph: {
     title: 'Decodificador de VIN Gratis | Naira Autos',
     description: 'Consulta gratis el VIN, NIV o número de chasis de cualquier auto — marca, modelo, año, motor y origen, al instante.',
@@ -69,7 +57,7 @@ export default function DecodificadorDeVinPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Atrás">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -80,14 +68,12 @@ export default function DecodificadorDeVinPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Decodificador de VIN</span>
             </nav>
+            <LanguagePills path="/herramientas/decodificador-de-vin" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">100% Gratis</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Con datos de NHTSA</span>
-              <Link href="/tools/vin-checker-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Read in English →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

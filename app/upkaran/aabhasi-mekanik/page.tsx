@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientHI from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata ────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: 'AI मैकेनिक — मुफ़्त ऑनलाइन कार निदान | Naira Autos',
   description: 'आर्टिफिशियल इंटेलिजेंस से चलने वाला मुफ़्त वर्चुअल मैकेनिक। खराबी बताएं, फोटो, आवाज़ या वीडियो अपलोड करें और तुरंत मरम्मत लागत के साथ निदान पाएं। साइन अप की ज़रूरत नहीं।',
-  alternates: {
-    canonical: 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/upkaran/aabhasi-mekanik'),
   openGraph: {
     title: 'Axion — मुफ़्त AI वर्चुअल मैकेनिक | Naira Autos',
     description: 'आप कहीं भी हों, तुरंत ऑनलाइन कार निदान पाएं। इंजन की आवाज़, फोटो अपलोड करें या खराबी बताएं। तत्कालता स्तर, संभावित कारण, अगले कदम और मरम्मत लागत पाएं। मुफ़्त, साइन अप की ज़रूरत नहीं।',

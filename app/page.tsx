@@ -1,5 +1,6 @@
 import { HomePage } from '@/components/home/HomePage';
 import { Metadata } from 'next';
+import { alternatesFor } from '@/lib/hreflang';
 
 // Force this route to render fresh on every request instead of being
 // statically generated once at build time and cached. A fully static
@@ -22,28 +23,7 @@ export const metadata: Metadata = {
     locale: 'en_NG',
     type: 'website',
   },
-  alternates: {
-    canonical: 'https://www.naira.autos/',
-    languages: {
-      en: 'https://www.naira.autos/',
-      es: 'https://www.naira.autos/inicio',
-      ar: 'https://www.naira.autos/home-arabic',
-      fr: 'https://www.naira.autos/accueil',
-      pt: 'https://www.naira.autos/pagina-inicial',
-      de: 'https://www.naira.autos/startseite',
-      ja: 'https://www.naira.autos/homu',
-      it: 'https://www.naira.autos/inizio',
-      tr: 'https://www.naira.autos/ana-sayfa',
-      th: 'https://www.naira.autos/na-lak',
-      id: 'https://www.naira.autos/beranda',
-      vi: 'https://www.naira.autos/trang-chu',
-      nl: 'https://www.naira.autos/startpagina',
-      hi: 'https://www.naira.autos/mukhya-prishtha',
-      ko: 'https://www.naira.autos/hom',
-      ru: 'https://www.naira.autos/glavnaya',
-      'x-default': 'https://www.naira.autos/',
-    },
-  },
+  alternates: alternatesFor('/'),
 };
 
 export default function Home() {

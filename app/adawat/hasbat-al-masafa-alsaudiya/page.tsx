@@ -7,14 +7,13 @@ import DistanceCalculatorSaudiArabiaArClient from './client';
 import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { SA_TOWNS, findTown } from '@/lib/distance-towns-sa';
 import { SA_CAPITAL_DISTANCE_KM } from '@/lib/sa-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'حاسبة المسافات السعودية 2026 — المسافة بين المدن بالطريق',
   description: 'احسب مسافة الطريق ومدة القيادة بين 35 مدينة سعودية — الرياض، جدة، مكة، المدينة، الدمام والمزيد. مسافات رسمية موثّقة، مدة القيادة، وتكلفة الوقود.',
-  alternates: {
-    canonical: 'https://www.naira.autos/adawat/hasbat-al-masafa-alsaudiya',
-    languages: { en: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-saudi-arabia' },
-  },
+  alternates: alternatesFor('/adawat/hasbat-al-masafa-alsaudiya'),
   openGraph: {
     title: 'حاسبة المسافات السعودية 2026',
     description: 'مسافة الطريق ومدة القيادة بين 35 مدينة سعودية، مع حاسبة تكلفة الوقود.',
@@ -81,7 +80,7 @@ export default function DistanceCalculatorSaudiArabiaArPage() {
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -96,6 +95,7 @@ export default function DistanceCalculatorSaudiArabiaArPage() {
               <span>/</span>
               <span className="text-white/60">🇸🇦 السعودية</span>
             </nav>
+            <LanguagePills path="/adawat/hasbat-al-masafa-alsaudiya" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -109,9 +109,6 @@ export default function DistanceCalculatorSaudiArabiaArPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               مسافة الطريق ومدة القيادة بين أي مدينتين من 35 مدينة سعودية — الرياض، جدة، مكة، المدينة، الدمام، والمراكز الإقليمية الرئيسية.
             </p>
-            <Link href="/tools/distance-calculator-saudi-arabia" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              English version →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

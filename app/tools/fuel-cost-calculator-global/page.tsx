@@ -3,18 +3,13 @@ import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Globe2 } from 'lucide-react';
 import GlobalFuelCostClient from './client';
 import { FUEL_CURRENCIES } from '@/lib/fuel-currencies';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Global Gas / Fuel Cost Calculator — Any Car, Any Currency, Any Country',
   description: 'Free fuel cost calculator covering 44 currencies and real road-distance routes across 53 countries and 200+ cities worldwide.',
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
-    languages: {
-      en: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
-      es: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
-      'x-default': 'https://www.naira.autos/tools/fuel-cost-calculator-global',
-    },
-  },
+  alternates: alternatesFor('/tools/fuel-cost-calculator-global'),
   openGraph: {
     title: 'Global Gas / Fuel Cost Calculator | Naira Autos',
     description: 'Calculate fuel cost for any car in 44 currencies, with real routes across 53 countries.',
@@ -83,7 +78,7 @@ export default function GlobalFuelCostCalculatorPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -94,6 +89,7 @@ export default function GlobalFuelCostCalculatorPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Global Fuel Cost Calculator</span>
             </nav>
+            <LanguagePills path="/tools/fuel-cost-calculator-global" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4 flex-wrap">
@@ -101,9 +97,6 @@ export default function GlobalFuelCostCalculatorPage() {
               <span className="inline-flex items-center gap-1.5 text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
                 <Globe2 className="h-3 w-3" /> {FUEL_CURRENCIES.length} currencies
               </span>
-              <Link href="/herramientas/calculadora-de-costo-de-combustible-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Leer en Español →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

@@ -2,18 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import ComparadorDeAutosClient from './client';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Comparador de Autos 2026 — Compara Precio, Consumo y Mantenimiento en 50 Países',
   description: 'Compara dos autos lado a lado con precios en tu propia moneda en 50 países — España, México, Argentina, Colombia, Chile y más. Precio, consumo de combustible, costo de mantenimiento, altura al piso, disponibilidad de repuestos y problemas comunes en 50 modelos, desde el Toyota Corolla hasta el Bugatti Chiron.',
-  alternates: {
-    canonical: 'https://www.naira.autos/herramientas/comparador-de-autos',
-    languages: {
-      en: 'https://www.naira.autos/tools/car-comparison',
-      es: 'https://www.naira.autos/herramientas/comparador-de-autos',
-      'x-default': 'https://www.naira.autos/tools/car-comparison',
-    },
-  },
+  alternates: alternatesFor('/herramientas/comparador-de-autos'),
   openGraph: {
     title: 'Comparador de Autos 2026 | Naira Autos',
     description: 'Comparación lado a lado con precios locales en 50 países. Precio, consumo, mantenimiento, altura al piso, disponibilidad de repuestos. 50 modelos, desde el Corolla hasta el Ferrari 296 GTB.',
@@ -97,7 +92,7 @@ export default function ComparadorDeAutosPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/herramientas"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all"
@@ -112,6 +107,7 @@ export default function ComparadorDeAutosPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">Comparador de Autos</span>
             </nav>
+            <LanguagePills path="/herramientas/comparador-de-autos" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -120,9 +116,6 @@ export default function ComparadorDeAutosPage() {
                 <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Herramienta Gratis</span>
               </span>
               <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Última verificación: septiembre 2026</span>
-              <Link href="/tools/car-comparison" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Read in English →
-              </Link>
             </div>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"

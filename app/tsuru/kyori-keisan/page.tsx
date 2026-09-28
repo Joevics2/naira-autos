@@ -7,17 +7,13 @@ import DistanceCalculatorJapanClient from './client';
 import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { JP_TOWNS, findTown } from '@/lib/distance-towns-jp';
 import { JP_CAPITAL_DISTANCE_KM } from '@/lib/jp-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: '距離計算機 日本 2026 — 都市間の道路距離を計算',
   description: '東京、大阪、名古屋など日本の43都市間の道路距離と運転時間を計算。確認済みの高速道路距離、運転時間、燃料費を表示します。',
-  alternates: {
-    canonical: 'https://www.naira.autos/tsuru/kyori-keisan',
-    languages: {
-      en: 'https://www.naira.autos/tools/distance-calculator-countries',
-      'x-default': 'https://www.naira.autos/tools/distance-calculator-countries',
-    },
-  },
+  alternates: alternatesFor('/tsuru/kyori-keisan'),
   openGraph: {
     title: '距離計算機 日本 2026',
     description: '日本の43都市間の道路距離と運転時間、燃料費計算機付き。',
@@ -71,7 +67,7 @@ export default function DistanceCalculatorJapanPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tsuru"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -84,6 +80,7 @@ export default function DistanceCalculatorJapanPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇯🇵 日本</span>
             </nav>
+            <LanguagePills path="/tsuru/kyori-keisan" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -97,9 +94,6 @@ export default function DistanceCalculatorJapanPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               東京、大阪、名古屋など日本の43都市間の道路距離と運転時間を計算します。
             </p>
-            <Link href="/tools/distance-calculator-countries" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              English version →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

@@ -4,6 +4,8 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { TOOLS_IT } from '@/lib/tools-list-it';
 import { supabase } from '@/lib/supabase';
 import { getBlogFallbackImage } from '@/lib/blogImages';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 type LatestPost = {
   id: string;
@@ -27,28 +29,7 @@ export const metadata: Metadata = {
     locale: 'it_IT',
     type: 'website',
   },
-  alternates: {
-    canonical: 'https://www.naira.autos/inizio',
-    languages: {
-      en: 'https://www.naira.autos/',
-      es: 'https://www.naira.autos/inicio',
-      ar: 'https://www.naira.autos/home-arabic',
-      fr: 'https://www.naira.autos/accueil',
-      pt: 'https://www.naira.autos/pagina-inicial',
-      de: 'https://www.naira.autos/startseite',
-      ja: 'https://www.naira.autos/homu',
-      it: 'https://www.naira.autos/inizio',
-      tr: 'https://www.naira.autos/ana-sayfa',
-      th: 'https://www.naira.autos/na-lak',
-      id: 'https://www.naira.autos/beranda',
-      vi: 'https://www.naira.autos/trang-chu',
-      nl: 'https://www.naira.autos/startpagina',
-      hi: 'https://www.naira.autos/mukhya-prishtha',
-      ko: 'https://www.naira.autos/hom',
-      ru: 'https://www.naira.autos/glavnaya',
-      'x-default': 'https://www.naira.autos/',
-    },
-  },
+  alternates: alternatesFor('/inizio'),
 };
 
 const SCHEMA = {
@@ -89,10 +70,8 @@ export default async function HomeItalianPage() {
               <Sparkles className="h-3 w-3" />
               Sito in Italiano
             </span>
-            <Link href="/" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              English
-            </Link>
           </div>
+          <LanguagePills path="/inizio" className="mb-5" />
           <p
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 68px)' }}

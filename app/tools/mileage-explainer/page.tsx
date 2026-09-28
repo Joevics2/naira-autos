@@ -5,18 +5,13 @@ import MileageExplainerClient from '@/components/MileageExplainerClient';
 import { CountryScrollStrip } from '@/components/CountryScrollStrip';
 import { globalLandmarkCities } from '@/lib/mileage-cities';
 import { MILEAGE_BENCHMARKS } from '@/lib/mileage-benchmarks';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Mileage Explainer — What Does Your Odometer Reading Actually Mean?',
   description: 'Free mileage calculator that puts any odometer reading in real-world context — distance between cities, laps around the Earth, trips to the Moon. See if a car\'s mileage looks normal for its age.',
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/mileage-explainer',
-    languages: {
-      en: 'https://www.naira.autos/tools/mileage-explainer',
-      es: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
-      'x-default': 'https://www.naira.autos/tools/mileage-explainer',
-    },
-  },
+  alternates: alternatesFor('/tools/mileage-explainer'),
   openGraph: {
     title: 'Mileage Explainer | Naira Autos',
     description: 'What does 100,000 miles actually look like? A free tool that turns any odometer reading into real-world distance comparisons.',
@@ -83,7 +78,7 @@ export default function MileageExplainerPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -94,6 +89,7 @@ export default function MileageExplainerPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Mileage Explainer</span>
             </nav>
+            <LanguagePills path="/tools/mileage-explainer" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-5">
@@ -102,9 +98,6 @@ export default function MileageExplainerPage() {
                 Free Tool · Global
               </span>
               <span className="text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
-              <Link href="/herramientas/calculadora-de-kilometraje" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Leer en Español →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

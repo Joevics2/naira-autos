@@ -3,25 +3,14 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { BookText } from 'lucide-react';
 import BlogIndexClientAr from '@/components/blog/BlogIndexClientAr';
+import { alternatesFor } from '@/lib/hreflang';
+import PageNav from '@/components/ui/PageNav';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'مدونة السيارات — أدلة الشراء والصيانة ونصائح الملكية | Naira Autos',
   description: 'أدلة خبيرة لشراء السيارات، نصائح الصيانة، وكل ما يخص ملكية السيارة. مقالات عملية لشراء سيارتك والحفاظ عليها وبيعها بثقة.',
-  alternates: {
-    canonical: 'https://www.naira.autos/blog-arabic',
-    languages: {
-      en: 'https://www.naira.autos/blog',
-      es: 'https://www.naira.autos/blog-de-autos',
-      ar: 'https://www.naira.autos/blog-arabic',
-      fr: 'https://www.naira.autos/blog-auto',
-      pt: 'https://www.naira.autos/blog-de-carros',
-      de: 'https://www.naira.autos/autoblog',
-      ja: 'https://www.naira.autos/kuruma-burogu',
-      it: 'https://www.naira.autos/blog-motori',
-      tr: 'https://www.naira.autos/oto-blog',
-      'x-default': 'https://www.naira.autos/blog',
-    },
-  },
+  alternates: alternatesFor('/blog-arabic'),
   openGraph: {
     title: 'مدونة السيارات — أدلة الشراء والصيانة ونصائح الملكية',
     description: 'أدلة عملية لشراء السيارات وصيانتها وبيعها بثقة.',
@@ -53,26 +42,8 @@ export default async function BlogArabicPage() {
     <div dir="rtl" lang="ar" className="min-h-screen bg-background">
       <div className="bg-primary py-12">
         <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Link href="/blog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              اقرأ بالإنجليزية ←
-            </Link>
-            <Link href="/blog-auto" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Français
-            </Link>
-            <Link href="/blog-de-carros" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Português
-            </Link>
-            <Link href="/autoblog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Deutsch
-            </Link>
-            <Link href="/kuruma-burogu" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              日本語
-            </Link>
-            <Link href="/blog-motori" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              Italiano
-            </Link>
-          </div>
+          <PageNav lang="ar" hub="blog" />
+          <LanguagePills path="/blog-arabic" className="mb-6" />
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">مدونة Naira Autos بالعربية</h1>
           <p className="text-white/80 max-w-2xl">
             نصائح وأدلة ومعلومات مفيدة لشراء وبيع السيارات

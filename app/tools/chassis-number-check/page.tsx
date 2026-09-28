@@ -2,19 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import ChassisNumberCheckerClient from './client';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Free Chassis Number Check Online — Chassis Number Checker & Verification',
   description: 'Free chassis number check online, worldwide. Verify any chassis number and get make, model, year, engine specs, and assembly origin instantly — no login, no payment. Works for Toyota, Ford, Honda and every major brand.',
   keywords: ['chassis number check online free','chassis number verification','toyota chassis number check online free','chassis number check','chassis checker','chassis number check online','chassis number','chassis check','car chassis number check','vehicle chassis number check','chassis number checker','how to verify chassis number online','chassis number to vehicle number','search chassis number','free chassis number check online','chassis number meaning','chassis number search','check chassis number','verify chassis number','is vin same as chassis number','how to check chassis number online','check car with chassis number','chassis number check year of manufacture'],
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/chassis-number-check',
-    languages: {
-      en: 'https://www.naira.autos/tools/chassis-number-check',
-      es: 'https://www.naira.autos/herramientas/verificar-numero-de-chasis',
-      'x-default': 'https://www.naira.autos/tools/chassis-number-check',
-    },
-  },
+  alternates: alternatesFor('/tools/chassis-number-check'),
   openGraph: {
     title: 'Free Chassis Number Check Online | Naira Autos',
     description: 'Free chassis number check, anywhere in the world. Get make, model, year, engine and origin instantly.',
@@ -67,7 +62,7 @@ export default function ChassisNumberCheckPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -78,14 +73,12 @@ export default function ChassisNumberCheckPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Chassis Number Check</span>
             </nav>
+            <LanguagePills path="/tools/chassis-number-check" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Powered by NHTSA</span>
-              <Link href="/herramientas/verificar-numero-de-chasis" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Leer en Español →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

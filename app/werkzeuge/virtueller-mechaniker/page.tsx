@@ -2,32 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientDE from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 export const metadata: Metadata = {
   title: 'Virtueller KI-Mechaniker — Kostenlose Auto-Diagnose Online | Naira Autos',
   description: 'Kostenloser virtueller Mechaniker mit KI. Beschreiben Sie das Problem, oder laden Sie ein Foto, Motorgeräusch oder Video hoch, und erhalten Sie sofort eine Diagnose mit geschätzten Reparaturkosten. Ohne Registrierung, für Deutschland.',
-  alternates: {
-    canonical: 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/werkzeuge/virtueller-mechaniker'),
   openGraph: {
     title: 'Axion — Kostenloser Virtueller Mechaniker mit KI | Naira Autos',
     description: 'Sofortige Auto-Diagnose online, wo immer Sie sind. Laden Sie ein Motorgeräusch, ein Foto hoch, oder beschreiben Sie das Problem. Erhalten Sie eine Dringlichkeitsstufe, wahrscheinliche Ursachen, Schritte zum Selbermachen und eine Kostenschätzung. 100% kostenlos, ohne Registrierung.',

@@ -2,32 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Sparkles, Globe2 } from 'lucide-react';
 import { TOOLS_RU, CATEGORIES_RU } from '@/lib/tools-list-ru';
+import { alternatesFor } from '@/lib/hreflang';
+import PageNav from '@/components/ui/PageNav';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Бесплатные автомобильные инструменты | Naira Autos',
   description: 'Бесплатные инструменты для вашего автомобиля на русском языке — скоро появится ИИ-механик и другие инструменты. Всё бесплатно, регистрация не нужна.',
-  alternates: {
-    canonical: 'https://www.naira.autos/instrumenty',
-    languages: {
-      en: 'https://www.naira.autos/tools',
-      es: 'https://www.naira.autos/herramientas',
-      ar: 'https://www.naira.autos/adawat',
-      fr: 'https://www.naira.autos/outils',
-      pt: 'https://www.naira.autos/ferramentas',
-      de: 'https://www.naira.autos/werkzeuge',
-      ja: 'https://www.naira.autos/tsuru',
-      it: 'https://www.naira.autos/strumenti',
-      tr: 'https://www.naira.autos/araclar',
-      vi: 'https://www.naira.autos/cong-cu',
-      th: 'https://www.naira.autos/khrueang-mue',
-      id: 'https://www.naira.autos/alat',
-      nl: 'https://www.naira.autos/gereedschappen',
-      hi: 'https://www.naira.autos/upkaran',
-      ko: 'https://www.naira.autos/dogu',
-      ru: 'https://www.naira.autos/instrumenty',
-      'x-default': 'https://www.naira.autos/tools',
-    },
-  },
+  alternates: alternatesFor('/instrumenty'),
   keywords: ['бесплатные автомобильные инструменты', 'ИИ механик бесплатно', 'автомобильные инструменты на русском'],
 };
 
@@ -38,21 +20,14 @@ export default function ToolsRussianPage() {
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
         <div className="max-w-screen-xl mx-auto">
+          <PageNav lang="ru" hub="tools" />
           <div className="flex items-center gap-2 mb-5 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
               Бесплатные инструменты
             </span>
-            <Link href="/glavnaya" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Главная
-            </Link>
-            <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              English
-            </Link>
-            <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
-            </Link>
           </div>
+          <LanguagePills path="/instrumenty" className="mb-6" />
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}

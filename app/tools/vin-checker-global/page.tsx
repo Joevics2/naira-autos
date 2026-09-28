@@ -2,26 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import VINCheckerClient from './client';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Free VIN Decoder & VIN Checker — Vehicle Identification Number Lookup',
   description: 'Free VIN decoder and VIN checker for any car, anywhere in the world. Decode any vehicle VIN or chassis number — make, model, year, engine specs, assembly origin. Essential free VIN check for used car buyers in the US, UK, UAE, and beyond.',
   keywords: ['vin number lookup free','vin check','vin checker','vin check free','vin decoder check','is vin same as chassis number','free vin decoder','north american vin decoder','ford vin decoder saudi','chevrolet vin decoder saudi','jeep vin decoder saudi','ford vin decoder dubai','ford vin decoder abu dhabi','free vin check online','vin verification'],
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/vin-checker-global',
-    languages: {
-      en: 'https://www.naira.autos/tools/vin-checker-global',
-      es: 'https://www.naira.autos/herramientas/decodificador-de-vin',
-      fr: 'https://www.naira.autos/outils/decodeur-vin',
-      ar: 'https://www.naira.autos/adawat/fahs-raqm-alhaykal',
-      pt: 'https://www.naira.autos/ferramentas/decodificador-de-chassi',
-      de: 'https://www.naira.autos/werkzeuge/fahrgestellnummer-pruefen',
-      ja: 'https://www.naira.autos/tsuru/vin-code-shirabe',
-      it: 'https://www.naira.autos/strumenti/verifica-numero-di-telaio',
-      tr: 'https://www.naira.autos/araclar/sasi-numarasi-sorgulama',
-      'x-default': 'https://www.naira.autos/tools/vin-checker-global',
-    },
-  },
+  alternates: alternatesFor('/tools/vin-checker-global'),
   openGraph: {
     title: 'Free VIN Decoder & Chassis Number Checker | Naira Autos',
     description: 'Free VIN check for any used car, anywhere. Get make, model, year, engine and origin instantly.',
@@ -76,7 +64,7 @@ export default function VINCheckerPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -87,14 +75,12 @@ export default function VINCheckerPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">VIN Checker</span>
             </nav>
+            <LanguagePills path="/tools/vin-checker-global" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Powered by NHTSA</span>
-              <Link href="/herramientas/decodificador-de-vin" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Leer en Español →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

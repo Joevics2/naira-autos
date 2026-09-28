@@ -8,14 +8,13 @@ import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { RelatedTools } from '@/components/RelatedTools';
 import { AE_TOWNS, findTown } from '@/lib/distance-towns-ae';
 import { AE_CAPITAL_DISTANCE_KM } from '@/lib/ae-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Distance Calculator UAE 2026 — Road Distance Between Any Two Emirates',
   description: 'Calculate road distance and drive time between 14 UAE towns — Dubai, Abu Dhabi, Sharjah, Al Ain and more. Verified routes, drive time, and fuel cost.',
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/distance-calculator-uae',
-    languages: { ar: 'https://www.naira.autos/adawat/hasbat-al-masafa-alemarat' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-uae' },
-  },
+  alternates: alternatesFor('/tools/distance-calculator-uae'),
   openGraph: {
     title: 'Distance Calculator UAE 2026 | Naira Autos',
     description: 'Road distance and drive time between 14 UAE towns, with a fuel cost estimator.',
@@ -83,7 +82,7 @@ export default function DistanceCalculatorUaePage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -100,6 +99,7 @@ export default function DistanceCalculatorUaePage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇦🇪 UAE</span>
             </nav>
+            <LanguagePills path="/tools/distance-calculator-uae" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -113,9 +113,6 @@ export default function DistanceCalculatorUaePage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 14 UAE towns — all 7 emirate capitals plus Al Ain, Khor Fakkan, and other major towns.
             </p>
-            <Link href="/adawat/hasbat-al-masafa-alemarat" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              العربية (Arabic version) →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

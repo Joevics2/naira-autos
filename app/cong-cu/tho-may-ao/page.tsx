@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientVI from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata ────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: 'Thợ Máy Ảo AI — Chẩn Đoán Xe Hơi Online Miễn Phí | Naira Autos',
   description: 'Thợ máy ảo miễn phí với trí tuệ nhân tạo. Mô tả sự cố, tải lên ảnh, âm thanh hoặc video và nhận chẩn đoán ngay lập tức kèm chi phí sửa chữa. Không cần đăng ký.',
-  alternates: {
-    canonical: 'https://www.naira.autos/cong-cu/tho-may-ao',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/cong-cu/tho-may-ao'),
   openGraph: {
     title: 'Axion — Thợ Máy Ảo AI Miễn Phí | Naira Autos',
     description: 'Chẩn đoán xe online ngay lập tức, ở bất cứ đâu. Tải lên âm thanh động cơ, ảnh, hoặc mô tả sự cố. Nhận mức độ khẩn cấp, nguyên nhân có thể, các bước tiếp theo và chi phí sửa chữa. Miễn phí, không cần đăng ký.',

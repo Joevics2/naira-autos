@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle2, ChevronRight, ChevronDown, Check, Car, Mic, Zap } from 'lucide-react';
 import AIMechanicClient from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata (server-rendered into <head>) ────────────────────────
 
 export const metadata: Metadata = {
   title: 'AI Mechanic — Free Online Car Diagnosis Tool | Naira Autos',
   description: 'Free AI mechanic and online car diagnosis tool. Describe your problem, upload engine sounds, photos, or video, and get an instant auto repair estimate — with a global USD reference cost. No login required.',
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/ai-mechanic',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/tools/ai-mechanic'),
   openGraph: {
     title: 'Axion — Free AI Mechanic & Online Car Diagnosis | Naira Autos',
     description: 'Instant car diagnosis online, anywhere. Upload engine sounds, photos, or describe the fault. Get urgency rating, likely causes, DIY steps, and a repair cost estimate. Free, no login.',

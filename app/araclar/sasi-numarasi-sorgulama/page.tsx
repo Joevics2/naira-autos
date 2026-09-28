@@ -2,26 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import VINCheckerClientTr from '@/components/VINCheckerClientTr';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Şasi Numarası (VIN) Ücretsiz Sorgulama — Marka, Model, Yıl Öğren',
   description: 'Şasi numarasını (VIN) ücretsiz sorgulayın. Marka, model, üretim yılı, motor ve üretici ülke anında görüntülenir — üyelik gerektirmez. İthal araç alımı öncesi kontrol için.',
   keywords: ['şasi numarası ücretsiz sorgulama', 'vin sorgulama ücretsiz', 'şase numarası nasıl öğrenilir', 'vin kod çözücü ücretsiz', 'ithal araç şasi sorgulama', 'şasi numarası nerede', 'vin numarası kontrol', 'araç şasi numarası doğrulama', 'amerikan araç şasi sorgulama', 'vin şase aynı mı'],
-  alternates: {
-    canonical: 'https://www.naira.autos/araclar/sasi-numarasi-sorgulama',
-    languages: {
-      en: 'https://www.naira.autos/tools/vin-checker-global',
-      es: 'https://www.naira.autos/herramientas/decodificador-de-vin',
-      fr: 'https://www.naira.autos/outils/decodeur-vin',
-      ar: 'https://www.naira.autos/adawat/fahs-raqm-alhaykal',
-      pt: 'https://www.naira.autos/ferramentas/decodificador-de-chassi',
-      de: 'https://www.naira.autos/werkzeuge/fahrgestellnummer-pruefen',
-      ja: 'https://www.naira.autos/tsuru/vin-code-shirabe',
-      it: 'https://www.naira.autos/strumenti/verifica-numero-di-telaio',
-      tr: 'https://www.naira.autos/araclar/sasi-numarasi-sorgulama',
-      'x-default': 'https://www.naira.autos/tools/vin-checker-global',
-    },
-  },
+  alternates: alternatesFor('/araclar/sasi-numarasi-sorgulama'),
   openGraph: {
     title: 'Şasi Numarası (VIN) Ücretsiz Sorgulama | Naira Autos',
     description: 'Herhangi bir aracın marka, model, üretim yılı, motor ve menşe bilgisini şasi numarasından ücretsiz ve anında öğrenin.',
@@ -69,7 +57,7 @@ export default function SasiNumarasiSorgulamaPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/araclar" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Geri">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -80,14 +68,12 @@ export default function SasiNumarasiSorgulamaPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Şasi Numarası Sorgulama</span>
             </nav>
+            <LanguagePills path="/araclar/sasi-numarasi-sorgulama" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">%100 Ücretsiz</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">NHTSA Verisi</span>
-              <Link href="/tools/vin-checker-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Read in English →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(28px, 5vw, 56px)' }}>

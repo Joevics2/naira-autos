@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientID from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata ────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: 'Montir Virtual AI — Diagnosa Mobil Online Gratis | Naira Autos',
   description: 'Montir virtual gratis dengan kecerdasan buatan. Jelaskan kerusakan, unggah foto, suara, atau video masalahnya dan dapatkan diagnosis instan beserta perkiraan biaya perbaikan. Tanpa perlu mendaftar.',
-  alternates: {
-    canonical: 'https://www.naira.autos/alat/montir-virtual',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/alat/montir-virtual'),
   openGraph: {
     title: 'Axion — Montir Virtual AI Gratis | Naira Autos',
     description: 'Diagnosa mobil online instan, di mana pun Anda berada. Unggah suara mesin, foto, atau jelaskan kerusakannya. Dapatkan tingkat urgensi, kemungkinan penyebab, langkah selanjutnya, dan biaya perbaikan. Gratis, tanpa pendaftaran.',

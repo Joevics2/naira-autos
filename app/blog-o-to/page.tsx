@@ -1,6 +1,24 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import BlogIndexClientVi from '@/components/blog/BlogIndexClientVi';
+import PageNav from '@/components/ui/PageNav';
+import LanguagePills from '@/components/ui/LanguagePills';
+import { alternatesFor } from '@/lib/hreflang';
+
+export const metadata: Metadata = {
+  title: 'Blog Ô Tô — Hướng Dẫn Mua Xe, Bảo Dưỡng & Mẹo Sử Dụng | Naira Autos',
+  description: 'Hướng dẫn mua xe, mẹo bảo dưỡng và lời khuyên khi sở hữu ô tô. Các bài viết thực tế giúp bạn tự tin mua, bảo dưỡng và bán xe.',
+  alternates: alternatesFor('/blog-o-to'),
+  openGraph: {
+    title: 'Blog Ô Tô — Hướng Dẫn Mua Xe, Bảo Dưỡng & Mẹo Sử Dụng',
+    description: 'Hướng dẫn mua xe, mẹo bảo dưỡng và lời khuyên khi sở hữu ô tô. Các bài viết thực tế giúp bạn tự tin mua, bảo dưỡng và bán xe.',
+    url: 'https://www.naira.autos/blog-o-to',
+    siteName: 'Naira Autos',
+    locale: 'vi',
+    type: 'website',
+  },
+};
 
 export const revalidate = 86400;
 
@@ -21,14 +39,8 @@ export default async function BlogVietnamesePage() {
     <div className="min-h-screen bg-background">
       <div className="bg-primary py-12">
         <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Link href="/blog" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              English
-            </Link>
-            <Link href="/kuruma-burogu" className="text-[11px] text-white/60 hover:text-white/90 underline underline-offset-2 transition-colors">
-              日本語
-            </Link>
-          </div>
+          <PageNav lang="vi" hub="blog" />
+          <LanguagePills path="/blog-o-to" className="mb-6" />
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Blog Naira Autos Tiếng Việt</h1>
           <p className="text-white/80 max-w-2xl">
             Mẹo và hướng dẫn hữu ích để mua và bán ô tô

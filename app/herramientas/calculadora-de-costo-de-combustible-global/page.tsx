@@ -2,18 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Globe2 } from 'lucide-react';
 import GlobalFuelCostClientEs from './client';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Calculadora de Costo de Combustible — Gratis, en Tu Propia Moneda',
   description: 'Calcula el costo de combustible de cualquier auto en euros, pesos mexicanos, pesos argentinos, pesos colombianos, pesos chilenos y más. Rutas reales en España, México, Argentina, Colombia y Chile.',
-  alternates: {
-    canonical: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
-    languages: {
-      en: 'https://www.naira.autos/tools/fuel-cost-calculator-global',
-      es: 'https://www.naira.autos/herramientas/calculadora-de-costo-de-combustible-global',
-      'x-default': 'https://www.naira.autos/tools/fuel-cost-calculator-global',
-    },
-  },
+  alternates: alternatesFor('/herramientas/calculadora-de-costo-de-combustible-global'),
   openGraph: {
     title: 'Calculadora de Costo de Combustible | Naira Autos',
     description: 'Calcula el gasto de gasolina o diésel de cualquier auto, en tu propia moneda, con rutas reales entre ciudades hispanohablantes.',
@@ -88,7 +83,7 @@ export default function CalculadoraDeCostoDeCombustibleGlobalPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Atrás">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -99,6 +94,7 @@ export default function CalculadoraDeCostoDeCombustibleGlobalPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Calculadora de Costo de Combustible</span>
             </nav>
+            <LanguagePills path="/herramientas/calculadora-de-costo-de-combustible-global" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-5 flex-wrap">
@@ -106,9 +102,6 @@ export default function CalculadoraDeCostoDeCombustibleGlobalPage() {
                 <Globe2 className="h-3 w-3" />
                 Herramienta Gratuita
               </span>
-              <Link href="/tools/fuel-cost-calculator-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Read this in English →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

@@ -2,18 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import CarComparisonClient from './client';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Car Comparison Tool 2026 — Compare Specs, Price & Fuel Economy in 50 Countries',
   description: 'Compare any two cars side by side with pricing in your local currency across 50 countries — USA, UK, UAE, India, Nigeria, and more. See price ranges, fuel consumption, maintenance cost, ground clearance, spare parts availability, and common issues across 50 popular models, from the Toyota Corolla to the Bugatti Chiron.',
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/car-comparison',
-    languages: {
-      en: 'https://www.naira.autos/tools/car-comparison',
-      es: 'https://www.naira.autos/herramientas/comparador-de-autos',
-      'x-default': 'https://www.naira.autos/tools/car-comparison',
-    },
-  },
+  alternates: alternatesFor('/tools/car-comparison'),
   openGraph: {
     title: 'Car Comparison Tool 2026 | Naira Autos',
     description: 'Side-by-side car comparison with local pricing for 50 countries. Price range, fuel economy, maintenance cost, ground clearance, spare parts availability. 50 models covered, from the Corolla to the Range Rover to the Ferrari 296 GTB.',
@@ -104,7 +99,7 @@ export default function CarComparisonPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           {/* Breadcrumb + back */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all"
@@ -119,6 +114,7 @@ export default function CarComparisonPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">Car Comparison</span>
             </nav>
+            <LanguagePills path="/tools/car-comparison" className="ms-auto" />
           </div>
 
           {/* Hero */}
@@ -127,9 +123,6 @@ export default function CarComparisonPage() {
               <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Free Tool</span>
             </div>
             <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 ml-2">Last verified: August 2026</span>
-            <Link href="/herramientas/comparador-de-autos" className="inline-block text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors mb-4 ml-2">
-              Leer en Español →
-            </Link>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}

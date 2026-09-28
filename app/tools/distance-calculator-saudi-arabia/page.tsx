@@ -8,14 +8,13 @@ import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { RelatedTools } from '@/components/RelatedTools';
 import { SA_TOWNS, findTown } from '@/lib/distance-towns-sa';
 import { SA_CAPITAL_DISTANCE_KM } from '@/lib/sa-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Distance Calculator Saudi Arabia 2026 — Road Distance Between Any Two Cities',
   description: 'Calculate road distance and drive time between 35 Saudi cities — Riyadh, Jeddah, Makkah, Madinah, Dammam and more. Official highway lengths, drive time, and fuel cost.',
-  alternates: {
-    canonical: 'https://www.naira.autos/tools/distance-calculator-saudi-arabia',
-    languages: { ar: 'https://www.naira.autos/adawat/hasbat-al-masafa-alsaudiya' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-saudi-arabia' },
-  },
+  alternates: alternatesFor('/tools/distance-calculator-saudi-arabia'),
   openGraph: {
     title: 'Distance Calculator Saudi Arabia 2026 | Naira Autos',
     description: 'Road distance and drive time between 35 Saudi cities, with a fuel cost estimator.',
@@ -83,7 +82,7 @@ export default function DistanceCalculatorSaudiArabiaPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -100,6 +99,7 @@ export default function DistanceCalculatorSaudiArabiaPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇸🇦 Saudi Arabia</span>
             </nav>
+            <LanguagePills path="/tools/distance-calculator-saudi-arabia" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -113,9 +113,6 @@ export default function DistanceCalculatorSaudiArabiaPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Road distance and drive time between any two of 35 Saudi cities — Riyadh, Jeddah, Makkah, Madinah, Dammam, and major provincial centres.
             </p>
-            <Link href="/adawat/hasbat-al-masafa-alsaudiya" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              العربية (Arabic version) →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

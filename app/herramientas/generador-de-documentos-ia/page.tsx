@@ -2,19 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import GeneradorDeDocumentosClienteEs from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 export const metadata: Metadata = {
   title: 'Generador de Documentos con IA — Contrato de Compraventa y Más | Naira Autos',
   description: 'Genera un contrato de compraventa de vehículo, contrato de arrendamiento, carta poder y más — gratis, redactado con IA, con los requisitos legales de tu país investigados. Edita y descarga en PDF o Word.',
   keywords: 'generador de contratos con ia, generador de documentos vehiculares, contrato de compraventa de auto gratis, generador de contrato de compraventa, redactor de contratos con inteligencia artificial, crear contrato de auto en línea, generador de carta poder vehículo',
-  alternates: {
-    canonical: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
-    languages: {
-      en: 'https://www.naira.autos/tools/document-generator',
-      es: 'https://www.naira.autos/herramientas/generador-de-documentos-ia',
-      'x-default': 'https://www.naira.autos/tools/document-generator',
-    },
-  },
+  alternates: alternatesFor('/herramientas/generador-de-documentos-ia'),
   openGraph: {
     title: 'Generador de Documentos con IA | Naira Autos',
     description: 'Elige un tipo de documento y un país. Nuestra IA investiga los requisitos legales reales de tu jurisdicción y redacta un documento completo — gratis, sin registro.',

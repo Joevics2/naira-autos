@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientES from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata ────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: 'Mecánico Virtual con IA — Diagnóstico de Auto Online Gratis | Naira Autos',
   description: 'Mecánico virtual gratis con inteligencia artificial. Describe la falla, sube fotos, audio o video del problema y recibe un diagnóstico al instante con presupuesto de reparación. Sin registro.',
-  alternates: {
-    canonical: 'https://www.naira.autos/herramientas/mecanico-virtual',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/herramientas/mecanico-virtual'),
   openGraph: {
     title: 'Axion — Mecánico Virtual con IA Gratis | Naira Autos',
     description: 'Diagnóstico de auto online al instante, en cualquier lugar. Sube audio del motor, fotos o describe la falla. Recibe nivel de urgencia, causas probables, pasos a seguir y presupuesto de reparación. Gratis, sin registro.',

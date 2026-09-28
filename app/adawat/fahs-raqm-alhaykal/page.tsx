@@ -2,26 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft } from 'lucide-react';
 import VINCheckerClientAr from '@/components/VINCheckerClientAr';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'فحص رقم الهيكل (VIN) مجانًا — فك ترميز رقم الشاصي | Naira Autos',
   description: 'فحص مجاني لرقم الهيكل (VIN) أو رقم الشاصي لأي سيارة. اعرف الماركة والموديل وسنة الصنع ومواصفات المحرك ودولة المنشأ فورًا — مصر، السعودية، الإمارات، قطر، العراق والمزيد.',
   keywords: ['فحص رقم الهيكل مجانا', 'فحص VIN', 'رقم الشاصي', 'رقم الشاسيه', 'رقم تعريف المركبة', 'فك ترميز رقم الهيكل', 'الاستعلام عن سيارة برقم الشاسيه', 'فحص رقم هيكل السيارة الامارات', 'فحص رقم الشاصي السعودية', 'رقم هيكل السيارة مصر'],
-  alternates: {
-    canonical: 'https://www.naira.autos/adawat/fahs-raqm-alhaykal',
-    languages: {
-      en: 'https://www.naira.autos/tools/vin-checker-global',
-      es: 'https://www.naira.autos/herramientas/decodificador-de-vin',
-      fr: 'https://www.naira.autos/outils/decodeur-vin',
-      ar: 'https://www.naira.autos/adawat/fahs-raqm-alhaykal',
-      pt: 'https://www.naira.autos/ferramentas/decodificador-de-chassi',
-      de: 'https://www.naira.autos/werkzeuge/fahrgestellnummer-pruefen',
-      ja: 'https://www.naira.autos/tsuru/vin-code-shirabe',
-      it: 'https://www.naira.autos/strumenti/verifica-numero-di-telaio',
-      tr: 'https://www.naira.autos/araclar/sasi-numarasi-sorgulama',
-      'x-default': 'https://www.naira.autos/tools/vin-checker-global',
-    },
-  },
+  alternates: alternatesFor('/adawat/fahs-raqm-alhaykal'),
   openGraph: {
     title: 'فحص رقم الهيكل (VIN) مجانًا | Naira Autos',
     description: 'اعرف الماركة والموديل وسنة الصنع ومواصفات المحرك ودولة المنشأ من رقم الهيكل أو الشاصي، مجانًا وفوريًا.',
@@ -75,7 +63,7 @@ export default function VinCheckerArabicPage() {
           <div className="absolute inset-0 bg-gradient-to-bl from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-            <div className="flex items-center gap-3 mb-8">
+            <div className="flex flex-wrap items-center gap-3 mb-8">
               <Link href="/adawat" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="رجوع">
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -86,14 +74,12 @@ export default function VinCheckerArabicPage() {
                 <ChevronLeft className="h-3 w-3" />
                 <span className="text-white/50">فحص رقم الهيكل</span>
               </nav>
+            <LanguagePills path="/adawat/fahs-raqm-alhaykal" className="ms-auto" />
             </div>
             <div className="max-w-2xl">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xs font-bold tracking-widest uppercase text-white bg-blue-500 px-3 py-1 rounded-full">مجاني 100%</span>
                 <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">بيانات NHTSA</span>
-                <Link href="/tools/vin-checker-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                  Read in English ←
-                </Link>
               </div>
               <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
                 style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(28px, 5vw, 56px)' }}>

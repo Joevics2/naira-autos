@@ -7,17 +7,13 @@ import DistanceCalculatorNetherlandsDutchClient from './client';
 import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { NL_TOWNS, findTown } from '@/lib/distance-towns-nl';
 import { NL_CAPITAL_DISTANCE_KM } from '@/lib/nl-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Afstandscalculator Nederland 2026 — Reisafstand Tussen Twee Steden',
   description: 'Bereken de reisafstand en rijtijd tussen 32 Nederlandse steden — Amsterdam, Rotterdam, Den Haag, Utrecht en meer. Geverifieerde wegafstanden, rijtijd en brandstofkosten.',
-  alternates: {
-    canonical: 'https://www.naira.autos/gereedschappen/afstandscalculator-nederland',
-    languages: {
-      en: 'https://www.naira.autos/tools/distance-calculator-netherlands',
-      'x-default': 'https://www.naira.autos/tools/distance-calculator-netherlands',
-    },
-  },
+  alternates: alternatesFor('/gereedschappen/afstandscalculator-nederland'),
   openGraph: {
     title: 'Afstandscalculator Nederland 2026',
     description: 'Reisafstand en rijtijd tussen 32 Nederlandse steden, met brandstofkosten-calculator.',
@@ -74,7 +70,7 @@ export default function DistanceCalculatorNetherlandsDutchPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/gereedschappen"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -89,6 +85,7 @@ export default function DistanceCalculatorNetherlandsDutchPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇳🇱 Nederland</span>
             </nav>
+            <LanguagePills path="/gereedschappen/afstandscalculator-nederland" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -102,9 +99,6 @@ export default function DistanceCalculatorNetherlandsDutchPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Reisafstand en rijtijd tussen twee van 32 Nederlandse steden — Amsterdam, Rotterdam, Den Haag, Utrecht en belangrijke regionale centra.
             </p>
-            <Link href="/tools/distance-calculator-netherlands" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              English version →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">

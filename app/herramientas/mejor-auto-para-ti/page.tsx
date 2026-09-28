@@ -2,18 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import MejorAutoParaTiClient from './client';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Mejor Auto Para Ti 2026 — Recomendador por Caso de Uso, 50 Países',
   description: 'Encuentra el mejor auto para tus necesidades, con precios en tu propia moneda en 50 países. Elige tu caso de uso — auto familiar, uso comercial, carretera, presupuesto ajustado, todoterreno, ejecutivo o primer auto — y recibe recomendaciones ordenadas entre 50 modelos, desde el Toyota Corolla hasta el Bugatti Chiron, con costo de mantenimiento y disponibilidad de repuestos.',
-  alternates: {
-    canonical: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
-    languages: {
-      en: 'https://www.naira.autos/tools/best-car-for',
-      es: 'https://www.naira.autos/herramientas/mejor-auto-para-ti',
-      'x-default': 'https://www.naira.autos/tools/best-car-for',
-    },
-  },
+  alternates: alternatesFor('/herramientas/mejor-auto-para-ti'),
   openGraph: {
     title: 'Mejor Auto Para Ti 2026 — Recomendador de Autos | Naira Autos',
     description: 'Recomendador de autos global con precios locales en 50 países. Elige tu caso de uso y recibe el top 5 ordenado por precio, mantenimiento, consumo y disponibilidad de repuestos.',
@@ -101,7 +96,7 @@ export default function MejorAutoParaTiPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/herramientas"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all"
@@ -116,6 +111,7 @@ export default function MejorAutoParaTiPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">Mejor Auto Para Ti</span>
             </nav>
+            <LanguagePills path="/herramientas/mejor-auto-para-ti" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -124,9 +120,6 @@ export default function MejorAutoParaTiPage() {
                 <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Herramienta Gratis</span>
               </span>
               <span className="inline-block text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Última verificación: septiembre 2026</span>
-              <Link href="/tools/best-car-for" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Read in English →
-              </Link>
             </div>
             <h1
               className="text-4xl sm:text-5xl font-black uppercase text-white mb-3 leading-none"

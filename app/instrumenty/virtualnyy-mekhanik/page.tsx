@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientRU from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata ────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: 'ИИ-механик — бесплатная онлайн-диагностика автомобиля | Naira Autos',
   description: 'Бесплатный виртуальный механик на основе искусственного интеллекта. Опишите неисправность, загрузите фото, звук или видео и мгновенно получите диагноз со стоимостью ремонта. Регистрация не требуется.',
-  alternates: {
-    canonical: 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/instrumenty/virtualnyy-mekhanik'),
   openGraph: {
     title: 'Axion — бесплатный ИИ виртуальный механик | Naira Autos',
     description: 'Мгновенная онлайн-диагностика автомобиля, где бы вы ни находились. Загрузите звук двигателя, фото или опишите неисправность. Получите уровень срочности, вероятные причины, дальнейшие шаги и стоимость ремонта. Бесплатно, регистрация не нужна.',

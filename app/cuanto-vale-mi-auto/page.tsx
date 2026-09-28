@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Camera, Sparkles, CheckCircle2, AlertCircle, TrendingUp, Shield, ChevronRight, ArrowLeft } from 'lucide-react';
 import { EvaluarMiAutoClient } from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 export const metadata: Metadata = {
   title: '¿Cuánto Vale Mi Auto? Tasación Gratis con IA | Naira Autos',
@@ -27,25 +28,7 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     type: 'website',
   },
-  alternates: {
-    canonical: 'https://www.naira.autos/cuanto-vale-mi-auto',
-    languages: {
-      en: 'https://www.naira.autos/evaluate-used-car',
-      es: 'https://www.naira.autos/cuanto-vale-mi-auto',
-      ar: 'https://www.naira.autos/kam-qeemat-sayarati',
-      fr: 'https://www.naira.autos/outils/combien-vaut-ma-voiture',
-      pt: 'https://www.naira.autos/ferramentas/quanto-vale-meu-carro',
-      de: 'https://www.naira.autos/werkzeuge/was-ist-mein-auto-wert',
-      ja: 'https://www.naira.autos/tsuru/kuruma-satei',
-      tr: 'https://www.naira.autos/araclar/arabam-ne-kadar-eder',
-      it: 'https://www.naira.autos/strumenti/quanto-vale-la-mia-auto',
-      vi: 'https://www.naira.autos/cong-cu/xe-cua-toi-dang-gia-bao-nhieu',
-      th: 'https://www.naira.autos/khrueang-mue/rot-khong-chan-rakha-thaorai',
-      id: 'https://www.naira.autos/alat/berapa-harga-mobil-saya',
-      nl: 'https://www.naira.autos/gereedschappen/wat-is-mijn-auto-waard',
-      'x-default': 'https://www.naira.autos/evaluate-used-car',
-    },
-  },
+  alternates: alternatesFor('/cuanto-vale-mi-auto'),
 };
 
 const jsonLd = {

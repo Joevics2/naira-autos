@@ -9,6 +9,7 @@ import {
   Plus, Trash2, MessageSquare, Send, History,
   Check, ArrowLeft
 } from 'lucide-react';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 // ── Types ─────────────────────────────────────────────────────────
 
@@ -552,7 +553,7 @@ export default function AIMechanicClientNL() {
       <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-16">
 
         {/* Breadcrumb */}
-        <div className="flex items-center gap-3 mb-8">
+        <div className="flex flex-wrap items-center gap-3 mb-8">
           <Link href="/gereedschappen" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Terug naar Gereedschappen">
             <ArrowLeft className="h-4 w-4" />
           </Link>
@@ -563,53 +564,7 @@ export default function AIMechanicClientNL() {
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">AI Monteur</span>
           </nav>
-          <div className="flex items-center gap-3 ml-auto">
-            <Link href="/tools/ai-mechanic" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Read in English →
-            </Link>
-            <Link href="/herramientas/mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Leer en Español →
-            </Link>
-            <Link href="/outils/mecanicien-virtuel" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Lire en Français →
-            </Link>
-            <Link href="/adawat/mikaniki-iftiradi" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              بالعربية ←
-            </Link>
-            <Link href="/ferramentas/meu-mecanico-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Ler em Português →
-            </Link>
-            <Link href="/werkzeuge/virtueller-mechaniker" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Auf Deutsch lesen →
-            </Link>
-            <Link href="/tsuru/ai-shindan" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語で読む →
-            </Link>
-            <Link href="/strumenti/meccanico-virtuale" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Leggi in Italiano →
-            </Link>
-            <Link href="/araclar/sanal-usta" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Türkçe Oku →
-            </Link>
-            <Link href="/cong-cu/tho-may-ao" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Đọc bằng Tiếng Việt →
-            </Link>
-            <Link href="/alat/montir-virtual" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Baca dalam Bahasa Indonesia →
-            </Link>
-            <Link href="/khrueang-mue/mo-rot-ai" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              อ่านภาษาไทย →
-            </Link>
-            <Link href="/upkaran/aabhasi-mekanik" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              हिन्दी में पढ़ें →
-            </Link>
-            <Link href="/dogu/gasang-jeongbisa" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              한국어로 읽기 →
-            </Link>
-            <Link href="/instrumenty/virtualnyy-mekhanik" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Читать на русском →
-            </Link>
-          </div>
+          <LanguagePills path="/gereedschappen/virtuele-monteur" className="ml-auto" />
         </div>
 
         {/* Two-column layout */}

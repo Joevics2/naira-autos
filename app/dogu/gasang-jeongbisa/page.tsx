@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientKO from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata ────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: 'AI 정비사 — 무료 온라인 자동차 진단 | Naira Autos',
   description: '인공지능 기반 무료 가상 정비사. 고장 증상을 설명하고 사진, 소리, 영상을 업로드하면 즉시 진단과 수리 비용을 받을 수 있습니다. 가입이 필요 없습니다.',
-  alternates: {
-    canonical: 'https://www.naira.autos/dogu/gasang-jeongbisa',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/dogu/gasang-jeongbisa'),
   openGraph: {
     title: 'Axion — 무료 AI 가상 정비사 | Naira Autos',
     description: '어디에 있든 즉시 온라인 자동차 진단을 받아보세요. 엔진 소리, 사진을 업로드하거나 고장 증상을 설명하세요. 긴급도, 가능한 원인, 다음 단계, 수리 비용을 확인하세요. 무료, 가입 불필요.',

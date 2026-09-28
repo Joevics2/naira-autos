@@ -3,18 +3,13 @@ import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Globe2 } from 'lucide-react';
 import MileageExplainerClientEs from '@/components/MileageExplainerClientEs';
 import { globalLandmarkCities } from '@/lib/mileage-cities';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Calculadora de Kilometraje — ¿Es Mucho para un Auto? | Naira Autos',
   description: 'Calculadora gratuita de kilometraje que pone cualquier lectura del odómetro en contexto real — distancia entre ciudades, vueltas a la Tierra, viajes a la Luna. Descubre si el kilometraje de un auto es normal para su edad.',
-  alternates: {
-    canonical: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
-    languages: {
-      en: 'https://www.naira.autos/tools/mileage-explainer',
-      es: 'https://www.naira.autos/herramientas/calculadora-de-kilometraje',
-      'x-default': 'https://www.naira.autos/tools/mileage-explainer',
-    },
-  },
+  alternates: alternatesFor('/herramientas/calculadora-de-kilometraje'),
   openGraph: {
     title: 'Calculadora de Kilometraje | Naira Autos',
     description: '¿Qué significa realmente 160,000 km? Una herramienta gratuita que convierte cualquier lectura del odómetro en comparaciones de distancia reales.',
@@ -81,7 +76,7 @@ export default function CalculadoraDeKilometrajePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Atrás">
               <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -92,6 +87,7 @@ export default function CalculadoraDeKilometrajePage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Calculadora de Kilometraje</span>
             </nav>
+            <LanguagePills path="/herramientas/calculadora-de-kilometraje" className="ms-auto" />
           </div>
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-5">
@@ -100,9 +96,6 @@ export default function CalculadoraDeKilometrajePage() {
                 Herramienta Gratuita
               </span>
               <span className="text-[11px] text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Última verificación: agosto de 2026</span>
-              <Link href="/tools/mileage-explainer" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-                Read this in English →
-              </Link>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>

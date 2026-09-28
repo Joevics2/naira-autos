@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { HomeFreshness } from './HomeFreshness';
 import { AdUnit } from '@/components/ads/AdUnit';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 // ─── Vehicle guides — real, published brand/model/year content ─────────────
 // Curated set covering all three guide types (maintenance, parts, problems)
@@ -154,10 +155,8 @@ export function HomePage() {
                 Your Car Ownership Guide
               </span>
             </div>
-            <Link href="/inicio" className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors">
-              Leer en Español →
-            </Link>
           </div>
+          <LanguagePills path="/" tone="auto" className="mb-6" />
 
           {/* Headline */}
           <h1

@@ -2,34 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, ChevronDown, CheckCircle2, Check } from 'lucide-react';
 import AIMechanicClientTR from './client';
+import { alternatesFor } from '@/lib/hreflang';
 
 // ── Metadata ────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: 'Yapay Zeka ile Sanal Usta — Ücretsiz Online Araba Arıza Teşhisi | Naira Autos',
   description: 'Yapay zeka destekli ücretsiz sanal usta. Arızayı anlat, fotoğraf, ses veya video yükle, saniyeler içinde teşhis ve tamir maliyeti tahmini al. Kayıt gerekmez.',
-  alternates: {
-    canonical: 'https://www.naira.autos/araclar/sanal-usta',
-    languages: {
-      'en': 'https://www.naira.autos/tools/ai-mechanic',
-      'es': 'https://www.naira.autos/herramientas/mecanico-virtual',
-      'ar': 'https://www.naira.autos/adawat/mikaniki-iftiradi',
-      'fr': 'https://www.naira.autos/outils/mecanicien-virtuel',
-      'pt': 'https://www.naira.autos/ferramentas/meu-mecanico-virtual',
-      'de': 'https://www.naira.autos/werkzeuge/virtueller-mechaniker',
-      'ja': 'https://www.naira.autos/tsuru/ai-shindan',
-      'it': 'https://www.naira.autos/strumenti/meccanico-virtuale',
-      'nl': 'https://www.naira.autos/gereedschappen/virtuele-monteur',
-      'tr': 'https://www.naira.autos/araclar/sanal-usta',
-      'vi': 'https://www.naira.autos/cong-cu/tho-may-ao',
-      'id': 'https://www.naira.autos/alat/montir-virtual',
-      'th': 'https://www.naira.autos/khrueang-mue/mo-rot-ai',
-      'hi': 'https://www.naira.autos/upkaran/aabhasi-mekanik',
-      'ko': 'https://www.naira.autos/dogu/gasang-jeongbisa',
-      'ru': 'https://www.naira.autos/instrumenty/virtualnyy-mekhanik',
-      'x-default': 'https://www.naira.autos/tools/ai-mechanic',
-    },
-  },
+  alternates: alternatesFor('/araclar/sanal-usta'),
   openGraph: {
     title: 'Axion — Ücretsiz Yapay Zeka Sanal Usta | Naira Autos',
     description: 'Nerede olursan ol, saniyeler içinde online araba teşhisi. Motor sesi, fotoğraf yükle ya da arızayı anlat. Aciliyet seviyesi, olası nedenler, sonraki adımlar ve tamir maliyeti al. Ücretsiz, kayıt gerekmez.',

@@ -3,32 +3,14 @@ import Link from 'next/link';
 import { Sparkles, ArrowRight, Globe2 } from 'lucide-react';
 import { TOOLS_DE, CATEGORIES_DE } from '@/lib/tools-list-de';
 import { AdUnit } from '@/components/ads/AdUnit';
+import { alternatesFor } from '@/lib/hreflang';
+import PageNav from '@/components/ui/PageNav';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Kostenlose Auto-Werkzeuge | Naira Autos',
   description: 'Kostenlose Werkzeuge für Ihr Auto auf Deutsch — virtueller KI-Mechaniker, und weitere Werkzeuge folgen bald. Alles kostenlos und ohne Registrierung.',
-  alternates: {
-    canonical: 'https://www.naira.autos/werkzeuge',
-    languages: {
-      en: 'https://www.naira.autos/tools',
-      es: 'https://www.naira.autos/herramientas',
-      ar: 'https://www.naira.autos/adawat',
-      fr: 'https://www.naira.autos/outils',
-      pt: 'https://www.naira.autos/ferramentas',
-      de: 'https://www.naira.autos/werkzeuge',
-      ja: 'https://www.naira.autos/tsuru',
-      it: 'https://www.naira.autos/strumenti',
-      tr: 'https://www.naira.autos/araclar',
-      th: 'https://www.naira.autos/khrueang-mue',
-      id: 'https://www.naira.autos/alat',
-      vi: 'https://www.naira.autos/cong-cu',
-      nl: 'https://www.naira.autos/gereedschappen',
-      hi: 'https://www.naira.autos/upkaran',
-      ko: 'https://www.naira.autos/dogu',
-      ru: 'https://www.naira.autos/instrumenty',
-      'x-default': 'https://www.naira.autos/tools',
-    },
-  },
+  alternates: alternatesFor('/werkzeuge'),
   keywords: ['kostenlose Auto-Werkzeuge', 'virtueller Mechaniker kostenlos', 'Fahrzeug-Werkzeuge auf Deutsch', 'KI-Mechaniker'],
 };
 
@@ -65,24 +47,14 @@ export default function ToolsGermanPage() {
       {/* ── Hero ── */}
       <div className="bg-[#080C10] pt-16 pb-14 px-4">
         <div className="max-w-screen-xl mx-auto">
+          <PageNav lang="de" hub="tools" />
           <div className="flex items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
               Kostenlose Werkzeuge
             </span>
-            <Link href="/startseite" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Startseite
-            </Link>
-            <Link href="/tools" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              English
-            </Link>
-            <Link href="/tsuru" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              日本語
-            </Link>
-            <Link href="/strumenti" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
-              Italiano
-            </Link>
           </div>
+          <LanguagePills path="/werkzeuge" className="mb-6" />
           <h1
             className="font-black uppercase text-white leading-[0.9] tracking-tight mb-4"
             style={{ fontFamily: "'Barlow Condensed', 'Impact', sans-serif", fontSize: 'clamp(36px, 5vw, 72px)' }}

@@ -7,14 +7,13 @@ import DistanceCalculatorFranceFrenchClient from './client';
 import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { FR_TOWNS, findTown } from '@/lib/distance-towns-fr';
 import { FR_CAPITAL_DISTANCE_KM } from '@/lib/fr-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
+import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Calculateur de Distance France 2026 — Distance Routière Entre Deux Villes',
   description: 'Calculez la distance routière et le temps de trajet entre 34 villes françaises — Paris, Lyon, Marseille, Toulouse, Bordeaux et plus. Distances autoroutières vérifiées, temps de trajet et coût du carburant.',
-  alternates: {
-    canonical: 'https://www.naira.autos/outils/calculateur-de-distance-france',
-    languages: { en: 'https://www.naira.autos/tools/distance-calculator-france' , 'x-default': 'https://www.naira.autos/tools/distance-calculator-france' },
-  },
+  alternates: alternatesFor('/outils/calculateur-de-distance-france'),
   openGraph: {
     title: 'Calculateur de Distance France 2026',
     description: 'Distance routière et temps de trajet entre 34 villes françaises, avec estimateur de coût de carburant.',
@@ -71,7 +70,7 @@ export default function DistanceCalculatorFranceFrenchPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
@@ -86,6 +85,7 @@ export default function DistanceCalculatorFranceFrenchPage() {
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇫🇷 France</span>
             </nav>
+            <LanguagePills path="/outils/calculateur-de-distance-france" className="ms-auto" />
           </div>
 
           <div className="max-w-2xl">
@@ -99,9 +99,6 @@ export default function DistanceCalculatorFranceFrenchPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Distance routière et temps de trajet entre deux des 34 villes françaises — Paris, Lyon, Marseille, Toulouse, Bordeaux et principaux centres régionaux.
             </p>
-            <Link href="/tools/distance-calculator-france" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
-              English version →
-            </Link>
           </div>
 
           <div className="p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10">
