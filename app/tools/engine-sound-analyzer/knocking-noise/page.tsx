@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Mic } from 'lucide-react';
+import LanguagePills from '@/components/ui/LanguagePills';
+import { alternatesFor } from '@/lib/hreflang';
 import EngineSoundAnalyzerClient from '../client';
 
 export const metadata: Metadata = {
   title: 'Engine Knocking Noise Analyzer — Free AI Diagnosis | Naira Autos',
   description: 'Engine knocking? Record the sound and get an instant AI diagnosis — rod knock, detonation, injector knock, and more. Free, no login required.',
-  alternates: { canonical: 'https://www.naira.autos/tools/engine-sound-analyzer/knocking-noise' },
+  alternates: alternatesFor('/tools/engine-sound-analyzer/knocking-noise'),
   keywords: ['engine knocking noise', 'engine knocking sound', 'rod knock', 'knocking noise when accelerating', 'engine knock diagnosis', 'diesel engine knocking', 'car engine knocking'],
   openGraph: {
     title: 'Engine Knocking Noise Analyzer — Free AI Diagnosis | Naira Autos',
@@ -68,6 +70,7 @@ export default function EngineKnockingNoisePage() {
               <span className="text-white/50">Knocking Noise</span>
             </nav>
           </div>
+          <LanguagePills path="/tools/engine-sound-analyzer/knocking-noise" className="mb-6" />
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
               <Mic className="h-3 w-3" /> Free Tool

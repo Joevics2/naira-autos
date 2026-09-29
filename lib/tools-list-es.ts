@@ -1,4 +1,4 @@
-import { Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog, GitCompare, Car, Ruler } from 'lucide-react';
+import { Mic, Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog, GitCompare, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -32,6 +32,15 @@ export const TOOLS_ES: ToolEs[] = [
     description: 'Sube una foto y recibe una tasación de mercado instantánea con IA, en tu propia moneda — México, España, Argentina y más.',
     badge: 'GRATIS',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'IA y Herramientas Inteligentes',
+  },
+  {
+    href: '/herramientas/analizador-de-ruidos-del-motor',
+    icon: Mic,
+    label: 'Analizador de Ruidos del Motor',
+    description: 'Graba el ruido de tu motor — tic-tic, golpeteo, traqueteo — y recibe un diagnóstico con IA de la causa probable.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'IA y Herramientas Inteligentes',
   },
   {

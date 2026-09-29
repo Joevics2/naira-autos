@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Mic } from 'lucide-react';
+import LanguagePills from '@/components/ui/LanguagePills';
+import { alternatesFor } from '@/lib/hreflang';
 import EngineSoundAnalyzerClient from '../client';
 
 export const metadata: Metadata = {
   title: 'Engine Rattling Noise Analyzer — Free AI Diagnosis | Naira Autos',
   description: 'Engine rattling? Record the sound and get an instant AI diagnosis — timing chain, heat shield, cam phaser, engine mount, and more. Free, no login.',
-  alternates: { canonical: 'https://www.naira.autos/tools/engine-sound-analyzer/rattling-noise' },
+  alternates: alternatesFor('/tools/engine-sound-analyzer/rattling-noise'),
   keywords: ['engine rattle', 'engine rattling noise', 'rattle when accelerating', 'timing chain rattle', 'cam phaser rattle', 'engine mount rattle', 'car engine rattle'],
   openGraph: {
     title: 'Engine Rattling Noise Analyzer — Free AI Diagnosis | Naira Autos',
@@ -68,6 +70,7 @@ export default function EngineRattlingNoisePage() {
               <span className="text-white/50">Rattling Noise</span>
             </nav>
           </div>
+          <LanguagePills path="/tools/engine-sound-analyzer/rattling-noise" className="mb-6" />
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
               <Mic className="h-3 w-3" /> Free Tool

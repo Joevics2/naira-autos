@@ -56,6 +56,10 @@ const TOOL_GROUPS: LangPaths[] = [
   { en: '/tools/distance-calculator-spain', es: '/herramientas/calculadora-de-distancia-espana' },
   { en: '/tools/distance-calculator-uae', ar: '/adawat/hasbat-al-masafa-alemarat' },
   { en: '/tools/document-generator', es: '/herramientas/generador-de-documentos-ia' },
+  { en: '/tools/engine-sound-analyzer', es: '/herramientas/analizador-de-ruidos-del-motor' },
+  { en: '/tools/engine-sound-analyzer/ticking-noise', es: '/herramientas/analizador-de-ruidos-del-motor/ruido-tic-tic-del-motor' },
+  { en: '/tools/engine-sound-analyzer/knocking-noise', es: '/herramientas/analizador-de-ruidos-del-motor/golpeteo-del-motor' },
+  { en: '/tools/engine-sound-analyzer/rattling-noise', es: '/herramientas/analizador-de-ruidos-del-motor/traqueteo-del-motor' },
   { en: '/tools/engine-number-analyzer', es: '/herramientas/verificar-numero-de-motor' },
   { en: '/tools/fuel-cost-calculator-global', es: '/herramientas/calculadora-de-costo-de-combustible-global' },
   { en: '/tools/mileage-explainer', es: '/herramientas/calculadora-de-kilometraje' },
@@ -83,6 +87,12 @@ for (const group of GROUPS) {
 /** The translation group a page belongs to, or null if it has no translations. */
 export function getGroup(path: string): { lang: Lang; group: LangPaths } | null {
   return INDEX.get(norm(path)) ?? null;
+}
+
+/** The path of `enPath`'s translation in `lang`, or null if none exists. */
+export function localizedPath(enPath: string, lang: Lang): string | null {
+  const hit = INDEX.get(norm(enPath));
+  return hit?.group[lang] ?? null;
 }
 
 /** Absolute URL for a site path. */

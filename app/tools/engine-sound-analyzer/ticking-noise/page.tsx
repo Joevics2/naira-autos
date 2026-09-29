@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ChevronRight, ChevronDown, Mic } from 'lucide-react';
+import LanguagePills from '@/components/ui/LanguagePills';
+import { alternatesFor } from '@/lib/hreflang';
 import EngineSoundAnalyzerClient from '../client';
 
 export const metadata: Metadata = {
   title: 'Engine Ticking Noise Analyzer — Free AI Diagnosis | Naira Autos',
   description: 'Engine making a ticking noise? Record it and get an instant AI diagnosis — lifter tick, injector tick, valvetrain wear, and more. Free, no login.',
-  alternates: { canonical: 'https://www.naira.autos/tools/engine-sound-analyzer/ticking-noise' },
+  alternates: alternatesFor('/tools/engine-sound-analyzer/ticking-noise'),
   keywords: ['engine ticking noise', 'engine ticking sound', 'lifter tick', 'ticking noise when accelerating', 'ticking noise engine', 'car making ticking noise', 'engine tick diagnosis'],
   openGraph: {
     title: 'Engine Ticking Noise Analyzer — Free AI Diagnosis | Naira Autos',
@@ -68,6 +70,7 @@ export default function EngineTickingNoisePage() {
               <span className="text-white/50">Ticking Noise</span>
             </nav>
           </div>
+          <LanguagePills path="/tools/engine-sound-analyzer/ticking-noise" className="mb-6" />
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
               <Mic className="h-3 w-3" /> Free Tool

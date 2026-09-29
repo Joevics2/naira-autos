@@ -259,7 +259,7 @@ export default function AIMechanicPageES() {
               <ul className="space-y-2">
                 {[
                   { label: 'Valoración gratuita de autos', href: '/evaluate-car' },
-                  { label: 'Analizador de Sonido de Motor', href: '/tools/engine-sound-analyzer' },
+                  { label: 'Analizador de Ruidos del Motor', href: '/herramientas/analizador-de-ruidos-del-motor' },
                   { label: 'Calculadora de Aranceles', href: '/tools/import-duty-calculator' },
                   { label: 'Lista de Documentos', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (

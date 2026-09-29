@@ -112,6 +112,20 @@ async function tryModel(modelName: string, apiKey: string, parts: any[]): Promis
 const LANGUAGE_NAMES: Record<string, string> = {
   en: 'English',
   es: 'Spanish',
+  ar: 'Arabic',
+  fr: 'French',
+  pt: 'Brazilian Portuguese',
+  de: 'German',
+  ja: 'Japanese',
+  it: 'Italian',
+  tr: 'Turkish',
+  th: 'Thai',
+  id: 'Indonesian',
+  vi: 'Vietnamese',
+  nl: 'Dutch',
+  hi: 'Hindi',
+  ko: 'Korean',
+  ru: 'Russian',
 };
 
 export async function POST(req: NextRequest) {
@@ -126,10 +140,10 @@ export async function POST(req: NextRequest) {
     const audioFile = formData.get('audio') as File | null;
 
     if (!audioFile) {
-      return NextResponse.json({ error: 'Please provide an audio recording of the sound.' }, { status: 400 });
+      return NextResponse.json({ error: 'Please provide an audio recording of the sound.', code: 'no_audio' }, { status: 400 });
     }
     if (audioFile.size > MAX_AUDIO_BYTES) {
-      return NextResponse.json({ error: 'Audio file is too large. Please keep clips under 8MB (roughly 30 seconds).' }, { status: 400 });
+      return NextResponse.json({ error: 'Audio file is too large. Please keep clips under 8MB (roughly 30 seconds).', code: 'too_large' }, { status: 400 });
     }
 
     let vehicleContext = '';
@@ -158,7 +172,7 @@ export async function POST(req: NextRequest) {
     const apiKeys = getGeminiKeys();
     if (apiKeys.length === 0) {
       console.error('[engine-sound-analyzer] No GEMINI_API_KEY* env vars configured.');
-      return NextResponse.json({ error: 'AI service is temporarily unavailable. Please try again in a moment.' }, { status: 503 });
+      return NextResponse.json({ error: 'AI service is temporarily unavailable. Please try again in a moment.', code: 'unavailable' }, { status: 503 });
     }
 
     let rawText = '';
@@ -182,7 +196,7 @@ export async function POST(req: NextRequest) {
 
     if (!rawText) {
       console.error('[engine-sound-analyzer] All models/keys failed. Last error:', lastError);
-      return NextResponse.json({ error: 'AI service is temporarily unavailable. Please try again in a moment.' }, { status: 503 });
+      return NextResponse.json({ error: 'AI service is temporarily unavailable. Please try again in a moment.', code: 'unavailable' }, { status: 503 });
     }
 
     const cleaned = rawText.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
@@ -196,10 +210,10 @@ export async function POST(req: NextRequest) {
         try {
           diagnosis = JSON.parse(jsonMatch[0]);
         } catch {
-          return NextResponse.json({ error: 'Failed to parse AI response. Please try again.' }, { status: 500 });
+          return NextResponse.json({ error: 'Failed to parse AI response. Please try again.', code: 'parse' }, { status: 500 });
         }
       } else {
-        return NextResponse.json({ error: 'Unexpected AI response format. Please try again.' }, { status: 500 });
+        return NextResponse.json({ error: 'Unexpected AI response format. Please try again.', code: 'parse' }, { status: 500 });
       }
     }
 
@@ -208,7 +222,7 @@ export async function POST(req: NextRequest) {
 
   } catch (err: any) {
     console.error('[engine-sound-analyzer] Unhandled error:', err);
-    return NextResponse.json({ error: err.message || 'Internal server error.' }, { status: 500 });
+    return NextResponse.json({ error: err.message || 'Internal server error.', code: 'server' }, { status: 500 });
   }
 }
 
