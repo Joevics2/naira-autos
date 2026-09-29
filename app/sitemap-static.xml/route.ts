@@ -125,6 +125,7 @@ const staticPages = [
   { url: '/tools/auto-loan-calculator',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator-usa',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-india',    priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator',  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/insurance-calculator',         priority: 0.7, changefreq: 'monthly' },
