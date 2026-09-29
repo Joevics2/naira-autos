@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine, Ruler } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Ruler } from 'lucide-react';
 
 // Single source of truth for the French tools index (/outils).
 // Add an entry here ONLY when that tool's French page is actually live —
@@ -21,6 +21,15 @@ export const TOOLS_FR: ToolFr[] = [
     icon: Camera,
     label: 'Combien Vaut Ma Voiture ?',
     description: 'Téléchargez une photo et obtenez une estimation instantanée de sa valeur par IA, dans votre devise locale — France, Belgique, Suisse, Canada, Côte d\u2019Ivoire et plus.',
+    badge: 'Gratuit',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'IA et Outils Intelligents',
+  },
+  {
+    href: '/outils/analyseur-de-bruit-moteur',
+    icon: Mic,
+    label: 'Analyseur de Bruit Moteur',
+    description: 'Enregistrez ou importez le bruit de votre moteur et obtenez un diagnostic IA immédiat de la cause probable.',
     badge: 'Gratuit',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'IA et Outils Intelligents',

@@ -250,7 +250,7 @@ export default function AIMechanicPageFR() {
               <ul className="space-y-2">
                 {[
                   { label: 'Évaluation gratuite de voiture', href: '/evaluate-car' },
-                  { label: 'Analyseur de son moteur', href: '/tools/engine-sound-analyzer' },
+                  { label: 'Analyseur de Bruit Moteur', href: '/outils/analyseur-de-bruit-moteur' },
                   { label: "Calculateur de droits d'importation", href: '/tools/import-duty-calculator' },
                   { label: 'Liste de documents véhicule', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
