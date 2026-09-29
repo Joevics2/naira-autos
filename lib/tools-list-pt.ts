@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Portuguese tools index (/ferramentas).
 // Add an entry here ONLY when that tool's Portuguese page is actually
@@ -21,6 +21,15 @@ export const TOOLS_PT: ToolPt[] = [
     icon: Camera,
     label: 'Quanto Vale Meu Carro?',
     description: 'Envie uma foto e receba uma avaliação instantânea com IA, na sua moeda local — Brasil, Portugal, Angola, Moçambique e mais.',
+    badge: 'Grátis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'IA e Ferramentas Inteligentes',
+  },
+  {
+    href: '/ferramentas/analisador-de-barulho-do-motor',
+    icon: Mic,
+    label: 'Analisador de Barulho do Motor',
+    description: 'Grave ou envie o barulho do motor do seu carro e receba na hora um diagnóstico com IA da causa provável.',
     badge: 'Grátis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'IA e Ferramentas Inteligentes',
