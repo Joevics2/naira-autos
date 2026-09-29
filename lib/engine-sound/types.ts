@@ -79,6 +79,7 @@ export interface EngineSoundSubCopy {
 export interface EngineSoundCopy {
   lang: Lang;
   locale: string; // og:locale, e.g. es_ES
+  numLocale?: string; // BCP47 tag for number formatting (defaults to locale with '-')
   dir: 'ltr' | 'rtl';
   homeHref: string;
   homeLabel: string;

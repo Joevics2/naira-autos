@@ -201,7 +201,7 @@ export function EngineSoundMainPage({ c }: { c: EngineSoundCopy }) {
         </div>
       </Hero>
 
-      <EngineSoundClient ui={c.ui} lang={c.lang} locale={c.locale} />
+      <EngineSoundClient ui={c.ui} lang={c.lang} locale={c.numLocale ?? c.locale.replace('_', '-')} />
 
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-14">
@@ -299,7 +299,7 @@ export function EngineSoundSubPage({ c, subKey }: { c: EngineSoundCopy; subKey: 
         </div>
       </Hero>
 
-      <EngineSoundClient ui={c.ui} lang={c.lang} locale={c.locale} />
+      <EngineSoundClient ui={c.ui} lang={c.lang} locale={c.numLocale ?? c.locale.replace('_', '-')} />
 
       <div className="bg-muted/30 border-t border-border">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-16 space-y-14">
