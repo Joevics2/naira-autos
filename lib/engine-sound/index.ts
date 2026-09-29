@@ -1,11 +1,13 @@
 import type { Lang } from '@/lib/hreflang';
 import type { EngineSoundCopy, SubKey } from './types';
 import { es } from './es';
+import { ar } from './ar';
 
 // Registry of localized engine-sound-analyzer content. Add a language by
 // creating lib/engine-sound/<lang>.ts and registering it here.
 export const ENGINE_SOUND_COPY: Partial<Record<Lang, EngineSoundCopy>> = {
   es,
+  ar,
 };
 
 export const SUB_KEYS: SubKey[] = ['ticking', 'knocking', 'rattling'];

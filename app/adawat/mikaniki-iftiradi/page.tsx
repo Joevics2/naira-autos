@@ -254,7 +254,7 @@ export default function AIMechanicPageAR() {
               <ul className="space-y-2">
                 {[
                   { label: 'تقييم مجاني للسيارة', href: '/evaluate-car' },
-                  { label: 'محلل صوت المحرك', href: '/tools/engine-sound-analyzer' },
+                  { label: 'محلل صوت المحرك', href: '/adawat/mohallil-sawt-almuharrik' },
                   { label: 'حاسبة رسوم الاستيراد', href: '/tools/import-duty-calculator' },
                   { label: 'قائمة أوراق المركبة', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (

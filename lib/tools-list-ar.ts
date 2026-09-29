@@ -1,4 +1,4 @@
-import { Wrench, Camera, Ruler, ScanLine } from 'lucide-react';
+import { Mic, Wrench, Camera, Ruler, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Arabic tools index (/adawat).
 // Add an entry here ONLY when that tool's Arabic page is actually live —
@@ -22,6 +22,15 @@ export const TOOLS_AR: ToolAr[] = [
     icon: Camera,
     label: 'كم قيمة سيارتي؟',
     description: 'ارفع صورة واحصل على تقييم سوقي فوري بالذكاء الاصطناعي، بعملتك المحلية — مصر، السعودية، الإمارات، العراق والمزيد.',
+    badge: 'مجاني',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'الذكاء الاصطناعي والأدوات الذكية',
+  },
+  {
+    href: '/adawat/mohallil-sawt-almuharrik',
+    icon: Mic,
+    label: 'محلل صوت المحرك',
+    description: 'سجّل صوت محرك سيارتك أو ارفعه واحصل فورًا على تشخيص بالذكاء الاصطناعي للسبب المحتمل.',
     badge: 'مجاني',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'الذكاء الاصطناعي والأدوات الذكية',
