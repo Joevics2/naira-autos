@@ -9,6 +9,8 @@ import { ar } from '@/lib/best-car/ar';
 import { carTextAr } from '@/lib/best-car/cars-ar';
 import { pt } from '@/lib/best-car/pt';
 import { carTextPt } from '@/lib/best-car/cars-pt';
+import { de } from '@/lib/best-car/de';
+import { carTextDe } from '@/lib/best-car/cars-de';
 
 export interface BestCarLang {
   c: BestCarStrings;
@@ -22,4 +24,5 @@ export const ALL: BestCarLang[] = [
   { c: fr, carText: carTextFr },
   { c: ar, carText: carTextAr },
   { c: pt, carText: carTextPt },
+  { c: de, carText: carTextDe },
 ];

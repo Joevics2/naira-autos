@@ -1,4 +1,4 @@
-import { Wrench, Camera, Ruler, ScanLine } from 'lucide-react';
+import { Wrench, Camera, Ruler, ScanLine, Car } from 'lucide-react';
 
 // Single source of truth for the German tools index (/werkzeuge).
 // Add an entry here ONLY when that tool's German page is actually
@@ -51,6 +51,15 @@ export const TOOLS_DE: ToolDe[] = [
     badge: 'Kostenlos',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Überprüfung',
+  },
+  {
+    href: "/werkzeuge/bestes-auto-fuer-sie",
+    icon: Car,
+    label: "Bestes Auto Für Sie",
+    description: "Wählen Sie Ihren Einsatzzweck — Familie, Gewerbe, Autobahn, kleines Budget, Gelände oder Business — und erhalten Sie Empfehlungen mit lokalen Preisen in 55 Ländern.",
+    badge: "Neu",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Kosten und Wartung",
   },
 ];
 
