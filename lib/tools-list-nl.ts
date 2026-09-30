@@ -1,4 +1,4 @@
-import { Route, Wrench, Camera } from 'lucide-react';
+import { Route, Wrench, Camera, Car } from 'lucide-react';
 
 // Single source of truth for the Dutch tools index (/gereedschappen).
 // Add an entry here ONLY when that tool's Dutch page is actually
@@ -42,6 +42,15 @@ export const TOOLS_NL: ToolNl[] = [
     badge: 'Gratis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Kosten en Onderhoud',
+  },
+  {
+    href: "/gereedschappen/beste-auto-voor-jou",
+    icon: Car,
+    label: "Beste Auto Voor Jou",
+    description: "Kies je gebruik — gezin, zakelijk, snelweg, klein budget, terrein of directie — en krijg aanbevelingen met lokale prijzen in 55 landen.",
+    badge: "Nieuw",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Kosten en Onderhoud",
   },
 ];
 
