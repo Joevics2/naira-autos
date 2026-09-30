@@ -23,7 +23,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'ng', name: 'Nigeria',        flag: '🇳🇬', href: '/tools/auto-loan-calculator', live: true },
   { code: 'gh', name: 'Ghana',          flag: '🇬🇭', live: false },
   { code: 'ke', name: 'Kenya',          flag: '🇰🇪', live: false },
-  { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', live: false },
+  { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', href: '/tools/auto-loan-calculator-uk', live: true },
   { code: 'us', name: 'United States',  flag: '🇺🇸', href: '/tools/auto-loan-calculator-usa', live: true },
   { code: 'za', name: 'South Africa',   flag: '🇿🇦', href: '/tools/auto-loan-calculator-south-africa', live: true },
   { code: 'in', name: 'India',          flag: '🇮🇳', href: '/tools/auto-loan-calculator-india', live: true },
