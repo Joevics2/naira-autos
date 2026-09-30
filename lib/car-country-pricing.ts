@@ -33,7 +33,8 @@ export type CarCurrencyCode =
   | 'EUR' | 'GBP' | 'SEK' | 'NOK' | 'CHF' | 'PLN' | 'CZK' | 'RON' | 'HUF'
   | 'DKK' | 'CNY' | 'INR' | 'JPY' | 'KRW' | 'IDR' | 'THB' | 'MYR' | 'VND'
   | 'PHP' | 'PKR' | 'SGD' | 'TRY' | 'SAR' | 'AED' | 'ILS' | 'QAR' | 'ZAR'
-  | 'EGP' | 'MAD' | 'KES' | 'GHS' | 'DZD' | 'ETB';
+  | 'EGP' | 'MAD' | 'KES' | 'GHS' | 'DZD' | 'ETB'
+  | 'AUD' | 'TZS' | 'KWD' | 'OMR' | 'BHD';
 
 export interface CarCountry {
   code: string;           // ISO 3166-1 alpha-2
@@ -56,6 +57,7 @@ export const CAR_COUNTRIES: CarCountry[] = [
   { code: 'gh', name: 'Ghana',          flag: '🇬🇭', currency: 'GHS', symbol: 'GH₵',  fxRate: 11.232512,   multiplier: 1.50, region: 'Africa' },
   { code: 'dz', name: 'Algeria',        flag: '🇩🇿', currency: 'DZD', symbol: 'DA',   fxRate: 133.080525,  multiplier: 1.70, region: 'Africa' },
   { code: 'et', name: 'Ethiopia',       flag: '🇪🇹', currency: 'ETB', symbol: 'Br',   fxRate: 161.18769,   multiplier: 2.20, region: 'Africa' },
+  { code: 'tz', name: 'Tanzania',       flag: '🇹🇿', currency: 'TZS', symbol: 'TSh',  fxRate: 2647.12,     multiplier: 1.90, region: 'Africa' },
   // ── Americas ──
   { code: 'us', name: 'United States',  flag: '🇺🇸', currency: 'USD', symbol: '$',    fxRate: 1,           multiplier: 1.00, region: 'Americas' },
   { code: 'ca', name: 'Canada',         flag: '🇨🇦', currency: 'CAD', symbol: 'C$',   fxRate: 1.385755,    multiplier: 1.05, region: 'Americas' },
@@ -89,6 +91,9 @@ export const CAR_COUNTRIES: CarCountry[] = [
   { code: 'ae', name: 'UAE',            flag: '🇦🇪', currency: 'AED', symbol: 'د.إ',  fxRate: 3.6725,      multiplier: 0.90, region: 'Middle East' },
   { code: 'il', name: 'Israel',         flag: '🇮🇱', currency: 'ILS', symbol: '₪',    fxRate: 2.968974,    multiplier: 1.55, region: 'Middle East' },
   { code: 'qa', name: 'Qatar',          flag: '🇶🇦', currency: 'QAR', symbol: 'QR',   fxRate: 3.64,        multiplier: 0.90, region: 'Middle East' },
+  { code: 'kw', name: 'Kuwait',         flag: '🇰🇼', currency: 'KWD', symbol: 'KD',   fxRate: 0.306,       multiplier: 0.90, region: 'Middle East' },
+  { code: 'om', name: 'Oman',           flag: '🇴🇲', currency: 'OMR', symbol: 'OMR',  fxRate: 0.3845,      multiplier: 0.95, region: 'Middle East' },
+  { code: 'bh', name: 'Bahrain',        flag: '🇧🇭', currency: 'BHD', symbol: 'BD',   fxRate: 0.376,       multiplier: 0.95, region: 'Middle East' },
   // ── Asia-Pacific ──
   { code: 'cn', name: 'China',          flag: '🇨🇳', currency: 'CNY', symbol: '¥',    fxRate: 6.737174,    multiplier: 1.25, region: 'Asia-Pacific' },
   { code: 'in', name: 'India',          flag: '🇮🇳', currency: 'INR', symbol: '₹',    fxRate: 95.592676,   multiplier: 1.60, region: 'Asia-Pacific' },
@@ -101,8 +106,17 @@ export const CAR_COUNTRIES: CarCountry[] = [
   { code: 'ph', name: 'Philippines',    flag: '🇵🇭', currency: 'PHP', symbol: '₱',    fxRate: 61.94351,    multiplier: 1.30, region: 'Asia-Pacific' },
   { code: 'pk', name: 'Pakistan',       flag: '🇵🇰', currency: 'PKR', symbol: 'Rs',   fxRate: 277.768204,  multiplier: 1.55, region: 'Asia-Pacific' },
   { code: 'sg', name: 'Singapore',      flag: '🇸🇬', currency: 'SGD', symbol: 'S$',   fxRate: 1.271049,    multiplier: 2.20, region: 'Asia-Pacific' },
+  { code: 'au', name: 'Australia',      flag: '🇦🇺', currency: 'AUD', symbol: 'A$',   fxRate: 1.385,       multiplier: 1.10, region: 'Asia-Pacific' },
   { code: 'tr', name: 'Turkey',         flag: '🇹🇷', currency: 'TRY', symbol: '₺',    fxRate: 48.162464,   multiplier: 1.90, region: 'Asia-Pacific' },
 ];
+
+// ── Added later (Tanzania, Kuwait, Oman, Bahrain, Australia) ──────────────
+// FX: AUD 1.385 (9 Sep 2026) and TZS 2,647 (Aug 2026) are from public FX pages;
+// OMR (0.3845) and BHD (0.376) are fixed pegs; KWD (~0.306) is a basket peg that
+// moves in a very narrow band. Multipliers are directional estimates on the same
+// logic as above (Gulf: ~5% duty + low tax; Australia: 5% duty + 10% GST + luxury
+// car tax on high-priced models; Tanzania: import duty + excise + VAT, high).
+// Refresh these together with the rest of the FX snapshot.
 
 // Spanish-speaking markets shown first in the Spanish-language tools
 // (comparador-de-autos, mejor-auto-para-ti) — mirrors FUEL_CURRENCIES_ES_PRIORITY.

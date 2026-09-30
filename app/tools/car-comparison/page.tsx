@@ -7,11 +7,11 @@ import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Car Comparison Tool 2026 — Compare Specs, Price & Fuel Economy in 50 Countries',
-  description: 'Compare any two cars side by side with pricing in your local currency across 50 countries — USA, UK, UAE, India, Nigeria, and more. See price ranges, fuel consumption, maintenance cost, ground clearance, spare parts availability, and common issues across 50 popular models, from the Toyota Corolla to the Bugatti Chiron.',
+  description: 'Compare any two cars side by side with pricing in your local currency across 55 countries — USA, UK, UAE, India, Nigeria, and more. See price ranges, fuel consumption, maintenance cost, ground clearance, spare parts availability, and common issues across 50 popular models, from the Toyota Corolla to the Bugatti Chiron.',
   alternates: alternatesFor('/tools/car-comparison'),
   openGraph: {
     title: 'Car Comparison Tool 2026 | Naira Autos',
-    description: 'Side-by-side car comparison with local pricing for 50 countries. Price range, fuel economy, maintenance cost, ground clearance, spare parts availability. 50 models covered, from the Corolla to the Range Rover to the Ferrari 296 GTB.',
+    description: 'Side-by-side car comparison with local pricing for 55 countries. Price range, fuel economy, maintenance cost, ground clearance, spare parts availability. 50 models covered, from the Corolla to the Range Rover to the Ferrari 296 GTB.',
     url: 'https://www.naira.autos/tools/car-comparison',
   },
   keywords: [
@@ -34,7 +34,7 @@ const SCHEMA = {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/tools/car-comparison',
       name: 'Car Comparison Tool Nigeria 2025 — Compare Specs, Price & Fuel Economy',
-      description: 'Side-by-side comparison of 50 popular cars with local pricing across 50 countries, including Nigeria. Price range, fuel consumption, maintenance cost, ground clearance, spare parts availability, and known issues.',
+      description: 'Side-by-side comparison of 50 popular cars with local pricing across 55 countries, including Nigeria. Price range, fuel consumption, maintenance cost, ground clearance, spare parts availability, and known issues.',
       url: 'https://www.naira.autos/tools/car-comparison',
       dateModified: '2026-08-01',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
@@ -130,7 +130,7 @@ export default function CarComparisonPage() {
               Car Comparison Tool
             </h1>
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
-              Pick any two cars and compare them side by side — price range in your local currency across 50 countries, fuel economy, maintenance cost, ground clearance, spare parts availability, and known issues. 50 models covered, from the Toyota Corolla to the Bugatti Chiron — Nigerian market pricing built in as one of the 50.
+              Pick any two cars and compare them side by side — price range in your local currency across 55 countries, fuel economy, maintenance cost, ground clearance, spare parts availability, and known issues. 50 models covered, from the Toyota Corolla to the Bugatti Chiron — Nigerian market pricing built in as one of the 50.
             </p>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function CarComparisonPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
                 <p>
-                  This tool covers 50 popular cars — from everyday economy sedans to electric crossovers to seven-figure hypercars — with pricing that adjusts to your country's currency and typical import duty/tax level across 50 countries, including the United States, United Kingdom, UAE, India, South Africa, Kenya, and Nigeria. Pick your country from the selector above before comparing to see realistic local pricing rather than a raw dollar conversion.
+                  This tool covers 50 popular cars — from everyday economy sedans to electric crossovers to seven-figure hypercars — with pricing that adjusts to your country's currency and typical import duty/tax level across 55 countries, including the United States, United Kingdom, UAE, India, South Africa, Kenya, and Nigeria. Pick your country from the selector above before comparing to see realistic local pricing rather than a raw dollar conversion.
                 </p>
                 <p>
                   For buyers in Nigeria specifically, three factors matter far more here than in most markets: <strong className="text-gray-900">spare parts availability</strong>, <strong className="text-gray-900">mechanic familiarity</strong>, and <strong className="text-gray-900">ground clearance</strong>. A car with impressive specifications on paper can become a liability if its parts require a two-week order from Lagos or if no mechanic within 100km knows how to service it.

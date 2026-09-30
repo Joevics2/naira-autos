@@ -7,11 +7,11 @@ import LanguagePills from '@/components/ui/LanguagePills';
 
 export const metadata: Metadata = {
   title: 'Comparador de Autos 2026 — Compara Precio, Consumo y Mantenimiento en 50 Países',
-  description: 'Compara dos autos lado a lado con precios en tu propia moneda en 50 países — España, México, Argentina, Colombia, Chile y más. Precio, consumo de combustible, costo de mantenimiento, altura al piso, disponibilidad de repuestos y problemas comunes en 50 modelos, desde el Toyota Corolla hasta el Bugatti Chiron.',
+  description: 'Compara dos autos lado a lado con precios en tu propia moneda en 55 países — España, México, Argentina, Colombia, Chile y más. Precio, consumo de combustible, costo de mantenimiento, altura al piso, disponibilidad de repuestos y problemas comunes en 50 modelos, desde el Toyota Corolla hasta el Bugatti Chiron.',
   alternates: alternatesFor('/herramientas/comparador-de-autos'),
   openGraph: {
     title: 'Comparador de Autos 2026 | Naira Autos',
-    description: 'Comparación lado a lado con precios locales en 50 países. Precio, consumo, mantenimiento, altura al piso, disponibilidad de repuestos. 50 modelos, desde el Corolla hasta el Ferrari 296 GTB.',
+    description: 'Comparación lado a lado con precios locales en 55 países. Precio, consumo, mantenimiento, altura al piso, disponibilidad de repuestos. 50 modelos, desde el Corolla hasta el Ferrari 296 GTB.',
     url: 'https://www.naira.autos/herramientas/comparador-de-autos',
   },
   keywords: [
@@ -34,7 +34,7 @@ const SCHEMA = {
       '@type': 'WebPage',
       '@id': 'https://www.naira.autos/herramientas/comparador-de-autos',
       name: 'Comparador de Autos 2026 — Compara Precio, Consumo y Mantenimiento en 50 Países',
-      description: 'Compara dos autos lado a lado con precios en tu propia moneda en 50 países, consumo, mantenimiento, altura al piso y disponibilidad de repuestos.',
+      description: 'Compara dos autos lado a lado con precios en tu propia moneda en 55 países, consumo, mantenimiento, altura al piso y disponibilidad de repuestos.',
       url: 'https://www.naira.autos/herramientas/comparador-de-autos',
       datePublished: '2026-09-06',
       dateModified: LAST_UPDATED,
@@ -124,7 +124,7 @@ export default function ComparadorDeAutosPage() {
               Comparador de Autos
             </h1>
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
-              Elige dos autos y compáralos lado a lado — precio en tu moneda local en 50 países, consumo de combustible, costo de mantenimiento, altura al piso, disponibilidad de repuestos y problemas conocidos. 50 modelos cubiertos, desde el Toyota Corolla hasta el Bugatti Chiron.
+              Elige dos autos y compáralos lado a lado — precio en tu moneda local en 55 países, consumo de combustible, costo de mantenimiento, altura al piso, disponibilidad de repuestos y problemas conocidos. 50 modelos cubiertos, desde el Toyota Corolla hasta el Bugatti Chiron.
             </p>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function ComparadorDeAutosPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                 <p>
-                  Esta herramienta cubre 50 autos populares — desde sedanes económicos hasta crossovers eléctricos y superdeportivos de siete cifras — con precios que se ajustan a la moneda y el nivel típico de impuestos de importación de tu país, en 50 países incluyendo España, México, Argentina, Colombia y Chile. Elige tu país en el selector antes de comparar para ver un precio realista, no solo una conversión directa de dólares.
+                  Esta herramienta cubre 50 autos populares — desde sedanes económicos hasta crossovers eléctricos y superdeportivos de siete cifras — con precios que se ajustan a la moneda y el nivel típico de impuestos de importación de tu país, en 55 países incluyendo España, México, Argentina, Colombia y Chile. Elige tu país en el selector antes de comparar para ver un precio realista, no solo una conversión directa de dólares.
                 </p>
                 <p>
                   Tres factores importan más que las especificaciones en papel: la <strong className="text-foreground">disponibilidad de repuestos</strong>, la <strong className="text-foreground">familiaridad de los mecánicos</strong> con el modelo, y la <strong className="text-foreground">altura al piso</strong> si tus caminos no están en buen estado. Un auto impresionante en la ficha técnica puede ser una mala decisión si sus repuestos tardan semanas en llegar o si ningún mecánico cercano lo conoce bien.
