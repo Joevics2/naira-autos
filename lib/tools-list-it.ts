@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine } from 'lucide-react';
+import { Wrench, Camera, ScanLine, Car } from 'lucide-react';
 
 // Single source of truth for the Italian tools index (/strumenti).
 // Add an entry here ONLY when that tool's Italian page is actually
@@ -42,6 +42,15 @@ export const TOOLS_IT: ToolIt[] = [
     badge: 'Gratis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Verifica',
+  },
+  {
+    href: "/strumenti/migliore-auto-per-te",
+    icon: Car,
+    label: "Migliore Auto Per Te",
+    description: "Scegli come userai l’auto — famiglia, uso professionale, autostrada, budget ridotto, fuoristrada o rappresentanza — e ottieni consigli con prezzi locali in 55 paesi.",
+    badge: "Nuovo",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Costi e Manutenzione",
   },
 ];
 

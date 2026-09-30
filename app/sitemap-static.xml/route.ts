@@ -47,6 +47,7 @@ const staticPages = [
   { url: '/outils/decodeur-vin',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/adawat/afdal-sayara-lak', priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/bestes-auto-fuer-sie', priority: 0.8, changefreq: 'monthly' },
+  { url: '/strumenti/migliore-auto-per-te', priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/meilleure-voiture-pour-vous', priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/analisador-de-barulho-do-motor', priority: 0.8, changefreq: 'monthly' },
