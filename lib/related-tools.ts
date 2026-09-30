@@ -57,6 +57,11 @@ export const RELATED_TOOLS: Record<string, RelatedToolLink[]> = {
     { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
     { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
   ],
+  'auto-loan-calculator-ghana': [
+    { href: '/tools/import-duty-calculator-ghana', label: 'Ghana Import Duty Calculator', color: 'emerald' },
+    { href: '/tools/distance-calculator-ghana', label: 'Ghana Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+  ],
   'insurance-calculator': [
     { href: '/tools/car-comparison', label: 'Car Comparison Tool', color: 'blue' },
     { href: '/tools/best-car-for', label: 'Best Car For...', color: 'emerald' },

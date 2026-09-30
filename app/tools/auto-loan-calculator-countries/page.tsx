@@ -21,7 +21,7 @@ export const metadata: Metadata = {
  */
 const COUNTRIES: { code: string; name: string; flag: string; href?: string; live: boolean }[] = [
   { code: 'ng', name: 'Nigeria',        flag: '🇳🇬', href: '/tools/auto-loan-calculator', live: true },
-  { code: 'gh', name: 'Ghana',          flag: '🇬🇭', live: false },
+  { code: 'gh', name: 'Ghana',          flag: '🇬🇭', href: '/tools/auto-loan-calculator-ghana', live: true },
   { code: 'ke', name: 'Kenya',          flag: '🇰🇪', live: false },
   { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', href: '/tools/auto-loan-calculator-uk', live: true },
   { code: 'us', name: 'United States',  flag: '🇺🇸', href: '/tools/auto-loan-calculator-usa', live: true },
