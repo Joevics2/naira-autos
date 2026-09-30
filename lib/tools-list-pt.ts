@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, ScanLine } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Car } from 'lucide-react';
 
 // Single source of truth for the Portuguese tools index (/ferramentas).
 // Add an entry here ONLY when that tool's Portuguese page is actually
@@ -51,6 +51,15 @@ export const TOOLS_PT: ToolPt[] = [
     badge: 'Grátis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Verificação',
+  },
+  {
+    href: '/ferramentas/melhor-carro-para-voce',
+    icon: Car,
+    label: "Melhor Carro Para Você",
+    description: "Escolha o tipo de uso — família, trabalho, estrada, orçamento apertado, fora de estrada ou executivo — e receba recomendações com preços locais em 55 países.",
+    badge: "Novo",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Custos e Manutenção",
   },
 ];
 

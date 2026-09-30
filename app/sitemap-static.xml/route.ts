@@ -53,6 +53,7 @@ const staticPages = [
   { url: '/ferramentas/analisador-de-barulho-do-motor/barulho-de-chocalho-no-motor', priority: 0.75, changefreq: 'monthly' },
   { url: '/ferramentas/quanto-vale-meu-carro',    priority: 0.9, changefreq: 'weekly'  },
   { url: '/ferramentas/decodificador-de-chassi',  priority: 0.8, changefreq: 'monthly' },
+  { url: '/ferramentas/melhor-carro-para-voce', priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/was-ist-mein-auto-wert',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/werkzeuge/fahrgestellnummer-pruefen',  priority: 0.8, changefreq: 'monthly' },
