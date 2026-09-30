@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, Ruler, ScanLine } from 'lucide-react';
+import { Mic, Wrench, Camera, Ruler, ScanLine, Car } from 'lucide-react';
 
 // Single source of truth for the Arabic tools index (/adawat).
 // Add an entry here ONLY when that tool's Arabic page is actually live —
@@ -88,6 +88,15 @@ export const TOOLS_AR: ToolAr[] = [
     badge: 'مجاني',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'الفحص والتحقق',
+  },
+  {
+    href: '/adawat/afdal-sayara-lak',
+    icon: Car,
+    label: 'أفضل سيارة لك',
+    description: 'اختر استخدامك — عائلي أو تجاري أو طرق سريعة أو ميزانية محدودة أو طرق وعرة أو تنفيذي — واحصل على توصيات بأسعار تقديرية محلية في 55 دولة.',
+    badge: 'جديد',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'التكاليف والصيانة',
   },
 ];
 

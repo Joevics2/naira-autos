@@ -5,6 +5,8 @@ import { es } from '@/lib/best-car/es';
 import { carTextEs } from '@/lib/best-car/cars-es';
 import { fr } from '@/lib/best-car/fr';
 import { carTextFr } from '@/lib/best-car/cars-fr';
+import { ar } from '@/lib/best-car/ar';
+import { carTextAr } from '@/lib/best-car/cars-ar';
 import { pt } from '@/lib/best-car/pt';
 import { carTextPt } from '@/lib/best-car/cars-pt';
 
@@ -18,5 +20,6 @@ export const ALL: BestCarLang[] = [
   { c: en },
   { c: es, carText: carTextEs },
   { c: fr, carText: carTextFr },
+  { c: ar, carText: carTextAr },
   { c: pt, carText: carTextPt },
 ];
