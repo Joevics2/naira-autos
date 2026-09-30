@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, ScanLine, Ruler } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Ruler, Car } from 'lucide-react';
 
 // Single source of truth for the French tools index (/outils).
 // Add an entry here ONLY when that tool's French page is actually live —
@@ -60,6 +60,15 @@ export const TOOLS_FR: ToolFr[] = [
     badge: 'Nouveau',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Coûts et Entretien',
+  },
+  {
+    href: '/outils/meilleure-voiture-pour-vous',
+    icon: Car,
+    label: "Meilleure Voiture Pour Vous",
+    description: "Choisissez votre usage — familial, professionnel, autoroute, petit budget, tout-terrain ou direction — et obtenez des recommandations avec les prix locaux dans 55 pays.",
+    badge: "Nouveau",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Coûts et Entretien",
   },
 ];
 

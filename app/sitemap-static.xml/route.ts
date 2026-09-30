@@ -45,6 +45,7 @@ const staticPages = [
   { url: '/outils/analyseur-de-bruit-moteur/bruit-de-ferraille-moteur', priority: 0.75, changefreq: 'monthly' },
   { url: '/outils/combien-vaut-ma-voiture',       priority: 0.9, changefreq: 'weekly'  },
   { url: '/outils/decodeur-vin',                  priority: 0.8, changefreq: 'monthly' },
+  { url: '/outils/meilleure-voiture-pour-vous', priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/analisador-de-barulho-do-motor', priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/analisador-de-barulho-do-motor/barulho-de-tucho-batendo', priority: 0.85, changefreq: 'monthly' },
