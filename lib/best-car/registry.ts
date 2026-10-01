@@ -27,6 +27,8 @@ import { ko } from '@/lib/best-car/ko';
 import { carTextKo } from '@/lib/best-car/cars-ko';
 import { vi } from '@/lib/best-car/vi';
 import { carTextVi } from '@/lib/best-car/cars-vi';
+import { th } from '@/lib/best-car/th';
+import { carTextTh } from '@/lib/best-car/cars-th';
 
 export interface BestCarLang {
   c: BestCarStrings;
@@ -49,4 +51,5 @@ export const ALL: BestCarLang[] = [
   { c: ja, carText: carTextJa },
   { c: ko, carText: carTextKo },
   { c: vi, carText: carTextVi },
+  { c: th, carText: carTextTh },
 ];
