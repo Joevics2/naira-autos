@@ -1,4 +1,4 @@
-import { Wrench, Camera } from 'lucide-react';
+import { Wrench, Camera, Car } from 'lucide-react';
 
 // Single source of truth for the Indonesian tools index (/alat).
 // Add an entry here ONLY when that tool's Indonesian page is actually
@@ -33,6 +33,15 @@ export const TOOLS_ID: ToolId[] = [
     badge: 'Gratis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AI dan Alat Cerdas',
+  },
+  {
+    href: "/alat/mobil-terbaik-untukmu",
+    icon: Car,
+    label: "Mobil Terbaik Untukmu",
+    description: "Pilih kebutuhanmu — keluarga, usaha, jalan tol, anggaran terbatas, jalan rusak atau eksekutif — dan dapatkan rekomendasi dengan harga lokal di 55 negara.",
+    badge: "Baru",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Biaya dan Perawatan",
   },
 ];
 
