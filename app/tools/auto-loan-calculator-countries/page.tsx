@@ -28,6 +28,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'ca', name: 'Canada',         flag: '🇨🇦', href: '/tools/auto-loan-calculator-canada', live: true },
   { code: 'za', name: 'South Africa',   flag: '🇿🇦', href: '/tools/auto-loan-calculator-south-africa', live: true },
   { code: 'in', name: 'India',          flag: '🇮🇳', href: '/tools/auto-loan-calculator-india', live: true },
+  { code: 'pk', name: 'Pakistan',       flag: '🇵🇰', href: '/tools/auto-loan-calculator-pakistan', live: true },
   { code: 'ae', name: 'UAE',            flag: '🇦🇪', live: false },
 ];
 
