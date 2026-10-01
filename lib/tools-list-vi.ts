@@ -1,4 +1,4 @@
-import { Camera, Wrench } from 'lucide-react';
+import { Camera, Wrench, Car } from 'lucide-react';
 
 // Single source of truth for the Vietnamese tools index (/cong-cu).
 // Add an entry here ONLY when that tool's Vietnamese page is actually
@@ -33,6 +33,15 @@ export const TOOLS_VI: ToolVi[] = [
     badge: 'Miễn Phí',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AI và Công Cụ Thông Minh',
+  },
+  {
+    href: "/cong-cu/xe-tot-nhat-cho-ban",
+    icon: Car,
+    label: "Xe Tốt Nhất Cho Bạn",
+    description: "Chọn nhu cầu — gia đình, kinh doanh, cao tốc, ngân sách thấp, đường xấu hoặc doanh nhân — và nhận gợi ý kèm giá địa phương tại 55 quốc gia.",
+    badge: "Mới",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Chi Phí và Bảo Dưỡng",
   },
 ];
 
