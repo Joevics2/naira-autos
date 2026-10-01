@@ -53,6 +53,7 @@ const staticPages = [
   { url: '/alat/mobil-terbaik-untukmu', priority: 0.8, changefreq: 'monthly' },
   { url: '/araclar/size-en-iyi-araba', priority: 0.8, changefreq: 'monthly' },
   { url: '/tsuru/anata-ni-saiteki-na-kuruma', priority: 0.8, changefreq: 'monthly' },
+  { url: '/dogu/naege-gajang-joeun-cha', priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/meilleure-voiture-pour-vous', priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/analisador-de-barulho-do-motor', priority: 0.8, changefreq: 'monthly' },

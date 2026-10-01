@@ -1,4 +1,4 @@
-import { Wrench } from 'lucide-react';
+import { Wrench, Car } from 'lucide-react';
 
 // Single source of truth for the Korean tools index (/dogu).
 // Add an entry here ONLY when that tool's Korean page is actually
@@ -24,6 +24,15 @@ export const TOOLS_KO: ToolKo[] = [
     badge: '무료',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AI 및 스마트 도구',
+  },
+  {
+    href: "/dogu/naege-gajang-joeun-cha",
+    icon: Car,
+    label: "나에게 가장 좋은 차",
+    description: "용도(가족용, 영업용, 고속도로, 저예산, 험로, 비즈니스)를 선택하면 55개국의 현지 가격과 함께 추천을 보여 줍니다.",
+    badge: "신규",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "비용 및 유지보수",
   },
 ];
 
