@@ -51,6 +51,7 @@ const staticPages = [
   { url: '/gereedschappen/beste-auto-voor-jou', priority: 0.8, changefreq: 'monthly' },
   { url: '/upkaran/aapke-liye-sabse-achhi-car', priority: 0.8, changefreq: 'monthly' },
   { url: '/alat/mobil-terbaik-untukmu', priority: 0.8, changefreq: 'monthly' },
+  { url: '/araclar/size-en-iyi-araba', priority: 0.8, changefreq: 'monthly' },
   { url: '/outils/meilleure-voiture-pour-vous', priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/meu-mecanico-virtual',          priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/analisador-de-barulho-do-motor', priority: 0.8, changefreq: 'monthly' },
