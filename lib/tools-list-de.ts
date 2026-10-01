@@ -1,4 +1,4 @@
-import { Wrench, Camera, Ruler, ScanLine } from 'lucide-react';
+import { Wrench, Camera, Ruler, ScanLine, Calculator } from 'lucide-react';
 
 // Single source of truth for the German tools index (/werkzeuge).
 // Add an entry here ONLY when that tool's German page is actually
@@ -51,6 +51,15 @@ export const TOOLS_DE: ToolDe[] = [
     badge: 'Kostenlos',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Überprüfung',
+  },
+  {
+    href: '/werkzeuge/autokredit-rechner',
+    icon: Calculator,
+    label: 'Autokredit Rechner',
+    description: 'Monatsrate, Schlussrate und Gesamtkosten für Ratenkredit, Ballonfinanzierung und 3-Wege-Finanzierung vergleichen — mit aktuellen Zinsen 2026.',
+    badge: 'Neu',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finanzen',
   },
 ];
 
