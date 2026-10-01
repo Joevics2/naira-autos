@@ -66,7 +66,8 @@ export function formatPrice(amount: number, country: CarCountry, c: BestCarStrin
     num = new Intl.NumberFormat(locale, {
       notation: 'compact',
       compactDisplay: 'short',
-      maximumFractionDigits: amount >= 1_000_000 ? 1 : 0,
+      // Scales that start below 1M (lakh in hi, 万 in ja/ko) need a decimal or 1.25 lakh rounds to 1 lakh.
+      maximumFractionDigits: amount >= 1_000_000 || (['hi', 'ja', 'ko'].includes(c.lang) && amount >= 10_000) ? 1 : 0,
     }).format(amount);
   } catch {
     num = Math.round(amount).toLocaleString();

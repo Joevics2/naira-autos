@@ -14,7 +14,7 @@ export const en: BestCarStrings = {
   aboutPath: '/about',
   comparePath: '/tools/car-comparison',
   fuelPath: '/tools/fuel-cost-calculator',
-  valuationPath: '/evaluate-car',
+  valuationPath: '/evaluate-used-car',
 
   defaultCountry: 'ng',
   priorityCountries: ['ng', 'us', 'gb', 'ca', 'za', 'gh', 'ke', 'au', 'in', 'pk', 'ae', 'ph', 'et', 'tz'],
@@ -151,7 +151,7 @@ export const en: BestCarStrings = {
       {
         h2: 'Turning a shortlist into a decision',
         paragraphs: [
-          'Pick your use case, open **View details** on each of the top results, and note the common issues. Compare your two favourites side by side with the [Car Comparison tool](/tools/car-comparison). Before you pay for any used car, check its history with the [VIN checker](/tools/vin-checker-global) and get an independent mechanical inspection. Once you own the car, the [AI car valuation](/evaluate-car) tool helps you track what it is worth. You can also use **Copy link** to share your exact country and use-case selection with a partner or a mechanic.',
+          'Pick your use case, open **View details** on each of the top results, and note the common issues. Compare your two favourites side by side with the [Car Comparison tool](/tools/car-comparison). Before you pay for any used car, check its history with the [VIN checker](/tools/vin-checker-global) and get an independent mechanical inspection. Once you own the car, the [AI car valuation](/evaluate-used-car) tool helps you track what it is worth. You can also use **Copy link** to share your exact country and use-case selection with a partner or a mechanic.',
         ],
       },
     ],

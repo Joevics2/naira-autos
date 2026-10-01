@@ -1,4 +1,4 @@
-import { Wrench } from 'lucide-react';
+import { Wrench, Car } from 'lucide-react';
 
 // Single source of truth for the Hindi tools index (/upkaran).
 // Add an entry here ONLY when that tool's Hindi page is actually
@@ -24,6 +24,15 @@ export const TOOLS_HI: ToolHi[] = [
     badge: 'मुफ़्त',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AI और स्मार्ट टूल्स',
+  },
+  {
+    href: "/upkaran/aapke-liye-sabse-achhi-car",
+    icon: Car,
+    label: "आपके लिए सबसे अच्छी कार",
+    description: "अपना उपयोग चुनें — फ़ैमिली, कमर्शियल, हाईवे, कम बजट, ऑफ़-रोड या एग्ज़ीक्यूटिव — और 55 देशों में स्थानीय कीमतों के साथ सुझाव पाएँ।",
+    badge: "नया",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "लागत और रखरखाव",
   },
 ];
 
