@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine, Ruler } from 'lucide-react';
+import { Wrench, Camera, ScanLine, Ruler, Car } from 'lucide-react';
 
 // Single source of truth for the Japanese tools index (/tsuru).
 // Add an entry here ONLY when that tool's Japanese page is actually
@@ -51,6 +51,15 @@ export const TOOLS_JA: ToolJa[] = [
     badge: '新着',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: '費用計算',
+  },
+  {
+    href: "/tsuru/anata-ni-saiteki-na-kuruma",
+    icon: Car,
+    label: "あなたに最適な車",
+    description: "用途（ファミリー、商用、高速道路、低予算、悪路、ビジネス）を選ぶと、55か国の現地価格つきでおすすめを表示します。",
+    badge: "新着",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "費用計算",
   },
 ];
 
