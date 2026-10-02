@@ -195,6 +195,7 @@ const staticPages = [
   { url: '/tsuru/kyori-keisan',                  priority: 0.7, changefreq: 'monthly' },
   { url: '/araclar/sehirler-arasi-mesafe',       priority: 0.7, changefreq: 'monthly' },
   { url: '/alat/jarak-antar-kota',               priority: 0.7, changefreq: 'monthly' },
+  { url: '/khrueang-mue/khrueang-khamnuan-rayathang-rawang-mueang', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/vin-checker',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/vin-checker-global',            priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/decodificador-de-vin',          priority: 0.8, changefreq: 'monthly' },

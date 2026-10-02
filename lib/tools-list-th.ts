@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine, Car } from 'lucide-react';
+import { Wrench, Camera, ScanLine, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Thai tools index (/khrueang-mue).
 // Add an entry here ONLY when that tool's Thai page is actually
@@ -48,6 +48,15 @@ export const TOOLS_TH: ToolTh[] = [
     icon: Car,
     label: "รถที่ดีที่สุดสำหรับคุณ",
     description: "เลือกการใช้งาน เช่น ครอบครัว พาณิชย์ ทางด่วน งบจำกัด ทางลำบาก หรือผู้บริหาร แล้วรับคำแนะนำพร้อมราคาท้องถิ่นใน 55 ประเทศ",
+    badge: "ใหม่",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "ค่าใช้จ่ายและการบำรุงรักษา",
+  },
+  {
+    href: '/khrueang-mue/khrueang-khamnuan-rayathang-rawang-mueang',
+    icon: Ruler,
+    label: "เครื่องคำนวณระยะทางระหว่างเมือง",
+    description: "คำนวณระยะทางถนนและเวลาขับรถระหว่าง 23 เมืองในประเทศไทย พร้อมเครื่องคำนวณค่าน้ำมัน",
     badge: "ใหม่",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "ค่าใช้จ่ายและการบำรุงรักษา",
