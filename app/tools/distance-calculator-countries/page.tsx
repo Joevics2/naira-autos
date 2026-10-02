@@ -50,7 +50,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'th', name: 'Thailand',       flag: '🇹🇭', href: '/khrueang-mue/khrueang-khamnuan-rayathang-rawang-mueang', live: true },
   { code: 'ar', name: 'Argentina',      flag: '🇦🇷', href: '/herramientas/calculadora-de-distancia-argentina', live: true },
   { code: 'tr', name: 'Turkey',         flag: '🇹🇷', href: '/araclar/sehirler-arasi-mesafe', live: true },
-  { code: 'ru', name: 'Russia',         flag: '🇷🇺', live: false },
+  { code: 'ru', name: 'Russia',         flag: '🇷🇺', href: '/instrumenty/kalkulyator-rasstoyaniy-mezhdu-gorodami', live: true },
   { code: 'vn', name: 'Vietnam',        flag: '🇻🇳', href: '/cong-cu/khoang-cach-giua-cac-thanh-pho', live: true },
 ];
 

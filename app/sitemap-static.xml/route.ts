@@ -196,6 +196,7 @@ const staticPages = [
   { url: '/tsuru/kyori-keisan',                  priority: 0.7, changefreq: 'monthly' },
   { url: '/araclar/sehirler-arasi-mesafe',       priority: 0.7, changefreq: 'monthly' },
   { url: '/alat/jarak-antar-kota',               priority: 0.7, changefreq: 'monthly' },
+  { url: '/instrumenty/kalkulyator-rasstoyaniy-mezhdu-gorodami', priority: 0.7, changefreq: 'monthly' },
   { url: '/dogu/dosi-gan-geori-gyesangi', priority: 0.7, changefreq: 'monthly' },
   { url: '/cong-cu/khoang-cach-giua-cac-thanh-pho', priority: 0.7, changefreq: 'monthly' },
   { url: '/khrueang-mue/khrueang-khamnuan-rayathang-rawang-mueang', priority: 0.7, changefreq: 'monthly' },

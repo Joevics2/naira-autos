@@ -1,4 +1,4 @@
-import { Wrench } from 'lucide-react';
+import { Wrench, Ruler } from 'lucide-react';
 
 // Single source of truth for the Russian tools index (/instrumenty).
 // Add an entry here ONLY when that tool's Russian page is actually
@@ -24,6 +24,15 @@ export const TOOLS_RU: ToolRu[] = [
     badge: 'Бесплатно',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'ИИ и умные инструменты',
+  },
+  {
+    href: '/instrumenty/kalkulyator-rasstoyaniy-mezhdu-gorodami',
+    icon: Ruler,
+    label: "Калькулятор расстояний между городами",
+    description: "Расстояние по дорогам и время в пути между 32 городами России, с калькулятором расхода топлива.",
+    badge: "Новое",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Расходы и обслуживание",
   },
 ];
 
