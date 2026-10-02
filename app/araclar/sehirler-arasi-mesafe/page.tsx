@@ -7,17 +7,12 @@ import DistanceCalculatorTurkeyClient from './client';
 import DistanceTable from '@/components/distance-calculator/DistanceTable';
 import { TR_TOWNS, findTown } from '@/lib/distance-towns-tr';
 import { TR_CAPITAL_DISTANCE_KM } from '@/lib/tr-distance-matrix';
+import { alternatesFor } from '@/lib/hreflang';
 
 export const metadata: Metadata = {
   title: 'Şehirler Arası Mesafe Hesaplama Türkiye 2026 — Karayolu Mesafesi',
   description: '35 Türkiye şehri arasındaki karayolu mesafesini ve sürüş süresini hesaplayın — İstanbul, Ankara, İzmir ve daha fazlası. KGM\'nin resmî mesafe cetvelinden doğrulanmış veriler, sürüş süresi ve yakıt maliyeti.',
-  alternates: {
-    canonical: 'https://www.naira.autos/araclar/sehirler-arasi-mesafe',
-    languages: {
-      en: 'https://www.naira.autos/tools/distance-calculator-countries',
-      'x-default': 'https://www.naira.autos/tools/distance-calculator-countries',
-    },
-  },
+  alternates: alternatesFor('/araclar/sehirler-arasi-mesafe'),
   openGraph: {
     title: 'Şehirler Arası Mesafe Hesaplama Türkiye 2026',
     description: '35 Türkiye şehri arasındaki karayolu mesafesi ve sürüş süresi, yakıt maliyeti hesaplayıcı ile.',
@@ -44,6 +39,13 @@ const SCHEMA = {
       dateModified: '2026-09-18',
       inLanguage: 'tr',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Araçlar', item: 'https://www.naira.autos/araclar' },
+        { '@type': 'ListItem', position: 2, name: 'Türkiye', item: 'https://www.naira.autos/araclar/sehirler-arasi-mesafe' },
+      ],
     },
     {
       '@type': 'FAQPage',
@@ -86,7 +88,7 @@ export default function DistanceCalculatorTurkeyPage() {
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
               <Link href="/araclar" className="hover:text-white/60 transition-colors">Araçlar</Link>
               <ChevronRight className="h-3 w-3" />
-              <span className="text-white/60">🇹🇷 Türkiye</span>
+              <span className="text-white/60">Türkiye</span>
             </nav>
           </div>
 
