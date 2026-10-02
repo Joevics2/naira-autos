@@ -37,6 +37,41 @@ export const RELATED_TOOLS: Record<string, RelatedToolLink[]> = {
     { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
     { href: '/tools/best-car-for', label: 'Best Car For Me', color: 'amber' },
   ],
+  'auto-loan-calculator-usa': [
+    { href: '/tools/distance-calculator-usa', label: 'US Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
+  ],
+  'auto-loan-calculator-india': [
+    { href: '/tools/distance-calculator-india', label: 'India Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
+  ],
+  'auto-loan-calculator-south-africa': [
+    { href: '/tools/distance-calculator-south-africa', label: 'SA Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
+  ],
+  'auto-loan-calculator-uk': [
+    { href: '/tools/distance-calculator-uk', label: 'UK Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
+  ],
+  'auto-loan-calculator-ghana': [
+    { href: '/tools/import-duty-calculator-ghana', label: 'Ghana Import Duty Calculator', color: 'emerald' },
+    { href: '/tools/distance-calculator-ghana', label: 'Ghana Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+  ],
+  'auto-loan-calculator-canada': [
+    { href: '/tools/distance-calculator-canada', label: 'Canada Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
+  ],
+  'auto-loan-calculator-pakistan': [
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
+    { href: '/tools/car-comparison', label: 'Car Comparison Tool', color: 'blue' },
+  ],
   'insurance-calculator': [
     { href: '/tools/car-comparison', label: 'Car Comparison Tool', color: 'blue' },
     { href: '/tools/best-car-for', label: 'Best Car For...', color: 'emerald' },

@@ -83,6 +83,7 @@ const staticPages = [
   { url: '/alat/montir-virtual',                   priority: 0.8, changefreq: 'monthly' },
   { url: '/khrueang-mue/mo-rot-ai',                priority: 0.8, changefreq: 'monthly' },
   { url: '/khrueang-mue/rot-khong-chan-rakha-thaorai', priority: 0.9, changefreq: 'weekly'  },
+  { url: '/khrueang-mue/truat-sop-lek-tua-thang',  priority: 0.8, changefreq: 'monthly' },
   { url: '/alat/berapa-harga-mobil-saya', priority: 0.9, changefreq: 'weekly'  },
   { url: '/gereedschappen/wat-is-mijn-auto-waard', priority: 0.9, changefreq: 'weekly'  },
   { url: '/upkaran/aabhasi-mekanik',                priority: 0.8, changefreq: 'monthly' },
@@ -105,8 +106,9 @@ const staticPages = [
   // now has 3 (meccanico-virtuale, quanto-vale-la-mia-auto,
   // verifica-numero-di-telaio), Turkish now has 3 (arabam-ne-kadar-eder,
   // sasi-numarasi-sorgulama, sanal-usta), Vietnamese now has 2
-  // (xe-cua-toi-dang-gia-bao-nhieu, tho-may-ao), Thai now has 2
-  // (mo-rot-ai, rot-khong-chan-rakha-thaorai), Indonesian now has 2
+  // (xe-cua-toi-dang-gia-bao-nhieu, tho-may-ao), Thai now has 3
+  // (mo-rot-ai, rot-khong-chan-rakha-thaorai, truat-sop-lek-tua-thang),
+  // Indonesian now has 2
   // (montir-virtual, berapa-harga-mobil-saya), and Dutch now has 3
   // (virtuele-monteur, wat-is-mijn-auto-waard,
   // afstandscalculator-nederland), all still under
@@ -118,10 +120,10 @@ const staticPages = [
   // language's home + tools index once a handful more tool pages ship
   // in that language. /blog-arabic, /blog-auto, /blog-de-carros,
   // /autoblog, /kuruma-burogu, /blog-motori, /oto-blog, and the
-  // Indonesian/Vietnamese/Dutch/Hindi/Korean/Russian blog indexes held
-  // back for the same
+  // Indonesian/Vietnamese/Dutch/Thai/Hindi/Korean/Russian blog indexes
+  // held back for the same
   // reason as /blog-de-autos — zero posts published yet in any of
-  // them. (Thai has no blog index scaffolded yet.)
+  // them.
   // /herramientas (Spanish tools index) added below — now at 5 live tools
   // (cuanto-vale-mi-auto, mecanico-virtual, calculadora-de-kilometraje,
   // decodificador-de-vin, verificar-numero-de-chasis), past the ~5
@@ -139,6 +141,13 @@ const staticPages = [
   { url: '/tools/import-duty-calculator-kenya', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator-countries', priority: 0.8, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-usa',      priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-india',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-south-africa', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-uk',        priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-ghana',     priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-canada',    priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-pakistan',  priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator',  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/insurance-calculator',         priority: 0.7, changefreq: 'monthly' },

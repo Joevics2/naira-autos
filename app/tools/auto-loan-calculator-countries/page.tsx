@@ -21,12 +21,14 @@ export const metadata: Metadata = {
  */
 const COUNTRIES: { code: string; name: string; flag: string; href?: string; live: boolean }[] = [
   { code: 'ng', name: 'Nigeria',        flag: '🇳🇬', href: '/tools/auto-loan-calculator', live: true },
-  { code: 'gh', name: 'Ghana',          flag: '🇬🇭', live: false },
+  { code: 'gh', name: 'Ghana',          flag: '🇬🇭', href: '/tools/auto-loan-calculator-ghana', live: true },
   { code: 'ke', name: 'Kenya',          flag: '🇰🇪', live: false },
-  { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', live: false },
-  { code: 'us', name: 'United States',  flag: '🇺🇸', live: false },
-  { code: 'za', name: 'South Africa',   flag: '🇿🇦', live: false },
-  { code: 'in', name: 'India',          flag: '🇮🇳', live: false },
+  { code: 'gb', name: 'United Kingdom', flag: '🇬🇧', href: '/tools/auto-loan-calculator-uk', live: true },
+  { code: 'us', name: 'United States',  flag: '🇺🇸', href: '/tools/auto-loan-calculator-usa', live: true },
+  { code: 'ca', name: 'Canada',         flag: '🇨🇦', href: '/tools/auto-loan-calculator-canada', live: true },
+  { code: 'za', name: 'South Africa',   flag: '🇿🇦', href: '/tools/auto-loan-calculator-south-africa', live: true },
+  { code: 'in', name: 'India',          flag: '🇮🇳', href: '/tools/auto-loan-calculator-india', live: true },
+  { code: 'pk', name: 'Pakistan',       flag: '🇵🇰', href: '/tools/auto-loan-calculator-pakistan', live: true },
   { code: 'ae', name: 'UAE',            flag: '🇦🇪', live: false },
 ];
 
@@ -41,7 +43,7 @@ const SCHEMA = {
       name: 'Auto Loan Calculator — Choose Your Country',
       description: 'Free car loan affordability calculator by country — monthly repayments, total interest, and income ratio check.',
       url: 'https://www.naira.autos/tools/auto-loan-calculator-countries',
-      dateModified: '2026-08-01',
+      dateModified: '2026-09-29',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
       reviewedBy: { '@type': 'Person', name: 'Evelyn John', jobTitle: 'Auto Sales Expert', url: 'https://www.naira.autos/about' },
     },

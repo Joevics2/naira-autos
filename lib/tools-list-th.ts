@@ -1,4 +1,4 @@
-import { Wrench, Camera, Car } from 'lucide-react';
+import { Wrench, Camera, ScanLine, Car } from 'lucide-react';
 
 // Single source of truth for the Thai tools index (/khrueang-mue).
 // Add an entry here ONLY when that tool's Thai page is actually
@@ -33,6 +33,15 @@ export const TOOLS_TH: ToolTh[] = [
     badge: 'ฟรี',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AI และเครื่องมืออัจฉริยะ',
+  },
+  {
+    href: '/khrueang-mue/truat-sop-lek-tua-thang',
+    icon: ScanLine,
+    label: 'ตรวจสอบเลขตัวถัง (VIN)',
+    description: 'ตรวจสอบเลขตัวถัง (VIN) ฟรี — ดูยี่ห้อ รุ่น ปีที่ผลิต เครื่องยนต์ และประเทศผู้ผลิตได้ทันที',
+    badge: 'ฟรี',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'การตรวจสอบ',
   },
   {
     href: "/khrueang-mue/rot-thi-dithisut-samrap-khun",
