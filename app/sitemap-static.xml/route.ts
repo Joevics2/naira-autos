@@ -183,6 +183,7 @@ const staticPages = [
   // each language reaches the ~5-tool threshold, same logic as /herramientas
   // above).
   { url: '/werkzeuge/entfernungsrechner-deutschland', priority: 0.7, changefreq: 'monthly' },
+  { url: '/werkzeuge/autokredit-rechner',              priority: 0.7, changefreq: 'monthly' },
   { url: '/calcolatore-di-distanza-italia',      priority: 0.7, changefreq: 'monthly' },
   { url: '/gereedschappen/afstandscalculator-nederland', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/distance-calculator-canada',    priority: 0.7, changefreq: 'monthly' },
