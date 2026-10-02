@@ -45,7 +45,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'ph', name: 'Philippines',    flag: '🇵🇭', href: '/tools/distance-calculator-philippines', live: true },
   { code: 'cn', name: 'China',          flag: '🇨🇳', live: false },
   { code: 'jp', name: 'Japan',          flag: '🇯🇵', href: '/tsuru/kyori-keisan', live: true },
-  { code: 'kr', name: 'South Korea',    flag: '🇰🇷', live: false },
+  { code: 'kr', name: 'South Korea',    flag: '🇰🇷', href: '/dogu/dosi-gan-geori-gyesangi', live: true },
   { code: 'id', name: 'Indonesia',      flag: '🇮🇩', href: '/alat/jarak-antar-kota', live: true },
   { code: 'th', name: 'Thailand',       flag: '🇹🇭', href: '/khrueang-mue/khrueang-khamnuan-rayathang-rawang-mueang', live: true },
   { code: 'ar', name: 'Argentina',      flag: '🇦🇷', href: '/herramientas/calculadora-de-distancia-argentina', live: true },
