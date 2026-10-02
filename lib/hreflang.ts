@@ -45,6 +45,8 @@ const TOOL_GROUPS: LangPaths[] = [
   { en: '/tools/ai-mechanic', es: '/herramientas/mecanico-virtual', ar: '/adawat/mikaniki-iftiradi', fr: '/outils/mecanicien-virtuel', pt: '/ferramentas/meu-mecanico-virtual', de: '/werkzeuge/virtueller-mechaniker', ja: '/tsuru/ai-shindan', it: '/strumenti/meccanico-virtuale', tr: '/araclar/sanal-usta', th: '/khrueang-mue/mo-rot-ai', id: '/alat/montir-virtual', vi: '/cong-cu/tho-may-ao', nl: '/gereedschappen/virtuele-monteur', hi: '/upkaran/aabhasi-mekanik', ko: '/dogu/gasang-jeongbisa', ru: '/instrumenty/virtualnyy-mekhanik' },
   { en: '/tools/best-car-for', es: '/herramientas/mejor-auto-para-ti', ar: '/adawat/afdal-sayara-lak', fr: '/outils/meilleure-voiture-pour-vous', pt: '/ferramentas/melhor-carro-para-voce', de: '/werkzeuge/bestes-auto-fuer-sie', it: '/strumenti/migliore-auto-per-te', nl: '/gereedschappen/beste-auto-voor-jou', hi: '/upkaran/aapke-liye-sabse-achhi-car', id: '/alat/mobil-terbaik-untukmu', tr: '/araclar/size-en-iyi-araba', ja: '/tsuru/anata-ni-saiteki-na-kuruma', ko: '/dogu/naege-gajang-joeun-cha', vi: '/cong-cu/xe-tot-nhat-cho-ban', th: '/khrueang-mue/rot-thi-dithisut-samrap-khun' },
   { en: '/tools/car-comparison', es: '/herramientas/comparador-de-autos' },
+
+  { en: '/tools/import-duty-calculator-india', hi: '/upkaran/car-aayat-shulk-calculator-bharat' },
   { en: '/tools/chassis-number-check', es: '/herramientas/verificar-numero-de-chasis' },
   { en: '/tools/distance-calculator-egypt', ar: '/adawat/hasbat-al-masafa-masr' },
   { en: '/tools/distance-calculator-france', fr: '/outils/calculateur-de-distance-france' },

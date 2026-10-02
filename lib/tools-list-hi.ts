@@ -1,4 +1,4 @@
-import { Wrench, Car } from 'lucide-react';
+import { Wrench, Car, Calculator } from 'lucide-react';
 
 // Single source of truth for the Hindi tools index (/upkaran).
 // Add an entry here ONLY when that tool's Hindi page is actually
@@ -33,6 +33,15 @@ export const TOOLS_HI: ToolHi[] = [
     badge: "नया",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "लागत और रखरखाव",
+  },
+  {
+    href: '/upkaran/car-aayat-shulk-calculator-bharat',
+    icon: Calculator,
+    label: 'भारत कार आयात शुल्क कैलकुलेटर',
+    description: 'नई या पुरानी कार के आयात पर BCD, AIDC, IGST और शुल्क सहित कुल लैंडेड लागत निकालें — बजट 2025 और GST 2.0 की दरों के साथ।',
+    badge: 'नया',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'वित्त',
   },
 ];
 

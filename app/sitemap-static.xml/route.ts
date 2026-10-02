@@ -139,6 +139,8 @@ const staticPages = [
   { url: '/tools/import-duty-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator-ghana', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/import-duty-calculator-kenya', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/import-duty-calculator-india', priority: 0.7, changefreq: 'monthly' },
+  { url: '/upkaran/car-aayat-shulk-calculator-bharat', priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator',         priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator-usa',      priority: 0.7, changefreq: 'monthly' },
