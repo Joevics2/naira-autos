@@ -1,4 +1,4 @@
-import { Camera, Wrench, Car } from 'lucide-react';
+import { Camera, Wrench, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Vietnamese tools index (/cong-cu).
 // Add an entry here ONLY when that tool's Vietnamese page is actually
@@ -39,6 +39,15 @@ export const TOOLS_VI: ToolVi[] = [
     icon: Car,
     label: "Xe Tốt Nhất Cho Bạn",
     description: "Chọn nhu cầu — gia đình, kinh doanh, cao tốc, ngân sách thấp, đường xấu hoặc doanh nhân — và nhận gợi ý kèm giá địa phương tại 55 quốc gia.",
+    badge: "Mới",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Chi Phí và Bảo Dưỡng",
+  },
+  {
+    href: '/cong-cu/khoang-cach-giua-cac-thanh-pho',
+    icon: Ruler,
+    label: "Tính Khoảng Cách Giữa Các Thành Phố",
+    description: "Tính khoảng cách đường bộ và thời gian lái xe giữa 24 thành phố ở Việt Nam, kèm công cụ tính chi phí xăng.",
     badge: "Mới",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Chi Phí và Bảo Dưỡng",

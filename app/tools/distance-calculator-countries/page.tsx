@@ -51,7 +51,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'ar', name: 'Argentina',      flag: '🇦🇷', href: '/herramientas/calculadora-de-distancia-argentina', live: true },
   { code: 'tr', name: 'Turkey',         flag: '🇹🇷', href: '/araclar/sehirler-arasi-mesafe', live: true },
   { code: 'ru', name: 'Russia',         flag: '🇷🇺', live: false },
-  { code: 'vn', name: 'Vietnam',        flag: '🇻🇳', live: false },
+  { code: 'vn', name: 'Vietnam',        flag: '🇻🇳', href: '/cong-cu/khoang-cach-giua-cac-thanh-pho', live: true },
 ];
 
 const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
