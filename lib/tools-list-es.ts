@@ -1,4 +1,4 @@
-import { Mic, Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog, GitCompare, Car, Ruler } from 'lucide-react';
+import { Mic, Wrench, Gauge, ScanLine, Search, Camera, FileText, Cog, GitCompare, Car, Ruler, Calculator } from 'lucide-react';
 
 // Single source of truth for the Spanish tools index (/herramientas).
 // Add an entry here ONLY when that tool's Spanish page is actually live —
@@ -150,6 +150,15 @@ export const TOOLS_ES: ToolEs[] = [
     badge: 'NUEVO',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Costos y Mantenimiento',
+  },
+  {
+    href: '/herramientas/calculadora-de-credito-automotriz-mexico',
+    icon: Calculator,
+    label: 'Crédito Automotriz — México',
+    description: 'Calcula tu mensualidad y compara cómo tu enganche cambia la tasa preferencial en bancos mexicanos, con el CAT real incluido.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finanzas',
   },
 ];
 
