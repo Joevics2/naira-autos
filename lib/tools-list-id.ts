@@ -1,4 +1,4 @@
-import { Wrench, Camera, Car } from 'lucide-react';
+import { Wrench, Camera, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Indonesian tools index (/alat).
 // Add an entry here ONLY when that tool's Indonesian page is actually
@@ -42,6 +42,15 @@ export const TOOLS_ID: ToolId[] = [
     badge: "Baru",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Biaya dan Perawatan",
+  },
+  {
+    href: '/alat/jarak-antar-kota',
+    icon: Ruler,
+    label: 'Kalkulator Jarak Antar Kota',
+    description: 'Hitung jarak jalan darat dan waktu tempuh antara 28 kota di Indonesia, lengkap dengan kalkulator biaya BBM.',
+    badge: 'Baru',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Biaya dan Perawatan',
   },
 ];
 

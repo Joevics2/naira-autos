@@ -46,7 +46,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'cn', name: 'China',          flag: '🇨🇳', live: false },
   { code: 'jp', name: 'Japan',          flag: '🇯🇵', href: '/tsuru/kyori-keisan', live: true },
   { code: 'kr', name: 'South Korea',    flag: '🇰🇷', live: false },
-  { code: 'id', name: 'Indonesia',      flag: '🇮🇩', live: false },
+  { code: 'id', name: 'Indonesia',      flag: '🇮🇩', href: '/alat/jarak-antar-kota', live: true },
   { code: 'th', name: 'Thailand',       flag: '🇹🇭', live: false },
   { code: 'ar', name: 'Argentina',      flag: '🇦🇷', href: '/herramientas/calculadora-de-distancia-argentina', live: true },
   { code: 'tr', name: 'Turkey',         flag: '🇹🇷', href: '/araclar/sehirler-arasi-mesafe', live: true },
