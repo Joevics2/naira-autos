@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, Ruler, ScanLine, Car } from 'lucide-react';
+import { Mic, Wrench, Camera, Ruler, ScanLine, Car, Calculator } from 'lucide-react';
 
 // Single source of truth for the Arabic tools index (/adawat).
 // Add an entry here ONLY when that tool's Arabic page is actually live —
@@ -97,6 +97,15 @@ export const TOOLS_AR: ToolAr[] = [
     badge: 'جديد',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'التكاليف والصيانة',
+  },
+  {
+    href: '/adawat/hasbat-tamwil-sayarat-alemarat',
+    icon: Calculator,
+    label: 'حاسبة تمويل السيارات — الإمارات',
+    description: 'احسب القسط الشهري واكتشف السعر الفعلي الحقيقي خلف أي سعر ثابت معلن، وفق قواعد المصرف المركزي 2026.',
+    badge: 'جديد',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'المالية',
   },
 ];
 
