@@ -11,7 +11,7 @@ export function BottomNav() {
     { href: '/', icon: Home, label: 'Home' },
     { href: '/tools', icon: Wrench, label: 'Tools' },
     { href: '/vehicles', icon: CarFront, label: 'Vehicle Info', highlight: true },
-    { href: '/tools/document-generator', icon: FileText, label: 'Documents' },
+    { href: '/documents', icon: FileText, label: 'Documents' },
     { href: '/blog', icon: Newspaper, label: 'Blog' },
   ];
 

@@ -9,13 +9,24 @@ interface DocumentEditorProps {
   onChange: (doc: GeneratedDocument) => void;
   isHighRisk?: boolean;
   fileNamePrefix: string;
+  /** Optional localized control labels. Defaults to English, so existing callers are unaffected. */
+  labels?: { pdf: string; word: string; hint: string; risk: string; wordError: string };
 }
+
+const DEFAULT_LABELS = {
+  pdf: 'Download PDF',
+  word: 'Download Word',
+  hint: 'Click any text in the document below to edit it before downloading.',
+  risk: 'This document type carries meaningful legal and financial risk (e.g. repossession or consumer-protection terms). Have it reviewed by a local attorney before you sign or rely on it.',
+  wordError: 'Could not build the Word file. Please try again.',
+};
 
 export default function DocumentEditor({
   document: generatedDocument,
   onChange,
   isHighRisk,
   fileNamePrefix,
+  labels = DEFAULT_LABELS,
 }: DocumentEditorProps) {
   const [downloading, setDownloading] = useState<'pdf' | 'docx' | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -107,7 +118,7 @@ export default function DocumentEditor({
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
-      setError('Could not build the Word file. Please try again.');
+      setError(labels.wordError);
     } finally {
       setDownloading(null);
     }
@@ -132,7 +143,7 @@ export default function DocumentEditor({
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors"
         >
           {downloading === 'pdf' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-          Download PDF
+          {labels.pdf}
         </button>
         <button
           onClick={downloadDocx}
@@ -140,20 +151,20 @@ export default function DocumentEditor({
           className="flex items-center gap-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors"
         >
           {downloading === 'docx' ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileDown className="h-4 w-4" />}
-          Download Word
+          {labels.word}
         </button>
       </div>
 
       {error && <p className="text-sm text-red-500 no-print">{error}</p>}
 
       <p className="text-xs text-muted-foreground no-print">
-        Click any text in the document below to edit it before downloading.
+        {labels.hint}
       </p>
 
       {isHighRisk && (
         <div className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 rounded-lg px-4 py-3 text-sm no-print">
           <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
-          <span>This document type carries meaningful legal and financial risk (e.g. repossession or consumer-protection terms). Have it reviewed by a local attorney before you sign or rely on it.</span>
+          <span>{labels.risk}</span>
         </div>
       )}
 
