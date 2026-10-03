@@ -21,6 +21,21 @@ const staticPages = [
   // threshold logic as /herramientas above. Individual Spanish posts
   // don't need this same wait — sitemap-blogs.xml already picks them up
   // dynamically and routes them to /blog-de-autos/[slug] correctly.
+  // Document-template hubs (one per language, native URL terms). Index-worthy on their own: each lists live templates and carries unique localized copy.
+  { url: '/plantillas',                  priority: 0.8, changefreq: 'weekly'  },
+  { url: '/modeles-documents-vehicule',  priority: 0.8, changefreq: 'weekly'  },
+  { url: '/modelos-documentos-veiculo',  priority: 0.8, changefreq: 'weekly'  },
+  { url: '/kfz-vorlagen',                priority: 0.8, changefreq: 'weekly'  },
+  { url: '/fac-simile-documenti-auto',   priority: 0.8, changefreq: 'weekly'  },
+  { url: '/voorbeeld-autodocumenten',    priority: 0.8, changefreq: 'weekly'  },
+  { url: '/arac-belge-ornekleri',        priority: 0.8, changefreq: 'weekly'  },
+  { url: '/namadhij-wathaiq-sayarat',    priority: 0.8, changefreq: 'weekly'  },
+  { url: '/gaadi-agreement-format',      priority: 0.8, changefreq: 'weekly'  },
+  { url: '/contoh-surat-kendaraan',      priority: 0.8, changefreq: 'weekly'  },
+  { url: '/jidosha-keiyakusho-hinagata', priority: 0.8, changefreq: 'weekly'  },
+  { url: '/jadongcha-gyeyakseo-yangsik', priority: 0.8, changefreq: 'weekly'  },
+  { url: '/mau-hop-dong-xe',             priority: 0.8, changefreq: 'weekly'  },
+  { url: '/baepfom-sanya-rot',           priority: 0.8, changefreq: 'weekly'  },
   { url: '/vehicles',                           priority: 0.8, changefreq: 'weekly'  },
   { url: '/tools',                              priority: 0.9, changefreq: 'weekly'  },
   { url: '/herramientas',                       priority: 0.9, changefreq: 'weekly'  },

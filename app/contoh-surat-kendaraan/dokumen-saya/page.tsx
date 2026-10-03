@@ -1,8 +1,8 @@
 import MyDocsPage from '@/components/documents/MyDocsPage';
 import { docsMineMetadata } from '@/lib/documents-i18n/metadata';
 
-export const metadata = docsMineMetadata('en');
+export const metadata = docsMineMetadata('id');
 
 export default function Page() {
-  return <MyDocsPage lang="en" />;
+  return <MyDocsPage lang="id" />;
 }
