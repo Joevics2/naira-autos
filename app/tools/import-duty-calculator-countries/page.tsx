@@ -33,6 +33,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'pk', name: 'Pakistan',              flag: '🇵🇰', live: false },
   { code: 'in', name: 'India',                 flag: '🇮🇳', href: '/tools/import-duty-calculator-india', live: true },
   { code: 'gb', name: 'United Kingdom',        flag: '🇬🇧', href: '/tools/import-duty-calculator-uk', live: true },
+  { code: 'us', name: 'United States',        flag: '🇺🇸', href: '/tools/import-duty-calculator-usa', live: true },
   { code: 'lk', name: 'Sri Lanka',             flag: '🇱🇰', live: false },
   { code: 'bd', name: 'Bangladesh',            flag: '🇧🇩', live: false },
   { code: 'jm', name: 'Jamaica',               flag: '🇯🇲', live: false },
