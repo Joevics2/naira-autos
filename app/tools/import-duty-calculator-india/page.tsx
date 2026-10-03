@@ -176,6 +176,46 @@ export default function ImportDutyCalculatorIndiaPage() {
             </div>
           </div>
 
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>How Indian Customs Calculates Duty on a Car</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>Customs starts with the assessable value, which is the CIF value: the price of the car plus freight and insurance to the Indian port. If you only know the free-on-board price, customs adds freight and insurance, and where actual figures are missing it applies notional charges. Many assessments also add a 1% landing charge, although sources disagree on whether that is applied in every case, so the calculator lets you switch it off.</p>
+                  <p>Basic Customs Duty is calculated on the assessable value. The Agriculture Infrastructure and Development Cess, introduced in the 2025 Budget for top-band cars, is charged on the same base. Only then is IGST calculated, on assessable value plus BCD plus AIDC. Because tax is charged on tax, a large SUV can end up paying roughly twice its assessable value in duties.</p>
+                  <p>The Social Welfare Surcharge used to add 10% of the duty, but it has been exempted for passenger cars of heading 8703, and the GST compensation cess ended on 22 September 2025. That is why the stack in this calculator has only three lines: BCD, AIDC and IGST.</p>
+                </div>
+              </div>
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>GST 2.0: Which IGST Slab Does Your Car Fall In?</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>From 22 September 2025 India replaced the old 28% rate plus cess with simpler slabs. Petrol and petrol-hybrid cars up to 1,200 cc and diesel cars up to 1,500 cc that are under four metres long are charged 18%. Larger cars and SUVs are charged 40%. Electric vehicles are charged 5%.</p>
+                  <p>Length and engine size must both be met for the 18% slab, so a 1,000 cc car longer than four metres still pays 40%. Be wary of older articles that quote 28% plus up to 22% cess; they describe the system before the reform.</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>Importing a Car From the UK or the EU</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>The India–UK Comprehensive Economic and Trade Agreement came into force on 15 July 2026. For UK-origin cars it creates a tariff-rate quota: within the quota, a large petrol car over 3,000 cc or diesel car over 2,500 cc pays about 30% customs duty in the first year instead of roughly 110%, falling toward 10% over time. Imports above the quota pay the normal rate, and the quota must be applied for through DGFT.</p>
+                  <p>The first allocation, announced in September 2026, approved only a small number of cars, so treat the concessional rate as scarce. A deal with the European Union announced in January 2026 points to a similar quota structure, but it is not modelled here because it has not been confirmed as in force.</p>
+                </div>
+              </div>
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>Common Mistakes to Avoid</h2>
+                <ul className="space-y-2 text-sm text-muted-foreground leading-relaxed list-disc list-inside">
+                  <li>Using a blog that still shows 28% GST plus cess. The reform changed the headline numbers for every car.</li>
+                  <li>Ignoring the US$40,000 line. Crossing it moves a new car to the 70% BCD plus 40% AIDC band.</li>
+                  <li>Assuming any used car can be imported. Used cars face strict conditions, including age and right-hand drive.</li>
+                  <li>Forgetting that IGST is charged on duty, not just on the car’s price.</li>
+                  <li>Leaving out port charges, clearing agent fees, homologation and state road tax from the budget.</li>
+                  <li>Expecting a quota rate without a DGFT allocation.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <div>
             <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={heading}>Frequently Asked Questions</h2>
             <div className="space-y-3 max-w-3xl">

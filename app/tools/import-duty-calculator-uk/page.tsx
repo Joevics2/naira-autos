@@ -178,6 +178,49 @@ export default function ImportDutyCalculatorUkPage() {
             </div>
           </div>
 
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>How UK Import Duty and VAT Are Calculated</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>HMRC builds the bill in a fixed order. First it works out the customs value, which is what you paid for the car plus the cost of getting it to the UK border: shipping, insurance and any other charges that form part of the price. Customs duty is then charged as a percentage of that customs value. For passenger cars under tariff heading 8703 the standard rate in the UK Global Tariff is 10%.</p>
+                  <p>Import VAT comes last and is calculated on a larger base. Under the rules summarised on GOV.UK, VAT is charged on the car, accessories, delivery and any extra charges, plus the customs duty itself. In other words you pay VAT on the duty. That stacking effect is why the combined burden on a standard import is about 32% of the customs value rather than 30%.</p>
+                  <p>HMRC converts foreign currency using its own published customs exchange rate rather than the rate your bank gives you, so a small difference from this calculator is normal. Some importers report that the invoice must be recent, and that HMRC can substitute its own valuation if the price looks too low, so keep the bill of sale and proof of payment.</p>
+                </div>
+              </div>
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>Importing From the USA, Japan, the EU or the UAE</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p><strong className="text-foreground">USA:</strong> there is no trade deal that removes duty on American cars, so the standard 10% duty and 20% VAT apply. Shipping from the US east coast is often quoted between about £900 and £1,600 for roll-on roll-off, with west coast ports costing more.</p>
+                  <p><strong className="text-foreground">Japan:</strong> under the UK–Japan Comprehensive Economic Partnership Agreement, tariffs on Japanese-built passenger cars are eliminated in 2026. The car must genuinely be manufactured in Japan, and you need a valid proof of origin. A European model that was sold in Japan does not qualify and still pays 10%.</p>
+                  <p><strong className="text-foreground">European Union:</strong> since Brexit, a car bought in the EU is an import from a third country. Cars genuinely built in the EU or UK can enter at 0% duty under the Trade and Cooperation Agreement if the exporter supplies a valid origin declaration, but 20% VAT is still due even if VAT was already paid in the country of purchase.</p>
+                  <p><strong className="text-foreground">UAE and other countries:</strong> without a qualifying trade agreement the standard 10% duty and 20% VAT apply. If you believe another UK trade deal covers your car, use the custom-rate option and confirm the rate with your agent first.</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>Registering an Imported Car: NOVA, Approval and DVLA</h2>
+                <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                  <p>Paying tax is only half the job. You must tell HMRC about the vehicle through the Notification of Vehicle Arrivals service within 14 days of it reaching the UK, even if you are claiming a relief. DVLA will not register the car until HMRC has processed that notification, and late notification can lead to a fine.</p>
+                  <p>Next the car must be approved for road use. Many vehicles built outside the EU and UK need Individual Vehicle Approval, and fees for a basic test are commonly quoted at about £450. Vehicles more than ten years old are usually exempt from that approval and need only a standard MOT if they are over three years old, though you should confirm this for your car before buying.</p>
+                  <p>Finally you apply to DVLA using the V55/5 form for used imports or V55/4 for new ones, pay the £55 first registration fee, and pay first-year Vehicle Excise Duty, which depends on the car’s CO2 emissions. Number plates, insurance and any repairs are extra.</p>
+                </div>
+              </div>
+              <div>
+                <h2 className="text-xl font-black uppercase text-foreground mb-3" style={heading}>Common Mistakes That Cost Importers Money</h2>
+                <ul className="space-y-2 text-sm text-muted-foreground leading-relaxed list-disc list-inside">
+                  <li>Assuming an EU-bought car is duty-free. It is only duty-free if it was built in the EU or UK and carries a valid origin declaration from the exporter, not from the manufacturer.</li>
+                  <li>Forgetting that VAT is charged on the duty as well as the car. Budget for the stacked figure, not 10% plus 20% of the price.</li>
+                  <li>Missing the 14-day notification deadline, which blocks registration and can attract a penalty.</li>
+                  <li>Leaving out shipping and insurance when estimating. They form part of the customs value and increase both duty and VAT.</li>
+                  <li>Claiming classic status for a car that has been heavily modified. Historic vehicle treatment needs the car to be in original condition and no longer in production.</li>
+                  <li>Not applying for Transfer of Residence relief before the car ships, when the rules require approval first.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <div>
             <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={heading}>Frequently Asked Questions</h2>
             <div className="space-y-3 max-w-3xl">
