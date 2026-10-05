@@ -5,6 +5,7 @@ import { getDocumentCountry, getDocumentType } from '@/lib/document-types';
 import { abs } from '@/lib/hreflang';
 import { getDocs, type DocsLang } from '@/lib/documents-i18n';
 import { LANG_REGIONS, classifySlug } from '@/lib/documents-i18n/shared';
+import { ARTICLES } from '@/lib/documents-i18n/articles';
 import DocsIndexLocalized, { type HubTemplate } from '@/components/documents/DocsIndexLocalized';
 import DocsHeader from '@/components/documents/DocsHeader';
 import LanguagePills from '@/components/ui/LanguagePills';
@@ -20,6 +21,7 @@ function regionName(code: string, locale: string, fallback: string) {
 /** One language's document-templates hub. Server component: list HTML, copy, FAQ and schema all render on the server. */
 export default async function DocsHubPage({ lang }: { lang: DocsLang }) {
   const s = getDocs(lang);
+  const article = ARTICLES[lang];
   const rows = await getAllPublishedTemplates();
 
   const countries: Record<string, { name: string; flag: string }> = {};
@@ -136,6 +138,18 @@ export default async function DocsHubPage({ lang }: { lang: DocsLang }) {
             {s.tips.map(x => <li key={x}>{x}</li>)}
           </ul>
         </section>
+
+        <article aria-labelledby="article-h" className="space-y-6">
+          <h2 id="article-h" className="text-xl font-bold text-foreground">{article.heading}</h2>
+          {article.sections.map(sec => (
+            <div key={sec.h} className="space-y-2.5">
+              <h3 className="text-base font-semibold text-foreground">{sec.h}</h3>
+              {sec.p.map((para, i) => (
+                <p key={i} className="text-sm text-muted-foreground leading-relaxed">{para}</p>
+              ))}
+            </div>
+          ))}
+        </article>
 
         <section aria-labelledby="faq-h" className="space-y-3">
           <h2 id="faq-h" className="text-xl font-bold text-foreground">{s.faqHeading}</h2>
