@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine, Ruler, Car } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Ruler, Car } from 'lucide-react';
 
 // Single source of truth for the Japanese tools index (/tsuru).
 // Add an entry here ONLY when that tool's Japanese page is actually
@@ -21,6 +21,15 @@ export const TOOLS_JA: ToolJa[] = [
     icon: Camera,
     label: '愛車の価値は？',
     description: '写真をアップロードするだけで、AIが自国通貨で市場価格を即座に査定します。',
+    badge: '無料',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AIと便利ツール',
+  },
+  {
+    href: '/tsuru/engine-ion-shindan',
+    icon: Mic,
+    label: 'エンジン異音診断',
+    description: 'エンジンの異音を録音またはアップロードするだけで、AIが考えられる原因を即診断します。',
     badge: '無料',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'AIと便利ツール',

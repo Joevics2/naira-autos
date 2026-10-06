@@ -250,7 +250,7 @@ export default function AIMechanicPageJA() {
               <ul className="space-y-2">
                 {[
                   { label: '無料の車両査定', href: '/evaluate-car' },
-                  { label: 'エンジン音分析ツール', href: '/tools/engine-sound-analyzer' },
+                  { label: 'エンジン異音診断', href: '/tsuru/engine-ion-shindan' },
                   { label: '輸入関税計算ツール', href: '/tools/import-duty-calculator' },
                   { label: '車両書類チェックリスト', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
