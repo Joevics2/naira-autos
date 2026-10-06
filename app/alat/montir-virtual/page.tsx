@@ -233,7 +233,7 @@ export default function AIMechanicPageID() {
               <ul className="space-y-2">
                 {[
                   { label: 'Penilaian mobil gratis', href: '/evaluate-car' },
-                  { label: 'Penganalisis Suara Mesin', href: '/tools/engine-sound-analyzer' },
+                  { label: 'Analisis Suara Mesin', href: '/alat/analisis-suara-mesin' },
                   { label: 'Kalkulator Bea Masuk', href: '/tools/import-duty-calculator' },
                   { label: 'Daftar Periksa Dokumen', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
