@@ -250,7 +250,7 @@ export default function AIMechanicPageDE() {
               <ul className="space-y-2">
                 {[
                   { label: 'Kostenlose Fahrzeugbewertung', href: '/evaluate-car' },
-                  { label: 'Motorgeräusch-Analysator', href: '/tools/engine-sound-analyzer' },
+                  { label: 'Motorgeräusch-Analyse', href: '/werkzeuge/motorgeraeusch-analyse' },
                   { label: 'Einfuhrzoll-Rechner', href: '/tools/import-duty-calculator' },
                   { label: 'Fahrzeugpapiere-Checkliste', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
