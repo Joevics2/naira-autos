@@ -233,7 +233,7 @@ export default function AIMechanicPageVI() {
               <ul className="space-y-2">
                 {[
                   { label: 'Định giá xe miễn phí', href: '/evaluate-car' },
-                  { label: 'Công Cụ Phân Tích Âm Thanh Động Cơ', href: '/tools/engine-sound-analyzer' },
+                  { label: 'Phân Tích Tiếng Động Cơ', href: '/cong-cu/phan-tich-tieng-dong-co' },
                   { label: 'Máy Tính Thuế Nhập Khẩu', href: '/tools/import-duty-calculator' },
                   { label: 'Danh Sách Giấy Tờ Xe', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
