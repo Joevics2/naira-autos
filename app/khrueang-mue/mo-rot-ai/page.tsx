@@ -233,7 +233,7 @@ export default function AIMechanicPageTH() {
               <ul className="space-y-2">
                 {[
                   { label: 'ประเมินราคารถฟรี', href: '/evaluate-car' },
-                  { label: 'เครื่องวิเคราะห์เสียงเครื่องยนต์', href: '/tools/engine-sound-analyzer' },
+                  { label: 'วิเคราะห์เสียงเครื่องยนต์', href: '/khrueang-mue/wikhro-siang-khrueang-yon' },
                   { label: 'คำนวณภาษีนำเข้า', href: '/tools/import-duty-calculator' },
                   { label: 'รายการตรวจสอบเอกสาร', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
