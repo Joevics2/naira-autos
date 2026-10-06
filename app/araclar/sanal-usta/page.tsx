@@ -233,7 +233,7 @@ export default function AIMechanicPageTR() {
               <ul className="space-y-2">
                 {[
                   { label: 'Ücretsiz araba değerleme', href: '/evaluate-car' },
-                  { label: 'Motor Sesi Analiz Aracı', href: '/tools/engine-sound-analyzer' },
+                  { label: 'Motor Sesi Analizi', href: '/araclar/motor-sesi-analizi' },
                   { label: 'Gümrük Vergisi Hesaplayıcı', href: '/tools/import-duty-calculator' },
                   { label: 'Belge Kontrol Listesi', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
