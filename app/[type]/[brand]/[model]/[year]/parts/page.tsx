@@ -12,7 +12,7 @@ import { AccessoriesSection } from '@/components/AccessoriesSection';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
-export const revalidate = 86400; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
+export const revalidate = 604800; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
 
 interface VehiclePart {
   id: string;

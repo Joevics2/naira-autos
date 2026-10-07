@@ -17,7 +17,7 @@ import { NextResponse } from 'next/server';
 import { getSupabase, TYPE_SLUG_TO_DB } from '@/lib/vehicle-helpers';
 
 const siteUrl = 'https://www.naira.autos';
-export const revalidate = 0; // fetch fresh every request while content is actively changing
+export const revalidate = 3600;
 
 const DB_TO_TYPE_SLUG: Record<string, string> = Object.fromEntries(
   Object.entries(TYPE_SLUG_TO_DB).map(([slug, db]) => [db, slug])
@@ -82,7 +82,7 @@ ${urls}
   return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml',
-      'Cache-Control': `public, max-age=${revalidate}, stale-while-revalidate`,
+      'Cache-Control': `public, s-maxage=${revalidate}, stale-while-revalidate`,
     },
   });
 }

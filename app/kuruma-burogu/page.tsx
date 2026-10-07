@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 async function getPosts() {
   const { data } = await supabase

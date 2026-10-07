@@ -27,7 +27,7 @@ export function BottomNav() {
 
           if (item.highlight) {
             return (
-              <Link
+              <Link prefetch={false}
                 key={item.href}
                 href={item.href}
                 className="flex flex-col items-center justify-center -mt-8"
@@ -49,7 +49,7 @@ export function BottomNav() {
           }
 
           return (
-            <Link
+            <Link prefetch={false}
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${

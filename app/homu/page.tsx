@@ -15,7 +15,7 @@ type LatestPost = {
   featured_image: string | null;
 };
 
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'Naira Autos 日本語版 — 無料の車向けツール',

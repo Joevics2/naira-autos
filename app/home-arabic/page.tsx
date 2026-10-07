@@ -18,7 +18,7 @@ type LatestPost = {
 // ISR: same reasoning as app/inicio/page.tsx — revalidate once every 24h
 // so newly-published Arabic posts show up within a day, instead of
 // hitting Supabase on every request.
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'نيرا أوتوس بالعربية — أدوات سيارات مجانية',

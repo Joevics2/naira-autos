@@ -16,21 +16,21 @@ export function Footer() {
         
         {/* Navigation Links */}
         <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
-          <Link href="/about" className="hover:text-primary transition-colors">About</Link>
+          <Link prefetch={false} href="/about" className="hover:text-primary transition-colors">About</Link>
           <span className="text-border">|</span>
-          <Link href="/contact" className="hover:text-primary transition-colors">Contact</Link>
+          <Link prefetch={false} href="/contact" className="hover:text-primary transition-colors">Contact</Link>
           <span className="text-border">|</span>
-          <Link href="/terms" className="hover:text-primary transition-colors">Terms</Link>
+          <Link prefetch={false} href="/terms" className="hover:text-primary transition-colors">Terms</Link>
           <span className="text-border">|</span>
-          <Link href="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
+          <Link prefetch={false} href="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
           <span className="text-border">|</span>
-          <Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link>
+          <Link prefetch={false} href="/faq" className="hover:text-primary transition-colors">FAQ</Link>
           <span className="text-border">|</span>
-          <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
+          <Link prefetch={false} href="/blog" className="hover:text-primary transition-colors">Blog</Link>
           <span className="text-border">|</span>
-          <Link href="/documents" className="hover:text-primary transition-colors">Document Templates</Link>
+          <Link prefetch={false} href="/documents" className="hover:text-primary transition-colors">Document Templates</Link>
           <span className="text-border">|</span>
-          <Link href="/tools" className="hover:text-primary transition-colors">Calculators</Link>
+          <Link prefetch={false} href="/tools" className="hover:text-primary transition-colors">Calculators</Link>
         </div>
 
         {/* Copyright */}

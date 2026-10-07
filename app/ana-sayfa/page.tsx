@@ -17,7 +17,7 @@ type LatestPost = {
 
 // ISR: revalidate once every 24h — same pattern as inicio/page.tsx,
 // accueil/page.tsx, homu/page.tsx, etc.
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'Naira Autos Türkçe — Arabanız İçin Ücretsiz Araçlar',

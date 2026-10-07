@@ -22,7 +22,7 @@ type LatestPost = {
 // blog/documents/vehicle pages — the English homepage's force-dynamic is
 // for an unrelated PWA-manifest-staleness reason and doesn't touch Supabase
 // at all, so it was left alone.)
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'Naira Autos en Español — Herramientas Gratis para tu Auto',

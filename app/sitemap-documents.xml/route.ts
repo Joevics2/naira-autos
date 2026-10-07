@@ -5,9 +5,8 @@ import { NextResponse } from 'next/server';
 import { getAllPublishedTemplates } from '@/lib/document-templates-data';
 
 const siteUrl = 'https://www.naira.autos';
-export const revalidate = 0; // fetch fresh every request while the template library is actively growing
+export const revalidate = 3600;
 // TEMPORARY: see the matching note in app/documents/[type]/[country]/page.tsx
-export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const templates = await getAllPublishedTemplates();
@@ -42,7 +41,7 @@ ${urls}
   return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml',
-      'Cache-Control': `public, max-age=${revalidate}, stale-while-revalidate`,
+      'Cache-Control': `public, s-maxage=${revalidate}, stale-while-revalidate`,
     },
   });
 }

@@ -15,7 +15,7 @@ type LatestPost = {
   featured_image: string | null;
 };
 
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'Naira Autos in het Nederlands — Gratis Tools voor Uw Auto',

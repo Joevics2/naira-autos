@@ -20,6 +20,7 @@
 //   GEMINI_API_KEY, GEMINI_API_KEY_2, GEMINI_API_KEY_3, GEMINI_API_KEY_4
 
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
@@ -136,6 +137,9 @@ const LANGUAGE_NAMES: Record<string, string> = {
 };
 
 export async function POST(req: NextRequest) {
+  const limited = await rateLimit(req, 'ai-mechanic', 10, 3600);
+  if (limited) return limited;
+
   try {
     const formData = await req.formData();
 

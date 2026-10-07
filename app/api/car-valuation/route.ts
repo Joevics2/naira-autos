@@ -1,5 +1,6 @@
 // app/api/car-valuation/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
 import { getValuationCountry, type ValuationCountry } from '@/lib/currencies';
 import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
@@ -409,6 +410,9 @@ VALUATION FACTORS — write exactly 3, in plain friendly language a car buyer in
 
 // ─── Main handler ─────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
+  const limited = await rateLimit(req, 'car-valuation', 20, 3600);
+  if (limited) return limited;
+
   try {
     const body = await req.json();
     const { imageBase64, mimeType, condition, location, country, skipSerp, lang } = body;

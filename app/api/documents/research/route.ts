@@ -13,6 +13,7 @@
 // jurisdiction's legal structure, which is shared across every user.
 
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
 import { createClient } from '@supabase/supabase-js';
 import { callGemini, parseGeminiJSON } from '@/lib/gemini-documents';
 import { getDocumentType, getDocumentCountry } from '@/lib/document-types';
@@ -55,6 +56,9 @@ Return ONLY a valid JSON object, no markdown, no code fences, no preamble. Schem
 Be specific to the actual country/jurisdiction given. If it's a country with state/provincial variation (e.g. USA), give the general federal-level baseline requirements that apply broadly, and note in formattingNotes that state-level rules can add requirements. Do not invent legal citations you are not reasonably confident about — prefer general, defensible guidance over fabricated specifics.`;
 
 export async function POST(req: NextRequest) {
+  const limited = await rateLimit(req, 'documents-research', 20, 3600);
+  if (limited) return limited;
+
   try {
     const { documentTypeSlug, country } = await req.json();
 

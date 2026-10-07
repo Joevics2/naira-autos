@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 // ISR: fetch once, cache for 24h — same pattern as blog-de-autos/page.tsx
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 async function getPosts() {
   const { data } = await supabase

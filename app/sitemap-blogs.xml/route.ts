@@ -58,7 +58,7 @@ ${urls}
   return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml',
-      'Cache-Control': `public, max-age=${revalidate}, stale-while-revalidate`,
+      'Cache-Control': `public, s-maxage=${revalidate}, stale-while-revalidate`,
     },
   });
 }
