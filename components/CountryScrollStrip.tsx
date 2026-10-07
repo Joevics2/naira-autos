@@ -20,7 +20,7 @@ export function CountryScrollStrip({ items, activeCode }: { items: CountryLinkIt
   return (
     <div className="flex gap-2.5 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-thin">
       {items.map((c) => (
-        <Link
+        <Link prefetch={false}
           key={c.code}
           href={c.href}
           className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-bold whitespace-nowrap transition-all ${

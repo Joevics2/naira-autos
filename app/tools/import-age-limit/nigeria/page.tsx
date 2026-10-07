@@ -75,13 +75,13 @@ export default function ImportAgeLimitNigeriaPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools/import-age-limit" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools/import-age-limit" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/import-age-limit" className="hover:text-white/60 transition-colors">Import Age Limit</Link>
+              <Link prefetch={false} href="/tools/import-age-limit" className="hover:text-white/60 transition-colors">Import Age Limit</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">🇳🇬 Nigeria</span>
             </nav>
@@ -208,7 +208,7 @@ export default function ImportAgeLimitNigeriaPage() {
                 { href: '/tools/vin-checker',             label: 'VIN Checker',            color: 'violet' },
                 { href: '/tools/document-generator',      label: 'Document Generator',     color: 'rose' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

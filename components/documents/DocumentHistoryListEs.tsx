@@ -29,7 +29,7 @@ export default function DocumentHistoryListEs({ onOpen, filterSource }: Document
           <History className="h-4 w-4 text-muted-foreground" />
           <h2 className="text-sm font-semibold text-foreground">Tus documentos guardados</h2>
         </div>
-        <Link href="/plantillas/mis-documentos" className="text-xs font-medium text-sky-600 dark:text-sky-400 hover:underline flex-shrink-0">
+        <Link prefetch={false} href="/plantillas/mis-documentos" className="text-xs font-medium text-sky-600 dark:text-sky-400 hover:underline flex-shrink-0">
           Ver todos →
         </Link>
       </div>

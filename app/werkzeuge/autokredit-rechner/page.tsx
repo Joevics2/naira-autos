@@ -61,13 +61,13 @@ export default function AutokreditRechnerPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex flex-wrap items-center gap-3 mb-8">
-            <Link href="/werkzeuge" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Zurück">
+            <Link prefetch={false} href="/werkzeuge" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Zurück">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/startseite" className="hover:text-white/60 transition-colors">Startseite</Link>
+              <Link prefetch={false} href="/startseite" className="hover:text-white/60 transition-colors">Startseite</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/werkzeuge" className="hover:text-white/60 transition-colors">Werkzeuge</Link>
+              <Link prefetch={false} href="/werkzeuge" className="hover:text-white/60 transition-colors">Werkzeuge</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Autokredit Rechner</span>
             </nav>
@@ -163,7 +163,7 @@ export default function AutokreditRechnerPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Geprüft von <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Zinsen und Rechtsgrundlagen abgeglichen mit dem Verivox-Verbraucheratlas, aktuellen Konditionsmitteilungen der Direktbanken, Stiftung Warentest und dem Bürgerlichen Gesetzbuch (BGB).
+            Geprüft von <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Zinsen und Rechtsgrundlagen abgeglichen mit dem Verivox-Verbraucheratlas, aktuellen Konditionsmitteilungen der Direktbanken, Stiftung Warentest und dem Bürgerlichen Gesetzbuch (BGB).
           </p>
 
         </div>

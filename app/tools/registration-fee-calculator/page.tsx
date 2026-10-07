@@ -73,15 +73,15 @@ export default function RegistrationFeeCalculatorPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools/registration-fee-calculator-countries" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools/registration-fee-calculator-countries" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/registration-fee-calculator-countries" className="hover:text-white/60 transition-colors">Registration Fee Calculator</Link>
+              <Link prefetch={false} href="/tools/registration-fee-calculator-countries" className="hover:text-white/60 transition-colors">Registration Fee Calculator</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">🇳🇬 Nigeria</span>
             </nav>
@@ -204,7 +204,7 @@ export default function RegistrationFeeCalculatorPage() {
                 </div>
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                   <p>In states outside Lagos, COO costs are estimated at <strong className="text-foreground">₦50,000–₦130,000</strong> depending on whether a new plate is required, local MVAA processing rates, and whether the buyer uses an agent. Rivers State is consistently reported as among the most expensive, with full re-registration costs sometimes exceeding ₦100,000.</p>
-                  <p>Both the buyer and seller typically need to be present (or provide notarised documents) at the MVAA. Required documents include the original registration certificate, proof of ownership/customs paper, CMR clearance, both parties' valid IDs, and a signed sales agreement. Some MVAA offices require the sales agreement to be notarised. See our <Link href="/tools/vehicle-papers-checklist" className="text-blue-500 hover:underline">Vehicle Papers Checklist</Link> for the full document list.</p>
+                  <p>Both the buyer and seller typically need to be present (or provide notarised documents) at the MVAA. Required documents include the original registration certificate, proof of ownership/customs paper, CMR clearance, both parties' valid IDs, and a signed sales agreement. Some MVAA offices require the sales agreement to be notarised. See our <Link prefetch={false} href="/tools/vehicle-papers-checklist" className="text-blue-500 hover:underline">Vehicle Papers Checklist</Link> for the full document list.</p>
                 </div>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default function RegistrationFeeCalculatorPage() {
           </p>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Fee breakdown and clearing process checked against real vehicle registration experience.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Fee breakdown and clearing process checked against real vehicle registration experience.
           </p>
 
           {/* Related tools */}

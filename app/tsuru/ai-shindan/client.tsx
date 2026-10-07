@@ -559,13 +559,13 @@ export default function AIMechanicClientJA() {
 
         {/* Breadcrumb */}
         <div className="flex flex-wrap items-center gap-3 mb-8">
-          <Link href="/tsuru" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="ツール一覧に戻る">
+          <Link prefetch={false} href="/tsuru" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="ツール一覧に戻る">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/homu" className="hover:text-white/60 transition-colors">ホーム</Link>
+            <Link prefetch={false} href="/homu" className="hover:text-white/60 transition-colors">ホーム</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tsuru" className="hover:text-white/60 transition-colors">ツール</Link>
+            <Link prefetch={false} href="/tsuru" className="hover:text-white/60 transition-colors">ツール</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">AIメカニック</span>
           </nav>

@@ -44,7 +44,7 @@ export default function LanguagePills({ path, tone = 'dark', className = '' }: L
             {lang}
           </span>
         ) : (
-          <Link
+          <Link prefetch={false}
             key={lang}
             href={href}
             hrefLang={lang}

@@ -132,7 +132,7 @@ export default function PlateNumberCheckerClient() {
         )}
 
         <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
-          This tool decodes plate format and LGA of registration from public data — it does not show vehicle ownership, make/model, or live registration status. For that, use the official <Link href="https://nvis.frsc.gov.ng/VehicleManagement/VerifyPlateNo" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2">FRSC verification portal</Link> above.
+          This tool decodes plate format and LGA of registration from public data — it does not show vehicle ownership, make/model, or live registration status. For that, use the official <Link prefetch={false} href="https://nvis.frsc.gov.ng/VehicleManagement/VerifyPlateNo" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2">FRSC verification portal</Link> above.
         </p>
       </div>
     </div>

@@ -37,7 +37,7 @@ function linkifyText(
     if (entry && !alreadyLinked.has(entry.slug)) {
       alreadyLinked.add(entry.slug);
       parts.push(
-        <Link
+        <Link prefetch={false}
           key={`${entry.slug}-${start}`}
           href={`/tools/glossary/${entry.slug}`}
           className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 decoration-emerald-500/40 hover:decoration-emerald-500 transition-colors"

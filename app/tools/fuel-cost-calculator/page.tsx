@@ -86,13 +86,13 @@ export default function FuelCostCalculatorPage() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Fuel Cost Calculator</span>
             </nav>
@@ -101,7 +101,7 @@ export default function FuelCostCalculatorPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">100+ car models</span>
-              <Link href="/tools/fuel-cost-calculator-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              <Link prefetch={false} href="/tools/fuel-cost-calculator-global" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Outside Nigeria? Use the global calculator →
               </Link>
             </div>
@@ -140,7 +140,7 @@ export default function FuelCostCalculatorPage() {
                 </ol>
               </div>
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                <p>Fuel is usually the biggest single line item on a trip, but a full <strong className="text-foreground">road trip calculator with gas and tolls</strong> should also account for toll plazas, meals, and a small contingency. This tool gives you the fuel number precisely; for a complete Nigerian-route breakdown including tolls, use the <Link href="/tools/road-trip-calculator" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">Road Trip Calculator</Link> alongside it.</p>
+                <p>Fuel is usually the biggest single line item on a trip, but a full <strong className="text-foreground">road trip calculator with gas and tolls</strong> should also account for toll plazas, meals, and a small contingency. This tool gives you the fuel number precisely; for a complete Nigerian-route breakdown including tolls, use the <Link prefetch={false} href="/tools/road-trip-calculator" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">Road Trip Calculator</Link> alongside it.</p>
                 <p>Because pump prices move often and vary by country and even by station, we don't hardcode a single "current price" — the slider lets you match whatever you're actually paying today, anywhere in the world.</p>
               </div>
             </div>
@@ -342,7 +342,7 @@ export default function FuelCostCalculatorPage() {
                 { href: '/tools/registration-fee-calculator', label: 'Registration Fee Calculator', color: 'blue' },
                 { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

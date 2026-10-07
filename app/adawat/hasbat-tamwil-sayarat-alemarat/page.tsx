@@ -61,13 +61,13 @@ export default function HasbatTamwilSayaratAlemaratPage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
             <div className="flex flex-wrap items-center gap-3 mb-8">
-              <Link href="/adawat" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="رجوع">
+              <Link prefetch={false} href="/adawat" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="رجوع">
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <nav aria-label="مسار التنقل" className="flex items-center gap-1.5 text-xs text-white/30">
-                <Link href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
+                <Link prefetch={false} href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
                 <ChevronLeft className="h-3 w-3" />
-                <Link href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
+                <Link prefetch={false} href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
                 <ChevronLeft className="h-3 w-3" />
                 <span className="text-white/50">حاسبة تمويل السيارات</span>
               </nav>
@@ -172,7 +172,7 @@ export default function HasbatTamwilSayaratAlemaratPage() {
             </div>
 
             <p className="text-xs text-muted-foreground border-t border-border pt-4">
-              راجعه <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>، خبيرة مبيعات السيارات. تم التحقق من الأرقام والقواعد وفق تعميم المصرف المركزي الإماراتي رقم 29/2011 ومقارنات أسعار البنوك المنشورة لعام 2026.
+              راجعه <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>، خبيرة مبيعات السيارات. تم التحقق من الأرقام والقواعد وفق تعميم المصرف المركزي الإماراتي رقم 29/2011 ومقارنات أسعار البنوك المنشورة لعام 2026.
             </p>
 
           </div>

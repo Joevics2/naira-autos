@@ -85,7 +85,7 @@ export default function MyDocumentsLocalized({ s, hubPath, locale, rtl, axiosHre
       {entries === null ? null : entries.length === 0 ? (
         <div className="bg-card border border-border rounded-xl p-6 text-center space-y-3">
           <p className="text-sm text-muted-foreground">{s.empty}</p>
-          <Link href={hubPath} className="text-sm font-semibold text-sky-500 hover:underline">{s.browse}</Link>
+          <Link prefetch={false} href={hubPath} className="text-sm font-semibold text-sky-500 hover:underline">{s.browse}</Link>
         </div>
       ) : (
         <>

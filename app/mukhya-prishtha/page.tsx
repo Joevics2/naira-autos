@@ -96,7 +96,7 @@ export default async function HomeHindiPage() {
           >
             जल्द आने वाले टूल्स
           </h2>
-          <Link href="/upkaran" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/upkaran" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             सभी देखें <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default async function HomeHindiPage() {
           <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted-foreground">
               हम हिन्दी में अपना पहला टूल तैयार कर रहे हैं। जल्द ही वापस आएं — या तब तक{' '}
-              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">अंग्रेज़ी टूल्स</Link>{' '}आज़माएं।
+              <Link prefetch={false} href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">अंग्रेज़ी टूल्स</Link>{' '}आज़माएं।
             </p>
           </div>
         ) : (
@@ -113,7 +113,7 @@ export default async function HomeHindiPage() {
             {TOOLS_HI.map((tool) => {
               const Icon = tool.icon;
               return (
-                <Link
+                <Link prefetch={false}
                   key={tool.href}
                   href={tool.href}
                   className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -149,13 +149,13 @@ export default async function HomeHindiPage() {
             >
               नवीनतम लेख
             </h2>
-            <Link href="/blog-hindi" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/blog-hindi" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               सभी देखें <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/blog-hindi/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

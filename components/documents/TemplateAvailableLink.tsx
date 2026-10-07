@@ -42,7 +42,7 @@ export default function TemplateAvailableLink({ documentTypeSlug, country }: Tem
   if (!available) return null;
 
   return (
-    <Link
+    <Link prefetch={false}
       href={`/documents/${documentTypeSlug}/${country}`}
       className="flex items-center gap-2 bg-sky-500/10 border border-sky-500/30 text-sky-600 dark:text-sky-400 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-sky-500/15 transition-colors"
     >

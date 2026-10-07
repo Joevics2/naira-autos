@@ -54,7 +54,7 @@ export default function PageNav({ lang, hub, crumbs: crumbsProp, backHref, backL
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div dir={rtl ? 'rtl' : undefined} className={`flex items-center gap-3 mb-6 ${rtl ? 'text-right' : 'text-left'}`}>
-        <Link
+        <Link prefetch={false}
           href={back}
           aria-label={backLabel ?? t.back}
           className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0"
@@ -69,7 +69,7 @@ export default function PageNav({ lang, hub, crumbs: crumbsProp, backHref, backL
                 {last ? (
                   <span className="text-white/60" aria-current="page">{c.label}</span>
                 ) : (
-                  <Link href={c.path} className="hover:text-white/70 transition-colors">{c.label}</Link>
+                  <Link prefetch={false} href={c.path} className="hover:text-white/70 transition-colors">{c.label}</Link>
                 )}
                 {!last && <Sep className="h-3 w-3" />}
               </span>

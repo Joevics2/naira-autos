@@ -79,13 +79,13 @@ export default function MileageExplainerPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex flex-wrap items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Mileage Explainer</span>
             </nav>
@@ -168,7 +168,7 @@ export default function MileageExplainerPage() {
               </h2>
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                 <p>Odometer fraud — winding back a car&apos;s mileage before sale — remains common enough worldwide that it&apos;s worth actively checking for, not just trusting the dashboard number. A few practical checks: compare the current reading against any recorded mileage from past service stamps, inspection certificates, or VIN/chassis history reports; look at wear on the steering wheel, pedals, and driver&apos;s seat, which should roughly match the claimed distance; and be extra cautious of a mileage reading that seems implausibly low for the car&apos;s age with no clear explanation.</p>
-                <p>If something doesn&apos;t line up, a <Link href="/tools/vin-checker-global" className="text-foreground underline underline-offset-2">VIN check</Link> is usually the fastest way to see whether the current reading matches what was recorded previously.</p>
+                <p>If something doesn&apos;t line up, a <Link prefetch={false} href="/tools/vin-checker-global" className="text-foreground underline underline-offset-2">VIN check</Link> is usually the fastest way to see whether the current reading matches what was recorded previously.</p>
               </div>
             </div>
           </div>
@@ -231,7 +231,7 @@ export default function MileageExplainerPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Mileage-vs-age framing checked against real used-car market patterns.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Mileage-vs-age framing checked against real used-car market patterns.
           </p>
 
           <section>
@@ -239,15 +239,15 @@ export default function MileageExplainerPage() {
               More Due Diligence Tools
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <Link href="/tools/vin-checker-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link prefetch={false} href="/tools/vin-checker-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">VIN Checker (Global)</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/vehicle-papers-checklist" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
+              <Link prefetch={false} href="/tools/vehicle-papers-checklist" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
                 <p className="text-sm font-bold text-blue-700 dark:text-blue-400">Vehicle Papers Checklist</p>
                 <ChevronRight className="h-4 w-4 text-blue-500" />
               </Link>
-              <Link href="/tools/mileage-explainer-nigeria" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link prefetch={false} href="/tools/mileage-explainer-nigeria" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">🇳🇬 Nigeria Mileage Explainer</p>
                 <ChevronRight className="h-4 w-4 text-amber-500" />
               </Link>

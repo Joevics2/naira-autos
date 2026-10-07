@@ -84,7 +84,7 @@ export default function FAQPage() {
           
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">FAQ</span>
           </nav>
@@ -192,7 +192,7 @@ export default function FAQPage() {
                 <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                   Confused about local car market vocabulary like <em>Tokunbo</em>, <em>Chassis Number</em>, or <em>Customs Paper</em>? Explore our comprehensive glossary database.
                 </p>
-                <Link 
+                <Link prefetch={false} 
                   href="/tools/glossary" 
                   className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
                 >

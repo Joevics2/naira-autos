@@ -21,7 +21,7 @@ export function RelatedTools({ tool }: { tool: string }) {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {links.map(({ href, label, color }) => (
-          <Link
+          <Link prefetch={false}
             key={href}
             href={href}
             className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

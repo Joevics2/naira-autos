@@ -255,7 +255,7 @@ export default function AIMechanicPageJA() {
                   { label: '車両書類チェックリスト', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
                   <li key={href}>
-                    <Link href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
+                    <Link prefetch={false} href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
                       <span>{label}</span>
                       <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
@@ -338,7 +338,7 @@ export default function AIMechanicPageJA() {
           </section>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            監修：<Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>（自動車整備士）。診断ロジックと修理費用の範囲は技術的な正確性を確認済みです。
+            監修：<Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>（自動車整備士）。診断ロジックと修理費用の範囲は技術的な正確性を確認済みです。
           </p>
 
           {/* Final CTA */}
@@ -367,7 +367,7 @@ export default function AIMechanicPageJA() {
                 { href: '/tools/vehicle-papers-checklist', label: '車両書類チェックリスト',     color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: '輸入関税計算ツール',         color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

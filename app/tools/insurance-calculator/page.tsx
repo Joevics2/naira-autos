@@ -179,7 +179,7 @@ export default function InsuranceCalculatorPage() {
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           {/* Breadcrumb + back */}
           <div className="flex items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/tools/insurance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-violet-500/20 border border-white/15 hover:border-violet-500/40 text-white/60 hover:text-violet-400 transition-all"
               aria-label="Back to Insurance Calculator"
@@ -187,11 +187,11 @@ export default function InsuranceCalculatorPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/insurance-calculator-countries" className="hover:text-white/60 transition-colors">Insurance Calculator</Link>
+              <Link prefetch={false} href="/tools/insurance-calculator-countries" className="hover:text-white/60 transition-colors">Insurance Calculator</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇳🇬 Nigeria</span>
             </nav>
@@ -292,7 +292,7 @@ export default function InsuranceCalculatorPage() {
                 </p>
                 <p>
                   Use our{' '}
-                  <Link href="/tools/car-comparison" className="text-violet-600 hover:underline">Car Comparison Tool</Link>
+                  <Link prefetch={false} href="/tools/car-comparison" className="text-violet-600 hover:underline">Car Comparison Tool</Link>
                   {' '}to look up the value range of your specific car model, then use the calculator above to estimate your annual premium. Factor insurance into your total annual ownership cost alongside fuel, maintenance, and registration fees.
                 </p>
               </div>
@@ -349,7 +349,7 @@ export default function InsuranceCalculatorPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Auto Sales Expert. Rate figures checked against current NAICOM-published minimums.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Auto Sales Expert. Rate figures checked against current NAICOM-published minimums.
           </p>
 
           {/* FAQ */}

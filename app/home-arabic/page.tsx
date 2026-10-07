@@ -102,7 +102,7 @@ export default async function HomeArabicPage() {
           >
             الأدوات المتاحة
           </h2>
-          <Link href="/adawat" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/adawat" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             <ArrowLeft className="h-4 w-4" /> عرض الكل
           </Link>
         </div>
@@ -111,7 +111,7 @@ export default async function HomeArabicPage() {
           {TOOLS_AR.map((tool) => {
             const Icon = tool.icon;
             return (
-              <Link
+              <Link prefetch={false}
                 key={tool.href}
                 href={tool.href}
                 className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -146,13 +146,13 @@ export default async function HomeArabicPage() {
             >
               أحدث المقالات
             </h2>
-            <Link href="/blog-arabic" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/blog-arabic" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               <ArrowLeft className="h-4 w-4" /> عرض الكل
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/blog-arabic/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

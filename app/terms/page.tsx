@@ -22,7 +22,7 @@ export default function TermsPage() {
       <div className="bg-[#080C10] border-b border-white/10">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">Terms of Service</span>
           </nav>
@@ -128,7 +128,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-base font-bold text-foreground mb-2">10. Contact</h2>
               <p>
-                For questions about these Terms, please contact us via our <Link href="/contact" className="text-emerald-500 underline">Contact page</Link>.
+                For questions about these Terms, please contact us via our <Link prefetch={false} href="/contact" className="text-emerald-500 underline">Contact page</Link>.
               </p>
             </section>
 

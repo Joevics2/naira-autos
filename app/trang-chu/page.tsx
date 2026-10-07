@@ -96,7 +96,7 @@ export default async function HomeVietnamesePage() {
           >
             Công Cụ Sắp Ra Mắt
           </h2>
-          <Link href="/cong-cu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/cong-cu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             Xem Tất Cả <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default async function HomeVietnamesePage() {
           <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted-foreground">
               Chúng tôi đang chuyển ngữ công cụ đầu tiên sang tiếng Việt. Hãy quay lại sau — hoặc thử{' '}
-              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">các công cụ tiếng Anh</Link>{' '}trong lúc chờ đợi.
+              <Link prefetch={false} href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">các công cụ tiếng Anh</Link>{' '}trong lúc chờ đợi.
             </p>
           </div>
         ) : (
@@ -113,7 +113,7 @@ export default async function HomeVietnamesePage() {
             {TOOLS_VI.map((tool) => {
               const Icon = tool.icon;
               return (
-                <Link
+                <Link prefetch={false}
                   key={tool.href}
                   href={tool.href}
                   className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -149,13 +149,13 @@ export default async function HomeVietnamesePage() {
             >
               Bài Viết Mới Nhất
             </h2>
-            <Link href="/blog-o-to" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/blog-o-to" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               Xem Tất Cả <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/blog-o-to/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

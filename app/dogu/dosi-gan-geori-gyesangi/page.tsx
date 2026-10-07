@@ -76,7 +76,7 @@ export default function DistanceCalculatorSouthKoreaPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/dogu"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="뒤로"
@@ -84,7 +84,7 @@ export default function DistanceCalculatorSouthKoreaPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/dogu" className="hover:text-white/60 transition-colors">{"도구"}</Link>
+              <Link prefetch={false} href="/dogu" className="hover:text-white/60 transition-colors">{"도구"}</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">{"대한민국"}</span>
             </nav>
@@ -101,7 +101,7 @@ export default function DistanceCalculatorSouthKoreaPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               {"서울, 부산, 대구, 광주 등 대한민국 23개 도시 간 도로 거리와 운전 시간을 계산하세요."}
             </p>
-            <Link href="/tools/distance-calculator-countries" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link prefetch={false} href="/tools/distance-calculator-countries" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               English version →
             </Link>
           </div>
@@ -136,7 +136,7 @@ export default function DistanceCalculatorSouthKoreaPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            {"검토: "}<Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>{", 자동차 영업 전문가. 모든 거리는 Haversine 공식 기반 추정치입니다."}
+            {"검토: "}<Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>{", 자동차 영업 전문가. 모든 거리는 Haversine 공식 기반 추정치입니다."}
           </p>
 
           <div>

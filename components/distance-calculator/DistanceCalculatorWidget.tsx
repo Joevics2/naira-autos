@@ -414,7 +414,7 @@ function DistanceCalculatorInner({ config }: { config: DistanceCalcConfig }) {
       {relatedTools && relatedTools.length > 0 && (
         <div className="grid grid-cols-2 gap-2">
           {relatedTools.map((rt) => (
-            <Link
+            <Link prefetch={false}
               key={rt.href}
               href={rt.href}
               className={`flex items-center justify-between gap-2 px-3 py-3 rounded-xl border transition-all ${

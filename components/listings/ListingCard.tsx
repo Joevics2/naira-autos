@@ -103,7 +103,7 @@ export function ListingCard({ listing, showActions = false, variant = 'grid' }: 
 
   if (isCompact) {
     return (
-      <Link href={`/listing/${listingSlug}`} className="block group">
+      <Link prefetch={false} href={`/listing/${listingSlug}`} className="block group">
         <div className="flex gap-3 bg-card border border-border rounded-2xl overflow-hidden hover:border-emerald-500/40 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200">
           {/* Thumbnail */}
           <div className="relative w-36 sm:w-44 flex-shrink-0 overflow-hidden bg-muted">
@@ -165,7 +165,7 @@ export function ListingCard({ listing, showActions = false, variant = 'grid' }: 
   }
 
   return (
-    <Link href={`/listing/${listingSlug}`} className="block group">
+    <Link prefetch={false} href={`/listing/${listingSlug}`} className="block group">
       <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-emerald-500/40 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/25 transition-all duration-200 hover:-translate-y-0.5">
 
         {/* Image */}

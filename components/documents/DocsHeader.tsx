@@ -29,7 +29,7 @@ export default function DocsHeader({ lang, crumbs, schema = true }: { lang: Lang
     <>
       {schema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
       <div className="flex items-center gap-3">
-        <Link
+        <Link prefetch={false}
           href={parent.path}
           aria-label={t.back}
           className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0"
@@ -44,7 +44,7 @@ export default function DocsHeader({ lang, crumbs, schema = true }: { lang: Lang
                 {last ? (
                   <span className="text-foreground font-medium" aria-current="page">{c.label}</span>
                 ) : (
-                  <Link href={c.path} className="hover:text-foreground flex items-center gap-1">
+                  <Link prefetch={false} href={c.path} className="hover:text-foreground flex items-center gap-1">
                     {i === 0 && <Home className="h-3.5 w-3.5" />}{c.label}
                   </Link>
                 )}

@@ -98,7 +98,7 @@ export default async function ObdCodesPage() {
       <div className="bg-[#080C10] border-b border-white/10">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
 
-          <Link
+          <Link prefetch={false}
             href="/tools"
             className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors mb-6"
           >
@@ -106,9 +106,9 @@ export default async function ObdCodesPage() {
           </Link>
 
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+            <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">OBD-II Code Lookup</span>
           </nav>
@@ -126,16 +126,16 @@ export default async function ObdCodesPage() {
               </h1>
               <p className="text-white/80 text-sm leading-relaxed max-w-2xl">
                 What does your check engine light code actually mean? Look up{' '}
-                <Link href="/tools/obd-codes/p0420" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
+                <Link prefetch={false} href="/tools/obd-codes/p0420" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
                   P0420
                 </Link>
                 ,{' '}
-                <Link href="/tools/obd-codes/p0300" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
+                <Link prefetch={false} href="/tools/obd-codes/p0300" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
                   P0300
                 </Link>
                 , and every common diagnostic trouble code — causes, symptoms, and what to check first. Works with any car, anywhere. {codes.length} codes and growing.
               </p>
-              <p className="text-white/40 text-xs mt-3">Last verified: August 2026 · Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-white/70">Emmanuel Erere</Link>, Auto Mechanic</p>
+              <p className="text-white/40 text-xs mt-3">Last verified: August 2026 · Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-white/70">Emmanuel Erere</Link>, Auto Mechanic</p>
             </div>
           </div>
         </div>
@@ -170,7 +170,7 @@ export default async function ObdCodesPage() {
                     {bySystem[system].map(c => {
                       const sev = SEVERITY_STYLES[c.severity] ?? SEVERITY_STYLES.Medium;
                       return (
-                        <Link
+                        <Link prefetch={false}
                           key={c.slug}
                           href={`/tools/obd-codes/${c.slug}`}
                           className="group bg-card border border-border rounded-2xl p-5 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all"
@@ -215,7 +215,7 @@ export default async function ObdCodesPage() {
                 You don't need an expensive diagnostic tool to read your own codes. Basic OBD2 scanners and Bluetooth adapters that pair with a free smartphone app are inexpensive and plug into the OBD-II port, almost always located under the dashboard on the driver's side, usually within reach without tools. Once you have the code, look it up here to understand what it means, what commonly causes it, what symptoms to expect, and what to check first before paying for a diagnosis — many of the most common codes (like a loose fuel cap triggering an EVAP leak code, or a dirty mass airflow sensor triggering a lean-condition code) have simple, low-cost fixes you can rule out yourself.
               </p>
               <p>
-                This lookup covers the most commonly searched, well-documented generic codes — misfires, catalyst efficiency, fuel trim (lean/rich conditions), sensor faults, transmission codes, and network communication errors — with plain-language explanations of causes, symptoms, and diagnostic steps for each one. New codes are added regularly. If a code you're looking for isn't listed yet, our <Link href="/tools/ai-mechanic" className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">AI Mechanic</Link> can help you diagnose the underlying symptom directly.
+                This lookup covers the most commonly searched, well-documented generic codes — misfires, catalyst efficiency, fuel trim (lean/rich conditions), sensor faults, transmission codes, and network communication errors — with plain-language explanations of causes, symptoms, and diagnostic steps for each one. New codes are added regularly. If a code you're looking for isn't listed yet, our <Link prefetch={false} href="/tools/ai-mechanic" className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">AI Mechanic</Link> can help you diagnose the underlying symptom directly.
               </p>
               <p>
                 One thing worth knowing before you spend money on repairs: a diagnostic trouble code tells you <em>what</em> the car's computer detected, not automatically <em>why</em>. The same code can have several different root causes — a lean-condition code, for example, could come from a vacuum leak, a dirty airflow sensor, a weak fuel pump, or a bad oxygen sensor. That's why each code page here lists the common causes in rough order of likelihood, alongside the symptoms you'd typically notice and the checks worth doing yourself before paying a mechanic to diagnose it from scratch. It won't replace a proper diagnosis for anything mechanical or safety-related, but it will tell you enough to ask the right questions and avoid being sold a repair you don't need.
@@ -234,7 +234,7 @@ export default async function ObdCodesPage() {
                 { href: '/tools/vin-checker', label: 'VIN Checker', color: 'blue' },
                 { href: '/vehicles', label: 'Vehicle Information', color: 'violet' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

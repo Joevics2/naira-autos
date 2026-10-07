@@ -23,7 +23,7 @@ export default function AboutPage() {
       <div className="bg-[#080C10] border-b border-white/10">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">About</span>
           </nav>

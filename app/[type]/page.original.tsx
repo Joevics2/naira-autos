@@ -147,11 +147,11 @@ export default async function VehicleTypePage(
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-foreground transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-foreground font-medium">{typeInfo.plural}</span>
             </div>
-            <Link
+            <Link prefetch={false}
               href="/vehicles"
               className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
             >
@@ -182,7 +182,7 @@ export default async function VehicleTypePage(
             {Object.entries(VEHICLE_TYPES)
               .filter(([slug]) => slug !== params.type)
               .map(([slug, info]) => (
-                <Link
+                <Link prefetch={false}
                   key={slug}
                   href={`/${slug}`}
                   className="px-4 py-2 rounded-xl border border-border bg-card hover:border-emerald-500/50 hover:text-emerald-400 text-sm font-medium text-foreground transition-all"
@@ -202,7 +202,7 @@ export default async function VehicleTypePage(
                 {brands.map(brand => {
                   const { bg, text } = getLetterColor(brand.name);
                   return (
-                    <Link
+                    <Link prefetch={false}
                       key={brand.slug}
                       href={`/${params.type}/${brand.slug}`}
                       className="group flex items-center gap-3 bg-card border border-border hover:border-emerald-500/50 hover:bg-card/80 rounded-xl p-3 transition-all duration-200"

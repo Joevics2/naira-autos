@@ -76,7 +76,7 @@ export default function DistanceCalculatorThailandPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/khrueang-mue"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="ย้อนกลับ"
@@ -84,7 +84,7 @@ export default function DistanceCalculatorThailandPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/khrueang-mue" className="hover:text-white/60 transition-colors">{"เครื่องมือ"}</Link>
+              <Link prefetch={false} href="/khrueang-mue" className="hover:text-white/60 transition-colors">{"เครื่องมือ"}</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">{"ประเทศไทย"}</span>
             </nav>
@@ -101,7 +101,7 @@ export default function DistanceCalculatorThailandPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               {"คำนวณระยะทางถนนและเวลาขับรถระหว่าง 23 เมืองในประเทศไทย ตั้งแต่กรุงเทพฯ เชียงใหม่ ไปจนถึงภูเก็ตและหาดใหญ่"}
             </p>
-            <Link href="/tools/distance-calculator-countries" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link prefetch={false} href="/tools/distance-calculator-countries" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               English version →
             </Link>
           </div>
@@ -136,7 +136,7 @@ export default function DistanceCalculatorThailandPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            {"ตรวจสอบโดย "}<Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>{" ผู้เชี่ยวชาญด้านการขายรถยนต์ ระยะทางทั้งหมดเป็นค่าประมาณจากสูตร Haversine"}
+            {"ตรวจสอบโดย "}<Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>{" ผู้เชี่ยวชาญด้านการขายรถยนต์ ระยะทางทั้งหมดเป็นค่าประมาณจากสูตร Haversine"}
           </p>
 
           <div>

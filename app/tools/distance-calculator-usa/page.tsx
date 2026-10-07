@@ -81,7 +81,7 @@ export default function DistanceCalculatorUsaPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="Back to Distance Calculator"
@@ -89,11 +89,11 @@ export default function DistanceCalculatorUsaPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/distance-calculator-countries" className="hover:text-white/60 transition-colors">Distance Calculator</Link>
+              <Link prefetch={false} href="/tools/distance-calculator-countries" className="hover:text-white/60 transition-colors">Distance Calculator</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇺🇸 USA</span>
             </nav>
@@ -142,7 +142,7 @@ export default function DistanceCalculatorUsaPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Auto Sales Expert. Verified routes are widely-repeated distances independently quoted across multiple road-trip and logistics sources. All other routes are Haversine-based estimates — see FAQ below.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Auto Sales Expert. Verified routes are widely-repeated distances independently quoted across multiple road-trip and logistics sources. All other routes are Haversine-based estimates — see FAQ below.
           </p>
 
           <div>

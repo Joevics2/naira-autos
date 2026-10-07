@@ -97,7 +97,7 @@ export default function ToolsFrenchPage() {
                 {categoryTools.map((tool) => {
                   const Icon = tool.icon;
                   return (
-                    <Link
+                    <Link prefetch={false}
                       key={tool.href}
                       href={tool.href}
                       className={`group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-lg transition-all duration-200 ${CATEGORY_BORDER[tool.category]}`}

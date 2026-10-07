@@ -70,15 +70,15 @@ export default function AutoLoanCalculatorGhanaPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools/auto-loan-calculator-countries" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools/auto-loan-calculator-countries" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/auto-loan-calculator-countries" className="hover:text-white/60 transition-colors">Auto Loan Calculator</Link>
+              <Link prefetch={false} href="/tools/auto-loan-calculator-countries" className="hover:text-white/60 transition-colors">Auto Loan Calculator</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">🇬🇭 Ghana</span>
             </nav>
@@ -119,7 +119,7 @@ export default function AutoLoanCalculatorGhanaPage() {
 
           <div>
             <h2 className="text-2xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Financing Often Means Financing the Import Duty Too</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Financing a car in Ghana often means financing the import duty on top of the purchase price, not just the price itself. A typical imported vehicle under 3.0 litres carries 20% import duty, then 15% VAT and 2.5% each for the NHIL and GETFund levies calculated on the duty-inclusive value, plus smaller ECOWAS and EXIM levies — stacking up to roughly 45% on top of the CIF price for a compliant, in-age vehicle. Ghana also caps standard-duty imports at 10 years old from the manufacture date; anything older faces steep, discretionary age penalties on top of the standard duty, which can turn an apparently cheap older import into an expensive one once landed costs are added. If you&apos;re financing an import rather than a car already cleared and sitting on a dealer&apos;s lot in Ghana, run the numbers through our <Link href="/tools/import-duty-calculator-ghana" className="underline underline-offset-2 hover:text-foreground">dedicated import duty calculator</Link> first, since the amount you actually need financed is usually well above the price you saw advertised abroad.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Financing a car in Ghana often means financing the import duty on top of the purchase price, not just the price itself. A typical imported vehicle under 3.0 litres carries 20% import duty, then 15% VAT and 2.5% each for the NHIL and GETFund levies calculated on the duty-inclusive value, plus smaller ECOWAS and EXIM levies — stacking up to roughly 45% on top of the CIF price for a compliant, in-age vehicle. Ghana also caps standard-duty imports at 10 years old from the manufacture date; anything older faces steep, discretionary age penalties on top of the standard duty, which can turn an apparently cheap older import into an expensive one once landed costs are added. If you&apos;re financing an import rather than a car already cleared and sitting on a dealer&apos;s lot in Ghana, run the numbers through our <Link prefetch={false} href="/tools/import-duty-calculator-ghana" className="underline underline-offset-2 hover:text-foreground">dedicated import duty calculator</Link> first, since the amount you actually need financed is usually well above the price you saw advertised abroad.</p>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -178,7 +178,7 @@ export default function AutoLoanCalculatorGhanaPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Rates checked against Bank of Ghana APR reporting history, the September 2026 MPC decision, Stanbic Bank Ghana&apos;s published vehicle finance terms, and current Ghana import duty rules.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Rates checked against Bank of Ghana APR reporting history, the September 2026 MPC decision, Stanbic Bank Ghana&apos;s published vehicle finance terms, and current Ghana import duty rules.
           </p>
 
           <RelatedTools tool="auto-loan-calculator-ghana" />

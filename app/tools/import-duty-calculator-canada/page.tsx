@@ -74,15 +74,15 @@ export default function ImportDutyCalculatorCanadaPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools/import-duty-calculator-countries" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools/import-duty-calculator-countries" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30 flex-wrap">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/import-duty-calculator-countries" className="hover:text-white/60 transition-colors">Import Duty Calculator</Link>
+              <Link prefetch={false} href="/tools/import-duty-calculator-countries" className="hover:text-white/60 transition-colors">Import Duty Calculator</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">🇨🇦 Canada</span>
             </nav>
@@ -218,7 +218,7 @@ export default function ImportDutyCalculatorCanadaPage() {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Sources: CBSA Customs Notice 26-23 and its guidance for travellers, the Customs Tariff (Chapter 87), CBSA Memorandum D18-4-1, Canada Revenue Agency luxury tax guidance and Global Affairs Canada notices on Chinese EV imports. Last verified October 2026.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Sources: CBSA Customs Notice 26-23 and its guidance for travellers, the Customs Tariff (Chapter 87), CBSA Memorandum D18-4-1, Canada Revenue Agency luxury tax guidance and Global Affairs Canada notices on Chinese EV imports. Last verified October 2026.
           </p>
         </div>
       </div>

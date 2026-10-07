@@ -59,13 +59,13 @@ export default function EngineKnockingNoisePage() {
       <div className="bg-[#080C10] pt-10 pb-10 px-4">
         <div className="max-w-screen-md mx-auto">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools/engine-sound-analyzer" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools/engine-sound-analyzer" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/engine-sound-analyzer" className="hover:text-white/60 transition-colors">Engine Sound Analyzer</Link>
+              <Link prefetch={false} href="/tools/engine-sound-analyzer" className="hover:text-white/60 transition-colors">Engine Sound Analyzer</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Knocking Noise</span>
             </nav>
@@ -97,7 +97,7 @@ export default function EngineKnockingNoisePage() {
               <h2 className="text-2xl font-black uppercase text-foreground mb-4" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>
                 What Causes an Engine Knocking Noise?
               </h2>
-              <p className="mb-3">A knock sits a step up in seriousness from a <Link href="/tools/engine-sound-analyzer/ticking-noise" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">tick</Link> — it&apos;s deeper, heavier, and usually gets louder under load or with RPM. The main causes are: <strong className="text-foreground">detonation/pinging</strong> from fuel igniting unevenly (often low octane fuel or carbon buildup), <strong className="text-foreground">rod or main bearing wear</strong> (a genuine mechanical fault that worsens over time), a <strong className="text-foreground">failing fuel injector</strong> on diesel engines specifically, or a <strong className="text-foreground">loose accessory</strong> like an alternator pulley that just sounds more serious than it is.</p>
+              <p className="mb-3">A knock sits a step up in seriousness from a <Link prefetch={false} href="/tools/engine-sound-analyzer/ticking-noise" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">tick</Link> — it&apos;s deeper, heavier, and usually gets louder under load or with RPM. The main causes are: <strong className="text-foreground">detonation/pinging</strong> from fuel igniting unevenly (often low octane fuel or carbon buildup), <strong className="text-foreground">rod or main bearing wear</strong> (a genuine mechanical fault that worsens over time), a <strong className="text-foreground">failing fuel injector</strong> on diesel engines specifically, or a <strong className="text-foreground">loose accessory</strong> like an alternator pulley that just sounds more serious than it is.</p>
               <p>Timing matters a lot here: a knock that appears right after refuelling points at fuel quality; one that&apos;s been growing steadily over weeks regardless of fuel points more toward bearing wear.</p>
             </div>
 
@@ -136,7 +136,7 @@ export default function EngineKnockingNoisePage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Knock categories and causes checked for workshop accuracy.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Knock categories and causes checked for workshop accuracy.
           </p>
 
           {/* FAQ */}
@@ -174,7 +174,7 @@ export default function EngineKnockingNoisePage() {
                 { href: '/tools/engine-sound-analyzer/rattling-noise', label: 'Rattling Noise Analyzer', color: 'violet' },
                 { href: '/tools/ai-mechanic', label: 'AI Mechanic (any symptom)', color: 'blue' },
               ].map(({ href, label, color }) => (
-                <Link key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}>
+                <Link prefetch={false} key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}>
                   <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
                   <ChevronRight className={`h-4 w-4 text-${color}-500`} />
                 </Link>

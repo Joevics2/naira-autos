@@ -62,13 +62,13 @@ export default function VehiclePapersChecklistPage() {
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-violet-500/20 border border-white/15 hover:border-violet-500/40 text-white/60 hover:text-violet-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-violet-500/20 border border-white/15 hover:border-violet-500/40 text-white/60 hover:text-violet-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Vehicle Papers Checklist</span>
             </nav>
@@ -110,7 +110,7 @@ export default function VehiclePapersChecklistPage() {
                 </div>
                 <div>
                   <p className="font-bold text-foreground mb-1">Roadworthiness Certificate (Vehicle Licence)</p>
-                  <p>The roadworthiness certificate is issued annually by the state VIO (Vehicle Inspection Office) or MVAA after a physical inspection of the vehicle's condition. It is a legal requirement and driving without it is a FRSC-enforceable offence. Inspectors check brakes, lights, tyres, wipers, and emission standards. The cost varies by state — see our <Link href="/tools/registration-fee-calculator" className="text-violet-500 hover:underline">Registration Fee Calculator</Link>.</p>
+                  <p>The roadworthiness certificate is issued annually by the state VIO (Vehicle Inspection Office) or MVAA after a physical inspection of the vehicle's condition. It is a legal requirement and driving without it is a FRSC-enforceable offence. Inspectors check brakes, lights, tyres, wipers, and emission standards. The cost varies by state — see our <Link prefetch={false} href="/tools/registration-fee-calculator" className="text-violet-500 hover:underline">Registration Fee Calculator</Link>.</p>
                 </div>
               </div>
               <div className="space-y-5 text-sm text-muted-foreground leading-relaxed">
@@ -142,7 +142,7 @@ export default function VehiclePapersChecklistPage() {
                 <p>Another common issue is <strong className="text-foreground">incomplete paper chains</strong> — a car that has been sold three times with each seller keeping the original documents and only providing the buyer with photocopies. Photocopies have no legal validity for change of ownership. The buyer must receive original documents.</p>
               </div>
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-                <p>For Tokunbo buyers specifically, an additional layer of verification is the <strong className="text-foreground">VIN check</strong> (free). This tells you the vehicle's original manufacture specifications — make, model, year, trim, country of assembly — and can reveal if the car has been significantly modified from its original configuration or if the VIN has been cloned from a different vehicle. Our free <Link href="/tools/vin-checker-global" className="text-violet-500 hover:underline">VIN Checker</Link> runs this check instantly.</p>
+                <p>For Tokunbo buyers specifically, an additional layer of verification is the <strong className="text-foreground">VIN check</strong> (free). This tells you the vehicle's original manufacture specifications — make, model, year, trim, country of assembly — and can reveal if the car has been significantly modified from its original configuration or if the VIN has been cloned from a different vehicle. Our free <Link prefetch={false} href="/tools/vin-checker-global" className="text-violet-500 hover:underline">VIN Checker</Link> runs this check instantly.</p>
                 <p>The <strong className="text-foreground">pre-purchase mechanic inspection</strong> is the most consistently skipped step in Nigerian car buying, and the most consistently regretted. An independent inspection (not from the seller's recommended mechanic) at a reputable workshop costs ₦5,000–₦20,000 and can identify engine faults, flood damage, accident repair, suspension issues, and brake wear that would cost hundreds of thousands to repair. For any car over ₦3 million, this is non-negotiable.</p>
                 <p>After purchase, change of ownership must be processed at the state MVAA to register the car in the buyer's name. Without this, the vehicle legally remains in the seller's name — meaning the seller is still liable for any traffic offences the car incurs and can theoretically dispute ownership. Change of ownership should be done within 30 days of purchase.</p>
               </div>
@@ -158,7 +158,7 @@ export default function VehiclePapersChecklistPage() {
               <p>The most critical mistake Nigerian car importers make is getting the document sequence wrong. Form M must be obtained <strong className="text-foreground">before the car is shipped</strong> — not after. This is not a procedural formality. Without Form M, Nigeria Customs will seize the vehicle at the port and the importer will face complex legal proceedings to retrieve it. The bank that issues Form M will require proof of the purchase transaction (invoice, proforma) and may require collateral depending on the transaction value.</p>
               <p>Once the car arrives at Apapa or Tin Can Island, the clearing process involves submitting the Nigeria Customs SAD (Single Administration Document) via the NICIS II electronic system, physical inspection of the vehicle by Customs officers, payment of the assessed import duty (35% of CIF value plus ECOWAS levy and other charges), and final issuance of a Customs clearance certificate. This clearance certificate is your <strong className="text-foreground">proof of ownership</strong> — the most important document you will receive.</p>
               <p>Engaging a licensed Customs clearing agent is strongly recommended. The clearing process involves multiple agencies, portals, and physical offices. Licensed agents typically charge ₦50,000–₦150,000 for the full clearing process, which is small relative to the duty payments and the cost of errors. Verify that your agent is licensed by Nigeria Customs before engaging them — unlicensed agents have no protection or accountability if issues arise.</p>
-              <p>Use our <Link href="/tools/import-duty-calculator" className="text-violet-500 hover:underline">Import Duty Calculator</Link> to estimate the total duty and levies payable before you commit to a purchase price overseas.</p>
+              <p>Use our <Link prefetch={false} href="/tools/import-duty-calculator" className="text-violet-500 hover:underline">Import Duty Calculator</Link> to estimate the total duty and levies payable before you commit to a purchase price overseas.</p>
             </div>
           </div>
 
@@ -168,7 +168,7 @@ export default function VehiclePapersChecklistPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Document requirements and clearing sequence checked against real vehicle sourcing and clearing experience.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Document requirements and clearing sequence checked against real vehicle sourcing and clearing experience.
           </p>
 
           {/* FAQ */}

@@ -81,7 +81,7 @@ export default function DistanceCalculatorEgyptArabicPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex flex-wrap items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="العودة"
@@ -89,9 +89,9 @@ export default function DistanceCalculatorEgyptArabicPage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
+              <Link prefetch={false} href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
               <span>/</span>
-              <Link href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
+              <Link prefetch={false} href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
               <span>/</span>
               <span className="text-white/60">🇪🇬 مصر</span>
             </nav>
@@ -137,7 +137,7 @@ export default function DistanceCalculatorEgyptArabicPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            راجعتها <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">إيفلين جون</Link>، خبيرة مبيعات السيارات. المسارات الموثّقة مصدرها مصفوفة المسافات المصرية الخاصة ببرنامج الأغذية العالمي التابع للأمم المتحدة. باقي المسارات تقديرية بناءً على الإحداثيات.
+            راجعتها <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">إيفلين جون</Link>، خبيرة مبيعات السيارات. المسارات الموثّقة مصدرها مصفوفة المسافات المصرية الخاصة ببرنامج الأغذية العالمي التابع للأمم المتحدة. باقي المسارات تقديرية بناءً على الإحداثيات.
           </p>
 
           <div>

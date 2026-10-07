@@ -116,7 +116,7 @@ export default function ProfilePage() {
     );
 
     if (locked || comingSoon) return inner;
-    return <Link href={href}>{inner}</Link>;
+    return <Link prefetch={false} href={href}>{inner}</Link>;
   };
 
   return (

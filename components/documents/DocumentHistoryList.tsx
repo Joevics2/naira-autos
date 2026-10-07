@@ -29,7 +29,7 @@ export default function DocumentHistoryList({ onOpen, filterSource }: DocumentHi
           <History className="h-4 w-4 text-muted-foreground" />
           <h2 className="text-sm font-semibold text-foreground">Your saved documents</h2>
         </div>
-        <Link href="/documents/my-documents" className="text-xs font-medium text-sky-600 dark:text-sky-400 hover:underline flex-shrink-0">
+        <Link prefetch={false} href="/documents/my-documents" className="text-xs font-medium text-sky-600 dark:text-sky-400 hover:underline flex-shrink-0">
           View all →
         </Link>
       </div>

@@ -187,14 +187,14 @@ export function HomePage() {
 
           {/* CTA row */}
           <div className="flex flex-wrap gap-3">
-            <Link
+            <Link prefetch={false}
               href="/vehicles"
               className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold text-sm px-6 py-3 rounded-full transition-colors shadow-lg shadow-orange-500/20"
             >
               Explore vehicle guides
               <ChevronRight className="h-4 w-4" />
             </Link>
-            <Link
+            <Link prefetch={false}
               href="/evaluate-used-car"
               className="inline-flex items-center gap-2 border border-border hover:border-orange-400/60 bg-card hover:bg-orange-500/5 text-foreground font-semibold text-sm px-6 py-3 rounded-full transition-all"
             >
@@ -225,7 +225,7 @@ export function HomePage() {
       <section className="max-w-screen-xl mx-auto px-5 sm:px-8 pt-12">
         <div className="flex items-end justify-between mb-5">
           <SectionLabel>Maintenance, Parts &amp; Common Problems</SectionLabel>
-          <Link
+          <Link prefetch={false}
             href="/vehicles"
             className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
           >
@@ -235,7 +235,7 @@ export function HomePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {VEHICLE_GUIDES.map(({ href, brand, model, years, kind, icon: Icon }) => (
-            <Link
+            <Link prefetch={false}
               key={href}
               href={href}
               className="group flex items-start gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-orange-400/40 hover:bg-orange-500/[0.03] transition-all duration-200"
@@ -262,7 +262,7 @@ export function HomePage() {
       <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
         <div className="flex items-end justify-between mb-5">
           <SectionLabel>Document Templates</SectionLabel>
-          <Link
+          <Link prefetch={false}
             href="/documents"
             className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
           >
@@ -272,7 +272,7 @@ export function HomePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {DOCUMENT_GUIDES.map(({ href, label, country, flag }) => (
-            <Link
+            <Link prefetch={false}
               key={href}
               href={href}
               className="group flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-sky-400/40 hover:bg-sky-500/[0.03] transition-all duration-200"
@@ -296,7 +296,7 @@ export function HomePage() {
       <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
         <div className="flex items-end justify-between mb-5">
           <SectionLabel>Latest from the blog</SectionLabel>
-          <Link
+          <Link prefetch={false}
             href="/blog"
             className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
           >
@@ -305,7 +305,7 @@ export function HomePage() {
         </div>
 
         {/* First post — large feature card */}
-        <Link
+        <Link prefetch={false}
           href={BLOG_POSTS[0].href}
           target="_blank"
           rel="noopener noreferrer"
@@ -341,7 +341,7 @@ export function HomePage() {
         {/* Remaining posts — grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {BLOG_POSTS.slice(1).map((post) => (
-            <Link
+            <Link prefetch={false}
               key={post.href}
               href={post.href}
               target="_blank"
@@ -382,7 +382,7 @@ export function HomePage() {
       <section className="max-w-screen-xl mx-auto px-5 sm:px-8">
         <div className="flex items-end justify-between mb-5">
           <SectionLabel>A Few Handy Calculators</SectionLabel>
-          <Link
+          <Link prefetch={false}
             href="/tools"
             className="text-xs font-semibold text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 -mt-5"
           >
@@ -392,7 +392,7 @@ export function HomePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {QUICK_CALCULATORS.map(({ href, icon: Icon, label, description }) => (
-            <Link
+            <Link prefetch={false}
               key={href}
               href={href}
               className="group flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-orange-400/40 hover:bg-orange-500/[0.03] transition-all duration-200"
@@ -452,7 +452,7 @@ export function HomePage() {
           </h3>
           <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
             <p>
-              A few starting points from the current library — new additions get their own spot here over time. If you already own the car and want to know what it needs, search your make and model under <Link href="/vehicles" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">vehicle guides</Link> for its maintenance schedule, common problems, and parts reference. If you're buying or selling and need paperwork, browse <Link href="/documents" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">document templates</Link> for your country, or use the <Link href="/tools/document-generator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI document generator</Link> for something more specific. If you're trying to work out what a car will actually cost to bring in and register, start with the <Link href="/tools/import-duty-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">import duty calculator</Link> and <Link href="/tools/registration-fee-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">registration fee calculator</Link>. And if something's actively wrong with the car in front of you, the <Link href="/tools/ai-mechanic" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI Mechanic</Link> and <Link href="/tools/obd-codes" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">OBD-II code lookup</Link> are the fastest way to a diagnosis. The full current set of calculators is on the <Link href="/tools" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">calculators page</Link>.
+              A few starting points from the current library — new additions get their own spot here over time. If you already own the car and want to know what it needs, search your make and model under <Link prefetch={false} href="/vehicles" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">vehicle guides</Link> for its maintenance schedule, common problems, and parts reference. If you're buying or selling and need paperwork, browse <Link prefetch={false} href="/documents" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">document templates</Link> for your country, or use the <Link prefetch={false} href="/tools/document-generator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI document generator</Link> for something more specific. If you're trying to work out what a car will actually cost to bring in and register, start with the <Link prefetch={false} href="/tools/import-duty-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">import duty calculator</Link> and <Link prefetch={false} href="/tools/registration-fee-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">registration fee calculator</Link>. And if something's actively wrong with the car in front of you, the <Link prefetch={false} href="/tools/ai-mechanic" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">AI Mechanic</Link> and <Link prefetch={false} href="/tools/obd-codes" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">OBD-II code lookup</Link> are the fastest way to a diagnosis. The full current set of calculators is on the <Link prefetch={false} href="/tools" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">calculators page</Link>.
             </p>
           </div>
         </div>

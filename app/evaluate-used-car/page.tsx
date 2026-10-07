@@ -174,13 +174,13 @@ export default function EvaluateUsedCarPage() {
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <div className="flex items-center gap-3 mb-6 text-left">
-              <Link href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="Back to tools">
+              <Link prefetch={false} href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="Back to tools">
                 <ArrowLeft className="h-3.5 w-3.5" />
               </Link>
               <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-                <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+                <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
                 <ChevronRight className="h-3 w-3" />
-                <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+                <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
                 <ChevronRight className="h-3 w-3" />
                 <span className="text-white/50">AI Car Valuation</span>
               </nav>
@@ -190,7 +190,7 @@ export default function EvaluateUsedCarPage() {
                 <Sparkles className="h-3 w-3" />
                 AI-Powered · Free
               </span>
-              <Link href="/cuanto-vale-mi-auto" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              <Link prefetch={false} href="/cuanto-vale-mi-auto" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Leer en Español →
               </Link>
             </div>
@@ -336,7 +336,7 @@ export default function EvaluateUsedCarPage() {
                 { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'blue' },
                 { href: '/tools/vin-checker',            label: 'VIN Checker',            color: 'violet' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

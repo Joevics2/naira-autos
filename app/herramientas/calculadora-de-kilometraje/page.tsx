@@ -77,13 +77,13 @@ export default function CalculadoraDeKilometrajePage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex flex-wrap items-center gap-3 mb-8">
-            <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Atrás">
+            <Link prefetch={false} href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Atrás">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Inicio</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Inicio</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
+              <Link prefetch={false} href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Calculadora de Kilometraje</span>
             </nav>
@@ -157,7 +157,7 @@ export default function CalculadoraDeKilometrajePage() {
               </h2>
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                 <p>La manipulación del odómetro — retroceder el kilometraje de un auto antes de venderlo — sigue siendo lo suficientemente común como para verificarla activamente, en lugar de confiar solo en el número del tablero. Algunas verificaciones prácticas: compara la lectura actual con los registros de mantenimiento, revisiones técnicas o el historial del VIN; revisa el desgaste del volante, los pedales y el asiento del conductor, que debería coincidir aproximadamente con la distancia declarada; y desconfía especialmente de un kilometraje que parezca implausiblemente bajo para la edad del auto sin una explicación clara.</p>
-                <p>Si algo no coincide, un <Link href="/tools/vin-checker-global" className="text-foreground underline underline-offset-2">chequeo del VIN</Link> suele ser la forma más rápida de ver si la lectura actual coincide con lo registrado anteriormente.</p>
+                <p>Si algo no coincide, un <Link prefetch={false} href="/tools/vin-checker-global" className="text-foreground underline underline-offset-2">chequeo del VIN</Link> suele ser la forma más rápida de ver si la lectura actual coincide con lo registrado anteriormente.</p>
               </div>
             </div>
           </div>
@@ -220,7 +220,7 @@ export default function CalculadoraDeKilometrajePage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Revisado por <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Especialista en Ventas de Autos. Marco de kilometraje vs. edad verificado contra patrones reales del mercado de autos usados.
+            Revisado por <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Especialista en Ventas de Autos. Marco de kilometraje vs. edad verificado contra patrones reales del mercado de autos usados.
           </p>
 
           <section>
@@ -228,11 +228,11 @@ export default function CalculadoraDeKilometrajePage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link href="/tools/vin-checker-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link prefetch={false} href="/tools/vin-checker-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Chequeo del VIN (Global)</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/mileage-explainer" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link prefetch={false} href="/tools/mileage-explainer" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">Mileage Explainer (English)</p>
                 <ChevronRight className="h-4 w-4 text-amber-500" />
               </Link>

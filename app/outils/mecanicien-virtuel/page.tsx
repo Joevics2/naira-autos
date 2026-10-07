@@ -255,7 +255,7 @@ export default function AIMechanicPageFR() {
                   { label: 'Liste de documents véhicule', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
                   <li key={href}>
-                    <Link href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
+                    <Link prefetch={false} href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
                       <span>{label}</span>
                       <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
@@ -372,7 +372,7 @@ export default function AIMechanicPageFR() {
           </section>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Vérifié par <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, mécanicien automobile. La logique de diagnostic et les fourchettes de coût de réparation ont été vérifiées pour leur exactitude technique.
+            Vérifié par <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, mécanicien automobile. La logique de diagnostic et les fourchettes de coût de réparation ont été vérifiées pour leur exactitude technique.
           </p>
 
           {/* Final CTA */}
@@ -400,7 +400,7 @@ export default function AIMechanicPageFR() {
                 { href: '/tools/vehicle-papers-checklist', label: 'Liste de documents véhicule',    color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: "Calculateur de droits d'importation", color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

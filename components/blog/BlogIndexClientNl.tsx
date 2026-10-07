@@ -46,7 +46,7 @@ export default function BlogIndexClientNl({ posts }: { posts: BlogPost[] }) {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredBlogs.map((blog) => (
-            <Link key={blog.id} href={`/auto-blog/${blog.slug}`}>
+            <Link prefetch={false} key={blog.id} href={`/auto-blog/${blog.slug}`}>
               <Card className="h-full hover:shadow-lg transition-all overflow-hidden">
                 <div className="aspect-video overflow-hidden">
                   <img

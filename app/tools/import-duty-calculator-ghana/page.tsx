@@ -82,13 +82,13 @@ export default function ImportDutyCalculatorGhanaPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools/import-duty-calculator-countries" className="hover:text-white/60 transition-colors">Import Duty Calculator</Link>
+              <Link prefetch={false} href="/tools/import-duty-calculator-countries" className="hover:text-white/60 transition-colors">Import Duty Calculator</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">🇬🇭 Ghana</span>
             </nav>
@@ -229,7 +229,7 @@ export default function ImportDutyCalculatorGhanaPage() {
                   </table>
                 </div>
                 <p className="text-xs text-muted-foreground mt-3">
-                  Importing to Nigeria instead? Use the <Link href="/tools/import-duty-calculator" className="text-foreground underline underline-offset-2">Nigeria Import Duty Calculator</Link>.
+                  Importing to Nigeria instead? Use the <Link prefetch={false} href="/tools/import-duty-calculator" className="text-foreground underline underline-offset-2">Nigeria Import Duty Calculator</Link>.
                 </p>
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function ImportDutyCalculatorGhanaPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Duty structure and clearing steps checked against real vehicle sourcing and clearing experience.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Duty structure and clearing steps checked against real vehicle sourcing and clearing experience.
           </p>
 
           <div>
@@ -274,19 +274,19 @@ export default function ImportDutyCalculatorGhanaPage() {
               More Import Duty Calculators
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-              <Link href="/tools/import-duty-calculator" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link prefetch={false} href="/tools/import-duty-calculator" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">🇳🇬 Nigeria</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/import-duty-calculator-kenya" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 hover:bg-orange-100 dark:hover:bg-orange-500/20 transition-all">
+              <Link prefetch={false} href="/tools/import-duty-calculator-kenya" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 hover:bg-orange-100 dark:hover:bg-orange-500/20 transition-all">
                 <p className="text-sm font-bold text-orange-700 dark:text-orange-400">🇰🇪 Kenya</p>
                 <ChevronRight className="h-4 w-4 text-orange-500" />
               </Link>
-              <Link href="/tools/import-duty-calculator-south-africa" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link prefetch={false} href="/tools/import-duty-calculator-south-africa" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">🇿🇦 South Africa</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>
-              <Link href="/tools/import-duty-calculator-countries" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
+              <Link prefetch={false} href="/tools/import-duty-calculator-countries" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
                 <p className="text-sm font-bold text-blue-700 dark:text-blue-400">See All Countries</p>
                 <ChevronRight className="h-4 w-4 text-blue-500" />
               </Link>

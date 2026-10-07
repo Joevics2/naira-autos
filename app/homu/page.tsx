@@ -96,7 +96,7 @@ export default async function HomeJapanesePage() {
           >
             利用可能なツール
           </h2>
-          <Link href="/tsuru" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/tsuru" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             すべて見る <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default async function HomeJapanesePage() {
           {TOOLS_JA.map((tool) => {
             const Icon = tool.icon;
             return (
-              <Link
+              <Link prefetch={false}
                 key={tool.href}
                 href={tool.href}
                 className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -140,13 +140,13 @@ export default async function HomeJapanesePage() {
             >
               最新の記事
             </h2>
-            <Link href="/kuruma-burogu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/kuruma-burogu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               すべて見る <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/kuruma-burogu/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

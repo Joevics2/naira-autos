@@ -96,7 +96,7 @@ export default async function HomeKoreanPage() {
           >
             곧 출시될 도구
           </h2>
-          <Link href="/dogu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/dogu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             모두 보기 <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default async function HomeKoreanPage() {
           <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted-foreground">
               한국어로 된 첫 번째 도구를 준비 중입니다. 나중에 다시 확인해 주세요 — 그동안{' '}
-              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">영어 도구</Link>를 사용해 보실 수 있습니다.
+              <Link prefetch={false} href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">영어 도구</Link>를 사용해 보실 수 있습니다.
             </p>
           </div>
         ) : (
@@ -113,7 +113,7 @@ export default async function HomeKoreanPage() {
             {TOOLS_KO.map((tool) => {
               const Icon = tool.icon;
               return (
-                <Link
+                <Link prefetch={false}
                   key={tool.href}
                   href={tool.href}
                   className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -149,13 +149,13 @@ export default async function HomeKoreanPage() {
             >
               최신 글
             </h2>
-            <Link href="/cha-beullogeu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/cha-beullogeu" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               모두 보기 <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/cha-beullogeu/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

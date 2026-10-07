@@ -52,14 +52,14 @@ function Crumbs({ c, trail, backHref }: { c: EngineSoundCopy; trail: { label: st
   const Sep = rtl ? ChevronLeft : ChevronRight;
   return (
     <div className={`flex items-center gap-3 mb-4 ${rtl ? 'text-right' : 'text-left'}`}>
-      <Link href={backHref} className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all flex-shrink-0" aria-label={c.backLabel}>
+      <Link prefetch={false} href={backHref} className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all flex-shrink-0" aria-label={c.backLabel}>
         <Back className="h-4 w-4" />
       </Link>
       <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-white/30">
         {trail.map((t, i) => (
           <span key={i} className="flex items-center gap-1.5">
             {i > 0 && <Sep className="h-3 w-3" />}
-            {t.href ? <Link href={t.href} className="hover:text-white/60 transition-colors">{t.label}</Link> : <span className="text-white/50">{t.label}</span>}
+            {t.href ? <Link prefetch={false} href={t.href} className="hover:text-white/60 transition-colors">{t.label}</Link> : <span className="text-white/50">{t.label}</span>}
           </span>
         ))}
       </nav>
@@ -90,7 +90,7 @@ function Faq({ faqs, title, lang }: { faqs: { q: string; a: string }[]; title: s
 function Reviewed({ c, after }: { c: EngineSoundCopy; after: string }) {
   return (
     <p className="text-xs text-muted-foreground border-t border-border pt-4">
-      {c.reviewedBefore} <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>{after}
+      {c.reviewedBefore} <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>{after}
     </p>
   );
 }
@@ -113,7 +113,7 @@ function Related({ c }: { c: EngineSoundCopy }) {
       <h2 className={`text-xl font-black ${h.upper} text-foreground mb-4`} style={h.style}>{c.relatedTitle}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {links.map(({ href, label, color }) => (
-          <Link key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl border transition-colors ${cls[color]}`}>
+          <Link prefetch={false} key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl border transition-colors ${cls[color]}`}>
             <p className="text-sm font-bold">{label}</p>
             <Chev className="h-4 w-4" />
           </Link>
@@ -210,7 +210,7 @@ export function EngineSoundMainPage({ c }: { c: EngineSoundCopy }) {
             <h2 className={`text-3xl font-black ${h.upper} text-foreground mb-6`} style={h.style}>{c.pickerTitle}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {c.subs.map((s) => (
-                <Link key={s.key} href={subPath(c, s.key)} className="group flex flex-col gap-2 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all">
+                <Link prefetch={false} key={s.key} href={subPath(c, s.key)} className="group flex flex-col gap-2 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all">
                   <p className="font-bold text-foreground">{s.navLabel}</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">{s.cardDesc}</p>
                   <span className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mt-1">{c.pickerCta}</span>
@@ -316,7 +316,7 @@ export function EngineSoundSubPage({ c, subKey }: { c: EngineSoundCopy; subKey: 
             <h2 className={`text-xl font-black ${h.upper} text-foreground mb-4`} style={h.style}>{c.pickerTitle}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[{ label: c.toolName, href: parent, desc: '' }, ...siblings.map((x) => ({ label: x.navLabel, href: subPath(c, x.key), desc: '' }))].map(({ label, href }) => (
-                <Link key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-colors">
+                <Link prefetch={false} key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-colors">
                   <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{label}</p>
                   {c.dir === 'rtl' ? <ChevronLeft className="h-4 w-4 text-emerald-500" /> : <ChevronRight className="h-4 w-4 text-emerald-500" />}
                 </Link>

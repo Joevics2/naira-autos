@@ -554,13 +554,13 @@ export default function AIMechanicClientTH() {
 
         {/* Breadcrumb */}
         <div className="flex flex-wrap items-center gap-3 mb-8">
-          <Link href="/khrueang-mue" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="กลับไปที่เครื่องมือ">
+          <Link prefetch={false} href="/khrueang-mue" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="กลับไปที่เครื่องมือ">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/na-lak" className="hover:text-white/60 transition-colors">หน้าหลัก</Link>
+            <Link prefetch={false} href="/na-lak" className="hover:text-white/60 transition-colors">หน้าหลัก</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/khrueang-mue" className="hover:text-white/60 transition-colors">เครื่องมือ</Link>
+            <Link prefetch={false} href="/khrueang-mue" className="hover:text-white/60 transition-colors">เครื่องมือ</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">หมอรถ AI</span>
           </nav>

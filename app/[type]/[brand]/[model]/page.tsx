@@ -202,13 +202,13 @@ export default async function ModelPage({ params }: { params: Params }) {
               { label: typeInfo.plural, href: '/vehicles' },
             ].map(({ label, href }) => (
               <span key={href} className="flex items-center gap-1">
-                <Link href={href} className="hover:text-foreground transition-colors">{label}</Link>
+                <Link prefetch={false} href={href} className="hover:text-foreground transition-colors">{label}</Link>
                 <ChevronRight className="h-3 w-3" />
               </span>
             ))}
             <span className="text-foreground font-medium">{vm.name}</span>
           </div>
-          <Link
+          <Link prefetch={false}
             href="/vehicles"
             className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
           >
@@ -306,7 +306,7 @@ export default async function ModelPage({ params }: { params: Params }) {
                       <p className="font-bold text-foreground text-base mb-2 capitalize">{carLabel} {year}</p>
                       <div className="flex flex-wrap gap-2">
                         {info.hasParts && (
-                          <Link
+                          <Link prefetch={false}
                             href={`${base}/parts`}
                             className="flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
                           >
@@ -318,7 +318,7 @@ export default async function ModelPage({ params }: { params: Params }) {
                           </Link>
                         )}
                         {info.hasProblems && (
-                          <Link
+                          <Link prefetch={false}
                             href={`${base}/problems`}
                             className="flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
                           >
@@ -330,7 +330,7 @@ export default async function ModelPage({ params }: { params: Params }) {
                           </Link>
                         )}
                         {info.hasMaintenance && (
-                          <Link
+                          <Link prefetch={false}
                             href={`${base}/maintenance`}
                             className="flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
                           >
@@ -403,7 +403,7 @@ export default async function ModelPage({ params }: { params: Params }) {
               { href: '/tools/ai-mechanic',   label: 'AI Mechanic',    sub: 'Diagnose a car problem' },
               { href: '/tools/best-car-for',  label: 'Best Car For Me', sub: 'Find the right car for you' },
             ].map(({ href, label, sub }) => (
-              <Link key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
+              <Link prefetch={false} key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
                 <div>
                   <p className="text-sm font-semibold text-foreground">{label}</p>
                   <p className="text-xs text-muted-foreground">{sub}</p>
@@ -420,7 +420,7 @@ export default async function ModelPage({ params }: { params: Params }) {
             <h2 className="text-lg font-bold text-foreground mb-3">Other {vm.brand_name} Models</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {relatedModels!.map((m: any) => (
-                <Link
+                <Link prefetch={false}
                   key={m.slug}
                   href={`/${params.type}/${params.brand}/${m.slug}`}
                   className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors"
