@@ -30,6 +30,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'in', name: 'India',          flag: '🇮🇳', href: '/tools/auto-loan-calculator-india', live: true },
   { code: 'pk', name: 'Pakistan',       flag: '🇵🇰', href: '/tools/auto-loan-calculator-pakistan', live: true },
   { code: 'ae', name: 'UAE',            flag: '🇦🇪', live: false },
+  { code: 'au', name: 'Australia',      flag: '🇦🇺', href: '/tools/auto-loan-calculator-australia', live: true },
 ];
 
 const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
