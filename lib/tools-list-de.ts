@@ -79,6 +79,15 @@ export const TOOLS_DE: ToolDe[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Kosten und Wartung",
   },
+  {
+    href: '/werkzeuge/kfz-einfuhr-rechner-deutschland',
+    icon: Calculator,
+    label: 'Kfz-Einfuhr-Rechner Deutschland',
+    description: 'Zoll, Einfuhrumsatzsteuer und Gesamtkosten beim Autoimport berechnen — mit 0 % Zoll für Japan und USA, Oldtimern, EU-Neufahrzeugen und chinesischen Elektroautos.',
+    badge: 'Neu',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finanzen',
+  },
 ];
 
 export const CATEGORIES_DE = ['KI und intelligente Werkzeuge', 'Finanzen', 'Kosten und Wartung', 'Überprüfung', 'Ressourcen'];

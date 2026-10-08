@@ -238,6 +238,7 @@ const staticPages = [
   // above).
   { url: '/werkzeuge/entfernungsrechner-deutschland', priority: 0.7, changefreq: 'monthly' },
   { url: '/werkzeuge/autokredit-rechner',              priority: 0.7, changefreq: 'monthly' },
+  { url: '/werkzeuge/kfz-einfuhr-rechner-deutschland', priority: 0.7, changefreq: 'monthly' },
   { url: '/herramientas/calculadora-de-credito-automotriz-mexico', priority: 0.7, changefreq: 'monthly' },
   { url: '/adawat/hasbat-tamwil-sayarat-alemarat', priority: 0.7, changefreq: 'monthly' },
   { url: '/calcolatore-di-distanza-italia',      priority: 0.7, changefreq: 'monthly' },
