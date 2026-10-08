@@ -379,7 +379,7 @@ export default function AIMechanicPageKO() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'VIN 조회',                  color: 'blue' },
+                { href: '/dogu/chadaebeonho-johoe',        label: 'VIN 조회',                  color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: '서류 체크리스트',           color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: '수입 관세 계산기',          color: 'emerald' },
               ].map(({ href, label, color }) => (

@@ -67,7 +67,7 @@ const TOOL_GROUPS: LangPaths[] = [
   { en: '/tools/engine-number-analyzer', es: '/herramientas/verificar-numero-de-motor' },
   { en: '/tools/fuel-cost-calculator-global', es: '/herramientas/calculadora-de-costo-de-combustible-global' },
   { en: '/tools/mileage-explainer', es: '/herramientas/calculadora-de-kilometraje' },
-  { en: '/tools/vin-checker-global', es: '/herramientas/decodificador-de-vin', ar: '/adawat/fahs-raqm-alhaykal', fr: '/outils/decodeur-vin', pt: '/ferramentas/decodificador-de-chassi', de: '/werkzeuge/fahrgestellnummer-pruefen', ja: '/tsuru/vin-code-shirabe', it: '/strumenti/verifica-numero-di-telaio', tr: '/araclar/sasi-numarasi-sorgulama', th: '/khrueang-mue/truat-sop-lek-tua-thang' },
+  { en: '/tools/vin-checker-global', es: '/herramientas/decodificador-de-vin', ar: '/adawat/fahs-raqm-alhaykal', fr: '/outils/decodeur-vin', pt: '/ferramentas/decodificador-de-chassi', de: '/werkzeuge/fahrgestellnummer-pruefen', ja: '/tsuru/vin-code-shirabe', it: '/strumenti/verifica-numero-di-telaio', tr: '/araclar/sasi-numarasi-sorgulama', th: '/khrueang-mue/truat-sop-lek-tua-thang', ko: '/dogu/chadaebeonho-johoe' },
 ];
 
 const GROUPS: LangPaths[] = [...HUB_GROUPS, ...TOOL_GROUPS];

@@ -103,6 +103,7 @@ const staticPages = [
   { url: '/gereedschappen/wat-is-mijn-auto-waard', priority: 0.9, changefreq: 'weekly'  },
   { url: '/upkaran/aabhasi-mekanik',                priority: 0.8, changefreq: 'monthly' },
   { url: '/dogu/gasang-jeongbisa',                  priority: 0.8, changefreq: 'monthly' },
+  { url: '/dogu/chadaebeonho-johoe',                priority: 0.8, changefreq: 'monthly' },
   { url: '/instrumenty/virtualnyy-mekhanik',         priority: 0.8, changefreq: 'monthly' },
   // /home-arabic, /adawat, /accueil, /outils, /pagina-inicial,
   // /ferramentas, /startseite, /werkzeuge, /homu, /tsuru, /inizio,

@@ -1,4 +1,4 @@
-import { Wrench, Car, Ruler } from 'lucide-react';
+import { Wrench, Car, Ruler, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Korean tools index (/dogu).
 // Add an entry here ONLY when that tool's Korean page is actually
@@ -42,6 +42,15 @@ export const TOOLS_KO: ToolKo[] = [
     badge: "신규",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "비용 및 유지보수",
+  },
+  {
+    href: '/dogu/chadaebeonho-johoe',
+    icon: ScanLine,
+    label: '차대번호(VIN) 조회',
+    description: '차대번호(VIN)를 무료로 조회하세요 — 제조사, 모델, 연식, 엔진, 생산 국가를 즉시 확인.',
+    badge: '무료',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: '검증',
   },
 ];
 
