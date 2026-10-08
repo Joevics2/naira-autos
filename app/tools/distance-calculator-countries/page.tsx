@@ -104,13 +104,13 @@ export default function DistanceCalculatorCountryPickerPage() {
       <div className="bg-[#080C10] pt-10 pb-12 px-4">
         <div className="max-w-screen-lg mx-auto">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Distance Calculator</span>
             </nav>
@@ -135,7 +135,7 @@ export default function DistanceCalculatorCountryPickerPage() {
       <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {LIVE_COUNTRIES.map((c) => (
-            <Link
+            <Link prefetch={false}
               key={c.code}
               href={c.href!}
               className="group flex flex-col items-center gap-2 p-5 rounded-2xl border border-border bg-card hover:border-amber-500/40 hover:shadow-lg transition-all"
@@ -170,7 +170,7 @@ export default function DistanceCalculatorCountryPickerPage() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert.
           </p>
         </div>
       </div>

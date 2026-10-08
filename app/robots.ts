@@ -4,7 +4,14 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.naira.autos';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
+    rules: [
+      {
+        // Aggressive SEO/scraper bots with no search value — they burn CDN
+        // requests and ISR reads on thousands of long-tail pages.
+        userAgent: ['Bytespider', 'PetalBot', 'AhrefsBot', 'SemrushBot', 'MJ12bot', 'DotBot', 'DataForSeoBot', 'BLEXBot'],
+        disallow: '/',
+      },
+      {
       userAgent: '*',
       allow: '/',
       disallow: [
@@ -18,7 +25,8 @@ export default function robots(): MetadataRoute.Robots {
         '/saved',
         '/*.json$',
       ],
-    },
+      },
+    ],
     sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

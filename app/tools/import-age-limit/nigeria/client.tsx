@@ -197,7 +197,7 @@ export default function ImportAgeLimitNigeriaClient() {
               )}
 
               <div className="px-5 py-4 border-t border-border flex flex-wrap items-center gap-3">
-                <Link href="/tools/import-duty-calculator" className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground">
+                <Link prefetch={false} href="/tools/import-duty-calculator" className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground">
                   Estimate customs duty for this vehicle <ChevronRight className="h-3.5 w-3.5" />
                 </Link>
               </div>

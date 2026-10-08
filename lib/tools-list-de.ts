@@ -1,4 +1,4 @@
-import { Wrench, Camera, Ruler, ScanLine, Calculator, Car } from 'lucide-react';
+import { Mic, Wrench, Camera, Ruler, ScanLine, Calculator, Car } from 'lucide-react';
 
 // Single source of truth for the German tools index (/werkzeuge).
 // Add an entry here ONLY when that tool's German page is actually
@@ -21,6 +21,15 @@ export const TOOLS_DE: ToolDe[] = [
     icon: Camera,
     label: 'Was ist mein Auto wert?',
     description: 'Laden Sie ein Foto hoch und erhalten Sie sofort eine KI-Bewertung in Ihrer lokalen Währung — Deutschland, Österreich und die Schweiz.',
+    badge: 'Kostenlos',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'KI und intelligente Werkzeuge',
+  },
+  {
+    href: '/werkzeuge/motorgeraeusch-analyse',
+    icon: Mic,
+    label: 'Motorgeräusch-Analyse',
+    description: 'Motorgeräusch aufnehmen oder hochladen und sofort eine KI-Diagnose der wahrscheinlichen Ursache erhalten.',
     badge: 'Kostenlos',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'KI und intelligente Werkzeuge',

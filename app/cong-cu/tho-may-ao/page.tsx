@@ -233,12 +233,12 @@ export default function AIMechanicPageVI() {
               <ul className="space-y-2">
                 {[
                   { label: 'Định giá xe miễn phí', href: '/evaluate-car' },
-                  { label: 'Công Cụ Phân Tích Âm Thanh Động Cơ', href: '/tools/engine-sound-analyzer' },
+                  { label: 'Phân Tích Tiếng Động Cơ', href: '/cong-cu/phan-tich-tieng-dong-co' },
                   { label: 'Máy Tính Thuế Nhập Khẩu', href: '/tools/import-duty-calculator' },
                   { label: 'Danh Sách Giấy Tờ Xe', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
                   <li key={href}>
-                    <Link href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
+                    <Link prefetch={false} href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
                       <span>{label}</span>
                       <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
@@ -355,7 +355,7 @@ export default function AIMechanicPageVI() {
           </section>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Được kiểm duyệt bởi <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Thợ Máy Ô Tô. Logic chẩn đoán và khoảng chi phí sửa chữa đã được kiểm tra độ chính xác kỹ thuật.
+            Được kiểm duyệt bởi <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Thợ Máy Ô Tô. Logic chẩn đoán và khoảng chi phí sửa chữa đã được kiểm tra độ chính xác kỹ thuật.
           </p>
 
           {/* CTA cuối */}
@@ -383,7 +383,7 @@ export default function AIMechanicPageVI() {
                 { href: '/tools/vehicle-papers-checklist', label: 'Danh Sách Giấy Tờ',         color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'Tính Thuế Nhập Khẩu',       color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

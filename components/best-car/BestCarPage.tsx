@@ -36,7 +36,7 @@ function Inline({ text }: { text: string }) {
   while ((m = re.exec(text))) {
     if (m.index > last) out.push(text.slice(last, m.index));
     if (m[1]) out.push(<strong key={i++} className="text-foreground">{m[1]}</strong>);
-    else out.push(<Link key={i++} href={m[3]} className="text-emerald-600 dark:text-emerald-400 underline-offset-2 hover:underline">{m[2]}</Link>);
+    else out.push(<Link prefetch={false} key={i++} href={m[3]} className="text-emerald-600 dark:text-emerald-400 underline-offset-2 hover:underline">{m[2]}</Link>);
     last = re.lastIndex;
   }
   if (last < text.length) out.push(text.slice(last));
@@ -143,7 +143,7 @@ export default function BestCarPage({ c, carText }: { c: BestCarStrings; carText
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex flex-wrap items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href={c.hubPath}
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all"
               aria-label={c.nav.back}
@@ -151,9 +151,9 @@ export default function BestCarPage({ c, carText }: { c: BestCarStrings; carText
               <Back className="h-4 w-4" />
             </Link>
             <nav aria-label={c.nav.breadcrumb} className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href={c.homePath} className="hover:text-white/60 transition-colors">{c.nav.home}</Link>
+              <Link prefetch={false} href={c.homePath} className="hover:text-white/60 transition-colors">{c.nav.home}</Link>
               <Sep className="h-3 w-3" />
-              <Link href={c.hubPath} className="hover:text-white/60 transition-colors">{c.nav.tools}</Link>
+              <Link prefetch={false} href={c.hubPath} className="hover:text-white/60 transition-colors">{c.nav.tools}</Link>
               <Sep className="h-3 w-3" />
               <span className="text-white/60" aria-current="page">{c.nav.current}</span>
             </nav>
@@ -242,7 +242,7 @@ export default function BestCarPage({ c, carText }: { c: BestCarStrings; carText
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-muted-foreground border border-border rounded-xl bg-card px-4 py-3">
             <p>
               <strong className="text-foreground">{c.seo.reviewedByLabel}</strong>{' '}
-              <Link href={c.aboutPath} className="underline underline-offset-2 hover:text-foreground">{c.seo.reviewer}</Link>
+              <Link prefetch={false} href={c.aboutPath} className="underline underline-offset-2 hover:text-foreground">{c.seo.reviewer}</Link>
             </p>
             <p>
               <strong className="text-foreground">{c.seo.updatedLabel}</strong>{' '}
@@ -258,7 +258,7 @@ export default function BestCarPage({ c, carText }: { c: BestCarStrings; carText
             <h2 className="text-xl font-black uppercase text-foreground mb-4" style={heading}>{c.seo.moreToolsHeading}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {related.map(({ href, label, color }) => (
-                <Link key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl border transition-all ${RELATED_STYLES[color]}`}>
+                <Link prefetch={false} key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl border transition-all ${RELATED_STYLES[color]}`}>
                   <p className="text-sm font-bold">{label}</p>
                   <Sep className="h-4 w-4 opacity-70" />
                 </Link>

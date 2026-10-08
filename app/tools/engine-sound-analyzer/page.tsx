@@ -58,13 +58,13 @@ export default function EngineSoundAnalyzerPage() {
       <div className="bg-[#080C10] pt-10 pb-10 px-4">
         <div className="max-w-screen-md mx-auto">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Engine Sound Analyzer</span>
             </nav>
@@ -103,7 +103,7 @@ export default function EngineSoundAnalyzerPage() {
                 { href: '/tools/engine-sound-analyzer/knocking-noise', title: 'Knocking Noise', desc: 'A deeper, heavier knock — can be fuel-related or a more serious bearing issue.' },
                 { href: '/tools/engine-sound-analyzer/rattling-noise', title: 'Rattling Noise', desc: 'A loose, metallic rattle — often a mount, heat shield, or timing component.' },
               ].map(({ href, title, desc }) => (
-                <Link key={href} href={href} className="group flex flex-col gap-2 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all">
+                <Link prefetch={false} key={href} href={href} className="group flex flex-col gap-2 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all">
                   <p className="font-bold text-foreground">{title}</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
                   <span className="text-xs font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mt-1">Diagnose this →</span>
@@ -163,7 +163,7 @@ export default function EngineSoundAnalyzerPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Sound-pattern categories checked for workshop accuracy.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Sound-pattern categories checked for workshop accuracy.
           </p>
 
           {/* FAQ */}
@@ -201,7 +201,7 @@ export default function EngineSoundAnalyzerPage() {
                 { href: '/tools/vin-checker', label: 'VIN Checker', color: 'violet' },
                 { href: '/tools/import-duty-calculator', label: 'Import Duty Calculator', color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}>
+                <Link prefetch={false} key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}>
                   <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
                   <ChevronRight className={`h-4 w-4 text-${color}-500`} />
                 </Link>

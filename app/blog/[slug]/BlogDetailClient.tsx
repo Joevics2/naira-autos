@@ -127,7 +127,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
       
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Back link */}
-        <Link
+        <Link prefetch={false}
   href={basePath}
   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
 >
@@ -142,7 +142,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
 
             {/* Category badge */}
             {post.category && catSlug && (
-              <Link
+              <Link prefetch={false}
                 href={`${basePath}?category=${catSlug}`}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase px-3 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors mb-4"
               >
@@ -231,7 +231,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
               <div className="mt-10 pt-6 border-t flex flex-wrap gap-2">
                 <span className="text-sm text-muted-foreground mr-1 self-center">{t.tags}</span>
                 {post.tags.map((tag) => (
-                  <Link
+                  <Link prefetch={false}
                     key={tag}
                     href={`${basePath}?tag=${encodeURIComponent(tag)}`}
                     className="text-xs px-3 py-1 rounded-full border border-border hover:border-primary hover:text-primary transition-colors"
@@ -246,7 +246,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
             {post.category && catSlug && (
               <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
                 <span>{t.filedUnder}</span>
-                <Link
+                <Link prefetch={false}
                   href={`${basePath}?category=${catSlug}`}
                   className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
                 >
@@ -295,7 +295,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
                       {post.category ? t.moreIn(post.category) : t.relatedArticles}
                     </h3>
                     {post.category && catSlug && (
-                      <Link
+                      <Link prefetch={false}
                         href={`${basePath}?category=${catSlug}`}
                         className="text-xs text-primary hover:underline"
                       >
@@ -306,7 +306,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
 
                   <div className="space-y-4">
                     {relatedPosts.map((related) => (
-                      <Link
+                      <Link prefetch={false}
                         key={related.id}
                         href={`${basePath}/${related.slug}`}
                         className="flex gap-3 group"
@@ -349,7 +349,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
                 <div className="flex flex-wrap gap-2">
                   {['Reviews', 'Comparisons', 'Buying Guide', 'Maintenance', 'News', 'Tips'].map(
                     (cat) => (
-                      <Link
+                      <Link prefetch={false}
                         key={cat}
                         href={`${basePath}?category=${categorySlug(cat)}`}
                         className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
@@ -366,7 +366,7 @@ export default function BlogDetailClient({ post, relatedPosts, lang = 'en', base
               </div>
 
               {/* Glossary */}
-              <Link
+              <Link prefetch={false}
                 href="/tools/glossary"
                 className="flex items-center gap-3 rounded-xl border bg-card p-4 hover:bg-muted transition-colors group"
               >

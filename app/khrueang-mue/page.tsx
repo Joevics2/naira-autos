@@ -97,7 +97,7 @@ export default function ToolsThaiPage() {
                 {categoryTools.map((tool) => {
                   const Icon = tool.icon;
                   return (
-                    <Link
+                    <Link prefetch={false}
                       key={tool.href}
                       href={tool.href}
                       className={`group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-lg transition-all duration-200 ${CATEGORY_BORDER[tool.category]}`}
@@ -131,7 +131,7 @@ export default function ToolsThaiPage() {
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pb-12">
         <p className="text-sm text-muted-foreground text-center">
           เรากำลังแปลเครื่องมือเพิ่มเติมเป็นภาษาไทย ระหว่างนี้คุณสามารถลองใช้{' '}
-          <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 font-semibold">เครื่องมือภาษาอังกฤษของเรา</Link>
+          <Link prefetch={false} href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 font-semibold">เครื่องมือภาษาอังกฤษของเรา</Link>
         </p>
       </div>
     </div>

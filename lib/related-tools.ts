@@ -72,6 +72,11 @@ export const RELATED_TOOLS: Record<string, RelatedToolLink[]> = {
     { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
     { href: '/tools/car-comparison', label: 'Car Comparison Tool', color: 'blue' },
   ],
+  'auto-loan-calculator-australia': [
+    { href: '/tools/distance-calculator-australia', label: 'Australia Distance Calculator', color: 'blue' },
+    { href: '/tools/vin-checker-global', label: 'VIN Checker (Global)', color: 'violet' },
+    { href: '/tools/fuel-cost-calculator-global', label: 'Fuel Cost Calculator', color: 'emerald' },
+  ],
   'insurance-calculator': [
     { href: '/tools/car-comparison', label: 'Car Comparison Tool', color: 'blue' },
     { href: '/tools/best-car-for', label: 'Best Car For...', color: 'emerald' },

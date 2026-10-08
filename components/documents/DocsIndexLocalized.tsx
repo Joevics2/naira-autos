@@ -163,7 +163,7 @@ export default function DocsIndexLocalized({ templates, templateBase, countries,
 function Card({ t, base, countries, updatedPrefix }: { t: HubTemplate; base: string; countries: Props['countries']; updatedPrefix?: string }) {
   const c = countries[t.country];
   return (
-    <Link href={`${base}/${t.type}/${t.country}`} className="bg-card border border-border hover:border-foreground/30 rounded-xl p-4 transition-colors">
+    <Link prefetch={false} href={`${base}/${t.type}/${t.country}`} className="bg-card border border-border hover:border-foreground/30 rounded-xl p-4 transition-colors">
       <p className="font-semibold text-foreground text-sm">{t.title}</p>
       <p className="text-xs text-muted-foreground mt-1">
         {c?.flag ?? '\u{1F30D}'} {c?.name ?? t.country.toUpperCase()}

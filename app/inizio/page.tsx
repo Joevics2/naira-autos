@@ -15,7 +15,7 @@ type LatestPost = {
   featured_image: string | null;
 };
 
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'Naira Autos in Italiano — Strumenti Gratuiti per la Tua Auto',
@@ -96,7 +96,7 @@ export default async function HomeItalianPage() {
           >
             Strumenti disponibili
           </h2>
-          <Link href="/strumenti" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/strumenti" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             Vedi tutti <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default async function HomeItalianPage() {
           {TOOLS_IT.map((tool) => {
             const Icon = tool.icon;
             return (
-              <Link
+              <Link prefetch={false}
                 key={tool.href}
                 href={tool.href}
                 className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -140,13 +140,13 @@ export default async function HomeItalianPage() {
             >
               Ultimi articoli
             </h2>
-            <Link href="/blog-motori" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/blog-motori" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               Vedi tutti <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/blog-motori/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

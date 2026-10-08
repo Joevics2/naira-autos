@@ -562,7 +562,7 @@ export function ListingDetailClient({ listing }: Props) {
                 </p>
               )}
               {sellerId && (
-                <Link href={`/seller/${sellerId}`}>
+                <Link prefetch={false} href={`/seller/${sellerId}`}>
                   <button className="w-full py-2.5 rounded-lg border border-[#258055] text-[#258055] text-sm font-semibold hover:bg-[#258055]/10 transition-colors">
                     View Seller Profile →
                   </button>
@@ -577,7 +577,7 @@ export function ListingDetailClient({ listing }: Props) {
           <div className="py-5 border-b border-gray-200 dark:border-[#2F3336]">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-base font-bold text-gray-900 dark:text-[#E7E9EA]">Reviews</h3>
-              {sellerId && <Link href={`/seller/${sellerId}#reviews`} className="text-sm text-[#258055] dark:text-[#1D9BF0]">View all</Link>}
+              {sellerId && <Link prefetch={false} href={`/seller/${sellerId}#reviews`} className="text-sm text-[#258055] dark:text-[#1D9BF0]">View all</Link>}
             </div>
             <div className="space-y-3">
               {sellerReviews.slice(0, 2).map((review) => (
@@ -635,14 +635,14 @@ export function ListingDetailClient({ listing }: Props) {
         <div className="mt-4 pb-8 px-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-base font-bold text-gray-900 dark:text-[#E7E9EA]">Similar Cars You Might Like</h2>
-            <Link href={`/search?vehicle_type=${encodeURIComponent((listing as any).vehicle_type)}`} className="text-xs text-[#258055] dark:text-[#1D9BF0]">See all</Link>
+            <Link prefetch={false} href={`/search?vehicle_type=${encodeURIComponent((listing as any).vehicle_type)}`} className="text-xs text-[#258055] dark:text-[#1D9BF0]">See all</Link>
           </div>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
             {similarListings.map((car) => {
               const img = car.images?.[0] ?? 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=400';
               const listingSlug = `${car.year ?? 'unknown'}-${(car.brand ?? 'car').toLowerCase().replace(/\s+/g, '-')}-${(car.model ?? 'vehicle').toLowerCase().replace(/\s+/g, '-')}-${car.id}`;
               return (
-                <Link key={car.id}
+                <Link prefetch={false} key={car.id}
                   href={`/listing/${listingSlug}`}
                   className="flex-shrink-0 w-44 bg-white dark:bg-[#16191D] border border-gray-200 dark:border-[#2F3336] rounded-xl overflow-hidden hover:border-[#258055] hover:shadow-md transition-all">
                   <img

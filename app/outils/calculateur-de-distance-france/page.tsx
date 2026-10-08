@@ -71,7 +71,7 @@ export default function DistanceCalculatorFranceFrenchPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex flex-wrap items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="Retour"
@@ -79,9 +79,9 @@ export default function DistanceCalculatorFranceFrenchPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Accueil</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Accueil</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/outils" className="hover:text-white/60 transition-colors">Outils</Link>
+              <Link prefetch={false} href="/outils" className="hover:text-white/60 transition-colors">Outils</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇫🇷 France</span>
             </nav>
@@ -130,7 +130,7 @@ export default function DistanceCalculatorFranceFrenchPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            Vérifié par <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, experte en vente automobile. Itinéraires vérifiés à partir des longueurs officielles d&rsquo;autoroutes sur Wikipédia et de guides de distance recoupés. Tous les autres itinéraires sont des estimations basées sur Haversine — voir la FAQ ci-dessous.
+            Vérifié par <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, experte en vente automobile. Itinéraires vérifiés à partir des longueurs officielles d&rsquo;autoroutes sur Wikipédia et de guides de distance recoupés. Tous les autres itinéraires sont des estimations basées sur Haversine — voir la FAQ ci-dessous.
           </p>
 
           <div>

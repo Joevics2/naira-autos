@@ -83,18 +83,18 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
         {/* Breadcrumb */}
         <div className="flex items-center justify-between gap-3 no-print flex-wrap">
           <div className="flex items-center gap-3 flex-wrap">
-            <Link href="/plantillas" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0" aria-label="Atrás">
+            <Link prefetch={false} href="/plantillas" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-sky-500/10 border border-border hover:border-sky-500/40 text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-all flex-shrink-0" aria-label="Atrás">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-sm text-muted-foreground flex-wrap">
-              <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Inicio</Link>
+              <Link prefetch={false} href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Inicio</Link>
               <ChevronRight className="h-3.5 w-3.5" />
-              <Link href="/plantillas" className="hover:text-foreground">Plantillas</Link>
+              <Link prefetch={false} href="/plantillas" className="hover:text-foreground">Plantillas</Link>
               <ChevronRight className="h-3.5 w-3.5" />
               <span className="text-foreground font-medium">{docType.label} — {docCountry.name}</span>
             </nav>
           </div>
-          <Link
+          <Link prefetch={false}
             href="/plantillas/mis-documentos"
             className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-600 text-white text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
           >
@@ -108,7 +108,7 @@ export default function TemplateDocumentClientEs({ template, docType, docCountry
           <div className="flex items-center gap-2 mb-2">
             <FileCheck2 className="h-4 w-4 text-sky-500" />
             <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Plantilla Gratis · Sin Registro</span>
-            <Link href={`/documents/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
+            <Link prefetch={false} href={`/documents/${docType.slug}/${docCountry.code}`} className="text-[11px] text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors ml-1">
               Read in English →
             </Link>
           </div>

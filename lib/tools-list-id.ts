@@ -1,4 +1,4 @@
-import { Wrench, Camera, Car, Ruler } from 'lucide-react';
+import { Mic, Wrench, Camera, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Indonesian tools index (/alat).
 // Add an entry here ONLY when that tool's Indonesian page is actually
@@ -16,6 +16,15 @@ export type ToolId = {
 };
 
 export const TOOLS_ID: ToolId[] = [
+  {
+    href: '/alat/analisis-suara-mesin',
+    icon: Mic,
+    label: 'Analisis Suara Mesin',
+    description: 'Rekam atau unggah suara mesin mobil Anda dan dapatkan diagnosis AI instan untuk penyebab yang mungkin.',
+    badge: 'Gratis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AI dan Alat Cerdas',
+  },
   {
     href: '/alat/montir-virtual',
     icon: Wrench,

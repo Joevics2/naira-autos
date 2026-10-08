@@ -12,7 +12,7 @@ import { AccessoriesSection } from '@/components/AccessoriesSection';
 
 type Params = { type: string; brand: string; model: string; year: string };
 
-export const revalidate = 86400; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
+export const revalidate = 604800; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
 
 interface VehiclePart {
   id: string;
@@ -141,13 +141,13 @@ export default async function PartsPage({ params }: { params: Params }) {
               <span key={b.label + i} className="flex items-center gap-1">
                 {i > 0 && <ChevronRight className="h-3 w-3" />}
                 {b.href
-                  ? <Link href={b.href} className="hover:text-foreground transition-colors">{b.label}</Link>
+                  ? <Link prefetch={false} href={b.href} className="hover:text-foreground transition-colors">{b.label}</Link>
                   : <span className="text-foreground font-medium">{b.label}</span>
                 }
               </span>
             ))}
           </div>
-          <Link
+          <Link prefetch={false}
             href={`/${params.type}/${params.brand}/${params.model}`}
             className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
           >
@@ -285,7 +285,7 @@ export default async function PartsPage({ params }: { params: Params }) {
           <div className="border border-border rounded-xl p-5 bg-card space-y-2">
             <p className="text-sm font-semibold text-foreground mb-1">Also worth reading</p>
             {problemsCheck && (
-              <Link
+              <Link prefetch={false}
                 href={`${yearBase}/problems`}
                 className="flex items-center justify-between gap-2 px-4 py-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
               >
@@ -294,7 +294,7 @@ export default async function PartsPage({ params }: { params: Params }) {
               </Link>
             )}
             {maintenanceCheck && (
-              <Link
+              <Link prefetch={false}
                 href={`${yearBase}/maintenance`}
                 className="flex items-center justify-between gap-2 px-4 py-3 rounded-lg bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
               >
@@ -314,7 +314,7 @@ export default async function PartsPage({ params }: { params: Params }) {
               { href: '/tools/ai-mechanic',   label: 'AI Mechanic',    sub: 'Diagnose a car problem' },
               { href: '/tools/best-car-for',  label: 'Best Car For Me', sub: 'Find the right car for you' },
             ].map(({ href, label, sub }) => (
-              <Link key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
+              <Link prefetch={false} key={href} href={href} className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
                 <div>
                   <p className="text-sm font-semibold text-foreground">{label}</p>
                   <p className="text-xs text-muted-foreground">{sub}</p>

@@ -58,7 +58,7 @@ export default function ToolsRussianPage() {
                 {toolsInCategory.map((tool) => {
                   const Icon = tool.icon;
                   return (
-                    <Link
+                    <Link prefetch={false}
                       key={tool.href}
                       href={tool.href}
                       className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -88,7 +88,7 @@ export default function ToolsRussianPage() {
         <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
           <p className="text-sm text-muted-foreground">
             Больше инструментов на русском скоро появятся — включая ИИ-механика. Загляните позже, а пока попробуйте{' '}
-            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">наши инструменты на английском</Link>.
+            <Link prefetch={false} href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">наши инструменты на английском</Link>.
           </p>
         </div>
       </div>

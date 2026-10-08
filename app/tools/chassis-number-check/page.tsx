@@ -63,13 +63,13 @@ export default function ChassisNumberCheckPage() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex flex-wrap items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Chassis Number Check</span>
             </nav>
@@ -145,7 +145,7 @@ export default function ChassisNumberCheckPage() {
               <div>
                 <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Before You Calculate Import Duty, Get the Chassis Details Right</h2>
                 <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-                  <p>Customs duty on used vehicles is typically calculated using the vehicle's age and engine size — both of which the chassis number confirms independently of whatever the seller or shipping paperwork claims. Decoding the chassis number before you buy, or before you clear a vehicle through port, gives you the real figures to plug into an <Link href="/tools/import-duty-calculator" className="text-foreground underline underline-offset-2">import duty calculator</Link> or a <Link href="/tools/registration-fee-calculator" className="text-foreground underline underline-offset-2">registration fee calculator</Link>, instead of budgeting around a number that turns out to be wrong at the port.</p>
+                  <p>Customs duty on used vehicles is typically calculated using the vehicle's age and engine size — both of which the chassis number confirms independently of whatever the seller or shipping paperwork claims. Decoding the chassis number before you buy, or before you clear a vehicle through port, gives you the real figures to plug into an <Link prefetch={false} href="/tools/import-duty-calculator" className="text-foreground underline underline-offset-2">import duty calculator</Link> or a <Link prefetch={false} href="/tools/registration-fee-calculator" className="text-foreground underline underline-offset-2">registration fee calculator</Link>, instead of budgeting around a number that turns out to be wrong at the port.</p>
                 </div>
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function ChassisNumberCheckPage() {
                 { href: '/tools/vin-checker', label: 'VIN Checker (Nigeria)', color: 'emerald' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Vehicle Papers Checklist', color: 'violet' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

@@ -84,7 +84,7 @@ export default function DistanceCalculatorIndonesiaPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/alat"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="Kembali"
@@ -92,7 +92,7 @@ export default function DistanceCalculatorIndonesiaPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/alat" className="hover:text-white/60 transition-colors">Alat</Link>
+              <Link prefetch={false} href="/alat" className="hover:text-white/60 transition-colors">Alat</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">Indonesia</span>
             </nav>
@@ -109,7 +109,7 @@ export default function DistanceCalculatorIndonesiaPage() {
             <p className="text-base text-white/50 leading-relaxed max-w-xl">
               Hitung jarak jalan darat dan waktu tempuh antara 28 kota di Indonesia — Jakarta, Bandung, Surabaya, Malang, dan kota besar lainnya.
             </p>
-            <Link href="/tools/distance-calculator-countries" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
+            <Link prefetch={false} href="/tools/distance-calculator-countries" className="inline-block mt-3 text-xs text-amber-400 hover:text-amber-300 underline underline-offset-2">
               English version →
             </Link>
           </div>
@@ -144,7 +144,7 @@ export default function DistanceCalculatorIndonesiaPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            Ditinjau oleh: <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Pakar Penjualan Otomotif. Rute terverifikasi dicocokkan dengan beberapa penerbit Indonesia; rute lain adalah perkiraan berbasis rumus Haversine.
+            Ditinjau oleh: <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, Pakar Penjualan Otomotif. Rute terverifikasi dicocokkan dengan beberapa penerbit Indonesia; rute lain adalah perkiraan berbasis rumus Haversine.
           </p>
 
           <div>

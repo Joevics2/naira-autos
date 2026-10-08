@@ -9,7 +9,7 @@ export async function generateStaticParams() {
   return params;
 }
 
-export const revalidate = 86400; // ISR: 24h revalidation — see the matching note in app/documents/[type]/[country]/page.tsx
+export const revalidate = 604800; // ISR: 24h revalidation — see the matching note in app/documents/[type]/[country]/page.tsx
 
 function resolveDocType(slug: string, templateTitle: string): DocumentTypeDef {
   return getDocumentType(slug) ?? {

@@ -73,13 +73,13 @@ export default function GuidesPage() {
 
       {/* Breadcrumb */}
       <div className="flex items-center gap-3 mb-6">
-        <Link href="/blog" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-emerald-500/10 border border-border hover:border-emerald-500/40 text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex-shrink-0" aria-label="Back">
+        <Link prefetch={false} href="/blog" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-emerald-500/10 border border-border hover:border-emerald-500/40 text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex-shrink-0" aria-label="Back">
           <ArrowLeft className="h-4 w-4" />
         </Link>
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
+          <Link prefetch={false} href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Home</Link>
           <ChevronRight className="h-3.5 w-3.5" />
-          <Link href="/blog" className="hover:text-foreground">Blog</Link>
+          <Link prefetch={false} href="/blog" className="hover:text-foreground">Blog</Link>
           <ChevronRight className="h-3.5 w-3.5" />
           <span className="text-foreground font-medium">Guides</span>
         </nav>
@@ -95,7 +95,7 @@ export default function GuidesPage() {
       </div>
 
       {/* Glossary CTA */}
-      <Link
+      <Link prefetch={false}
         href="/tools/glossary"
         className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted transition-colors mb-8"
       >
@@ -119,7 +119,7 @@ export default function GuidesPage() {
       ) : guides.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-muted-foreground text-sm mb-4">No articles published yet — check back soon.</p>
-          <Link href="/blog" className="text-sm font-medium text-foreground underline underline-offset-2">
+          <Link prefetch={false} href="/blog" className="text-sm font-medium text-foreground underline underline-offset-2">
             Browse all blog posts
           </Link>
         </div>
@@ -132,7 +132,7 @@ export default function GuidesPage() {
             const image = post.featured_image || getBlogFallbackImage(post.slug);
             const date  = new Date(post.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' });
             return (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/blog/${post.slug}`}
                 className="flex gap-4 p-4 rounded-xl border border-border bg-card hover:bg-muted transition-colors"
@@ -159,7 +159,7 @@ export default function GuidesPage() {
 
       {/* View all blog posts */}
       <div className="mt-8 pt-6 border-t border-border text-center">
-        <Link href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <Link prefetch={false} href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
           View all blog posts →
         </Link>
       </div>

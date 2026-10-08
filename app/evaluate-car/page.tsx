@@ -173,13 +173,13 @@ export default function EvaluateCarPage() {
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <div className="flex items-center gap-3 mb-6 text-left">
-              <Link href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="Back to tools">
+              <Link prefetch={false} href="/tools" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="Back to tools">
                 <ArrowLeft className="h-3.5 w-3.5" />
               </Link>
               <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-                <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+                <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
                 <ChevronRight className="h-3 w-3" />
-                <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+                <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
                 <ChevronRight className="h-3 w-3" />
                 <span className="text-white/50">Car Valuation</span>
               </nav>

@@ -116,7 +116,7 @@ export function CookieBanner() {
     >
       <p className="text-[11px] sm:text-xs text-white/60 flex-1 truncate sm:whitespace-normal">
         We use cookies for analytics and ads.{' '}
-        <Link
+        <Link prefetch={false}
           href="/privacy"
           className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors"
         >

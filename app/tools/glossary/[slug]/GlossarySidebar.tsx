@@ -32,7 +32,7 @@ export function GlossarySidebar({ related }: Props) {
           </h3>
           <div className="space-y-2">
             {related.map(r => (
-              <Link
+              <Link prefetch={false}
                 key={r.slug}
                 href={`/tools/glossary/${r.slug}`}
                 className="group flex items-start gap-3 p-3 rounded-xl hover:bg-emerald-500/5 border border-transparent hover:border-emerald-500/20 transition-all"
@@ -61,7 +61,7 @@ export function GlossarySidebar({ related }: Props) {
         </p>
         <div className="flex flex-col gap-2">
           {links.map(({ label, sub, href }) => (
-            <Link
+            <Link prefetch={false}
               key={href}
               href={href}
               className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all group"
@@ -82,7 +82,7 @@ export function GlossarySidebar({ related }: Props) {
         <p className="text-xs text-muted-foreground leading-relaxed mb-3">
           Browse all terms alphabetically or search by topic across the full car market glossary.
         </p>
-        <Link
+        <Link prefetch={false}
           href="/tools/glossary"
           className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
         >

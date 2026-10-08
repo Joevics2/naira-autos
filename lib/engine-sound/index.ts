@@ -1,6 +1,13 @@
 import type { Lang } from '@/lib/hreflang';
 import type { EngineSoundCopy, SubKey } from './types';
 import { es } from './es';
+import { vi } from './vi';
+import { id } from './id';
+import { th } from './th';
+import { tr } from './tr';
+import { it } from './it';
+import { ja } from './ja';
+import { de } from './de';
 import { pt } from './pt';
 import { fr } from './fr';
 import { ar } from './ar';

@@ -82,13 +82,13 @@ export default function KamQeematSayaratiPage() {
         <div className="bg-[#080C10] pt-16 pb-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <div className="flex items-center gap-3 mb-6 text-right">
-              <Link href="/adawat" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="رجوع">
+              <Link prefetch={false} href="/adawat" className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0" aria-label="رجوع">
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <nav aria-label="مسار التنقل" className="flex items-center gap-1.5 text-xs text-white/30">
-                <Link href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
+                <Link prefetch={false} href="/home-arabic" className="hover:text-white/60 transition-colors">الرئيسية</Link>
                 <ChevronLeft className="h-3 w-3" />
-                <Link href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
+                <Link prefetch={false} href="/adawat" className="hover:text-white/60 transition-colors">الأدوات</Link>
                 <ChevronLeft className="h-3 w-3" />
                 <span className="text-white/50">تقييم السيارة بالذكاء الاصطناعي</span>
               </nav>
@@ -98,7 +98,7 @@ export default function KamQeematSayaratiPage() {
                 <Sparkles className="h-3 w-3" />
                 بالذكاء الاصطناعي · مجاني
               </span>
-              <Link href="/evaluate-used-car" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
+              <Link prefetch={false} href="/evaluate-used-car" className="text-[11px] text-white/40 hover:text-white/70 underline underline-offset-2 transition-colors">
                 Read in English ←
               </Link>
             </div>
@@ -198,15 +198,15 @@ export default function KamQeematSayaratiPage() {
               المزيد من الأدوات المجانية
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <Link href="/adawat/mikaniki-iftiradi" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link prefetch={false} href="/adawat/mikaniki-iftiradi" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">ميكانيكي افتراضي بالذكاء الاصطناعي</p>
                 <ArrowRight className="h-4 w-4 text-emerald-500 rotate-180" />
               </Link>
-              <Link href="/adawat" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
+              <Link prefetch={false} href="/adawat" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all">
                 <p className="text-sm font-bold text-blue-700 dark:text-blue-400">كل الأدوات</p>
                 <ArrowRight className="h-4 w-4 text-blue-500 rotate-180" />
               </Link>
-              <Link href="/home-arabic" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link prefetch={false} href="/home-arabic" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">الرئيسية بالعربية</p>
                 <ArrowRight className="h-4 w-4 text-amber-500 rotate-180" />
               </Link>

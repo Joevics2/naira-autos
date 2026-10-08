@@ -185,7 +185,7 @@ export default function GeneradorDeDocumentosPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Revisado por <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Especialista en Ventas de Autos. Categorías de documentos y cobertura de cláusulas verificadas contra transacciones reales de venta.
+            Revisado por <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Especialista en Ventas de Autos. Categorías de documentos y cobertura de cláusulas verificadas contra transacciones reales de venta.
           </p>
 
           {/* Related tools */}
@@ -194,15 +194,15 @@ export default function GeneradorDeDocumentosPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <Link href="/plantillas" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link prefetch={false} href="/plantillas" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Plantillas de Documentos Gratis</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>
-              <Link href="/herramientas/mecanico-virtual" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link prefetch={false} href="/herramientas/mecanico-virtual" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mecánico Virtual con IA</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/cuanto-vale-mi-auto" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link prefetch={false} href="/cuanto-vale-mi-auto" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">¿Cuánto Vale Mi Auto?</p>
                 <ChevronRight className="h-4 w-4 text-amber-500" />
               </Link>

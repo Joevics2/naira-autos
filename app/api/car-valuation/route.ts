@@ -1,5 +1,6 @@
 // app/api/car-valuation/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
 import { getValuationCountry, type ValuationCountry } from '@/lib/currencies';
 import { GEMINI_MODELS, getGeminiKeys } from '@/lib/gemini-keys';
 
@@ -299,6 +300,9 @@ async function analyzeAndPriceWithGemini(
     th: 'natural, fluent Thai',
     id: 'natural, fluent Indonesian',
     nl: 'natural, fluent Dutch',
+    hi: 'natural, fluent Hindi',
+    ko: 'natural, fluent Korean',
+    ru: 'natural, fluent Russian',
   };
   const languageInstruction = lang && LANGUAGE_NAMES[lang]
     ? `\nLANGUAGE: Write "description", "bodyGradeReason", "disclaimer", and every string inside "valuationFactors" in ${LANGUAGE_NAMES[lang]}. Keep every other field — bodyType, vehicleType, fuelType, transmission, confidence, estimatedCarType, and all JSON keys — in English exactly as specified below; do not translate those.\n`
@@ -409,6 +413,9 @@ VALUATION FACTORS — write exactly 3, in plain friendly language a car buyer in
 
 // ─── Main handler ─────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
+  const limited = await rateLimit(req, 'car-valuation', 20, 3600);
+  if (limited) return limited;
+
   try {
     const body = await req.json();
     const { imageBase64, mimeType, condition, location, country, skipSerp, lang } = body;

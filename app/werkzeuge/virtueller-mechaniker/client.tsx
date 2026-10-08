@@ -559,13 +559,13 @@ export default function AIMechanicClientDE() {
 
         {/* Breadcrumb */}
         <div className="flex flex-wrap items-center gap-3 mb-8">
-          <Link href="/werkzeuge" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Zurück zu Werkzeuge">
+          <Link prefetch={false} href="/werkzeuge" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Zurück zu Werkzeuge">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/startseite" className="hover:text-white/60 transition-colors">Startseite</Link>
+            <Link prefetch={false} href="/startseite" className="hover:text-white/60 transition-colors">Startseite</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/werkzeuge" className="hover:text-white/60 transition-colors">Werkzeuge</Link>
+            <Link prefetch={false} href="/werkzeuge" className="hover:text-white/60 transition-colors">Werkzeuge</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">KI-Mechaniker</span>
           </nav>

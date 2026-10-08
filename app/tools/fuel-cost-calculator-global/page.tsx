@@ -79,13 +79,13 @@ export default function GlobalFuelCostCalculatorPage() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex flex-wrap items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Global Fuel Cost Calculator</span>
             </nav>
@@ -135,7 +135,7 @@ export default function GlobalFuelCostCalculatorPage() {
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                 <p>Our original fuel cost calculator was built for Nigerian drivers — Naira pricing, Lagos–Abuja style routes, local pump-price ranges. As traffic started coming in from outside Nigeria, we built this global version alongside it rather than diluting the Nigeria-specific one.</p>
                 <p>This tool now covers <strong className="text-foreground">44 currencies</strong> and real road-distance routes across <strong className="text-foreground">53 countries</strong> and <strong className="text-foreground">200+ cities</strong> — from Lagos to Tokyo, Cairo to Buenos Aires, Warsaw to Wellington. Pricing is refreshed market by market as we verify official or regulator-published data rather than estimating, so a handful of currencies (e.g. Iran, Argentina, Nigeria) carry wider slider ranges because their pump prices move fast.</p>
-                <p>Prefer a Nigeria-only experience with deeper local content? Use the <Link href="/tools/fuel-cost-calculator" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">original Fuel Cost Calculator</Link> instead — same underlying math, Naira-first.</p>
+                <p>Prefer a Nigeria-only experience with deeper local content? Use the <Link prefetch={false} href="/tools/fuel-cost-calculator" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">original Fuel Cost Calculator</Link> instead — same underlying math, Naira-first.</p>
               </div>
             </div>
           </div>
@@ -233,11 +233,11 @@ export default function GlobalFuelCostCalculatorPage() {
               More Free Tools
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link href="/tools/fuel-cost-calculator" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link prefetch={false} href="/tools/fuel-cost-calculator" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Nigeria Fuel Cost Calculator</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/tools/road-trip-calculator" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
+              <Link prefetch={false} href="/tools/road-trip-calculator" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all">
                 <p className="text-sm font-bold text-amber-700 dark:text-amber-400">Road Trip Calculator</p>
                 <ChevronRight className="h-4 w-4 text-amber-500" />
               </Link>

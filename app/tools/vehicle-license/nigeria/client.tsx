@@ -183,7 +183,7 @@ export default function VehicleLicenseNigeriaClient() {
                 ) : (
                   <p className="text-xs text-muted-foreground">No confirmed online portal for {state} — visit your state MVAA/VIO office.</p>
                 )}
-                <Link href="/tools/registration-fee-calculator" className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground ml-auto">
+                <Link prefetch={false} href="/tools/registration-fee-calculator" className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground ml-auto">
                   Full breakdown incl. new registration <ChevronRight className="h-3.5 w-3.5" />
                 </Link>
               </div>

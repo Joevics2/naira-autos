@@ -105,7 +105,7 @@ export async function generateStaticParams() {
   return slugs.map(slug => ({ slug }));
 }
 
-export const revalidate = 86400; // ISR: 24h — was 60s, effectively no caching
+export const revalidate = 604800; // ISR: 24h — was 60s, effectively no caching
 
 // ── Metadata ──────────────────────────────────────────────────────
 
@@ -269,11 +269,11 @@ export default async function GlossaryTermPage({
 
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+            <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tools/glossary" className="hover:text-white/60 transition-colors">Glossary</Link>
+            <Link prefetch={false} href="/tools/glossary" className="hover:text-white/60 transition-colors">Glossary</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50 truncate max-w-[160px]">{term.term}</span>
           </nav>
@@ -425,7 +425,7 @@ export default async function GlossaryTermPage({
 
               {/* Back link */}
               <div className="pt-4">
-                <Link
+                <Link prefetch={false}
                   href="/tools/glossary"
                   className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
@@ -443,7 +443,7 @@ export default async function GlossaryTermPage({
                 </h3>
                 <div className="space-y-2">
                   {related.map(r => (
-                    <Link
+                    <Link prefetch={false}
                       key={r.slug}
                       href={`/tools/glossary/${r.slug}`}
                       className="flex items-start gap-3 p-3 rounded-xl hover:bg-emerald-500/5 border border-transparent hover:border-emerald-500/20 transition-colors"
@@ -467,19 +467,19 @@ export default async function GlossaryTermPage({
                 More from Naira Autos
               </p>
               <div className="space-y-2">
-                <Link href="/tools/ai-mechanic" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                <Link prefetch={false} href="/tools/ai-mechanic" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
                   <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">AI Mechanic</p>
                   <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Diagnose your car for free</p>
                 </Link>
-                <Link href="/sell-for-me" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                <Link prefetch={false} href="/sell-for-me" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
                   <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Sell For Me</p>
                   <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">We handle everything for you</p>
                 </Link>
-                <Link href="/vehicles" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                <Link prefetch={false} href="/vehicles" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
                   <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Vehicle Information</p>
                   <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Prices, parts & model guides</p>
                 </Link>
-                <Link href="/blog" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
+                <Link prefetch={false} href="/blog" className="block px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800">
                   <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Read Blog Posts</p>
                   <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Tips, guides & buying advice</p>
                 </Link>
@@ -492,7 +492,7 @@ export default async function GlossaryTermPage({
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                 Browse all terms alphabetically or search by topic across the full car market glossary.
               </p>
-              <Link
+              <Link prefetch={false}
                 href="/tools/glossary"
                 className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
               >

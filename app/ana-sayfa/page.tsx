@@ -17,7 +17,7 @@ type LatestPost = {
 
 // ISR: revalidate once every 24h — same pattern as inicio/page.tsx,
 // accueil/page.tsx, homu/page.tsx, etc.
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'Naira Autos Türkçe — Arabanız İçin Ücretsiz Araçlar',
@@ -100,7 +100,7 @@ export default async function AnaSayfaPage() {
           >
             Mevcut Araçlar
           </h2>
-          <Link href="/araclar" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/araclar" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             Tümünü gör <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -109,7 +109,7 @@ export default async function AnaSayfaPage() {
           {TOOLS_TR.map((tool) => {
             const Icon = tool.icon;
             return (
-              <Link
+              <Link prefetch={false}
                 key={tool.href}
                 href={tool.href}
                 className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -144,13 +144,13 @@ export default async function AnaSayfaPage() {
             >
               Son Yazılar
             </h2>
-            <Link href="/oto-blog" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/oto-blog" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               Tümünü gör <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/oto-blog/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 // + revalidate 0 while templates were being added daily — reverted now
 // that's settled down; see the git history on this line if it needs to go
 // back to force-dynamic during another active-adding period.)
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 // Supabase is the real source of truth for whether a template page exists —
 // DOCUMENT_TYPES/DOCUMENT_COUNTRIES are only used to enrich a page when the

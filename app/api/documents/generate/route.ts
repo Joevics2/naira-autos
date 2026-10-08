@@ -17,6 +17,7 @@
 // Template library for review — see the auto-seed block below.
 
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
 import { createClient } from '@supabase/supabase-js';
 import { callGemini, parseGeminiJSON } from '@/lib/gemini-documents';
 import { getDocumentType, getDocumentCountry, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/document-types';
@@ -58,6 +59,9 @@ Rules:
 - Do not write any disclaimer or "not legal advice" text yourself — the platform displays that separately, outside the document.`;
 
 export async function POST(req: NextRequest) {
+  const limited = await rateLimit(req, 'documents-generate', 15, 3600);
+  if (limited) return limited;
+
   try {
     const {
       documentTypeSlug,

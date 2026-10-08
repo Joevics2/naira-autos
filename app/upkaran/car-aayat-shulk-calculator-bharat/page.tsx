@@ -74,13 +74,13 @@ export default function ImportDutyCalculatorIndiaHIPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#080C10] via-[#080C10]/95 to-[#0D1117] pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/upkaran" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="वापस">
+            <Link prefetch={false} href="/upkaran" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="वापस">
               <ArrowRight className="h-4 w-4" />
             </Link>
             <nav aria-label="ब्रेडक्रम्ब" className="flex items-center gap-1.5 text-xs text-white/30 flex-wrap">
-              <Link href="/hom" className="hover:text-white/60 transition-colors">होम</Link>
+              <Link prefetch={false} href="/hom" className="hover:text-white/60 transition-colors">होम</Link>
               <ChevronLeft className="h-3 w-3" />
-              <Link href="/upkaran" className="hover:text-white/60 transition-colors">उपकरण</Link>
+              <Link prefetch={false} href="/upkaran" className="hover:text-white/60 transition-colors">उपकरण</Link>
               <ChevronLeft className="h-3 w-3" />
               <span className="text-white/50">🇮🇳 भारत कार आयात शुल्क कैलकुलेटर</span>
             </nav>
@@ -224,7 +224,7 @@ export default function ImportDutyCalculatorIndiaHIPage() {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            समीक्षक: <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, संस्थापक। स्रोत: केंद्रीय बजट 2025 की सीमा शुल्क अधिसूचनाएँ, CBIC की GST 2.0 अधिसूचनाएँ, भारत–UK CETA पर DGFT की सूचनाएँ। अंतिम जाँच: अक्टूबर 2026।
+            समीक्षक: <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, संस्थापक। स्रोत: केंद्रीय बजट 2025 की सीमा शुल्क अधिसूचनाएँ, CBIC की GST 2.0 अधिसूचनाएँ, भारत–UK CETA पर DGFT की सूचनाएँ। अंतिम जाँच: अक्टूबर 2026।
           </p>
         </div>
       </div>

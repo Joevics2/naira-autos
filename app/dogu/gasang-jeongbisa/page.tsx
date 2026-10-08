@@ -238,7 +238,7 @@ export default function AIMechanicPageKO() {
                   { label: '서류 체크리스트', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
                   <li key={href}>
-                    <Link href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
+                    <Link prefetch={false} href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
                       <span>{label}</span>
                       <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
@@ -355,7 +355,7 @@ export default function AIMechanicPageKO() {
           </section>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            검토: <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, 자동차 정비사. 진단 로직과 수리 비용 범위의 기술적 정확성을 확인했습니다.
+            검토: <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, 자동차 정비사. 진단 로직과 수리 비용 범위의 기술적 정확성을 확인했습니다.
           </p>
 
           {/* 마지막 CTA */}
@@ -383,7 +383,7 @@ export default function AIMechanicPageKO() {
                 { href: '/tools/vehicle-papers-checklist', label: '서류 체크리스트',           color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: '수입 관세 계산기',          color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

@@ -233,12 +233,12 @@ export default function AIMechanicPageTH() {
               <ul className="space-y-2">
                 {[
                   { label: 'ประเมินราคารถฟรี', href: '/evaluate-car' },
-                  { label: 'เครื่องวิเคราะห์เสียงเครื่องยนต์', href: '/tools/engine-sound-analyzer' },
+                  { label: 'วิเคราะห์เสียงเครื่องยนต์', href: '/khrueang-mue/wikhro-siang-khrueang-yon' },
                   { label: 'คำนวณภาษีนำเข้า', href: '/tools/import-duty-calculator' },
                   { label: 'รายการตรวจสอบเอกสาร', href: '/tools/vehicle-papers-checklist' },
                 ].map(({ label, href }) => (
                   <li key={href}>
-                    <Link href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
+                    <Link prefetch={false} href={href} className="flex items-center justify-between text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group">
                       <span>{label}</span>
                       <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
@@ -355,7 +355,7 @@ export default function AIMechanicPageTH() {
           </section>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            ตรวจสอบโดย <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link> ช่างซ่อมรถยนต์ ตรรกะการวินิจฉัยและช่วงค่าซ่อมได้รับการตรวจสอบความถูกต้องทางเทคนิคแล้ว
+            ตรวจสอบโดย <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link> ช่างซ่อมรถยนต์ ตรรกะการวินิจฉัยและช่วงค่าซ่อมได้รับการตรวจสอบความถูกต้องทางเทคนิคแล้ว
           </p>
 
           {/* คำกระตุ้นสุดท้าย */}
@@ -383,7 +383,7 @@ export default function AIMechanicPageTH() {
                 { href: '/tools/vehicle-papers-checklist', label: 'รายการตรวจสอบเอกสาร',       color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'คำนวณภาษีนำเข้า',            color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

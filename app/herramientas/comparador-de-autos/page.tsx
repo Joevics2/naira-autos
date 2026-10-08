@@ -93,7 +93,7 @@ export default function ComparadorDeAutosPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex flex-wrap items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/herramientas"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all"
               aria-label="Volver a Herramientas"
@@ -101,9 +101,9 @@ export default function ComparadorDeAutosPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/inicio" className="hover:text-white/60 transition-colors">Inicio</Link>
+              <Link prefetch={false} href="/inicio" className="hover:text-white/60 transition-colors">Inicio</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
+              <Link prefetch={false} href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">Comparador de Autos</span>
             </nav>
@@ -211,11 +211,11 @@ export default function ComparadorDeAutosPage() {
               Más Herramientas Gratuitas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link href="/herramientas/mejor-auto-para-ti" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
+              <Link prefetch={false} href="/herramientas/mejor-auto-para-ti" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">Mejor Auto Para Ti</p>
                 <ChevronRight className="h-4 w-4 text-emerald-500" />
               </Link>
-              <Link href="/herramientas/calculadora-de-costo-de-combustible-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
+              <Link prefetch={false} href="/herramientas/calculadora-de-costo-de-combustible-global" className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-all">
                 <p className="text-sm font-bold text-sky-700 dark:text-sky-400">Calculadora de Costo de Combustible</p>
                 <ChevronRight className="h-4 w-4 text-sky-500" />
               </Link>

@@ -2,14 +2,9 @@ import { HomePage } from '@/components/home/HomePage';
 import { Metadata } from 'next';
 import { alternatesFor } from '@/lib/hreflang';
 
-// Force this route to render fresh on every request instead of being
-// statically generated once at build time and cached. A fully static
-// homepage can end up serving an old cached HTML snapshot after a
-// redeploy — including stale references like the PWA manifest link
-// below, which is why disabling it in layout.tsx didn't always stick
-// on a page a visitor had cached from before that change went out.
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ISR: cache the homepage and re-render at most hourly (was force-dynamic,
+// which ran a serverless function on every single visit and bot hit).
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Naira Autos - Free Car Tools & Guides',

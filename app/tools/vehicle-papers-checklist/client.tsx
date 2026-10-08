@@ -288,11 +288,11 @@ export default function VehiclePapersClient() {
             </div>
 
             <div className="grid grid-cols-2 gap-2 pt-1">
-              <Link href="/tools/import-duty-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-violet-500/10 border border-violet-500/20 hover:bg-violet-500/20 transition-all">
+              <Link prefetch={false} href="/tools/import-duty-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-violet-500/10 border border-violet-500/20 hover:bg-violet-500/20 transition-all">
                 <p className="text-xs font-bold text-violet-700 dark:text-violet-400">Import duty calculator</p>
                 <ChevronRight className="h-3.5 w-3.5 text-violet-600 dark:text-violet-500"/>
               </Link>
-              <Link href="/tools/registration-fee-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all">
+              <Link prefetch={false} href="/tools/registration-fee-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all">
                 <p className="text-xs font-bold text-blue-700 dark:text-blue-400">Registration fees</p>
                 <ChevronRight className="h-3.5 w-3.5 text-blue-600 dark:text-blue-500"/>
               </Link>

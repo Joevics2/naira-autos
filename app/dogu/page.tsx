@@ -58,7 +58,7 @@ export default function ToolsKoreanPage() {
                 {toolsInCategory.map((tool) => {
                   const Icon = tool.icon;
                   return (
-                    <Link
+                    <Link prefetch={false}
                       key={tool.href}
                       href={tool.href}
                       className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -88,7 +88,7 @@ export default function ToolsKoreanPage() {
         <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
           <p className="text-sm text-muted-foreground">
             한국어로 된 더 많은 도구가 곧 제공됩니다 — AI 정비사를 포함해서요. 나중에 다시 확인해 주세요, 그동안{' '}
-            <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">영어 도구</Link>를 사용해 보세요.
+            <Link prefetch={false} href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">영어 도구</Link>를 사용해 보세요.
           </p>
         </div>
       </div>

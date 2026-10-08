@@ -1,4 +1,4 @@
-import { Wrench, Camera, ScanLine, Car } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Car } from 'lucide-react';
 
 // Single source of truth for the Italian tools index (/strumenti).
 // Add an entry here ONLY when that tool's Italian page is actually
@@ -21,6 +21,15 @@ export const TOOLS_IT: ToolIt[] = [
     icon: Camera,
     label: 'Quanto Vale la Mia Auto?',
     description: 'Carica una foto e ricevi subito una valutazione con IA nella tua valuta locale.',
+    badge: 'Gratis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'IA e Strumenti Intelligenti',
+  },
+  {
+    href: '/strumenti/analizzatore-rumori-motore',
+    icon: Mic,
+    label: 'Analizzatore di Rumori del Motore',
+    description: 'Registra o carica il rumore del motore e ricevi subito una diagnosi con IA della causa probabile.',
     badge: 'Gratis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'IA e Strumenti Intelligenti',

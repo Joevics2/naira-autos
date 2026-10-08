@@ -95,7 +95,7 @@ export default function VehiclesIndexClient({ cards, typeCounts }: Props) {
 
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <Link prefetch={false} href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
           <span className="text-foreground font-medium">Vehicles</span>
         </nav>
@@ -218,7 +218,7 @@ function VehicleCard({ card }: { card: VehicleCardData }) {
 
   return (
     <div className="flex flex-col border-2 border-border rounded-xl overflow-hidden bg-card shadow-sm">
-      <Link href={card.modelHref} className="block">
+      <Link prefetch={false} href={card.modelHref} className="block">
         {card.image ? (
           <div>
             <div className="relative aspect-video bg-muted overflow-hidden">
@@ -259,7 +259,7 @@ function VehicleCard({ card }: { card: VehicleCardData }) {
           {buttons.map(b => {
             const Icon = b.icon;
             return (
-              <Link
+              <Link prefetch={false}
                 key={b.label}
                 href={b.href}
                 className={`flex-1 min-w-[110px] flex items-center justify-between gap-1.5 px-3 py-2 rounded-lg border transition-colors ${b.classes}`}

@@ -1,4 +1,4 @@
-import { Camera, ScanLine, Wrench, Car, Ruler } from 'lucide-react';
+import { Mic, Camera, ScanLine, Wrench, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Turkish tools index (/araclar).
 // Add an entry here ONLY when that tool's Turkish page is actually
@@ -16,6 +16,15 @@ export type ToolTr = {
 };
 
 export const TOOLS_TR: ToolTr[] = [
+  {
+    href: '/araclar/motor-sesi-analizi',
+    icon: Mic,
+    label: 'Motor Sesi Analizi',
+    description: 'Motor sesini kaydedin veya yükleyin, olası arıza nedenini anında yapay zekâ ile öğrenin.',
+    badge: 'Ücretsiz',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Yapay Zeka ve Akıllı Araçlar',
+  },
   {
     href: '/araclar/sanal-usta',
     icon: Wrench,

@@ -1,4 +1,4 @@
-import { Camera, Wrench, Car, Ruler } from 'lucide-react';
+import { Mic, Camera, Wrench, Car, Ruler } from 'lucide-react';
 
 // Single source of truth for the Vietnamese tools index (/cong-cu).
 // Add an entry here ONLY when that tool's Vietnamese page is actually
@@ -16,6 +16,15 @@ export type ToolVi = {
 };
 
 export const TOOLS_VI: ToolVi[] = [
+  {
+    href: '/cong-cu/phan-tich-tieng-dong-co',
+    icon: Mic,
+    label: 'Phân Tích Tiếng Động Cơ',
+    description: 'Ghi âm hoặc tải lên tiếng động cơ xe và nhận ngay chẩn đoán AI về nguyên nhân có thể.',
+    badge: 'Miễn Phí',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AI và Công Cụ Thông Minh',
+  },
   {
     href: '/cong-cu/tho-may-ao',
     icon: Wrench,

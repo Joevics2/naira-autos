@@ -15,7 +15,7 @@ interface BreadcrumbsProps {
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
-      <Link 
+      <Link prefetch={false} 
         href="/" 
         className="flex items-center hover:text-foreground transition-colors"
       >
@@ -25,7 +25,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
         <span key={index} className="flex items-center gap-1">
           <ChevronRight className="h-4 w-4" />
           {item.href ? (
-            <Link 
+            <Link prefetch={false} 
               href={item.href}
               className="hover:text-foreground transition-colors"
             >

@@ -85,7 +85,7 @@ export default async function DocsHubPage({ lang }: { lang: DocsLang }) {
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{s.h1}</h1>
           <p className="text-muted-foreground leading-relaxed">{s.intro}</p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Link
+            <Link prefetch={false}
               href={s.minePath}
               className="inline-flex items-center gap-2 bg-card border border-border hover:border-sky-500/40 hover:text-sky-500 text-sm font-semibold text-foreground rounded-lg px-4 py-2 transition-colors"
             >
@@ -95,7 +95,7 @@ export default async function DocsHubPage({ lang }: { lang: DocsLang }) {
             {s.axiosHref && s.axiosCta && (
               <p className="text-sm text-muted-foreground">
                 {s.axiosLead}{' '}
-                <Link href={s.axiosHref} className="text-sky-500 hover:underline inline-flex items-center gap-1">
+                <Link prefetch={false} href={s.axiosHref} className="text-sky-500 hover:underline inline-flex items-center gap-1">
                   <Sparkles className="h-3.5 w-3.5" />{s.axiosCta}
                 </Link>
               </p>

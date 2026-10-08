@@ -46,7 +46,7 @@ export default async function BlogFrenchPage() {
           <p className="text-white/80 max-w-2xl">
             Conseils et guides utiles pour acheter et vendre des voitures
           </p>
-          <Link
+          <Link prefetch={false}
             href="/tools/glossary"
             className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white text-sm font-semibold rounded-lg px-4 py-2 mt-4 transition-colors"
           >

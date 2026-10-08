@@ -100,7 +100,7 @@ export default function CarComparisonPage() {
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           {/* Breadcrumb + back */}
           <div className="flex flex-wrap items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/tools"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-blue-500/20 border border-white/15 hover:border-blue-500/40 text-white/60 hover:text-blue-400 transition-all"
               aria-label="Back to Tools"
@@ -108,9 +108,9 @@ export default function CarComparisonPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">Car Comparison</span>
             </nav>
@@ -169,7 +169,7 @@ export default function CarComparisonPage() {
               <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
                 <p>
                   <strong className="text-gray-900">Fuel consumption figures</strong> shown in this tool are manufacturer combined-cycle figures. Real-world Nigerian consumption is typically 15–30% higher due to Lagos traffic, air conditioning running continuously, and road surfaces that cause more acceleration/braking cycles. A car rated at 10 L/100km should be budgeted at 12–13 L/100km for realistic cost planning. Use our{' '}
-                  <Link href="/tools/fuel-cost-calculator" className="text-blue-600 hover:underline">Fuel Cost Calculator</Link>{' '}
+                  <Link prefetch={false} href="/tools/fuel-cost-calculator" className="text-blue-600 hover:underline">Fuel Cost Calculator</Link>{' '}
                   to convert these figures into a monthly naira cost for your specific commute.
                 </p>
                 <p>
@@ -177,7 +177,7 @@ export default function CarComparisonPage() {
                 </p>
                 <p>
                   For a complete 5-year ownership cost view combining fuel, maintenance, insurance, and depreciation, see our{' '}
-                  <Link href="/tools/best-car-for" className="text-blue-600 hover:underline">Best Car For... Recommender</Link>{' '}
+                  <Link prefetch={false} href="/tools/best-car-for" className="text-blue-600 hover:underline">Best Car For... Recommender</Link>{' '}
                   which ranks cars specifically by use case and total cost of ownership for Nigeria.
                 </p>
               </div>
@@ -285,7 +285,7 @@ export default function CarComparisonPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Joshua Victor</Link>, Founder. Comparison ratings checked against real dealer and workshop experience.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Joshua Victor</Link>, Founder. Comparison ratings checked against real dealer and workshop experience.
           </p>
 
           {/* Related tools */}
@@ -295,7 +295,7 @@ export default function CarComparisonPage() {
               { href: '/tools/fuel-cost-calculator', label: 'Fuel Cost Calculator',        color: 'amber' },
               { href: '/evaluate-car',               label: 'AI Car Valuation',            color: 'violet' },
             ].map(({ href, label, color }) => (
-              <Link
+              <Link prefetch={false}
                 key={href}
                 href={href}
                 className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 border border-${color}-200 hover:bg-${color}-100 transition-all`}

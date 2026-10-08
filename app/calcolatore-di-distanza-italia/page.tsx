@@ -71,7 +71,7 @@ export default function DistanceCalculatorItalyItalianPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex flex-wrap items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="Indietro"
@@ -79,9 +79,9 @@ export default function DistanceCalculatorItalyItalianPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Strumenti</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Strumenti</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇮🇹 Italia</span>
             </nav>
@@ -130,7 +130,7 @@ export default function DistanceCalculatorItalyItalianPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            Verificato da <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, esperta di vendita auto. Percorsi verificati dalle lunghezze ufficiali ANAS delle autostrade e da guide di distanza incrociate. Tutti gli altri percorsi, incluso Roma-Milano, sono stime basate su Haversine — vedi le FAQ sotto.
+            Verificato da <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, esperta di vendita auto. Percorsi verificati dalle lunghezze ufficiali ANAS delle autostrade e da guide di distanza incrociate. Tutti gli altri percorsi, incluso Roma-Milano, sono stime basate su Haversine — vedi le FAQ sotto.
           </p>
 
           <div>

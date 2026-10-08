@@ -15,7 +15,7 @@ type LatestPost = {
   featured_image: string | null;
 };
 
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: 'Naira Autos Bahasa Indonesia — Alat Gratis untuk Mobil Anda',
@@ -96,7 +96,7 @@ export default async function HomeIndonesianPage() {
           >
             Alat yang Akan Datang
           </h2>
-          <Link href="/alat" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+          <Link prefetch={false} href="/alat" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
             Lihat Semua <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default async function HomeIndonesianPage() {
           <div className="rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center">
             <p className="text-sm text-muted-foreground">
               Kami sedang menerjemahkan alat pertama ke Bahasa Indonesia. Kunjungi lagi segera — atau coba{' '}
-              <Link href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">alat berbahasa Inggris kami</Link>{' '}sementara menunggu.
+              <Link prefetch={false} href="/tools" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2">alat berbahasa Inggris kami</Link>{' '}sementara menunggu.
             </p>
           </div>
         ) : (
@@ -113,7 +113,7 @@ export default async function HomeIndonesianPage() {
             {TOOLS_ID.map((tool) => {
               const Icon = tool.icon;
               return (
-                <Link
+                <Link prefetch={false}
                   key={tool.href}
                   href={tool.href}
                   className="group flex items-start gap-4 p-5 rounded-2xl border border-border bg-card hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"
@@ -149,13 +149,13 @@ export default async function HomeIndonesianPage() {
             >
               Artikel Terbaru
             </h2>
-            <Link href="/blog-mobil" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <Link prefetch={false} href="/blog-mobil" className="flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               Lihat Semua <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-              <Link
+              <Link prefetch={false}
                 key={post.id}
                 href={`/blog-mobil/${post.slug}`}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-emerald-500/40 hover:shadow-lg transition-all duration-200"

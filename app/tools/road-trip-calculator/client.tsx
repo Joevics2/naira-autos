@@ -394,11 +394,11 @@ export default function RoadTripClient() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
-                  <Link href="/tools/fuel-cost-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all">
+                  <Link prefetch={false} href="/tools/fuel-cost-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all">
                     <p className="text-xs font-bold text-amber-700 dark:text-amber-400">Fuel cost calculator</p>
                     <ChevronRight className="h-3.5 w-3.5 text-amber-600 dark:text-amber-500"/>
                   </Link>
-                  <Link href="/tools/auto-loan-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all">
+                  <Link prefetch={false} href="/tools/auto-loan-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all">
                     <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400">Loan calculator</p>
                     <ChevronRight className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500"/>
                   </Link>

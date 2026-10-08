@@ -222,13 +222,13 @@ export default async function BrandPage(
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-foreground transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href={`/${params.type}`} className="hover:text-foreground transition-colors capitalize">{typeInfo.plural}</Link>
+              <Link prefetch={false} href={`/${params.type}`} className="hover:text-foreground transition-colors capitalize">{typeInfo.plural}</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-foreground font-medium">{brandName}</span>
             </div>
-            <Link
+            <Link prefetch={false}
               href={`/${params.type}`}
               className="inline-flex items-center gap-1 font-medium border border-border rounded-full px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors flex-shrink-0"
             >
@@ -281,7 +281,7 @@ export default async function BrandPage(
                   const cardImageReference = model.og_image_url ? null : (firstYearReferenceMap.get(model.slug) ?? null);
 
                   return (
-                    <Link
+                    <Link prefetch={false}
                       key={model.slug}
                       href={`/${params.type}/${params.brand}/${model.slug}`}
                       className="group bg-card border border-border hover:border-foreground/30 rounded-xl overflow-hidden transition-colors"
@@ -361,7 +361,7 @@ export default async function BrandPage(
             <p className="text-xs text-muted-foreground mb-3 font-semibold uppercase tracking-widest">
               Other {typeInfo.singular} Brands
             </p>
-            <Link
+            <Link prefetch={false}
               href={`/${params.type}`}
               className="inline-flex items-center gap-1.5 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
             >

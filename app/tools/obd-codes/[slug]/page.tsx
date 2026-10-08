@@ -17,7 +17,7 @@ export async function generateStaticParams() {
   return slugs.map(slug => ({ slug }));
 }
 
-export const revalidate = 86400; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
+export const revalidate = 604800; // ISR: revalidate once every 24h so newly-published content shows up within a day, instead of hitting Supabase on every single request
 
 // ── Metadata ──────────────────────────────────────────────────────
 
@@ -155,11 +155,11 @@ export default async function ObdCodePage({
 
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+            <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tools/obd-codes" className="hover:text-white/60 transition-colors">OBD-II Codes</Link>
+            <Link prefetch={false} href="/tools/obd-codes" className="hover:text-white/60 transition-colors">OBD-II Codes</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">{item.code}</span>
           </nav>
@@ -315,12 +315,12 @@ export default async function ObdCodePage({
 
               {/* Reviewer credit */}
               <p className="text-xs text-muted-foreground border-t border-border pt-4">
-                Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Causes and diagnostic steps checked for workshop accuracy.
+                Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Emmanuel Erere</Link>, Auto Mechanic. Causes and diagnostic steps checked for workshop accuracy.
               </p>
 
               {/* Back link */}
               <div className="pt-4">
-                <Link
+                <Link prefetch={false}
                   href="/tools/obd-codes"
                   className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
@@ -340,7 +340,7 @@ export default async function ObdCodePage({
                   {related.map(r => {
                     const rSev = SEVERITY_STYLES[r.severity] ?? SEVERITY_STYLES.Medium;
                     return (
-                      <Link
+                      <Link prefetch={false}
                         key={r.slug}
                         href={`/tools/obd-codes/${r.slug}`}
                         className="flex items-start gap-3 p-3 rounded-xl hover:bg-emerald-500/5 border border-transparent hover:border-emerald-500/20 transition-colors"
@@ -373,7 +373,7 @@ export default async function ObdCodePage({
                   { href: '/tools/vin-checker', label: 'VIN Checker', color: 'blue' },
                   { href: '/vehicles', label: 'Vehicle Information', color: 'violet' },
                 ].map(({ href, label, color }) => (
-                  <Link
+                  <Link prefetch={false}
                     key={href}
                     href={href}
                     className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
@@ -391,7 +391,7 @@ export default async function ObdCodePage({
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                 Browse every common OBD-II diagnostic trouble code, grouped by system.
               </p>
-              <Link
+              <Link prefetch={false}
                 href="/tools/obd-codes"
                 className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
               >

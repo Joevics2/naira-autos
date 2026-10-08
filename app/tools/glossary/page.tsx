@@ -121,7 +121,7 @@ export default async function GlossaryPage() {
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
 
           {/* Back button */}
-          <Link
+          <Link prefetch={false}
             href="/tools"
             className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors mb-6"
           >
@@ -130,9 +130,9 @@ export default async function GlossaryPage() {
 
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+            <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">Glossary</span>
           </nav>
@@ -152,20 +152,20 @@ export default async function GlossaryPage() {
               {/* FIX 4: Added contextual internal links in hero copy */}
               <p className="text-white/80 text-sm leading-relaxed max-w-2xl">
                 Every term you need to buy or sell a car — from{' '}
-                <Link href="/tools/glossary/tokunbo" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
+                <Link prefetch={false} href="/tools/glossary/tokunbo" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
                   Tokunbo
                 </Link>{' '}
                 and{' '}
-                <Link href="/tools/glossary/duty-paid" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
+                <Link prefetch={false} href="/tools/glossary/duty-paid" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
                   duty paid
                 </Link>{' '}
                 to chassis numbers,{' '}
-                <Link href="/tools/glossary/ladipo" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
+                <Link prefetch={false} href="/tools/glossary/ladipo" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 decoration-emerald-500/40 transition-colors">
                   Ladipo pricing
                 </Link>
                 , and pre-purchase inspections. {terms.length} terms and growing.
               </p>
-              <p className="text-white/40 text-xs mt-3">Last verified: August 2026 · Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-white/70">Joshua Victor</Link>, Founder</p>
+              <p className="text-white/40 text-xs mt-3">Last verified: August 2026 · Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-white/70">Joshua Victor</Link>, Founder</p>
             </div>
           </div>
 
@@ -225,7 +225,7 @@ export default async function GlossaryPage() {
                       This prevents hundreds of h2 tags at the same level with no hierarchy. */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {byLetter[letter].map(term => (
-                      <Link
+                      <Link prefetch={false}
                         key={term.slug}
                         href={`/tools/glossary/${term.slug}`}
                         className="group bg-card border border-border rounded-2xl p-5 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all"
@@ -268,7 +268,7 @@ export default async function GlossaryPage() {
               { label: 'Vehicle Information',   sub: 'Prices, parts & model guides',    href: '/vehicles',            external: false },
               { label: 'Read Blog Posts',       sub: 'Tips, guides & buying advice',    href: '/blog',                external: false },
             ].map(({ label, sub, href }) => (
-              <Link
+              <Link prefetch={false}
                 key={href}
                 href={href}
                 className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all group"

@@ -72,7 +72,7 @@ export default function DistanceCalculatorArgentinaPage() {
 
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12 space-y-8">
           <div className="flex items-center gap-3">
-            <Link
+            <Link prefetch={false}
               href="/tools/distance-calculator-countries"
               className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all"
               aria-label="Volver"
@@ -80,9 +80,9 @@ export default function DistanceCalculatorArgentinaPage() {
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/inicio" className="hover:text-white/60 transition-colors">Inicio</Link>
+              <Link prefetch={false} href="/inicio" className="hover:text-white/60 transition-colors">Inicio</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
+              <Link prefetch={false} href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">🇦🇷 Argentina</span>
             </nav>
@@ -130,7 +130,7 @@ export default function DistanceCalculatorArgentinaPage() {
           </div>
 
           <p className="text-xs text-gray-500 border-t border-gray-200 pt-4">
-            Verificado por <Link href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, experta en ventas de automóviles. Rutas verificadas con datos oficiales del gobierno argentino (argentina.gob.ar) y una cifra cruzada con dos fuentes independientes para Buenos Aires-Mendoza. Todas las demás rutas son estimaciones basadas en Haversine.
+            Verificado por <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-gray-900">Evelyn John</Link>, experta en ventas de automóviles. Rutas verificadas con datos oficiales del gobierno argentino (argentina.gob.ar) y una cifra cruzada con dos fuentes independientes para Buenos Aires-Mendoza. Todas las demás rutas son estimaciones basadas en Haversine.
           </p>
 
           <div>

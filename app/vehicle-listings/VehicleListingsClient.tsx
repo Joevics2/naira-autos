@@ -90,7 +90,7 @@ export function VehicleListingsClient({ initialListings, total, page, pageSize, 
     <div className="min-h-screen bg-[#0a0a0f] text-white pb-20">
       <div className="max-w-6xl mx-auto px-4 pt-8">
         <div className="flex items-center gap-3 mb-6">
-          <Link
+          <Link prefetch={false}
             href="/"
             className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-amber-400/20 border border-white/15 hover:border-amber-400/40 text-white/60 hover:text-amber-400 transition-all flex-shrink-0"
             aria-label="Back to home"
@@ -475,7 +475,7 @@ function SellYourCarCard() {
           <p className="text-sm font-medium text-white leading-tight">Sell Your Car</p>
           <p className="text-xs text-white/40 truncate">We market it and handle buyers for you.</p>
         </div>
-        <Link href="/sell-for-me" className="flex-shrink-0">
+        <Link prefetch={false} href="/sell-for-me" className="flex-shrink-0">
           <Button size="sm" variant="outline" className="border-amber-400/40 text-amber-400 hover:bg-amber-400/10">
             Sell
           </Button>

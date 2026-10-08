@@ -196,7 +196,7 @@ export default function RideShareClient() {
               </div>
             </div>
             <p className="text-xs text-muted-foreground -mt-2">
-              Not sure of your car&apos;s fuel economy? Use the <Link href="/tools/fuel-economy-converter" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">unit converter</Link> to switch between MPG, L/100km, and km/L.
+              Not sure of your car&apos;s fuel economy? Use the <Link prefetch={false} href="/tools/fuel-economy-converter" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">unit converter</Link> to switch between MPG, L/100km, and km/L.
             </p>
 
             {/* Maintenance, insurance, other */}
@@ -301,11 +301,11 @@ export default function RideShareClient() {
 
             {/* CTAs */}
             <div className="grid grid-cols-2 gap-2">
-              <Link href="/tools/fuel-cost-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group">
+              <Link prefetch={false} href="/tools/fuel-cost-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group">
                 <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400">Fuel cost calculator</p>
                 <ChevronRight className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" />
               </Link>
-              <Link href="/tools/insurance-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
+              <Link prefetch={false} href="/tools/insurance-calculator" className="flex items-center justify-between gap-2 px-3 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
                 <p className="text-xs font-bold text-blue-700 dark:text-blue-400">Insurance calculator</p>
                 <ChevronRight className="h-3.5 w-3.5 text-blue-600 dark:text-blue-500" />
               </Link>

@@ -60,13 +60,13 @@ export default function CreditoAutomotrizMexicoPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex flex-wrap items-center gap-3 mb-8">
-            <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Volver">
+            <Link prefetch={false} href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Volver">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/inicio" className="hover:text-white/60 transition-colors">Inicio</Link>
+              <Link prefetch={false} href="/inicio" className="hover:text-white/60 transition-colors">Inicio</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
+              <Link prefetch={false} href="/herramientas" className="hover:text-white/60 transition-colors">Herramientas</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">🇲🇽 Crédito Automotriz</span>
             </nav>
@@ -167,7 +167,7 @@ export default function CreditoAutomotrizMexicoPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Revisado por <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Tasas y datos verificados con publicaciones de BBVA, Banorte, Afirme, AMDA y el simulador oficial de CONDUSEF.
+            Revisado por <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Tasas y datos verificados con publicaciones de BBVA, Banorte, Afirme, AMDA y el simulador oficial de CONDUSEF.
           </p>
 
         </div>

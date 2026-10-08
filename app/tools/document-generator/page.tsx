@@ -183,7 +183,7 @@ export default function DocumentGeneratorPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Document categories and clause coverage checked against real sale-transaction paperwork.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Document categories and clause coverage checked against real sale-transaction paperwork.
           </p>
 
           {/* Related tools */}
@@ -197,7 +197,7 @@ export default function DocumentGeneratorPage() {
                 { href: '/tools/vehicle-papers-checklist', label: 'Vehicle Papers Checklist', color: 'violet' },
                 { href: '/tools/ai-mechanic', label: 'AI Mechanic', color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}>
+                <Link prefetch={false} key={href} href={href} className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}>
                   <p className={`text-sm font-bold text-${color}-700 dark:text-${color}-400`}>{label}</p>
                   <ChevronRight className={`h-4 w-4 text-${color}-500`} />
                 </Link>

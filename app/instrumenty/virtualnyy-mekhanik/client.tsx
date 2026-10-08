@@ -554,13 +554,13 @@ export default function AIMechanicClientRU() {
 
         {/* Breadcrumb */}
         <div className="flex flex-wrap items-center gap-3 mb-8">
-          <Link href="/instrumenty" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Назад к инструментам">
+          <Link prefetch={false} href="/instrumenty" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 border border-white/15 hover:border-emerald-500/40 text-white/60 hover:text-emerald-400 transition-all" aria-label="Назад к инструментам">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <nav className="flex items-center gap-1.5 text-xs text-white/30">
-            <Link href="/glavnaya" className="hover:text-white/60 transition-colors">Главная</Link>
+            <Link prefetch={false} href="/glavnaya" className="hover:text-white/60 transition-colors">Главная</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/instrumenty" className="hover:text-white/60 transition-colors">Инструменты</Link>
+            <Link prefetch={false} href="/instrumenty" className="hover:text-white/60 transition-colors">Инструменты</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/50">ИИ-механик</span>
           </nav>

@@ -123,13 +123,13 @@ export default function GeneradorDeDocumentosClienteEs() {
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Breadcrumb */}
         <div className="flex items-center gap-3 no-print">
-          <Link href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-emerald-500/10 border border-border hover:border-emerald-500/40 text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex-shrink-0" aria-label="Atrás">
+          <Link prefetch={false} href="/herramientas" className="flex items-center justify-center w-8 h-8 rounded-full bg-muted hover:bg-emerald-500/10 border border-border hover:border-emerald-500/40 text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition-all flex-shrink-0" aria-label="Atrás">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Inicio</Link>
+            <Link prefetch={false} href="/" className="hover:text-foreground flex items-center gap-1"><Home className="h-3.5 w-3.5" />Inicio</Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/herramientas" className="hover:text-foreground">Herramientas</Link>
+            <Link prefetch={false} href="/herramientas" className="hover:text-foreground">Herramientas</Link>
             <ChevronRight className="h-3.5 w-3.5" />
             <span className="text-foreground font-medium">Generador de Documentos</span>
           </div>
@@ -146,7 +146,7 @@ export default function GeneradorDeDocumentosClienteEs() {
             Elige un documento y un país. Investigamos los requisitos legales reales de esa jurisdicción y redactamos un documento completo y con formato que puedes editar y descargar.
           </p>
           <p className="text-xs text-muted-foreground/80 mt-2 no-print">{SHORT_DISCLAIMER}</p>
-          <Link
+          <Link prefetch={false}
             href="/plantillas"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 dark:text-sky-400 hover:underline mt-3 no-print"
           >
@@ -162,7 +162,7 @@ export default function GeneradorDeDocumentosClienteEs() {
         )}
 
         <div className="flex justify-end">
-          <Link
+          <Link prefetch={false}
             href="/plantillas/mis-documentos"
             className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-600 text-white text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors no-print"
           >

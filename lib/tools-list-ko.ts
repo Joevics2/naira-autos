@@ -1,4 +1,4 @@
-import { Wrench, Car, Ruler, ScanLine } from 'lucide-react';
+import { Wrench, Car, Ruler, ScanLine, Camera } from 'lucide-react';
 
 // Single source of truth for the Korean tools index (/dogu).
 // Add an entry here ONLY when that tool's Korean page is actually
@@ -16,6 +16,15 @@ export type ToolKo = {
 };
 
 export const TOOLS_KO: ToolKo[] = [
+  {
+    href: '/dogu/nae-cha-gagyeok',
+    icon: Camera,
+    label: '내 차 얼마예요?',
+    description: '사진 한 장을 업로드하면 AI가 몇 초 안에 내 차의 시장 가격을 알려드립니다.',
+    badge: '무료',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AI 및 스마트 도구',
+  },
   {
     href: '/dogu/gasang-jeongbisa',
     icon: Wrench,

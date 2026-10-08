@@ -82,13 +82,13 @@ export default function RoadTripCalculatorPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 text-white/60 hover:text-amber-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Road Trip Calculator</span>
             </nav>
@@ -214,7 +214,7 @@ export default function RoadTripCalculatorPage() {
                 </div>
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                   <p>For accurate <strong className="text-foreground">travel cost estimation</strong>, this calculator gives you the fuel component — the single largest variable cost. Multiply by 1.15–1.25 to get a realistic total trip budget including tolls, food, and a small contingency for unplanned stops.</p>
-                  <p>If you're calculating whether to drive versus fly, Lagos–Abuja flights currently range from ₦50,000–₦200,000 per person. A solo driver in a Toyota Camry spends approximately ₦71,000 in fuel one-way — making the drive economically competitive for one person, but less so once time cost and fatigue are factored in. See our <Link href="/tools/auto-loan-calculator" className="text-amber-500 hover:underline">Auto Loan Calculator</Link> if you're evaluating vehicle costs more broadly.</p>
+                  <p>If you're calculating whether to drive versus fly, Lagos–Abuja flights currently range from ₦50,000–₦200,000 per person. A solo driver in a Toyota Camry spends approximately ₦71,000 in fuel one-way — making the drive economically competitive for one person, but less so once time cost and fatigue are factored in. See our <Link prefetch={false} href="/tools/auto-loan-calculator" className="text-amber-500 hover:underline">Auto Loan Calculator</Link> if you're evaluating vehicle costs more broadly.</p>
                 </div>
               </div>
             </div>
@@ -226,7 +226,7 @@ export default function RoadTripCalculatorPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Route distances and fuel figures checked against real driving experience.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Joshua Victor</Link>, Founder. Route distances and fuel figures checked against real driving experience.
           </p>
 
           {/* FAQ */}
@@ -266,7 +266,7 @@ export default function RoadTripCalculatorPage() {
                 { href: '/tools/registration-fee-calculator', label: 'Registration Fee Calculator', color: 'blue' },
                 { href: '/tools/ai-mechanic', label: 'AI Mechanic', color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}

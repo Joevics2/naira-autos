@@ -58,13 +58,13 @@ export default function FuelEconomyConverterPage() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 pt-10 pb-12">
           <div className="flex items-center gap-3 mb-8">
-            <Link href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-orange-500/20 border border-white/15 hover:border-orange-500/40 text-white/60 hover:text-orange-400 transition-all" aria-label="Back">
+            <Link prefetch={false} href="/tools" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-orange-500/20 border border-white/15 hover:border-orange-500/40 text-white/60 hover:text-orange-400 transition-all" aria-label="Back">
               <ArrowLeft className="h-4 w-4" />
             </Link>
             <nav className="flex items-center gap-1.5 text-xs text-white/30">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link prefetch={false} href="/" className="hover:text-white/60 transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
+              <Link prefetch={false} href="/tools" className="hover:text-white/60 transition-colors">Tools</Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/50">Fuel Economy Unit Converter</span>
             </nav>
@@ -199,7 +199,7 @@ export default function FuelEconomyConverterPage() {
                 This is also where unit confusion gets expensive in practice, not just on paper. Someone comparing a &quot;35 MPG&quot; American listing against a &quot;15 km/L&quot; Japanese-market alternative has no intuitive way to tell which is actually cheaper to run without converting both into the same unit first — and the difference between US and UK MPG alone is large enough to change which car looks like the better deal. If you&apos;re budgeting for a car purchase, especially an import, it&apos;s worth running every spec sheet you&apos;re comparing through a converter like the one above before you commit, rather than trusting whichever number looks the biggest.
               </p>
               <p>
-                For a fuller cost picture that includes actual local fuel prices rather than just the physics of conversion, pair this tool with our <Link href="/tools/fuel-cost-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">Fuel Cost Calculator</Link>, which takes a consumption figure and turns it into a real naira-and-kobo running cost based on distance and current pump prices.
+                For a fuller cost picture that includes actual local fuel prices rather than just the physics of conversion, pair this tool with our <Link prefetch={false} href="/tools/fuel-cost-calculator" className="text-orange-600 dark:text-orange-400 font-semibold hover:underline">Fuel Cost Calculator</Link>, which takes a consumption figure and turns it into a real naira-and-kobo running cost based on distance and current pump prices.
               </p>
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function FuelEconomyConverterPage() {
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
-            Reviewed by <Link href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Conversion formulas checked for mathematical accuracy.
+            Reviewed by <Link prefetch={false} href="/about" className="underline underline-offset-2 hover:text-foreground">Evelyn John</Link>, Auto Sales Expert. Conversion formulas checked for mathematical accuracy.
           </p>
 
           {/* Related tools */}
@@ -250,7 +250,7 @@ export default function FuelEconomyConverterPage() {
                 { href: '/tools/road-trip-calculator', label: 'Road Trip Calculator', color: 'sky' },
                 { href: '/tools/wiper-blade-size-finder', label: 'Wiper Blade Size Finder', color: 'emerald' },
               ].map(({ href, label, color }) => (
-                <Link
+                <Link prefetch={false}
                   key={href}
                   href={href}
                   className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-${color}-50 dark:bg-${color}-500/10 border border-${color}-200 dark:border-${color}-500/20 hover:bg-${color}-100 dark:hover:bg-${color}-500/20 transition-all`}
