@@ -1,4 +1,4 @@
-import { Wrench, Car, Calculator } from 'lucide-react';
+import { Wrench, Car, Calculator, Camera } from 'lucide-react';
 
 // Single source of truth for the Hindi tools index (/upkaran).
 // Add an entry here ONLY when that tool's Hindi page is actually
@@ -16,6 +16,15 @@ export type ToolHi = {
 };
 
 export const TOOLS_HI: ToolHi[] = [
+  {
+    href: '/upkaran/meri-car-ki-keemat-kya-hai',
+    icon: Camera,
+    label: 'मेरी कार की कीमत क्या है?',
+    description: 'एक फोटो अपलोड करें, AI आपकी मुद्रा में कुछ ही सेकंड में बाज़ार मूल्य का अनुमान देगा।',
+    badge: 'मुफ़्त',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'AI और स्मार्ट टूल्स',
+  },
   {
     href: '/upkaran/aabhasi-mekanik',
     icon: Wrench,
