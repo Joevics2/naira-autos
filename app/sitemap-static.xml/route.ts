@@ -202,6 +202,7 @@ const staticPages = [
   { url: '/tools/auto-loan-calculator-canada',    priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator-pakistan',  priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/auto-loan-calculator-australia', priority: 0.7, changefreq: 'monthly' },
+  { url: '/tools/auto-loan-calculator-ethiopia',  priority: 0.7, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator',  priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/registration-fee-calculator-countries', priority: 0.8, changefreq: 'monthly' },
   { url: '/tools/insurance-calculator',         priority: 0.7, changefreq: 'monthly' },
