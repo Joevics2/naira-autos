@@ -42,6 +42,7 @@ const staticPages = [
   { url: '/tools/ai-mechanic',                  priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/mecanico-virtual',              priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/mejor-auto-para-ti',           priority: 0.8, changefreq: 'monthly' },
+  { url: '/herramientas/calculadora-importacion-autos-mexico', priority: 0.7, changefreq: 'monthly' },
   { url: '/herramientas/comparador-de-autos',           priority: 0.8, changefreq: 'monthly' },
   { url: '/herramientas/analizador-de-ruidos-del-motor',                        priority: 0.8,  changefreq: 'monthly' },
   { url: '/herramientas/analizador-de-ruidos-del-motor/ruido-tic-tic-del-motor',     priority: 0.85, changefreq: 'monthly' },

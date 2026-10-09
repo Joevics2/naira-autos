@@ -160,6 +160,15 @@ export const TOOLS_ES: ToolEs[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Finanzas',
   },
+  {
+    href: '/herramientas/calculadora-importacion-autos-mexico',
+    icon: Calculator,
+    label: 'Importación de Autos a México',
+    description: 'Calcula arancel, DTA, IVA y costo total para importar un auto usado o nuevo a México, con el decreto vigente y los aranceles de 2026.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finanzas',
+  },
 ];
 
 export const CATEGORIES_ES = ['IA y Herramientas Inteligentes', 'Finanzas', 'Costos y Mantenimiento', 'Debida Diligencia', 'Recursos'];
