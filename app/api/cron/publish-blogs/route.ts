@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
+import { notifySearchEngines } from '@/lib/search-ping';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -16,6 +17,8 @@ export const maxDuration = 30;
  *   count    max posts to publish in THIS run (default = whatever is left of the daily cap)
  *   lang     language to publish (default "en"); "all" = any language
  *   dry      "1" = preview only, publishes nothing
+ *
+ * After publishing, new URLs are pushed to IndexNow + Google (see lib/search-ping.ts).
  *
  * Safe to call as often as you like: the daily cap is enforced from the DB, so
  * extra calls publish nothing once today's quota is used.
@@ -115,9 +118,14 @@ export async function GET(req: NextRequest) {
     // non-fatal; pages refresh on their normal ISR window
   }
 
+  // Tell Google (Search Console sitemap + Indexing API) and IndexNow engines
+  // about the new URLs. Never throws; result is included for debugging.
+  const search_ping = await notifySearchEngines(published ?? []);
+
   return NextResponse.json({
     ...base,
     published: published ?? [],
+    search_ping,
     drafts_remaining: Math.max(0, (draftsTotal ?? 0) - (published?.length ?? 0)),
   });
 }
