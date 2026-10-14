@@ -61,6 +61,7 @@ const staticPages = [
   { url: '/outils/analyseur-de-bruit-moteur/bruit-de-ferraille-moteur', priority: 0.75, changefreq: 'monthly' },
   { url: '/outils/combien-vaut-ma-voiture',       priority: 0.9, changefreq: 'weekly'  },
   { url: '/outils/decodeur-vin',                  priority: 0.8, changefreq: 'monthly' },
+  { url: '/outils/calculateur-importation-voiture-france', priority: 0.7, changefreq: 'monthly' },
   { url: '/adawat/afdal-sayara-lak', priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/bestes-auto-fuer-sie', priority: 0.8, changefreq: 'monthly' },
   { url: '/strumenti/migliore-auto-per-te', priority: 0.8, changefreq: 'monthly' },

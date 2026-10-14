@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, ScanLine, Ruler, Car } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Ruler, Car, Calculator } from 'lucide-react';
 
 // Single source of truth for the French tools index (/outils).
 // Add an entry here ONLY when that tool's French page is actually live —
@@ -69,6 +69,15 @@ export const TOOLS_FR: ToolFr[] = [
     badge: "Nouveau",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Coûts et Entretien",
+  },
+  {
+    href: '/outils/calculateur-importation-voiture-france',
+    icon: Calculator,
+    label: 'Calculateur d\u2019importation de voiture en France',
+    description: 'Calculez droit de douane, TVA, malus CO2 et masse avec décote d\u2019ancienneté, et carte grise pour une voiture importée — Japon et États-Unis à 0 %, collection, électriques chinoises.',
+    badge: 'Nouveau',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finances',
   },
 ];
 
