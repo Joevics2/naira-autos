@@ -379,7 +379,7 @@ export default function AIMechanicPageID() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'Pemeriksa VIN',              color: 'blue' },
+                { href: '/alat/cek-nomor-rangka-vin',      label: 'Pemeriksa VIN',              color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Daftar Periksa Dokumen',     color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'Kalkulator Bea Masuk',       color: 'emerald' },
               ].map(({ href, label, color }) => (

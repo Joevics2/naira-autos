@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, Car, Ruler } from 'lucide-react';
+import { Mic, Wrench, Camera, Car, Ruler, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Indonesian tools index (/alat).
 // Add an entry here ONLY when that tool's Indonesian page is actually
@@ -60,6 +60,15 @@ export const TOOLS_ID: ToolId[] = [
     badge: 'Baru',
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Biaya dan Perawatan',
+  },
+  {
+    href: '/alat/cek-nomor-rangka-vin',
+    icon: ScanLine,
+    label: 'Cek Nomor Rangka (VIN)',
+    description: 'Cek nomor rangka (VIN) mobil gratis — lihat merek, model, tahun pembuatan, mesin, dan negara asal dalam hitungan detik.',
+    badge: 'Gratis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Verifikasi',
   },
 ];
 

@@ -119,6 +119,7 @@ const staticPages = [
   { url: '/cong-cu/phan-tich-tieng-dong-co/tieng-lach-cach-dong-co', priority: 0.75, changefreq: 'monthly' },
   { url: '/gereedschappen/virtuele-monteur',       priority: 0.8, changefreq: 'monthly' },
   { url: '/alat/montir-virtual',                   priority: 0.8, changefreq: 'monthly' },
+  { url: '/alat/cek-nomor-rangka-vin',             priority: 0.8, changefreq: 'monthly' },
   { url: '/alat/analisis-suara-mesin', priority: 0.8, changefreq: 'monthly' },
   { url: '/alat/analisis-suara-mesin/bunyi-tek-tek-mesin', priority: 0.85, changefreq: 'monthly' },
   { url: '/alat/analisis-suara-mesin/mesin-ngelitik', priority: 0.85, changefreq: 'monthly' },
