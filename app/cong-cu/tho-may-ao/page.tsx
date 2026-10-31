@@ -379,7 +379,7 @@ export default function AIMechanicPageVI() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'Kiểm Tra Số VIN',           color: 'blue' },
+                { href: '/cong-cu/tra-cuu-so-khung-vin',   label: 'Kiểm Tra Số VIN',           color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Danh Sách Giấy Tờ',         color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'Tính Thuế Nhập Khẩu',       color: 'emerald' },
               ].map(({ href, label, color }) => (

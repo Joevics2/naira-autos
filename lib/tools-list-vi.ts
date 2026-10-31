@@ -1,4 +1,4 @@
-import { Mic, Camera, Wrench, Car, Ruler } from 'lucide-react';
+import { Mic, Camera, Wrench, Car, Ruler, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Vietnamese tools index (/cong-cu).
 // Add an entry here ONLY when that tool's Vietnamese page is actually
@@ -60,6 +60,15 @@ export const TOOLS_VI: ToolVi[] = [
     badge: "Mới",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Chi Phí và Bảo Dưỡng",
+  },
+  {
+    href: '/cong-cu/tra-cuu-so-khung-vin',
+    icon: ScanLine,
+    label: 'Tra Cứu Số Khung (VIN)',
+    description: 'Tra cứu số khung (VIN) miễn phí — xem hãng xe, dòng xe, năm sản xuất, động cơ và nước sản xuất ngay lập tức.',
+    badge: 'Miễn Phí',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Xác Minh',
   },
 ];
 
