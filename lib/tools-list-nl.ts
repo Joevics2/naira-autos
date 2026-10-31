@@ -1,4 +1,4 @@
-import { Route, Wrench, Camera, Car } from 'lucide-react';
+import { Route, Wrench, Camera, Car, ScanLine } from 'lucide-react';
 
 // Single source of truth for the Dutch tools index (/gereedschappen).
 // Add an entry here ONLY when that tool's Dutch page is actually
@@ -51,6 +51,15 @@ export const TOOLS_NL: ToolNl[] = [
     badge: "Nieuw",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Kosten en Onderhoud",
+  },
+  {
+    href: '/gereedschappen/chassisnummer-controleren',
+    icon: ScanLine,
+    label: 'Chassisnummer (VIN) Controleren',
+    description: 'Controleer het chassisnummer (VIN) van elke auto gratis — merk, model, bouwjaar, motor en land van herkomst in seconden.',
+    badge: 'Gratis',
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+    category: 'Verificatie',
   },
 ];
 

@@ -379,7 +379,7 @@ export default function AIMechanicPageNL() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { href: '/tools/vin-checker',              label: 'VIN Controle',              color: 'blue' },
+                { href: '/gereedschappen/chassisnummer-controleren', label: 'VIN Controle',              color: 'blue' },
                 { href: '/tools/vehicle-papers-checklist', label: 'Documentenchecklist',       color: 'violet' },
                 { href: '/tools/import-duty-calculator',   label: 'Invoerrechten Calculator',  color: 'emerald' },
               ].map(({ href, label, color }) => (
