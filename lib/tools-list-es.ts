@@ -169,6 +169,15 @@ export const TOOLS_ES: ToolEs[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Finanzas',
   },
+  {
+    href: '/herramientas/calculadora-importacion-coches-espana',
+    icon: Calculator,
+    label: 'Importación de Coches a España',
+    description: 'Calcula arancel, IVA, impuesto de matriculación con depreciación de Hacienda y tasa DGT para importar un coche a España. Japón y EE. UU. al 0 %.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finanzas',
+  },
 ];
 
 export const CATEGORIES_ES = ['IA y Herramientas Inteligentes', 'Finanzas', 'Costos y Mantenimiento', 'Debida Diligencia', 'Recursos'];
