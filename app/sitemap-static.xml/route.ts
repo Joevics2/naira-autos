@@ -120,6 +120,7 @@ const staticPages = [
   { url: '/cong-cu/phan-tich-tieng-dong-co/tieng-lach-cach-dong-co', priority: 0.75, changefreq: 'monthly' },
   { url: '/gereedschappen/virtuele-monteur',       priority: 0.8, changefreq: 'monthly' },
   { url: '/gereedschappen/chassisnummer-controleren', priority: 0.8, changefreq: 'monthly' },
+  { url: '/gereedschappen/auto-importeren-calculator-nederland', priority: 0.7, changefreq: 'monthly' },
   { url: '/alat/montir-virtual',                   priority: 0.8, changefreq: 'monthly' },
   { url: '/alat/cek-nomor-rangka-vin',             priority: 0.8, changefreq: 'monthly' },
   { url: '/alat/analisis-suara-mesin', priority: 0.8, changefreq: 'monthly' },

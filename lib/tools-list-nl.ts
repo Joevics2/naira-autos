@@ -1,4 +1,4 @@
-import { Route, Wrench, Camera, Car, ScanLine } from 'lucide-react';
+import { Route, Wrench, Camera, Car, ScanLine, Calculator } from 'lucide-react';
 
 // Single source of truth for the Dutch tools index (/gereedschappen).
 // Add an entry here ONLY when that tool's Dutch page is actually
@@ -60,6 +60,15 @@ export const TOOLS_NL: ToolNl[] = [
     badge: 'Gratis',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
     category: 'Verificatie',
+  },
+  {
+    href: '/gereedschappen/auto-importeren-calculator-nederland',
+    icon: Calculator,
+    label: 'Auto Importeren naar Nederland',
+    description: 'Bereken invoerrecht, btw en BPM met afschrijving voor een geïmporteerde auto — Japan en de VS tegen 0 %, dieseltoeslag, Chinese elektrische auto’s.',
+    badge: 'Nieuw',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Financiën',
   },
 ];
 
