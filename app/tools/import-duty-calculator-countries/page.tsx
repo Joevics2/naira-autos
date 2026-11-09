@@ -44,7 +44,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'zw', name: 'Zimbabwe',              flag: '🇿🇼', live: false },
   { code: 'bw', name: 'Botswana',              flag: '🇧🇼', live: false },
   { code: 'na', name: 'Namibia',               flag: '🇳🇦', live: false },
-  { code: 'ph', name: 'Philippines',           flag: '🇵🇭', live: false },
+  { code: 'ph', name: 'Philippines',           flag: '🇵🇭', href: '/tools/import-duty-calculator-philippines', live: true },
 ];
 
 const LIVE_COUNTRIES = COUNTRIES.filter((c) => c.live);
