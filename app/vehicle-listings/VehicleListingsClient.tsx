@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import {
   Accordion,
   AccordionContent,
@@ -55,7 +55,57 @@ const CONDITION_LABELS: Record<string, string> = {
   brand_new: 'Brand New',
 };
 
-export function VehicleListingsClient({ initialListings, total, page, pageSize, brands, filters }: Props) {
+export function VehicleListingsClient({
+  initialListings,
+  total: initialTotal,
+  page: initialPage,
+  pageSize,
+  brands,
+}: Omit<Props, 'filters'>) {
+  const searchParams = useSearchParams();
+  const qs = searchParams.toString();
+  const [data, setData] = useState({ listings: initialListings, total: initialTotal, page: initialPage });
+
+  const filters: Filters = {
+    q: searchParams.get('q') || undefined,
+    brand: searchParams.get('brand') || undefined,
+    condition: searchParams.get('condition') || undefined,
+    bodyType: searchParams.get('body_type') || undefined,
+    priceMin: searchParams.get('price_min') ? Number(searchParams.get('price_min')) : undefined,
+    priceMax: searchParams.get('price_max') ? Number(searchParams.get('price_max')) : undefined,
+    sort: searchParams.get('sort') || 'newest',
+  };
+
+  useEffect(() => {
+    if (!qs) {
+      setData({ listings: initialListings, total: initialTotal, page: initialPage });
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/vehicle-listings/public?${qs}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((json) => {
+        if (!cancelled && json) setData({ listings: json.listings, total: json.total, page: json.page });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [qs, initialListings, initialTotal, initialPage]);
+
+  return (
+    <VehicleListingsInner
+      initialListings={data.listings}
+      total={data.total}
+      page={data.page}
+      pageSize={pageSize}
+      brands={brands}
+      filters={filters}
+    />
+  );
+}
+
+function VehicleListingsInner({ initialListings, total, page, pageSize, brands, filters }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
@@ -371,7 +421,7 @@ function RequestCarCard() {
   const [form, setForm] = useState({ name: '', whatsapp: '', brand: '', model: '', budget_max: '', notes: '' });
 
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    "Hi, I'm looking for a car and couldn't find what I want on Naira Autos. Can you help me find one?"
+    "Hi, I'm looking for a car and couldn't find what I want on Naira Autos. Can you help me find one?\n\nBudget: \nLocation: \nPreferred Brand: \nPreferred Model: "
   )}`;
 
   async function submit() {
