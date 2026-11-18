@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, ScanLine, Car } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Car, Calculator } from 'lucide-react';
 
 // Single source of truth for the Italian tools index (/strumenti).
 // Add an entry here ONLY when that tool's Italian page is actually
@@ -60,6 +60,15 @@ export const TOOLS_IT: ToolIt[] = [
     badge: "Nuovo",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Costi e Manutenzione",
+  },
+  {
+    href: "/strumenti/calcolatore-importazione-auto-italia",
+    icon: Calculator,
+    label: "Importare un’Auto in Italia",
+    description: "Calcola dazio, IVA, IPT con maggiorazione provinciale e spese di immatricolazione per un’auto importata in Italia. Giappone e USA allo 0 %.",
+    badge: "Nuovo",
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: "Finanza",
   },
 ];
 

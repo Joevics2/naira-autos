@@ -104,6 +104,7 @@ const staticPages = [
   { url: '/strumenti/analizzatore-rumori-motore/rumore-di-ferraglia-motore', priority: 0.75, changefreq: 'monthly' },
   { url: '/strumenti/quanto-vale-la-mia-auto',     priority: 0.9, changefreq: 'weekly'  },
   { url: '/strumenti/verifica-numero-di-telaio',  priority: 0.8, changefreq: 'monthly' },
+  { url: '/strumenti/calcolatore-importazione-auto-italia', priority: 0.7, changefreq: 'monthly' },
   { url: '/araclar/arabam-ne-kadar-eder',          priority: 0.9, changefreq: 'weekly'  },
   { url: '/araclar/sasi-numarasi-sorgulama',       priority: 0.8, changefreq: 'monthly' },
   { url: '/araclar/sanal-usta',                    priority: 0.8, changefreq: 'monthly' },
