@@ -70,6 +70,15 @@ export const TOOLS_NL: ToolNl[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Financiën',
   },
+  {
+    href: '/gereedschappen/auto-importeren-calculator-belgie',
+    icon: Calculator,
+    label: 'Auto Importeren naar België',
+    description: 'Bereken invoerrecht, btw en BIV voor Vlaanderen, Wallonië en Brussel met leeftijdsvermindering — Japan en de VS tegen 0 %.',
+    badge: 'Nieuw',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Financiën',
+  },
 ];
 
 export const CATEGORIES_NL = ['AI en Slimme Tools', 'Financiën', 'Kosten en Onderhoud', 'Verificatie', 'Bronnen'];

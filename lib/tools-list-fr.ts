@@ -79,6 +79,15 @@ export const TOOLS_FR: ToolFr[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Finances',
   },
+  {
+    href: '/outils/calculateur-importation-voiture-belgique',
+    icon: Calculator,
+    label: 'Importer une voiture en Belgique',
+    description: 'Calculez droit de douane, TVA et taxe de mise en circulation (Flandre, Wallonie, Bruxelles) avec réduction selon l\u2019âge — Japon et États-Unis à 0 %.',
+    badge: 'Nouveau',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finances',
+  },
 ];
 
 export const CATEGORIES_FR = ['IA et Outils Intelligents', 'Finances', 'Coûts et Entretien', 'Vérification', 'Ressources'];

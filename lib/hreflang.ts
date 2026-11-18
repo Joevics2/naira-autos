@@ -49,6 +49,7 @@ const TOOL_GROUPS: LangPaths[] = [
   { en: '/tools/car-comparison', es: '/herramientas/comparador-de-autos' },
 
   { en: '/tools/import-duty-calculator-india', hi: '/upkaran/car-aayat-shulk-calculator-bharat' },
+  { fr: '/outils/calculateur-importation-voiture-belgique', nl: '/gereedschappen/auto-importeren-calculator-belgie' },
   { en: '/tools/chassis-number-check', es: '/herramientas/verificar-numero-de-chasis' },
   { en: '/tools/distance-calculator-egypt', ar: '/adawat/hasbat-al-masafa-masr' },
   { en: '/tools/distance-calculator-france', fr: '/outils/calculateur-de-distance-france' },
