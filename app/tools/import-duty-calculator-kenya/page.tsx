@@ -33,7 +33,7 @@ const SCHEMA = {
       name: 'Kenya Car Import Duty Calculator — Free KRA CRSP Estimator',
       description: 'Calculate car import duty in Kenya free. Get a full breakdown of import duty, excise, VAT, IDF, and RDL for any used or new car, plus the 8-year import age rule.',
       url: 'https://www.naira.autos/tools/import-duty-calculator-kenya',
-      dateModified: '2026-08-01',
+      dateModified: '2026-11-18',
       author: { '@type': 'Organization', name: 'Naira Autos', url: 'https://www.naira.autos' },
       reviewedBy: { '@type': 'Person', name: 'Joshua Victor', jobTitle: 'Founder', url: 'https://www.naira.autos/about' },
       breadcrumb: {
@@ -49,12 +49,12 @@ const SCHEMA = {
     {
       '@type': 'FAQPage',
       mainEntity: [
-        { '@type': 'Question', name: 'How much is car import duty in Kenya?', acceptedAnswer: { '@type': 'Answer', text: 'Import duty is 25% of customs value on most official KRA pages, though some recent sources cite a 35% band — confirm with KRA for your HS code. On top of duty: excise (20–30% depending on engine size and fuel, on value+duty), 16% VAT, IDF (2.5–3.5%), and a 2% RDL. Total effective tax is often 60–90%+ of customs value.' } },
+        { '@type': 'Question', name: 'How much is car import duty in Kenya?', acceptedAnswer: { '@type': 'Answer', text: 'Import duty on passenger cars is 35% of customs value: KRA itself said in June 2025 that the rate rose from 25% in 2019 to 35%. Fully electric cars use a 25% duty row. On top of duty: excise (20%, 25% or 35% by engine size and fuel, on value plus duty), 16% VAT, a 2.5% IDF and a 2% RDL. Total tax is often close to 100% of customs value.' } },
         { '@type': 'Question', name: 'What is the 8 year rule for importing cars into Kenya?', acceptedAnswer: { '@type': 'Answer', text: 'Kenya restricts used passenger vehicle imports to those less than 8 years old, counted from year of manufacture — in 2026, generally 2019 or newer. Vehicles must also be right-hand drive and pass KEBS pre-shipment inspection under KS 1515:2000.' } },
         { '@type': 'Question', name: 'What is KRA CRSP and how does it affect my import duty?', acceptedAnswer: { '@type': 'Answer', text: 'CRSP (Current Retail Selling Price) is KRA\'s schedule of new-vehicle prices by make and model, used with an age-based depreciation formula to set the taxable customs value — regardless of your actual invoice price. This often results in a higher assessed value than what you paid.' } },
         { '@type': 'Question', name: 'Are returning residents exempt from car import duty in Kenya?', acceptedAnswer: { '@type': 'Answer', text: 'Returning residents can get one vehicle exempted from duty, excise, VAT and IDF if it was personally owned and used abroad for at least 12 months, shipped within about 90 days of return, and no similar exemption was used in the prior ~4 years. The RDL levy typically still applies.' } },
-        { '@type': 'Question', name: 'Is import duty lower for electric cars in Kenya?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Electric vehicles get a preferential excise duty band of around 10%, compared to 20–30% for petrol and diesel vehicles of comparable size — a meaningful saving on top of the standard import duty, VAT, IDF and RDL that still apply.' } },
-        { '@type': 'Question', name: 'How much does it cost to clear a car at Mombasa port?', acceptedAnswer: { '@type': 'Answer', text: 'KRA duties and taxes (roughly 60–90%+ of CRSP-based customs value) plus port handling, storage, and licensed clearing agent fees on top. Nearly all importers use a clearing agent given the complexity of CRSP valuation.' } },
+        { '@type': 'Question', name: 'Is import duty lower for electric cars in Kenya?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Fully electric cars use a 25% duty row instead of 35% and a 10% excise band instead of 20% to 35%. VAT at 16%, the IDF and the RDL still apply.' } },
+        { '@type': 'Question', name: 'How much does it cost to clear a car at Mombasa port?', acceptedAnswer: { '@type': 'Answer', text: 'KRA duties and taxes (roughly 90–100% of CRSP-based customs value) plus port handling, storage, and licensed clearing agent fees on top. Nearly all importers use a clearing agent given the complexity of CRSP valuation.' } },
       ],
     },
     {
@@ -93,7 +93,7 @@ export default function ImportDutyCalculatorKenyaPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-bold tracking-widest uppercase text-white bg-emerald-500 px-3 py-1 rounded-full">100% Free</span>
               <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Rates: 2026</span>
-              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: August 2026</span>
+              <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Last verified: November 2026</span>
             </div>
             <h1 className="font-black uppercase text-white leading-none tracking-tight mb-3"
               style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif", fontSize: 'clamp(32px, 5vw, 60px)' }}>
@@ -130,14 +130,14 @@ export default function ImportDutyCalculatorKenyaPage() {
               Current Kenya Car Import Duty Rates (2026)
             </h2>
             <p className="text-sm text-muted-foreground mb-6 max-w-xl">
-              Kenya Revenue Authority (<a href="https://kra.go.ke" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">KRA</a>) taxes are layered — each one compounds on the running total, not on the base value alone. This is why total tax burden often reaches 60–90%+ of customs value.
+              Kenya Revenue Authority (<a href="https://kra.go.ke" target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2 hover:text-foreground">KRA</a>) taxes are layered — each one compounds on the running total, not on the base value alone. This is why total tax burden often reaches 90–100% of customs value.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
-                { label: 'Import Duty', rate: '25–35%', base: 'of customs value — verify', color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-500/5', border: 'border-orange-200 dark:border-orange-500/20' },
-                { label: 'Excise Duty', rate: '20–30%', base: 'of value + duty, by cc/fuel', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-500/5', border: 'border-amber-200 dark:border-amber-500/20' },
+                { label: 'Import Duty', rate: '35%', base: 'of customs value; EVs 25%', color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-500/5', border: 'border-orange-200 dark:border-orange-500/20' },
+                { label: 'Excise Duty', rate: '20–35%', base: 'of value + duty; EVs 10%', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-500/5', border: 'border-amber-200 dark:border-amber-500/20' },
                 { label: 'VAT', rate: '16%', base: 'of value + duty + excise', color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/5', border: 'border-emerald-200 dark:border-emerald-500/20' },
-                { label: 'IDF + RDL', rate: '4.5–5.5%', base: 'of customs value, combined', color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-50 dark:bg-sky-500/5', border: 'border-sky-200 dark:border-sky-500/20' },
+                { label: 'IDF + RDL', rate: '4.5%', base: 'of customs value (2.5% + 2%)', color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-50 dark:bg-sky-500/5', border: 'border-sky-200 dark:border-sky-500/20' },
               ].map(({ label, rate, base, color, bg, border }) => (
                 <div key={label} className={`p-5 rounded-2xl ${bg} border ${border}`}>
                   <p className="text-xs text-muted-foreground mb-1">{label}</p>
@@ -147,7 +147,7 @@ export default function ImportDutyCalculatorKenyaPage() {
               ))}
             </div>
             <p className="text-xs text-muted-foreground mt-4">
-              <strong className="text-foreground">Verify:</strong> official KRA pages disagree on whether import duty is 25% or 35% — this may reflect an EAC-approved 2023 hike not yet reflected everywhere. Confirm your vehicle&apos;s HS code and rate directly with KRA.
+              <strong className="text-foreground">Why 35%:</strong> KRA&apos;s own June 2025 statement on the CRSP list says import duty rose from 25% in 2019 to 35%. Many older guides still show 25% and an IDF of 3.5%; the Finance Act 2023 cut the IDF to 2.5%, and the RDL is 2% again since the Tax Laws (Amendment) Act 2024.
             </p>
           </div>
 
@@ -202,8 +202,8 @@ export default function ImportDutyCalculatorKenyaPage() {
           </div>
 
           <div>
-            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: Why the Rate Uncertainty Matters</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Amina was importing a 2,000cc petrol car with a KRA CRSP-based customs value of around $12,000. At the 25% duty band, layering excise, VAT, and IDF+RDL on top brought her total tax bill to roughly $10,350 — about 86% of customs value. At the 35% band, the same car came out closer to $12,090 — nearly 101%, effectively doubling the car's assessed value in tax alone. That's an almost $1,750 swing from one disputed rate figure. She confirmed her vehicle's exact HS code and rate directly with KRA before shipping rather than budgeting off either number blind.</p>
+            <h2 className="text-xl font-black uppercase text-foreground mb-3" style={{ fontFamily: "'Barlow Condensed', Impact, sans-serif" }}>Example: What an Outdated Guide Costs You</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">Take a 2,000cc petrol car with a KRA customs value of $12,000. At the current rates, duty at 35% is $4,200, excise at 25% on $16,200 is $4,050, VAT at 16% on $20,250 is $3,240, the IDF at 2.5% is $300 and the RDL at 2% is $240. That is $12,030 in tax, about 100% of the customs value. A guide that still uses 25% duty and a 3.5% IDF gives $3,000, $3,750, $3,000, $420 and $240, or $10,410, which understates the bill by $1,620. Confirm the exact classification and valuation with a licensed clearing agent before you ship.</p>
           </div>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-4">
@@ -216,12 +216,12 @@ export default function ImportDutyCalculatorKenyaPage() {
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
               {[
-                { q: 'How much is car import duty in Kenya?', a: 'Import duty is 25% of customs value per most KRA pages, though some sources cite 35%. Excise (20–30%), 16% VAT, IDF (2.5–3.5%), and 2% RDL apply on top — total effective tax often 60–90%+ of customs value.' },
+                { q: 'How much is car import duty in Kenya?', a: 'Import duty is 35% of customs value for passenger cars, per KRA\u2019s June 2025 statement. Excise (20%, 25% or 35%), 16% VAT, a 2.5% IDF and a 2% RDL apply on top, so the total often approaches 100% of customs value.' },
                 { q: 'What is the 8 year rule?', a: 'Used passenger vehicles must be less than 8 years old from year of manufacture — in 2026, generally 2019 or newer — plus right-hand drive and KEBS pre-shipment inspection.' },
                 { q: 'What is KRA CRSP?', a: 'Current Retail Selling Price — KRA\'s schedule of new-vehicle prices by make/model, used with age-based depreciation to set your taxable customs value, regardless of your actual invoice.' },
                 { q: 'Am I exempt as a returning resident?', a: 'One vehicle can be exempted from duty, excise, VAT and IDF if personally owned and used abroad ≥12 months, shipped within ~90 days, with no similar exemption in the prior ~4 years. RDL typically still applies.' },
-                { q: 'Is duty lower for electric cars?', a: 'Yes — EVs get a preferential ~10% excise band versus 20–30% for petrol/diesel of similar size, on top of standard duty, VAT, IDF and RDL.' },
-                { q: 'How much to clear a car at Mombasa port?', a: 'KRA duties and taxes (60–90%+ of CRSP-based customs value) plus port handling, storage and clearing agent fees. Nearly all importers use a licensed agent.' },
+                { q: 'Is duty lower for electric cars?', a: 'Yes — fully electric cars use a 25% duty row and a 10% excise band, versus 35% duty and 20–35% excise for petrol and diesel. VAT, IDF and RDL still apply.' },
+                { q: 'How much to clear a car at Mombasa port?', a: 'KRA duties and taxes (90–100% of CRSP-based customs value) plus port handling, storage and clearing agent fees. Nearly all importers use a licensed agent.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-card border border-border rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none gap-3">

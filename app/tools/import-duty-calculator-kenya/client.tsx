@@ -20,11 +20,13 @@ function fmtUSD(n: number) { return '$' + Math.round(n).toLocaleString('en-US');
 function pct(r: number) { return (r * 100).toFixed(1) + '%'; }
 
 function getExciseRate(fuel: Fuel, cc: number): number {
+  // Excise Duty Act bands (KRA, 2025 template): up to 1,500cc 20%; 1,501-3,000cc petrol / 1,501-2,500cc diesel 25%;
+  // above that 35%; fully electric 10%. Hybrids follow the petrol band (confirm with KRA).
   if (fuel === 'ev') return 0.10;
-  if (fuel === 'hybrid') return 0.15; // between EV and ICE — treated as a reduced band, verify with KRA
   if (cc <= 1500) return 0.20;
-  if (cc <= 3000) return 0.25;
-  return 0.30; // large-engine band — not explicit in source, marked verify in copy
+  const top = fuel === 'diesel' ? 2500 : 3000;
+  if (cc <= top) return 0.25;
+  return 0.35;
 }
 
 interface BreakdownLine {
@@ -41,7 +43,7 @@ export default function ImportDutyKenyaClient() {
   const [fuel, setFuel] = useState<Fuel>('petrol');
   const [cc, setCc] = useState(1800);
   const [manufactureYear, setManufactureYear] = useState(CURRENT_YEAR - 6);
-  const [dutyBand, setDutyBand] = useState<DutyBand>(25);
+  const [dutyBand, setDutyBand] = useState<DutyBand>(35);
   const [exemption, setExemption] = useState<Exemption>('none');
   const [useDirectCustomsValue, setUseDirectCustomsValue] = useState(false);
   const [customsValueUSD, setCustomsValueUSD] = useState('9500');
@@ -81,7 +83,7 @@ export default function ImportDutyKenyaClient() {
     if (customsValue <= 0) return null;
 
     const exempt = exemption !== 'none';
-    const dutyRate = exempt ? 0 : dutyBand / 100;
+    const dutyRate = exempt ? 0 : fuel === 'ev' ? 0.25 : dutyBand / 100; // KRA template: fully electric cars 25% duty
     const duty = dutyRate * customsValue;
     const dutyInclusive = customsValue + duty;
 
@@ -93,7 +95,7 @@ export default function ImportDutyKenyaClient() {
     const vat = vatRate * exciseInclusive;
 
     const idfRate = exempt ? 0 : (parseFloat(idfPct) || 2.5) / 100;
-    const idf = idfRate * customsValue;
+    const idf = exempt ? 0 : Math.max(idfRate * customsValue, 5000); // IDF has a KSh 5,000 minimum
 
     const rdl = 0.02 * customsValue; // RDL applies even for most exemptions per research
 
@@ -129,12 +131,12 @@ export default function ImportDutyKenyaClient() {
           { name: 'IDF + RDL', value: idf + rdl },
         ];
 
-    // What-if: same spec, EV instead of ICE (shows the EV excise discount)
-    const evExciseRate = 0.10;
-    const evExcise = exempt ? 0 : evExciseRate * dutyInclusive;
-    const evExciseInclusive = dutyInclusive + evExcise;
-    const evVat = exempt ? 0 : 0.16 * evExciseInclusive;
-    const evTotalTaxes = duty + evExcise + evVat + idf + rdl;
+    // What-if: same spec, EV instead of ICE (KRA EV block: 25% duty and 10% excise)
+    const evDuty = exempt ? 0 : 0.25 * customsValue;
+    const evDutyInclusive = customsValue + evDuty;
+    const evExcise = exempt ? 0 : 0.10 * evDutyInclusive;
+    const evVat = exempt ? 0 : 0.16 * (evDutyInclusive + evExcise);
+    const evTotalTaxes = evDuty + evExcise + evVat + idf + rdl;
     const evSavings = totalTaxes - evTotalTaxes;
 
     return { customsValue, duty, excise, vat, idf, rdl, totalTaxes, grandTotal, effectivePct, lines, pieData, evSavings, exempt };
@@ -142,7 +144,7 @@ export default function ImportDutyKenyaClient() {
 
   const reset = () => {
     setFuel('petrol'); setCc(1800); setManufactureYear(CURRENT_YEAR - 6);
-    setDutyBand(25); setExemption('none');
+    setDutyBand(35); setExemption('none');
     setUseDirectCustomsValue(false); setCustomsValueUSD('9500'); setFobUSD('7500'); setFreightUSD('900');
     setInsurancePct('1'); setIdfPct('2.5'); setExchangeRate(String(FALLBACK_RATE)); setPortAgentFees('');
   };
@@ -156,7 +158,7 @@ export default function ImportDutyKenyaClient() {
         {/* News banner */}
         <div className="flex items-center gap-2 text-xs bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-800 dark:text-blue-300 rounded-xl px-4 py-2.5 mb-6 print:hidden">
           <Info className="h-3.5 w-3.5 flex-shrink-0" />
-          <span><strong>Verify before you rely on this:</strong> official KRA sources disagree on the import duty band — some list 25%, others cite a 35% hike. Use the toggle below to compare both. Duty is calculated on KRA&apos;s CRSP-based customs value, not your invoice price — this tool estimates from CIF as a starting point.</span>
+          <span><strong>Rates checked November 2026:</strong> KRA stated in June 2025 that car import duty is now 35% (it was 25% in 2019), so 35% is the default; older guides still show 25%. The IDF is 2.5% and the RDL 2%. Duty is calculated on KRA&apos;s CRSP-based customs value, not your invoice price, so this tool estimates from CIF as a starting point.</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -211,14 +213,14 @@ export default function ImportDutyKenyaClient() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Import Duty Rate — sources disagree</label>
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">Import Duty Rate</label>
               <div className="grid grid-cols-2 gap-1.5">
                 {([25, 35] as DutyBand[]).map((d) => (
                   <button key={d} onClick={() => setDutyBand(d)}
                     className={`py-2 rounded-lg text-xs font-bold border transition-all ${
                       dutyBand === d ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-card border-border text-muted-foreground hover:border-emerald-500/50'
                     }`}>
-                    {d}% {d === 25 ? '(most KRA pages)' : '(recent hike, verify)'}
+                    {d}% {d === 35 ? '(KRA, cars since 2025)' : '(older rate)'}
                   </button>
                 ))}
               </div>
@@ -359,7 +361,7 @@ export default function ImportDutyKenyaClient() {
                     <div className="flex items-start gap-2 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl p-3 mb-4">
                       <TrendingDown className="h-4 w-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                       <p className="text-xs text-emerald-700 dark:text-emerald-300">
-                        <strong>What-if — EV:</strong> the same spec as a fully electric vehicle would use a 10% excise band instead of {pct(getExciseRate(fuel, cc))}, saving roughly {fmtKES(result.evSavings)} in tax.
+                        <strong>What-if — EV:</strong> the same spec as a fully electric vehicle would pay 25% duty and a 10% excise band instead of {pct(dutyBand / 100)} duty and {pct(getExciseRate(fuel, cc))} excise, saving roughly {fmtKES(result.evSavings)} in tax.
                       </p>
                     </div>
                   )}
