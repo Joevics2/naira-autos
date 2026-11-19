@@ -24,7 +24,7 @@ const COUNTRIES: { code: string; name: string; flag: string; href?: string; live
   { code: 'gh', name: 'Ghana',                flag: '🇬🇭', href: '/tools/import-duty-calculator-ghana', live: true },
   { code: 'ke', name: 'Kenya',                flag: '🇰🇪', href: '/tools/import-duty-calculator-kenya', live: true },
   { code: 'ug', name: 'Uganda',                flag: '🇺🇬', live: false },
-  { code: 'tz', name: 'Tanzania',              flag: '🇹🇿', live: false },
+  { code: 'tz', name: 'Tanzania',              flag: '🇹🇿', href: '/tools/import-duty-calculator-tanzania', live: true },
   { code: 'zm', name: 'Zambia',                flag: '🇿🇲', live: false },
   { code: 'rw', name: 'Rwanda',                flag: '🇷🇼', live: false },
   { code: 'za', name: 'South Africa',          flag: '🇿🇦', href: '/tools/import-duty-calculator-south-africa', live: true },
