@@ -1,4 +1,4 @@
-import { Mic, Wrench, Camera, ScanLine, Car } from 'lucide-react';
+import { Mic, Wrench, Camera, ScanLine, Car, Calculator } from 'lucide-react';
 
 // Single source of truth for the Portuguese tools index (/ferramentas).
 // Add an entry here ONLY when that tool's Portuguese page is actually
@@ -60,6 +60,15 @@ export const TOOLS_PT: ToolPt[] = [
     badge: "Novo",
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: "Custos e Manutenção",
+  },
+  {
+    href: '/ferramentas/calculadora-importacao-carros-brasil',
+    icon: Calculator,
+    label: 'Importação de Carros para o Brasil',
+    description: 'Calcule II de 35 %, IPI, PIS, COFINS, AFRMM e ICMS “por dentro” de um carro novo importado para o Brasil, com elétricos a 35 % desde julho de 2026.',
+    badge: 'Novo',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Financeiro',
   },
 ];
 

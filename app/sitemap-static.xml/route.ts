@@ -85,6 +85,7 @@ const staticPages = [
   { url: '/ferramentas/quanto-vale-meu-carro',    priority: 0.9, changefreq: 'weekly'  },
   { url: '/ferramentas/decodificador-de-chassi',  priority: 0.8, changefreq: 'monthly' },
   { url: '/ferramentas/melhor-carro-para-voce', priority: 0.8, changefreq: 'monthly' },
+  { url: '/ferramentas/calculadora-importacao-carros-brasil', priority: 0.7, changefreq: 'monthly' },
   { url: '/werkzeuge/virtueller-mechaniker',           priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/motorgeraeusch-analyse', priority: 0.8, changefreq: 'monthly' },
   { url: '/werkzeuge/motorgeraeusch-analyse/motor-klackert', priority: 0.85, changefreq: 'monthly' },
