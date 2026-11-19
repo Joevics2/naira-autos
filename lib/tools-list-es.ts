@@ -178,6 +178,15 @@ export const TOOLS_ES: ToolEs[] = [
     badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
     category: 'Finanzas',
   },
+  {
+    href: '/herramientas/calculadora-importacion-carros-colombia',
+    icon: Calculator,
+    label: 'Importación de Carros a Colombia',
+    description: 'Calcula arancel de 40 %, IVA e impuesto al consumo de 8 % o 16 % para un carro nuevo importado a Colombia. Eléctricos con arancel 0 %.',
+    badge: 'NUEVO',
+    badgeColor: 'bg-sky-500/15 text-sky-500 border border-sky-500/30',
+    category: 'Finanzas',
+  },
 ];
 
 export const CATEGORIES_ES = ['IA y Herramientas Inteligentes', 'Finanzas', 'Costos y Mantenimiento', 'Debida Diligencia', 'Recursos'];
